@@ -1,0 +1,450 @@
+diff --git a/packages/calibration/scripts/capture-web.ts b/packages/calibration/scripts/capture-web.ts
+index 2ad937ed7..a66521bf8 100644
+--- a/packages/calibration/scripts/capture-web.ts
++++ b/packages/calibration/scripts/capture-web.ts
+@@ -603,6 +603,10 @@ async function capture(
+     const png = await page
+       .locator("#stage")
+       .screenshot({ animations: "disabled", ...(transparent ? { omitBackground: true } : {}) });
++    Object.assign(report, { w47DiagnosticScratch: await page.evaluate(() => ({
++      weights: (globalThis as any).__w47WeightsScratch,
++      plan: (globalThis as any).__w47FinePlanScratch,
++    })) });
+     return { png, report };
+   } finally {
+     await page.close();
+diff --git a/packages/calibration/scripts/material-profile-file.ts b/packages/calibration/scripts/material-profile-file.ts
+index 45ecfc882..96fa39ea2 100644
+--- a/packages/calibration/scripts/material-profile-file.ts
++++ b/packages/calibration/scripts/material-profile-file.ts
+@@ -99,6 +99,11 @@ export const MATERIAL_PATCH_KEYS = new Set([
+   // 1), 2x-anchored with an implicit 1x zero. A candidate document naming it is what the W45
+   // ladders hand in, and this set refusing it would refuse the very rung that reads the leaf.
+   "sizeHeavySecondShareFar2x",
++  "sizeFineTapShare",
++  "sizeFineTapSigma",
++  "sizeFineTapSigma2x",
++  "sizeFineTapFormScratch",
++
+   "sizeScatterScaleGain",
+   "sizeScatterScaleRef",
+   // The lens (W12 G2): the gain on the reference's amount law, the height and
+diff --git a/packages/renderer-webgpu/src/material.ts b/packages/renderer-webgpu/src/material.ts
+index b2fbea32f..095db13fa 100644
+--- a/packages/renderer-webgpu/src/material.ts
++++ b/packages/renderer-webgpu/src/material.ts
+@@ -1435,6 +1435,12 @@ export interface MaterialProfile {
+    * every golden and the signed-share mix on a live second texture byte-identical.
+    */
+   readonly sizeHeavySecondShareFar2x: number;
++  // W47 G0 diagnostic only. Omitted leaves keep all shipped digests unchanged.
++  readonly sizeFineTapShare?: number;
++  readonly sizeFineTapSigma?: number;
++  readonly sizeFineTapSigma2x?: number;
++  readonly sizeFineTapFormScratch?: number;
++
+   /**
+    * The gain on `kScatter` per unit of the source's measured scale statistic
+    * about `sizeScatterScaleRef` — candidate (ii)'s scheme-conditioned leaf, a
+@@ -3616,6 +3622,11 @@ export interface MaterialProfilePatch {
+   readonly sizeHeavySecondSigma2x?: number;
+   readonly sizeHeavySecondShare?: number;
+   readonly sizeHeavySecondShareFar2x?: number;
++  readonly sizeFineTapShare?: number;
++  readonly sizeFineTapSigma?: number;
++  readonly sizeFineTapSigma2x?: number;
++  readonly sizeFineTapFormScratch?: number;
++
+   readonly sizeScatterScaleGain?: number;
+   readonly sizeScatterScaleRef?: number;
+   readonly sizeOcclusionGain?: number;
+@@ -3864,6 +3875,15 @@ export function withMaterialOverrides(
+     sizeHeavySecondShare: patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare,
+     // W45 (claims §5.205): the share's far-curve grading, on the same one-line-per-leaf rule.
+     sizeHeavySecondShareFar2x: patch.sizeHeavySecondShareFar2x ?? base.sizeHeavySecondShareFar2x,
++    ...((patch.sizeFineTapShare ?? base.sizeFineTapShare) === undefined ? {} :
++      { sizeFineTapShare: patch.sizeFineTapShare ?? base.sizeFineTapShare }),
++    ...((patch.sizeFineTapSigma ?? base.sizeFineTapSigma) === undefined ? {} :
++      { sizeFineTapSigma: patch.sizeFineTapSigma ?? base.sizeFineTapSigma }),
++    ...((patch.sizeFineTapSigma2x ?? base.sizeFineTapSigma2x) === undefined ? {} :
++      { sizeFineTapSigma2x: patch.sizeFineTapSigma2x ?? base.sizeFineTapSigma2x }),
++    ...((patch.sizeFineTapFormScratch ?? base.sizeFineTapFormScratch) === undefined ? {} :
++      { sizeFineTapFormScratch: patch.sizeFineTapFormScratch ?? base.sizeFineTapFormScratch }),
++
+     sizeScatterScaleGain: patch.sizeScatterScaleGain ?? base.sizeScatterScaleGain,
+     sizeScatterScaleRef: patch.sizeScatterScaleRef ?? base.sizeScatterScaleRef,
+     sizeOcclusionGain: patch.sizeOcclusionGain ?? base.sizeOcclusionGain,
+@@ -4716,7 +4736,7 @@ export function scatterRampReachDevicePx(
+  * they are the values the reference was measured at and a profile that names
+  * one should render it, not a float one ulp away from it.
+  */
+-function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): number {
++export function rampAtScale(at1x: number, at2x: number, devicePixelRatio: number): number {
+   const t = devicePixelRatio - 1;
+   if (t <= 0) return at1x;
+   if (t >= 1) return at2x;
+diff --git a/packages/renderer-webgpu/src/passes.ts b/packages/renderer-webgpu/src/passes.ts
+index 6be39caa5..08aa62836 100644
+--- a/packages/renderer-webgpu/src/passes.ts
++++ b/packages/renderer-webgpu/src/passes.ts
+@@ -215,6 +215,9 @@ export interface OpticsPassArgs {
+    * is what runs — the 0.14.0 path, to the bit.
+    */
+   readonly heavyTapEnabled: boolean;
++  readonly fineTapShare: number;
++  readonly fineTapEnabled: boolean;
++  readonly fineTapFormScratch: number;
+   /**
+    * W30's span-graded shadow σ (claims §5.156 §2), as three leaves rather than
+    * one resolved width: the law is read PER PIXEL from the casting surface's own
+@@ -439,6 +442,7 @@ export interface OpticsPassArgs {
+          * until §5.159 turns it on.
+          */
+         readonly heavy2: GPUTextureView | undefined;
++        readonly fine: GPUTextureView | undefined;
+       }
+     | undefined;
+ }
+@@ -1006,9 +1010,13 @@ export function createPassRunner(context: GpuContext): PassRunner {
+       // default, so the bytes this pass writes are the 0.20.0 bed's with one
+       // zeroed vec4 appended.
+       d[132] = args.bodyChromaRetention;
+-      d[133] = 0;
+-      d[134] = 0;
+-      d[135] = 0;
++      d[133] = args.fineTapShare;
++      d[134] = args.fineTapEnabled ? 1 : 0;
++      d[135] = args.fineTapFormScratch;
++      (globalThis as any).__w47WeightsScratch = {
++        statistic: args.backdropScaleStatistic,
++        uniform: Array.from(d),
++      };
+       // W36 has its own vec4: no neighbour's spare lane changes ownership.
+       d[136] = args.backdropToneBlackStrength;
+       d[137] = args.backdropToneBlackThin;
+@@ -1032,6 +1040,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
+       // always filled, and the enable above is what keeps the shader from
+       // reading the placeholder.
+       const heavy2 = args.backdrop?.heavy2 ?? placeholderView;
++      const fine = args.backdrop?.fine ?? placeholderView;
+ 
+       const pipeline = opticsPipeline(args.targetFormat);
+       const pass = encoder.beginRenderPass({
+@@ -1060,6 +1069,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
+             { binding: 9, resource: args.fields.presence.createView() },
+             { binding: 10, resource: args.localTone ?? placeholderView },
+             { binding: 11, resource: heavy2 },
++            { binding: 12, resource: fine },
+           ],
+         }),
+       );
+diff --git a/packages/renderer-webgpu/src/pyramid.ts b/packages/renderer-webgpu/src/pyramid.ts
+index 7a78be49b..db9480a36 100644
+--- a/packages/renderer-webgpu/src/pyramid.ts
++++ b/packages/renderer-webgpu/src/pyramid.ts
+@@ -44,6 +44,8 @@ import { type GpuContext, createUniformSlot, type UniformSlot } from "./gpu-cont
+ import { pipelineKey } from "./pipeline-cache";
+ import {
+   bodyBlurPlan,
++  chainLodForSigma,
++  chainLevelSigma,
+   heavyTapPlan,
+   planPyramid,
+   type PyramidPlan,
+@@ -93,6 +95,7 @@ export interface PyramidResources {
+    * material that names it and by nothing else.
+    */
+   readonly heavy2: GPUTexture | undefined;
++  readonly fine: GPUTexture | undefined;
+   readonly stats: GPUBuffer;
+   /** Source size epoch this allocation was made for. */
+   readonly sizeEpoch: number;
+@@ -143,6 +146,9 @@ export interface PyramidResources {
+    * on `heavySigmaCss`'s own rule and for the same staleness reason.
+    */
+   readonly heavy2SigmaCss: number;
++  readonly fineSigmaCss?: number;
++  readonly fineDeep?: boolean;
++  readonly fineDeepGain?: number;
+ }
+ 
+ export interface PyramidInstrumentation {
+@@ -188,6 +194,9 @@ export interface PyramidBuildRequest {
+    * rather than being re-decided here.
+    */
+   readonly heavy2SigmaCss: number;
++  readonly fineSigmaCss?: number;
++  readonly fineDeep?: boolean;
++  readonly fineDeepGain?: number;
+   readonly viewportCss: readonly [number, number];
+   /**
+    * Where the source sits on the plane, in CSS px relative to the viewport, if
+@@ -315,7 +324,10 @@ const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boo
+   // And the second heavy blur on the identical rule (W30 G2): its ON/OFF state
+   // exactly, then the tolerance, because 0 and a tiny positive width differ in
+   // kind and not in degree.
+-  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss);
++  && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss)
++  && sameHeavySigma(request.fineSigmaCss ?? 0, existing.fineSigmaCss ?? 0)
++  && request.fineDeep === existing.fineDeep
++  && request.fineDeepGain === existing.fineDeepGain;
+ 
+ export function createPyramidStore(context: GpuContext): PyramidStore {
+   const { device, pool, cache } = context;
+@@ -419,6 +431,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+     ) {
+       return undefined;
+     }
++    if (target.fine !== undefined && pool.peek(poolKey.backdropFine(sourceId)) !== target.fine) {
++      return undefined;
++    }
+     return target;
+   };
+ 
+@@ -438,6 +453,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+     heavySigmaCss: number,
+     heavy2Level: number | undefined,
+     heavy2SigmaCss: number,
++    fineLevel: number | undefined,
++    fineSigmaCss: number,
++    fineDeep: boolean,
++    fineDeepGain: number,
+   ): PyramidResources {
+     const existing = resources.get(sourceId);
+     const levelSize = (level: number): { width: number; height: number } =>
+@@ -506,6 +525,16 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+       });
+     }
+ 
++    let fine: GPUTexture | undefined;
++    if (fineLevel === undefined) {
++      pool.release(poolKey.backdropFine(sourceId));
++      pool.release(poolKey.backdropFineScratch(sourceId));
++    } else {
++      fine = pool.acquire(poolKey.backdropFine(sourceId), {
++        ...levelSize(fineLevel), format: WORKING_TEXTURE_FORMAT, usage: chainUsage(),
++        label: `vitrea:pyramid:${sourceId}:fine`,
++      });
++    }
+     let stats = existing?.stats;
+     if (stats === undefined) {
+       stats = device.createBuffer({
+@@ -520,7 +549,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+       existing.chain !== chain ||
+       existing.body !== body ||
+       existing.heavy !== heavy ||
+-      existing.heavy2 !== heavy2
++      existing.heavy2 !== heavy2 || existing.fine !== fine
+     ) {
+       reallocations += 1;
+     }
+@@ -532,6 +561,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+       body,
+       heavy,
+       heavy2,
++      fine,
+       stats,
+       sizeEpoch,
+       builtEpoch,
+@@ -542,6 +572,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+       bodySigmaCss,
+       heavySigmaCss,
+       heavy2SigmaCss,
++      fineSigmaCss, fineDeep, fineDeepGain,
+     };
+     resources.set(sourceId, next);
+     return next;
+@@ -659,7 +690,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+   function runSeparableBlur(
+     encoder: GPUCommandEncoder,
+     sourceId: string,
+-    kind: "body" | "heavy" | "heavy2",
++    kind: "body" | "heavy" | "heavy2" | "fine",
+     plan: PyramidPlan,
+     chain: GPUTexture,
+     target: GPUTexture,
+@@ -673,7 +704,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+         ? poolKey.backdropBodyScratch(sourceId)
+         : kind === "heavy"
+           ? poolKey.backdropHeavyScratch(sourceId)
+-          : poolKey.backdropHeavy2Scratch(sourceId);
++          : kind === "heavy2" ? poolKey.backdropHeavy2Scratch(sourceId)
++            : poolKey.backdropFineScratch(sourceId);
+     const scratch = pool.acquire(scratchKey, {
+       width: size.width,
+       height: size.height,
+@@ -864,6 +896,24 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+         request.heavy2SigmaCss > 0
+           ? heavyTapPlan(request.heavy2SigmaCss * texelsPerCss * planScale, plan)
+           : undefined;
++      // W47 G0: take the width the deep tap actually drew, not its profile's
++      // units. At 1x the diagnostic's gain is source-wide and LOD is clamped.
++      // At 2x its named heavy width is already CSS px (14 device px / 2).
++      const density = texelsPerCss * planScale;
++      const deepLod = Math.min(plan.maxLod, Math.max(0,
++        chainLodForSigma(bodySigmaTexels) + Math.log2(Math.max(request.fineDeepGain ?? 1, 1e-4))));
++      const lo = Math.floor(deepLod), hi = Math.ceil(deepLod);
++      const chainSigma = Math.sqrt((1 - (deepLod - lo)) * chainLevelSigma(lo) ** 2
++        + (deepLod - lo) * chainLevelSigma(hi) ** 2) / density;
++      const deepSigma = request.heavySigmaCss > 0 ? request.heavySigmaCss : chainSigma;
++      const fineSigma = request.fineDeep
++        ? Math.hypot(deepSigma, request.fineSigmaCss ?? 0) : request.fineSigmaCss ?? 0;
++      const finePlan = (request.fineSigmaCss ?? 0) > 0
++        ? heavyTapPlan(fineSigma * density, plan) : undefined;
++      (globalThis as any).__w47FinePlanScratch = {
++        sourceId: request.sourceId, density, deepLod, chainSigma, deepSigma,
++        fineSigma, finePlan, plan, bodySigmaTexels,
++      };
+       const target = allocate(
+         request.sourceId,
+         plan,
+@@ -877,6 +927,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+         request.heavySigmaCss,
+         heavy2Plan?.level,
+         request.heavy2SigmaCss,
++        finePlan?.level, request.fineSigmaCss ?? 0, request.fineDeep ?? false,
++        request.fineDeepGain ?? 1,
+       );
+ 
+       runImport(encoder, request.sourceId, frame, target.chain);
+@@ -915,6 +967,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+           heavy2Plan.residualSigmaTexels,
+         );
+       }
++      if (finePlan !== undefined && target.fine !== undefined) {
++        runSeparableBlur(encoder, request.sourceId, "fine", plan, target.chain, target.fine,
++          finePlan.level, finePlan.residualSigmaTexels);
++      }
+       runAnalysis(encoder, request.sourceId, plan, target.chain, target.stats);
+ 
+       provider.markImported();
+@@ -1020,6 +1076,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
+       pool.release(poolKey.backdropBodyScratch(sourceId));
+       pool.release(poolKey.backdropHeavy(sourceId));
+       pool.release(poolKey.backdropHeavyScratch(sourceId));
++      pool.release(poolKey.backdropFine(sourceId));
++      pool.release(poolKey.backdropFineScratch(sourceId));
+       resources.get(sourceId)?.stats.destroy();
+       resources.delete(sourceId);
+       readbacks.get(sourceId)?.staging.destroy();
+diff --git a/packages/renderer-webgpu/src/renderer.ts b/packages/renderer-webgpu/src/renderer.ts
+index fb1a2c046..2acc4944a 100644
+--- a/packages/renderer-webgpu/src/renderer.ts
++++ b/packages/renderer-webgpu/src/renderer.ts
+@@ -96,6 +96,7 @@ import {
+   heavySecondTapSigmaAtScale,
+   heavySecondShareFarAtScale,
+   heavyTapSigmaAtScale,
++  rampAtScale,
+   scatterHeavyShareThickAtScale,
+   scatterRampReachDevicePx,
+   scatterRampStart,
+@@ -572,7 +573,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
+         heavySecondSigmaCssFor(sourceId),
+         existing.heavy2SigmaCss,
+       );
+-      if (sameDensity && sameSigma && sameHeavy && sameHeavy2) continue;
++      const sameFine = sameHeavySigma(fineSigmaCssFor(sourceId), existing.fineSigmaCss ?? 0)
++        && existing.fineDeep === (material.sizeFineTapFormScratch === 1);
++      if (sameDensity && sameSigma && sameHeavy && sameHeavy2 && sameFine) continue;
+       requests.push({
+         sourceId,
+         epoch: existing.builtEpoch,
+@@ -677,6 +680,12 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
+    * so this applies `rampAtScale` and nothing else, and
+    * `heavySecondTapSigmaAtScale` is where the share's gate lives.
+    */
++  const fineSigmaCssFor = (sourceId: string): number => {
++    if ((material.sizeFineTapShare ?? 0) === 0 || bodySigmaCssFor(sourceId) <= 0) return 0;
++    return rampAtScale(material.sizeFineTapSigma ?? 0, material.sizeFineTapSigma2x ?? 0,
++      viewport.devicePixelRatio);
++  };
++
+   const heavySecondSigmaCssFor = (sourceId: string): number => {
+     if (bodySigmaCssFor(sourceId) <= 0) return 0;
+     return heavySecondTapSigmaAtScale(material, viewport.devicePixelRatio);
+@@ -793,6 +802,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
+           // the pyramid allocates nothing and encodes nothing, exactly as for
+           // the first one.
+           heavy2SigmaCss: heavySecondSigmaCssFor(request.sourceId),
++          fineSigmaCss: fineSigmaCssFor(request.sourceId),
++          fineDeep: material.sizeFineTapFormScratch === 1,
++          fineDeepGain: scatterGainAtScale(material, viewport.devicePixelRatio),
+           viewportCss: [viewport.widthCss, viewport.heightCss],
+           ...(isUsablePlacement(placement) ? { placement } : {}),
+         },
+@@ -1279,6 +1291,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
+           adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef,
+         sizeHeavySecondShare: material.sizeHeavySecondShare,
+         heavySecondEnabled: pyramid?.heavy2 !== undefined,
++        fineTapShare: material.sizeFineTapShare ?? 0,
++        fineTapEnabled: pyramid?.fine !== undefined,
++        fineTapFormScratch: material.sizeFineTapFormScratch ?? 0,
+         // W45's grading of that share on the far curve (claims §5.205): resolved at this group's
+         // ratio here, beside the share, and multiplied by the shader's own per-pixel `farS` —
+         // never by a per-group span, because a group's members have different ones.
+@@ -1448,6 +1463,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
+                 body: pyramid.body.createView(),
+                 heavy: pyramid.heavy?.createView(),
+                 heavy2: pyramid.heavy2?.createView(),
++                fine: pyramid.fine?.createView(),
+               },
+       });
+ 
+diff --git a/packages/renderer-webgpu/src/texture-pool.ts b/packages/renderer-webgpu/src/texture-pool.ts
+index 5f535dba2..c2280b4e9 100644
+--- a/packages/renderer-webgpu/src/texture-pool.ts
++++ b/packages/renderer-webgpu/src/texture-pool.ts
+@@ -172,6 +172,8 @@ export const poolKey = {
+   /** The SECOND heavy blur and its scratch (W30 G2) — the same pair, one more
+    * width along, acquired only where `sizeHeavySecondShare` is non-zero. */
+   backdropHeavy2: (sourceId: string): string => `backdrop:${sourceId}:heavy2`,
++  backdropFine: (sourceId: string): string => `backdrop:${sourceId}:fine`,
++  backdropFineScratch: (sourceId: string): string => `backdrop:${sourceId}:fine-scratch`,
+   backdropHeavy2Scratch: (sourceId: string): string => `backdrop:${sourceId}:heavy2-scratch`,
+   backdropUpload: (sourceId: string): string => `backdrop:${sourceId}:upload`,
+   /*
+diff --git a/packages/renderer-webgpu/src/wgsl/optics.ts b/packages/renderer-webgpu/src/wgsl/optics.ts
+index 852cf5baa..a97cee2fd 100644
+--- a/packages/renderer-webgpu/src/wgsl/optics.ts
++++ b/packages/renderer-webgpu/src/wgsl/optics.ts
+@@ -297,6 +297,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
+ /// which is where the price of this mechanism actually is (W26 Decision Log
+ /// 2 (b)).
+ @group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
++@group(0) @binding(12) var backdropFine : texture_2d<f32>;
+ 
+ /// One encoded sRGB channel from a linear one — the space the backdrop tone
+ /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
+@@ -981,6 +982,12 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
+     0.0,
+     1.0,
+   );
++  if (ou.bodyChroma.w > 1.5) {
++    let packed = round(kScatter * 65535.0);
++    let rampClass = select(254.0, 255.0, max(-d, 0.0) < ou.lensOval.z);
++    return vec4f(floor(packed / 256.0) / 255.0, (packed % 256.0) / 255.0,
++      rampClass / 255.0, 1.0);
++  }
+   // The inner shadow's depth and profile: W2's law, byte for byte — the
+   // thickness times the size gain (folded through 'sizeK'), clamped to the
+   // shorter half extent, and a square on it. The lens ran on this until W12 G2;
+@@ -1118,7 +1125,17 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
+       let tapShare = ou.scatterHeavy2.x + ou.scatterHeavy2.z * farS;
+       scatterColour = scatterColour + tapShare * (secondColour - scatterColour);
+     }
+-    backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
++    var bodyColour = bodySample.rgb / max(bodySample.a, 1e-6);
++    if (ou.bodyChroma.y != 0.0 && ou.bodyChroma.z > 0.5) {
++      let fine = textureSampleLevel(backdropFine, backdropSampler, refractedUv, 0.0);
++      let fineColour = fine.rgb / max(fine.a, 1e-6);
++      if (ou.bodyChroma.w < 0.5) {
++        bodyColour = bodyColour + ou.bodyChroma.y * (fineColour - bodyColour);
++      } else {
++        scatterColour = scatterColour + ou.bodyChroma.y * (fineColour - scatterColour);
++      }
++    }
++    backdrop = mix(bodyColour, scatterColour, kScatter);
+     /*
+      * The body's own half of the presence (W27d): a material at half presence
+      * shows half the BLUR, not half the surface. What a surface at presence 0

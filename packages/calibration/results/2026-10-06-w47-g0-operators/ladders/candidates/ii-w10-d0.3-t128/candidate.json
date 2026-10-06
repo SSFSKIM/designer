@@ -1,0 +1,27 @@
+{
+  "$comment": "W47 scratch candidate ii-w10-d0.3-t128: W47 ladder ii sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 10 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, sizeScatterSpanMax2x 256 -> 128",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-ii-w10-d0.3-t128",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "b7516ec10a28b654f3c82fa2165fa1ebec40ceaeee7816618956f5265721eaae"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "3b50f0342cdc41a0479c39d3620414acbabc0074cf5bec91e44cb366541da27e"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "b16a10085f21f2039462c1c8396bd6f3522e60f33803e63b9ebcd761713f98cf"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "ff14db61930dc818ac3a8ba97616b0b65df3fefeae53644bbc20c33398f7a01f"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

@@ -139,6 +139,20 @@ layout, so the second heavy texture's slot exists at every draw and takes the
 same placeholder view the first one already takes when a material declines it.
 What the share gates is every resource and every pass behind that slot.
 
+**The fine-body tap (W47 G0, landed inert).** `sizeFineTapShare` mixes a separately blurred
+source into the body sample before the depth-dependent deep mix. Its widths, `sizeFineTapSigma`
+and `sizeFineTapSigma2x`, are CSS pixels, resolved by `fineTapSigmaAtScale` and built by the
+existing measured-chain-plus-residual plan. The diagnostic chose the body form: it removed at
+least 0.7393 of the fine excess on every declared cell, pooled 0.8908; widening the deep removed
+none. Actual conditioned body weights, not position inside the ramp, explained that reading.
+
+All three leaves ship at 0 and no document is fitted yet. Share 0 requests no texture and makes
+both widths unread; width 0 also stands down at that scale, on the second tap's rule. One
+identity-table gate-group drops the share and its two gated widths together. A live share is
+receded-only by document (X66); the operator itself has no pose. The CSS tier declines this
+independent texture and share. Byte recording is declared in `e2e/gpu/w47-fine-tap.spec.ts`;
+proofs are recorded on the assembled operator tree, after review.
+
 **The span-graded tap (W45, 0.27.0).** `sizeHeavySecondShareFar2x` makes the
 second tap's share a function of the surface's span. The optics pass grades it
 per pixel on the far curve the scatter's ramp start already rides:

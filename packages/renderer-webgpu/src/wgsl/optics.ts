@@ -248,13 +248,18 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// back. (z) is W45's far-curve delta on that share (claims 5.205), already resolved at the
   /// group's device ratio and 0 at dpr 1: the share at a pixel is x + z * farS, per pixel and
   /// unclamped, because a group's members have different spans and x is one number for all of
-  /// them. 0 on every shipped material. (w) free.
+  /// them. 0 on every shipped material. (w) is W47's far-curve delta on the TRANSMISSION
+  /// (operator 1, claims 5.211), not on this tap: the lane was the last free one in this vec4.
+  /// Already resolved at the group's device ratio by rampAtScale(far1x, far2x, dpr); the base
+  /// alpha at a pixel is clamp(tint.w + w * farS, 0, 1), read before the size law's occlusion
+  /// term. 0 on every shipped material.
   scatterHeavy2 : vec4f,
   /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
   /// the blurred backdrop's CHROMATICITY the body restores, at the luma the
   /// tone solve produced (x). A vec4 of its own on W30's rule — 132 is the next
   /// vec4 boundary and an operator packed into the block above would read two
-  /// of its neighbour's lanes. (y), (z) and (w) free. At the shipped 0 the mix
+  /// of its neighbour's lanes. W47's fine-body tap uses (y) for its share and (z)
+  /// for its texture-presence gate; (w) stays free. At the shipped 0 the chroma mix
   /// below is multiplied by zero and the composite is bit-identical to the one
   /// W30 left, which is why the 34 goldens do not move.
   bodyChroma : vec4f,
@@ -297,6 +302,10 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// which is where the price of this mechanism actually is (W26 Decision Log
 /// 2 (b)).
 @group(0) @binding(11) var backdropHeavy2 : texture_2d<f32>;
+
+/// W47's fine BODY texture, built by the same plan and separable passes as the heavy taps.
+/// Bound at every draw, sampled only where 'bodyChroma.z' records a live texture.
+@group(0) @binding(12) var backdropFine : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -1118,7 +1127,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
       let tapShare = ou.scatterHeavy2.x + ou.scatterHeavy2.z * farS;
       scatterColour = scatterColour + tapShare * (secondColour - scatterColour);
     }
-    backdrop = mix(bodySample.rgb / max(bodySample.a, 1e-6), scatterColour, kScatter);
+    // W47 G0 (b), Decision Log 3: G0 (f) chose the BODY insertion point by its four-cell
+    // half-excess test, not by depth. At identity no fine sample is taken; the original body's
+    // division and the scatter mix below are unchanged. Both samples use the refracted UV.
+    var bodyColour = bodySample.rgb / max(bodySample.a, 1e-6);
+    if (ou.bodyChroma.y != 0.0 && ou.bodyChroma.z > 0.5) {
+      let fine = textureSampleLevel(backdropFine, backdropSampler, refractedUv, 0.0);
+      let fineColour = fine.rgb / max(fine.a, 1e-6);
+      bodyColour = bodyColour + ou.bodyChroma.y * (fineColour - bodyColour);
+    }
+    backdrop = mix(bodyColour, scatterColour, kScatter);
     /*
      * The body's own half of the presence (W27d): a material at half presence
      * shows half the BLUR, not half the surface. What a surface at presence 0
@@ -1196,7 +1214,33 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * the reference's flat body over the impulse grid is. See 'adaptedTintColour'
    * and 'adaptedTintAlpha' in material.ts.
    */
-  let sizedAlpha = ou.tint.w + ou.size.y * sizeK * (1.0 - ou.tint.w);
+  /*
+   * W47 operator 1, the span-graded transmission (claims 5.211; charter Decision Log 2, X65):
+   * the base alpha rises on the far curve 'farS' this pass already computed from the pixel's own
+   * span, by the delta 'scatterHeavy2.w' resolved at the group's ratio, and is clamped into
+   * [0, 1] because it is a mixing weight and the solve below divides by it. 'farS' is 0 at and
+   * below the thickness knee, so no delta can move a span-96 pixel; the occlusion term then
+   * lifts from THIS alpha, which is what makes the law three knots on the span (thin
+   * 'tint.w', the knee through 'sizeK', the top through 'farS').
+   *
+   * Exact at identity under any contraction the compiler may choose: at the shipped delta of 0,
+   * '0 * farS' is +0 for every 'farS' in [0, 1] (a cubic of a clamped ramp, never NaN or
+   * negative), 'tint.w + 0' and 'fma(0, farS, tint.w)' both return 'tint.w' exactly, and the
+   * clamp is the identity on an alpha already in [0, 1] — so 'sizedAlpha' is the expression the
+   * size law left, on the same bits (proved by render, e2e/gpu/w47-alpha-far.spec.ts).
+   *
+   * Who reads which alpha. Everything downstream of 'sizedAlpha' reads the GRADED alpha because
+   * it is derived from it: the W9 solve ('nominal', its divisor, 'achieved', 'alphaTarget' and
+   * 'solvedAlpha'), the collapse's 'adaptedAlpha' and its un-premultiplied colour, the presence's
+   * 'presentAlpha' (the composite, the chroma retention's '1 - presentAlpha', the layer alpha on
+   * the unsampled path) and the DOM secant's input. That is the design: the solve holds the level
+   * at each pixel's own alpha (W46 X61). Nothing else in this pass, the highlight pass or the
+   * field pass reads 'tint.w': this line was its only reader, so no reader is left on the
+   * ungraded alpha. The CPU side's readings, and the CSS tier's mirror, are listed with their
+   * reasons in results/2026-10-06-w47-g0-operators/operator-1/readers.txt.
+   */
+  let alphaBase = clamp(ou.tint.w + ou.scatterHeavy2.w * farS, 0.0, 1.0);
+  let sizedAlpha = alphaBase + ou.size.y * sizeK * (1.0 - alphaBase);
 
   /*
    * The backdrop tone response solve (W9) — the law that owns the interior

@@ -1,0 +1,49 @@
+{
+  "workspaceBuild": {
+    "command": "pnpm -r build",
+    "exit": 0,
+    "initialAttempt": "exit2: rampAtScale not exported; corrected before any render"
+  },
+  "pyramidPlanTests": {
+    "command": "pnpm --filter @vitrea/renderer-webgpu --fail-if-no-match exec vitest run test/pyramid-plan.test.ts",
+    "exit": 0,
+    "tests": 12
+  },
+  "renders": {
+    "launches": 10,
+    "cells": 20,
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "determinism": "each capture byte-identical over two loads",
+    "hardware": "apple/metal-3",
+    "browser": "Chromium151.0.7922.34"
+  },
+  "population": "Exactly checkerboard-8 rrect-md and rrect-lg inactive, probe set, both dark0.25 scales, WebGPU. No referee or holdout render.",
+  "canonicalIdentity": "control and explicit zero share match all4 canonical PNG files byte-for-byte",
+  "readingReproduction": {
+    "command": "python3.12 -B read.py --check",
+    "exit": 0
+  },
+  "textureTrace": "16 label/cell witnesses: d134=1 on body/deep,0 on control/zero-share",
+  "independentReview": {
+    "reviewer": "doperpowers:reviewer-high",
+    "verdict": "correct; no material findings",
+    "scope": "scratch implementation and existing capture evidence, not a fresh render or full suite",
+    "additionalCheck": "packed center weights matched independently evaluated shader arithmetic at16bit precision"
+  },
+  "notVerified": [
+    "Full workspace lint/test suite not run; scratch code is never merged",
+    "No production identity-table proof or CSS path built (outside diagnostic scope)",
+    "No native capture or holdout exposed"
+  ]
+}

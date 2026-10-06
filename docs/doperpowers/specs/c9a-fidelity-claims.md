@@ -48443,3 +48443,536 @@ count). Ratio is web/native over the named misses:
 - **A reading of the dark 0.25 holdout or referees at new bytes.** The holdout rows named here are the
   published generation's, already read at W43 G3's exposure (read 6). The adoption reads them, as
   W44's light adoption read c05's.
+
+## 5.211 W47 G0: the depth-split diagnostic chose the body form, both operators landed inert and proven by bytes, W46's tools re-bound, the rule rehearsed, part 1 hashed, the ladders read, part 2 hashed (2026-10-06)
+
+Evidence directory: `results/2026-10-06-w47-g0-operators/`, on branch `w47-g0-operators` off
+`c1f9bf84c` (the charter v1.2 merge). Charter `2026-10-06-w47-span-graded-dark-transmission.md`:
+clauses 1–5, the G0 child (a)–(g), Decision Logs 1–7, X60–X70. No referee or holdout cell was
+rendered, and no profile document, generation or capture tree moved.
+
+### 1. The snapshots and the bindings (X62; clause 2)
+
+The four 0.25 document bodies were copied from `c1f9bf84c` to `documents/<sha12>.json`
+(`d0219cd684bf`, `f0b36a71772a` dark; `ebc3d9105a4a`, `12712d534b78` light). Each is verified against
+its full SHA-256 and its bytes at that commit (`bindings.verify_documents`). These are W46's snapshot
+bytes, since no 0.25 document moved between `b36c9990` and the charter's merge; W47 keeps its own
+copies so that no W47 tool starts from a W46 directory. `bindings.py` is W46's, ported by copy, and it
+is the one place W47 is bound:
+- the charter pin, scratch `~/vitrea-w47` and the GPU lock `/tmp/w47-gpu.lock`;
+- X64 carried, and X67's keys with their resolved values. `ADMITTED` is their union per dark slot,
+  and the builder admits that and nothing else. X68's declared domains (`DOMAINS`) are sets where the
+  charter states sets, intervals where it states intervals.
+- X69's frozen inputs, pinned in `SHARED`: `w46-referees-1` (`0eb8ef77…`), W46's planner adapter,
+  W46's frozen ladder list and W46 G2's dark T-band fixture;
+- the refusals, extended to W46's evidence directories, scratch, part hashes and charter.
+
+### 2. The depth-split diagnostic chose the body form (G0 (f); Decision Log 3 as amended)
+
+Run before operator 2 landed and before part 1, on a scratch branch never merged
+(`w47-g0-diag-scratch`; the forms rendered are on record as `diagnostic/scratch-renderer.patch`). The
+population was the two non-withheld F inactive cells, `checkerboard-8__rrect-md__inactive` (span 96) and
+`checkerboard-8__rrect-lg__inactive` (span 160), on both dark 0.25 scales, WebGPU, at
+`d0219cd684bf` / `f0b36a71772a`. Both forms ran at share 1 and width 6 CSS px, every other leaf the
+shipped receded document's. The referee `checkerboard-4__rrect-md__inactive` was never rendered. The
+control and an explicit share-0 render are byte-identical to the canonical tree on all four cells.
+
+T1-fine is W44 G1's `read()`: the SD of L − G(L, σ 4 device px), linear luminance, native silhouette
+eroded 4 CSS px. `E` is reference minus native, and `R` the share of `E` a form removes:
+
+| scale / span | native | reference | body | E | R body | R deep |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1x / 96 | 0.007247 | 0.022552 | 0.011237 | 0.015305 | 0.739 | 0 |
+| 1x / 160 | 0.005410 | 0.018606 | 0.008458 | 0.013196 | 0.769 | 0 |
+| 2x / 96 | 0.001659 | 0.010236 | 0.001282 | 0.008577 | 1.044 | 0 |
+| 2x / 160 | 0.001125 | 0.010000 | 0.001027 | 0.008875 | 1.011 | 0 |
+
+The pooled mean R is 0.891 for the body form and 0 for the deep form. **Under the declared criterion
+the body form is chosen**: it clears half of `E` on every cell and scale and removes more on the
+pooled mean. There is no split by scale and no STOP. At 2x the body form crosses below native (R above
+1); that is recorded, not clamped.
+
+**The deep form's zero is the physics, not a dead branch.** Its PNGs are byte-identical to the
+control. A positive control (`diagnostic/positive-control/`) shows the branch executes:
+- the deep form at σ 6 on `checkerboard-64__rrect-md__inactive` moves 2,459 pixels (max 1 code) at 1x
+  and 51,734 (max 5) at 2x;
+- at σ 40 on the span-160 cell it moves 113 pixels at 1x and 971 at 2x;
+- the fine texture is allocated and bound in every deep render (`texture-trace.json`).
+
+So the 8 px structure is already absent from the deep sample at its own width. `doperpowers:reviewer-high`
+on the scratch code found no material finding. An independent CPU replay of the downsample chain found
+the level-4 checker interior flat at linear 0.5 before either form's blur.
+
+**The masks and weights** (they explain the reading and never chose it). The scratch shader wrote its
+fully conditioned `kScatter` (W30's term at the analysis pass's measured edge density, 0.266 at 1x and
+0.248 at 2x) and the field's ramp classification, read on the T1-fine support:
+
+| scale / span / mask | pixels | body weight `1 − kScatter` | deep weight `kScatter` |
+| --- | --- | --- | --- |
+| 1x / 96 / ramp | 13,184 | 0.766 | 0.234 |
+| 1x / 160 / ramp | 40,624 | 0.624 | 0.376 |
+| 2x / 96 / ramp | 52,648 | 0.459 | 0.541 |
+| 2x / 160 / ramp | 118,794 | 0.456 | 0.544 |
+| 2x / 160 / beyond the reach | 43,524 | 0.436 | 0.564 |
+
+The other beyond-reach masks are empty. W30's conditioning keeps substantial body weight beyond the 2x
+ramp. That is why the ramp starts alone would have mis-stated the weights, which the charter
+forbade.
+
+**Two charter sentences were wrong, and are corrected in its Surprises beside the originals:**
+- `sizeHeavyTapSigma2x` 14 is device px, so the receded 2x deep sample is σ 7 CSS px. The deep form
+  ran at √(7² + 6²) = 9.22 CSS px, and at 1x at √(13.42² + 6²) = 14.70 CSS px from the clamped
+  chain level.
+- `heavyTapPlan` puts the grid's widths 2 / 3 / 4 CSS px on chain levels 1 / 1 / 2 at 1x and 2 / 2 / 3
+  at 2x, not level 0. It and `runSeparableBlur` still carry the fine texture with no new pass shape,
+  so operator 2's pyramid reading needed no STOP.
+
+### 3. Operator 1, landed inert (clause 1; Decision Log 2; X65)
+
+`tintAlphaFar1x` and `tintAlphaFar2x`, identity 0, resolved by `tintAlphaFarAtScale` =
+`rampAtScale(far1x, far2x, dpr)`. They are read per pixel in the optics pass at the one site that
+computes `sizedAlpha`, as `alphaBase = clamp(tintAlpha + farAtScale · farS, 0, 1)` before the occlusion
+term and the W9 solve. The uniform rides `d[131]` (`scatterHeavy2.w`). Two plain value drops are
+appended to `MATERIAL_IDENTITY_TABLE`.
+- **Bits at identity.** At delta 0, `0 · farS` is +0 (`farS` is a clamped cubic in [0, 1]), so `a + 0`
+  and `fma(0, farS, a)` both return `a`, and the clamp leaves an alpha in [0, 1] unchanged. This is
+  unit-tested in f32 and fused f32.
+- **The CSS tier mirrors it.** `spanGradedTintAlpha` runs once per surface inside
+  `materialAtBackdrop`, after the policy lift and before `sizeOcclusionAlphaAt`, as the shader orders
+  it, on the document's own span top. `tier-coherence.test.ts` pins the two evaluations to each other
+  on the ten shipped documents and on five synthetic ones with non-zero deltas, a moved top and the
+  clamp, over 14 spans and six ratios (X65).
+- **Readers** (`operator-1/readers.txt`). In the shader, `ou.tint.w`'s only reader was the `sizedAlpha`
+  line, so everything downstream reads the graded alpha by derivation: the solve, `solvedAlpha`,
+  `adaptedAlpha`, `presentAlpha`, the DOM secant and the rim's luma. Three readers stay on the ungraded
+  alpha, with reasons recorded:
+  - `opticsUnderPolicy` (upstream by design);
+  - the renderer's `sizeOcclusionAlpha` / `At` (the occlusion term only, no runtime caller);
+  - the spanless CSS paths.
+- **Ruled by the parent** with the reviewer's agreement: the delta composes after the accessibility
+  lift on both tiers, the only order the shader admits, since `ou.tint.w` arrives lifted. Operator 1
+  under Reduce Transparency or opaque occlusion is unmeasured.
+
+**The proofs** (`operator-1/`; recorder `e2e/gpu/w47-alpha-far.spec.ts` with the scene
+`w47-span-quad`, spans 56/96/128/160, plain and with a declared tone, at 1x and 2x). The recorder was
+committed first (`2d0016af2`) and run twice on a clean checkout of it, then on the implementation
+(`b1b16a3f3`):
+
+| proof | result |
+| --- | --- |
+| identity cases (`compare.txt`) | **67 of 67 byte-identical**: every shipped endpoint, both leaves explicit 0, a 2x-only delta at 1x, a 1x-only delta at 2x, the 13 golden scenes |
+| the ON path | 14 of 14 non-zero cases move the span-128 and span-160 members only; the span-56 and span-96 members and every pixel outside them byte-identical; up to 25 codes without a tone, 1–5 with one (the solve holds the level) |
+| goldens | **34 of 34** before and after on apple/metal-3 |
+| digests (`digests.txt`) | **10 of 10** shipped documents reproduce their recorded digest |
+| dark 0.25 calibration and validation, both tiers, both scales (`identity.txt`) | **168 of 168** captures byte-identical to the canonical tree; **84 of 84** rows measurement-identical to `d0219cd684bf` |
+| suites | renderer 666, platform-web 656, react 180, calibration 929 (4 pre-existing skips); lint 0 |
+| X60 (`x60.txt`) | no profile, generation, matrix, capture, golden or W44–W46 evidence file moved |
+
+`doperpowers:reviewer-high` on the implementation and the recorder found no material finding.
+
+### 4. Operator 2, landed inert in the body form (clause 1; Decision Log 3; X66)
+
+`sizeFineTapShare` (gate, identity 0) with `sizeFineTapSigma` / `sizeFineTapSigma2x` (CSS px,
+`rampAtScale`, gated) form one gate-group in `MATERIAL_IDENTITY_TABLE`. The texture is built through
+`heavyTapPlan` and `runSeparableBlur`, under its own pool keys, only where the share is non-zero and
+the resolved width at the group's ratio is positive. The second tap's rule holds: a width of 0 at a
+scale means no tap at that scale and is never an unblurred source mix (parent's ruling; a unit case
+holds share 1, σ1x 0, σ2x 6 off at 1x and on at 2x).
+- Share and gate ride `d[133]` / `d[134]` and binding 12. The gate is set from the texture's actual
+  presence, and the stood-down binding takes the existing placeholder.
+- The mix is `body' = body + share · (fine − body)`, at the refracted UV, before `kScatter`. No form
+  selector remains.
+- The CSS tier declines it with the taps (`CSS_COUNTERPART`).
+- Readers are in `operator-2/readers.txt`; the leaf audit is in `operator-2/leaf-audit.json`.
+
+`doperpowers:reviewer-high` on the implementation and its recorder (`e2e/gpu/w47-fine-tap.spec.ts`)
+found no material finding. The proofs were recorded on the ASSEMBLED tree (operator 1 merged beneath),
+with "before" being that tree plus only the recorder:
+
+| proof | result |
+| --- | --- |
+| determinism | 71 of 71 repeat hashes equal on each tree |
+| identity cases (`compare.txt`) | **62 of 62 byte-identical**: every 0.25 and 0.5 endpoint at identity, share 0 with widths 1.5 and 6 named, the 2x-only width at 1x |
+| the ON path | 9 of 9 live cases move (at 1x, share 0.5–1, widths 2–6: 4,609–13,818 pixels, up to 6 codes) |
+| goldens | **34 of 34** before and after |
+| operator 1 replayed on the merged tree | **81 of 81** hashes equal to operator 1's committed after-hashes |
+| digests | **10 of 10** with all five operator leaves at identity |
+| dark 0.25 calibration and validation, both tiers, both scales (`identity.txt`) | **168 of 168** captures byte-identical; **84 of 84** rows measurement-identical to `d0219cd684bf` |
+| suites | renderer 673, platform-web 656, react 180, calibration 931 (+4 skips); lint 0 |
+| X60 (`x60.txt`) | no frozen path differs from `af8cf7e5f` |
+
+The census refused 89 launches between about 20:20 and 22:00 UTC, while another session's Playwright
+CLI daemon and its automation-flagged Chrome were up. They were retried with backoff and logged,
+never bypassed.
+
+### 5. The tools, re-bound (clause 2; G0 (c); X64, X67–X70)
+
+W46's tools, ported by copy with W46's text kept beneath what W47 changes, under the evidence root.
+Each test was run on the assembled tree and its transcript is committed beside it:
+
+| tool | what W47 changes | tests |
+| --- | --- | --- |
+| `bindings.py` | W47's pins; X67 and `ADMITTED`; X68's `DOMAINS`; X69's frozen inputs; refusals extended to W46 | `test_bindings` 12 |
+| `declare.py`, `assemble.py` | W47's fifteen items, incl. `operators` (pinning clause 1's evidence by name) and `diagnostic`; the content-amendment form in a general check; the parent's rulings held verbatim per item | `test_declare` 42 |
+| `referees/` | X69: `w46-referees-1` loaded by hash, W46's adapter given only W46's frozen ladder list; membership, disjointness, withholding | `test_referees` 11 |
+| `cuts/` | dark 0.25, reference `d0219cd684bf`, W45's rule unchanged; P rest and P inactive written beside the pooled target P | `test_rule` 19, `test_cuts_refusals` 11 |
+| `fit/build-candidate.ts` | exactly `ADMITTED` per dark slot; X68's domains; refuses a key the runtime does not know | `test_build_candidate` 21 |
+| `fit/` driver | the span-law factorial crossed with the second tap (conditional on ladder (ii)); gates collapse tap-off points; inherited starts admitted apart from move domains | `test_fit` 47 |
+| `seal/seal.ts` | leaf set the 0.5 twin's plus X64 plus X67 | `test_seal` 16 |
+| `stage/`, `sheets/` | the dark stage with X60; populations per phase | `test_stage` 8, `test_x60` 11, `test_sheets` 7 |
+| `level/` | operator 1's `alphaBase` composed before the occlusion term and the solve, through the runtime's own exports | `test_level` 13 |
+| `ladders/` | X70: requested, planned and measured compared per rung and scale; dependent rungs resolved or inapplicable | `test_ladder` 22, `test_read` 5 |
+
+The two skips are the unknown-leaf refusals. They now read as skipped because the runtime knows
+every leaf.
+
+**The silent-drop hazard, closed in the port.** `withMaterialOverrides` drops a patch key the runtime
+does not know. So in W46's form, a seal or candidate naming an operator leaf at 0 before the operator
+existed would "reproduce" the digest and prove nothing. The builder and the seal now refuse an
+unknown key, nested paths included.
+
+**Tested on `d0219cd684bf`:**
+- *The seal* (X67's pin): the snapshots sealed with every X64 and X67 key materialised at its
+  resolved value, both operators' leaves included, reproduce `b074fc6913a91c66` / `280f0fddf014e0f6`.
+  The builder reproduces the same digests and the light snapshots' `3741b229…` / `c4ca0e1c…`.
+- *The cuts port*: equal to W46 G0's committed cut on 56,289 leaf values; only provenance differs.
+- *The stage*: a strict-mode rehearsal of the shipped dark documents on the 66 T1 gate cells per
+  scale. 132 of 132 rows equal the published rows but for `capturedAt`, and 264 of 264 captures are
+  byte-identical to the canonical tree, all on the pinned engine.
+- *X60 by evidence*: IDENTICAL, scanning every capture tree under `~/vitrea-w47`.
+- *X69*: W46's adapter still reproduces `w46-referees-1` from W46's frozen ladder list. Given W47's
+  ladders it would pick `checkerboard-32__rrect-sm__rest` and refuse the frozen file (the charter's
+  v1.1 P1, reproduced as a test).
+- *X70*: the three red cases are held: `hc-text__rrect-md__rest`, a cell `compare` would not plan, and
+  a rung matrix missing a row.
+
+**Review.** `doperpowers:reviewer-high` reviewed the builder's X67 admission and the seal;
+`doperpowers:reviewer-medium` reviewed the rest. They found five P2s. All were fixed before part 1's
+hash, so they landed in its pins:
+- the receded `optics.regular.blurSigma` domain was the interval [1.25, 4]; it is now the declared set
+  {1.25, 2, 3, 4} in both the builder and the bindings, with 1.75 refused;
+- stage 2 refused a permitted stage-1 second-tap start inherited into the receded document;
+- the second tap was a family after the span law instead of crossed into its factorial, as Design
+  "The moves" says;
+- ladder (iii) could not complete, nor take its body-width fallback, when no tap width was admissible;
+- W46's stage-2 materialisation check was dropped in the port, and is re-added over X64 ∪ X67.
+
+### 6. The rule rehearsed, and the level check (clause 3; G0 (d), (e))
+
+The rehearsal (`rehearsal/`; nothing rendered):
+
+| map | scale | verdict | unchanged / toward / away | away > B | > 3B | P A / ref | C rest A / ref | F inactive A / ref |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `d0219cd684bf` against itself | 1x | NEITHER | 66 / 0 / 0 | 0 | 0 | .879 / .879 | .390 / .390 | .917 / .917 |
+| `d0219cd684bf` against itself | 2x | NEITHER | 66 / 0 / 0 | 0 | 0 | .965 / .965 | .538 / .538 | .982 / .982 |
+| W46's point A (its committed gate cut) | 1x | NEITHER | 10 / 39 / 17 | **16** | **8** | .495 / .879 | .171 / .390 (halved) | .520 / .917 |
+| W46's point A | 2x | NEITHER | 9 / 39 / 18 | **17** | **10** | .648 / .965 | .238 / .538 (halved) | .581 / .982 |
+
+It reproduces §5.209 §4 exactly. W45's 19 synthetic cases pass. The gated and reported groups per scale
+are the charter's: F rest 10, C rest 28, C inactive 14, P rest 4, P inactive 5 and T rest 3 gated;
+F inactive reported with two gate cells; T inactive none. The constants were not moved.
+
+**The level check on the shipped rung** (the snapshots, no override, candidate mode) covered every
+ladder (i) cell at both scales. 130 of 130 rows are pixel- and measurement-identical to the canonical
+captures and published rows, with the provenance valid. The check reads no change: no excess, L1
+maximum error 0.0491, growth 0, and the four dark-solid inactive means UNMEASURED, as they are
+published.
+
+### 7. Part 1, hashed (`97333a0b6`)
+
+`declaration.json` sha256 **`2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579`**:
+fifteen items over 289 pinned sources. It was assembled and checked (`declare.py check`: consistent)
+on the assembled tree, after both operators, their proofs, the tools, the rehearsal, the level check
+and the diagnostic were committed, and before any ladder render. The items:
+- the snapshots;
+- T1 as gated;
+- the bar;
+- W46's manifest by hash;
+- the rule and its rehearsal;
+- the tools;
+- the level check;
+- the two operators, with their laws, identities, domains, grids, units and clause 1's evidence
+  pinned by name;
+- the diagnostic (body);
+- the three targets, with their families and predictions;
+- the ladders' protocol and cells;
+- the starting point and references by hash;
+- S1's predicted direction;
+- the part-2 draft.
+
+**The predictions** (`targets/`; labelled as predictions the ladders replace) come from W46's point A
+cut, scaling each cell's web SD by `(1 − α_L)/(1 − α_A)` at held scatter. The control point
+reproduces point A's verdict. Operator 1 alone, at `tintAlpha` 0.7, gain 0.4 and far delta 0.38 at top
+256:
+- C rest halves at both scales; at top 128 with far delta 0.13 it does not;
+- P (pooled) does not halve: 0.759 / 0.740 against 0.879 / 0.965;
+- F inactive halves through the receded's inheritance of the gain and far delta;
+- the budget fails, with 9–13 cells away beyond B;
+- thick rest cells fall to ×0.48–0.66, under Apple.
+
+The span law therefore trades the thick overshoot for under-structure unless ladder (ii) finds the 2x
+width, as the charter said. Operator 2's attenuation table is applied to the F inactive gate cells
+as an upper bound beside the diagnostic's measured R. S1 is predicted to move away from 0.31, toward
+the refit's level change at 128 and 160.
+
+**The parent's rulings, recorded in the protocol and in the items they govern:**
+1. Target P is read pooled over both poses, with P rest and P inactive reported beside it at every
+   reading.
+2. An operator separates only if it meets its bar at both scales; a one-scale result STOPS for the
+   parent.
+3. The draft's second-tap domains, widened to [0, 24] CSS px (width) and [0, 1] (far share) to hold
+   ladder (ii)'s grid, are declaration choices.
+4. Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x, with the second tap crossed in) is
+   accepted, with no pruning beyond the declaration's. The second-tap share's grid is {0, 0.05}, so
+   every span-law point is also offered with the tap off.
+
+### 8. The ladders (clause 5): neither operator separates
+
+All four ladders ran in candidate mode from the snapshots, on the WebGPU tier at both scales, on
+exactly the cells of `ladders/cells.json`, after part 1's hash. Every launch had X70's three-way check.
+There were 82 launches, all exit 0: 74 for the 37 built rungs, 6 for the three share rungs and 2 for
+`iv-joint`. The wall time from the first launch (22:14 UTC) to the last read (01:15 UTC) was 3 h 01 min.
+Of that, 1 h 29 min was census waits: 11 refusals while another session's Playwright CLI daemon and its
+Chrome were up, waited out with backoff and logged. No referee or holdout cell rendered.
+
+**The instrument.**
+- The control reads IDENTICAL to `d0219cd684bf` on 142 of 142 ladder rows (pixels and measured fields).
+- Every 1x capture of ladder (ii) is byte-identical to the control's on all twelve rungs, so the second
+  tap at a 1x width of 0 reaches no 1x pixel.
+- X60 by evidence: IDENTICAL over 42 candidates.
+
+**(i) Operator 1.** The bar: the five thick rest cells within 1 B of the reference, the thin rest cells
+keeping at least half of point A's gain, and L1 passing. No rung meets it at either scale. The far delta
+and the gain grade the thick cells and spare the thin ones, as the law intends. But the coarse thick
+cells leave the 1 B window before the fine and text cells reach it. Distances from the reference in B,
+in the order `checkerboard-8` / `hc-text` / `hc-text-7` / `checkerboard-32` / `checkerboard-64`, all at
+`rrect-lg`, rest:
+
+| rung | 1x | 2x | thin gain against point A |
+| --- | --- | --- | --- |
+| `tintAlpha` 0.7 (point A's alpha) | 12.27 / 10.38 / 6.76 / 14.76 / 21.07 | 11.16 / 9.05 / 6.60 / 19.16 / 25.32 | equal |
+| 0.7, far 0.45 at top 256 | 2.32 / 1.91 / 1.17 / 2.86 / 4.32 | 2.14 / 1.68 / 1.15 / 3.81 / 5.22 | equal |
+| 0.7, far 0.2 at top 128 (closest) | −1.36 / −0.89 / −0.22 / −2.13 / −1.37 | −0.10 / −0.27 / −0.07 / −1.98 / −1.59 | 0.1074 vs 0.1072; 0.1384 vs 0.1384 |
+| 0.8, gain 0.6 | −0.82 / −0.64 / −0.37 / −1.01 / −1.61 | −0.71 … −1.96 | 2x 0.0629 vs 0.1384, under half |
+
+At the closest rung only `checkerboard-32` and `checkerboard-64` are outside the window: they fall
+under the reference by about 2 B and 1.4–1.6 B. The top-128 and top-160 rungs read alike, because at span
+160 the far curve is 1 under either top. L1 passes at every rung: maximum error 0.0497–0.0505, growth at
+most +0.0045. The level check names 0–10 unexplained excesses per rung, none failing L1; the most
+frequent are on `hc-text-28__rrect-md__rest`, `impulse__rrect-sm__rest` and the thick text and
+`checkerboard-64__rrect-lg__rest` cells, where the solve predicts no level change (for example +0.0059
+on `checkerboard-64__rrect-lg__rest` at 0.7 / far 0.2).
+
+**(ii) The 2x width.** No rung meets. Neither `checkerboard-8__rrect-lg__rest` nor
+`hc-text__rrect-lg__rest` falls: their growth is −0.01 to −0.34 B. `checkerboard-64__rrect-lg__rest`
+holds only at width 6 / top 256 and at width 10 / far 0.3 / top 256; it falls 1–6 bars elsewhere. W45's
+leaves do not supply the thick width at these settings, so no 1x gap is named.
+
+**(iii) Operator 2, and the body width read first.** The bar: both fine inactive cells falling at least
+3 B toward Apple, with the coarse and photo guards holding. No rung meets it.
+
+| rung | `checkerboard-8__rrect-md__inactive` fall, 1x / 2x | `…rrect-lg__inactive` fall, 1x / 2x |
+| --- | --- | --- |
+| body width 4 device px (`iii-b4`) | 3.87 / 2.26 B | 2.88 / 2.02 B |
+| tap σ 4, share 1 (`iii-s4`, the selected best) | 3.83 / 2.98 B | 2.85 / 2.66 B |
+| tap σ 6, share 1 | 3.89 / 2.99 B | 2.89 / 2.68 B |
+| tap σ 4, share 0.75 | 3.34 / 2.63 B | 2.49 / 2.35 B |
+
+- The tap moves the fine cells as the diagnostic said it would; at 1x span 96, the ratio goes from ×2.88
+  to ×1.49 at σ 6.
+- It plateaus near 2.9 B on the span-160 cell at 1x and below 3 B at 2x on both cells, from σ 4 up.
+- The guards hold everywhere: `checkerboard-64__rrect-md__inactive` falls by at most 0.83 B, and photo
+  moves within 0.03 B.
+- The selection read width 4 at both scales.
+
+The ladder reads whole-band T1, where the diagnostic read T1-fine. That is why a form that removed
+74–104 % of the fine-band excess removes about half of the whole-band excess in B.
+
+**(iv) The joint composition.** At `iii-s4`, receded `tintAlpha` 0.8 and point A's receded scatter,
+the fine cells read 1.38 / 2.42 B from Apple at 1x and 2.02 / 2.97 B at 2x, against the 2 B bar. The
+photo inactive cell holds point A's ratio (×0.416 against ×0.417 at 1x, ×0.460 at 2x). The bar is not met.
+
+*Correction (Decision Log 9 item 4; the sentence above stands as written):* the photo inactive cell does
+NOT hold point A's ratio. The reading recorded `photoHolds: false` at both scales: ×0.4163 against
+×0.4171 at 1x and ×0.4601 against ×0.4604 at 2x, which is 0.02 and 0.01 bar below point A's web SD.
+The bar fails on that clause as well as on the 2 B clause.
+
+**The decision.** Clause 5's stop: an operator whose ladder shows no separation is not fitted, and *if
+neither separates, the wave closes at G0 with the finding*. No lever reads flat, so none is struck; every
+target has a lever that moves it, but none to its bar.
+- Target C rest's lever (operator 1) misses on the coarse thick cells.
+- Target F inactive's lever (operator 2) misses on the 3 B fall of the span-160 cell and on 2x.
+- Target P was predicted not to halve from operator 1 alone.
+
+`part2.py` stops ("neither operator separates; the wave closes at G0 with the finding"). **Part 2 is
+not drafted and not hashed, and `check-fit` was not run.** The fit-member counts per scale are
+unchanged: P rest 4, P inactive 5, C rest 28, F inactive 2 (reported), beside F rest 10, T rest 3,
+C inactive 14 and T inactive 0, so 66 of 72 gate cells.
+
+### 9. For the parent
+
+1. **The wave stops at G0 under clause 5, pending your ruling.** You can close at the finding, or rule
+   on the bars. Both operators move their targets in the predicted direction and stop short:
+   - operator 1's best rung leaves two coarse thick cells about 1.4–2 B under the reference;
+   - operator 2 plateaus at about 2.9 B on the span-160 fine cell at 1x and below 3 B at 2x;
+   - the joint composition misses the 2 B bar on three of four cells.
+   Any change to a bar, to its cell set or to the 3 B threshold is a change to part 1's hashed protocol,
+   so it needs part 1's one amendment.
+2. **The level check's unexplained excesses** on the thick text and coarse cells under operator 1 are
+   small (none fails L1), but the solve does not predict them. A fit on operator 1 would need them
+   read beside L1.
+3. **X41, the freeze and X60:** `freeze.py verify` reads 1,818, X41 reads 911, and no profile,
+   generation or matrix file differs from `c1f9bf84c`.
+
+### 10. What is not claimed
+
+- **Any fit, gate, exposure, seal or publication.** No part 2 exists.
+- **That the operators cannot close their targets.** The ladders read one leaf at a time, from the
+  snapshots, against bars declared before any render. A composition of operator 1's three knots with
+  each other, or operator 2's tap at a share and width off the grid, was not read.
+- **A mechanism for the level check's unexplained excesses.**
+
+### 11. Decision Logs 8 and 9: part 1 amended once, the ladders re-read, and part 2 stopped before its hash
+
+**The amendment (Decision Log 8; `amendments.json`, `5fd2300d8`).** Part 1's one amendment re-states
+the three ladder bars of clause 5. Operator 1's bar becomes the landing rule's partition on the five
+thick rest cells against Apple. Operator 2's is read on T1-fine. The joint is both readings together
+on the four ladder cells. The level check's unexplained excesses are read beside L1 and gate nothing.
+
+The amendment is in the content form, with the ruling verbatim from the charter at `91dff7566`:
+- `declaration.json` **`2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579`** is
+  superseded by **`2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e`**.
+- Its two ops only ADD `decisionLog8` to the `ladders` and `level` items. Each states the ruling's
+  text and its operational reading, with the thresholds as numbers.
+- No cell set, grid, target, reference, selection, decision kind or landing-rule clause moved.
+  `protocol.json`'s bars and `results.json`'s readings stand as hashed (§8). Ladder (ii) is not
+  re-stated.
+
+`declare.py` refused any part-1 amendment once a ladder render existed. It now admits exactly one
+additive content amendment of part 1 after the ladders and records the render evidence it was made
+over. On read it refuses a post-render record that is pins-only, replaces a value or sits on part 2.
+That file, its test (44 cases) and the recorded run are the amendment's three re-pins. `declare.py
+check` is consistent on the amended chain, and a second amendment refuses (`amendment-check.txt`).
+
+Review found that `amend` also accepts an empty ops list, which would spend the final amendment on
+nothing. That defect is logged in the tech-debt tracker. It is not fixed in place, because
+`declare.py` is a pinned part-1 source.
+
+**The re-read (`ladders/reread.py`, `reread.json`, `reread.txt`; no render).** The tool takes its
+thresholds from the amended declaration after `declare.py`'s own chain validation. It re-admits every
+rung's rows and requires their whole-band T1 to equal `results.json`'s. Before reading a capture's
+bands, it admits the capture's sidecar against its row. It reads T1-fine and T1-low off the ladder
+captures through W44 G1's `readings.py`. All six cross-checks are equal: the control's T1-fine
+against the diagnostic's values, and the control's bands against W46 G2's `d0219cd684bf` T-band
+fixture.
+
+- **Operator 1 separates at no rung and neither scale.** The cells are `checkerboard-8` /
+  `hc-text` / `hc-text-7` (T1-fine) / `checkerboard-32` / `checkerboard-64`, all at `rrect-lg` at rest.
+  Each figure is that cell's change-band growth in B.
+  - The closest rung, 0.7 / far 0.2 / top 128 (top 160 reads the same):
+    - 1x: −1.36 toward / −0.89 toward / **−0.30 unchanged** / +2.13 away / +1.37 away;
+    - 2x: **−0.10 / −0.27 / 0.00 unchanged** / +1.98 / +1.59 away.
+  - That rung is inside the landing rule's budget at both scales: two cells away beyond B, none past
+    3 B. The thin gain holds at point A's (0.1074 against 0.1072; 0.1384 against 0.1384), and L1 passes.
+  - The other rungs:
+    - 0.8 / gain 0.6 leaves `hc-text-7` unchanged at both scales (−0.11 / −0.16 B) and loses the
+      thin clause at 2x (0.0629 against 0.1384).
+    - 0.8 / far 0.45 moves every over-Apple cell toward Apple at 2x, but puts the coarse cells
+      4.60 / 7.17 B away.
+    - Every other rung grows the over-Apple cells' error.
+  - Beside L1 (maximum error 0.0497–0.0505, growth ≤ +0.0045), the level check names unexplained
+    excesses on most rungs: `hc-text-28__rrect-md__rest` at −0.005 to −0.032, and
+    `impulse__rrect-sm__rest` at +0.0074 / +0.0083 on every 0.7 rung. On several far-delta and
+    gain rungs they also name the thick text cells at −0.010 to +0.006 and `checkerboard-64` at +0.005
+    to +0.010. They gate nothing.
+- **Operator 2 separates.** Each pair below is R on the two fine cells, `checkerboard-8__rrect-md` /
+  `rrect-lg` inactive, as 1x | 2x. The rungs that meet at both scales:
+
+  | rung | 1x | 2x |
+  | --- | --- | --- |
+  | tap σ 3 | .606 / .623 | .871 / .832 |
+  | tap σ 4 | .728 / .753 | 1.005 / .967 |
+  | tap σ 6 | .739 / .769 | 1.044 / 1.011 |
+  | share 0.75 | .629 / .642 | .792 / .753 |
+  | receded body width 3 | .705 / .733 | .529 / .504 (marginal) |
+  | receded body width 4 | .736 / .763 | .693 / .656 |
+
+  - σ 2 and share 0.5 meet at 2x only.
+  - The guards hold everywhere: worst −0.83 B on `checkerboard-64__rrect-md__inactive` at σ 6, 1x.
+  - The body-width rungs meeting makes this body-width-first under `protocol.json`'s decisions.
+- **The joint** holds the partition and the fine halving on all four cells: R .736 / .767 and
+  1.044 / 1.011. It fails the photo clause by 0.02 / 0.01 bar, as corrected in §8.
+
+**Decision Log 9 (the parent):**
+- operator 1 named not fitted;
+- operator 2 fitted, the body width first on {3, 4}, the tap where the protocol permits it;
+- the active `tintAlpha` {0.9} and the receded {0.8, 0.89};
+- the §8 correction above;
+- the level excesses beside L1.
+
+Its item 2 says to stop before hashing part 2 if the protocol has no fallback to the tap.
+
+**Part 2 was not hashed: item 2's stop, and three further blocks the hashed tooling sets.** I
+reproduced each one in scratch with `declare.py`'s own `apply_changes` and `mandatory_failures`. No
+part-2 file was written.
+1. **No tap fallback.** `protocol.json`'s body-width-first reads: "part 2 fits the body width and
+   names the tap unfitted (X63); the tap stays landed inert". `apply_changes` removes the tap's
+   three leaves. `mandatory_failures` requires operator 2 in `notFitted` with that decision and none
+   of its leaves retained. Nothing re-admits the tap at the gate, and no `narrow` decision exists for
+   `optics.regular.blurSigma`, so its grid stays {1.25, 2, 3, 4} rather than {3, 4}.
+2. **`sizeOcclusionGain` cannot be held.** The only removal the protocol has for a non-operator
+   leaf is `strike`, which requires flat rungs. Its rungs (`i-a*-g*`) are not flat, so the leaf
+   stays in stage 1's span-law family at {0.05, 0.2, 0.4, 0.6}. The span tops stay at
+   {128, 160, 192, 256} for the same reason.
+3. **`check-fit` reads the hashed bars' readings.** It reads `ladders/results.json`, where neither
+   operator separates and no body-width rung meets. It refuses body-width-first and requires the
+   stop. Read on the re-read's operators instead, the permitted changes apply, but the protocol's
+   one-scale-only rule (σ 2 and share 0.5) still asks for a ruling first.
+4. **No tool route.** Teaching `check-fit` the re-read, the tap's fallback or the held occlusion gain
+   moves `declare.py`, a pinned part-1 source. Part 1's amendment is spent. Part 2 can re-pin a
+   part-1 tool only through its own amendment, which needs part 2 hashed first and spends the
+   amendment Decision Log 9 keeps.
+
+So no part 2 can pass the hashed `check-fit` in any content until the parent rules the route.
+
+**Decision Log 10 (the parent): option A. W47 closes at G0 with the finding.** The parent ruled that a
+validator changed after the readings are known is what the declaration discipline exists to prevent.
+Decision Log 8 changed a bar's form inside the hashed tooling; a part-2 route would not have stayed
+inside it. What stands:
+- **Both operators, landed inert** with their byte proofs (§3, §4). They ship as identity, and there
+  is no release.
+- **Part 1**, amended once, final: `2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e`.
+- **The evidence**: the ladder renders, `results.json` under the hashed bars (§8), and the Decision
+  Log 8 re-read (`reread.json`).
+- **The finding.**
+  - Operator 2 separates at both scales: tap σ 4 R 0.73 / 0.75 at 1x and 1.00 / 0.97 at 2x; body
+    width 4 R 0.74 / 0.76 and 0.69 / 0.66.
+  - Operator 1's closest rung sits inside the landing budget and misses the re-stated bar on one
+    unchanged cell, `hc-text-7__rrect-lg__rest` at 1x.
+  - The three protocol defects that stopped part 2 are in the charter's Surprises and the tracker.
+- **Unspent**: no referee or holdout cell was rendered. The dark 0.25 holdout and W46's referees
+  remain unspent.
+
+**The next wave** (the charter's Deferred, W48) fits these operators under a corrected declaration,
+reusing these ladder renders as hashed evidence with no new ladder. Its declaration differs in four
+places:
+- operator 2's body width and tap both fittable, with the gate reading both;
+- operator 1's bar admitting "unchanged" on over-Apple cells;
+- `sizeOcclusionGain` and the span tops holdable without a strike;
+- the σ 2 and share 0.5 one-scale rungs ruled there.
+
+This section's title says "part 2 hashed". No part 2 was drafted into a file or hashed. The title
+stands as written; this sentence corrects it.
+
+### 12. What is not claimed (the close)
+
+- **Any fit, gate, exposure, seal, publication or release.** Part 2 does not exist, and no document,
+  generation, capture tree or matrix row moved.
+- **That operator 1 cannot meet a landing-rule bar.** Its closest rung is inside the rule's budget at
+  both scales. It missed only the re-stated bar's toward clause on one cell that reads unchanged. A
+  bar admitting "unchanged" was never declared or read.
+- **That the receded body width is as good as the tap.** Both separate; the tap removes more of the
+  fine excess at 2x. Neither was read on the gate population.
+- **Any reading under the joint beyond its four cells.** The joint's photo clause misses by 0.02 /
+  0.01 bar (§8's correction), and the joint was never read on the gate population.
+- **A mechanism for the level check's unexplained excesses**, which stay beside L1 and gate nothing.

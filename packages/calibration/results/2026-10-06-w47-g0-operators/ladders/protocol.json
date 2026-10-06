@@ -1,0 +1,867 @@
+{
+ "schema": "w47-ladder-protocol-1",
+ "$comment": [
+  "W47 G0: the four ladders' protocol (charter 2026-10-06-w47-span-graded-dark-transmission.md, Design \"The ladders\",",
+  "MARKED; clause 5; X60, X63, X67, X68, X69, X70), hashed in part 1 before any ladder render. Every rung is a",
+  "candidate built by fit/build-candidate.ts from the snapshots (X62) with exactly its `overrides` moved; every",
+  "other leaf holds its snapshot value. Each is rendered in candidate mode on the WebGPU tier at BOTH dark scales with",
+  "--alpha, on exactly the cells its `poses` take from its ladder in ladders/cells.json, through with-gpu.sh.",
+  "X70: per rung and scale ladder.py compares the requested cells, the cells `compare` plans for them",
+  "(compare_selects over `sets`) and, at read, the rows measured; any difference refuses the rung. X69: no rung",
+  "names a referee or a holdout scene (referees/referees.py). The shipped rung is `control` (the snapshots, no",
+  "override) on the union of the ladders' cells; level.py identity must read it IDENTICAL to d0219cd684bf",
+  "(pixel and measurement identity) or the ladders stop. X60 at every rung by evidence (stage/x60.py evidence).",
+  "A rung whose values depend on an earlier reading names them as {\"select\": ...} and is built only after",
+  "read.py has recorded that selection in ladders/selections.json (never fixed here).",
+  "Units: B = max(1 code, 2 bar) per cell from W44 G0's bar file (bar 0.5 code on every dark cell);",
+  "`g` the error growth |k - n| - |c - n| against the control (the snapshots), negative toward Apple."
+ ],
+ "tier": "webgpu",
+ "profiles": [
+  "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "apple-macos-27.0-2x-dark-standard-glass0.25"
+ ],
+ "cells": {
+  "path": "ladders/cells.json",
+  "sha256": "91c1834d0c783e489866dacbab68b6feb73553127c47a63104e4be3393f96894"
+ },
+ "sets": "calibration,validation,probe",
+ "control": {
+  "label": "control",
+  "overrides": {},
+  "renders": "the union of the four ladders' cells, both poses",
+  "must": "level.py identity IDENTICAL on every row (pixel identity and measurement identity to d0219cd684bf; provenance validated and retained), else the ladders stop as an instrument failure"
+ },
+ "pointA": {
+  "label": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+  "what": "W46 G1's point A (claims §5.209 §3), never shipped; its receded scatter is ladder (iv)'s start and its gate cut supplies ladder (i)'s and (iv)'s point-A readings",
+  "activeDigest": "ba1ab4ef73bfe228",
+  "recededDigest": "1a2c804a11e632ba",
+  "candidate": {
+   "path": "packages/calibration/results/2026-10-05-w46-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/candidate.json",
+   "sha256": "7554455cf0202a7868f4deff62745e42caf7d79f4bbe32f8da3508a8a530245e"
+  },
+  "recededDocument": {
+   "path": "packages/calibration/results/2026-10-05-w46-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/receded.dark.json",
+   "sha256": "2094d28c560349f1b813fb9240c56034a2fd2b0adc015ba7aea9eabea3da82fc"
+  },
+  "cut": {
+   "path": "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz",
+   "sha256": "7f1d3b5fb84c2f4ccbdaec2114c839763fc3a494d0a4740bb8a566758485aa0a"
+  },
+  "recededScatter": {
+   "optics.regular.tintAlpha": 0.8,
+   "sizeScatterRampStartThin1x": 0.4,
+   "sizeScatterRampStartThin2x": 0.4,
+   "sizeScatterFloor": 0.5,
+   "sizeScatterRampStartThick1x": 0.15,
+   "sizeScatterScaleGain": 0
+  },
+  "recededScatterNote": "the leaves point A's receded document moves off the snapshot's resolved values (tintAlpha 0.89, thin starts 1 / 1, 1x floor 0.34 inherited, thick 1x start 0.3, conditioning gain -2 inherited); its spec also materialises sizeScatterRampStartFar1x 0.2, sizeScatterFloor2x 1, sizeHeavyTapSigma 0, the second tap's four leaves 0 and re-states the thick 2x and far 2x starts 0.04, the 2x heavy width 14 and the thick 1x heavy share 0.25 at their snapshot values, which move nothing",
+  "recededSpec": {
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterFloor": 0.5,
+   "sizeScatterFloor2x": 1,
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeHeavySecondShareFar2x": 0,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeScatterScaleGain": 0,
+   "optics.regular.tintAlpha": 0.8,
+   "sizeScatterRampStartThin1x": 0.4,
+   "sizeScatterRampStartThin2x": 0.4,
+   "sizeScatterRampStartThick1x": 0.15,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "sizeHeavyTapSigma2x": 14,
+   "sizeScatterHeavyShareThick1x": 0.25
+  }
+ },
+ "decisions": {
+  "fit": "an operator whose ladder separates — meets its clause 5 bar at BOTH scales at some rung (the parent's ruling 2 of 2026-10-06) — is fitted in part 2 on its declared grids",
+  "name-unfitted": "an operator whose ladder shows no separation is NOT fitted: part 2 names it with the reading (X63) and the wave continues on the other",
+  "name-target": "a target no lever moves is named, not fitted (X63; Decision Log 4): part 2 records it in notFitted with its ladder and the operator's shape, and every draft leaf carrying that target leaves the draft",
+  "body-width-first": "if a receded optics.regular.blurSigma rung of ladder (iii) meets clause 5 (iii)'s bar on its own, part 2 fits the body width and names the tap unfitted (X63); the tap stays landed inert (Decision Log 3)",
+  "narrow": "replace a declared grid by a non-empty subset of itself inside the lever's non-flat range (for tintAlpha: rungs at which L1 passes)",
+  "strike": "remove a family leaf whose rungs read flat (no cell beyond its bar at the scale it acts at)",
+  "name-1x-gap": "if ladder (ii) meets its bar, part 2 names the 1x per-span width gap with sizeHeavySecondShareFar1x's shape (X63; Decision Log 2's declined item) for the next charter",
+  "stop": "if neither operator separates, the wave closes at G0 with the finding and part 2 is not hashed"
+ },
+ "notDecided": [
+  "any value: the ladders read levers, the fit decides values",
+  "a landing verdict on any rung: the rule reads the gate population"
+ ],
+ "ladders": [
+  {
+   "id": "i",
+   "name": "operator 1 alone: the span-graded transmission (clause 5 (i))",
+   "poses": "rest+inactive",
+   "inheritance": "every rung moves the ACTIVE document only. The receded difference names its own tintAlpha 0.89, so the base rungs move no inactive pixel; it names none of tintAlphaFar1x/2x, the span tops or sizeOcclusionGain, so those reach the inactive cells by inheritance at the active's values, which is the only reading X67 admits (the receded may name them only at the active's values). L1's inactive cells are therefore read at every rung.",
+   "reads": {
+    "thick": [
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text__rrect-lg__rest",
+     "hc-text-7__rrect-lg__rest",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-64__rrect-lg__rest"
+    ],
+    "thin": "every ladder (i) rest cell with a T1 reading in point A's cut at span class thin (span <= 44)",
+    "level": "level.py check on every rung: L1 (absolute and growth against d0219cd684bf) on its declared population, every excess attributed"
+   },
+   "bar": "a rung at which the five thick rest cells read within 1 B of the reference (|k - c| <= B at each scale) while the thin rest cells keep at least half of point A's gain (per scale, the summed error reduction |c - n| - |k - n| over the thin cells is at least half of point A's summed reduction on the same cells, read from point A's committed cut), with L1 passing on its population",
+   "decides": [
+    "name-unfitted",
+    "name-target",
+    "narrow",
+    "strike"
+   ],
+   "rungs": [
+    {
+     "label": "i-a0.7",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7
+      }
+     },
+     "moves": "active tintAlpha 0.9 -> 0.7; far delta 0 (identity) at the top 256",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "the snapshots (tintAlpha 0.9 / 0.89, far 0, tops 256, gain 0.05)"
+    },
+    {
+     "label": "i-a0.7-f0.2",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "tintAlphaFar1x": 0.2,
+       "tintAlphaFar2x": 0.2
+      }
+     },
+     "moves": "base tintAlpha 0.7; tintAlphaFar1x and tintAlphaFar2x 0 -> 0.2 at the top 256",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.7"
+    },
+    {
+     "label": "i-a0.7-f0.45",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "tintAlphaFar1x": 0.45,
+       "tintAlphaFar2x": 0.45
+      }
+     },
+     "moves": "base tintAlpha 0.7; tintAlphaFar1x and tintAlphaFar2x 0 -> 0.45 at the top 256",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.7"
+    },
+    {
+     "label": "i-a0.7-f0.2-t128",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "tintAlphaFar1x": 0.2,
+       "tintAlphaFar2x": 0.2,
+       "sizeScatterSpanMax": 128,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "base tintAlpha 0.7, far delta 0.2; the span top (sizeScatterSpanMax and its 2x twin) 256 -> 128",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.7-f0.2"
+    },
+    {
+     "label": "i-a0.7-f0.2-t160",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "tintAlphaFar1x": 0.2,
+       "tintAlphaFar2x": 0.2,
+       "sizeScatterSpanMax": 160,
+       "sizeScatterSpanMax2x": 160
+      }
+     },
+     "moves": "base tintAlpha 0.7, far delta 0.2; the span top (sizeScatterSpanMax and its 2x twin) 256 -> 160",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.7-f0.2"
+    },
+    {
+     "label": "i-a0.7-g0.2",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "sizeOcclusionGain": 0.2
+      }
+     },
+     "moves": "base tintAlpha 0.7, far delta 0; sizeOcclusionGain 0.05 -> 0.2",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "rung i-a0.7"
+    },
+    {
+     "label": "i-a0.7-g0.4",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "sizeOcclusionGain": 0.4
+      }
+     },
+     "moves": "base tintAlpha 0.7, far delta 0; sizeOcclusionGain 0.05 -> 0.4",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "rung i-a0.7"
+    },
+    {
+     "label": "i-a0.7-g0.6",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.7,
+       "sizeOcclusionGain": 0.6
+      }
+     },
+     "moves": "base tintAlpha 0.7, far delta 0; sizeOcclusionGain 0.05 -> 0.6",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "rung i-a0.7"
+    },
+    {
+     "label": "i-a0.8",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8
+      }
+     },
+     "moves": "active tintAlpha 0.9 -> 0.8; far delta 0 (identity) at the top 256",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "the snapshots (tintAlpha 0.9 / 0.89, far 0, tops 256, gain 0.05)"
+    },
+    {
+     "label": "i-a0.8-f0.2",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "tintAlphaFar1x": 0.2,
+       "tintAlphaFar2x": 0.2
+      }
+     },
+     "moves": "base tintAlpha 0.8; tintAlphaFar1x and tintAlphaFar2x 0 -> 0.2 at the top 256",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.8"
+    },
+    {
+     "label": "i-a0.8-f0.45",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "tintAlphaFar1x": 0.45,
+       "tintAlphaFar2x": 0.45
+      }
+     },
+     "moves": "base tintAlpha 0.8; tintAlphaFar1x and tintAlphaFar2x 0 -> 0.45 at the top 256",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.8"
+    },
+    {
+     "label": "i-a0.8-f0.2-t128",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "tintAlphaFar1x": 0.2,
+       "tintAlphaFar2x": 0.2,
+       "sizeScatterSpanMax": 128,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "base tintAlpha 0.8, far delta 0.2; the span top (sizeScatterSpanMax and its 2x twin) 256 -> 128",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.8-f0.2"
+    },
+    {
+     "label": "i-a0.8-f0.2-t160",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "tintAlphaFar1x": 0.2,
+       "tintAlphaFar2x": 0.2,
+       "sizeScatterSpanMax": 160,
+       "sizeScatterSpanMax2x": 160
+      }
+     },
+     "moves": "base tintAlpha 0.8, far delta 0.2; the span top (sizeScatterSpanMax and its 2x twin) 256 -> 160",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "needsOperator": [
+      "operator 1"
+     ],
+     "from": "rung i-a0.8-f0.2"
+    },
+    {
+     "label": "i-a0.8-g0.2",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "sizeOcclusionGain": 0.2
+      }
+     },
+     "moves": "base tintAlpha 0.8, far delta 0; sizeOcclusionGain 0.05 -> 0.2",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "rung i-a0.8"
+    },
+    {
+     "label": "i-a0.8-g0.4",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "sizeOcclusionGain": 0.4
+      }
+     },
+     "moves": "base tintAlpha 0.8, far delta 0; sizeOcclusionGain 0.05 -> 0.4",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "rung i-a0.8"
+    },
+    {
+     "label": "i-a0.8-g0.6",
+     "overrides": {
+      "active.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "sizeOcclusionGain": 0.6
+      }
+     },
+     "moves": "base tintAlpha 0.8, far delta 0; sizeOcclusionGain 0.05 -> 0.6",
+     "actsAt": "both",
+     "poses": "rest+inactive",
+     "from": "rung i-a0.8"
+    }
+   ]
+  },
+  {
+   "id": "ii",
+   "name": "the thick width at 2x: W45's second tap graded by span (clause 5 (ii))",
+   "poses": "rest",
+   "holds": {
+    "sizeHeavySecondSigma": 0
+   },
+   "oneXIdentity": "every 1x capture (PNG and alpha) byte-identical to the control's on every cell; a 1x capture that moves voids the rung",
+   "topNote": "the top {256, 128} is the 2x top sizeScatterSpanMax2x only: moving the 1x top would move 1x pixels and void the rung",
+   "reads": {
+    "fall": [
+     "checkerboard-8__rrect-lg__rest",
+     "hc-text__rrect-lg__rest"
+    ],
+    "hold": [
+     "checkerboard-64__rrect-lg__rest"
+    ]
+   },
+   "bar": "a rung at which, at 2x, checkerboard-8__rrect-lg__rest and hc-text__rrect-lg__rest fall toward Apple (the rule's partition: |k - c| > bar and the error not grown) while checkerboard-64__rrect-lg__rest does not fall below the reference beyond its bar (k >= c - bar), with every 1x capture byte-identical to the control's",
+   "decides": [
+    "name-1x-gap",
+    "strike"
+   ],
+   "rungs": [
+    {
+     "label": "ii-w6-d0.3-t256",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 6,
+       "sizeHeavySecondShareFar2x": 0.3
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 6 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, at the top 256",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w6-d0.6-t256",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 6,
+       "sizeHeavySecondShareFar2x": 0.6
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 6 CSS px, sizeHeavySecondShareFar2x 0 -> 0.6, at the top 256",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w10-d0.3-t256",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 10,
+       "sizeHeavySecondShareFar2x": 0.3
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 10 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, at the top 256",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w10-d0.6-t256",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 10,
+       "sizeHeavySecondShareFar2x": 0.6
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 10 CSS px, sizeHeavySecondShareFar2x 0 -> 0.6, at the top 256",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w14-d0.3-t256",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 14,
+       "sizeHeavySecondShareFar2x": 0.3
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 14 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, at the top 256",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w14-d0.6-t256",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 14,
+       "sizeHeavySecondShareFar2x": 0.6
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 14 CSS px, sizeHeavySecondShareFar2x 0 -> 0.6, at the top 256",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w6-d0.3-t128",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 6,
+       "sizeHeavySecondShareFar2x": 0.3,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 6 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, sizeScatterSpanMax2x 256 -> 128",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w6-d0.6-t128",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 6,
+       "sizeHeavySecondShareFar2x": 0.6,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 6 CSS px, sizeHeavySecondShareFar2x 0 -> 0.6, sizeScatterSpanMax2x 256 -> 128",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w10-d0.3-t128",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 10,
+       "sizeHeavySecondShareFar2x": 0.3,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 10 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, sizeScatterSpanMax2x 256 -> 128",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w10-d0.6-t128",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 10,
+       "sizeHeavySecondShareFar2x": 0.6,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 10 CSS px, sizeHeavySecondShareFar2x 0 -> 0.6, sizeScatterSpanMax2x 256 -> 128",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w14-d0.3-t128",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 14,
+       "sizeHeavySecondShareFar2x": 0.3,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 14 CSS px, sizeHeavySecondShareFar2x 0 -> 0.3, sizeScatterSpanMax2x 256 -> 128",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    },
+    {
+     "label": "ii-w14-d0.6-t128",
+     "overrides": {
+      "active.dark": {
+       "sizeHeavySecondShare": 0.05,
+       "sizeHeavySecondSigma2x": 14,
+       "sizeHeavySecondShareFar2x": 0.6,
+       "sizeScatterSpanMax2x": 128
+      }
+     },
+     "moves": "sizeHeavySecondShare 0 -> 0.05, sizeHeavySecondSigma2x 0 -> 14 CSS px, sizeHeavySecondShareFar2x 0 -> 0.6, sizeScatterSpanMax2x 256 -> 128",
+     "actsAt": "2x",
+     "poses": "rest",
+     "from": "the snapshots (sizeHeavySecondSigma held at 0)"
+    }
+   ]
+  },
+  {
+   "id": "iii",
+   "name": "operator 2 alone, receded, in the form the depth-split diagnostic chose (clause 5 (iii))",
+   "poses": "inactive",
+   "order": [
+    "the receded body width optics.regular.blurSigma {2, 3, 4} device px (the cheaper candidate, read first)",
+    "the tap width sizeFineTapSigma / sizeFineTapSigma2x {1.5, 2, 3, 4, 6} CSS px at share 1",
+    "the share {0.25, 0.5, 0.75} at the best width"
+   ],
+   "reads": {
+    "fine": [
+     "checkerboard-8__rrect-md__inactive",
+     "checkerboard-8__rrect-lg__inactive"
+    ],
+    "guard": [
+     "checkerboard-64__rrect-md__inactive",
+     "photo__rrect-md__inactive"
+    ],
+    "beside": [
+     "checkerboard__rrect-ml__inactive",
+     "checkerboard__capsule-button__inactive",
+     "hc-text__rrect-sm__inactive",
+     "impulse__capsule-button__inactive",
+     "impulse__rrect-lg__inactive",
+     "photo__rrect-ml__inactive"
+    ]
+   },
+   "bar": "a rung that lowers both fine cells by at least 3 B toward Apple (g <= -3 B at each scale) while neither guard cell falls below the reference by more than 1 B (k >= c - B)",
+   "decides": [
+    "name-unfitted",
+    "body-width-first",
+    "name-target",
+    "strike"
+   ],
+   "selections": {
+    "iii-width-1x": "sizeFineTapSigma: among the five width rungs, read at 1x, those whose guard cells hold (k >= c - B), the width with the largest mean fall of the two fine cells (mean of -g / B); ties within 0.1 B to the smaller width. None admissible: the share rungs are not built and the tap reads no separation at that scale",
+    "iii-width-2x": "sizeFineTapSigma2x: the same, read at 2x",
+    "iii-best": "operator 2's best rung for ladder (iv): among the width rungs and the share rungs, those whose guard cells hold at both scales, the one with the largest mean fall of the two fine cells pooled over both scales; ties within 0.1 B to the smaller share, then the smaller widths. None admissible: ladder (iii)'s best body-width rung (optics.regular.blurSigma) is composed instead and the composition says so"
+   },
+   "rungs": [
+    {
+     "label": "iii-b2",
+     "overrides": {
+      "receded.dark": {
+       "optics.regular.blurSigma": 2
+      }
+     },
+     "moves": "receded optics.regular.blurSigma 1.25 -> 2 device px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-b3",
+     "overrides": {
+      "receded.dark": {
+       "optics.regular.blurSigma": 3
+      }
+     },
+     "moves": "receded optics.regular.blurSigma 1.25 -> 3 device px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-b4",
+     "overrides": {
+      "receded.dark": {
+       "optics.regular.blurSigma": 4
+      }
+     },
+     "moves": "receded optics.regular.blurSigma 1.25 -> 4 device px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-s1.5",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 1,
+       "sizeFineTapSigma": 1.5,
+       "sizeFineTapSigma2x": 1.5
+      }
+     },
+     "moves": "receded sizeFineTapShare 0 -> 1, sizeFineTapSigma and sizeFineTapSigma2x 0 -> 1.5 CSS px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-s2",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 1,
+       "sizeFineTapSigma": 2,
+       "sizeFineTapSigma2x": 2
+      }
+     },
+     "moves": "receded sizeFineTapShare 0 -> 1, sizeFineTapSigma and sizeFineTapSigma2x 0 -> 2 CSS px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-s3",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 1,
+       "sizeFineTapSigma": 3,
+       "sizeFineTapSigma2x": 3
+      }
+     },
+     "moves": "receded sizeFineTapShare 0 -> 1, sizeFineTapSigma and sizeFineTapSigma2x 0 -> 3 CSS px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-s4",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 1,
+       "sizeFineTapSigma": 4,
+       "sizeFineTapSigma2x": 4
+      }
+     },
+     "moves": "receded sizeFineTapShare 0 -> 1, sizeFineTapSigma and sizeFineTapSigma2x 0 -> 4 CSS px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-s6",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 1,
+       "sizeFineTapSigma": 6,
+       "sizeFineTapSigma2x": 6
+      }
+     },
+     "moves": "receded sizeFineTapShare 0 -> 1, sizeFineTapSigma and sizeFineTapSigma2x 0 -> 6 CSS px",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the snapshots"
+    },
+    {
+     "label": "iii-q0.25",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 0.25,
+       "sizeFineTapSigma": {
+        "select": "iii-width-1x"
+       },
+       "sizeFineTapSigma2x": {
+        "select": "iii-width-2x"
+       }
+      }
+     },
+     "moves": "receded sizeFineTapShare 1 -> 0.25 at the best width per scale",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the best width rung of ladder (iii)",
+     "dependsOn": [
+      "iii-width-1x",
+      "iii-width-2x"
+     ]
+    },
+    {
+     "label": "iii-q0.5",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 0.5,
+       "sizeFineTapSigma": {
+        "select": "iii-width-1x"
+       },
+       "sizeFineTapSigma2x": {
+        "select": "iii-width-2x"
+       }
+      }
+     },
+     "moves": "receded sizeFineTapShare 1 -> 0.5 at the best width per scale",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the best width rung of ladder (iii)",
+     "dependsOn": [
+      "iii-width-1x",
+      "iii-width-2x"
+     ]
+    },
+    {
+     "label": "iii-q0.75",
+     "overrides": {
+      "receded.dark": {
+       "sizeFineTapShare": 0.75,
+       "sizeFineTapSigma": {
+        "select": "iii-width-1x"
+       },
+       "sizeFineTapSigma2x": {
+        "select": "iii-width-2x"
+       }
+      }
+     },
+     "moves": "receded sizeFineTapShare 1 -> 0.75 at the best width per scale",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the best width rung of ladder (iii)",
+     "dependsOn": [
+      "iii-width-1x",
+      "iii-width-2x"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "iv",
+   "name": "the joint composition (clause 5 (iv))",
+   "poses": "inactive",
+   "baseline": "point A's committed cut (its receded material is the snapshot's receded with recededScatter, the active differing only in a tintAlpha the receded overrides) supplies the composition without operator 2; no separate rung renders",
+   "bar": "the two fine cells within 2 B of Apple (|k - n| <= 2 B at each scale) at a rung where photo__rrect-md__inactive reads at least point A's ratio on that cell at that scale (x0.417 at 1x, x0.460 at 2x; the charter's x0.42)",
+   "decides": [
+    "name-target"
+   ],
+   "rungs": [
+    {
+     "label": "iv-joint",
+     "overrides": {
+      "receded.dark": {
+       "optics.regular.tintAlpha": 0.8,
+       "sizeScatterRampStartThin1x": 0.4,
+       "sizeScatterRampStartThin2x": 0.4,
+       "sizeScatterFloor": 0.5,
+       "sizeScatterRampStartThick1x": 0.15,
+       "sizeScatterScaleGain": 0
+      }
+     },
+     "moves": "operator 2 at ladder (iii)'s best rung, with receded tintAlpha 0.89 -> 0.8 and point A's receded scatter",
+     "actsAt": "both",
+     "poses": "inactive",
+     "needsOperator": [
+      "operator 2"
+     ],
+     "from": "the snapshots",
+     "select": {
+      "receded.dark": "iii-best"
+     },
+     "dependsOn": [
+      "iii-best"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisionKinds": {
+  "changes": [
+   "name-unfitted",
+   "name-target",
+   "body-width-first",
+   "narrow",
+   "strike",
+   "name-1x-gap"
+  ],
+  "outcomes": [
+   "fit",
+   "stop"
+  ],
+  "note": "a change is an entry of part 2's `changes` (declare.py check-fit re-validates each against results.json); an outcome changes nothing in the draft (`fit`) or writes no part 2 (`stop`)"
+ },
+ "rulings": {
+  "$comment": "The parent's rulings of 2026-10-06 on W47 G0's readings, recorded here and in part 1 where the declaration states them (assemble.py copies each into the item it governs; declare.py check holds the copies to this block).",
+  "target-p-pooled": "Target P is read pooled over both poses, as declared (cuts/rule.py TARGETS), with P rest and P inactive reported beside it at every gate reading (cuts.py `rule.pBeside`); they decide nothing.",
+  "separation-both-scales": "An operator separates only if it meets its bar at both scales. A one-scale result STOPS for the parent with the numbers, and the operator is neither struck nor admitted until ruled; part2.py refuses until then.",
+  "widened-second-tap-domains": "The draft's widened second-tap domains (the active 2x width [0, 24], the active far share [0, 1]) are declaration choices; no amendment is spent.",
+  "stage-1-crossed-factorial": "Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x) is accepted, with no pruning beyond what is declared."
+ }
+}

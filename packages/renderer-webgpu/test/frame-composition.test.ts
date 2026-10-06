@@ -174,6 +174,7 @@ describe("the pyramid's handles, checked against the pool", () => {
         bodySigmaCss: 8,
         heavySigmaCss: 0,
         heavy2SigmaCss: 0,
+        fineSigmaCss: 0,
         viewportCss: [400, 300],
       },
       provider,
@@ -200,6 +201,7 @@ describe("the pyramid's handles, checked against the pool", () => {
       bodySigmaCss: 8,
       heavySigmaCss: 0,
       heavy2SigmaCss: 0,
+      fineSigmaCss: 0,
       viewportCss: [400, 300] as const,
     };
 
@@ -657,5 +659,59 @@ describe("W30's scatter scale statistic, on a source nothing has been observed f
     // reference of 0 and fails here.
     expect(scatterScaleVec4(drawAt(0.11))[2]).toBe(Math.fround(0.11));
     expect(scatterScaleVec4(drawAt(0))[2]).toBe(0);
+  });
+});
+
+describe("W47 fine texture lifecycle", () => {
+  it("allocates only at a positive resolved width, rebuilds on width change and releases at zero", () => {
+    const gpu = createFakeGpu();
+    const context = createGpuContext(gpu.device, 1);
+    const store = createPyramidStore(context);
+    const provider = gradientOn(gpu, 1);
+    const request = { sourceId: "bg", epoch: 1, resolution: { scale: 1, maxDimension: 2048 },
+      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 0, fineSigmaCss: 0,
+      viewportCss: [400, 300] as const };
+    const build = (frame: number, fineSigmaCss: number) => {
+      store.beginFrame(frame);
+      const outcome = store.build({ ...request, fineSigmaCss }, provider, gpu.device.createCommandEncoder());
+      store.releaseAcquired();
+      return outcome;
+    };
+    expect(build(1, 0).status).toBe("built");
+    expect(context.pool.peek(poolKey.backdropFine("bg"))).toBeUndefined();
+    expect(context.pool.peek(poolKey.backdropFineScratch("bg"))).toBeUndefined();
+    expect(build(2, 2).status).toBe("built");
+    expect(store.resources("bg")?.fine).toBe(context.pool.peek(poolKey.backdropFine("bg")));
+    expect(context.pool.peek(poolKey.backdropFine("bg"))).toBeDefined();
+    expect(context.pool.peek(poolKey.backdropFineScratch("bg"))).toBeDefined();
+    expect(build(3, 2).status).toBe("clean");
+    expect(build(4, 6).status).toBe("built");
+    expect(build(5, 0).status).toBe("built");
+    expect(store.resources("bg")?.fine).toBeUndefined();
+    expect(context.pool.peek(poolKey.backdropFine("bg"))).toBeUndefined();
+    expect(context.pool.peek(poolKey.backdropFineScratch("bg"))).toBeUndefined();
+    store.destroy();
+  });
+
+  it("does not bind a fine handle the pool dropped and releases both allocations on forget", () => {
+    const gpu = createFakeGpu();
+    const context = createGpuContext(gpu.device, 1);
+    const store = createPyramidStore(context);
+    const provider = gradientOn(gpu, 1);
+    const request = { sourceId: "bg", epoch: 1, resolution: { scale: 1, maxDimension: 2048 },
+      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 0, fineSigmaCss: 2,
+      viewportCss: [400, 300] as const };
+    store.beginFrame(1);
+    store.build(request, provider, gpu.device.createCommandEncoder());
+    store.releaseAcquired();
+    context.pool.release(poolKey.backdropFine("bg"));
+    expect(store.resources("bg")).toBeUndefined();
+    store.beginFrame(2);
+    expect(store.build(request, provider, gpu.device.createCommandEncoder()).status).toBe("built");
+    store.releaseAcquired();
+    store.forget("bg");
+    expect(context.pool.peek(poolKey.backdropFine("bg"))).toBeUndefined();
+    expect(context.pool.peek(poolKey.backdropFineScratch("bg"))).toBeUndefined();
+    store.destroy();
   });
 });

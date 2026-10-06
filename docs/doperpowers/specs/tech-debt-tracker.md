@@ -7637,3 +7637,56 @@ nothing else. Decision Log 9 needed a content change, so G1 added W44 G1's and W
 part 2. The form has ops recomputed from the hashed body, the ruling verbatim, and part-1 tool moves
 bound into part 2's own `sources` and hash chain. The next wave's port should start from this form
 rather than rediscover it. The pins-only form remains the only one part 1 accepts.
+
+## W47's `declare.py amend` accepts an empty ops list and spends the final amendment on nothing (W47 G0, 2026-10-06)
+
+*Small; found by the review of Decision Log 8's amendment (claims §5.211).*
+
+`amend` takes a content amendment's ops from a file and only checks that each op is an add or a
+replace. A file holding `[]` passes, so `amend` writes the record and appends a digest line with
+exit 0 although nothing changed. After a ladder render, the read-time validation then refuses that
+record, because the post-render form requires non-empty ops, and a second `amend` refuses because
+the one amendment is spent. Before a render, the record is accepted and the amendment is wasted.
+Part 1's amendment under Decision Log 8 carries two add ops and is unaffected; part 1 cannot be
+amended again, so the defect can only reach part 2's `amend-fit`.
+
+`declare.py` is a pinned part-1 source, and a pin moves only through an amendment, so the fix was
+not made in place. The fix is one refusal before anything is written: an empty ops list is not a
+content amendment. It belongs in the next wave's port, or in a part-2 amendment, whose
+`partOnePins` may re-pin `declare.py`.
+
+## W47's protocol: body-width-first names the stronger lever unfitted (W47 G0, 2026-10-06)
+
+*Closed W47 at G0 (Decision Log 10; claims §5.211 §11).*
+
+W47's `ladders/protocol.json` decides `body-width-first` when a receded `optics.regular.blurSigma`
+rung meets operator 2's bar on its own. Part 2 then fits the body width and names the tap unfitted.
+`declare.py`'s `apply_changes` removes the tap's leaves, and `mandatory_failures` requires them gone.
+
+Under Decision Log 8's bar, both forms met at both scales. The tap is the stronger lever at 2x: R
+1.00 / 0.97 at σ 4, against 0.69 / 0.66 at body width 4. The rule cannot keep it. The shape of the
+fix, for W48: declare both forms fittable and let the gate reading decide between them, with no
+cheaper-first rule in the protocol.
+
+## W47's protocol: a non-operator leaf can leave a grid only by `strike`, which needs flat rungs (W47 G0, 2026-10-06)
+
+*Closed W47 at G0 (Decision Log 10).*
+
+Once operator 1 is named not fitted, the leaves its law shares with the span law should be holdable
+at their inherited values: `sizeOcclusionGain` (X67) and the span tops. The protocol's only
+removal of a non-operator leaf is `strike`, which `apply_changes` admits only where the leaf's rungs
+read flat. These rungs move cells, so the leaves stay in stage 1's grid. The shape of the fix: a
+`hold` decision that sets a leaf to its inherited value when the operator it serves is not fitted,
+validated against that operator's `notFitted` entry.
+
+## W47's `check-fit` reads the original bars' results after a bar amendment (W47 G0, 2026-10-06)
+
+*Closed W47 at G0 (Decision Log 10).*
+
+`declare.py check-fit` validates part 2 against `ladders/results.json`, the readings under the bars
+part 1 hashed. Part 1's Decision Log 8 amendment re-stated those bars, and the re-read under them
+(`ladders/reread.json`) has operator 2 separating. `check-fit` still requires the stop the original
+bars read, so no part 2 could pass it in any content. Teaching it the re-read moves `declare.py`, a
+part-1 pin, and part 1's one amendment was spent on the bars. The shape of the fix, for the next
+port: `check-fit` reads the ladder readings named by part 1's current hash. That is the original
+results, or the re-read an amendment declares, pinned by that amendment.

@@ -1,0 +1,6665 @@
+{
+ "2x/plain/default": {
+  "scene": "w47-span-quad",
+  "patch": {},
+  "width": 1400,
+  "height": 400,
+  "sha256": "bd1dedc21c48d576083025c3e9cebd52e1f99b27f94d24f4a90bc78ac72537d3"
+ },
+ "2x/plain/macos26-dark": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.1104,
+    0.2706,
+    0.9505
+   ],
+   "backdropToneResponseThin": [
+    0.011,
+    0.0284,
+    0.1611
+   ],
+   "backdropToneResponseThick": [
+    0.0131,
+    0.0238,
+    0.1006
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.0265,
+     "specularGain": 0,
+     "rimLevelGain": 2.334
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.063,
+    "thinOcclusionBright": 0.063,
+    "thickOcclusionAt96": 0.278,
+    "thickOcclusionAt128": 0.301,
+    "thickOcclusionAt160": 0.324,
+    "liftAmplitude": 0.0051,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "d504246f67463bffcba55f1f5982d3a65a29a7c6e53cb4b7b1adea405f140dbf"
+ },
+ "2x/plain/light05": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.46,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.214,
+    0.2835,
+    0.5383,
+    0.937
+   ],
+   "backdropToneResponseThick": [
+    0.242,
+    0.3074,
+    0.5554,
+    0.957
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23074004852434915,
+   "backdropToneBlackThick": 0.23074004852434915
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "fbd33b037551c2d3bd7e06c501a6ef73c18ada24660f329a2d18348024d465ab"
+ },
+ "2x/plain/light05-receded": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.7,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 14,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.7,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.04,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1647,
+    0.2809,
+    0.4775,
+    0.8293
+   ],
+   "backdropToneResponseThick": [
+    0.1442,
+    0.2823,
+    0.4695,
+    0.832
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23455058216100522,
+   "backdropToneBlackThick": 0.23455058216100522,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "7a38a895c21030cb3a329134880418389a129558553f9843bc3307ac828fd53d"
+ },
+ "2x/plain/dark05": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.035,
+    0.169,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark05-receded": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.164,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "dd25bdc1b6f648b25977fd9e3d05545a0631ce9a79707330075eb8fc047e6875"
+ },
+ "2x/plain/light025": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.65,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.5,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "sizeHeavySecondShareFar2x": -0.25
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "f534ed427c9c92812c7a7ae0ad85b4765a2ac9615972e478caf48a0c305b0f34"
+ },
+ "2x/plain/light025-receded": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 1,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 18,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.1,
+   "sizeScatterRampStartThick2x": 0,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.25,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeHeavySecondShareFar2x": -0.125,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "65b36de7a694e7630afe010194f8aabea8fad5a8f293e0e425893214cfed5d42"
+ },
+ "2x/plain/dark025": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025-receded": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "ed6d1520c361890fa59290ef29803268dd6bdd1a75f5951cf15a27059b3d2317"
+ },
+ "2x/plain/dark025/far0": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0,
+   "tintAlphaFar2x": 0
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025/far2x+0.2": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.2
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025/far2x+0.45": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025/far2x+1": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 1
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025/far1x+0.3": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025/far1x+0.3/far2x+0.45": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "748e2396e98a4183e3f7de7817c24d60acb01ee6f6b2ecbf47dc7fe6a3b6caac"
+ },
+ "2x/plain/dark025-receded/far2x+0.45": {
+  "scene": "w47-span-quad",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "ed6d1520c361890fa59290ef29803268dd6bdd1a75f5951cf15a27059b3d2317"
+ },
+ "2x/toned/default": {
+  "scene": "w47-span-quad-toned",
+  "patch": {},
+  "width": 1400,
+  "height": 400,
+  "sha256": "f4fa402d9f85cf3d0bbf989c9c865473742caade95318cc500ecba563546f1f1"
+ },
+ "2x/toned/macos26-dark": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.1104,
+    0.2706,
+    0.9505
+   ],
+   "backdropToneResponseThin": [
+    0.011,
+    0.0284,
+    0.1611
+   ],
+   "backdropToneResponseThick": [
+    0.0131,
+    0.0238,
+    0.1006
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.0265,
+     "specularGain": 0,
+     "rimLevelGain": 2.334
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.063,
+    "thinOcclusionBright": 0.063,
+    "thickOcclusionAt96": 0.278,
+    "thickOcclusionAt128": 0.301,
+    "thickOcclusionAt160": 0.324,
+    "liftAmplitude": 0.0051,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "ad89db3a717c985dec5d5800540719e7abe6b4bc32b00555d2965840b8601d8d"
+ },
+ "2x/toned/light05": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.46,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.214,
+    0.2835,
+    0.5383,
+    0.937
+   ],
+   "backdropToneResponseThick": [
+    0.242,
+    0.3074,
+    0.5554,
+    0.957
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23074004852434915,
+   "backdropToneBlackThick": 0.23074004852434915
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "155773e8b87a1c4b3cd6acfed0404c6a4af28b8f9dd427da0176ef12df9e0324"
+ },
+ "2x/toned/light05-receded": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.7,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 14,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.7,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.04,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1647,
+    0.2809,
+    0.4775,
+    0.8293
+   ],
+   "backdropToneResponseThick": [
+    0.1442,
+    0.2823,
+    0.4695,
+    0.832
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23455058216100522,
+   "backdropToneBlackThick": 0.23455058216100522,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "7a38a895c21030cb3a329134880418389a129558553f9843bc3307ac828fd53d"
+ },
+ "2x/toned/dark05": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.035,
+    0.169,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "3297ac8f352dfed6e42cab570e1f38bc5d4c8915aff8e50cf45b278be63c9a3d"
+ },
+ "2x/toned/dark05-receded": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.164,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "dd25bdc1b6f648b25977fd9e3d05545a0631ce9a79707330075eb8fc047e6875"
+ },
+ "2x/toned/light025": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.65,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.5,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "sizeHeavySecondShareFar2x": -0.25
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "baed60a9a4e07962c71b081cdc0869a5f77e4c33335ec2fb94c8a32759356ddc"
+ },
+ "2x/toned/light025-receded": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 1,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 18,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.1,
+   "sizeScatterRampStartThick2x": 0,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.25,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeHeavySecondShareFar2x": -0.125,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "65b36de7a694e7630afe010194f8aabea8fad5a8f293e0e425893214cfed5d42"
+ },
+ "2x/toned/dark025": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025-receded": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "ed6d1520c361890fa59290ef29803268dd6bdd1a75f5951cf15a27059b3d2317"
+ },
+ "2x/toned/dark025/far0": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0,
+   "tintAlphaFar2x": 0
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025/far2x+0.2": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.2
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025/far2x+0.45": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025/far2x+1": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 1
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025/far1x+0.3": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025/far1x+0.3/far2x+0.45": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "0f256efd07e52d4447ead6a87654dac53e06085fd9e3ca29c056cd3a166d7318"
+ },
+ "2x/toned/dark025-receded/far2x+0.45": {
+  "scene": "w47-span-quad-toned",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 1400,
+  "height": 400,
+  "sha256": "ed6d1520c361890fa59290ef29803268dd6bdd1a75f5951cf15a27059b3d2317"
+ },
+ "1x/plain/default": {
+  "scene": "w47-span-quad-1x",
+  "patch": {},
+  "width": 700,
+  "height": 200,
+  "sha256": "eaedbd8b65b7ed432186619026079e479c63a2ec1562fdbf15ab6208409aa59c"
+ },
+ "1x/plain/macos26-dark": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.1104,
+    0.2706,
+    0.9505
+   ],
+   "backdropToneResponseThin": [
+    0.011,
+    0.0284,
+    0.1611
+   ],
+   "backdropToneResponseThick": [
+    0.0131,
+    0.0238,
+    0.1006
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.0265,
+     "specularGain": 0,
+     "rimLevelGain": 2.334
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.063,
+    "thinOcclusionBright": 0.063,
+    "thickOcclusionAt96": 0.278,
+    "thickOcclusionAt128": 0.301,
+    "thickOcclusionAt160": 0.324,
+    "liftAmplitude": 0.0051,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "0ff86acc137fd652cc2a6130cc831d7968e703956b50c268d041b5cef240e42f"
+ },
+ "1x/plain/light05": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.46,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.214,
+    0.2835,
+    0.5383,
+    0.937
+   ],
+   "backdropToneResponseThick": [
+    0.242,
+    0.3074,
+    0.5554,
+    0.957
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23074004852434915,
+   "backdropToneBlackThick": 0.23074004852434915
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "495271a474369b2f7efe658da6098a724a3498558ccb2dfafde0e1692503f439"
+ },
+ "1x/plain/light05-receded": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.7,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 14,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.7,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.04,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1647,
+    0.2809,
+    0.4775,
+    0.8293
+   ],
+   "backdropToneResponseThick": [
+    0.1442,
+    0.2823,
+    0.4695,
+    0.832
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23455058216100522,
+   "backdropToneBlackThick": 0.23455058216100522,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "9cd35232140f69e51b95432f3b45dc737fb35274b55dbc23a7b71cd7a1677451"
+ },
+ "1x/plain/dark05": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.035,
+    0.169,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark05-receded": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.164,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "92369f2ad4a7e705365a7d96c89ed2ed840faacffdeb2244890f7cb1de03c2f7"
+ },
+ "1x/plain/light025": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.65,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.5,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "sizeHeavySecondShareFar2x": -0.25
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "6c45d04ad64b72521719265a6967ffa12a9875e2272127f82b3a6b47b3aa7744"
+ },
+ "1x/plain/light025-receded": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 1,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 18,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.1,
+   "sizeScatterRampStartThick2x": 0,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.25,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeHeavySecondShareFar2x": -0.125,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "cab108d683c228056c4daf84f505d43aec8281924df1731626ee55cdaad64ae9"
+ },
+ "1x/plain/dark025": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025-receded": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "e55f812994cfb19d16e424aca29b376bca8b98229169dd5646822cc9846e3a3c"
+ },
+ "1x/plain/dark025/far0": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0,
+   "tintAlphaFar2x": 0
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025/far2x+0.2": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.2
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025/far2x+0.45": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025/far2x+1": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 1
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025/far1x+0.3": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025/far1x+0.3/far2x+0.45": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ed88abeb694afe3b2c9e3f64df3604a389361a256db97f2083b1470bb5a1ede4"
+ },
+ "1x/plain/dark025-receded/far2x+0.45": {
+  "scene": "w47-span-quad-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "e55f812994cfb19d16e424aca29b376bca8b98229169dd5646822cc9846e3a3c"
+ },
+ "1x/toned/default": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {},
+  "width": 700,
+  "height": 200,
+  "sha256": "ba40d66fba6f5508719d9422d20f35b44100ab7d52929fed4b4250a36e629f96"
+ },
+ "1x/toned/macos26-dark": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.1104,
+    0.2706,
+    0.9505
+   ],
+   "backdropToneResponseThin": [
+    0.011,
+    0.0284,
+    0.1611
+   ],
+   "backdropToneResponseThick": [
+    0.0131,
+    0.0238,
+    0.1006
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.0265,
+     "specularGain": 0,
+     "rimLevelGain": 2.334
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.063,
+    "thinOcclusionBright": 0.063,
+    "thickOcclusionAt96": 0.278,
+    "thickOcclusionAt128": 0.301,
+    "thickOcclusionAt160": 0.324,
+    "liftAmplitude": 0.0051,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "33ddecae17ba79db01b987f3c50241efb86408ceeab5d582c117fd44fb3d2127"
+ },
+ "1x/toned/light05": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.46,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.214,
+    0.2835,
+    0.5383,
+    0.937
+   ],
+   "backdropToneResponseThick": [
+    0.242,
+    0.3074,
+    0.5554,
+    0.957
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23074004852434915,
+   "backdropToneBlackThick": 0.23074004852434915
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "50946b6515671fef4830260d0bc27dee81099599ac0c09efbc62eed28d062067"
+ },
+ "1x/toned/light05-receded": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.46,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.7,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 256,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 14,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.7,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.04,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1647,
+    0.2809,
+    0.4775,
+    0.8293
+   ],
+   "backdropToneResponseThick": [
+    0.1442,
+    0.2823,
+    0.4695,
+    0.832
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.23455058216100522,
+   "backdropToneBlackThick": 0.23455058216100522,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "9cd35232140f69e51b95432f3b45dc737fb35274b55dbc23a7b71cd7a1677451"
+ },
+ "1x/toned/dark05": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.035,
+    0.169,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "b38623fcb510097de108c4b8abd311d8c487937b0e284da90e118d8576895035"
+ },
+ "1x/toned/dark05-receded": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.164,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "92369f2ad4a7e705365a7d96c89ed2ed840faacffdeb2244890f7cb1de03c2f7"
+ },
+ "1x/toned/light025": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0.05,
+     "specularGain": 0,
+     "rimAlpha": 0.115,
+     "rimLevelGain": -0.122,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0.038,
+   "rimCollapsedTinted": 0.52,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.5289,
+   "tintShadeLight": 1.0175,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0244,
+    "thinOcclusionBright": 0.0227,
+    "thickOcclusionAt96": 0.087,
+    "thickOcclusionAt128": 0.165,
+    "thickOcclusionAt160": 0.2518,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.087,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.75,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 0.25,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 20,
+   "sizeScatterRampStartThin1x": 0.72,
+   "sizeScatterRampStartThick1x": 0.52,
+   "sizeScatterRampStartThin2x": 0.65,
+   "sizeScatterRampStartThick2x": 0.21,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0.21,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1613,
+    0.2201,
+    0.5336,
+    0.9366
+   ],
+   "backdropToneResponseThick": [
+    0.1871,
+    0.2338,
+    0.5159,
+    0.9401
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.5,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.282,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.17804,
+   "backdropToneBlackThick": 0.17804,
+   "sizeHeavySecondShareFar2x": -0.25
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "ff47fa148f09a56ef0b2e84a40dfba4c5f10749d87697ebadaf493d0d2a28962"
+ },
+ "1x/toned/light025-receded": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "optics": {
+    "regular": {
+     "blurSigma": 1.25,
+     "tintAlpha": 0.3,
+     "shadowAlpha": 0,
+     "specularGain": 0,
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "rimWidth2x": 5.85,
+     "rimLitExponent": 0.85,
+     "rimAlongSideSlope": 0.1,
+     "rimWidth": 6.5
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    1,
+    1,
+    1
+   ],
+   "adaptiveTintLight": [
+    1,
+    1,
+    1
+   ],
+   "sizeShadowGainMax": 1,
+   "backdropToneSizeBias": 0.05,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "rimTintChroma": 1,
+   "tintShadeDark": 0.0288,
+   "tintShadeLight": 0.76,
+   "tintShadeStrength": 1,
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "offsetPx": 7.95,
+    "sigmaPx": 8.96,
+    "spreadPx": 0.5,
+    "sizeGain": 0,
+    "sigmaSlopePerSpan": 0.1314,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.8328
+   },
+   "backdropToneLow": 0,
+   "increasedOcclusionLift": 0.96,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "lensSizeGainMax": 2.6,
+   "lensRefractionGain": 0.745,
+   "lensHeightPerSpan": 0.25,
+   "lensHeightMax": 20,
+   "lensAmountPerSpan": 0.8,
+   "lensAmountMax": 60,
+   "lensThicknessReference": 8,
+   "lensExtentGain": 1.337,
+   "lensProfileExponent": 3.69,
+   "lensOvalization": 0.8,
+   "lensOvalizationSpanMin": 64,
+   "lensOvalizationSpanMax": 72,
+   "sizeScatterGainMax": 8,
+   "sizeScatterFloor": 1,
+   "sizeScatterSpanMax": 256,
+   "sizeScatterGainMax2x": 4.8,
+   "sizeScatterFloor2x": 1,
+   "sizeScatterSpanMax2x": 128,
+   "sizeScatterGainFar2x": 9.9,
+   "sizeHeavyTapSigma": 14,
+   "sizeHeavyTapSigma2x": 18,
+   "sizeScatterRampStartThin1x": 0.55,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThin2x": 0.1,
+   "sizeScatterRampStartThick2x": 0,
+   "sizeScatterRampStartFar1x": 0.2,
+   "sizeScatterRampStartFar2x": 0,
+   "sizeScatterRampReach1xPx": 80,
+   "sizeScatterRampReach2xPx": 100,
+   "sizeOcclusionGain": 0.05,
+   "backdropToneMax": 1,
+   "backdropToneHigh": 0.0001,
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.1105,
+    0.2045,
+    0.4217,
+    0.8117
+   ],
+   "backdropToneResponseThick": [
+    0.0894,
+    0.231,
+    0.4288,
+    0.8086
+   ],
+   "backdropToneResponseStrength": 1,
+   "rimLitAxis": [
+    -0.7071,
+    -0.7071
+   ],
+   "collapseTransmission": 0.017,
+   "collapseTransmission2x": 0.07,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 2,
+   "sizeHeavySecondShare": 0.25,
+   "sizeScatterScaleGain": 0,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.349,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.180351,
+   "backdropToneBlackThick": 0.180351,
+   "sizeHeavySecondShareFar2x": -0.125,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "reducedTintAdaptation": 0.88,
+   "refractionScale": {
+    "approximate": 0
+   },
+   "increasedOcclusionLiftByPolicy": {
+    "reduceTransparency": 0.88,
+    "increaseContrast": 0.98
+   },
+   "strongBorderRim": {
+    "rimWidth": 1,
+    "rimAlpha": -3.5
+   }
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "cab108d683c228056c4daf84f505d43aec8281924df1731626ee55cdaad64ae9"
+ },
+ "1x/toned/dark025": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025-receded": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "e55f812994cfb19d16e424aca29b376bca8b98229169dd5646822cc9846e3a3c"
+ },
+ "1x/toned/dark025/far0": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0,
+   "tintAlphaFar2x": 0
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025/far2x+0.2": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.2
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025/far2x+0.45": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025/far2x+1": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar2x": 1
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025/far1x+0.3": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025/far1x+0.3/far2x+0.45": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "backdropToneResponseThick": [
+    0.031,
+    0.0414,
+    0.173,
+    0.196
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 0,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.9,
+     "rimAlpha": 0.055,
+     "specularGain": 0,
+     "rimLevelGain": 0.44,
+     "rimWidth": 2.2
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0.0196,
+    "thinOcclusionBright": 0.0231,
+    "thickOcclusionAt96": 0.1038,
+    "thickOcclusionAt128": 0.2188,
+    "thickOcclusionAt160": 0.3443,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0.038,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.336,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.014443843596092545,
+   "backdropToneBlackThick": 0.014443843596092545,
+   "tintAlphaFar1x": 0.3,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "a0529f45c4c2bb40be884a5a495c67c799e45538dd42a3e7eec7699528a286e5"
+ },
+ "1x/toned/dark025-receded/far2x+0.45": {
+  "scene": "w47-span-quad-toned-1x",
+  "patch": {
+   "backdropToneAnchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "backdropToneResponseThin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "backdropToneResponseThick": [
+    0,
+    0.0155,
+    0.167,
+    0.186
+   ],
+   "backdropToneResponseStrength": 1,
+   "tintShadeStrength": 1,
+   "optics": {
+    "regular": {
+     "tint": [
+      0.05,
+      0.05,
+      0.05
+     ],
+     "tintAlpha": 0.89,
+     "rimAlpha": 0,
+     "specularGain": 0,
+     "rimLevelGain": 0,
+     "rimWidth": 2.2,
+     "shadowAlpha": 0
+    },
+    "clear": {
+     "rimAlpha": 0,
+     "rimLevelGain": 0,
+     "shadowAlpha": 0
+    }
+   },
+   "adaptiveTintDark": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "adaptiveTintLight": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "outerShadow": {
+    "thinOcclusionDark": 0,
+    "thinOcclusionMid": 0,
+    "thinOcclusionBright": 0,
+    "thickOcclusionAt96": 0,
+    "thickOcclusionAt128": 0,
+    "thickOcclusionAt160": 0,
+    "liftAmplitude": 0,
+    "liftSpanMin": 64,
+    "liftSpanFull": 118,
+    "liftBlurSigmaCss": 40,
+    "reducedTransparencyOcclusion": 0,
+    "sigmaPx": 9.04,
+    "sigmaSlopePerSpan": 0.1215,
+    "sigmaSpanRefPx": 96,
+    "sigmaThinOffsetPx": -6.318,
+    "spreadPx": 1.8,
+    "offsetPx": 7.95
+   },
+   "sizeHeavyTapSigma": 0,
+   "sizeHeavyTapSigma2x": 14,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "sizeScatterFloor": 0.34,
+   "sizeHeavySecondSigma": 0,
+   "sizeHeavySecondSigma2x": 0,
+   "sizeHeavySecondShare": 0,
+   "sizeScatterScaleGain": -2,
+   "sizeScatterScaleRef": 0.03,
+   "bodyChromaRetention": 0.142,
+   "backdropToneBlackStrength": 1,
+   "backdropToneBlackThin": 0.006995410187265387,
+   "backdropToneBlackThick": 0.006995410187265387,
+   "backdropToneAbscissa": {
+    "kind": "silhouette"
+   },
+   "tintChromaScale": 0,
+   "tintShadeCollapseRetention": 1,
+   "rimCollapsed": 0,
+   "rimCollapsedTinted": 0,
+   "sizeScatterRampStartThick1x": 0.3,
+   "sizeScatterRampStartThick2x": 0.04,
+   "sizeScatterRampStartFar2x": 0.04,
+   "tintShadeDark": 0.0202,
+   "tintShadeLight": 1.46,
+   "sizeScatterRampStartThin1x": 1,
+   "sizeScatterRampStartThin2x": 1,
+   "sizeScatterHeavyShareThick1x": 0.25,
+   "tintAlphaFar2x": 0.45
+  },
+  "width": 700,
+  "height": 200,
+  "sha256": "e55f812994cfb19d16e424aca29b376bca8b98229169dd5646822cc9846e3a3c"
+ },
+ "golden/field-mask": {
+  "scene": "field-mask",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "d072e5b2ec3031f8bb873fa29112edf3913698d0f1363070f5c9e297176d8c28"
+ },
+ "golden/refraction-checkerboard": {
+  "scene": "refraction-checkerboard",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "76ce109bca09c06ebeb02d2f75dc014b16a892d1dcecebb548341d951e8f66bc"
+ },
+ "golden/body-ramp-1x": {
+  "scene": "body-ramp-1x",
+  "patch": {},
+  "width": 200,
+  "height": 120,
+  "sha256": "6972446f6b5a927a7345cb255a730a310a9d3f5cfb00c47e95572ee414319a4c"
+ },
+ "golden/placed-checkerboard": {
+  "scene": "placed-checkerboard",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "b72eb9c574c27ef50976926635f89a8ec4312fd1490ab65c5e26b74f65977cfd"
+ },
+ "golden/lens-size-scaling": {
+  "scene": "lens-size-scaling",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "b8e5e1913a2a8f5bdd6d3e81ff100a6440fd05af8df3ab2a78df076bbbe6acd3"
+ },
+ "golden/tint-adaptation-light": {
+  "scene": "tint-adaptation-light",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "a78f25eaf9c2e05f06efbb3f7b7ac30e37d2f87ac58273ca682c7e9d866b2ca7"
+ },
+ "golden/tint-adaptation-dark": {
+  "scene": "tint-adaptation-dark",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "0bb46247f8c8c87f2ee61a66c309b8369a26b31751148209581279c88264c7b5"
+ },
+ "golden/rim-two-references": {
+  "scene": "rim-two-references",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "8ebb1e803752a64b06ada018cabc3d1ecf9b09f8bc30e37b399c743a74161422"
+ },
+ "golden/concentric-nesting": {
+  "scene": "concentric-nesting",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "cc62565964f76d0cbd6dc75536903564f5ac069baf0db03fc78ce3a0671c0040"
+ },
+ "golden/union-pair": {
+  "scene": "union-pair",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "706cd6638dbb064f3287efa5c83985c927c05d00b460635a95d7da45e608c602"
+ },
+ "golden/collapsed-tone": {
+  "scene": "collapsed-tone",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "521a11284491edd26e21528e457ef54dcb1b00b6ffb72dc25dd9794fd85db855"
+ },
+ "golden/collapsed-tone-textured": {
+  "scene": "collapsed-tone-textured",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "85d4b67f1581ede28e8fbad4ec0841e63748ceae5a8e2d95d8a196897ab55a4c"
+ },
+ "golden/highlight-press-glow": {
+  "scene": "highlight-press-glow",
+  "patch": {},
+  "width": 400,
+  "height": 240,
+  "sha256": "0b9dc460a6616c5a3d6fb69a6b97a783904982822d90b2660954bf44099519f1"
+ }
+}

@@ -1,0 +1,99 @@
+W47 G0 (a), operator 1 — every reader of the material's base alpha (`tintAlpha`, the optics
+uniform's `ou.tint.w`) and of the alpha downstream of it, with what it reads after the operator
+lands and why. Charter G0 (a), Design "Operator 1" ("Where it is read, and where not"), X65.
+
+The law, at the one site the optics pass computes the size law's alpha:
+
+  alphaBase(px)  = clamp(tintAlpha + tintAlphaFarAtScale(dpr) * farS(span(px)), 0, 1)
+  sizedAlpha(px) = alphaBase + sizeOcclusionGain * sizeK(px) * (1 - alphaBase)
+
+GRADED = reads alphaBase or a quantity derived from it; UNGRADED = reads tintAlpha before the
+grading. At the shipped leaves (0, 0) the two are the same number on every pixel and surface.
+
+WebGPU tier, the optics pass (packages/renderer-webgpu/src/wgsl/optics.ts)
+---------------------------------------------------------------------------
+ou.tint.w                    the operator's own input. Before W47 its ONLY reader was the
+                             `sizedAlpha` line; after it, its only reader is the `alphaBase`
+                             line. No reader is left on the ungraded alpha in the shader.
+sizedAlpha                   GRADED by construction (lifts from alphaBase).
+W9 solve: nominal, the       GRADED. The solve runs per pixel at sizedAlpha against the group's
+  divisor in `shift`,        linear mean, so it holds the composite level at each pixel's own
+  achieved, alphaTarget,     alpha wherever it is unclamped at full authority — the design the
+  solvedAlpha                charter rests on (Grounding; W46 X61). Reading the ungraded alpha
+                             here would solve the neutral for an alpha the pixel does not draw.
+adaptedAlpha and the         GRADED (from solvedAlpha). The collapse's (colour, alpha) pair is
+  collapse's adapted colour  the exact composite of mix(material, target, k); un-premultiplying
+                             by an alpha the material does not have would break that identity.
+presentAlpha                 GRADED (adaptedAlpha * presence): the composite `mix(backdrop,
+                             adapted, presentAlpha)`, the chroma retention's (1 - presentAlpha)
+                             reading, and the layer alpha `bodyAlpha` on the unsampled path.
+DOM secant input             GRADED (adaptedAlpha - transmission). The DOM branch is the per-pixel
+  (dom_material_alpha)       mirror of platform-web's `materialAtBackdrop`, which grades too.
+materialAlpha, rimLuma,      GRADED: the inner shadow folds into the material's composite (its
+  the rim amplitude          keep reads no alpha), and the rim's amplitude law reads the level of
+                             that composite (rimLuma), so the rim follows the drawn body's level
+                             as the CSS tier's rim does (`materialAtBackdrop`'s `level`).
+highlight pass, field pass,  read no tint alpha at all (HighlightUniforms carries no alpha; the
+  analysis, silhouette-tone  other passes have no material alpha). Unaffected.
+
+WebGPU tier, CPU (packages/renderer-webgpu/src)
+------------------------------------------------
+opticsUnderPolicy            UNGRADED, and upstream of the grading by design: it applies the
+  (material.ts; renderer.ts  accessibility occlusion lift to `tintAlpha`, and the result is what
+  packs it into d[15])       is packed into `ou.tint.w`. The shader grades AFTER the lift, so the
+                             far delta adds to the lifted alpha and is clamped (the occlusion gain
+                             composes the same way); it is the only order the shader admits,
+                             because `ou.tint.w` arrives already lifted. Ruled by the orchestrator
+                             after review (2026-10-06): the same order on both tiers.
+                             OPERATOR 1 UNDER REDUCE TRANSPARENCY / OPAQUE OCCLUSION IS UNMEASURED:
+                             the lifted alpha is already near 1 there and the clamp takes most of
+                             the delta, and no bed has read that combination (as no accessibility
+                             leaf at 0.25 has been read).
+tintAlphaFarAtScale,         new; the resolver (rampAtScale(far1x, far2x, dpr)) and the CPU
+  spanGradedTintAlpha        statement of the shader's `alphaBase`, used by tier-coherence's pin.
+sizeOcclusionAlpha,          UNGRADED, deliberately. Their contract is the occlusion term alone on
+  sizeOcclusionAlphaAt       the alpha they are given; no runtime path calls them (tests, and
+                             historical result scripts that reproduce past waves, do). A caller
+                             that wants the graded alpha composes spanGradedTintAlpha first, as
+                             tier-coherence does. Folding the grading in would change what every
+                             historical script that calls them computes.
+adaptedTintAlpha,            take the alpha as an argument; no runtime renderer caller. Whatever
+  adaptedTintColour          their caller hands them.
+renderer.ts bodySigmaCssFor  reads the policy-folded blur σ only, never the alpha.
+
+CSS tier (packages/platform-web/src)
+-------------------------------------
+materialAtBackdrop           GRADED — the MIRROR (X65). `occluded.tintAlpha =
+  (optics.ts)                sizeOcclusionAlphaAt(spanGradedTintAlpha(policy-lifted alpha, span,
+                             size, dpr), foldedThickness, size)`: per surface, after the policy
+                             lift and before the occlusion term, as the shader orders it. `size`
+                             is the DOCUMENT's (`sourceSize(profile)`), not the light-0.25 hold
+                             `cssTierSourceSize` applies to this tier's scatter, so the far curve
+                             is the WebGPU tier's own. Its callers: root.ts (the CSS reading and
+                             the DOM-GPU scalar), and through it every downstream alpha below.
+toneRespondedSourceOptics,   GRADED (they take `occluded` / `responded`): the CSS tier's W9 solve
+  adaptedSourceOptics,       and collapse, its level (`materialLuminance`), the rim amplitude read
+  materialLuminance, rim     at that level, the inner shadow fold, the encoded conversion.
+  level, innerShadowed...,
+  cssOpticsFromSource
+root.ts: interior,           GRADED: all read `shadowedSource` (= atBackdrop.adapted, inner-
+  policySource, the tinted   shadowed). That includes the foreground (ink) decision on the GPU
+  layer, gpuMaterial, the    tier (`gpuTierForegroundLevel(gpuMaterial, …)`), so the ink follows
+  ink level                  the alpha the surface draws.
+css-tier.ts: rgba() body,    GRADED: the alpha `cssTierDeclarations` receives is the surface's
+  --vitrea-occlusion, the    already lifted, sized and converted alpha (css-tier.ts says so at
+  author layer, presence     `policyOptics`); it does not re-apply either term.
+cssTintAlpha / cssTierOptics UNGRADED: the declared material with no surface and no span (the
+  (no surface)               module default rows, the sampling padding). The occlusion gain is not
+                             applied there either; a spanless reading has no far curve to read.
+root.ts group-level          UNGRADED: group-level, spanless; it is read for the proxy's blur
+  opticsUnderPolicy(base)    radius and saturation, not for an alpha.
+gpuOptics (sourceOptics)     no alpha taken: read for the inner shadow's keep
+  for the band and the       (`interiorShadowKeep`: shadowDepth, shadowAlpha) and the rim band's
+  inner shadow               constants (`bandSource`, its amplitude at the backdrop tone's level).
+                             The shader's inner shadow and rim read no material alpha either.
+
+Calibration, react, core
+------------------------
+packages/calibration/src, react/src, core/src: no reader of the material alpha (core states the
+policy regime; calibration reads rows and documents). MATERIAL_PATCH_KEYS admits the two leaves.

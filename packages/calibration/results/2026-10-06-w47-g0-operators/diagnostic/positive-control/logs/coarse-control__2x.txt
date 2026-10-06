@@ -1,0 +1,47 @@
+census diagnostic-positive coarse-control/2x: passes (22 annotated, refusals [])
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-2x-dark-standard-glass0.25 --renderer webgpu --candidate-document /Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/../candidates/control/candidate.json --set probe --scene checkerboard-64__rrect-md__inactive --alpha --write-partial --out-matrix /Users/new/vitrea-w47/diag/positive-control/coarse-control/2x/matrix.json
+
+── web capture (apple-macos-27.0-2x-dark-standard-glass0.25, 1 scene(s)) ─────────────────────────────
+(node:40358) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/control/candidate.json declarationSha256=35df1fd1af5a name=apple-macos-27.0-glass0.25-w47-diagnostic-control glassTintAmount=0.25
+
+checkerboard-64__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/diag/positive-control/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/
+
+1 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (1 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w47/diag/positive-control/coarse-control/2x/matrix.json (1 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-dark-standard-glass0.25    checkerboard-64__rrect-md__inactive           0.819    7.37   0.953   0.0248    0.098/ 0.031    0.1492/ 0.1738    0.0821/ 0.0393    0.0000/ 0.0184
+
+2x-dark-standard-glass0.25    probe       n= 1  IoU mean 0.8189 worst 0.8189   contour p95 mean 62.50 worst 62.50   SSIM mean 0.9533 worst 0.9533   dE mean 0.02481 worst 0.02481
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+2x-dark-standard-glass0.25    checkerboard-64__rrect-md__inactive             60000        60064  0.9989         1.00         1.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-dark-standard-glass0.25    checkerboard-64__rrect-md__inactive             0.48  0.6213/ 0.0513    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w47/g0-diag/packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/candidates/control/candidate.json
+web accessibility for apple-macos-27.0-2x-dark-standard-glass0.25 (native standard): browser preferences, no overrides
+(node:40229) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

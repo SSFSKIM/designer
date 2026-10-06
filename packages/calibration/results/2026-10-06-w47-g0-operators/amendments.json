@@ -1,0 +1,100 @@
+{
+  "schema": "w47-protocol-amendments-1",
+  "amendments": [
+    {
+      "n": 1,
+      "supersedes": "2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579",
+      "declarationSha256": "2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e",
+      "reason": "Decision Log 8 (the parent, 2026-10-06, after G0's clause-5 stop): part 1's one amendment re-states the three ladder bars of clause 5 in the forms the wave's hashed instruments already use - operator 1 as the landing rule's partition (cuts/rule.py) on the five thick rest cells against Apple, operator 2 on T1-fine (the depth-split diagnostic's E and R through W44 G1's readings.py), the joint as both readings together on the four ladder cells with the photo inactive ratio held - and adds the level check's unexplained excesses beside L1, not gated. The ops only ADD (items ladders and level, key decisionLog8): protocol.json's bars and results.json's readings stay as hashed and read; no cell set, grid, target, reference, selection, decision kind or landing-rule clause changes; ladder (ii) is not re-stated. Three sources re-pinned: declare.py, which refused any part-1 amendment after a ladder render and now admits exactly one additive content amendment of part 1 after the ladders (validated on read), and its test and recorded run.",
+      "cause": "11480dfbe",
+      "charter": "docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md@91dff7566",
+      "ruling": "### Decision Log 8 \u2014 RULED 2026-10-06 (the parent, after G0's clause-5 stop): the ladder bars re-stated once\n\n*Finding (\u00a75.211 \u00a78):* both operators move their targets in the predicted direction and stop short of\ntheir declared bars. Operator 1's closest rung leaves the two coarse thick checker cells 1.4\u20132 B UNDER\nthe reference, which the reference itself draws under Apple, while the thick fine and text cells come\nwithin 1 B and the thin cells keep point A's gain. Operator 2 removes 74\u2013104 % of the fine-band excess\n(the diagnostic's statistic) but about half of the whole-band excess the bar was written in, plateauing\nnear 2.9 B on the span-160 cell at 1x against 3 B. The joint composition misses 2 B on three of four cells.\n\n*Ruling:* part 1's ONE amendment is spent to re-state the three bars in the forms the wave's own hashed\ninstruments already use; no cell set, grid, target or landing-rule clause changes; the existing ladder\nrenders are re-read under them, with no new render.\n1. Operator 1's bar is the landing rule's own partition on the five thick rest cells against Apple: no\n   thick cell away beyond 3 B, at most two of five beyond B, every thick cell that was over Apple at the\n   reference moving toward it; the thin clause and L1 unchanged. A coarse thick cell drawn further under\n   Apple counts as away.\n2. Operator 2's bar is read on T1-fine (W44's two-reader rule: a localised feature on the band that\n   carries it, the whole band reported beside it): both fine inactive cells' fine-band excess at least\n   halved on both scales; the coarse and photo guards unchanged; the whole-band fall reported at every\n   rung and carried to the gate.\n3. The joint bar is both readings together on the four ladder cells, with the photo inactive ratio held.\n4. The level check's unexplained excesses are read beside L1 at every fit stage and in the gate report,\n   not gated.\n*Why this is not moving the bar to the data:* the bars are re-stated to the hashed landing rule's\npartition and to the declared fine-band reader, not to numbers chosen from the result; the gate, hashed\nin part 1 and unchanged, remains the arbiter (W42, W44 and W45's lesson: a per-statistic\nnever-worse-than-reference veto fails a model that is better on average). If both operators separate\nunder the re-stated bars, part 2 is drafted and hashed; one separating and one not STOPS for the parent;\nneither closes the wave at G0 with the finding and the amendment recorded.\n",
+      "ops": [
+        {
+          "op": "add",
+          "path": [
+            "items",
+            10,
+            "declared",
+            "decisionLog8"
+          ],
+          "to": {
+            "ruling": "Decision Log 8",
+            "what": "Part 1's one amendment (docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md, Decision Log 8): the three ladder bars of clause 5, re-stated. ladders/protocol.json's bars (i), (iii) and (iv) stay as hashed and as read in ladders/results.json; these re-stated bars are read beside them on the SAME renders, with no new render. No cell set, grid, target, reference, selection, decision kind or landing-rule clause changes; ladder (ii)'s bar is not re-stated and its reading stands.",
+            "operator 1": {
+              "ruling": "Operator 1's bar is the landing rule's own partition on the five thick rest cells against Apple: no thick cell away beyond 3 B, at most two of five beyond B, every thick cell that was over Apple at the reference moving toward it; the thin clause and L1 unchanged. A coarse thick cell drawn further under Apple counts as away.",
+              "ladder": "i",
+              "cells": "protocol.json ladders[i].reads.thick (the five thick rest cells), unchanged",
+              "reference": "the ladders' control, read IDENTICAL to d0219cd684bf (results.json control)",
+              "reader": "cuts/rule.py `reads()` on each thick cell, the landing rule's own reader: its change band (T1; for a T-stratum cell T1-fine) partitions unchanged / toward / away by `growth_change` against the reference; its away band (T1; for a T cell T1-low) prices the growth in B. A T cell's bands are read off the rung's and the control's captures by T1-fine by W44 G1's pinned reader `results/2026-10-03-w44-g1-refit/cuts/readings.py` (`read(...)[side]['fine']`): the SD of L - G(L, sigma 4 device px), linear luminance, over the native silhouette eroded 4 CSS px; the reader the depth-split diagnostic (item `diagnostic`) and W46 G2's dark T bands use, applied to the ladder captures as they stand.",
+              "perScale": [
+                "no thick cell whose away band reads `away` with growth > awayCeilingB x B",
+                "at most awayBeyondBMax of the five whose away band reads `away` with growth > B",
+                "every thick cell over Apple at the reference on its change band (reference > native) reads `toward`",
+                "the thin clause of protocol.json ladder (i)'s bar, unchanged (summed thin-cell gain at least half of point A's)",
+                "L1 passes on its population (level.py), unchanged"
+              ],
+              "awayCeilingB": 3,
+              "awayBeyondBMax": 2,
+              "overAppleMustRead": "toward",
+              "underAppleNote": "a thick cell under Apple at the reference drawn further under it grows its error and reads `away` under growth_change; nothing else is added for it",
+              "separates": "a ladder (i) rung meets all five clauses at BOTH scales (the parent's ruling separation-both-scales, unchanged); a rung meeting at one scale only STOPS for the parent"
+            },
+            "operator 2": {
+              "ruling": "Operator 2's bar is read on T1-fine (W44's two-reader rule: a localised feature on the band that carries it, the whole band reported beside it): both fine inactive cells' fine-band excess at least halved on both scales; the coarse and photo guards unchanged; the whole-band fall reported at every rung and carried to the gate.",
+              "ladder": "iii",
+              "cells": "protocol.json ladders[iii].reads: fine checkerboard-8__rrect-md__inactive and checkerboard-8__rrect-lg__inactive; guards checkerboard-64__rrect-md__inactive and photo__rrect-md__inactive, unchanged",
+              "reader": "T1-fine by W44 G1's pinned reader `results/2026-10-03-w44-g1-refit/cuts/readings.py` (`read(...)[side]['fine']`): the SD of L - G(L, sigma 4 device px), linear luminance, over the native silhouette eroded 4 CSS px; the reader the depth-split diagnostic (item `diagnostic`) and W46 G2's dark T bands use, applied to the ladder captures as they stand",
+              "perScale": [
+                "each fine cell: E = fine(reference) - fine(native) > 0 and R = (fine(reference) - fine(rung)) / E >= fineExcessRemovedMin, the depth-split diagnostic's E and R",
+                "the guards of protocol.json ladder (iii)'s bar, unchanged: whole-band T1 k >= c - guardFloorB x B on each guard",
+                "reported beside and deciding nothing: each fine cell's whole-band fall -g / B and its fine-band error ratio |fine(rung) - fine(native)| / |fine(reference) - fine(native)|; the guards' fine band"
+              ],
+              "fineExcessRemovedMin": 0.5,
+              "guardFloorB": 1,
+              "separates": "a tap rung (sizeFineTapSigma / sizeFineTapShare) meets at BOTH scales; a receded optics.regular.blurSigma rung meeting at both scales is body-width-first (protocol.json decisions, unchanged); a rung meeting at one scale only STOPS for the parent"
+            },
+            "joint": {
+              "ruling": "The joint bar is both readings together on the four ladder cells, with the photo inactive ratio held.",
+              "ladder": "iv",
+              "cells": "the four ladder cells: checkerboard-8__rrect-md__inactive and checkerboard-8__rrect-lg__inactive at 1x and at 2x, at ladder (iv)'s one rung",
+              "reading": "'both readings together' is read as operator 1's re-stated partition and operator 2's re-stated fine-band halving, each on the four cells: the partition on whole-band T1 (the cells are stratum F, which the rule reads on T1) against the reference (no cell away beyond awayCeilingB x B, at most awayBeyondBMax beyond B, every cell over Apple at the reference reading `toward`), and R >= fineExcessRemovedMin on T1-fine; with photo__rrect-md__inactive's T1 ratio at least point A's on that cell at that scale (x0.417 at 1x, x0.460 at 2x), unchanged. Each component is reported separately, and ladder (iv) decides only name-target, as protocol.json says.",
+              "awayCeilingB": 3,
+              "awayBeyondBMax": 2,
+              "fineExcessRemovedMin": 0.5
+            },
+            "decisions": "unchanged: protocol.json `decisions` and `decisionKinds`; both operators separating drafts part 2, one separating and one not STOPS for the parent, neither closes the wave at G0 with the finding"
+          }
+        },
+        {
+          "op": "add",
+          "path": [
+            "items",
+            6,
+            "declared",
+            "decisionLog8"
+          ],
+          "to": {
+            "ruling": "The level check's unexplained excesses are read beside L1 at every fit stage and in the gate report, not gated.",
+            "reading": "level.py's `unexplained` excesses are listed beside L1 at every ladder (i) rung, at every fit stage and in the gate report; they gate nothing and L1's clauses are unchanged"
+          }
+        }
+      ],
+      "pins": {
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declare.py": {
+          "from": "1b7b5f220225978d3cad76e96eb18c1da670f34c06b700fdfb18d37f95110fa1",
+          "to": "e3a5b78cdce4e949d4552414468df21896ec0b8a87ef7ec556dc858478960a83"
+        },
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.py": {
+          "from": "c2c19236a8b4104f8baacf9c875c0004c88f51a4bde4cd5e1771799bc6081a82",
+          "to": "d1b22c018a041968ba53b8c765da8e244bb2730366192a27bf1ca0edf7f3f722"
+        },
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.txt": {
+          "from": "dab19f26091932be920ff09ff58eb55e2edfa87a998eaab3a590f5eb19734f14",
+          "to": "09057bab3d3f38b10f96eb904f653c2d84c758b3755af02ab7b0c95ab0ea4aa8"
+        }
+      },
+      "renderEvidenceAtAmendment": "after the ladders read, additive only: /Users/new/vitrea-w47/g0/packages/calibration/results/2026-10-06-w47-g0-operators/ladders/runs.jsonl, /Users/new/vitrea-w47/g0-ladders/control/1x/matrix.json, /Users/new/vitrea-w47/g0-ladders/control/2x/matrix.json, /Users/new/vitrea-w47/g0-ladders/i-a0.7/1x/matrix.json, /Users/new/vitrea-w47/g0-ladders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__webgpu.png"
+    }
+  ]
+}

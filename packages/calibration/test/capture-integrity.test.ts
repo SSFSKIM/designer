@@ -241,6 +241,21 @@ describe("the material profile document's key admission", () => {
     expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
   });
 
+  it("admits W47's far-curve grading of the transmission, both anchors (claims §5.211)", () => {
+    // Operator 1's ladders and the fit hand in candidate documents naming these leaves; a key
+    // missing here would make the driver refuse exactly the rung that reads them.
+    expect(MATERIAL_PATCH_KEYS.has("tintAlphaFar1x")).toBe(true);
+    expect(MATERIAL_PATCH_KEYS.has("tintAlphaFar2x")).toBe(true);
+    const patch = { sizeOcclusionGain: 0.4, tintAlphaFar1x: 0.1, tintAlphaFar2x: 0.45 };
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+  });
+
+  it("admits W47's fine-body tap candidate leaves (G0 (b), X66)", () => {
+    const patch = { sizeFineTapShare: 0.5, sizeFineTapSigma: 2, sizeFineTapSigma2x: 6 };
+    for (const key of Object.keys(patch)) expect(MATERIAL_PATCH_KEYS.has(key), key).toBe(true);
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+  });
+
   it("still refuses a key the renderer does not have, naming it", () => {
     const path = write({ patch: { tintChromaScale: 0, tintChroma: 0.4 } });
     expect(() => readMaterialProfileFile(path)).toThrow(/does not have: tintChroma\b/);

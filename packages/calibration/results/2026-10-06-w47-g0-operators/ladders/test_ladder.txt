@@ -1,0 +1,30 @@
+test_i (test_ladder.Bars.test_i) ... ok
+test_ii (test_ladder.Bars.test_ii) ... ok
+test_iii_and_the_selections (test_ladder.Bars.test_iii_and_the_selections) ... ok
+test_iv (test_ladder.Bars.test_iv) ... ok
+test_body_width_first_proceeds (test_ladder.NoAdmissibleWidth.test_body_width_first_proceeds) ... ok
+test_the_tap_is_named_unfitted (test_ladder.NoAdmissibleWidth.test_the_tap_is_named_unfitted) ... ok
+test_a_ladder_ii_conditional_leaf_is_struck_when_ladder_ii_did_not_meet_its_bar (test_ladder.Part2.test_a_ladder_ii_conditional_leaf_is_struck_when_ladder_ii_did_not_meet_its_bar) ... ok
+test_body_width_first (test_ladder.Part2.test_body_width_first) ... ok
+test_both_separate_narrows_tintalpha_only (test_ladder.Part2.test_both_separate_narrows_tintalpha_only) ... ok
+test_operator_1_unfitted_and_the_1x_gap (test_ladder.Part2.test_operator_1_unfitted_and_the_1x_gap)
+The name-unfitted change itself removes operator 1's leaves (declare.py `apply_changes`), so no ... ok
+test_stop_incomplete_and_one_scale (test_ladder.Part2.test_stop_incomplete_and_one_scale) ... ok
+test_a_dependent_rung_waits_for_its_selection (test_ladder.Phases.test_a_dependent_rung_waits_for_its_selection) ... ok
+test_operator_rungs_wait_for_the_runtime (test_ladder.Phases.test_operator_rungs_wait_for_the_runtime) ... 
+  WAITING on this runtime: 0 rungs: 
+ok
+test_every_override_is_admitted_and_inside_its_domain (test_ladder.Protocol.test_every_override_is_admitted_and_inside_its_domain) ... ok
+test_ladder_ii_holds_the_1x_width_and_the_1x_top (test_ladder.Protocol.test_ladder_ii_holds_the_1x_width_and_the_1x_top) ... ok
+test_ladder_iv_is_point_as_receded_scatter (test_ladder.Protocol.test_ladder_iv_is_point_as_receded_scatter) ... ok
+test_pins_the_committed_cells_and_lists_the_designs_rungs (test_ladder.Protocol.test_pins_the_committed_cells_and_lists_the_designs_rungs) ... ok
+test_every_protocol_rung_plans_exactly_what_it_requests (test_ladder.X70.test_every_protocol_rung_plans_exactly_what_it_requests) ... ok
+test_red_a_cell_compare_would_not_plan (test_ladder.X70.test_red_a_cell_compare_would_not_plan) ... ok
+test_red_a_requested_cell_no_dark_profile_declares (test_ladder.X70.test_red_a_requested_cell_no_dark_profile_declares) ... ok
+test_red_a_rung_matrix_missing_one_declared_row (test_ladder.X70.test_red_a_rung_matrix_missing_one_declared_row) ... ok
+test_x69_no_rung_names_a_withheld_cell (test_ladder.X70.test_x69_no_rung_names_a_withheld_cell) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.180s
+
+OK

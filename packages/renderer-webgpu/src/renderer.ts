@@ -94,7 +94,9 @@ import {
   scatterGainAtScale,
   scatterGainFarAtScale,
   heavySecondTapSigmaAtScale,
+  fineTapSigmaAtScale,
   heavySecondShareFarAtScale,
+  tintAlphaFarAtScale,
   heavyTapSigmaAtScale,
   scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
@@ -572,7 +574,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         heavySecondSigmaCssFor(sourceId),
         existing.heavy2SigmaCss,
       );
-      if (sameDensity && sameSigma && sameHeavy && sameHeavy2) continue;
+      const sameFine = sameHeavySigma(fineSigmaCssFor(sourceId), existing.fineSigmaCss);
+      if (sameDensity && sameSigma && sameHeavy && sameHeavy2 && sameFine) continue;
       requests.push({
         sourceId,
         epoch: existing.builtEpoch,
@@ -680,6 +683,16 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
   const heavySecondSigmaCssFor = (sourceId: string): number => {
     if (bodySigmaCssFor(sourceId) <= 0) return 0;
     return heavySecondTapSigmaAtScale(material, viewport.devicePixelRatio);
+  };
+
+  /**
+   * W47's fine-body width in CSS px. A source with no body asks for no fine component either,
+   * on the heavy taps' rule; otherwise the resolver owns the share gate and scale interpolation.
+   * There is no DPR division here: unlike the first heavy tap, these anchors are already CSS px.
+   */
+  const fineSigmaCssFor = (sourceId: string): number => {
+    if (bodySigmaCssFor(sourceId) <= 0) return 0;
+    return fineTapSigmaAtScale(material, viewport.devicePixelRatio);
   };
 
   /**
@@ -793,6 +806,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // the pyramid allocates nothing and encodes nothing, exactly as for
           // the first one.
           heavy2SigmaCss: heavySecondSigmaCssFor(request.sourceId),
+          fineSigmaCss: fineSigmaCssFor(request.sourceId),
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -1279,10 +1293,18 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef,
         sizeHeavySecondShare: material.sizeHeavySecondShare,
         heavySecondEnabled: pyramid?.heavy2 !== undefined,
+        // W47's body tap has no pose inside it: the receded document alone names a live share.
+        // Presence, not width or share independently, is the shader's allocation gate.
+        fineTapShare: material.sizeFineTapShare,
+        fineTapEnabled: pyramid?.fine !== undefined,
         // W45's grading of that share on the far curve (claims §5.205): resolved at this group's
         // ratio here, beside the share, and multiplied by the shader's own per-pixel `farS` —
         // never by a per-group span, because a group's members have different ones.
         sizeHeavySecondShareFar: heavySecondShareFarAtScale(material, dpr),
+        // W47 operator 1 (claims §5.211): the transmission's far-curve delta, resolved at this
+        // group's ratio and multiplied by the shader's own per-pixel `farS` — never by a
+        // per-group span, for the same reason as the share's above.
+        tintAlphaFar: tintAlphaFarAtScale(material, dpr),
         // W31's body chroma retention (claims §5.164): a material constant, per
         // group, with no source-side half — the chromaticity it restores toward
         // is the blurred backdrop the optics pass already sampled per pixel.
@@ -1448,6 +1470,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
                 body: pyramid.body.createView(),
                 heavy: pyramid.heavy?.createView(),
                 heavy2: pyramid.heavy2?.createView(),
+                fine: pyramid.fine?.createView(),
               },
       });
 

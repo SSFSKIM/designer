@@ -1,0 +1,440 @@
+{
+  "what": "Positive liveness controls requested by orchestrator after the declared diagnostic",
+  "definition": "Differing pixel means any RGB channel differs; max code difference is maximum absolute RGB8 difference, whole PNG",
+  "rows": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-64__rrect-md__inactive",
+      "widthCss": 6,
+      "differentPixels": 2459,
+      "totalPixels": 64000,
+      "maxCodeDifference": 1,
+      "controlSha256": "a20995dacb5a3d7cccb811d48f59f0b9560c8bb094103814edfe8a7e6a44e13e",
+      "deepSha256": "0cc9451e026d787604443dcba639a615f84f9871dc2111b973f91f06c1a503c0",
+      "trace": {
+        "share": 1,
+        "fineTexturePresent": 1,
+        "deepSelector": 1,
+        "plan": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 14.69839188482876,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 0.37499999999999983
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "widthCss": 40,
+      "differentPixels": 0,
+      "totalPixels": 64000,
+      "maxCodeDifference": 0,
+      "controlSha256": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+      "deepSha256": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+      "trace": {
+        "share": 1,
+        "fineTexturePresent": 1,
+        "deepSelector": 1,
+        "plan": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 42.19055254437894,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 2.5
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "erodedBody": {
+        "differentPixels": 0,
+        "pixels": 13184,
+        "maxCodeDifference": 0
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "widthCss": 40,
+      "differentPixels": 113,
+      "totalPixels": 64000,
+      "maxCodeDifference": 1,
+      "controlSha256": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0",
+      "deepSha256": "905880c70e0e7a4babf4b3242c58c7f3e5e7b45bc0e4409694e20368abb68043",
+      "trace": {
+        "share": 1,
+        "fineTexturePresent": 1,
+        "deepSelector": 1,
+        "plan": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 42.19055254437894,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 2.5
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "erodedBody": {
+        "differentPixels": 105,
+        "pixels": 40624,
+        "maxCodeDifference": 1
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-64__rrect-md__inactive",
+      "widthCss": 6,
+      "differentPixels": 51734,
+      "totalPixels": 256000,
+      "maxCodeDifference": 5,
+      "controlSha256": "a40d65a1798a30fc7089e80d6322fe2fa53c8702c85a7404436098dd2c770e85",
+      "deepSha256": "10bba586b23d9678395a6f3e7f6423dd55440a35554bca8ba05125caddfa3669",
+      "trace": {
+        "share": 1,
+        "fineTexturePresent": 1,
+        "deepSelector": 1,
+        "plan": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 9.219544457292887,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 0.7904638570959459
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "widthCss": 40,
+      "differentPixels": 0,
+      "totalPixels": 256000,
+      "maxCodeDifference": 0,
+      "controlSha256": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+      "deepSha256": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+      "trace": {
+        "share": 1,
+        "fineTexturePresent": 1,
+        "deepSelector": 1,
+        "plan": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 40.607881008493905,
+          "finePlan": {
+            "level": 5,
+            "residualSigmaTexels": 2.3950967798736102
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "erodedBody": {
+        "differentPixels": 0,
+        "pixels": 52648,
+        "maxCodeDifference": 0
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "widthCss": 40,
+      "differentPixels": 971,
+      "totalPixels": 256000,
+      "maxCodeDifference": 1,
+      "controlSha256": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9",
+      "deepSha256": "28efeed2ea58ee304a4f55d1a85ef5361826826f27dcea6740de96d3d7d34eec",
+      "trace": {
+        "share": 1,
+        "fineTexturePresent": 1,
+        "deepSelector": 1,
+        "plan": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 40.607881008493905,
+          "finePlan": {
+            "level": 5,
+            "residualSigmaTexels": 2.3950967798736102
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "erodedBody": {
+        "differentPixels": 937,
+        "pixels": 162318,
+        "maxCodeDifference": 1
+      }
+    }
+  ],
+  "originalDiagnosticDeepTrace": [
+    {
+      "label": "deep",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "share": 1,
+      "textureAllocatedAndGateEnabled": 1,
+      "form": 1,
+      "finePlan": {
+        "level": 4,
+        "residualSigmaTexels": 0.37499999999999983
+      },
+      "note": "d[134] is assigned from pyramid.fine !== undefined; binding12 receives that texture.createView. See scratch-renderer.patch."
+    },
+    {
+      "label": "deep",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "share": 1,
+      "textureAllocatedAndGateEnabled": 1,
+      "form": 1,
+      "finePlan": {
+        "level": 4,
+        "residualSigmaTexels": 0.37499999999999983
+      },
+      "note": "d[134] is assigned from pyramid.fine !== undefined; binding12 receives that texture.createView. See scratch-renderer.patch."
+    },
+    {
+      "label": "deep",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "share": 1,
+      "textureAllocatedAndGateEnabled": 1,
+      "form": 1,
+      "finePlan": {
+        "level": 4,
+        "residualSigmaTexels": 0.7904638570959459
+      },
+      "note": "d[134] is assigned from pyramid.fine !== undefined; binding12 receives that texture.createView. See scratch-renderer.patch."
+    },
+    {
+      "label": "deep",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "share": 1,
+      "textureAllocatedAndGateEnabled": 1,
+      "form": 1,
+      "finePlan": {
+        "level": 4,
+        "residualSigmaTexels": 0.7904638570959459
+      },
+      "note": "d[134] is assigned from pyramid.fine !== undefined; binding12 receives that texture.createView. See scratch-renderer.patch."
+    }
+  ],
+  "conclusion": "Deep branch executes: broad checker structure moves at width6 on both scales. The original pitch8 sigma6 zero change is consistent with the deep component already suppressing fine structure, not a dead gate or unbound texture; the small sigma40 changes caution against claiming the entire deep texture is exactly flat. Width40 changes, if any, are tabled rather than presumed.",
+  "scope": "No operator choice, refit, holdout or referee exposure. Primary BODY verdict remains the declared four-cell sigma6 reading.",
+  "inputs": {
+    "refereeManifestSha256": "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
+    "scratchPatchSha256": "e9736a5b61d1fb138eba3df6db0bb67b5871b507e9674e8153d91cff2cd07dc1"
+  }
+}

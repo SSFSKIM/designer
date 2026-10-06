@@ -1,0 +1,27 @@
+test_a_missing_row_refuses_the_read (test_read.Reader.test_a_missing_row_refuses_the_read) ... ok
+test_an_unrendered_rung_is_not_read (test_read.Reader.test_an_unrendered_rung_is_not_read) ... ok
+test_i_unmoved_passes_l1_and_does_not_meet (test_read.Reader.test_i_unmoved_passes_l1_and_does_not_meet) ... ok
+test_ii_a_moved_1x_capture_voids_the_rung (test_read.Reader.test_ii_a_moved_1x_capture_voids_the_rung) ... ok
+test_the_control_is_identical (test_read.Reader.test_the_control_is_identical) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.821s
+
+OK
+W47 G0 (g): the ladders read (protocol sha256 757db8651fd1)
+control: IDENTICAL (130 of 130 rows pixel- and measurement-identical to d0219cd684bf)
+
+  (i) i-a0.7                 no; L1 passes
+  (ii) ii-w6-d0.3-t256        no
+  not read i-a0.8: not rendered
+
+ladder (i): INCOMPLETE; meets []
+ladder (ii): INCOMPLETE; meets []
+ladder (iii): INCOMPLETE; meets []
+ladder (iv): INCOMPLETE; meets []
+operator 1: {"separates": false, "complete": false, "rungs": [], "oneScaleOnly": []}
+2x width: {"meets": false, "complete": false, "rungs": []}
+operator 2: {"separates": false, "bodyWidthMeets": false, "complete": false, "rungs": [], "bodyRungs": [], "oneScaleOnly": [], "inapplicable": []}
+joint: {"meets": false, "complete": false}
+X60 by evidence: exit None
+

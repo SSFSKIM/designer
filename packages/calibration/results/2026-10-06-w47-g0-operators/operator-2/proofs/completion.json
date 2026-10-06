@@ -1,0 +1,50 @@
+{
+  "afterTree": "8f55ea1ed49745e9fa506632dca75fc32c98d5aa",
+  "beforeTree": "cf36cdd13c6e3dd94f65bc775f7cfb745e2150b9",
+  "successfulCensusLaunches": 12,
+  "refusedCensusLaunches": 89,
+  "refusalHandling": "Only explicit census refusals retried, every150s, two-hour deadline; no unrelated browser touched and no gate bypassed.",
+  "recorder": {
+    "totalCases": 71,
+    "identitiesUnchanged": 62,
+    "liveCasesMoved": 9,
+    "beforeRepeatIdentical": 71,
+    "afterRepeatIdentical": 71
+  },
+  "goldens": {
+    "beforePassed": 34,
+    "afterPassed": 34,
+    "rawRasterIdentities": 13
+  },
+  "op1ReplayIdentical": 81,
+  "canonicalIdentity": {
+    "rowsMatched": 84,
+    "pngBytesMatched": 168,
+    "scales": [
+      "1x",
+      "2x"
+    ],
+    "tiers": [
+      "webgpu",
+      "css"
+    ],
+    "sets": [
+      "calibration",
+      "validation"
+    ],
+    "referenceGeneration": "d0219cd684bf",
+    "volatileFieldsExcluded": [
+      "capturedAt"
+    ]
+  },
+  "requiredFiles": {
+    "compare.txt": "b6f6fccfcfd63da4e052dd7bfe9c71ac28ee83f927dfdc1029694701d4916a91",
+    "png-sha256.json": "83960ffeb062ee021d55c10dffd846bd05e7dc55f683a280393119f4cdc03abb",
+    "digests.txt": "944fbbcc01561e998557e68f4724c54204259fe59d4801ce9031254319b27fe0",
+    "suites.txt": "3da7e8aa832709863f49c8a5a122390ff39cf0632aae1af50ce3dd303b9e92a9",
+    "identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+    "x60.txt": "775ae1f49b6495c0638aaea68ae39c16c0a7b288055dd7d73b997d8e364b4220",
+    "readers.txt": "96f558bdfd52154f8d35ecc8abae99bb424337ee29573084f1f9a5a50c0d0769"
+  },
+  "missingProofs": []
+}

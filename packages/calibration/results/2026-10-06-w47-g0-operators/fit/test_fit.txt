@@ -1,0 +1,53 @@
+test_an_unknown_scope_refuses (test_fit.Cells.test_an_unknown_scope_refuses) ... ok
+test_the_scopes_per_scale (test_fit.Cells.test_the_scopes_per_scale) ... ok
+test_the_stage_tie_is_the_reference_rows_once (test_fit.Cells.test_the_stage_tie_is_the_reference_rows_once) ... ok
+test_points_and_renders_per_scale (test_fit.CrossedFactorial.test_points_and_renders_per_scale) ... ok
+test_the_gates_drop_unread_leaves_from_the_scale_twins (test_fit.CrossedFactorial.test_the_gates_drop_unread_leaves_from_the_scale_twins) ... ok
+test_the_tap_is_crossed_into_the_span_law (test_fit.CrossedFactorial.test_the_tap_is_crossed_into_the_span_law) ... ok
+test_full_renders_the_point_through_its_renderers_and_reads_it (test_fit.Full.test_full_renders_the_point_through_its_renderers_and_reads_it) ... ok
+test_an_undeclared_or_light_move_refuses (test_fit.Identity.test_an_undeclared_or_light_move_refuses) ... ok
+test_the_snapshot_start_holds (test_fit.Identity.test_the_snapshot_start_holds) ... ok
+test_a_leaf_with_no_short_name_refuses (test_fit.Labels.test_a_leaf_with_no_short_name_refuses) ... ok
+test_every_admitted_key_has_a_short_name_and_a_scale (test_fit.Labels.test_every_admitted_key_has_a_short_name_and_a_scale) ... ok
+test_every_slot_and_leaf_reads_back_to_one (test_fit.Labels.test_every_slot_and_leaf_reads_back_to_one) ... ok
+test_every_slots_label_builds_through_the_real_builder (test_fit.Labels.test_every_slots_label_builds_through_the_real_builder) ... ok
+test_a_part_2_naming_w45s_or_w46s_charter_refuses (test_fit.Part2.test_a_part_2_naming_w45s_or_w46s_charter_refuses) ... ok
+test_an_unhashed_part_2_refuses (test_fit.Part2.test_an_unhashed_part_2_refuses) ... ok
+test_an_x64_key_at_its_inherited_value_is_not_a_move (test_fit.Part2.test_an_x64_key_at_its_inherited_value_is_not_a_move) ... ok
+test_bytes_that_are_not_the_hash_refuse (test_fit.Part2.test_bytes_that_are_not_the_hash_refuse) ... ok
+test_check_overrides (test_fit.Part2.test_check_overrides) ... ok
+test_other_waves_part_hashes_refuse (test_fit.Part2.test_other_waves_part_hashes_refuse) ... ok
+test_preflight_refuses_without_part_2 (test_fit.Part2.test_preflight_refuses_without_part_2) ... ok
+test_stage_2_admits_the_receded_start_a_stage_1_point_leaves (test_fit.Part2.test_stage_2_admits_the_receded_start_a_stage_1_point_leaves)
+The reviewer's point (W47 G0, reviewer-medium): a permitted stage-1 point moves the active 2x ... ok
+test_x68_refuses_what_part_2_would_admit (test_fit.Part2.test_x68_refuses_what_part_2_would_admit) ... ok
+test_a_census_refusal_is_told_apart (test_fit.Render.test_a_census_refusal_is_told_apart) ... ok
+test_a_point_renders_only_through_its_scale_twins (test_fit.Render.test_a_point_renders_only_through_its_scale_twins) ... ok
+test_every_fit_launch_passes_alpha_one_profile_and_no_holdout_set (test_fit.Render.test_every_fit_launch_passes_alpha_one_profile_and_no_holdout_set) ... ok
+test_a_1x_lever_by_a_2x_lever_renders_their_sum_not_their_product (test_fit.ScaleSeparable.test_a_1x_lever_by_a_2x_lever_renders_their_sum_not_their_product) ... ok
+test_a_both_leaf_splits_both_scales (test_fit.ScaleSeparable.test_a_both_leaf_splits_both_scales) ... ok
+test_a_leaf_with_no_scale_refuses (test_fit.ScaleSeparable.test_a_leaf_with_no_scale_refuses) ... ok
+test_a_point_reads_its_renderers_cells_per_scale (test_fit.ScaleSeparable.test_a_point_reads_its_renderers_cells_per_scale) ... ok
+test_the_scale_twins_drop_non_moves_and_the_other_scales_leaves (test_fit.ScaleSeparable.test_the_scale_twins_drop_non_moves_and_the_other_scales_leaves) ... ok
+test_twins_of_one_content_render_once (test_fit.ScaleSeparable.test_twins_of_one_content_render_once) ... ok
+test_decide_applies_the_tie_rule_from_the_stage_base (test_fit.Stages.test_decide_applies_the_tie_rule_from_the_stage_base) ... ok
+test_materialise_states_every_admitted_key_at_the_stage_1_active_values (test_fit.Stages.test_materialise_states_every_admitted_key_at_the_stage_1_active_values) ... ok
+test_stage_1_is_a_factorial_then_coordinate_sweeps (test_fit.Stages.test_stage_1_is_a_factorial_then_coordinate_sweeps) ... ok
+test_stage_2_materialises_x64_at_the_stage_1_active_values (test_fit.Stages.test_stage_2_materialises_x64_at_the_stage_1_active_values) ... ok
+test_a_factorial_step_includes_its_start (test_fit.StartIsACandidate.test_a_factorial_step_includes_its_start) ... ok
+test_an_off_grid_start_is_kept_when_it_is_best (test_fit.StartIsACandidate.test_an_off_grid_start_is_kept_when_it_is_best) ... ok
+test_an_off_grid_start_wins_a_plateau_within_the_tie (test_fit.StartIsACandidate.test_an_off_grid_start_wins_a_plateau_within_the_tie) ... ok
+test_an_on_grid_start_is_not_duplicated (test_fit.StartIsACandidate.test_an_on_grid_start_is_not_duplicated) ... ok
+test_a_distinguishable_minimum_wins_whatever_its_distance (test_fit.TieRule.test_a_distinguishable_minimum_wins_whatever_its_distance) ... ok
+test_a_plateau_goes_to_the_point_nearest_the_start_not_to_grid_order (test_fit.TieRule.test_a_plateau_goes_to_the_point_nearest_the_start_not_to_grid_order) ... ok
+test_then_the_fewer_moved_leaves_then_grid_order (test_fit.TieRule.test_then_the_fewer_moved_leaves_then_grid_order) ... ok
+test_a_dilution_that_passes_at_0_8_is_point_a (test_fit.TwoPoints.test_a_dilution_that_passes_at_0_8_is_point_a) ... ok
+test_branches_off_the_grid_refuse (test_fit.TwoPoints.test_branches_off_the_grid_refuse) ... ok
+test_joint_tells_the_a_b_map_from_a_decide_record (test_fit.TwoPoints.test_joint_tells_the_a_b_map_from_a_decide_record) ... ok
+test_l1_excess_sums_both_clauses_over_the_poses_measured_cells (test_fit.TwoPoints.test_l1_excess_sums_both_clauses_over_the_poses_measured_cells) ... ok
+test_no_admissible_point_at_0_8_leaves_point_a_at_0_89 (test_fit.TwoPoints.test_no_admissible_point_at_0_8_leaves_point_a_at_0_89) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 6.236s
+
+OK

@@ -1,0 +1,27 @@
+W47 G0 (a), operator 1: the named unit suites (§5.205's table) and the four package suites, at b1b16a3f3
+(pnpm -r build exit 0 first; each line is the command's own exit code and vitest's summary)
+
+named, renderer-webgpu (exit 0): test/w31-gate-groups.test.ts test/w30-inert-laws.test.ts test/w41-body-e3.test.ts
+   Test Files  3 passed (3)
+        Tests  119 passed (119)
+
+named, platform-web (exit 0): test/w30-inert-laws.test.ts test/color-scheme.test.ts
+   Test Files  2 passed (2)
+        Tests  26 passed (26)
+
+named, calibration (exit 0): test/tuned-profiles.test.ts test/macos27-profile-export.test.ts test/macos26-document-selection.test.ts test/material-selection.test.ts test/digest-supersessions.test.ts test/w30-operator-identity.test.ts test/w31-identity-table.test.ts test/tier-coherence.test.ts test/capture-integrity.test.ts test/w41-body-e3-scratch.test.ts
+   Test Files  10 passed (10)
+        Tests  227 passed (227)
+
+full suite, @vitrea/renderer-webgpu (exit 0):
+   Test Files  37 passed (37)
+        Tests  666 passed (666)
+full suite, @vitreajs/vitrea-web (exit 0):
+   Test Files  48 passed (48)
+        Tests  656 passed (656)
+full suite, @vitreajs/vitrea-react (exit 0):
+   Test Files  19 passed (19)
+        Tests  180 passed (180)
+full suite, @vitrea/calibration (exit 0):
+   Test Files  62 passed (62)
+        Tests  929 passed | 4 skipped (933)

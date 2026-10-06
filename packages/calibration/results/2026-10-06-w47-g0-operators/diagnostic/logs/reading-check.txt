@@ -1,0 +1,26 @@
+W47 G0(f): BODY
+T1-fine, linear luminance SD, native silhouette eroded4 CSS px.
+scale scene native reference body deep E Rbody Rdeep
+1x checkerboard-8__rrect-md__inactive 0.0072469417 0.0225515791 0.0112365839 0.0225515791 0.0153046374 0.73931808 0.00000000
+  ramp: {"pixels": 13184, "bodyWeightMean": 0.7662251480717707, "deepWeightMean": 0.2337748519282293, "fine": {"native": 0.007246941701628215, "control": 0.022551579061249237, "body": 0.011236583918384429, "deep": 0.022551579061249237}}
+  beyond: {"pixels": 0, "bodyWeightMean": null, "deepWeightMean": null, "fine": {"native": null, "control": null, "body": null, "deep": null}}
+  source edge density: 0.265975266695
+1x checkerboard-8__rrect-lg__inactive 0.0054101349 0.0186059975 0.0084576929 0.0186059975 0.0131958625 0.76905201 0.00000000
+  ramp: {"pixels": 40624, "bodyWeightMean": 0.6240602934347773, "deepWeightMean": 0.3759397065652227, "fine": {"native": 0.0054101349418409425, "control": 0.01860599746407124, "body": 0.008457692902314363, "deep": 0.01860599746407124}}
+  beyond: {"pixels": 0, "bodyWeightMean": null, "deepWeightMean": null, "fine": {"native": null, "control": null, "body": null, "deep": null}}
+  source edge density: 0.265975266695
+2x checkerboard-8__rrect-md__inactive 0.0016587563 0.0102355270 0.0012818309 0.0102355270 0.0085767708 1.04394723 0.00000000
+  ramp: {"pixels": 52648, "bodyWeightMean": 0.4585861227624135, "deepWeightMean": 0.5414138772375865, "fine": {"native": 0.0016587562587920546, "control": 0.010235527030462354, "body": 0.0012818309376626121, "deep": 0.010235527030462354}}
+  beyond: {"pixels": 0, "bodyWeightMean": null, "deepWeightMean": null, "fine": {"native": null, "control": null, "body": null, "deep": null}}
+  source edge density: 0.248093128204
+2x checkerboard-8__rrect-lg__inactive 0.0011253485 0.0099999972 0.0010271647 0.0099999972 0.0088746487 1.01106340 0.00000000
+  ramp: {"pixels": 118794, "bodyWeightMean": 0.45604901511660884, "deepWeightMean": 0.5439509848833912, "fine": {"native": 0.0011693204804668319, "control": 0.010266486894995952, "body": 0.0011975915107797018, "deep": 0.010266486894995952}}
+  beyond: {"pixels": 43524, "bodyWeightMean": 0.43617914091706733, "deepWeightMean": 0.5638208590829327, "fine": {"native": 0.0009925307946667204, "control": 0.009232429356616731, "body": 0.0, "deep": 0.009232429356616731}}
+  source edge density: 0.248093128204
+Pooled arithmetic mean R: {'body': 0.8908451805928824, 'deep': 0.0}
+Every-cell half-excess criterion: {'body': True, 'deep': False}
+Control AND explicit zero-share PNGs are byte-identical to canonical on all4 cells.
+Masks explain only; their weights come from shader output, not ramp starts.
+Charter original: at2x the receded deep is sigma14 CSS px. Renderer actual: sizeHeavyTapSigma2x14 is device px; heavySigmaCssFor divides by DPR, so sigmaDeep7 CSS px; deepFine hypot(7,6)=9.2195444573 CSS px. The original sentence is preserved as provenance, corrected here. Body width6 CSS px is unchanged. The deep diagnostic broadens7 to9.2195, not14 to15.2315.
+At1x the shader clamps scatterLod at4. The pyramid measured chainLevelSigma(4)=13.418 level0 texels, density1, hence13.418 CSS px; deepFine hypot(13.418,6)=14.6983918848 CSS px. Fractional LOD interpolation is not used for the declared1x cells.
+heavyTapPlan uses no new pass shape, but the charter level0 claim is false on this source density. For width6 CSS px: body uses chain level2 plus residual1.25586223 at1x and level3 plus residual1.24618768 at2x. For width2/3/4 CSS px, plan levels are1/1/2 at1x and2/2/3 at2x. The6 CSS px grid remains CSS px and ideal-Gaussian lowest-mode attenuation0.003881 remains only a prediction; the actual existing chain+residual renderer is the referee.

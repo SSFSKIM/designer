@@ -1,0 +1,112 @@
+Scope: 4 of 10 workspace projects
+packages/renderer-webgpu test$ vitest run
+packages/renderer-webgpu test:  RUN  v4.1.11 /Users/new/vitrea-w47/g0-op2/packages/renderer-webgpu
+packages/renderer-webgpu test:  Test Files  37 passed (37)
+packages/renderer-webgpu test:       Tests  673 passed (673)
+packages/renderer-webgpu test:    Start at  05:04:58
+packages/renderer-webgpu test:    Duration  1.58s (transform 3.95s, setup 362ms, import 6.49s, tests 2.67s, environment 2ms)
+packages/renderer-webgpu test: Done
+packages/platform-web test$ vitest run
+packages/platform-web test:  RUN  v4.1.11 /Users/new/vitrea-w47/g0-op2/packages/platform-web
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test:  Test Files  48 passed (48)
+packages/platform-web test:       Tests  656 passed (656)
+packages/platform-web test:    Start at  05:05:00
+packages/platform-web test:    Duration  6.72s (transform 5.81s, setup 0ms, import 11.69s, tests 9.90s, environment 29.95s)
+packages/platform-web test: Done
+packages/calibration test$ vitest run
+packages/react test$ vitest run
+packages/calibration test:  RUN  v4.1.11 /Users/new/vitrea-w47/g0-op2/packages/calibration
+packages/react test:  RUN  v4.1.11 /Users/new/vitrea-w47/g0-op2/packages/react
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test:  Test Files  19 passed (19)
+packages/react test:       Tests  180 passed (180)
+packages/react test:    Start at  05:05:07
+packages/react test:    Duration  9.74s (transform 7.89s, setup 4.04s, import 14.77s, tests 27.74s, environment 28.72s)
+packages/react test: Done
+packages/calibration test: T1 change partitions against ebc3d9105a4a (W44 / growth-only):
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+packages/calibration test: T1 readings (not gated; W44 G2, claims §5.204):
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.25 css F: 0 of 15 within, median |log| 1.5069
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.25 css T: 0 of 4 within, median |log| 0.3973
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.25 css C: 14 of 69 within, median |log| 0.3522
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.25 css P: 2 of 28 within, median |log| 0.5377
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.25 css F: 2 of 15 within, median |log| 0.9216
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.25 css T: 1 of 4 within, median |log| 0.3314
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.25 css C: 11 of 69 within, median |log| 0.3953
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.25 css P: 4 of 28 within, median |log| 0.4196
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 webgpu F: 5 of 15 within, median |log| 0.1815
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1267
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2494
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 webgpu P: 1 of 24 within, median |log| 0.3468
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 css F: 0 of 15 within, median |log| 1.2147
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 css T: 0 of 4 within, median |log| 0.4455
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 css C: 12 of 59 within, median |log| 0.2830
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 css P: 1 of 24 within, median |log| 0.7047
+packages/calibration test:   apple-macos-27.0-1x-light-standard-glass0.5 css: 14 UNMEASURED
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 webgpu F: 8 of 15 within, median |log| 0.1427
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 webgpu T: 0 of 4 within, median |log| 0.3259
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2525
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 webgpu P: 3 of 24 within, median |log| 0.3307
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 css C: 3 of 29 within, median |log| 0.7233
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 css P: 3 of 23 within, median |log| 0.6099
+packages/calibration test:   apple-macos-27.0-2x-light-standard-glass0.5 css: 64 UNMEASURED
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4075
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1575
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 webgpu C: 7 of 40 within, median |log| 0.3566
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 1.0533
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 css F: 2 of 15 within, median |log| 1.0690
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 css T: 1 of 4 within, median |log| 0.5555
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 css C: 7 of 40 within, median |log| 0.8928
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 css P: 0 of 10 within, median |log| 1.2375
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.5 css: 8 UNMEASURED
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4703
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 webgpu T: 1 of 4 within, median |log| 0.1833
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 webgpu C: 5 of 40 within, median |log| 0.4340
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 0.9904
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 css C: 3 of 10 within, median |log| 1.0015
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 css P: 0 of 9 within, median |log| 1.1279
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.5 css: 58 UNMEASURED
+packages/calibration test: T1 dark CSS readings (not gated; W46 G2, claims §5.210):
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.25 css F: 3 of 15 within, median |log| 1.1481
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.25 css T: 0 of 4 within, median |log| 0.7936
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.25 css C: 3 of 46 within, median |log| 1.1692
+packages/calibration test:   apple-macos-27.0-1x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 1.3315
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.25 css F: 2 of 15 within, median |log| 0.7649
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.25 css T: 2 of 4 within, median |log| 0.4879
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.25 css C: 4 of 46 within, median |log| 1.0287
+packages/calibration test:   apple-macos-27.0-2x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 1.1733
+packages/calibration test:  Test Files  62 passed (62)
+packages/calibration test:       Tests  931 passed | 4 skipped (935)
+packages/calibration test:    Start at  05:05:07
+packages/calibration test:    Duration  123.64s (transform 6.92s, setup 0ms, import 18.65s, tests 555.69s, environment 4ms)
+packages/calibration test: Done

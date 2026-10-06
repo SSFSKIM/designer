@@ -1,0 +1,13 @@
+{
+  "label": "i-a0.8-f0.2-t160",
+  "note": "W47 ladder i base tintAlpha 0.8, far delta 0.2; the span top (sizeScatterSpanMax and its 2x twin) 256 -> 160",
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.8,
+      "tintAlphaFar1x": 0.2,
+      "tintAlphaFar2x": 0.2,
+      "sizeScatterSpanMax": 160,
+      "sizeScatterSpanMax2x": 160
+    }
+  }
+}

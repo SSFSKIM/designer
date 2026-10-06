@@ -43,6 +43,11 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "lensSizeGainMax",
   "sizeScatterGainMax",
   "sizeOcclusionGain",
+  // W47 operator 1, the transmission graded on the scatter's far curve (claims §5.211; charter
+  // Decision Log 2): a 1x/2x pair. The ladders and the fit hand in candidate documents naming
+  // them, and this set refusing them would refuse the very rung that reads the operator.
+  "tintAlphaFar1x",
+  "tintAlphaFar2x",
   "sizeShadowGainMax",
   // The scatter facet's frost and span curve (W11c) and the body's depth ramp
   // (W13 G1, claims 5.61): the span curve supplies the ramp's deep value and the
@@ -99,6 +104,11 @@ export const MATERIAL_PATCH_KEYS = new Set([
   // 1), 2x-anchored with an implicit 1x zero. A candidate document naming it is what the W45
   // ladders hand in, and this set refusing it would refuse the very rung that reads the leaf.
   "sizeHeavySecondShareFar2x",
+  // W47 G0 (b): one body fine tap, share-gated and resolved in CSS px (X66).
+  "sizeFineTapShare",
+  "sizeFineTapSigma",
+  "sizeFineTapSigma2x",
+
   "sizeScatterScaleGain",
   "sizeScatterScaleRef",
   // The lens (W12 G2): the gain on the reference's amount law, the height and

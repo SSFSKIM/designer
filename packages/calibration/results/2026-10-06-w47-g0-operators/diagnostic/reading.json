@@ -1,0 +1,1438 @@
+{
+  "what": "W47 G0(f), Decision Log3 v1.1, predeclared depth-split diagnostic",
+  "definition": "SD(L-G(L,4 device px)), linear luminance, native silhouette eroded4 CSS px; W44 G1 read()",
+  "criterion": "R=(reference-form)/(reference-native); >=0.5 on every cell and scale and larger pooled mean R",
+  "maskMethod": "W47 G0 (f), DL3 v1.1: the predeclared half-excess criterion, never a positional choice.\n\nReproduce: python3.12 -B read.py [--renders ~/vitrea-w47/diag]\nDefault input is the committed render tree alongside this script. The original canonical PNG\nbytes and cell metadata are archived as reference/; compare those to live canonical when archiving.\nWeights are the actual shader's kScatter, packed as round(kScatter*65535) into RG byte channels;\nblue 255 is ramp band, 254 is beyond reach. Read only inside the native silhouette eroded 4 CSS px,\nthe SAME support as W44 T1-fine. This avoids coverage/compositor edge pixels. Quantization <= 0.5/65535.\nThe debug branch evaluates after the ordinary field reads and full W30 conditioned kScatter law.\nIt alters no uniform feeding that law. It never drives the choice; only the four whole-cell Rs do.\n",
+  "maskSupport": "W44 native silhouette eroded4 CSS px; ramp classification from real field depth",
+  "weightQuantizationMaximumError": 7.629510948348211e-06,
+  "readerHashes": {
+    "readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+    "bed.py": "2d0e3ba1f0a238fff892078984f1adfb012b5a40e68cfb451f21fbbdea4beea7"
+  },
+  "referenceActiveDocument": "d0219cd684bf",
+  "referenceRecededDocument": "f0b36a71772a",
+  "forms": {
+    "body": "source blurred at6 CSS px mixed into body before kScatter",
+    "deep": "source blurred at hypot(actual deep sigma,6 CSS px), mixed after W30 second tap"
+  },
+  "rows": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scale": 1,
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "spanCss": 96,
+      "fine": {
+        "native": 0.007246941701628215,
+        "control": 0.022551579061249237,
+        "body": 0.011236583918384429,
+        "deep": 0.022551579061249237
+      },
+      "E": 0.015304637359621022,
+      "R": {
+        "body": 0.7393180822903859,
+        "deep": 0.0
+      },
+      "pixels": 13184,
+      "masks": {
+        "ramp": {
+          "pixels": 13184,
+          "bodyWeightMean": 0.7662251480717707,
+          "deepWeightMean": 0.2337748519282293,
+          "fine": {
+            "native": 0.007246941701628215,
+            "control": 0.022551579061249237,
+            "body": 0.011236583918384429,
+            "deep": 0.022551579061249237
+          }
+        },
+        "beyond": {
+          "pixels": 0,
+          "bodyWeightMean": null,
+          "deepWeightMean": null,
+          "fine": {
+            "native": null,
+            "control": null,
+            "body": null,
+            "deep": null
+          }
+        }
+      },
+      "edgeDensity": 0.2659752666950226,
+      "uniform": [
+        320.0,
+        200.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.7450000047683716,
+        2.5999999046325684,
+        4.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.8899999856948853,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.02019999921321869,
+        1.4600000381469727,
+        1.0,
+        1.0,
+        2.200000047683716,
+        0.0,
+        0.0,
+        1.0,
+        -0.37139999866485596,
+        -0.9284999966621399,
+        0.3499999940395355,
+        0.0,
+        1.0,
+        170.0,
+        106.0,
+        0.0,
+        8.0,
+        0.05000000074505806,
+        1.0,
+        1.0588936805725098,
+        0.0,
+        9.999999747378752e-05,
+        0.05000000074505806,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.21404114365577698,
+        0.0,
+        9.039999961853027,
+        1.7999999523162842,
+        0.07500000298023224,
+        0.0,
+        106.0,
+        0.30000001192092896,
+        8.0,
+        0.004000000189989805,
+        0.10999999940395355,
+        0.4699999988079071,
+        0.5,
+        0.0,
+        0.018699999898672104,
+        0.19200000166893005,
+        1.0,
+        0.0,
+        0.01549999974668026,
+        0.16699999570846558,
+        0.017000000923871994,
+        0.3400000035762787,
+        1.0,
+        32.0,
+        96.0,
+        0.25,
+        20.0,
+        0.800000011920929,
+        60.0,
+        1.3370000123977661,
+        3.690000057220459,
+        0.800000011920929,
+        8.0,
+        64.0,
+        72.0,
+        80.0,
+        256.0,
+        0.0,
+        0.0,
+        0.0,
+        0.20000000298023224,
+        0.0,
+        64.0,
+        118.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.707099974155426,
+        -0.707099974155426,
+        0.8500000238418579,
+        0.10000000149011612,
+        0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.949999988079071,
+        0.4480000138282776,
+        0.1860000044107437,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.12150000035762787,
+        96.0,
+        -6.317999839782715,
+        0.0,
+        -2.0,
+        0.029999999329447746,
+        0.2659752666950226,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1420000046491623,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.006995410192757845,
+        0.006995410192757845,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        40.0,
+        56.0,
+        72.0,
+        88.0,
+        104.0,
+        128.0,
+        150.0,
+        0.0
+      ],
+      "plans": {
+        "control": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 0,
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "body": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 6,
+          "finePlan": {
+            "level": 2,
+            "residualSigmaTexels": 1.2558622287098216
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "deep": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 14.69839188482876,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 0.37499999999999983
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "pngSha256": {
+        "control": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+        "body": "62d7d2653fe01685cee128676f48465a04c01df12960ffb4ea8132bff7018996",
+        "deep": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+        "weights": "fad0beabdb00986fcf94e4b50feeab6ec8ade3879307cd62d3e7957289152611",
+        "zero-share": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d"
+      },
+      "nativeSha256": "b326dc5b6897ea6afa37b2b218b04f50d8493ad57de280f4228d358cf047ba86"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scale": 1,
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "spanCss": 160,
+      "fine": {
+        "native": 0.0054101349418409425,
+        "control": 0.01860599746407124,
+        "body": 0.008457692902314363,
+        "deep": 0.01860599746407124
+      },
+      "E": 0.013195862522230296,
+      "R": {
+        "body": 0.7690520073743282,
+        "deep": 0.0
+      },
+      "pixels": 40624,
+      "masks": {
+        "ramp": {
+          "pixels": 40624,
+          "bodyWeightMean": 0.6240602934347773,
+          "deepWeightMean": 0.3759397065652227,
+          "fine": {
+            "native": 0.0054101349418409425,
+            "control": 0.01860599746407124,
+            "body": 0.008457692902314363,
+            "deep": 0.01860599746407124
+          }
+        },
+        "beyond": {
+          "pixels": 0,
+          "bodyWeightMean": null,
+          "deepWeightMean": null,
+          "fine": {
+            "native": null,
+            "control": null,
+            "body": null,
+            "deep": null
+          }
+        }
+      },
+      "edgeDensity": 0.2659752666950226,
+      "uniform": [
+        320.0,
+        200.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.7450000047683716,
+        2.5999999046325684,
+        4.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.8899999856948853,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.02019999921321869,
+        1.4600000381469727,
+        1.0,
+        1.0,
+        2.200000047683716,
+        0.0,
+        0.0,
+        1.0,
+        -0.37139999866485596,
+        -0.9284999966621399,
+        0.3499999940395355,
+        0.0,
+        1.0,
+        290.0,
+        170.0,
+        0.0,
+        8.0,
+        0.05000000074505806,
+        1.0,
+        1.0588936805725098,
+        0.0,
+        9.999999747378752e-05,
+        0.05000000074505806,
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.21404114365577698,
+        0.0,
+        9.039999961853027,
+        1.7999999523162842,
+        0.04676470533013344,
+        0.0,
+        170.0,
+        0.30000001192092896,
+        8.0,
+        0.004000000189989805,
+        0.10999999940395355,
+        0.4699999988079071,
+        0.5,
+        0.0,
+        0.018699999898672104,
+        0.19200000166893005,
+        1.0,
+        0.0,
+        0.01549999974668026,
+        0.16699999570846558,
+        0.017000000923871994,
+        0.3400000035762787,
+        1.0,
+        32.0,
+        96.0,
+        0.25,
+        20.0,
+        0.800000011920929,
+        60.0,
+        1.3370000123977661,
+        3.690000057220459,
+        0.800000011920929,
+        8.0,
+        64.0,
+        72.0,
+        80.0,
+        256.0,
+        0.0,
+        0.0,
+        0.0,
+        0.20000000298023224,
+        0.0,
+        64.0,
+        118.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.707099974155426,
+        -0.707099974155426,
+        0.8500000238418579,
+        0.10000000149011612,
+        0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.949999988079071,
+        0.4480000138282776,
+        0.1860000044107437,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.12150000035762787,
+        96.0,
+        -6.317999839782715,
+        0.0,
+        -2.0,
+        0.029999999329447746,
+        0.2659752666950226,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1420000046491623,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.006995410192757845,
+        0.006995410192757845,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        40.0,
+        56.0,
+        72.0,
+        88.0,
+        104.0,
+        128.0,
+        150.0,
+        0.0
+      ],
+      "plans": {
+        "control": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 0,
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "body": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 6,
+          "finePlan": {
+            "level": 2,
+            "residualSigmaTexels": 1.2558622287098216
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "deep": {
+          "sourceId": "component.raster",
+          "density": 1,
+          "deepLod": 4,
+          "chainSigma": 13.418,
+          "deepSigma": 13.418,
+          "fineSigma": 14.69839188482876,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 0.37499999999999983
+          },
+          "plan": {
+            "width": 320,
+            "height": 200,
+            "levelCount": 5,
+            "maxLod": 4,
+            "analysisLevel": 1,
+            "levels": [
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "pngSha256": {
+        "control": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0",
+        "body": "fa4dbcbac846462e5c9d22b02015ad0c9b6ba8153aa857c548c3bb32d6964740",
+        "deep": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0",
+        "weights": "fba327504b8f0580b9e9e859d5ca9837e5b206737b8b6d10050808827e475ccd",
+        "zero-share": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0"
+      },
+      "nativeSha256": "28effbbd4a1ee92fc8f7ebbb9b49cd649b7d522976b894e7c2ce270af26d83ad"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scale": 2,
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "spanCss": 96,
+      "fine": {
+        "native": 0.0016587562587920546,
+        "control": 0.010235527030462354,
+        "body": 0.0012818309376626121,
+        "deep": 0.010235527030462354
+      },
+      "E": 0.0085767707716703,
+      "R": {
+        "body": 1.0439472303928716,
+        "deep": 0.0
+      },
+      "pixels": 52648,
+      "masks": {
+        "ramp": {
+          "pixels": 52648,
+          "bodyWeightMean": 0.4585861227624135,
+          "deepWeightMean": 0.5414138772375865,
+          "fine": {
+            "native": 0.0016587562587920546,
+            "control": 0.010235527030462354,
+            "body": 0.0012818309376626121,
+            "deep": 0.010235527030462354
+          }
+        },
+        "beyond": {
+          "pixels": 0,
+          "bodyWeightMean": null,
+          "deepWeightMean": null,
+          "fine": {
+            "native": null,
+            "control": null,
+            "body": null,
+            "deep": null
+          }
+        }
+      },
+      "edgeDensity": 0.2480931282043457,
+      "uniform": [
+        640.0,
+        400.0,
+        0.5,
+        0.5,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.7450000047683716,
+        2.5999999046325684,
+        5.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.8899999856948853,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.02019999921321869,
+        1.4600000381469727,
+        1.0,
+        1.0,
+        1.350000023841858,
+        0.0,
+        0.0,
+        1.0,
+        -0.37139999866485596,
+        -0.9284999966621399,
+        0.3499999940395355,
+        0.0,
+        1.0,
+        340.0,
+        212.0,
+        0.0,
+        4.800000190734863,
+        0.05000000074505806,
+        1.0,
+        1.0588936805725098,
+        0.0,
+        9.999999747378752e-05,
+        0.05000000074505806,
+        1.0,
+        0.4759235382080078,
+        0.4759235382080078,
+        0.4759235382080078,
+        0.2138214409351349,
+        0.0,
+        9.039999961853027,
+        1.7999999523162842,
+        0.07500000298023224,
+        0.0,
+        106.0,
+        0.03999999910593033,
+        9.899999618530273,
+        0.004000000189989805,
+        0.10999999940395355,
+        0.4699999988079071,
+        0.4759235382080078,
+        0.0,
+        0.018699999898672104,
+        0.19200000166893005,
+        1.0,
+        0.0,
+        0.01549999974668026,
+        0.16699999570846558,
+        0.07000000029802322,
+        1.0,
+        1.0,
+        32.0,
+        96.0,
+        0.25,
+        20.0,
+        0.800000011920929,
+        60.0,
+        1.3370000123977661,
+        3.690000057220459,
+        0.800000011920929,
+        8.0,
+        64.0,
+        72.0,
+        50.0,
+        256.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03999999910593033,
+        0.0,
+        64.0,
+        118.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.707099974155426,
+        -0.707099974155426,
+        0.8500000238418579,
+        0.10000000149011612,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.949999988079071,
+        0.4480000138282776,
+        0.1860000044107437,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.12150000035762787,
+        96.0,
+        -6.317999839782715,
+        0.0,
+        -2.0,
+        0.029999999329447746,
+        0.2480931282043457,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1420000046491623,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.006995410192757845,
+        0.006995410192757845,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        40.0,
+        56.0,
+        72.0,
+        88.0,
+        104.0,
+        128.0,
+        150.0,
+        0.0
+      ],
+      "plans": {
+        "control": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 0,
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "body": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 6,
+          "finePlan": {
+            "level": 3,
+            "residualSigmaTexels": 1.2461876802372105
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "deep": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 9.219544457292887,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 0.7904638570959459
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "pngSha256": {
+        "control": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+        "body": "f73cda737a664b24b26fdaa941408acfa54975418869a64ffc8c34df535e909b",
+        "deep": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+        "weights": "ac0d81fcc4b9c9cfde47e9fb438af7185eaf99cada8ec65248ba4b4fc17d76af",
+        "zero-share": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441"
+      },
+      "nativeSha256": "e7671bfbc9d5eca1a166f1e91392b02761612d05b9fdb692e60785c80c3aab90"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scale": 2,
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "spanCss": 160,
+      "fine": {
+        "native": 0.0011253484774021597,
+        "control": 0.009999997182475948,
+        "body": 0.001027164668383006,
+        "deep": 0.009999997182475948
+      },
+      "E": 0.008874648705073788,
+      "R": {
+        "body": 1.011063402313944,
+        "deep": 0.0
+      },
+      "pixels": 162318,
+      "masks": {
+        "ramp": {
+          "pixels": 118794,
+          "bodyWeightMean": 0.45604901511660884,
+          "deepWeightMean": 0.5439509848833912,
+          "fine": {
+            "native": 0.0011693204804668319,
+            "control": 0.010266486894995952,
+            "body": 0.0011975915107797018,
+            "deep": 0.010266486894995952
+          }
+        },
+        "beyond": {
+          "pixels": 43524,
+          "bodyWeightMean": 0.43617914091706733,
+          "deepWeightMean": 0.5638208590829327,
+          "fine": {
+            "native": 0.0009925307946667204,
+            "control": 0.009232429356616731,
+            "body": 0.0,
+            "deep": 0.009232429356616731
+          }
+        }
+      },
+      "edgeDensity": 0.2480931282043457,
+      "uniform": [
+        640.0,
+        400.0,
+        0.5,
+        0.5,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.7450000047683716,
+        2.5999999046325684,
+        5.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.8899999856948853,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.05000000074505806,
+        0.05000000074505806,
+        0.05000000074505806,
+        1.0,
+        0.02019999921321869,
+        1.4600000381469727,
+        1.0,
+        1.0,
+        1.350000023841858,
+        0.0,
+        0.0,
+        1.0,
+        -0.37139999866485596,
+        -0.9284999966621399,
+        0.3499999940395355,
+        0.0,
+        1.0,
+        580.0,
+        340.0,
+        0.0,
+        4.800000190734863,
+        0.05000000074505806,
+        1.0,
+        1.0588936805725098,
+        0.0,
+        9.999999747378752e-05,
+        0.05000000074505806,
+        1.0,
+        0.4759235382080078,
+        0.4759235382080078,
+        0.4759235382080078,
+        0.2138214409351349,
+        0.0,
+        9.039999961853027,
+        1.7999999523162842,
+        0.04676470533013344,
+        0.0,
+        170.0,
+        0.03999999910593033,
+        9.899999618530273,
+        0.004000000189989805,
+        0.10999999940395355,
+        0.4699999988079071,
+        0.4759235382080078,
+        0.0,
+        0.018699999898672104,
+        0.19200000166893005,
+        1.0,
+        0.0,
+        0.01549999974668026,
+        0.16699999570846558,
+        0.07000000029802322,
+        1.0,
+        1.0,
+        32.0,
+        96.0,
+        0.25,
+        20.0,
+        0.800000011920929,
+        60.0,
+        1.3370000123977661,
+        3.690000057220459,
+        0.800000011920929,
+        8.0,
+        64.0,
+        72.0,
+        50.0,
+        256.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03999999910593033,
+        0.0,
+        64.0,
+        118.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.707099974155426,
+        -0.707099974155426,
+        0.8500000238418579,
+        0.10000000149011612,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.949999988079071,
+        0.4480000138282776,
+        0.1860000044107437,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.12150000035762787,
+        96.0,
+        -6.317999839782715,
+        0.0,
+        -2.0,
+        0.029999999329447746,
+        0.2480931282043457,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1420000046491623,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.006995410192757845,
+        0.006995410192757845,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        40.0,
+        56.0,
+        72.0,
+        88.0,
+        104.0,
+        128.0,
+        150.0,
+        0.0
+      ],
+      "plans": {
+        "control": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 0,
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "body": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 6,
+          "finePlan": {
+            "level": 3,
+            "residualSigmaTexels": 1.2461876802372105
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        },
+        "deep": {
+          "sourceId": "component.raster",
+          "density": 2,
+          "deepLod": 3.3219280948873626,
+          "chainSigma": 4.695980955875167,
+          "deepSigma": 7,
+          "fineSigma": 9.219544457292887,
+          "finePlan": {
+            "level": 4,
+            "residualSigmaTexels": 0.7904638570959459
+          },
+          "plan": {
+            "width": 640,
+            "height": 400,
+            "levelCount": 6,
+            "maxLod": 5,
+            "analysisLevel": 2,
+            "levels": [
+              {
+                "width": 640,
+                "height": 400
+              },
+              {
+                "width": 320,
+                "height": 200
+              },
+              {
+                "width": 160,
+                "height": 100
+              },
+              {
+                "width": 80,
+                "height": 50
+              },
+              {
+                "width": 40,
+                "height": 25
+              },
+              {
+                "width": 20,
+                "height": 12
+              }
+            ]
+          },
+          "bodySigmaTexels": 1.25
+        }
+      },
+      "pngSha256": {
+        "control": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9",
+        "body": "eb6d178b5cb357e9e6056f1e92b61df1f75255b86adb0a6771e12dc9849f6109",
+        "deep": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9",
+        "weights": "6e9900b798f59193dd6ad6b319aadf90f1cdd2b36828059d112229baca274bc4",
+        "zero-share": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9"
+      },
+      "nativeSha256": "6ab38fffc8104f84845018573dd738fc17406732567d532836f7c0626fc8283e"
+    }
+  ],
+  "pooledMeanR": {
+    "body": 0.8908451805928824,
+    "deep": 0.0
+  },
+  "clearsEveryCell": {
+    "body": true,
+    "deep": false
+  },
+  "perScale": {
+    "1": {
+      "body": {
+        "meanR": 0.754185044832357,
+        "clearsEveryCell": true
+      },
+      "deep": {
+        "meanR": 0.0,
+        "clearsEveryCell": false
+      }
+    },
+    "2": {
+      "body": {
+        "meanR": 1.0275053163534078,
+        "clearsEveryCell": true
+      },
+      "deep": {
+        "meanR": 0.0,
+        "clearsEveryCell": false
+      }
+    }
+  },
+  "verdict": "BODY",
+  "controlIdentity": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "canonicalCapturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+      "sha256": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+      "controlSha256": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+      "explicitZeroShareSha256": "d761d96ea8154a5abfa58feedec75ed5376cf3d5ad844625d86c84e32a73698d",
+      "controlEqual": true,
+      "explicitZeroShareEqual": true
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "canonicalCapturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+      "sha256": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0",
+      "controlSha256": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0",
+      "explicitZeroShareSha256": "4a5890d27849c1d939e4c838820a1f6a8a16d9a5e36e16ada36396f6349fa5a0",
+      "controlEqual": true,
+      "explicitZeroShareEqual": true
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-md__inactive",
+      "canonicalCapturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+      "sha256": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+      "controlSha256": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+      "explicitZeroShareSha256": "65a710a322c268f85b872c3f48c79c8d5dbf6983cba65c9963f0388f1e065441",
+      "controlEqual": true,
+      "explicitZeroShareEqual": true
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "canonicalCapturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json sha256:d0219cd684bf sections=renderer+cssTierMapping, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json sha256:f0b36a71772a",
+      "sha256": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9",
+      "controlSha256": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9",
+      "explicitZeroShareSha256": "3b45f2ed97f1f4ffc8c86b613e901084ce890942d3755894f447e352038581d9",
+      "controlEqual": true,
+      "explicitZeroShareEqual": true
+    }
+  ],
+  "surprises": [
+    "Charter original: at2x the receded deep is sigma14 CSS px. Renderer actual: sizeHeavyTapSigma2x14 is device px; heavySigmaCssFor divides by DPR, so sigmaDeep7 CSS px; deepFine hypot(7,6)=9.2195444573 CSS px. The original sentence is preserved as provenance, corrected here. Body width6 CSS px is unchanged. The deep diagnostic broadens7 to9.2195, not14 to15.2315.",
+    "At1x the shader clamps scatterLod at4. The pyramid measured chainLevelSigma(4)=13.418 level0 texels, density1, hence13.418 CSS px; deepFine hypot(13.418,6)=14.6983918848 CSS px. Fractional LOD interpolation is not used for the declared1x cells.",
+    "heavyTapPlan uses no new pass shape, but the charter level0 claim is false on this source density. For width6 CSS px: body uses chain level2 plus residual1.25586223 at1x and level3 plus residual1.24618768 at2x. For width2/3/4 CSS px, plan levels are1/1/2 at1x and2/2/3 at2x. The6 CSS px grid remains CSS px and ideal-Gaussian lowest-mode attenuation0.003881 remains only a prediction; the actual existing chain+residual renderer is the referee."
+  ]
+}

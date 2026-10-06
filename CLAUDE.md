@@ -667,6 +667,34 @@ Logs 9 and 10).
 - **Tools.** W46's `declare.py` carries the content-amendment form, and its tools the two-point
   protocol and the freeze-free candidate-mode gate (`results/2026-10-05-w46-g1-refit/gate/gate.py`).
 
+**W47 (§5.211, 2026-10-06) landed two dark 0.25 operators inert and closed at G0 with the finding;
+nothing shipped** (charter `2026-10-06-w47-span-graded-dark-transmission.md`, Decision Logs 8–10).
+- **Operator 1, the span-graded transmission.** `tintAlphaFar1x` / `tintAlphaFar2x`, identity 0,
+  plain value drops. Per pixel in the optics pass, `alphaBase = clamp(tintAlpha +
+  rampAtScale(far1x, far2x, dpr) · farS, 0, 1)` on the scatter's far curve. It is read before the
+  occlusion term, so the W9 solve holds the level at each pixel's alpha. The CSS tier mirrors it per
+  surface (`spanGradedTintAlpha`), pinned by `tier-coherence.test.ts`.
+- **Operator 2, the receded fine term.** `sizeFineTapShare` (the gate, identity 0) with
+  `sizeFineTapSigma` / `…2x` (CSS px, gated) are one gate-group. A pre-blur of the BODY sample is
+  mixed in before `kScatter` (`body + share · (fine − body)`), built by `heavyTapPlan` only where the
+  share and the resolved width are non-zero. The CSS tier declines it with the taps.
+- **Both ship inert.** Every digest, every golden and the dark 0.25 bed are byte-identical, and no
+  shipped document names a non-identity value.
+- **The diagnostic.** Run before operator 2 landed, the depth-split diagnostic chose the body form.
+  At share 1 and σ 6 it removed 74–104 % of the fine-band excess, while the deep form removed 0: the
+  8 px structure is already absent from the deep sample.
+- **The ladders.** Neither operator met its hashed bar. Decision Log 8 spent part 1's one amendment
+  re-stating the bars, and the re-read on the same renders found:
+  - operator 2 separating at both scales (tap σ 4 R 0.73 / 0.75 at 1x, 1.00 / 0.97 at 2x; body width
+    4 0.74 / 0.76 and 0.69 / 0.66);
+  - operator 1's closest rung inside the landing budget, but missing the re-stated toward clause on
+    one unchanged cell.
+- **Why it closed.** Part 2 could not pass the hashed `check-fit`: body-width-first names the tap
+  unfitted, `strike` needs flat rungs, and `check-fit` reads the original bars' results. Changing
+  the validator after the readings was ruled out (Decision Log 10).
+- **Next: W48** fits both operators under a corrected declaration, reusing W47's ladder renders. The
+  dark 0.25 holdout and W46's referees remain unspent.
+
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
 under `specs/`): declare what will be measured and what would stop the change **before** running

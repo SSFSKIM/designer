@@ -1,0 +1,17 @@
+{
+  "label": "iv-joint",
+  "note": "W47 ladder iv operator 2 at ladder (iii)'s best rung, with receded tintAlpha 0.89 -> 0.8 and point A's receded scatter",
+  "overrides": {
+    "receded.dark": {
+      "optics.regular.tintAlpha": 0.8,
+      "sizeScatterRampStartThin1x": 0.4,
+      "sizeScatterRampStartThin2x": 0.4,
+      "sizeScatterFloor": 0.5,
+      "sizeScatterRampStartThick1x": 0.15,
+      "sizeScatterScaleGain": 0,
+      "sizeFineTapShare": 1,
+      "sizeFineTapSigma": 4,
+      "sizeFineTapSigma2x": 4
+    }
+  }
+}

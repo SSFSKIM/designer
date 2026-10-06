@@ -1,0 +1,43 @@
+{
+ "schema": "w47-declaration-inputs-1",
+ "$comment": [
+  "W47 G0 (g): the readings part 1 declares that the PARENT supplies, not a tool (charter clause 2;",
+  "Decision Log 4): the three targets' predictions, S1's predicted direction and the depth-split",
+  "diagnostic's chosen form. assemble.py refuses to write part 1 while any value below holds TO FILL;",
+  "declare.py check compares each item's declared reading with this file, which part 1 pins. Every path",
+  "in a `sources` list (relative to the repository root) is pinned beside it.",
+  "targets: per target (P, C rest, F inactive) its family as the charter states it and its prediction",
+  "  (Design \"The targets and their families\"), e.g. {\"P\": {\"family\": ..., \"prediction\": ...}, ...};",
+  "  the families are also recomputed from the draft by declare.py.",
+  "s1: the predicted direction (Design \"The other rows\": away from 0.31 toward the refit's level change at",
+  "  128 and 160) and the sentence that it reads the refit plus the slider.",
+  "diagnostic: `record`, the committed record of G0 (f) relative to this directory, carrying `chosenForm`",
+  "  and `cells` [{cell, scale, R: {body, deep}, ...}]; `chosenForm` body | deep."
+ ],
+ "targets": {
+  "predictions": "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json",
+  "statement": "PREDICTIONS, which the ladders replace (charter Design \"The targets and their families\"; Decision Log 4). From W46's point A cut (structure share 1 - alpha at held scatter): the control reproduces point A's verdict (16 / 8 and 17 / 10 away beyond B / 3B; C rest halved at both scales; P and F inactive not). Operator 1 alone (tintAlpha 0.7, gain 0.4, far 0.38 at top 256, or 0.13 at top 128): C rest halved at 1x and 2x at top 256 and NOT at top 128; P (both poses pooled) NOT halved at either scale (0.759 / 0.740 against 0.879 / 0.965), as the charter predicts; F inactive halved through the receded's inheritance of the gain and far delta at receded 0.8; the budget fails (9-13 away beyond B, 3-6 past 3B) and the 1x F rest group fails. Thick rest cells fall to x0.48-0.66 (under Apple) and mid to x0.73-0.78: the span law trades the thick overshoot for under-structure unless ladder (ii) supplies the 2x width. Operator 2 (body form): the attenuation table g = exp(-pi^2 sigma^2 / c^2), a = 1 - share + share g, on the F inactive gate cells as an upper bound (sigma 2-3 at share 0.5-1, or sigma 4 at share 0.5, brings point A's x1.72-2.38 to x0.75-1.49); the diagnostic measured the body form removing 0.74-1.04 of the excess at sigma 6, share 1, from the reference. The 64 px checker and photo lose at most 1.0-3.8 % of their mode at sigma 2-4.",
+  "sources": [
+   "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predict.py",
+   "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json",
+   "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.txt",
+   "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+   "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz"
+  ]
+ },
+ "s1": {
+  "predictedDirection": "away from the dark medians 0.31 (0.314 / 0.311), toward the refit's level change at spans 128 and 160",
+  "sentence": "S1 is read and not gated (Design \"The other rows\"); with dark 0.5 frozen (X41), S1 after a dark 0.25 refit reads the refit's change plus the slider's, not the slider's alone.",
+  "sources": []
+ },
+ "diagnostic": {
+  "record": "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+  "chosenForm": "body",
+  "statement": "G0 (f) chose the BODY form by the declared criterion: R body 0.739 / 0.769 at 1x (span 96 / 160) and 1.044 / 1.011 at 2x, pooled 0.891; R deep 0 on all four, its PNGs byte-identical to the control (the 8 px structure is already absent from the deep sample; positive control in diagnostic/positive-control/). Measured weights body / deep: 1x 96 0.766 / 0.234; 1x 160 0.624 / 0.376; 2x 96 0.459 / 0.541; 2x 160 0.456 / 0.544; beyond the reach at 2x 160 0.436 / 0.564.",
+  "sources": [
+   "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json",
+   "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/read.py",
+   "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.py"
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+W47 G0: the ladders re-read under Decision Log 8 (part 1 2d4a2c7f73b5, superseding 2d6d49ad7af5); same renders, no new render
+instrument: 6 of 6 cross-checks equal (the control's T1-fine against the diagnostic; its bands against W46 G2's d0219 T-band fixture)
+
+(i) operator 1: the rule's partition on the five thick rest cells. Per cell: change-band growth in B and its partition (O/U = over/under Apple at the reference); away-band growth in B for the T cell
+    cells: checkerboard-8__rrect-lg__rest, hc-text__rrect-lg__rest, hc-text-7__rrect-lg__rest, checkerboard-32__rrect-lg__rest, checkerboard-64__rrect-lg__rest
+  i-a0.7             1x  O+12.27 awa | O+10.38 awa | O+2.24 awa/low +6.46 | U-4.61 tow | U-13.63 tow  -> >3B 3, >B 3, over-not-toward 3; thin 0.1072/0.1072 keeps; L1 ok  no
+  i-a0.7             2x  O+11.16 awa | O+9.05 awa | O+2.03 awa/low +6.17 | U+5.12 awa | U-4.75 tow  -> >3B 4, >B 4, over-not-toward 3; thin 0.1384/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0505, growth +0.0045): 1x checkerboard-64__rrect-lg__rest level +0.0091; 1x hc-text-28__rrect-md__rest level -0.0105; 1x impulse__rrect-sm__rest level +0.0083; 2x checkerboard-64__rrect-lg__rest level +0.0100; 2x hc-text-28__rrect-md__rest level -0.0133; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-f0.2        1x  O+7.73 awa | O+6.48 awa | O+1.37 awa/low +4.09 | U-9.38 tow | U-13.60 tow  -> >3B 3, >B 3, over-not-toward 3; thin 0.1072/0.1072 keeps; L1 ok  no
+  i-a0.7-f0.2        2x  O+7.04 awa | O+5.67 awa | O+1.32 awa/low +3.57 | U-1.81 tow | U-13.71 tow  -> >3B 3, >B 3, over-not-toward 3; thin 0.1384/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0505, growth +0.0045): 1x checkerboard-64__rrect-lg__rest level +0.0059; 1x hc-text-28__rrect-md__rest level -0.0105; 1x hc-text-7__rrect-lg__rest level -0.0082; 1x hc-text__rrect-lg__rest level -0.0071; 1x impulse__rrect-sm__rest level +0.0083; 2x checkerboard-64__rrect-lg__rest level +0.0064; 2x hc-text-28__rrect-md__rest level -0.0133; 2x hc-text-7__rrect-lg__rest level -0.0065; 2x hc-text__rrect-lg__rest level -0.0062; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-f0.45       1x  O+2.32 awa | O+1.91 awa | O+0.37 unc/low +1.21 | U-2.86 tow | U-4.32 tow  -> >3B 0, >B 3, over-not-toward 3; thin 0.1072/0.1072 keeps; L1 ok  no
+  i-a0.7-f0.45       2x  O+2.14 awa | O+1.68 awa | O+0.41 unc/low +0.27 | U-3.81 tow | U-5.22 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.1384/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0505, growth +0.0045): 1x hc-text-28__rrect-md__rest level -0.0105; 1x impulse__rrect-sm__rest level +0.0083; 2x hc-text-28__rrect-md__rest level -0.0133; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-f0.2-t128   1x  O-1.36 tow | O-0.89 tow | O-0.30 unc/low +0.06 | U+2.13 awa | U+1.37 awa  -> >3B 0, >B 2, over-not-toward 1; thin 0.1074/0.1072 keeps; L1 ok  no
+  i-a0.7-f0.2-t128   2x  O-0.10 unc | O-0.27 unc | O+0.00 unc/low +0.11 | U+1.98 awa | U+1.59 awa  -> >3B 0, >B 2, over-not-toward 3; thin 0.1384/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0505, growth +0.0044): 1x hc-text-28__rrect-md__rest level -0.0081; 1x impulse__rrect-sm__rest level +0.0083; 2x hc-text-28__rrect-md__rest level -0.0133; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-f0.2-t160   1x  O-1.36 tow | O-0.89 tow | O-0.30 unc/low +0.06 | U+2.13 awa | U+1.37 awa  -> >3B 0, >B 2, over-not-toward 1; thin 0.1073/0.1072 keeps; L1 ok  no
+  i-a0.7-f0.2-t160   2x  O-0.10 unc | O-0.27 unc | O+0.00 unc/low +0.11 | U+1.98 awa | U+1.59 awa  -> >3B 0, >B 2, over-not-toward 3; thin 0.1384/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0505, growth +0.0045): 1x hc-text-28__rrect-md__rest level -0.0090; 1x impulse__rrect-sm__rest level +0.0083; 2x hc-text-28__rrect-md__rest level -0.0133; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-g0.2        1x  O+9.23 awa | O+7.75 awa | O+1.67 awa/low +4.87 | U-8.25 tow | U-16.04 tow  -> >3B 3, >B 3, over-not-toward 3; thin 0.1078/0.1072 keeps; L1 ok  no
+  i-a0.7-g0.2        2x  O+8.35 awa | O+6.75 awa | O+1.56 awa/low +4.40 | U+0.47 awa | U-10.77 tow  -> >3B 3, >B 3, over-not-toward 3; thin 0.1358/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0504, growth +0.0044): 1x checkerboard-64__rrect-lg__rest level +0.0069; 1x hc-text-28__rrect-md__rest level -0.0304; 1x hc-text-7__rrect-lg__rest level -0.0097; 1x hc-text__rrect-lg__rest level -0.0083; 1x impulse__rrect-sm__rest level +0.0083; 2x checkerboard-64__rrect-lg__rest level +0.0077; 2x hc-text-28__rrect-md__rest level -0.0316; 2x hc-text-7__rrect-lg__rest level -0.0076; 2x hc-text__rrect-lg__rest level -0.0074; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-g0.4        1x  O+5.23 awa | O+4.35 awa | O+0.87 awa/low +2.73 | U-6.36 tow | U-9.34 tow  -> >3B 2, >B 3, over-not-toward 3; thin 0.1086/0.1072 keeps; L1 ok  no
+  i-a0.7-g0.4        2x  O+4.75 awa | O+3.76 awa | O+0.88 awa/low +2.06 | U-5.68 tow | U-11.28 tow  -> >3B 2, >B 3, over-not-toward 3; thin 0.1322/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0504, growth +0.0043): 1x hc-text-28__rrect-md__rest level -0.0179; 1x hc-text-7__rrect-lg__rest level -0.0055; 1x impulse__rrect-sm__rest level +0.0083; 2x hc-text-28__rrect-md__rest level -0.0185; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.7-g0.6        1x  O+1.45 awa | O+1.17 awa | O+0.22 unc/low +0.72 | U-1.79 tow | U-2.73 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.1091/0.1072 keeps; L1 ok  no
+  i-a0.7-g0.6        2x  O+1.33 awa | O+1.04 awa | O+0.26 unc/low -0.28 | U-2.40 tow | U-3.28 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.1286/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0504, growth +0.0041): 1x hc-text-28__rrect-md__rest level -0.0051; 1x impulse__rrect-sm__rest level +0.0083; 2x hc-text-28__rrect-md__rest level -0.0055; 2x impulse__rrect-sm__rest level +0.0074
+  i-a0.8             1x  O+5.88 awa | O+4.89 awa | O+1.00 awa/low +3.10 | U-7.16 tow | U-10.47 tow  -> >3B 3, >B 3, over-not-toward 3; thin 0.0644/0.1072 keeps; L1 ok  no
+  i-a0.8             2x  O+5.37 awa | O+4.28 awa | O+1.00 awa/low +2.46 | U-4.67 tow | U-12.61 tow  -> >3B 2, >B 3, over-not-toward 3; thin 0.0701/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0498, growth +0.0021): 1x hc-text-28__rrect-md__rest level -0.0198; 1x hc-text-7__rrect-lg__rest level -0.0064; 1x hc-text__rrect-lg__rest level -0.0055; 2x checkerboard-64__rrect-lg__rest level +0.0051; 2x hc-text-28__rrect-md__rest level -0.0208; 2x hc-text-7__rrect-lg__rest level -0.0050
+  i-a0.8-f0.2        1x  O+1.64 awa | O+1.33 awa | O+0.25 unc/low +0.82 | U-2.01 tow | U-3.07 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.0644/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.2        2x  O+1.50 awa | O+1.15 awa | O+0.29 unc/low -0.16 | U-2.70 tow | U-3.73 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.0701/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0498, growth +0.0021): 1x hc-text-28__rrect-md__rest level -0.0198; 2x hc-text-28__rrect-md__rest level -0.0208
+  i-a0.8-f0.45       1x  O-2.58 tow | O-0.99 tow | O-0.33 unc/low +1.42 | U+3.27 awa | U+5.69 awa  -> >3B 2, >B 3, over-not-toward 1; thin 0.0644/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.45       2x  O-2.32 tow | O-0.30 tow | O-0.54 tow/low +2.15 | U+4.60 awa | U+7.17 awa  -> >3B 2, >B 3, over-not-toward 0; thin 0.0701/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0498, growth +0.0021): 1x hc-text-28__rrect-md__rest level -0.0198; 2x hc-text-28__rrect-md__rest level -0.0208
+  i-a0.8-f0.2-t128   1x  O-3.26 tow | O-0.47 tow | O-0.46 unc/low +1.98 | U+4.23 awa | U+8.10 awa  -> >3B 2, >B 3, over-not-toward 1; thin 0.0643/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.2-t128   2x  O-2.92 tow | O+0.17 awa | O-0.74 tow/low +3.46 | U+6.10 awa | U+10.58 awa  -> >3B 3, >B 3, over-not-toward 1; thin 0.0701/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0498, growth +0.0021): 1x hc-text-28__rrect-md__rest level -0.0183; 1x hc-text-7__rrect-lg__rest level +0.0063; 1x hc-text__rrect-lg__rest level +0.0054; 2x hc-text-28__rrect-md__rest level -0.0208
+  i-a0.8-f0.2-t160   1x  O-3.26 tow | O-0.47 tow | O-0.46 unc/low +1.98 | U+4.23 awa | U+8.10 awa  -> >3B 2, >B 3, over-not-toward 1; thin 0.0643/0.1072 keeps; L1 ok  no
+  i-a0.8-f0.2-t160   2x  O-2.92 tow | O+0.17 awa | O-0.74 tow/low +3.46 | U+6.10 awa | U+10.58 awa  -> >3B 3, >B 3, over-not-toward 1; thin 0.0701/0.1384 keeps; L1 ok  no
+                         level beside L1 (max error 0.0498, growth +0.0021): 1x hc-text-28__rrect-md__rest level -0.0189; 1x hc-text-7__rrect-lg__rest level +0.0063; 1x hc-text__rrect-lg__rest level +0.0054; 2x hc-text-28__rrect-md__rest level -0.0208
+  i-a0.8-g0.2        1x  O+3.93 awa | O+3.24 awa | O+0.64 awa/low +2.05 | U-4.80 tow | U-7.14 tow  -> >3B 2, >B 3, over-not-toward 3; thin 0.0622/0.1072 keeps; L1 ok  no
+  i-a0.8-g0.2        2x  O+3.59 awa | O+2.84 awa | O+0.69 awa/low +1.30 | U-6.36 tow | U-8.64 tow  -> >3B 1, >B 3, over-not-toward 3; thin 0.0681/0.1384 LOSES; L1 ok  no
+                         level beside L1 (max error 0.0498, growth +0.0021): 1x hc-text-28__rrect-md__rest level -0.0135; 2x hc-text-28__rrect-md__rest level -0.0142
+  i-a0.8-g0.4        1x  O+1.45 awa | O+1.17 awa | O+0.22 unc/low +0.72 | U-1.79 tow | U-2.73 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.0602/0.1072 keeps; L1 ok  no
+  i-a0.8-g0.4        2x  O+1.33 awa | O+1.04 awa | O+0.26 unc/low -0.28 | U-2.40 tow | U-3.28 tow  -> >3B 0, >B 2, over-not-toward 3; thin 0.0655/0.1384 LOSES; L1 ok  no
+                         level beside L1 (max error 0.0497, growth +0.0020): 1x hc-text-28__rrect-md__rest level -0.0051; 2x hc-text-28__rrect-md__rest level -0.0055
+  i-a0.8-g0.6        1x  O-0.82 tow | O-0.64 tow | O-0.11 unc/low +0.44 | U+1.01 awa | U+1.61 awa  -> >3B 0, >B 2, over-not-toward 1; thin 0.0577/0.1072 keeps; L1 ok  no
+  i-a0.8-g0.6        2x  O-0.71 tow | O-0.54 tow | O-0.16 unc/low +0.56 | U+1.39 awa | U+1.96 awa  -> >3B 0, >B 2, over-not-toward 1; thin 0.0629/0.1384 LOSES; L1 ok  no
+                         level beside L1 (max error 0.0497, growth +0.0020): no unexplained excess
+
+(iii) operator 2: per fine cell R = share of the T1-fine excess removed (bar >= 0.5), the fine-band error ratio, and the whole-band fall -g/B; guards' whole-band delta in B (floor -1)
+  iii-b2     1x  R 0.340 err x0.660 whole +1.82B | R 0.347 err x0.653 whole +1.42B  guards -0.11 / -0.00  no
+  iii-b2     2x  R 0.211 err x0.789 whole +0.60B | R 0.197 err x0.803 whole +0.53B  guards -0.01 / -0.00  no
+  iii-b3     1x  R 0.705 err x0.295 whole +3.72B | R 0.733 err x0.267 whole +2.79B  guards -0.39 / -0.01  MEETS
+  iii-b3     2x  R 0.529 err x0.471 whole +1.70B | R 0.504 err x0.496 whole +1.53B  guards -0.02 / -0.00  MEETS
+  iii-b4     1x  R 0.736 err x0.264 whole +3.87B | R 0.763 err x0.237 whole +2.88B  guards -0.56 / -0.02  MEETS
+  iii-b4     2x  R 0.693 err x0.307 whole +2.26B | R 0.656 err x0.344 whole +2.02B  guards -0.04 / -0.00  MEETS
+  iii-s1.5   1x  R -0.043 err x1.043 whole -0.21B | R -0.051 err x1.051 whole -0.19B  guards +0.00 / -0.00  no
+  iii-s1.5   2x  R 0.395 err x0.605 whole +1.23B | R 0.373 err x0.627 whole +1.08B  guards -0.01 / -0.00  no
+  iii-s2     1x  R 0.233 err x0.767 whole +1.25B | R 0.237 err x0.763 whole +0.98B  guards -0.08 / -0.00  no
+  iii-s2     2x  R 0.591 err x0.409 whole +1.92B | R 0.561 err x0.439 whole +1.72B  guards -0.03 / -0.00  MEETS
+  iii-s3     1x  R 0.606 err x0.394 whole +3.22B | R 0.623 err x0.377 whole +2.43B  guards -0.26 / -0.01  MEETS
+  iii-s3     2x  R 0.871 err x0.129 whole +2.75B | R 0.832 err x0.168 whole +2.46B  guards -0.06 / -0.00  MEETS
+  iii-s4     1x  R 0.728 err x0.272 whole +3.83B | R 0.753 err x0.247 whole +2.85B  guards -0.45 / -0.01  MEETS
+  iii-s4     2x  R 1.005 err x0.005 whole +2.98B | R 0.967 err x0.033 whole +2.66B  guards -0.10 / -0.00  MEETS
+  iii-s6     1x  R 0.739 err x0.261 whole +3.89B | R 0.769 err x0.231 whole +2.89B  guards -0.83 / -0.03  MEETS
+  iii-s6     2x  R 1.044 err x0.044 whole +2.99B | R 1.011 err x0.011 whole +2.68B  guards -0.18 / -0.00  MEETS
+  iii-q0.25  1x  R 0.245 err x0.755 whole +1.31B | R 0.241 err x0.759 whole +1.00B  guards -0.13 / -0.00  no
+  iii-q0.25  2x  R 0.274 err x0.726 whole +1.05B | R 0.247 err x0.753 whole +0.90B  guards -0.03 / -0.00  no
+  iii-q0.5   1x  R 0.455 err x0.545 whole +2.43B | R 0.462 err x0.538 whole +1.85B  guards -0.24 / -0.01  no
+  iii-q0.5   2x  R 0.553 err x0.447 whole +2.02B | R 0.511 err x0.489 whole +1.79B  guards -0.05 / -0.00  MEETS
+  iii-q0.75  1x  R 0.629 err x0.371 whole +3.34B | R 0.642 err x0.358 whole +2.49B  guards -0.35 / -0.01  MEETS
+  iii-q0.75  2x  R 0.792 err x0.208 whole +2.63B | R 0.753 err x0.247 whole +2.35B  guards -0.07 / -0.00  MEETS
+  iv-joint   1x  R 0.736 err x0.264 whole +3.88B | R 0.767 err x0.233 whole +2.88B  partition tow g -3.88B | tow g -2.88B  photo x0.416 (point A x0.4171; -0.02 bar from it) BELOW
+  iv-joint   2x  R 1.044 err x0.044 whole +2.99B | R 1.011 err x0.011 whole +2.68B  partition tow g -2.99B | tow g -2.68B  photo x0.460 (point A x0.4604; -0.01 bar from it) BELOW
+  joint: partition holds ({"awayBeyondB": [], "awayBeyondCeiling": [], "overAppleNotToward": []}); fine halving {1: True, 2: True}; photo {1: False, 2: False}  no
+
+operator 1: {"separates": false, "meetsBoth": [], "meetsOneScaleOnly": []}
+operator 2: {"separates": true, "bodyWidthMeets": true, "tap": {"meetsBoth": ["iii-s3", "iii-s4", "iii-s6", "iii-q0.75"], "meetsOneScaleOnly": ["iii-s2", "iii-q0.5"]}, "body": {"meetsBoth": ["iii-b3", "iii-b4"], "meetsOneScaleOnly": []}}
+joint: {"meets": false}
+
+OUTCOME: ONE separates (operator 2): STOP for the parent; rungs meeting at one scale only, named for the parent: ['iii-s2', 'iii-q0.5']

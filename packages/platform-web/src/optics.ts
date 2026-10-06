@@ -1317,6 +1317,13 @@ export interface MaterialSourceSize {
    * half of that rule and mirrors in FULL, because a `box-shadow` per surface
    * can draw it exactly.
    *
+   * **W47's fine-body tap is declined with the taps** (G0 (b), Decision Log 3, X66).
+   * `sizeFineTapShare` mixes an independent texture into the body before `kScatter`, at the
+   * CSS-pixel width `sizeFineTapSigma` / `sizeFineTapSigma2x`. This tier has one in-place
+   * backdrop-filter, not two independently sampled body textures, so it carries none of the
+   * three leaves. All ship at 0, landed inert; no scoped hold or changed scalar projection is
+   * claimed here. The fine-body residual remains a WebGPU-only lever for W47's fit to price.
+   *
    * **W45's grading of the second tap's share is declined with the tap** (claims
    * §5.205; W45 charter Decision Log 1). `sizeHeavySecondShareFar2x` moves that
    * share along the scatter's far curve, per pixel, and this tier draws no second
@@ -1371,6 +1378,15 @@ export interface MaterialSourceSize {
   readonly sizeToneLevelFar: number;
   readonly sizeOcclusionGain: number;
   /**
+   * **The transmission's far-curve delta, MIRRORED** (W47 operator 1; claims §5.211; W47 charter
+   * Decision Log 2, X65) — the 1x and 2x anchors of `@vitrea/renderer-webgpu`'s
+   * `MaterialProfile.tintAlphaFar1x` / `tintAlphaFar2x`, where the reasons are. Applied per
+   * surface by `spanGradedTintAlpha` before the occlusion term above, on the same far curve the
+   * shader evaluates per pixel. 0 on both anchors on every shipped material.
+   */
+  readonly tintAlphaFar1x: number;
+  readonly tintAlphaFar2x: number;
+  /**
    * The refraction ladder's scales, carried here because the size law folds under
    * the accessibility regime through them — see `sizeThicknessUnderPolicy`.
    */
@@ -1406,6 +1422,9 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   sizeScatterHeavyShareThick2x: 0,
   sizeToneLevelFar: 0,
   sizeOcclusionGain: 0.05,
+  // W47 operator 1, INERT at the default on both tiers (claims §5.211).
+  tintAlphaFar1x: 0,
+  tintAlphaFar2x: 0,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
 
@@ -2021,6 +2040,8 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
       patch?.sizeScatterHeavyShareThick2x ?? MATERIAL_SOURCE_SIZE.sizeScatterHeavyShareThick2x,
     sizeToneLevelFar: patch?.sizeToneLevelFar ?? MATERIAL_SOURCE_SIZE.sizeToneLevelFar,
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
+    tintAlphaFar1x: patch?.tintAlphaFar1x ?? MATERIAL_SOURCE_SIZE.tintAlphaFar1x,
+    tintAlphaFar2x: patch?.tintAlphaFar2x ?? MATERIAL_SOURCE_SIZE.tintAlphaFar2x,
     refractionScale: sourceRefractionScale(patch),
   };
 }
@@ -2924,6 +2945,41 @@ export function sizeOcclusionAlphaAt(
   size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
 ): number {
   return clamp01(alpha + size.sizeOcclusionGain * thickness * (1 - alpha));
+}
+
+/**
+ * **The base alpha a surface of this span carries, graded on the far curve** (W47 operator 1;
+ * claims §5.211; W47 charter Decision Log 2, X65) — the CSS tier's MIRROR of the optics pass's
+ * per-pixel `alphaBase`, evaluated once per surface:
+ *
+ * ```
+ * clamp(alpha + rampAtScale(far1x, far2x, dpr) · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span), 0, 1)
+ * ```
+ *
+ * applied before `sizeOcclusionAlphaAt`, which then lifts from it exactly as the shader's size
+ * law lifts from `alphaBase`. The first of W30's spanning set this tier MIRRORS rather than
+ * declines since the σ law, and for the σ law's reason: what the leaf moves on this tier is one
+ * scalar per surface — the `rgba()` layer's alpha — and the surface's span is one number, so the
+ * per-pixel law has an exact per-surface reading here, where the second tap's share (W45) had no
+ * layer to grade. `alpha` is the source alpha after the accessibility lift, as the shader's
+ * `tint.w` is; the far curve is unfolded on both tiers. Read off the DOCUMENT's span top (the
+ * `size` `materialAtBackdrop` resolves), not off the light 0.25 hold `cssTierSourceSize` applies
+ * to this tier's scatter, so a light 0.25 document that ever names the delta grades the alpha on
+ * the WebGPU tier's own curve. At the shipped 0 the sum is `alpha` exactly and the clamp is the
+ * identity on an alpha in [0, 1], so no shipped CSS output moves.
+ */
+export function spanGradedTintAlpha(
+  alpha: number,
+  spanPx: number,
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+): number {
+  const t = clamp01(
+    (spanPx - size.sizeSpanMax)
+      / Math.max(scatterSpanMaxAtScale(size, devicePixelRatio) - size.sizeSpanMax, 1e-6),
+  );
+  const far = rampAtScale(size.tintAlphaFar1x, size.tintAlphaFar2x, devicePixelRatio);
+  return clamp01(alpha + far * (t * t * (3 - 2 * t)));
 }
 
 /**
@@ -4470,11 +4526,18 @@ export function materialAtBackdrop(
   const strength = backdropToneUnderPolicy(policy, shade, size.refractionScale);
   const adaptation = tone === undefined ? 0
     : backdropToneAdaptation(tone.luminance, thickness, toneConstants) * strength;
+  // W47 operator 1 (claims §5.211; X65): the lifted alpha graded on the far curve, per surface,
+  // BEFORE the occlusion term — the shader's `alphaBase`, mirrored (`spanGradedTintAlpha`).
   const occluded = {
     ...source,
     tintAlpha: sizeOcclusionAlphaAt(
-      occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion,
-        occlusionLiftForPolicy(policy, fold)),
+      spanGradedTintAlpha(
+        occlusionAlphaUnderPolicy(source.tintAlpha, policy.occlusion,
+          occlusionLiftForPolicy(policy, fold)),
+        span,
+        size,
+        devicePixelRatio,
+      ),
       foldedThickness,
       size,
     ),

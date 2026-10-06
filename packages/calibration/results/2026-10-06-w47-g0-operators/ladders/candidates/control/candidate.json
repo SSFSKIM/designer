@@ -1,0 +1,27 @@
+{
+  "$comment": "W47 scratch candidate control: W47 ladder None control",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-control",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "643606d4b64028e984ad7725e63cb7090c8fe8bb4a77a2612dc0066fd5998154"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "9859ef95dcb1278f4ea37983e386254956381076414c0c23d59295d503aef814"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "9b43a8f586236f8b2feb5210cd543f33905da00ce6e838ca10a21a3a17b3d504"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "e1dd84984177ad47904363d4155584ed3a89de4e8131db850c0ff64fa94f40bd"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

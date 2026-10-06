@@ -1,0 +1,165 @@
+census ladder iii-q0.5/1x: passes (7 annotated, refusals [])
+$ tsx cli/compare.ts -- --profile apple-macos-27.0-1x-dark-standard-glass0.25 --renderer webgpu --candidate-document results/2026-10-06-w47-g0-operators/ladders/candidates/iii-q0.5/candidate.json --set calibration,validation,probe --scene checkerboard-64__rrect-md__inactive,checkerboard-8__rrect-lg__inactive,checkerboard-8__rrect-md__inactive,checkerboard__capsule-button__inactive,checkerboard__rrect-ml__inactive,hc-text__rrect-sm__inactive,impulse__capsule-button__inactive,impulse__rrect-lg__inactive,photo__rrect-md__inactive,photo__rrect-ml__inactive --alpha --write-partial --out-matrix /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/matrix.json
+
+── web capture (apple-macos-27.0-1x-dark-standard-glass0.25, 10 scene(s)) ─────────────────────────────
+(node:52858) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+candidate document: materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-06-w47-g0-operators/ladders/candidates/iii-q0.5/candidate.json declarationSha256=f1037151d227 name=apple-macos-27.0-glass0.25-w47-iii-q0.5 glassTintAmount=0.25
+
+checkerboard-8__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/
+
+checkerboard-8__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/
+
+checkerboard-64__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/
+
+impulse__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__inactive/
+
+checkerboard__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-ml__inactive/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-md__inactive/
+
+checkerboard__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive/
+
+impulse__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive/
+
+photo__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-ml__inactive/
+
+hc-text__rrect-sm__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/hc-text__rrect-sm__inactive/
+
+10 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (10 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w47/g0-ladders/iii-q0.5/1x/matrix.json (10 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       1x-dark-standard-glass0.25    checkerboard-8__rrect-md__inactive            1.000    0.00   0.947   0.0063   -0.002/ 0.013    0.1740/ 0.1694    0.0090/ 0.0181    0.0010/ 0.0091
+probe       1x-dark-standard-glass0.25    checkerboard-8__rrect-lg__inactive            1.000    0.01   0.898   0.0127   -0.002/ 0.014    0.1663/ 0.1693    0.0071/ 0.0179    0.0011/ 0.0152
+probe       1x-dark-standard-glass0.25    checkerboard-64__rrect-md__inactive           0.999    0.03   0.938   0.0234    0.100/ 0.031    0.1481/ 0.1712    0.0783/ 0.0330    0.0000/ 0.0100
+validation  1x-dark-standard-glass0.25    impulse__capsule-button__inactive             0.190    8.31   0.991   0.0032     —   /  —       0.0139/ 0.0398    0.0008/ 0.0027    0.0000/ 0.0000
+probe       1x-dark-standard-glass0.25    checkerboard__rrect-ml__inactive              1.000    0.01   0.952   0.0092    0.007/ 0.021    0.1635/ 0.1694    0.0097/ 0.0215    0.0000/ 0.0125
+calibration 1x-dark-standard-glass0.25    photo__rrect-md__inactive                     0.988    0.35   0.971   0.0250    0.305/ 0.072    0.1780/ 0.1652    0.0392/ 0.0096    0.0000/ 0.0000
+calibration 1x-dark-standard-glass0.25    checkerboard__capsule-button__inactive        0.999    0.02   0.981   0.0040    0.076/ 0.040    0.1816/ 0.2070    0.0595/ 0.0367    0.0063/ 0.0090
+probe       1x-dark-standard-glass0.25    impulse__rrect-lg__inactive                   1.000    0.00   0.326   0.0950     —   /  —       0.0091/ 0.0021    0.0006/ 0.0020    0.0000/ 0.0000
+probe       1x-dark-standard-glass0.25    photo__rrect-ml__inactive                     0.990    1.00   0.959   0.0483    0.324/ 0.082    0.1760/ 0.1646    0.0455/ 0.0115    0.0000/ 0.0000
+probe       1x-dark-standard-glass0.25    hc-text__rrect-sm__inactive                   1.000    0.00   0.992   0.0011    0.032/ 0.032    0.2271/ 0.2273    0.0309/ 0.0301    0.0056/ 0.0137
+
+1x-dark-standard-glass0.25    calibration n= 2  IoU mean 0.9934 worst 0.9880   contour p95 mean 1.00 worst 2.00   SSIM mean 0.9760 worst 0.9710   dE mean 0.01452 worst 0.02505
+1x-dark-standard-glass0.25    validation  n= 1  IoU mean 0.1905 worst 0.1905   contour p95 mean 24.02 worst 24.02   SSIM mean 0.9907 worst 0.9907   dE mean 0.00323 worst 0.00323
+1x-dark-standard-glass0.25    probe       n= 7  IoU mean 0.9983 worst 0.9897   contour p95 mean 0.99 worst 6.95   SSIM mean 0.8589 worst 0.3255   dE mean 0.02800 worst 0.09500
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+1x-dark-standard-glass0.25    checkerboard-8__rrect-md__inactive              15008        15024  0.9989         0.00         1.00
+1x-dark-standard-glass0.25    checkerboard-8__rrect-lg__inactive              43776        43816  0.9987         1.00         1.00
+1x-dark-standard-glass0.25    checkerboard-64__rrect-md__inactive             15008        15024  0.9989         0.00         1.00
+1x-dark-standard-glass0.25    impulse__capsule-button__inactive                4872         4872  1.0000         0.00         0.00
+1x-dark-standard-glass0.25    checkerboard__rrect-ml__inactive                28024        28048  0.9991         0.00         1.00
+1x-dark-standard-glass0.25    photo__rrect-md__inactive                       15008        15024  0.9989         0.00         1.00
+1x-dark-standard-glass0.25    checkerboard__capsule-button__inactive           4872         4872  1.0000         0.00         0.00
+1x-dark-standard-glass0.25    impulse__rrect-lg__inactive                     43776        43816  0.9987         1.00         1.00
+1x-dark-standard-glass0.25    photo__rrect-ml__inactive                       28024        28048  0.9991         0.00         1.00
+1x-dark-standard-glass0.25    hc-text__rrect-sm__inactive                      2000         2000  1.0000         0.00         0.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-dark-standard-glass0.25    checkerboard-8__rrect-md__inactive              0.50  0.7667/ 0.0170    2/  2/  2/  0    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    checkerboard-8__rrect-lg__inactive              0.50  0.7532/ 0.0197    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    checkerboard-64__rrect-md__inactive             0.48  0.6594/ 0.0360    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    impulse__capsule-button__inactive               0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-dark-standard-glass0.25    checkerboard__rrect-ml__inactive                0.50  0.7649/ 0.0213    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+1x-dark-standard-glass0.25    photo__rrect-md__inactive                       1.00  0.4598/ 0.0023    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    checkerboard__capsule-button__inactive          0.50  0.6443/ 0.0437    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    impulse__rrect-lg__inactive                     0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-dark-standard-glass0.25    photo__rrect-ml__inactive                       1.00  0.4617/ 0.0070    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+1x-dark-standard-glass0.25    hc-text__rrect-sm__inactive                     0.75  0.8212/ 0.0050    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 2 cell(s) across 2 scene(s): impulse__capsule-button__inactive, impulse__rrect-lg__inactive. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w47/g0/packages/calibration/results/2026-10-06-w47-g0-operators/ladders/candidates/iii-q0.5/candidate.json
+web accessibility for apple-macos-27.0-1x-dark-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (14) ────────────
+  impulse__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 16 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  impulse__capsule-button__inactive: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__rrect-md__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__rrect-lg__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__rrect-lg__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 240 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  impulse__rrect-lg__inactive: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__rrect-lg__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__rrect-lg__inactive: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__rrect-ml__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  hc-text__rrect-sm__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text__rrect-sm__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+(node:52807) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

@@ -1,0 +1,975 @@
+{
+ "schema": "w47-fit-declaration-1",
+ "status": "DRAFT: pinned by part 1; part 2 is this body changed only by the ladders' permitted decisions (declare.py check-fit; ladders/protocol.json `decisions`)",
+ "charter": "docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md@c1f9bf84c",
+ "startingPoint": {
+  "lineage": "d0219",
+  "label": "start-d0219",
+  "generation": "d0219cd684bf",
+  "documents": {
+   "active.dark": "d0219cd684bf",
+   "receded.dark": "f0b36a71772a",
+   "active.light": "ebc3d9105a4a",
+   "receded.light": "12712d534b78"
+  },
+  "digests": {
+   "active.dark": "b074fc6913a91c66",
+   "receded.dark": "280f0fddf014e0f6"
+  },
+  "how": "the four snapshots under documents/ at the charter's merge c1f9bf84c, no override (X62); one lineage"
+ },
+ "references": {
+  "dark": "d0219cd684bf",
+  "light": "ebc3d9105a4a",
+  "why": "the dark generation is every regression row's reference and T1's (Decision Logs 3, 5); the light one is what X60 holds the light rows to"
+ },
+ "moves": [
+  {
+   "id": "stage1",
+   "slot": "active.dark",
+   "scope": "stage1",
+   "what": "the active document: the span law and the thick width together (Design \"The moves\", stage 1)",
+   "familyOrder": [
+    "span-law",
+    "rest-scatter"
+   ],
+   "families": {
+    "span-law": {
+     "why": "operator 1's law crossed with the 2x second tap as ONE factorial (Design \"The moves\", MARKED: \"tintAlpha \u00d7 the far delta \u00d7 the span top \u00d7 the occlusion gain as one factorial ..., crossed with the second tap's (share, \u03c32x, far delta) at 2x where ladder (ii) met its bar, the 1x width sizeHeavySecondSigma held at 0\"). The span law: tintAlpha the thin knot, sizeOcclusionGain the knee knot on sizeK, the far delta the thick knot on farS, the span top moving farS (and with it the ramp's far start, the 2x heavy gain and W45's share); the leaves gate each other. The tap's three leaves are conditional members (`conditional: ii`): part 2 strikes them, and the crossing with them, unless ladder (ii) met its bar. Points: 3 \u00d7 6 \u00d7 6 \u00d7 4 \u00d7 4 \u00d7 4 = 6,912 span-law points \u00d7 7 tap options (off, or share 0.05 \u00d7 \u03c32x {6, 10, 14} \u00d7 far share {0.3, 0.6}) = 48,384 points with the tap, 6,912 without. Scale-separable renders: 1x 3 \u00d7 6 \u00d7 4 \u00d7 4 = 288 either way (the tap acts at 2x only: its 1x width is held at 0, so its share is unread at 1x); 2x 288 \u00d7 7 = 2,016 with the tap, 288 without.",
+     "leaves": {
+      "optics.regular.tintAlpha": {
+       "slot": "active.dark",
+       "domain": [
+        0.7,
+        0.9
+       ],
+       "grid": [
+        0.7,
+        0.8,
+        0.9
+       ],
+       "unit": "alpha (the material's own; the thin knot)",
+       "target": "P",
+       "ladder": "i",
+       "rungs": [
+        "i-a0.7",
+        "i-a0.7-f0.2",
+        "i-a0.7-f0.45",
+        "i-a0.7-f0.2-t128",
+        "i-a0.7-f0.2-t160",
+        "i-a0.7-g0.2",
+        "i-a0.7-g0.4",
+        "i-a0.7-g0.6",
+        "i-a0.8",
+        "i-a0.8-f0.2",
+        "i-a0.8-f0.45",
+        "i-a0.8-f0.2-t128",
+        "i-a0.8-f0.2-t160",
+        "i-a0.8-g0.2",
+        "i-a0.8-g0.4",
+        "i-a0.8-g0.6"
+       ],
+       "held": "every tone ordinate and bodyChromaRetention held (X61)",
+       "alsoServes": [
+        "C rest"
+       ]
+      },
+      "tintAlphaFar1x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        0.6
+       ],
+       "grid": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.45,
+        0.6
+       ],
+       "unit": "alpha added at farS = 1 (1x; rampAtScale)",
+       "target": "P",
+       "ladder": "i",
+       "rungs": [
+        "i-a0.7-f0.2",
+        "i-a0.7-f0.45",
+        "i-a0.7-f0.2-t128",
+        "i-a0.7-f0.2-t160",
+        "i-a0.8-f0.2",
+        "i-a0.8-f0.45",
+        "i-a0.8-f0.2-t128",
+        "i-a0.8-f0.2-t160"
+       ],
+       "operator": "operator 1",
+       "alsoServes": [
+        "C rest"
+       ]
+      },
+      "tintAlphaFar2x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        0.6
+       ],
+       "grid": [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.45,
+        0.6
+       ],
+       "unit": "alpha added at farS = 1 (2x; rampAtScale)",
+       "target": "P",
+       "ladder": "i",
+       "rungs": [
+        "i-a0.7-f0.2",
+        "i-a0.7-f0.45",
+        "i-a0.7-f0.2-t128",
+        "i-a0.7-f0.2-t160",
+        "i-a0.8-f0.2",
+        "i-a0.8-f0.45",
+        "i-a0.8-f0.2-t128",
+        "i-a0.8-f0.2-t160"
+       ],
+       "operator": "operator 1",
+       "alsoServes": [
+        "C rest"
+       ]
+      },
+      "sizeScatterSpanMax": {
+       "slot": "active.dark",
+       "domain": [
+        128,
+        256
+       ],
+       "grid": [
+        128,
+        160,
+        192,
+        256
+       ],
+       "unit": "CSS px (the far curve's top, 1x)",
+       "target": "P",
+       "ladder": "i",
+       "rungs": [
+        "i-a0.7-f0.2-t128",
+        "i-a0.7-f0.2-t160",
+        "i-a0.8-f0.2-t128",
+        "i-a0.8-f0.2-t160"
+       ],
+       "alsoServes": [
+        "C rest"
+       ]
+      },
+      "sizeScatterSpanMax2x": {
+       "slot": "active.dark",
+       "domain": [
+        128,
+        256
+       ],
+       "grid": [
+        128,
+        160,
+        192,
+        256
+       ],
+       "unit": "CSS px (the far curve's top, 2x)",
+       "target": "P",
+       "ladder": "i",
+       "rungs": [
+        "i-a0.7-f0.2-t128",
+        "i-a0.7-f0.2-t160",
+        "i-a0.8-f0.2-t128",
+        "i-a0.8-f0.2-t160",
+        "ii-w6-d0.3-t128",
+        "ii-w6-d0.6-t128",
+        "ii-w10-d0.3-t128",
+        "ii-w10-d0.6-t128",
+        "ii-w14-d0.3-t128",
+        "ii-w14-d0.6-t128"
+       ],
+       "alsoServes": [
+        "C rest"
+       ]
+      },
+      "sizeOcclusionGain": {
+       "slot": "active.dark",
+       "domain": [
+        0.05,
+        0.6
+       ],
+       "grid": [
+        0.05,
+        0.2,
+        0.4,
+        0.6
+       ],
+       "unit": "alpha lift on sizeK (the knee knot; one leaf for both scales)",
+       "target": "P",
+       "ladder": "i",
+       "rungs": [
+        "i-a0.7-g0.2",
+        "i-a0.7-g0.4",
+        "i-a0.7-g0.6",
+        "i-a0.8-g0.2",
+        "i-a0.8-g0.4",
+        "i-a0.8-g0.6"
+       ],
+       "alsoServes": [
+        "C rest"
+       ]
+      },
+      "sizeHeavySecondShare": {
+       "slot": "active.dark",
+       "domain": [
+        -1,
+        1
+       ],
+       "grid": [
+        0,
+        0.05
+       ],
+       "unit": "signed share",
+       "target": "C rest",
+       "ladder": "ii",
+       "rungs": [
+        "ii-w6-d0.3-t256",
+        "ii-w6-d0.6-t256",
+        "ii-w10-d0.3-t256",
+        "ii-w10-d0.6-t256",
+        "ii-w14-d0.3-t256",
+        "ii-w14-d0.6-t256",
+        "ii-w6-d0.3-t128",
+        "ii-w6-d0.6-t128",
+        "ii-w10-d0.3-t128",
+        "ii-w10-d0.6-t128",
+        "ii-w14-d0.3-t128",
+        "ii-w14-d0.6-t128"
+       ],
+       "conditional": "ii",
+       "gridNote": "0 is the snapshot's own share (the tap off), so the crossed factorial keeps every span-law point without the tap beside ladder (ii)'s 0.05; at 0 the width and the far share are unread and held at their start (labels.json `gates`, search.collapse_gated)"
+      },
+      "sizeHeavySecondSigma2x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        24
+       ],
+       "grid": [
+        6,
+        10,
+        14
+       ],
+       "unit": "CSS px (2x)",
+       "target": "C rest",
+       "ladder": "ii",
+       "rungs": [
+        "ii-w6-d0.3-t256",
+        "ii-w6-d0.6-t256",
+        "ii-w10-d0.3-t256",
+        "ii-w10-d0.6-t256",
+        "ii-w14-d0.3-t256",
+        "ii-w14-d0.6-t256",
+        "ii-w6-d0.3-t128",
+        "ii-w6-d0.6-t128",
+        "ii-w10-d0.3-t128",
+        "ii-w10-d0.6-t128",
+        "ii-w14-d0.3-t128",
+        "ii-w14-d0.6-t128"
+       ],
+       "conditional": "ii",
+       "domainWidened": "deliberate widening (the parent's ruling on W47 G0's reading 9): W46's draft declared [0, 8] CSS px for the second tap's width; ladder (ii)'s grid {6, 10, 14} (charter Design \"The ladders\" (ii)) cannot sit inside it, so the active 2x width's domain is [0, 24]"
+      },
+      "sizeHeavySecondShareFar2x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.3,
+        0.6
+       ],
+       "unit": "share added at farS = 1 (2x; W45's law, positive here)",
+       "target": "C rest",
+       "ladder": "ii",
+       "rungs": [
+        "ii-w6-d0.3-t256",
+        "ii-w6-d0.6-t256",
+        "ii-w10-d0.3-t256",
+        "ii-w10-d0.6-t256",
+        "ii-w14-d0.3-t256",
+        "ii-w14-d0.6-t256",
+        "ii-w6-d0.3-t128",
+        "ii-w6-d0.6-t128",
+        "ii-w10-d0.3-t128",
+        "ii-w10-d0.6-t128",
+        "ii-w14-d0.3-t128",
+        "ii-w14-d0.6-t128"
+       ],
+       "conditional": "ii",
+       "domainWidened": "deliberate widening (the parent's ruling on W47 G0's reading 9): W46's draft declared [-1, 0] (the far share only lowering the share, as the light 0.25 landing reads it); ladder (ii)'s grid {0.3, 0.6} is positive (the share grows with the span toward the thick cells), so the active far share's domain is [0, 1]"
+      }
+     },
+     "factorialGroups": [
+      {
+       "keys": [
+        "optics.regular.tintAlpha",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "sizeOcclusionGain",
+        "sizeHeavySecondShare",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavySecondShareFar2x"
+       ],
+       "starts": [
+        "d0219"
+       ]
+      }
+     ],
+     "fixed": {
+      "sizeHeavySecondSigma": {
+       "slot": "active.dark",
+       "value": 0
+      }
+     }
+    },
+    "rest-scatter": {
+     "why": "W46's rest scatter leaves (the floors, the thin starts, the 1x heavy tap, the conditioning gain) at their X64 start, by coordinate sweep after (Design \"The moves\"); W46's grids; no W47 ladder reads them",
+     "leaves": {
+      "sizeScatterFloor": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.1,
+        0.2,
+        0.34,
+        0.5,
+        0.7
+       ],
+       "unit": "deep share",
+       "target": "C rest",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 1, ladder ii-fa (W46 G0 \u00a75.208 \u00a77)"
+      },
+      "sizeScatterFloor2x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.5,
+        0.7,
+        0.85,
+        1
+       ],
+       "unit": "deep share",
+       "target": "C rest",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 1, ladder ii-fb (W46 G0 \u00a75.208 \u00a77)"
+      },
+      "sizeScatterRampStartThin1x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.6,
+        0.72,
+        0.85,
+        1.0
+       ],
+       "unit": "sharp share at the contour",
+       "target": "C rest",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 1, ladder ii-n1 (W46 G0 \u00a75.208 \u00a77)"
+      },
+      "sizeScatterRampStartThin2x": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.46,
+        0.6,
+        0.75,
+        0.9
+       ],
+       "unit": "sharp share at the contour",
+       "target": "C rest",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 1, ladder ii-n2 (W46 G0 \u00a75.208 \u00a77)"
+      },
+      "sizeHeavyTapSigma": {
+       "slot": "active.dark",
+       "domain": [
+        0,
+        24
+       ],
+       "grid": [
+        0,
+        4,
+        8,
+        13
+       ],
+       "unit": "CSS px (0: the chain level)",
+       "target": "C rest",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 1, ladder ii-s1 (W46 G0 \u00a75.208 \u00a77)"
+      },
+      "sizeScatterScaleGain": {
+       "slot": "active.dark",
+       "domain": [
+        -2,
+        0
+       ],
+       "grid": [
+        -2,
+        -1.5,
+        -1,
+        -0.5,
+        0
+       ],
+       "unit": "per unit of the source's edge density",
+       "target": "C rest",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 1, ladder None (W46 G0 \u00a75.208 \u00a77)"
+      }
+     }
+    }
+   }
+  },
+  {
+   "id": "stage2",
+   "slot": "receded.dark",
+   "scope": "stage2",
+   "materialise": "receded.dark",
+   "what": "the receded document: its transmission from point A's receded scatter, then operator 2 (or the receded body width), then its scatter leaves; read on P, F and C inactive and the impulse inactive cells; sealed as a difference over the stage-1 active (Design \"The moves\", stage 2)",
+   "familyOrder": [
+    "transmission",
+    "fine-term",
+    "receded-scatter"
+   ],
+   "families": {
+    "transmission": {
+     "why": "the receded tintAlpha {0.8, 0.89} (W46 Decision Log 9's grid) with point A's receded scatter as the start (`fixed`: W46 G1's point A, claims \u00a75.209 \u00a73), ordinates held",
+     "leaves": {
+      "optics.regular.tintAlpha": {
+       "slot": "receded.dark",
+       "domain": [
+        0.8,
+        0.89
+       ],
+       "grid": [
+        0.8,
+        0.89
+       ],
+       "unit": "alpha",
+       "target": "P",
+       "ladder": null,
+       "rungs": [
+        "iv-joint"
+       ],
+       "held": "every tone ordinate and bodyChromaRetention held (X61)"
+      }
+     },
+     "fixed": {
+      "sizeScatterRampStartThin1x": {
+       "slot": "receded.dark",
+       "value": 0.4
+      },
+      "sizeScatterRampStartThin2x": {
+       "slot": "receded.dark",
+       "value": 0.4
+      },
+      "sizeScatterFloor": {
+       "slot": "receded.dark",
+       "value": 0.5
+      },
+      "sizeScatterRampStartThick1x": {
+       "slot": "receded.dark",
+       "value": 0.15
+      },
+      "sizeScatterScaleGain": {
+       "slot": "receded.dark",
+       "value": 0
+      }
+     }
+    },
+    "fine-term": {
+     "why": "operator 2's width and share as one factorial (its widths are gated by the share, one gate-group), and the receded body width (optics.regular.blurSigma) swept beside it; part 2 keeps the form ladder (iii) supports (body-width-first, or the tap)",
+     "leaves": {
+      "sizeFineTapSigma": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        6
+       ],
+       "grid": [
+        1.5,
+        2,
+        3,
+        4,
+        6
+       ],
+       "unit": "CSS px (1x; rampAtScale)",
+       "target": "F inactive",
+       "ladder": "iii",
+       "rungs": [
+        "iii-s1.5",
+        "iii-s2",
+        "iii-s3",
+        "iii-s4",
+        "iii-s6",
+        "iii-q0.25",
+        "iii-q0.5",
+        "iii-q0.75"
+       ],
+       "operator": "operator 2"
+      },
+      "sizeFineTapSigma2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        6
+       ],
+       "grid": [
+        1.5,
+        2,
+        3,
+        4,
+        6
+       ],
+       "unit": "CSS px (2x; rampAtScale)",
+       "target": "F inactive",
+       "ladder": "iii",
+       "rungs": [
+        "iii-s1.5",
+        "iii-s2",
+        "iii-s3",
+        "iii-s4",
+        "iii-s6",
+        "iii-q0.25",
+        "iii-q0.5",
+        "iii-q0.75"
+       ],
+       "operator": "operator 2"
+      },
+      "sizeFineTapShare": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.25,
+        0.5,
+        0.75,
+        1
+       ],
+       "unit": "share of the fine sample (the gate; 0 is the identity)",
+       "target": "F inactive",
+       "ladder": "iii",
+       "rungs": [
+        "iii-s1.5",
+        "iii-s2",
+        "iii-s3",
+        "iii-s4",
+        "iii-s6",
+        "iii-q0.25",
+        "iii-q0.5",
+        "iii-q0.75"
+       ],
+       "operator": "operator 2"
+      },
+      "optics.regular.blurSigma": {
+       "slot": "receded.dark",
+       "domain": [
+        1.25,
+        4
+       ],
+       "grid": [
+        1.25,
+        2,
+        3,
+        4
+       ],
+       "unit": "device px (the receded body width)",
+       "target": "F inactive",
+       "ladder": "iii",
+       "rungs": [
+        "iii-b2",
+        "iii-b3",
+        "iii-b4"
+       ]
+      }
+     },
+     "factorialGroups": [
+      {
+       "keys": [
+        "sizeFineTapSigma",
+        "sizeFineTapSigma2x",
+        "sizeFineTapShare"
+       ],
+       "starts": [
+        "d0219"
+       ]
+      }
+     ]
+    },
+    "receded-scatter": {
+     "why": "the receded scatter leaves by coordinate sweep (W46's stage-2 family and grids), each held or moved on its own from the materialised stage base",
+     "leaves": {
+      "sizeScatterRampStartThin1x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.1,
+        0.4,
+        0.7,
+        1
+       ],
+       "unit": "sharp share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-rn1"
+      },
+      "sizeScatterRampStartThin2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.1,
+        0.4,
+        0.7,
+        1
+       ],
+       "unit": "sharp share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-rn2"
+      },
+      "sizeScatterRampStartThick1x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0,
+        0.15,
+        0.3
+       ],
+       "unit": "sharp share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-rk1"
+      },
+      "sizeScatterRampStartThick2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0,
+        0.04,
+        0.2
+       ],
+       "unit": "sharp share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-rk2"
+      },
+      "sizeScatterRampStartFar1x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0,
+        0.1,
+        0.2
+       ],
+       "unit": "sharp share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-re1"
+      },
+      "sizeScatterRampStartFar2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0,
+        0.04,
+        0.2
+       ],
+       "unit": "sharp share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-re2"
+      },
+      "sizeHeavyTapSigma2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        32
+       ],
+       "grid": [
+        9,
+        14,
+        18,
+        24
+       ],
+       "unit": "CSS px",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder iii-rs2"
+      },
+      "sizeScatterHeavyShareThick1x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0,
+        0.25,
+        0.5
+       ],
+       "unit": "heavy share at the thick end",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeScatterFloor": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.1,
+        0.2,
+        0.34,
+        0.5,
+        0.7
+       ],
+       "unit": "deep share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeScatterFloor2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        1
+       ],
+       "grid": [
+        0.5,
+        0.7,
+        0.85,
+        1
+       ],
+       "unit": "deep share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeHeavyTapSigma": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        24
+       ],
+       "grid": [
+        0,
+        4,
+        8,
+        13,
+        18
+       ],
+       "unit": "CSS px",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeScatterScaleGain": {
+       "slot": "receded.dark",
+       "domain": [
+        -2,
+        0
+       ],
+       "grid": [
+        -2,
+        -1,
+        0
+       ],
+       "unit": "per unit edge density",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeHeavySecondShare": {
+       "slot": "receded.dark",
+       "domain": [
+        -1,
+        1
+       ],
+       "grid": [
+        0,
+        0.25,
+        0.5
+       ],
+       "unit": "signed share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeHeavySecondSigma": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        8
+       ],
+       "grid": [
+        0,
+        1.5,
+        3,
+        5
+       ],
+       "unit": "CSS px",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeHeavySecondSigma2x": {
+       "slot": "receded.dark",
+       "domain": [
+        0,
+        8
+       ],
+       "grid": [
+        0,
+        1.5,
+        3,
+        5
+       ],
+       "unit": "CSS px",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "fromW46": "W46's draft stage 2, ladder None"
+      },
+      "sizeHeavySecondShareFar2x": {
+       "slot": "receded.dark",
+       "domain": [
+        -1,
+        0
+       ],
+       "grid": [
+        -0.5,
+        -0.25,
+        0
+       ],
+       "unit": "signed share",
+       "target": "F inactive",
+       "ladder": null,
+       "rungs": [],
+       "domainLowerIsMinus": "sizeHeavySecondShare",
+       "fromW46": "W46's draft stage 2, ladder None"
+      }
+     },
+     "factorialGroups": [
+      {
+       "keys": [
+        "sizeHeavySecondShare",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x"
+       ],
+       "starts": [
+        "d0219"
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ],
+ "searchProcedure": {
+  "implementation": "fit/search.py (pinned by part 1), fit/fit.py",
+  "text": "W45's procedure: within a stage, its families are sequential components in familyOrder, each swept on the stage's scope from the point the previous left; within a family each leaf's grid is swept in the order listed, the others held at their current values, at most two passes; a factorialGroups entry sweeps its keys' grid product as ONE coordinate step; a grid point outside a declared joint domain (domainLowerIsMinus) is not a candidate; every step's candidates include the step's start (already measured), so a sweep never forces a move off the incumbent.",
+  "tieRule": "points whose objective lies within the stage tie of the step's minimum are indistinguishable; among them the point nearest the step's start wins (the sum over the step's keys of |v - v0| / (domain hi - lo)), then fewer moved leaves, then grid order; the stage decision applies the same rule measured from the stage base. The tie is rule.stage_tie computed once on the stage's declared cells from the reference's own cut (stage 1 0.0365, stage 2 0.0544), never from a point's partial render (the W44 and W45 tracker entries).",
+  "objective": "rule.stage_objective: W44's selection metric (median |log(web/native)| over F, C and P) on the stage's cells, both dark scales pooled, the gate partition; a partial objective is never ranked (recover.py, or refusal)",
+  "scaleSeparableRendering": "a point's render at one scale is its scale twin's: the point's overrides restricted to the leaves acting at that scale (fit/labels.json `scales`); points whose scale twins have equal resolved digests share that scale's render. Exact under the scale anchoring, which ladders (ii) and (iii) read on every lever (its other scale byte-identical to the control's).",
+  "renders": "every fit render in candidate mode on the WebGPU tier with --alpha, through with-gpu.sh; each scope's cells are the dark T1 gate cells of its pose plus L1's declared population of that pose"
+ },
+ "selectionRule": {
+  "withinAStage": "the stage's point with a passing within clause (rule.stage_within: every target cell of the stage within) and the smallest stage objective lands",
+  "ifNotWithin": "else the smallest stage objective, an indistinguishable plateau decided by the tie rule from the stage base; recorded as NOT within"
+ },
+ "interactions": "operator 1's leaves, the span tops and the occlusion gain are the active's and reach the inactive cells by inheritance; stage 2 materialises every admitted receded key (X64 and X67: `materialise: receded.dark`) at the stage-1 active's resolved values and holds or moves its own; operator 2's leaves are the receded's only (X66). The joint point is re-read on the whole gate population; a stage that undid the other is refitted once on the union (Design \"The moves\").",
+ "level": "the active transmission's domain is ladder (i)'s passing rungs (part 2 narrows it); every fit scope carries L1's declared population, read at every point (X61); the level check knows operator 1's per-pixel alpha",
+ "landingRule": {
+  "implementation": "cuts/rule.py (pinned by part 1)",
+  "reference": "d0219cd684bf",
+  "scope": "WebGPU, the two dark 0.25 profiles, each alone, F, T, C and P, the gate partition before the exposure",
+  "targets": {
+   "P": [
+    "P rest",
+    "P inactive"
+   ],
+   "C rest": [
+    "C rest"
+   ],
+   "F inactive": [
+    "F inactive"
+   ]
+  },
+  "verdicts": "FULL CLOSE, IMPROVEMENT LANDING, UNMEASURED, NEITHER (Design \"The landing rule\")"
+ },
+ "notFitted": [],
+ "namedGaps": [],
+ "x60": "every fit candidate's light endpoints patch- and digest-identical to the light snapshots (the builder refuses a light override; stage/x60.py evidence reads it)",
+ "held": "every tone ordinate (backdropToneResponseThin/Thick, backdropToneBlackThin/Thick), bodyChromaRetention, the tint, every rim, shadow and lens leaf, and every light, 0.5 and 26.5 document"
+}

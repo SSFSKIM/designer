@@ -122,6 +122,7 @@ import {
   interiorShadowKeep,
   resolvedBackdropToneResponse,
   sizeOcclusionAlphaAt as cssSizeOcclusionAlphaAt,
+  spanGradedTintAlpha as cssSpanGradedTintAlpha,
   toneRespondedSourceOptics,
   type CssTierInterior,
   type CssTierLayer,
@@ -157,6 +158,8 @@ import {
   NOMINAL_MATERIAL_POLICY as RENDERER_NOMINAL_POLICY,
   sizeOcclusionAlpha as rendererSizeOcclusionAlpha,
   sizeOcclusionAlphaAt as rendererSizeOcclusionAlphaAt,
+  spanGradedTintAlpha as rendererSpanGradedTintAlpha,
+  tintAlphaFarAtScale as rendererTintAlphaFarAtScale,
   scatterDeepThickness as rendererScatterDeepThickness,
   scatterFloorAtScale as rendererScatterFloorAtScale,
   scatterGainAt as rendererScatterGainAt,
@@ -777,6 +780,9 @@ describe("tier coherence (K5)", () => {
     );
     expect(MATERIAL_SOURCE_SIZE.sizeToneLevelFar).toBe(DEFAULT_MATERIAL_PROFILE.sizeToneLevelFar);
     expect(MATERIAL_SOURCE_SIZE.sizeOcclusionGain).toBe(DEFAULT_MATERIAL_PROFILE.sizeOcclusionGain);
+    // W47 operator 1 (claims §5.211): both anchors 0 on both tiers, inert together.
+    expect(MATERIAL_SOURCE_SIZE.tintAlphaFar1x).toBe(DEFAULT_MATERIAL_PROFILE.tintAlphaFar1x);
+    expect(MATERIAL_SOURCE_SIZE.tintAlphaFar2x).toBe(DEFAULT_MATERIAL_PROFILE.tintAlphaFar2x);
 
     const patch = {
       sizeSpanMin: 40,
@@ -799,6 +805,8 @@ describe("tier coherence (K5)", () => {
       sizeScatterHeavyShareThick2x: 0.44,
       sizeToneLevelFar: 0.6,
       sizeOcclusionGain: 0.4,
+      tintAlphaFar1x: 0.3,
+      tintAlphaFar2x: 0.45,
     };
     const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
     const mirrored = sourceSize(patch);
@@ -822,6 +830,8 @@ describe("tier coherence (K5)", () => {
     expect(mirrored.sizeScatterHeavyShareThick2x).toBe(profile.sizeScatterHeavyShareThick2x);
     expect(mirrored.sizeToneLevelFar).toBe(profile.sizeToneLevelFar);
     expect(mirrored.sizeOcclusionGain).toBe(profile.sizeOcclusionGain);
+    expect(mirrored.tintAlphaFar1x).toBe(profile.tintAlphaFar1x);
+    expect(mirrored.tintAlphaFar2x).toBe(profile.tintAlphaFar2x);
     // And the patch really moved them, so none of the equalities above is the
     // default agreeing with itself.
     expect(mirrored.sizeSpanMax).not.toBe(MATERIAL_SOURCE_SIZE.sizeSpanMax);
@@ -3103,6 +3113,10 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   sizeScatterHeavyShareThick2x: "MATERIAL_SOURCE_SIZE",
   sizeToneLevelFar: "MATERIAL_SOURCE_SIZE",
   sizeOcclusionGain: "MATERIAL_SOURCE_SIZE",
+  // W47 operator 1, MIRRORED per surface (claims §5.211; X65): the same-named fields, and the law
+  // `spanGradedTintAlpha` pinned by "W47 operator 1 is one law on both tiers" below.
+  tintAlphaFar1x: "MATERIAL_SOURCE_SIZE",
+  tintAlphaFar2x: "MATERIAL_SOURCE_SIZE",
   // The outer shadow, name for name including W30's three σ leaves.
   outerShadow: "MATERIAL_SOURCE_OUTER_SHADOW",
   // The optics, per variant, under the CSS tier's own field names.
@@ -3119,6 +3133,16 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
     "none: the CSS tier draws no second heavy tap, so it has no share to grade on the far curve; " +
     "declined with the tap in `platform-web/src/optics.ts` (W45 charter Decision Log 1), and the " +
     "span top it rides reaches this tier through `MATERIAL_SOURCE_SIZE` uncompensated.",
+  // W47 G0 (b), X66: the independent fine-body texture is declined with the taps.
+  sizeFineTapShare:
+    "none: the CSS tier has no independently sampled fine-body texture to mix before kScatter; " +
+    "declined in platform-web/src/optics.ts (W47 Decision Log 3).",
+  sizeFineTapSigma:
+    "none: the CSS tier has no pyramid to build the independent fine-body width; " +
+    "declined with sizeFineTapShare in platform-web/src/optics.ts (W47 Decision Log 3).",
+  sizeFineTapSigma2x:
+    "none: the CSS tier has no second-scale fine-body texture; declined with sizeFineTapShare " +
+    "in platform-web/src/optics.ts (W47 Decision Log 3).",
   // W30's scale-selective scatter reaches this tier through the same share.
   sizeScatterScaleGain: "cssTierHeavyShareAt",
   sizeScatterScaleRef: "cssTierHeavyShareAt",
@@ -3582,3 +3606,138 @@ describe("the CSS tier declines the floor and span top at the light 0.25 positio
   });
 });
 
+/**
+ * **W47 operator 1 is one law on both tiers** (X65; W47 charter Decision Log 2; claims §5.211).
+ *
+ * `alphaBase = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr) · farS, 0, 1)`,
+ * per pixel in the optics pass and per surface on the CSS tier, before each tier's own occlusion
+ * term. The renderer's `spanGradedTintAlpha` is the CPU statement of the shader's line, and the
+ * CSS tier's is the mirror `materialAtBackdrop` applies; these cases hold the two to each other
+ * on the ten shipped documents (where both anchors are 0 and the law is the identity, so no
+ * shipped CSS output moves) AND on synthetic documents naming non-zero deltas, either side of the
+ * knee and at both scales, so a later document that names the leaves inherits the mirror or fails
+ * here. The full chain is pinned too: what `materialAtBackdrop` hands the tone solve, against the
+ * renderer's occlusion lifting from the renderer's graded alpha, nominal and under the two
+ * occlusion preferences (the shader reads `tint.w` after the policy lift).
+ */
+describe("W47 operator 1 is one law on both tiers (X65)", () => {
+  const PROFILE_DIR = resolve(import.meta.dirname, "..", "profiles");
+  type Patch = Record<string, unknown>;
+  const read = (key: string): Patch =>
+    (JSON.parse(readFileSync(resolve(PROFILE_DIR, `${key}.json`), "utf8")) as { patch: Patch }).patch;
+  const merge = (base: Patch, over: Patch): Patch => {
+    const out: Patch = { ...base };
+    for (const [key, value] of Object.entries(over)) {
+      const prior = out[key];
+      out[key] = value !== null && typeof value === "object" && !Array.isArray(value)
+        && prior !== null && typeof prior === "object" && !Array.isArray(prior)
+        ? merge(prior as Patch, value as Patch) : value;
+    }
+    return out;
+  };
+  const M27 = (scheme: string, glass: string): string => `apple-macos-27.0-1x-${scheme}-standard-glass${glass}`;
+  /** The ten shipped documents, each receded one merged over its own active document. */
+  const SHIPPED: readonly { readonly name: string; readonly patch: Patch }[] = [
+    { name: "26.5 light", patch: read("apple-macos-26.5-1x-light-standard") },
+    { name: "26.5 dark", patch: read("apple-macos-26.5-1x-dark-standard") },
+    ...["0.5", "0.25"].flatMap((glass) => ["light", "dark"].flatMap((scheme) => [
+      { name: `${glass} ${scheme}`, patch: read(M27(scheme, glass)) },
+      {
+        name: `${glass} ${scheme} receded`,
+        patch: merge(read(M27(scheme, glass)), read(`${M27(scheme, glass)}-receded`)),
+      },
+    ])),
+  ];
+  const DARK025 = read(M27("dark", "0.25"));
+  /** Synthetic documents naming the operator: both anchors, one alone, a moved top, the clamp. */
+  const SYNTHETIC: readonly { readonly name: string; readonly patch: Patch }[] = [
+    { name: "dark 0.25 + far 0.3/0.45", patch: { ...DARK025, tintAlphaFar1x: 0.3, tintAlphaFar2x: 0.45 } },
+    { name: "dark 0.25 + far2x 0.13 at top 128", patch: {
+      ...DARK025, tintAlphaFar2x: 0.13, sizeScatterSpanMax2x: 128, sizeOcclusionGain: 0.4,
+      optics: merge(DARK025["optics"] as Patch, { regular: { tintAlpha: 0.7 } }),
+    } },
+    { name: "dark 0.25 + far1x 0.6 alone", patch: { ...DARK025, tintAlphaFar1x: 0.6 } },
+    { name: "light 0.25 + far 0.2/0.6", patch: { ...read(M27("light", "0.25")), tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.6 } },
+    { name: "default + far −1/+5 (the clamp)", patch: { tintAlphaFar1x: -1, tintAlphaFar2x: 5 } },
+  ];
+  const SPANS = [24, 32, 44, 56, 95.999, 96, 96.001, 100, 128, 144, 160, 192, 256, 300] as const;
+  const RATIOS = [0.5, 1, 1.25, 1.5, 2, 3] as const;
+  const ALPHAS = [0, 0.3, 0.46, 0.7, 0.89, 0.9, 1] as const;
+  const profileOf = (patch: Patch): MaterialProfile =>
+    withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch as never);
+
+  it("evaluates one base alpha on both tiers, shipped and synthetic, at every span and scale", () => {
+    for (const { name, patch } of [...SHIPPED, ...SYNTHETIC]) {
+      const profile = profileOf(patch);
+      const mirrored = sourceSize(patch as never);
+      expect(mirrored.tintAlphaFar1x, name).toBe(profile.tintAlphaFar1x);
+      expect(mirrored.tintAlphaFar2x, name).toBe(profile.tintAlphaFar2x);
+      for (const dpr of RATIOS) {
+        for (const span of SPANS) {
+          for (const alpha of ALPHAS) {
+            const label = `${name} span ${span} dpr ${dpr} alpha ${alpha}`;
+            expect(cssSpanGradedTintAlpha(alpha, span, mirrored, dpr), label)
+              .toBe(rendererSpanGradedTintAlpha(alpha, span, profile, dpr));
+          }
+        }
+      }
+    }
+  });
+
+  it("is the identity on every shipped document, so no shipped output moves on either tier", () => {
+    for (const { name, patch } of SHIPPED) {
+      const profile = profileOf(patch);
+      expect(profile.tintAlphaFar1x, name).toBe(0);
+      expect(profile.tintAlphaFar2x, name).toBe(0);
+      for (const dpr of RATIOS) {
+        expect(rendererTintAlphaFarAtScale(profile, dpr), `${name} dpr ${dpr}`).toBe(0);
+        for (const span of SPANS) {
+          for (const alpha of ALPHAS) {
+            expect(cssSpanGradedTintAlpha(alpha, span, sourceSize(patch as never), dpr)).toBe(alpha);
+          }
+        }
+      }
+    }
+  });
+
+  it("grades only above the knee on the synthetic documents, so the pin above is not vacuous", () => {
+    for (const { name, patch } of SYNTHETIC) {
+      const profile = profileOf(patch);
+      for (const dpr of [1, 2]) {
+        const far = rendererTintAlphaFarAtScale(profile, dpr);
+        for (const span of SPANS) {
+          const graded = rendererSpanGradedTintAlpha(0.7, span, profile, dpr);
+          const label = `${name} span ${span} dpr ${dpr}`;
+          if (span <= profile.sizeSpanMax || far === 0) expect(graded, label).toBe(0.7);
+          else expect(graded, label).not.toBe(0.7);
+          expect(graded, label).toBeGreaterThanOrEqual(0);
+          expect(graded, label).toBeLessThanOrEqual(1);
+        }
+      }
+    }
+  });
+
+  it("hands the tone solve one occluded alpha on both tiers, nominal and under a preference", () => {
+    for (const regime of ["nominal", "increased", "opaque"] as const) {
+      const rendererPolicy = { ...RENDERER_NOMINAL_POLICY, occlusion: regime };
+      const tierPolicy = { ...NOMINAL_ACCESSIBILITY_POLICY.material, occlusion: regime };
+      for (const { name, patch } of [...SHIPPED, ...SYNTHETIC]) {
+        const profile = profileOf(patch);
+        for (const dpr of [1, 1.5, 2]) {
+          for (const span of SPANS) {
+            const label = `${regime} ${name} span ${span} dpr ${dpr}`;
+            // No tone, so the CSS tier's `responded` is its occluded source exactly.
+            const css = materialAtBackdrop(patch as never, "regular", undefined, span, tierPolicy, dpr);
+            const lifted = rendererOpticsUnderPolicy(profile.optics.regular, rendererPolicy, profile).tintAlpha;
+            const gpu = rendererSizeOcclusionAlphaAt(
+              rendererSpanGradedTintAlpha(lifted, span, profile, dpr),
+              rendererSizeThicknessUnderPolicy(span, rendererPolicy, profile),
+              profile,
+            );
+            expect(css.responded.tintAlpha, label).toBeCloseTo(gpu, 12);
+          }
+        }
+      }
+    }
+  });
+});

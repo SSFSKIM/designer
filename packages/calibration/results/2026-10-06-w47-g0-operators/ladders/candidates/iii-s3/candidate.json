@@ -1,0 +1,27 @@
+{
+  "$comment": "W47 scratch candidate iii-s3: W47 ladder iii receded sizeFineTapShare 0 -> 1, sizeFineTapSigma and sizeFineTapSigma2x 0 -> 3 CSS px",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-iii-s3",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "aff22885616aad5bfb3441f09a1190c7eed332e24186954352f488bda299d81f"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "af23a3cd4800617efdddb2a592d7ce21ec227522ebe9993038e464a4202f7196"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "143197b5e3eed6845ffcf8c60e5a66e6898618a73dad5032c95e2e876cdffc7a"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "2b389483e472a57347de5a6797eda15bbe9523ccd03189c587445f26a534549a"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

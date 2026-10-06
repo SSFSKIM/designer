@@ -1,0 +1,44 @@
+W47 close checks at a1e894822 (2026-10-06T07:02Z); each line: the command, its exit code, its last summary lines
+
+== build: exit 0
+$ (cd /Users/new/vitrea-w47/g0 && pnpm -r build)
+apps/demo build:   - import "./errors" without a file extension (../../packages/calibration/src/report.ts:23:34). Add the file extension
+
+== lint: exit 0
+$ (cd /Users/new/vitrea-w47/g0 && pnpm -r lint)
+
+== test-renderer: exit 0
+$ (cd /Users/new/vitrea-w47/g0 && pnpm --filter @vitrea/renderer-webgpu --fail-if-no-match test)
+ Test Files  37 passed (37)
+      Tests  673 passed (673)
+
+== test-platform-web: exit 0
+$ (cd /Users/new/vitrea-w47/g0 && pnpm --filter @vitreajs/vitrea-web --fail-if-no-match test)
+ Test Files  48 passed (48)
+      Tests  656 passed (656)
+
+== test-react: exit 0
+$ (cd /Users/new/vitrea-w47/g0 && pnpm --filter @vitreajs/vitrea-react --fail-if-no-match test)
+ Test Files  19 passed (19)
+      Tests  180 passed (180)
+
+== test-calibration: exit 0
+$ (cd /Users/new/vitrea-w47/g0 && pnpm --filter @vitrea/calibration --fail-if-no-match test)
+ Test Files  62 passed (62)
+      Tests  931 passed | 4 skipped (935)
+
+== goldens: exit 0
+$ (cd packages/renderer-webgpu && /Users/new/vitrea-w47/g0/packages/calibration/results/2026-10-06-w47-g0-operators/with-gpu.sh close-goldens pnpm run test:golden)
+  34 passed (13.5s)
+
+== freeze: exit 0
+$ (cd packages/calibration && python3 results/2026-09-16-w29-freeze/freeze.py verify)
+26.5 freeze intact: 1818 entries
+
+== x41: exit 0
+$ (cd packages/calibration && npx tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify)
+X41 0.5 generation intact: 911 entries
+
+== declare-check: exit 0
+$ (cd packages/calibration/results/2026-10-06-w47-g0-operators && python3.12 -B declare.py check)
+check: consistent

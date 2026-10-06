@@ -244,6 +244,9 @@ export interface OpticsPassArgs {
   readonly backdropScaleStatistic: number;
   readonly sizeHeavySecondShare: number;
   readonly heavySecondEnabled: boolean;
+  /** W47's body fine tap: a share, and whether this source actually carries its texture. */
+  readonly fineTapShare: number;
+  readonly fineTapEnabled: boolean;
   /**
    * W45's grading of that share on the scatter's far curve (claims §5.205; charter Decision Log
    * 1): `MaterialProfile.sizeHeavySecondShareFar2x` already resolved at this group's device ratio
@@ -253,6 +256,15 @@ export interface OpticsPassArgs {
    * 0 on every shipped material.
    */
   readonly sizeHeavySecondShareFar: number;
+  /**
+   * W47's transmission graded on the scatter's far curve (operator 1; claims §5.211; charter
+   * Decision Log 2): `MaterialProfile.tintAlphaFar1x` / `tintAlphaFar2x` already resolved at this
+   * group's device ratio by `tintAlphaFarAtScale`. The shader multiplies it by its own per-pixel
+   * `farS` and adds it to `tintAlpha` before the size law's occlusion term, which is why this is
+   * a delta and not an alpha: a group's members have different spans, and one packed alpha cannot
+   * grade them. 0 on every shipped material.
+   */
+  readonly tintAlphaFar: number;
   /**
    * W31's body chroma retention (claims §5.161 §5, §5.164) — how much of the
    * blurred backdrop's chromaticity the body restores, at the luma the tone
@@ -439,6 +451,7 @@ export interface OpticsPassArgs {
          * until §5.159 turns it on.
          */
         readonly heavy2: GPUTextureView | undefined;
+        readonly fine: GPUTextureView | undefined;
       }
     | undefined;
 }
@@ -999,15 +1012,21 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // every shipped material and at every 1x frame, so the bytes this pass writes there are
       // the ones W30 left.
       d[130] = args.sizeHeavySecondShareFar;
-      d[131] = 0;
+      // W47 operator 1 (claims §5.211): the transmission's far-curve delta, in `scatterHeavy2.w` —
+      // the last spare lane of that vec4, so no neighbour's lane changes owner. It is not about
+      // the second tap; the lane is free, and the struct comment names the tenant. 0 on every
+      // shipped material, so the bytes this pass writes there are the ones W45 left.
+      d[131] = args.tintAlphaFar;
       // W31's body chroma retention, in a vec4 of its own on the same rule as
       // W30's three above: 132 is the next vec4 boundary and an operator packed
       // into 130 would read two of its neighbour's lanes. 0 on the landed
       // default, so the bytes this pass writes are the 0.20.0 bed's with one
       // zeroed vec4 appended.
       d[132] = args.bodyChromaRetention;
-      d[133] = 0;
-      d[134] = 0;
+      // W47 G0 (b): the fine-body share and texture-presence gate take this block's spare
+      // lanes, beside the body's chroma retention. No form selector survives the diagnostic.
+      d[133] = args.fineTapShare;
+      d[134] = args.fineTapEnabled ? 1 : 0;
       d[135] = 0;
       // W36 has its own vec4: no neighbour's spare lane changes ownership.
       d[136] = args.backdropToneBlackStrength;
@@ -1032,6 +1051,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // always filled, and the enable above is what keeps the shader from
       // reading the placeholder.
       const heavy2 = args.backdrop?.heavy2 ?? placeholderView;
+      const fine = args.backdrop?.fine ?? placeholderView;
 
       const pipeline = opticsPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
@@ -1060,6 +1080,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 9, resource: args.fields.presence.createView() },
             { binding: 10, resource: args.localTone ?? placeholderView },
             { binding: 11, resource: heavy2 },
+            { binding: 12, resource: fine },
           ],
         }),
       );

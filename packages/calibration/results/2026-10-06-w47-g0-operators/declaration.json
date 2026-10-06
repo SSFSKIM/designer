@@ -1,0 +1,1440 @@
+{
+  "schema": "w47-declaration-1",
+  "charter": "docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md@c1f9bf84c",
+  "what": "W47 G0 part 1: the declaration hashed on the assembled tree after clause 1's landing is committed and before any ladder render",
+  "items": [
+    {
+      "id": "documents",
+      "title": "the starting point is four document snapshots (X62)",
+      "clause": "clause 2; X62",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/bindings.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/ebc3d9105a4a.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/d0219cd684bf.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/12712d534b78.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/f0b36a71772a.json",
+        "docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md@c1f9bf84c"
+      ],
+      "declared": {
+        "files": {
+          "active.light": "ebc3d9105a4a",
+          "active.dark": "d0219cd684bf",
+          "receded.light": "12712d534b78",
+          "receded.dark": "f0b36a71772a"
+        },
+        "digests": {
+          "active.dark": "b074fc6913a91c66",
+          "receded.dark": "280f0fddf014e0f6",
+          "active.light": "3741b22934f17f4d",
+          "receded.light": "c4ca0e1cd6791bde"
+        },
+        "commit": "c1f9bf84c"
+      },
+      "statement": "The dark and light 0.25 document bodies, each verified against its hash and its bytes at the charter's merge c1f9bf84c. Every W47 tool builds from these and refuses the live profiles/ as a start."
+    },
+    {
+      "id": "t1",
+      "title": "T1 as gated, its shared arithmetic, and its dark population",
+      "clause": "clause 2; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py",
+        "packages/calibration/test/adopted-thresholds.test.ts@c1f9bf84c"
+      ],
+      "declared": {
+        "populationPerDarkProfile": {
+          "cells": 77,
+          "F": 15,
+          "T": 4,
+          "C": 46,
+          "P": 12,
+          "gate": 66,
+          "holdout": 5,
+          "referee": 6
+        },
+        "strata": {
+          "F": [
+            "checkerboard-4",
+            "checkerboard-8"
+          ],
+          "T": [
+            "hc-text-7"
+          ],
+          "C": [
+            "checkerboard",
+            "checkerboard-lc16",
+            "checkerboard-32",
+            "checkerboard-64",
+            "hc-text",
+            "hc-text-28",
+            "impulse"
+          ],
+          "P": [
+            "photo"
+          ]
+        },
+        "ratioClause": 0.1,
+        "equalTolerance": 1e-12,
+        "ownerTest": "packages/calibration/test/adopted-thresholds.test.ts@c1f9bf84c",
+        "ownerNeedles": [
+          "const T1_DARK_GATED_PROFILES = [\n  \"apple-macos-27.0-1x-dark-standard-glass0.25\",\n  \"apple-macos-27.0-2x-dark-standard-glass0.25\",",
+          "const T1_DARK_REFERENCE = { active: \"d0219cd684bf\", receded: \"f0b36a71772a\" } as const;",
+          "sha256: \"0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf\""
+        ]
+      },
+      "statement": "T1 is GATED on the dark 0.25 profiles since W46 G2 against d0219cd684bf (§5.210); its statistic, bar and arithmetic unchanged (W44 G1's t1.py by path, pinned). G2 re-baselines it in W45's five-part order with the separate dark authorised list."
+    },
+    {
+      "id": "bar",
+      "title": "the bar: 0.5 code on every dark cell",
+      "clause": "clause 2; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json"
+      ],
+      "declared": {
+        "darkCells": 154,
+        "maxSeparation": 0.0
+      },
+      "statement": "W44 G0's measurement: 77 cells per dark scale, the seven runs pixel-identical, bar = half a code."
+    },
+    {
+      "id": "manifest",
+      "title": "W46's referee manifest, by hash (X69)",
+      "clause": "clause 4; X69; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+        "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/referees.json",
+        "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/plan.py",
+        "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/cells.json"
+      ],
+      "declared": {
+        "schema": "w46-referees-1",
+        "scenes": [
+          "checkerboard-8__rrect-sm__rest",
+          "checkerboard-8__rrect-ml__rest",
+          "checkerboard-4__rrect-md__inactive",
+          "checkerboard-32__rrect-ml__rest",
+          "checkerboard-32__rrect-lg__inactive",
+          "hc-text-7__rrect-md__inactive"
+        ],
+        "profiles": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "apple-macos-27.0-2x-dark-standard-glass0.25"
+        ],
+        "sha256": "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
+        "pregateProbe": {
+          "count": 81,
+          "listSha256": "91e76b666fe5d1bbec3defba7cd3c5a11f549822e4b2a3612dd2ce8d699c2f46"
+        },
+        "exposure": {
+          "count": 13,
+          "listSha256": "3172866644397e984e6ef0ecdf18b986e6b17713a8462122c2a1a87306b4b7a1"
+        }
+      },
+      "statement": "w46-referees-1 loaded by its SHA-256 and never re-derived from W47's ladders; W46's adapter, given only W46's frozen ladder list, still reproduces it; W47's membership, disjointness and withholding checks hold. Six referee and seven holdout scenes per dark scale are withheld."
+    },
+    {
+      "id": "rule",
+      "title": "the landing rule, its synthetic cases and its rehearsal",
+      "clause": "clause 3; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.json.gz",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearsal.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/rehearsal/rehearsal.txt"
+      ],
+      "declared": {
+        "constants": {
+          "budgetCount": 3,
+          "budgetCeilingB": 3.0,
+          "gatingMinCells": 3
+        },
+        "targets": {
+          "P": [
+            "P rest",
+            "P inactive"
+          ],
+          "C rest": [
+            "C rest"
+          ],
+          "F inactive": [
+            "F inactive"
+          ]
+        },
+        "reference": "d0219cd684bf",
+        "syntheticCases": 19,
+        "rehearsal": {
+          "published d0219cd684bf against itself (W47's cuts, canonical captures)": [
+            "NEITHER: closes at the finding",
+            [
+              66,
+              0,
+              0
+            ],
+            [
+              66,
+              0,
+              0
+            ]
+          ],
+          "W46's point A (d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0) against d0219cd684bf, W46 G1's committed gate cut read by W47's rule": [
+            "NEITHER: closes at the finding",
+            [
+              10,
+              16,
+              8
+            ],
+            [
+              9,
+              17,
+              10
+            ]
+          ]
+        },
+        "parentRulings": {
+          "target-p-pooled": "Target P is read pooled over both poses, as declared (cuts/rule.py TARGETS), with P rest and P inactive reported beside it at every gate reading (cuts.py `rule.pBeside`); they decide nothing."
+        }
+      },
+      "statement": "W45's growth-only rule as W46 bound it, verbatim: d0219cd684bf, bar 0.5, per dark profile, the verdict the weaker profile's. Rehearsed on d0219cd684bf against itself and on W46's point A by its committed gate cut (§5.209 §4's verdict reproduced); the gated groups per scale the charter's. The parent's ruling: Target P is read pooled over both poses, as declared (cuts/rule.py TARGETS), with P rest and P inactive reported beside it at every gate reading (cuts.py `rule.pBeside`); they decide nothing."
+    },
+    {
+      "id": "tools",
+      "title": "W47's tools, their red cases and their tests on d0219cd684bf",
+      "clause": "clause 2",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/README.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/assemble.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/bindings.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/census-gate.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/bed.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/cuts.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_cuts_refusals.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_cuts_refusals.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration-inputs.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declare.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/build-candidates.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/check-plan.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/checks.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/control-identity.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/build-far.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/reading.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/reading.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/render.sh",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/render.sh",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/texture-trace.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/12712d534b78.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/d0219cd684bf.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/ebc3d9105a4a.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/f0b36a71772a.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/build-candidate.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/finding.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/fit.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/joint.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/labels.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/recover.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/search.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_build_candidate.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_build_candidate.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_fit.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_fit.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/build.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/part2.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/plan.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/after/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/after/goldens.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/before/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/before/goldens.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/png-sha256.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/readers.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/suites.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/x60.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/checks.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/compare.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/leaf-audit.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/png-sha256.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/after-1/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/after-2/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/archive.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/assembly.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-1/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-2/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-build.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-install.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/build.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/census-retry.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/compare.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/comparison.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/comparison.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/completion.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/digests-run.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/digests.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/digests.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/freeze05.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/freeze26.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-1.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-2.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-assertions.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-goldens.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/before-1.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/before-2.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/before-goldens.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/op1-replay.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity-run.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity-table.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/1x/css/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/1x/webgpu/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/2x/css/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/2x/webgpu/matrix.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/png-sha256.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/lint.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/op1-replay/cases.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/run.sh",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/suites.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/x60.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/x60.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/readers.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/suites.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/x60.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.json.gz",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearsal.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/seal/seal.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/seal/test_seal.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/seal/test_seal.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/sheets.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/test_sheets.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/test_sheets.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/rehearsal/rehearsal.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/stage.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_stage.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_stage.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_x60.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_x60.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60/evidence-g0.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60/evidence-g0.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predict.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/with-gpu.sh"
+      ],
+      "declared": {
+        "tests": [
+          [
+            "test_cuts_refusals",
+            "cuts",
+            11
+          ],
+          [
+            "test_rule",
+            "cuts",
+            19
+          ],
+          [
+            "test_build_candidate",
+            "fit",
+            21
+          ],
+          [
+            "test_fit",
+            "fit",
+            47
+          ],
+          [
+            "test_ladder",
+            "ladders",
+            22
+          ],
+          [
+            "test_read",
+            "ladders",
+            5
+          ],
+          [
+            "test_level",
+            "level",
+            13
+          ],
+          [
+            "test_referees",
+            "referees",
+            11
+          ],
+          [
+            "test_seal",
+            "seal",
+            16
+          ],
+          [
+            "test_sheets",
+            "sheets",
+            7
+          ],
+          [
+            "test_stage",
+            "stage",
+            8
+          ],
+          [
+            "test_x60",
+            "stage",
+            11
+          ],
+          [
+            "test_bindings",
+            ".",
+            12
+          ],
+          [
+            "test_declare",
+            ".",
+            42
+          ]
+        ],
+        "stageRehearsal": [
+          "REPRODUCED",
+          132,
+          264
+        ]
+      },
+      "statement": "Each tool a port of W46's re-bound to W47 and refusing W44's, W45's and W46's bindings, tested: the cuts port reproduces its reference cut; the stage rehearsal of the shipped dark documents reproduces the published rows; X60's evidence reads IDENTICAL."
+    },
+    {
+      "id": "level",
+      "title": "the level check (X61) and its rendered test",
+      "clause": "G0 (e); X61",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/candidates/control/candidate.json"
+      ],
+      "declared": {
+        "identity": [
+          "IDENTICAL",
+          130,
+          130,
+          true
+        ],
+        "projection": "every field but capturedAt, key.web.capturePath",
+        "decisionLog8": {
+          "ruling": "The level check's unexplained excesses are read beside L1 at every fit stage and in the gate report, not gated.",
+          "reading": "level.py's `unexplained` excesses are listed beside L1 at every ladder (i) rung, at every fit stage and in the gate report; they gate nothing and L1's clauses are unchanged"
+        }
+      },
+      "statement": "A check, not a solver, knowing operator 1's per-pixel alpha. The shipped rung reproduces d0219cd684bf on every ladder (i) cell as pixel and measurement identity and reads no change."
+    },
+    {
+      "id": "operators",
+      "title": "the two operators: laws, identities, grids, units, X68 domains",
+      "clause": "clause 1; Design \"Operator 1\", \"Operator 2\"; X65, X66, X68; Decision Logs 2, 3",
+      "source": [
+        "packages/renderer-webgpu/src/material.ts",
+        "packages/renderer-webgpu/src/wgsl/optics.ts",
+        "packages/renderer-webgpu/src/passes.ts",
+        "packages/renderer-webgpu/src/pyramid.ts",
+        "packages/platform-web/src/optics.ts",
+        "packages/calibration/test/w31-identity-table.test.ts",
+        "packages/renderer-webgpu/test/w31-gate-groups.test.ts",
+        "packages/calibration/test/tier-coherence.test.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/bindings.py",
+        "packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts",
+        "packages/renderer-webgpu/e2e/gpu/w47-fine-tap.spec.ts",
+        "packages/renderer-webgpu/e2e/fixtures/scenes.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/png-sha256.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/suites.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/x60.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/readers.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/compare.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/png-sha256.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/suites.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/x60.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/readers.txt"
+      ],
+      "declared": {
+        "operator 1": {
+          "leaves": [
+            "tintAlphaFar1x",
+            "tintAlphaFar2x"
+          ],
+          "slots": [
+            "active.dark",
+            "receded.dark"
+          ],
+          "domains": {
+            "active.dark": {
+              "tintAlphaFar1x": [
+                [
+                  "interval",
+                  0,
+                  0.6
+                ]
+              ],
+              "tintAlphaFar2x": [
+                [
+                  "interval",
+                  0,
+                  0.6
+                ]
+              ]
+            },
+            "receded.dark": {
+              "tintAlphaFar1x": [
+                [
+                  "interval",
+                  0,
+                  0.6
+                ]
+              ],
+              "tintAlphaFar2x": [
+                [
+                  "interval",
+                  0,
+                  0.6
+                ]
+              ]
+            }
+          },
+          "law": "farS = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span); alphaBase = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr)·farS, 0, 1); sizedAlpha = alphaBase + sizeOcclusionGain·sizeK·(1 − alphaBase), per pixel on the WebGPU tier, per surface on the CSS tier (X65: mirrored)",
+          "identity": "two plain value drops in MATERIAL_IDENTITY_TABLE, each at 0 (no gate leaf)",
+          "grid": {
+            "tintAlphaFar1x": [
+              0,
+              0.1,
+              0.2,
+              0.3,
+              0.45,
+              0.6
+            ],
+            "tintAlphaFar2x": [
+              0,
+              0.1,
+              0.2,
+              0.3,
+              0.45,
+              0.6
+            ],
+            "optics.regular.tintAlpha": [
+              0.7,
+              0.8,
+              0.9
+            ],
+            "sizeOcclusionGain": [
+              0.05,
+              0.2,
+              0.4,
+              0.6
+            ],
+            "sizeScatterSpanMax": [
+              128,
+              160,
+              192,
+              256
+            ],
+            "sizeScatterSpanMax2x": [
+              128,
+              160,
+              192,
+              256
+            ]
+          },
+          "units": {
+            "tintAlphaFar1x": "alpha per unit of farS",
+            "tintAlphaFar2x": "alpha per unit of farS",
+            "optics.regular.tintAlpha": "alpha",
+            "sizeOcclusionGain": "share of (1 − alpha) at sizeK 1",
+            "sizeScatterSpanMax": "CSS px (span)",
+            "sizeScatterSpanMax2x": "CSS px (span)"
+          }
+        },
+        "operator 2": {
+          "leaves": [
+            "sizeFineTapShare",
+            "sizeFineTapSigma",
+            "sizeFineTapSigma2x"
+          ],
+          "slots": [
+            "receded.dark"
+          ],
+          "domains": {
+            "active.dark": {},
+            "receded.dark": {
+              "sizeFineTapShare": [
+                [
+                  "interval",
+                  0,
+                  1
+                ]
+              ],
+              "sizeFineTapSigma": [
+                [
+                  "set",
+                  [
+                    0
+                  ]
+                ],
+                [
+                  "interval",
+                  1.5,
+                  6
+                ]
+              ],
+              "sizeFineTapSigma2x": [
+                [
+                  "set",
+                  [
+                    0
+                  ]
+                ],
+                [
+                  "interval",
+                  1.5,
+                  6
+                ]
+              ]
+            }
+          },
+          "law": "receded-only by document (X66): in the form G0 (f) chose — body: bodySample' = bodySample + sizeFineTapShare·(fineSample − bodySample), fineSample the source blurred at sizeFineTapSigma(dpr) CSS px; deep: scatterColour' = scatterColour + sizeFineTapShare·(deepFine − scatterColour), deepFine at √(σdeep² + sizeFineTapSigma(dpr)²); interior = mix(·, ·, kScatter); the CSS tier declines it",
+          "identity": "one gate-group in MATERIAL_IDENTITY_TABLE: gate { sizeFineTapShare: 0 }, gated [sizeFineTapSigma, sizeFineTapSigma2x]",
+          "grid": {
+            "sizeFineTapSigma": [
+              1.5,
+              2,
+              3,
+              4,
+              6
+            ],
+            "sizeFineTapSigma2x": [
+              1.5,
+              2,
+              3,
+              4,
+              6
+            ],
+            "sizeFineTapShare": [
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "optics.regular.blurSigma": [
+              1.25,
+              2,
+              3,
+              4
+            ]
+          },
+          "units": {
+            "sizeFineTapSigma": "CSS px",
+            "sizeFineTapSigma2x": "CSS px",
+            "sizeFineTapShare": "share of the chosen component",
+            "optics.regular.blurSigma": "device px (receded difference only)"
+          }
+        },
+        "clause1Evidence": {
+          "packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts": "c6d3ed87634c11fea8728a385059628787d7191b7f30bb8ebadb4e478b8ada6c",
+          "packages/renderer-webgpu/e2e/gpu/w47-fine-tap.spec.ts": "51a82527451ca87c9b2910f525ae464fcb9329f9ef574c4e93d463a315b6c05d",
+          "packages/renderer-webgpu/e2e/fixtures/scenes.ts": "7ce2d0b427f342aab5740b30c66998a5ded60a9baede818a0720a7372ad5542a",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.txt": "44dee374e585f80c483717a054328ad470c7f8150b7d557ed742a034c71a7bed",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/png-sha256.json": "c31fad540775aa70efff3ac7dcbe8aff17cc7468a4c40d69da2156164fb85111",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.txt": "343f2f6f8204244a5aeacc01add8147f4c94e4d6cf390332765acf112505e255",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/suites.txt": "5143c7067cd3a028f1208138263faf8670a85cfa0b970406d05a468d4995cffc",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/x60.txt": "ed783804db4dad8d3f42f7cda2488462d6d4f6ca30e8969a050758d9fc9548c3",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/readers.txt": "2d6cdbb907e6e969354414794a890fd924298db5e51358fd977375a08e94c664",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/compare.txt": "b6f6fccfcfd63da4e052dd7bfe9c71ac28ee83f927dfdc1029694701d4916a91",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/png-sha256.json": "83960ffeb062ee021d55c10dffd846bd05e7dc55f683a280393119f4cdc03abb",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.txt": "944fbbcc01561e998557e68f4724c54204259fe59d4801ce9031254319b27fe0",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/suites.txt": "3da7e8aa832709863f49c8a5a122390ff39cf0632aae1af50ce3dd303b9e92a9",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/x60.txt": "775ae1f49b6495c0638aaea68ae39c16c0a7b288055dd7d73b997d8e364b4220",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/readers.txt": "96f558bdfd52154f8d35ecc8abae99bb424337ee29573084f1f9a5a50c0d0769"
+        }
+      },
+      "statement": "Operator 1 grades tintAlpha per pixel on the far curve (two plain value drops, mirrored by the CSS tier); operator 2 is the receded fine term in the form the diagnostic chose (one gate-group, declined by the CSS tier). Their domains are the declaration's (X68), refused by the builder. Clause 1's evidence is pinned here by name: the two recorder specs, their scene fixture and each operator's proof records."
+    },
+    {
+      "id": "diagnostic",
+      "title": "the depth-split diagnostic and operator 2's form",
+      "clause": "G0 (f); Decision Log 3 (v1.1)",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration-inputs.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.py"
+      ],
+      "declared": {
+        "record": "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+        "chosenForm": "body",
+        "population": [
+          [
+            "checkerboard-8__rrect-lg__inactive",
+            1
+          ],
+          [
+            "checkerboard-8__rrect-lg__inactive",
+            2
+          ],
+          [
+            "checkerboard-8__rrect-md__inactive",
+            1
+          ],
+          [
+            "checkerboard-8__rrect-md__inactive",
+            2
+          ]
+        ]
+      },
+      "statement": "G0 (f) chose the BODY form by the declared criterion: R body 0.739 / 0.769 at 1x (span 96 / 160) and 1.044 / 1.011 at 2x, pooled 0.891; R deep 0 on all four, its PNGs byte-identical to the control (the 8 px structure is already absent from the deep sample; positive control in diagnostic/positive-control/). Measured weights body / deep: 1x 96 0.766 / 0.234; 1x 160 0.624 / 0.376; 2x 96 0.459 / 0.541; 2x 160 0.456 / 0.544; beyond the reach at 2x 160 0.436 / 0.564."
+    },
+    {
+      "id": "targets",
+      "title": "the three targets, their families and the predictions",
+      "clause": "Decision Log 4",
+      "source": [
+        "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration-inputs.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predict.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.txt"
+      ],
+      "declared": {
+        "given": {
+          "predictions": "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json",
+          "statement": "PREDICTIONS, which the ladders replace (charter Design \"The targets and their families\"; Decision Log 4). From W46's point A cut (structure share 1 - alpha at held scatter): the control reproduces point A's verdict (16 / 8 and 17 / 10 away beyond B / 3B; C rest halved at both scales; P and F inactive not). Operator 1 alone (tintAlpha 0.7, gain 0.4, far 0.38 at top 256, or 0.13 at top 128): C rest halved at 1x and 2x at top 256 and NOT at top 128; P (both poses pooled) NOT halved at either scale (0.759 / 0.740 against 0.879 / 0.965), as the charter predicts; F inactive halved through the receded's inheritance of the gain and far delta at receded 0.8; the budget fails (9-13 away beyond B, 3-6 past 3B) and the 1x F rest group fails. Thick rest cells fall to x0.48-0.66 (under Apple) and mid to x0.73-0.78: the span law trades the thick overshoot for under-structure unless ladder (ii) supplies the 2x width. Operator 2 (body form): the attenuation table g = exp(-pi^2 sigma^2 / c^2), a = 1 - share + share g, on the F inactive gate cells as an upper bound (sigma 2-3 at share 0.5-1, or sigma 4 at share 0.5, brings point A's x1.72-2.38 to x0.75-1.49); the diagnostic measured the body form removing 0.74-1.04 of the excess at sigma 6, share 1, from the reference. The 64 px checker and photo lose at most 1.0-3.8 % of their mode at sigma 2-4.",
+          "sources": [
+            "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predict.py",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.txt",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+            "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz"
+          ]
+        },
+        "families": {
+          "P": [
+            "active.dark optics.regular.tintAlpha",
+            "active.dark sizeOcclusionGain",
+            "active.dark sizeScatterSpanMax",
+            "active.dark sizeScatterSpanMax2x",
+            "active.dark tintAlphaFar1x",
+            "active.dark tintAlphaFar2x",
+            "receded.dark optics.regular.tintAlpha"
+          ],
+          "C rest": [
+            "active.dark sizeHeavySecondShare",
+            "active.dark sizeHeavySecondShareFar2x",
+            "active.dark sizeHeavySecondSigma2x",
+            "active.dark sizeHeavyTapSigma",
+            "active.dark sizeScatterFloor",
+            "active.dark sizeScatterFloor2x",
+            "active.dark sizeScatterRampStartThin1x",
+            "active.dark sizeScatterRampStartThin2x",
+            "active.dark sizeScatterScaleGain"
+          ],
+          "F inactive": [
+            "receded.dark optics.regular.blurSigma",
+            "receded.dark sizeFineTapShare",
+            "receded.dark sizeFineTapSigma",
+            "receded.dark sizeFineTapSigma2x",
+            "receded.dark sizeHeavySecondShare",
+            "receded.dark sizeHeavySecondShareFar2x",
+            "receded.dark sizeHeavySecondSigma",
+            "receded.dark sizeHeavySecondSigma2x",
+            "receded.dark sizeHeavyTapSigma",
+            "receded.dark sizeHeavyTapSigma2x",
+            "receded.dark sizeScatterFloor",
+            "receded.dark sizeScatterFloor2x",
+            "receded.dark sizeScatterHeavyShareThick1x",
+            "receded.dark sizeScatterRampStartFar1x",
+            "receded.dark sizeScatterRampStartFar2x",
+            "receded.dark sizeScatterRampStartThick1x",
+            "receded.dark sizeScatterRampStartThick2x",
+            "receded.dark sizeScatterRampStartThin1x",
+            "receded.dark sizeScatterRampStartThin2x",
+            "receded.dark sizeScatterScaleGain"
+          ]
+        }
+      },
+      "statement": "PREDICTIONS, which the ladders replace (charter Design \"The targets and their families\"; Decision Log 4). From W46's point A cut (structure share 1 - alpha at held scatter): the control reproduces point A's verdict (16 / 8 and 17 / 10 away beyond B / 3B; C rest halved at both scales; P and F inactive not). Operator 1 alone (tintAlpha 0.7, gain 0.4, far 0.38 at top 256, or 0.13 at top 128): C rest halved at 1x and 2x at top 256 and NOT at top 128; P (both poses pooled) NOT halved at either scale (0.759 / 0.740 against 0.879 / 0.965), as the charter predicts; F inactive halved through the receded's inheritance of the gain and far delta at receded 0.8; the budget fails (9-13 away beyond B, 3-6 past 3B) and the 1x F rest group fails. Thick rest cells fall to x0.48-0.66 (under Apple) and mid to x0.73-0.78: the span law trades the thick overshoot for under-structure unless ladder (ii) supplies the 2x width. Operator 2 (body form): the attenuation table g = exp(-pi^2 sigma^2 / c^2), a = 1 - share + share g, on the F inactive gate cells as an upper bound (sigma 2-3 at share 0.5-1, or sigma 4 at share 0.5, brings point A's x1.72-2.38 to x0.75-1.49); the diagnostic measured the body form removing 0.74-1.04 of the excess at sigma 6, share 1, from the reference. The 64 px checker and photo lose at most 1.0-3.8 % of their mode at sigma 2-4."
+    },
+    {
+      "id": "ladders",
+      "title": "the ladders' protocol, cells and decisions",
+      "clause": "clause 5; Design \"The ladders\"; X69, X70",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/build.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/part2.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/plan.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.txt"
+      ],
+      "declared": {
+        "rungs": 41,
+        "levers": [
+          "i-a0.7",
+          "i-a0.7-f0.2",
+          "i-a0.7-f0.45",
+          "i-a0.7-f0.2-t128",
+          "i-a0.7-f0.2-t160",
+          "i-a0.7-g0.2",
+          "i-a0.7-g0.4",
+          "i-a0.7-g0.6",
+          "i-a0.8",
+          "i-a0.8-f0.2",
+          "i-a0.8-f0.45",
+          "i-a0.8-f0.2-t128",
+          "i-a0.8-f0.2-t160",
+          "i-a0.8-g0.2",
+          "i-a0.8-g0.4",
+          "i-a0.8-g0.6",
+          "ii-w6-d0.3-t256",
+          "ii-w6-d0.6-t256",
+          "ii-w10-d0.3-t256",
+          "ii-w10-d0.6-t256",
+          "ii-w14-d0.3-t256",
+          "ii-w14-d0.6-t256",
+          "ii-w6-d0.3-t128",
+          "ii-w6-d0.6-t128",
+          "ii-w10-d0.3-t128",
+          "ii-w10-d0.6-t128",
+          "ii-w14-d0.3-t128",
+          "ii-w14-d0.6-t128",
+          "iii-b2",
+          "iii-b3",
+          "iii-b4",
+          "iii-s1.5",
+          "iii-s2",
+          "iii-s3",
+          "iii-s4",
+          "iii-s6",
+          "iii-q0.25",
+          "iii-q0.5",
+          "iii-q0.75",
+          "iv-joint"
+        ],
+        "cellsPerLadder": {
+          "i": [
+            33,
+            32
+          ],
+          "ii": [
+            11,
+            0
+          ],
+          "iii": [
+            0,
+            10
+          ],
+          "iv": [
+            0,
+            10
+          ]
+        },
+        "parentRulings": {
+          "separation-both-scales": "An operator separates only if it meets its bar at both scales. A one-scale result STOPS for the parent with the numbers, and the operator is neither struck nor admitted until ruled; part2.py refuses until then."
+        },
+        "decisionLog8": {
+          "ruling": "Decision Log 8",
+          "what": "Part 1's one amendment (docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md, Decision Log 8): the three ladder bars of clause 5, re-stated. ladders/protocol.json's bars (i), (iii) and (iv) stay as hashed and as read in ladders/results.json; these re-stated bars are read beside them on the SAME renders, with no new render. No cell set, grid, target, reference, selection, decision kind or landing-rule clause changes; ladder (ii)'s bar is not re-stated and its reading stands.",
+          "operator 1": {
+            "ruling": "Operator 1's bar is the landing rule's own partition on the five thick rest cells against Apple: no thick cell away beyond 3 B, at most two of five beyond B, every thick cell that was over Apple at the reference moving toward it; the thin clause and L1 unchanged. A coarse thick cell drawn further under Apple counts as away.",
+            "ladder": "i",
+            "cells": "protocol.json ladders[i].reads.thick (the five thick rest cells), unchanged",
+            "reference": "the ladders' control, read IDENTICAL to d0219cd684bf (results.json control)",
+            "reader": "cuts/rule.py `reads()` on each thick cell, the landing rule's own reader: its change band (T1; for a T-stratum cell T1-fine) partitions unchanged / toward / away by `growth_change` against the reference; its away band (T1; for a T cell T1-low) prices the growth in B. A T cell's bands are read off the rung's and the control's captures by T1-fine by W44 G1's pinned reader `results/2026-10-03-w44-g1-refit/cuts/readings.py` (`read(...)[side]['fine']`): the SD of L - G(L, sigma 4 device px), linear luminance, over the native silhouette eroded 4 CSS px; the reader the depth-split diagnostic (item `diagnostic`) and W46 G2's dark T bands use, applied to the ladder captures as they stand.",
+            "perScale": [
+              "no thick cell whose away band reads `away` with growth > awayCeilingB x B",
+              "at most awayBeyondBMax of the five whose away band reads `away` with growth > B",
+              "every thick cell over Apple at the reference on its change band (reference > native) reads `toward`",
+              "the thin clause of protocol.json ladder (i)'s bar, unchanged (summed thin-cell gain at least half of point A's)",
+              "L1 passes on its population (level.py), unchanged"
+            ],
+            "awayCeilingB": 3,
+            "awayBeyondBMax": 2,
+            "overAppleMustRead": "toward",
+            "underAppleNote": "a thick cell under Apple at the reference drawn further under it grows its error and reads `away` under growth_change; nothing else is added for it",
+            "separates": "a ladder (i) rung meets all five clauses at BOTH scales (the parent's ruling separation-both-scales, unchanged); a rung meeting at one scale only STOPS for the parent"
+          },
+          "operator 2": {
+            "ruling": "Operator 2's bar is read on T1-fine (W44's two-reader rule: a localised feature on the band that carries it, the whole band reported beside it): both fine inactive cells' fine-band excess at least halved on both scales; the coarse and photo guards unchanged; the whole-band fall reported at every rung and carried to the gate.",
+            "ladder": "iii",
+            "cells": "protocol.json ladders[iii].reads: fine checkerboard-8__rrect-md__inactive and checkerboard-8__rrect-lg__inactive; guards checkerboard-64__rrect-md__inactive and photo__rrect-md__inactive, unchanged",
+            "reader": "T1-fine by W44 G1's pinned reader `results/2026-10-03-w44-g1-refit/cuts/readings.py` (`read(...)[side]['fine']`): the SD of L - G(L, sigma 4 device px), linear luminance, over the native silhouette eroded 4 CSS px; the reader the depth-split diagnostic (item `diagnostic`) and W46 G2's dark T bands use, applied to the ladder captures as they stand",
+            "perScale": [
+              "each fine cell: E = fine(reference) - fine(native) > 0 and R = (fine(reference) - fine(rung)) / E >= fineExcessRemovedMin, the depth-split diagnostic's E and R",
+              "the guards of protocol.json ladder (iii)'s bar, unchanged: whole-band T1 k >= c - guardFloorB x B on each guard",
+              "reported beside and deciding nothing: each fine cell's whole-band fall -g / B and its fine-band error ratio |fine(rung) - fine(native)| / |fine(reference) - fine(native)|; the guards' fine band"
+            ],
+            "fineExcessRemovedMin": 0.5,
+            "guardFloorB": 1,
+            "separates": "a tap rung (sizeFineTapSigma / sizeFineTapShare) meets at BOTH scales; a receded optics.regular.blurSigma rung meeting at both scales is body-width-first (protocol.json decisions, unchanged); a rung meeting at one scale only STOPS for the parent"
+          },
+          "joint": {
+            "ruling": "The joint bar is both readings together on the four ladder cells, with the photo inactive ratio held.",
+            "ladder": "iv",
+            "cells": "the four ladder cells: checkerboard-8__rrect-md__inactive and checkerboard-8__rrect-lg__inactive at 1x and at 2x, at ladder (iv)'s one rung",
+            "reading": "'both readings together' is read as operator 1's re-stated partition and operator 2's re-stated fine-band halving, each on the four cells: the partition on whole-band T1 (the cells are stratum F, which the rule reads on T1) against the reference (no cell away beyond awayCeilingB x B, at most awayBeyondBMax beyond B, every cell over Apple at the reference reading `toward`), and R >= fineExcessRemovedMin on T1-fine; with photo__rrect-md__inactive's T1 ratio at least point A's on that cell at that scale (x0.417 at 1x, x0.460 at 2x), unchanged. Each component is reported separately, and ladder (iv) decides only name-target, as protocol.json says.",
+            "awayCeilingB": 3,
+            "awayBeyondBMax": 2,
+            "fineExcessRemovedMin": 0.5
+          },
+          "decisions": "unchanged: protocol.json `decisions` and `decisionKinds`; both operators separating drafts part 2, one separating and one not STOPS for the parent, neither closes the wave at G0 with the finding"
+        }
+      },
+      "statement": "Four ladders in candidate mode from the snapshots, both scales, the listed cells only, X69 disjoint from the referees and X70's three-way check at every rung; the bars of clause 5 and the decisions name-unfitted, name-target, body-width-first, narrow, strike and name-1x-gap (and the outcomes fit and stop), as protocol.json names them. The parent's ruling: An operator separates only if it meets its bar at both scales. A one-scale result STOPS for the parent with the numbers, and the operator is neither struck nor admitted until ruled; part2.py refuses until then."
+    },
+    {
+      "id": "startingPoint",
+      "title": "the starting point, by hash",
+      "clause": "Design \"The moves\"; X62",
+      "source": [
+        "packages/calibration/results/generations/index.json"
+      ],
+      "declared": {
+        "generation": "d0219cd684bf",
+        "generationFileSha12": "6e20f04f60c4",
+        "documents": {
+          "apple-macos-27.0-1x-dark-standard-glass0.25.json": "d0219cd684bf",
+          "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": "f0b36a71772a"
+        },
+        "digests": {
+          "active.dark": "b074fc6913a91c66",
+          "receded.dark": "280f0fddf014e0f6"
+        }
+      },
+      "statement": "One space, one starting point: d0219cd684bf, the snapshots of its two documents."
+    },
+    {
+      "id": "references",
+      "title": "the references, by hash",
+      "clause": "Decision Log 1; X52, X60",
+      "source": [
+        "packages/calibration/results/generations/index.json"
+      ],
+      "declared": {
+        "files": {
+          "d0219cd684bf": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+          "ebc3d9105a4a": "6e13171051de77a2236d5545e1cc9ea1d35fd5fe566c6862dedf4b51a8a253f5",
+          "85ad7f7e3e0d": "39ac0ba98ca200b10b194f6b45af54df8bf8b2dcbe6b98946a1c8b8aed58356e",
+          "0eac5b294cc2": "f72429653e29fd760123a7273436aaaeebc332311c4a53c677b03c004468f979"
+        }
+      },
+      "statement": "d0219cd684bf is every regression row's and T1's reference; ebc3d9105a4a is what X60 holds the light rows to; the two 0.5 generations are frozen (X41)."
+    },
+    {
+      "id": "s1",
+      "title": "S1's predicted direction",
+      "clause": "Design \"The other rows\"",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration-inputs.json"
+      ],
+      "declared": {
+        "given": {
+          "predictedDirection": "away from the dark medians 0.31 (0.314 / 0.311), toward the refit's level change at spans 128 and 160",
+          "sentence": "S1 is read and not gated (Design \"The other rows\"); with dark 0.5 frozen (X41), S1 after a dark 0.25 refit reads the refit's change plus the slider's, not the slider's alone.",
+          "sources": []
+        }
+      },
+      "statement": "S1 is read and not gated (Design \"The other rows\"); with dark 0.5 frozen (X41), S1 after a dark 0.25 refit reads the refit's change plus the slider's, not the slider's alone."
+    },
+    {
+      "id": "draft",
+      "title": "the part-2 draft",
+      "clause": "clause 2; Design \"The moves\"",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json"
+      ],
+      "declared": {
+        "stages": [
+          "stage1",
+          "stage2"
+        ],
+        "searchedLeaves": 36,
+        "targets": [
+          "P",
+          "C rest",
+          "F inactive"
+        ],
+        "parentRulings": {
+          "widened-second-tap-domains": "The draft's widened second-tap domains (the active 2x width [0, 24], the active far share [0, 1]) are declaration choices; no amendment is spent.",
+          "stage-1-crossed-factorial": "Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x) is accepted, with no pruning beyond what is declared."
+        }
+      },
+      "statement": "Two stages in the fit driver's shape, the tie rule, scale-separable rendering, the selection rule and the landing rule; part 2 is this body changed only by the ladders' decisions. The parent's rulings: The draft's widened second-tap domains (the active 2x width [0, 24], the active far share [0, 1]) are declaration choices; no amendment is spent. Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x) is accepted, with no pruning beyond what is declared."
+    }
+  ],
+  "sources": {
+    "docs/doperpowers/specs/2026-10-06-w47-span-graded-dark-transmission.md@c1f9bf84c": "1ce3005d67d974fac815204d22890dfa17389d00098111666fb136e8e21f1abe",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json": "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py": "8e89a511de7c3035b0844d32c0a46d3c42a3e08b50215c31faf002e9307b235a",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/cells.json": "93a1fb4fd36c58c1c08bdc152fdee9cf033fbe22b324f7714b3a85538db13b15",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/plan.py": "732f26487ce6725d08f36ea8e45f7e266f18c272af67ba47882b83e7d9902fe8",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/referees.json": "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
+    "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz": "7f1d3b5fb84c2f4ccbdaec2114c839763fc3a494d0a4740bb8a566758485aa0a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/README.txt": "b9235caaa4bd4694660bc4b5b142cba072d268a17d6c0578e47883c6f7bc3cff",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/assemble.py": "3bcae04cfafb3d90519ea02fd8e4125dea1e2dc9018a99309e7887269763d834",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/bindings.py": "8ba57a29c3b1fedc6521b8fe106314348491feeb8a953045bd9d828b96bf88f7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/census-gate.py": "3e1a9f9d1e20dd66be2486b4dfae9fa807520e2b59bcf93acb69f863b2623ad1",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/bed.py": "c87493e8cc4d2b50cfbf8ff9a0195c9891b1d46ab9a12ec16a036a526572ca84",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/cuts.py": "7ea1fd1ae039cc86bddc43f41539c7c0675725f0d1c9b2406c75ecaf09c86577",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py": "ad8de5a626299f330c758719abe0e0d1e7b25ac19a1a0c5d0a2c05ad8f23b1f8",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_cuts_refusals.py": "7fe777ed6be6ef6e3b313972a0e9629a94c0e6e440404cea23ca1e52bccb214d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_cuts_refusals.txt": "23624aa98449276a0fbea7b7357751af7791d3bd9174438c1f7123571b853064",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.py": "cc22ea22a828c52591975576ba2d98fcd5a69f98a17d8efdef0f2a6d6697c33a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.txt": "ebc8895d32cbda8813862811fd7a979fce0d9e7f2b9e49087bd8886e7c74c350",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/declaration-inputs.json": "eb6feefd83bb89b0a42bd998d12714ea2fdc9bbefde2f3a7390ccf45c8c71bb9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/declare.py": "e3a5b78cdce4e949d4552414468df21896ec0b8a87ef7ec556dc858478960a83",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/build-candidates.ts": "0a47132ca1ce307a74b8db0fd1351c48bbd8de7b91294eae3145239fbf25ce59",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/check-plan.ts": "28f1039793d3cf5af983479126db8e3ccd3023911e114a01e4d98286b08a8e27",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/checks.json": "6c7b15d5f55758003ec0e1fd4213929efff78846b7225d314a4ee5d124d61983",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/control-identity.json": "b3c96cc6899b0d8606d68ecdf299243ecbae77c76b497b28e1837a98484e413e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/build-far.ts": "776d365226bc0a93e15a0d395747d1ec60156cc2f01c9ade4061833b43eb71b5",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/read.py": "0d21804dc9efdedc50ccd2128e8f18bbd069e4768b58a6acc5ade2de16e259a2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/reading.json": "c19573f98eaa2809570f154f880f1e0cb8c2af057b01239878a9a37855415d65",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/reading.txt": "5681980557a51ce0405fbab92a3b6b717342c1d9671afbedbba324103171d725",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/render.sh": "5e9d67f0d5b62f87ad1a079fb8aedb32cde74b6506dbf54560abdc1261d8a8e3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/matrix.json": "b165e974ea4bee5f772a51366e8b087afcdc4a371efe629b98ba3957c14dab65",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json": "4d49f94a613705ddf2584098b400d1efbf697efe346842ce1def9224eca2295c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json": "29062b976589636bbbb636356d15e94d1c8ff70813c34bcb0cf8e9dc41549e3a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json": "4f3b153246af4f2112ff952d509ff4cdbe3e566111ecccbaaa60a558ebb68201",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/matrix.json": "ff7276a0135eaf281eeb71847124c36f9df6a321aa9431c48581f5ef9c8a1520",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json": "81b1833dcf49c01d00fb9286a12c669155a9f3d13026296ba8e10f313ad65f82",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json": "90ca3f47eec767f64d8b8293e51c30ec8329626c0563e67a7926a0c520df4025",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json": "aedefd8e891387247543c4076a9a837e6115b868318ad78dc68756e60d3ef275",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/matrix.json": "0fa6024bba422ed61fbc97fd62310a2208de1d4c73cd86a59419d6a19128e502",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json": "1eacd741c6309d7bcaa83bca7873445037f66e2f0092042410d8720cd4c67d46",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json": "f64ab002138ee6588d5b5a81b8d0068e111c66d39e28b2a6ad273555a8c3e825",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json": "d96d616f9b805966566d211999957e3879b25a5b64185ab280c7e6e4cabc4622",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/matrix.json": "da40822cbb21282e0043130e8cd16840487c1a58ada8d74c5985730d2fb30a0d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/cell__webgpu.json": "4732572658008bd48fc339f18ff797b07ac8bfbb6005f41e5e4314d2950c4b91",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report.cell__webgpu.json": "b3fb217d6f733b7ee24c44c474fa6302df1f519a466be7f566b9c9d2e9443550",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/coarse-deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-md__inactive/report__webgpu.json": "ef680eddb2581a5e97635e3a8429a3c906548ddc1dd678ce0c5e349cd8aa49e9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/matrix.json": "1a0641c35cd72f8536a9a2fab2eaa1c8588c6e9210a24a97571b76b1e1eb33c2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "d904015a251112efd0e1de5b7f47c59e8ea644118faef814b4bcde701ab2d46f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "90531b14913ec9be49673083dafbe71d55e434f0d665de898e60762afc92d437",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "d6be68f548adece418f38b6d700ee32b0e2b7178ffa33f0be361be3f2cbdce91",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "56f21024ec4ac570f9954eb4b6a808a8b29cca0102e7e7b5dd30165da8029ca2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "c39963ee197664b6cb22484e26fb80d5fa239f3920b03f65ebcc28a8eb35c4cd",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "50bf62bfd27e0c3a0b813a710198c905182ac2d25610daa82336e3cafaa57ee5",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/matrix.json": "225ac3c64e68e722a3123036420e5e19dbec53097f2f0aaa99e18ecf6c2087ac",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "343ca180612483767486fff133f019f4165c8025a57e357f0f6af78136482be2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "639033398615ccb9b8c5d8e4814638490330e24aacbcbe7f783d05a689f4b41f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "ec9bbb186dc1b8f3edf8d920bdee7106475ddface39d6ea22276aa17dc1e2472",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "0e015709c273c4b08ccdf935834e1ccb8c43ccda3db8b9ea3b1b5b9ef36c799c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "2676b24d10b3dc68d071605a4b067c9c33170a541f705acf17bd362bbc724f7e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/positive-control/renders/fine-deep40/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "20a6e26cacec58eb37409dbc06271da9778f321a5bde08d6a6575310d325f616",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/read.py": "37c8464240c98f9c0f2462346111042b34f12e8e7916e1f7a07953a88916b90e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json": "11eef32e1f568e86893365fd8cd5eaf66ad158c2def4f95f4017d053084fa51b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.txt": "9d865592527bc556630882d95dae095be35f566a68d0470b35e830969422a745",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json": "940688015a02e06dfa6c92ba1024b5c8451bf075ee58f875e8c4e2c8a3dc8178",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.py": "1ec7400ef46482bcc43c12c464b435d95b060589501c9fc12f468e2ffcc7ac3a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "17cdb4fef8e37ea9e60267276429cb254991fa1d8472d48c8be8951fce278bba",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "c59d6b242573c26e71fca00d3c4a5bbe9034995ff13c4848aee4b54929abffa7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "bf7966006aed1d32bca4ec4b30a5ae3c35ee92dd2feec3183a6a3aec89bc1e54",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reference/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "02794ec43c0f234beab2f01a2b2223b1e911a4fd8c7200109c03c2f4a39ef201",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/render.sh": "9b76ec9ecc56b860c824befe4caf3c52fc492cc043efc74e64850d70b8da42f3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/matrix.json": "82b25127b28ee0e02e2c9dcff25d215b512009fb01fca7de536f9ac2b8e047ae",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "284a7c8c0f65fa4b624a2a05701313d184c1c50abee9974fca08a9ce1de18464",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "85c2e502070512dedbc2302ea67eadd41d4219b114758c7b3429ecda497d2ec1",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "96dd2f00ba4fa6fa3921ce17153b058b7dca38fe49936e2b4506e70b281d3a49",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "91010a440a0e00870d516488ffc9d7ab1d167d4b5bb6da215376c1628be427ea",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "3638ade0508936d9ea18e43289cf8a2d72c2d6687a17f9e53076332ac276b91e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "5698acc6c4c3362865319f8e1c91d22b2d8ce6b32ce42ade5d001db872e2c294",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/matrix.json": "2e9bc6354a9d2700950723609f384ef7923d7df9f6b3d36890e44efc5c89955c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "8f10d14c6b0d42f9f8c13a2592a1fa8c33315164f10e3ff8324397744cf1a5c0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "1b2efa45b717381a1f2bbefa3907d589c2dd5e2a6f6d001d022385961c7518c7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "6ead74ed3bb67c708cfa98f5bda22cce764258cb382476be3f6cd4531df3aad3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "094912aa5e423c26cf85cf0e510325d161c07071c2ea2ec219ce31baf9dd9a61",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "1317e0cd512b3c12a61e15e8d26643054c635dfafb143857ccb9fab03169f39d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/body/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "6b4135f28ed6b9ef54e6170a44fdba33e8995d3c7aaa0ae348a3c04311a5c9ee",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/matrix.json": "84ef31066063c0c818d6af0e15ef377b6871f95fd111109253cafe1acd89b4dc",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "1efd8d42fef9a117b730b7f1976475d9904662793cc6a26a2621421af2362212",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "3e722339db5ad6e023078ba5cb9f8802412a83cadaa772afdd3fe42a794b2b6d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "7b8fccdcd0704d2d3de06e6cbd3c47f8d4d22db82ce71a05e77f052fcd1d53b5",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "8017a87b3f627fd52de2f4322b8f5675ab9c454a96970ff0fdfd70eac5d9ae87",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "4aa3485b45621b874c8e4e68b33b4cfd5b867b9c7426e5c58e9558c049feccfe",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "8831cfd5de6a110cf9a5948f367ae0b9ffe228df01725d7b2650daf6a35b0cba",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/matrix.json": "d59a9a6ff1a50bb5da6fb788c82331c96b2918d2577d20a3a63433518742d17e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "af909c374d677f9152c6efdb09d39898e7131c3cdf068212dc630939b4230873",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "9e8f1106475ea6e8dad5e575267d9425c0b2f7c3a9d0afadab0f11ecfe5a130c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "e4e4265d7ac791de33cbb9d3588c5fbb0ece9c9e864c8be393fcedc8d1eab558",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "3b469a1ef476d63d56d36210d693e40879a36522951c1f8eb344c7b8497350be",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "c5c796435b4a0922c5c189a7091d7bb74be6dd27f4617fa03b9baa23196fb094",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/control/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "7715af617e2e11a5577660ae45a0e5e4a69c38255409b5ba8dc5ba97f4a76e20",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/matrix.json": "06c91600067981ad7dbaa8be131041bd53d0ffa7e9dfb7c4d91735ce18d18e67",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "599b457f39631fe9efb8e44ec67ef33d4c97c22aed8787ab9f0de451cc3fc704",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "9a36d3b979287645e1afb4bc0cc3a7fb859facb456404d43cfdd821d102580b3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "d3e0b162c4046f202750bf03b6e4d22d1c03a25bca6a307b849fa863fa0e5b5c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "2925e87c8a4891532f0cc4992ed8cdf37500a1695695019976788e83590d1685",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "1bc7287fa83396dd4dac4342ac82199736a102f4e67e251fd1471ca64c635583",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "438101cd0c4a03cfd04263a6268c8f64189f7dfc520c84598e82ee6a3b712ad7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/matrix.json": "18860c4075a8db17305eada58c48895d3fdaf9312eb293fddaf50bd0e531fe6a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "d11a07d9920a1ceddd376fc2b92407d73ec875ae0db88793cf5ba62481659eda",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "7f696a0577ae4b16967ca55f25625abc085cf05fe69a803ce3e851757dc8819d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "9676c305d7ccb4dc67c5f95ca637db6c78622eff22e0b3bc81d77128eeb30817",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "0f7ee344c990d126f097684cd9092323cd0336162d9a51000d75f5eb6a94762d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "fea2fb11bfbaaacbd8b24b5625422b9f1e9c5e7fc3b18b6239d5bea04803c8e4",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/deep/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "a6eb3c58c600222231451e3d89882c4b78fb9ab94c8b84ebc4fe608ed2fa2464",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/matrix.json": "d229e73392c16cedcb1dd65b62cea3b914e14d1863c9a9c443641862fc17ff80",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "dfffd085eb605537be6202b12125663424ce3254cca944700e7919a1347e49e9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "ff676cb1642f8bf7daeb9343b05988ebd6ac6a33f1948b4e96fa1ac9df3c9b05",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "74bd965cf7deecae191a446c5be486e80a9542823cab9e39cffcf52912f78795",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "817fb37ba1132e4f8687776a51bcd7cb5391cf8d69f9df0db3b1d7c3817593a7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "ff3e2cd0fa6997d3c83fb80bfd9e9c5190c3e9271e52c00571a39afc004a2427",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "dd21cb4225ab1a31aefc4bfbc7c21912ef127aab8d12e23bd334da1ac56c23a6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/matrix.json": "5cfaaad77ca68231713261b29130f916a0dfd47052b7dd62a5695efb89771085",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "8a29df95229c73637bd08a884b26930d3d3f4ee9328ef42269c028acda8ce20e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "f0d772ded273715b3b88a5dbbadff00801807eaf20b827490ed03b9a4d61016c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "16e4ef3bcd77db5a785044adc6d6a5ff839cdc93b8ba08b428b8bf7fbfda56b2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "0a7b5d0df9b3d5f6989e650b3ba801e730bd65db5b1fe45d5cc3d0fc49a358de",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "8c1e61064b97cf8884835242ab59c7d45af58f2fabd2543a05823f7fbb38a91d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/weights/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "6a118ff9ef8f5de86ff2d93efa4c4386a1681e113b1e7900f102cefa1b4d7f03",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/matrix.json": "652cc3267d353c151a8b0fe85f476211edbd9be4c08d7bcaa8c6fc83e6cdb677",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "fa557d0cfd2c5427ce115caa7a685724b89c406c0037bfa4a964d12f8d24988d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "9da262be903e33abbbea8f5be1e20ecfdaf1eb224fac2400dc8c8908052feb45",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "1e4012000c7af1172eb068f157506757560ee744599a6a26ea18bf1623740eb6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "af45d80bc83bd743bddecbd3cb17bde62eb3f485e05b3e3d9952a4389b015115",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "e8122f79e6813c0e5cdff8ecd2f9981f72d76954dcd03768321ecea8b68d5a38",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "9e87d7e3532a4e38a650d77b009f06066a91a4c486051de715f2d1fe86be5e3d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/matrix.json": "925b86b78110f3b2f36b714ce2eb66ecfd34775aa98f4449910607eec60b9f86",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/cell__webgpu.json": "25317a721f3e5eb82bd285fd7ca6092188af62050e4d688501237c599d645e9a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report.cell__webgpu.json": "80f871cf0948fb41da23bb9f3ce316f06dfef194e1db74c58a133b83cc90904b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-lg__inactive/report__webgpu.json": "0c4e471de87b0ed3e291d058deb10006dcb307456a2e5b93f0647f578b3ecaad",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/cell__webgpu.json": "57cce73b54cb30a402b9b255c71f5c292d841e039ae7f518f6faf5d777334b9f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report.cell__webgpu.json": "a6bbd53f5e9a445a17f2ca02f10a4b8277d52adef92cf0bc80c4083bda6d344c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/renders/zero-share/2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__inactive/report__webgpu.json": "27360ab1d96e8b04ab840c3474547c2519ee0030eb439e765e717e20cb9fe96f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/texture-trace.json": "24e34ce91623fb2ceba202a3adfd1f7dfe41fe994c58ce8cf39d8f12ce13cf2c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/12712d534b78.json": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/d0219cd684bf.json": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/ebc3d9105a4a.json": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/f0b36a71772a.json": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json": "9ebb409c063b591cc7849fe65626d7a7c79656780a7fa7b691c80166eaf35ac5",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/build-candidate.ts": "eec1df4953a64a5eb05772dfe5b13c1b41678412a244d44e54fab49b8071492c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/finding.py": "e07b4bc71500e645c18c7a06cd8f5b2b14a2cf78ec71f49e87c825e0e4c2cc9c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/fit.py": "34b20ddf169a8fd11757586d59828a03285ed1220103c0434946f7cee7ef23e0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/joint.py": "56ea2f738f953ddecfa516b796865c85875222a630ea203d8988ed32d13eb99d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/labels.json": "09d7590592ef32ac817fc8de78d237eea8444ed458852f5a143e0a01c63bfe64",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/recover.py": "dfd96fc02984a9d479cbe612320234659d2ff6d87d52b6f070386b80120e8a77",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/search.py": "42c4d6ae14d59382eaf0fb78d6cc82cfcd93ceca61d965a335111d417e717e31",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_build_candidate.py": "c592a9ac45d0166aec837cccb223d1f55ab50ecc398df1ff058930d89bb8f762",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_build_candidate.txt": "ab95508b04c55a13ad2bdf8c7407f8161c709558910d4b4c8d25ead815378a45",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_fit.py": "47d4d3991517ce9c5409f66230ef7eb81becdd555a1d6cb379e835e09be916f2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_fit.txt": "d78f94818ec88086cb7c3ddfb41f0bdd131df24e387dd121fd63e186ce7ea0fa",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/build.txt": "a6f28335704cfcbc5ed03ee8046a38225e4fb5867a4d654a2434d1978b73fa66",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json": "91c1834d0c783e489866dacbab68b6feb73553127c47a63104e4be3393f96894",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py": "ae20016c857ea36bfdaa1bf1f947d71cabbd0f5657892b1b8e3831e594151d9a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/part2.py": "624bf3fb90971289c7667c8cf426dc04ea0c6d3eedf92d71baec907c40c7f54a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/plan.txt": "300beba1651f875587b9df13dd243185e27d54ad031855ca06b3cc13f881c9b0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json": "757db8651fd178f3affd444f2dc4dcc5d5f0425244b1a72730d4593b979bb85a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py": "8e8a752620a976b3be3a2aad3d90e1a311c9ac666df343e5e924e597b9a0b993",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.py": "a94a7bf9d95072ef6824e5d27104cc2cb80ef44ba09960ce01fb8184cb3ed90d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.txt": "75e42ca7a978ae6423ce72afc8aab4f477014fae964730dbda76a5adc103ecd4",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.py": "6f7511984e8abbebe44e6048ca2ded8e7b185dd0043fbdc336e4f2e01198383a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.txt": "f160306bf9c49fa0c202cae996436cec421839d450d392811b05eac6f86d35dd",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts": "7f9eb35fb4634a3863d0569fb2e07e37ddd524e820072a196a2dfdd3f351251b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/candidates/control/candidate.json": "b6f0eea6bcd17c13e168369f2e65e65f8d777571d5065753b22f2cf611ea14b7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity.py": "2df51af8c7c213bd3addb16380149fe90970117a8cbea95a0ea2ba5e45ef92c4",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.json": "6cb226dd108f2ef1038e776bdf022333232337b83cf37971cc3d1909041e2659",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.txt": "086208c9898007cc01dbbf1bcae82c34501e26c681ef4a7a49935c314aeca745",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py": "d74854ee076976c137346b5e9183eb0f72a5637c4c5465392c02f8b5dc92dab4",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.py": "17879ce6ee456dcf6cada7f684cda9bf3be1d2dbb75a76783f4832e845a56193",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.txt": "b11e4e6713a45253dd0924ee891a73b0add7de01738756e3cbac9bad382ae155",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/after/cases.json": "71b0db64b801b395355f2bcd2d7dc3e1f6d58f0613291a63ce76490698481019",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/after/goldens.txt": "be1d304e7a418e3f7ea6dc08ed1fa5d1dbadb630e4c169f3a962c56a1f5b593d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/before/cases.json": "41f0a4d0d8b36839bc3bee3a04e4f90b432ae7d1b6d89eed5129af446fb9bbd5",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/before/goldens.txt": "e7b345d899f8caa39c437fd721cdfac020fabc808629cb6d94b8ca67230fa2f0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.py": "0820c5f404e2ea8b38364a204b2bf479b329da92cf908bb0de29d72755ba715f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.txt": "44dee374e585f80c483717a054328ad470c7f8150b7d557ed742a034c71a7bed",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.ts": "4a15d8fea2fc4ebab3a2afd8e536b00b9bcf745985108eadf9b06d8218f25c77",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.txt": "343f2f6f8204244a5aeacc01add8147f4c94e4d6cf390332765acf112505e255",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.py": "6dd2d76141a3d4e008d929e6be62035a2e24d0872c03c9b88f597843002fbdf1",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/png-sha256.json": "c31fad540775aa70efff3ac7dcbe8aff17cc7468a4c40d69da2156164fb85111",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/readers.txt": "2d6cdbb907e6e969354414794a890fd924298db5e51358fd977375a08e94c664",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/suites.txt": "5143c7067cd3a028f1208138263faf8670a85cfa0b970406d05a468d4995cffc",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/x60.txt": "ed783804db4dad8d3f42f7cda2488462d6d4f6ca30e8969a050758d9fc9548c3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/checks.json": "60a8e5891754d68ec9cc97d38c5faf2436bac201968cd1b3d7e4b4edb3b0e4c9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/compare.txt": "b6f6fccfcfd63da4e052dd7bfe9c71ac28ee83f927dfdc1029694701d4916a91",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.ts": "d394638efb2782eb8d2f4d2302e4ce16b428beb641f62431ebfae448b0352051",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.txt": "944fbbcc01561e998557e68f4724c54204259fe59d4801ce9031254319b27fe0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.py": "dbbb417c35403df92c0cb831dd593286c32887bba6ed523f706151ea4e83e908",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/leaf-audit.json": "e2121410438389d6f9aff877d7041be0f738d61fe026e279540f0fe9153f3ef6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/png-sha256.json": "83960ffeb062ee021d55c10dffd846bd05e7dc55f683a280393119f4cdc03abb",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/after-1/cases.json": "63531a41238d18dd533240a27ea4b804e4118b04fe018cf77612af5d7fdb786b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/after-2/cases.json": "63531a41238d18dd533240a27ea4b804e4118b04fe018cf77612af5d7fdb786b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/archive.py": "494762aa23bf00948b1543fd038a2026255fa4e5bbe2dc971ac666c5f81ae01e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/assembly.json": "e552c345b6beff979c2738c3a42ce8aa0529d5c9ec8fe5c84c6fb45ce99b174c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-1/cases.json": "3ffe17c7c1e8f23c477944977e6c6d19ee9b06e5931b9229ce89b585b8cecb76",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-2/cases.json": "3ffe17c7c1e8f23c477944977e6c6d19ee9b06e5931b9229ce89b585b8cecb76",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-build.txt": "c25ef14a90a1eba2bf62f6ddf49eb8c136312a20c4013a2ae4cc4debd66d7b37",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/before-install.txt": "b4ac5c96210b5e23546d75fb85fe164143480bcdca834da7cf5fc6f69064929e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/build.txt": "0fbe42c19c8eda4a23f634bfc291f11ef54d180ad48a40a33b34eb1ab4c94fbd",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/census-retry.py": "255a20b446a162dd10ad9992f604f49cc8d9ffdb7757a37831406664e951c1b9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/compare.py": "04af797fbe023af29f517617e5704cb09c4b8506830e4e3561303a0491d579a6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/comparison.json": "438f4099e41b2ddb7066b01a42c05efa70652b9e66d406a6b56983641031d56a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/comparison.txt": "b6f6fccfcfd63da4e052dd7bfe9c71ac28ee83f927dfdc1029694701d4916a91",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/completion.json": "0be38055d58109531bf9d5ed079ed59c74ed935b1186bc776d1fa6820feb2a16",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/digests-run.txt": "944fbbcc01561e998557e68f4724c54204259fe59d4801ce9031254319b27fe0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/digests.ts": "016ac840b06f82109f80f1184f2f52423a10449015711f52ff369135dc0ab6f8",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/digests.txt": "944fbbcc01561e998557e68f4724c54204259fe59d4801ce9031254319b27fe0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/freeze05.txt": "61d1f0eccb7ceeae4aa61b096e725c88b2608447363e0d14c30e306a89cf3683",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/freeze26.txt": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-1.txt": "fa8728c229597616fb1c9dae0e8aba63135bec7981820032b4ef623ec61deabe",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-2.txt": "9bf27c449f2d871202a96728c57c59623cc7a9628bb33a0301b40f3654d89216",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-assertions.txt": "c992278cb27afa6b44e39c629e4bc77afee1648ab607d4866cfc13c99bbc4739",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/after-goldens.txt": "b5707f93c5716f54043ffe7b630a7764e1bd1db1cd2c715a0074e4c880fcc5e3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/before-1.txt": "2019da89047c29fd5b30ad436fcce89adad32436f938faf68f4e824411baee58",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/before-2.txt": "1880096f206577799c97e46f34044c9a7bb41743459023b3994f96ae6d2fdb02",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/before-goldens.txt": "2b6065d64809a329c9f555246de6de0c8c49bc28dd50301c7594cd72b3112d17",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/gpu-logs/op1-replay.txt": "7dc193035edab1633a4830644b27f7d56dc56107415066a26afb0d135115a53d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity-run.txt": "9bcbaf0223ef0c185af70e8f6f40fd9614bbc1648cc3c95f7ded63e080454c99",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity-table.json": "630d65241bea9582c55a2c08abe2441d0038a080a2d7fc0fe7fca4035c9aa543",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/1x/css/matrix.json": "d6f64e37a651e02096f907f0ec80e2826d25ad7746f4b02ea4d75186923feaaf",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/1x/webgpu/matrix.json": "9d0a476c12852659a600be21e8f0dcde3fe4ba40cb9e5da2e4ad0b91d9505d5e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/2x/css/matrix.json": "7003cce24bf564cd4b3486240d8917b57e5f3bec6f9b3ed5975d86db0f6cd632",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/2x/webgpu/matrix.json": "5ab32776a72c1cbd6d27147334ed8dc5d9df57c55ede3819ff68a201cdb93300",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/identity/png-sha256.json": "f38b2a7decb60d9a6de09267c9f601d27eee7598189de94f1427a39f587aabb6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/lint.txt": "01f6f3153766b2b7babe6aaccbcbaa11e017e79fbd1dd5dce1556b1a1633cdee",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/op1-replay/cases.json": "71b0db64b801b395355f2bcd2d7dc3e1f6d58f0613291a63ce76490698481019",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/run.sh": "71f4a13738bf93835f4b67166e77919c5c1bfddc855a11da5dbdd1813ae4a7e2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/suites.txt": "f6ab7f6565916c377d8c8b291932900e351bcbadaeaec3c9d737f900911e01aa",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/x60.json": "8515d5fe8d82da5da30a6e54f0211dd2492db6546a8019e01e0935202650d9e3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/proofs/x60.py": "ff19eb4c65945bd4232e2cc8c9ec2fbd48e0dd0cdff66d17aaed62cbadbe0560",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/readers.txt": "96f558bdfd52154f8d35ecc8abae99bb424337ee29573084f1f9a5a50c0d0769",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/suites.txt": "3da7e8aa832709863f49c8a5a122390ff39cf0632aae1af50ce3dd303b9e92a9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/x60.txt": "775ae1f49b6495c0638aaea68ae39c16c0a7b288055dd7d73b997d8e364b4220",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py": "763a2b22164071b0fd7aa9b6601ef977adee0b5c288b595e96eda9b0f9d950bf",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.py": "1fc5fa9b0eb5ca63b1b7c29ee11060241b07235e286921a8df939ca1abc6990c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.txt": "bdc1dc620070f2919826c4329e00bc338f5c98abca7599e98c643dbd2c92759b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.json.gz": "9fab1358d077c7b5c3a04c3445ae0c3f2ae144772d72a317432ab744a18b28b3",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.txt": "4760fa6af414fb7ac691f0be88fe4c888463082b4f2bef6dae8cc9f8fd4978d6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.py": "b229681b2cf231e9cb82fa8b34f2f5e1ce204d7b4a5d144b215852ef7c9260c0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.txt": "0e02dad0ef0d913667e218bafdd6a877db677712959db694ea505d7abc6bafbe",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearsal.json": "b4316be3a45c96a1ff940e7772acdd1857ae9504e0d1d156f92501ac33355a8e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearsal.txt": "ea6537cdf7a693c4d180189ec8ac03cb95cbbdabbd751d793e935070c0788270",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearse.py": "138a603a2dda2f58a3c6fd17ae04ad1f50b3d1329f8e13d8364dc37ad8bcd0c1",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/seal/seal.ts": "a6489ecf1e07a044b56e56bdce5d8cc9bfd7b87afe2f32ad35da94e6f91973e9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/seal/test_seal.py": "b73b936e4dab17350be32d775c3519238d8a6664de09f00660f12703a7586576",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/seal/test_seal.txt": "7e816e611edba5fcf473ba9c14008cf3b3cca5df60fce43e6d6685d3753cb457",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/sheets.py": "22282a08cd0aef6102e2e2b2468605da69b53b50acdfe9f1eac25c5c44b3116e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/test_sheets.py": "0bc02a9347035fc3080a696582e54e04adca5eba1255bc55c25f22178f4948f6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/test_sheets.txt": "5aeb1459bac23059f3ccd83c6372685da66de9472875bde8257402e8b172dafe",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/rehearsal/rehearsal.json": "c2f22692fede1f1dbf41773823a2e217576d03c06f8324c3fbb4ec0dae37724f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/rehearsal/rehearsal.txt": "092c3c0a27eaa11d0307b8920c1bf73d4a43a43864eb500e878e8b3ec75b39c8",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/stage.py": "7aa1c2418e053646082ce5aa20d10f3a47758a1a7e4f2614c37abe88e8772df2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_stage.py": "1e6737ea1e112662c4def9651ce14be619fe2437a7e361fc7921035d0070d098",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_stage.txt": "b40904bb6561b35933ee288e0fec54a06cafe7adc6536e101f3e122e6fd0c34f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_x60.py": "8583b3ab516984ccfc7625cbc9284b554384ad8e42013984bbed97ee136fecb9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_x60.txt": "fc9bd3ea1f232d745dee6c818a232649e3e8caa5ec1854b10b903002d6af6c21",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60.py": "4e710fda1b35fc87b30a58795b3d9f853236ec8b24597f5cb47949d320f4cf20",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60/evidence-g0.json": "ca82b3dab2e795e02fd876c669d68e65a8141d9a1c755b7f714c9b5b26b2c1e4",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60/evidence-g0.txt": "e2d18e0b661f86d190c5ec8a580eed3a4c89b32afbec92ae9d37706bcd461f62",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predict.py": "9f381512fad22fbdef18733bc97053931a479df9dd10ea1465ddc33328f9ec9d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.json": "65fb42d33ec0730c2e9d847ac8e4d962c0f8f0b373e0223e3ccad6d1380dfa0e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/targets/predictions.txt": "c56df660e0adae15f97d974dcc93293d4ee688f369ac68eb563f6a29d1be4fbc",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.py": "5ebcb4361c6470665210c0e49032bd89c7a0ec15db56c084528ab7b1e2343f85",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.txt": "bb79718f6435df0e812c03b38d44a4b849036d25faae9f5c71ab7cc46a790758",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.py": "d1b22c018a041968ba53b8c765da8e244bb2730366192a27bf1ca0edf7f3f722",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.txt": "09057bab3d3f38b10f96eb904f653c2d84c758b3755af02ab7b0c95ab0ea4aa8",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/with-gpu.sh": "1150ba49ed2b1c732324f2b05572f763660c04e92b929c8f5d2298a1d1fd2b1e",
+    "packages/calibration/results/generations/index.json": "66cced87298ddb5665a5c7be712a80d8e8ce93090bb2f03da2213f7c1e2f6a51",
+    "packages/calibration/test/adopted-thresholds.test.ts@c1f9bf84c": "b2ea87147348b4065c62f41cf4e0408b42b916281dca0495f62926a311888072",
+    "packages/calibration/test/tier-coherence.test.ts": "dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837",
+    "packages/calibration/test/w31-identity-table.test.ts": "6a15a7adf8321b9a7d66ca5791a332c5b93a163018da84972f24315137de74da",
+    "packages/platform-web/src/optics.ts": "d0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4",
+    "packages/renderer-webgpu/e2e/fixtures/scenes.ts": "7ce2d0b427f342aab5740b30c66998a5ded60a9baede818a0720a7372ad5542a",
+    "packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts": "c6d3ed87634c11fea8728a385059628787d7191b7f30bb8ebadb4e478b8ada6c",
+    "packages/renderer-webgpu/e2e/gpu/w47-fine-tap.spec.ts": "51a82527451ca87c9b2910f525ae464fcb9329f9ef574c4e93d463a315b6c05d",
+    "packages/renderer-webgpu/src/material.ts": "64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9",
+    "packages/renderer-webgpu/src/passes.ts": "0162632aeaf4503ba565aa1895704bf585b4216f8c9aadc491bd1229c23da710",
+    "packages/renderer-webgpu/src/pyramid.ts": "348d7d8839f7aaa8b0897f45a96a33a4adbc317f45ce539c1adec14d96d8cd07",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197",
+    "packages/renderer-webgpu/test/w31-gate-groups.test.ts": "81e9303645a90c514272f41563d03d62371dc22d8b019dfbd1becbf227ce6f34"
+  }
+}
