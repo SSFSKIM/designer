@@ -289,6 +289,8 @@ A check, not a solver, knowing operator 1's per-pixel alpha. The shipped rung re
 }
 ```
 
+**Amended once under Decision Log 8**: the item's `declared` gains `decisionLog8`: the level check's unexplained excesses are read beside L1 at every fit stage and in the gate report, and gate nothing.
+
 ### operators
 
 **the two operators: laws, identities, grids, units, X68 domains** (clause 1; Design "Operator 1", "Operator 2"; X65, X66, X68; Decision Logs 2, 3)
@@ -656,6 +658,8 @@ Four ladders in candidate mode from the snapshots, both scales, the listed cells
  }
 }
 ```
+
+**Amended once under Decision Log 8** (`amendments.json`; `2d6d49ad…` superseded by `2d4a2c7f…`): the item's `declared` gains `decisionLog8`, the three ladder bars re-stated beside the hashed ones. Operator 1: the landing rule's partition (`cuts/rule.py` `reads`) on the five thick rest cells against Apple, none away beyond 3 B, at most two of five beyond B, every thick cell over Apple at the reference reading `toward`, with the thin clause and L1 unchanged. Operator 2: on T1-fine, each fine inactive cell's fine-band excess at least halved (the diagnostic's R >= 0.5) at both scales, the guards unchanged, the whole-band fall reported. The joint: both readings together on the four ladder cells, the photo inactive ratio held. `protocol.json`'s bars and `results.json`'s readings stand; `ladders/reread.json` reads the re-stated bars on the same renders.
 
 ### startingPoint
 

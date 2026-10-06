@@ -57,6 +57,14 @@ and W44's committed copies are untouched and are never run by W47.
   part 2 the ruling amends), as W46's were. Either part may carry the content form (Design "If the
   user lifts X41" amends part 1 once); each part is amended at most once, finally, and a further
   `amend` / `amend-fit` refuses.
+- **Part 1's one amendment after the ladders (W47 Decision Log 8).** `amend` refused part 1 once any ladder
+  render existed. The parent's Decision Log 8 spends part 1's one amendment after the ladders read, to
+  re-state the bars beside the hashed ones, so part 1 now admits ONE post-render amendment in the content
+  form only, and only ADDITIVE: every op is an `add`, so no hashed value of part 1 is replaced, and a
+  ruling can sit beside what the ladders were read against but cannot rewrite it. The record names the
+  render evidence it was made over (`renderEvidenceAtAmendment`), and the read-time validation refuses a
+  record made over render evidence whose form is pins-only or whose ops replace anything. Part 2's
+  `amend-fit` still refuses after any fit render.
 
 W46 G0's text follows, unchanged; where it says W46 it is W47, where it names Decision Log 9's ruling
 the record names W47's own ruling by heading.
@@ -172,6 +180,8 @@ CONTENT_FIELDS = {"charter", "ruling", "ops"}
 FIT_AMENDMENT_FIELDS = AMENDMENT_FIELDS | CONTENT_FIELDS | {"partOnePins"}
 PROTOCOL_AMENDMENT_FIELDS = AMENDMENT_FIELDS | CONTENT_FIELDS
 OPS_FORBIDDEN_ROOTS = ("schema", "charter", "sources", "changes", "fromDraft")
+# The record of an amendment made after renders begins with this (Decision Log 8's form; see `amend`).
+POST_RENDER_EVIDENCE = "after the ladders read, additive only: "
 PART_ONE_REPINNABLE = tuple(f"{REL}/{p}" for p in (
     "declare.py", "test_declare.py", "test_declare.txt", "fit/fit.py", "fit/search.py", "fit/joint.py",
     "fit/test_fit.py", "fit/test_fit.txt", "seal/seal.ts", "seal/test_seal.py", "seal/test_seal.txt"))
@@ -839,6 +849,13 @@ def amendment_failures(part, d) -> list[str]:
                 out.append(f"{path.name}: amendment {i} pin {key} is not a from/to move")
         if set(a) & (CONTENT_FIELDS | {"partOnePins"}):
             out += content_failures(path.name, i, a)
+        if str(a.get("renderEvidenceAtAmendment", "")).startswith(POST_RENDER_EVIDENCE):
+            if part != "protocol" or not isinstance(a.get("ops"), list) or not a["ops"]:
+                out.append(f"{path.name}: amendment {i} was made over render evidence and is not part 1's "
+                           "content form (Decision Log 8)")
+            elif any(op.get("op") != "add" for op in a["ops"]):
+                out.append(f"{path.name}: amendment {i} was made over render evidence and replaces a hashed value; "
+                           "only an add is admitted after the ladders (Decision Log 8)")
         if part == "fit" and a.get("partOnePins"):
             part1 = json.loads(PARTS["protocol"]["declaration"].read_text())["sources"]
             for key, move in a["partOnePins"].items():
@@ -1297,8 +1314,9 @@ def amend(part, argv):
         print("amend REFUSES: the part is not hashed; before the hash it is simply edited and re-checked")
         return 2
     evidence = ladder_evidence() if part == "protocol" else fit_evidence()
-    if evidence:
-        print(f"amend REFUSES: render evidence exists for this part ({', '.join(evidence[:4])})")
+    if evidence and not (part == "protocol" and args.ops):
+        print(f"amend REFUSES: render evidence exists for this part ({', '.join(evidence[:4])}); after the "
+              "ladders only a ruling's additive content amendment of part 1 is admitted (Decision Log 8)")
         return 2
     if amendments(part):
         print("amend REFUSES: this part was amended once already (each part is amended at most once, finally)")
@@ -1330,6 +1348,9 @@ def amend(part, argv):
         try:
             ruling = decision_log(git_show(W.CHARTER_PATH, args.charter_commit).decode(), args.ruling)
             ops = json.loads(Path(args.ops).read_text())
+            if evidence and any(op.get("op") != "add" for op in ops):
+                raise Refusal("after a ladder render an amendment of part 1 only adds beside the hashed body; "
+                              "an op that replaces a value is refused (Decision Log 8)")
             d = apply_ops(d, ops)
         except (Refusal, subprocess.CalledProcessError, OSError, KeyError, TypeError) as err:
             print(f"amend REFUSES: {err}")
@@ -1360,8 +1381,10 @@ def amend(part, argv):
     raw = serialise(d)
     entry = {"n": 1, "supersedes": lines[-1], "declarationSha256": sha(raw), "reason": args.reason,
              "cause": args.cause, **content, "pins": moves,
-             "renderEvidenceAtAmendment": "none (" + ("ladders/runs.jsonl, the ladder scratch" if part == "protocol"
-                                                       else "G1's fit runs and scratch") + ")"}
+             "renderEvidenceAtAmendment": (
+                 POST_RENDER_EVIDENCE + ", ".join(evidence) if evidence else
+                 "none (" + ("ladders/runs.jsonl, the ladder scratch" if part == "protocol"
+                             else "G1's fit runs and scratch") + ")")}
     PARTS[part]["amendments"].write_text(json.dumps({"schema": f"{WAVE}-{part}-amendments-1",
                                                      "amendments": [entry]}, indent=2) + "\n")
     path.write_bytes(raw)

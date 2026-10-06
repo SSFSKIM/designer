@@ -1,0 +1,14 @@
+W47 G0, Decision Log 8: part 1 amended once (2d6d49ad -> 2d4a2c7f). Run on the amended tree after pnpm -r build.
+
+$ python3.12 -B declare.py check
+W47 G0 part 1: 15 items, 289 pinned sources
+check: consistent
+(exit 0)
+
+$ python3.12 -B declare.py amend ... --ruling 'Decision Log 8' --ops ...   (a second content amendment)
+amend REFUSES: this part was amended once already (each part is amended at most once, finally)
+(exit 2)
+
+$ python3.12 -B declare.py amend --reason r --cause c .../declare.py   (a pins-only amendment after the ladders)
+amend REFUSES: render evidence exists for this part (...ladders/runs.jsonl, the ladder scratch...); after the ladders only a ruling's additive content amendment of part 1 is admitted (Decision Log 8)
+(exit 2)

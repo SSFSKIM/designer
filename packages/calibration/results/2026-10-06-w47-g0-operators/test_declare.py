@@ -16,6 +16,10 @@ that depends on an earlier reading); the real ones are part 1's and are checked 
   starting at part 1's pin — each refused; ops apply and revert byte for byte.
 - **The chain**: a content amendment rebuilds the superseded hash; a tampered op breaks it; one
   amendment per part, final (a second `amend` refuses); partial content arguments refuse.
+- **Part 1 after the ladders (Decision Log 8)**: a pins-only amendment, an op that replaces a value,
+  and part 2 after a fit render all refuse; an additive content amendment of part 1 is admitted, names
+  the render evidence it was made over, chains to the superseded hash, and refuses a second time; on
+  read, a post-render record that is pins-only, replaces a value or sits on part 2 is refused.
 - **The validated diff and clause 5's outcomes**, in `ladders/protocol.json`'s words and on
   `ladders/read.py`'s results shape: name-unfitted (only an operator the ladders read as not separating;
   its leaves removed), body-width-first, name-target, name-1x-gap (only where ladder (ii) met its bar),
@@ -187,6 +191,22 @@ class AmendmentRecord(unittest.TestCase):
                              "amendments": [self.entry(partOneReadAt={"x": "abc"})]})
         self.assertTrue(any("outside the pins-only and content forms" in f for f in got))
 
+    def test_a_post_render_record_is_part_1s_additive_content_form_only(self):
+        post = D.POST_RENDER_EVIDENCE + "ladders/runs.jsonl"
+        content = dict(charter=f"{D.W.CHARTER_PATH}@{CHARTER_AT}", ruling=charter_ruling(1))
+        add = [dict(op="add", path=["items", 0, "declared", "x"], to=1)]
+        clean = self.entry(renderEvidenceAtAmendment=post, ops=add, **content)
+        self.assertEqual(self.failures({"schema": "w47-protocol-amendments-1", "amendments": [clean]}), [])
+        got = self.failures({"schema": "w47-protocol-amendments-1",
+                             "amendments": [self.entry(renderEvidenceAtAmendment=post)]})
+        self.assertTrue(any("not part 1's content form" in f for f in got))
+        replace = [dict(op="replace", path=["items", 0, "declared", "x"], **{"from": 1, "to": 2})]
+        got = self.failures({"schema": "w47-protocol-amendments-1",
+                             "amendments": [self.entry(renderEvidenceAtAmendment=post, ops=replace, **content)]})
+        self.assertTrue(any("replaces a hashed value" in f for f in got))
+        got = self.failures({"schema": "w47-fit-amendments-1", "amendments": [clean]}, part="fit")
+        self.assertTrue(any("not part 1's content form" in f for f in got))
+
     def test_a_pin_of_a_non_source_and_a_second_amendment_and_a_schema(self):
         e = self.entry()
         e["pins"]["c/d.py"] = {"from": "0", "to": "1"}
@@ -317,6 +337,37 @@ class Chain(unittest.TestCase):
         with mock.patch.object(D, "digest_lines", lambda part: ["a" * 64]), \
                 mock.patch.object(D, "ladder_evidence", lambda: ["ladders/runs.jsonl"]):
             self.assertEqual(D.amend("protocol", ["--reason", "r", "--cause", "c", "x"]), 2)
+
+    def test_after_the_ladders_only_an_additive_content_amendment_of_part_1(self):
+        body = {"schema": "w47-declaration-1", "items": [{"id": "x", "declared": {"bar": 3}}], "sources": {}}
+        decl, dig, rec = SCRATCH / "part1.json", SCRATCH / "part1.sha256", SCRATCH / "part1-amend.json"
+        decl.write_bytes(D.serialise(body))
+        h0 = D.sha(decl.read_bytes())
+        dig.write_text(f"{h0}  part1.json\n")
+        parts = copy.deepcopy(D.PARTS)
+        parts["protocol"].update(declaration=decl, digest=dig, amendments=rec)
+        replace, add = SCRATCH / "replace.json", SCRATCH / "add.json"
+        replace.write_text(json.dumps([dict(op="replace", path=["items", 0, "declared", "bar"], **{"from": 3, "to": 2})]))
+        add.write_text(json.dumps([dict(op="add", path=["items", 0, "declared", "restated"], to={"bar": 2})]))
+        args = ["--reason", "r", "--cause", "c", "--ruling", "Decision Log 1", "--charter-commit", CHARTER_AT, "--ops"]
+        with mock.patch.object(D, "PARTS", parts), \
+                mock.patch.object(D, "ladder_evidence", lambda: ["ladders/runs.jsonl"]), \
+                mock.patch.object(D, "fit_evidence", lambda: ["fit/runs.jsonl"]), \
+                mock.patch.object(D, "check_protocol", lambda: (D.Check(), None, None)):
+            self.assertEqual(D.amend("protocol", args + [str(replace)]), 2)
+            self.assertFalse(rec.exists())
+            self.assertEqual(D.serialise(body), decl.read_bytes())
+            self.assertEqual(D.amend("fit", args + [str(add)]), 2)
+            self.assertEqual(D.amend("protocol", args + [str(add)]), 0)
+            entry = json.loads(rec.read_text())["amendments"][0]
+            self.assertEqual(entry["renderEvidenceAtAmendment"], D.POST_RENDER_EVIDENCE + "ladders/runs.jsonl")
+            self.assertEqual(entry["supersedes"], h0)
+            amended = json.loads(decl.read_text())
+            self.assertEqual(amended["items"][0]["declared"], {"bar": 3, "restated": {"bar": 2}})
+            c = D.Check()
+            D.chain(c, "protocol", amended)
+            self.assertEqual(c.failures, [])
+            self.assertEqual(D.amend("protocol", args + [str(add)]), 2)
 
 
 class ValidatedDiff(unittest.TestCase):
