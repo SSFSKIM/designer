@@ -108,7 +108,15 @@ and W44's committed copies are untouched and are never run by W47.
   ruling can sit beside what the ladders were read against but cannot rewrite it. The record names the
   render evidence it was made over (`renderEvidenceAtAmendment`), and the read-time validation refuses a
   record made over render evidence whose form is pins-only or whose ops replace anything. Part 2's
-  `amend-fit` still refuses after any fit render.
+  `amend-fit` still refuses after any fit render, with ONE exception below.
+- **Part 2's one amendment after the fit and the gate (W48 Decision Log 9 and its addendum; G1).** The gate
+  read NEITHER and the user ruled to ship, tie-broken by the budget, as a selection over the fit's rendered
+  points. The hashed protocol did not say whether such a post-gate tie-break amendment is admissible, so this
+  validator moved after the readings, under that ruling: `amend-fit` admits a content amendment of part 2
+  after fit renders exist only under `--ruling "Decision Log 9"`, adds only, and records it as made after the
+  fit and the gate (`POST_GATE_EVIDENCE`); the read-time validation refuses such a record on part 1, with a
+  replacing op, with an empty ops list or under any other ruling. The amendment re-pins this file and its
+  tests in both parts (`partOnePins`), the designed route for a part-2 amendment that moves W48's tools.
 
 W46 G0's text follows, unchanged; where it says W46 it is W47, where it names Decision Log 9's ruling
 the record names W47's own ruling by heading.
@@ -227,6 +235,10 @@ PROTOCOL_AMENDMENT_FIELDS = AMENDMENT_FIELDS | CONTENT_FIELDS
 OPS_FORBIDDEN_ROOTS = ("schema", "charter", "sources", "changes", "fromDraft")
 # The record of an amendment made after the verdicts begins with this (W47 Decision Log 8's form; see `amend`).
 POST_RENDER_EVIDENCE = "after the verdicts read, additive only: "
+# W48 Decision Log 9 and its addendum (the user's ship ruling after G1's gate): part 2's ONE amendment may be
+# made after the fit and the gate, additive only, carrying exactly that ruling. Its record begins with this.
+POST_GATE_EVIDENCE = "after the fit and the gate, additive only: "
+POST_GATE_RULING = "Decision Log 9"
 # W48's own tools part 2's one amendment may re-pin (W47's inherited tools are W47's bytes and never move).
 PART_ONE_REPINNABLE = tuple(f"{REL}/{p}" for p in (
     "declare.py", "test_declare.py", "test_declare.txt", "fit/build-candidate.ts", "seal/seal.ts",
@@ -986,6 +998,18 @@ def amendment_failures(part, d) -> list[str]:
             elif any(op.get("op") != "add" for op in a["ops"]):
                 out.append(f"{path.name}: amendment {i} was made over the verdicts and replaces a hashed value; "
                            "only an add is admitted after them (W47 Decision Log 8's form, carried)")
+        if str(a.get("renderEvidenceAtAmendment", "")).startswith(POST_GATE_EVIDENCE):
+            heading = str(a.get("ruling", "")).splitlines()[0].removeprefix("### ").split(" —")[0].strip() \
+                if a.get("ruling") else None
+            if part != "fit" or not isinstance(a.get("ops"), list) or not a["ops"]:
+                out.append(f"{path.name}: amendment {i} was made after the fit and the gate and is not part 2's "
+                           "content form (W48 Decision Log 9)")
+            elif any(op.get("op") != "add" for op in a["ops"]):
+                out.append(f"{path.name}: amendment {i} was made after the fit and the gate and replaces a hashed "
+                           "value; only an add is admitted after them (W48 Decision Log 9)")
+            if heading != POST_GATE_RULING:
+                out.append(f"{path.name}: amendment {i} was made after the fit and the gate under "
+                           f"{heading!r}; only {POST_GATE_RULING} admits that (W48 Decision Log 9)")
         if part == "fit" and a.get("partOnePins"):
             part1 = json.loads(PARTS["protocol"]["declaration"].read_text())["sources"]
             for key, move in a["partOnePins"].items():
@@ -1530,7 +1554,8 @@ def amend(part, argv):
         print("amend REFUSES: the part is not hashed; before the hash it is simply edited and re-checked")
         return 2
     evidence = (verdict_evidence() + fit_evidence()) if part == "protocol" else fit_evidence()
-    if evidence and not (part == "protocol" and args.ops):
+    post_gate = part == "fit" and bool(evidence) and bool(args.ops) and args.ruling == POST_GATE_RULING
+    if evidence and not (part == "protocol" and args.ops) and not post_gate:
         print(f"amend REFUSES: post-reading evidence exists for this part ({', '.join(evidence[:4])}); after the "
               "verdicts only a ruling's additive content amendment of part 1 is admitted (W47 Decision Log 8's form)")
         return 2
@@ -1570,6 +1595,9 @@ def amend(part, argv):
             if evidence and any(op.get("op") != "add" for op in ops):
                 raise Refusal("after the verdicts an amendment of part 1 only adds beside the hashed body; "
                               "an op that replaces a value is refused (W47 Decision Log 8's form)")
+            if post_gate and any(op.get("op") != "add" for op in ops):
+                raise Refusal("after the fit and the gate an amendment of part 2 only adds beside the hashed body; "
+                              "an op that replaces a value is refused (W48 Decision Log 9)")
             d = apply_ops(d, ops)
         except (Refusal, subprocess.CalledProcessError, OSError, KeyError, TypeError) as err:
             print(f"amend REFUSES: {err}")
@@ -1601,6 +1629,7 @@ def amend(part, argv):
     entry = {"n": 1, "supersedes": lines[-1], "declarationSha256": sha(raw), "reason": args.reason,
              "cause": args.cause, **content, "pins": moves,
              "renderEvidenceAtAmendment": (
+                 POST_GATE_EVIDENCE + ", ".join(evidence) if post_gate else
                  POST_RENDER_EVIDENCE + ", ".join(evidence) if evidence else
                  "none (" + ("ladders/verdicts.json, G1's fit runs and scratch" if part == "protocol"
                              else "G1's fit runs and scratch") + ")")}

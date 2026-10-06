@@ -7723,3 +7723,16 @@ rung whose point is on no grid, and still stops on one whose point a searched st
 the fix for the next declaration: encode Design (f) as a rule over the rung's point and the draft's
 grids from the start, so it needs no amendment.
 
+
+## The hashed protocol did not declare whether a post-gate tie-break amendment is admissible (W48 G1, 2026-10-07)
+
+*Found at W48 G1's gate (claims §5.213; charter Decision Log 9 and its addendum).*
+
+The hashed protocol did not declare whether a post-gate tie-break amendment is admissible, so the validator
+moved after readings under the user's ship ruling. W48's `declare.py` refused any part-2 amendment once a fit
+render existed; the gate read NEITHER and the user ruled to ship, tie-broken by the budget, as one selection
+over the fit's rendered points. Part 2's one amendment carried that rule, and it re-pinned `declare.py` and its
+tests in both parts (`partOnePins`) to admit exactly it: after the fit and the gate, adds only, under Decision
+Log 9 only, the record saying so (`POST_GATE_EVIDENCE`), with red cases. The next declaration states it up
+front: whether, and in what form, a selection among measured points may be amended after the gate, and the
+tie-break it would use.

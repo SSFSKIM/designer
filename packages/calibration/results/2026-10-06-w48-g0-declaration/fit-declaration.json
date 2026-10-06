@@ -849,7 +849,28 @@
   },
   "selectionRule": {
     "withinAStage": "the stage's point with a passing within clause (rule.stage_within: every target cell of the stage within) and the smallest stage objective lands",
-    "ifNotWithin": "else the smallest stage objective, an indistinguishable plateau decided by the tie rule from the stage base; recorded as NOT within"
+    "ifNotWithin": "else the smallest stage objective, an indistinguishable plateau decided by the tie rule from the stage base; recorded as NOT within",
+    "postGateSelection": {
+      "rule": "Inside the objective's declared tie of a stage's minimum, over every rendered point of that stage, the point with the fewest cells away beyond B summed over both scales is selected, then the fewest past 3 B, then the hashed tie rule. The budget of a rendered point is read by its exact composite (its own rest cells with the landed inactive cells, the receded document unchanged). This is a post-hoc selection among measured points, made after the gate, and the record says so; the selected point is re-rendered in full at the freeze and its gate reading must agree with the composite within the run-to-run bar.",
+      "stage2Composite": "a stage-2 point's composite is its own inactive cells with the selected stage-1 point's rest cells",
+      "ruling": "W48 Decision Log 9 and its addendum (the user's ship ruling, tie-broken by the budget; the parent's option 1)",
+      "madeAfter": "the fit (part 2 ad5fdeceb244 as hashed) and the gate on its landed point (G1 head c85ba1ada)",
+      "implementation": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/select_dl9.py (budget by reselect.py, the landing rule's rule.evaluate); path/d0219/dl9-selection.json",
+      "selected": {
+        "stage1": {
+          "label": "d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2",
+          "objective": 0.2253,
+          "awayBeyondB": 16,
+          "past3B": 3
+        },
+        "stage2": {
+          "label": "d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+          "objective": 0.5046,
+          "awayBeyondB": 13,
+          "past3B": 2
+        }
+      }
+    }
   },
   "interactions": "operator 1's leaves, the span tops and the occlusion gain are the active's and reach the inactive cells by inheritance; stage 2 materialises every admitted receded key (X64 and X67: `materialise: receded.dark`) at the stage-1 active's resolved values and holds or moves its own; operator 2's leaves are the receded's only (X66). The joint point is re-read on the whole gate population; a stage that undid the other is refitted once on the union (Design \"The moves\").",
   "level": "every fit scope carries L1's declared population, read at every point (X61); the level check knows operator 1's per-pixel alpha; its unexplained excesses are read beside L1 at every stage and in the gate report, ungated (W47 Decision Log 8 item 4, carried by W48 Decision Log 5)",
@@ -931,6 +952,8 @@
     "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/verdicts.json": "13bf5543dadc02b3a0d8175525b7c72035f406e1b779a5f32a963ca6b61e94b7",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/fit-declaration-draft.json": "075f1425b5bdf34621fb3450c9b460887a11418c77aebc3c47c216a128b48501",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/protocol.json": "78deac1b78424ef9c81b79ef3088078bb1313b97926b85b7d99d96d5c5100af1",
-    "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": "039c6b1b851ef55be86882f9869109859568fa58f2689fc58586e2b4fb91cb2f"
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": "086602b817648054b6305b51995901c6670c12ad8c428bb4b09fa69204c7c912",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py": "18b192655285723bf7088b628b614715414461f756e4605a17b44e20543f5549",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt": "8cd6e476b4ea724100a520cf45bb4e75745c79f1526cdf06864bed9b4dcee932"
   }
 }
