@@ -2,13 +2,15 @@
 
 **Status: DRAFT v1.2 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
 ledger §5.209 §7) under `/kairos`; two adversarial rounds folded (v1: one P1, four P2; v1.1
-scoped: approved, no material finding), the loop closed.** Decision Logs 1–7 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
-carry the parent's v1.1 amendments from that round. Nothing is captured, no holdout is read and no
+scoped: approved, no material finding), the loop closed. G0 stopped at clause 5; part 1 amended
+once under Decision Log 8.** Decision Logs 1–8 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
+carry the parent's v1.1 amendments from that round, and Decision Log 8 re-states the three ladder bars
+after G0's clause-5 stop (claims §5.211 §8–§9). Nothing is captured, no holdout is read and no
 document moves until G0's two hashes are on main.
 
 ## Decisions
 
-The full entries are Decision Logs 1–7 at the tail.
+The full entries are Decision Logs 1–8 at the tail.
 
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
@@ -19,6 +21,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 5 | the declaration and the tools | **RULED** by the parent, 2026-10-06 | W46's `declare.py` with its content-amendment form (one amendment, final); W46's tools inherited by path and re-bound; snapshots (X62) of the four 0.25 documents at the charter's merge; the two operators' identity-table entries pinned by test; the tools' three tracker defects stay closed |
 | 6 | the landing | **RULED** by the parent, 2026-10-06 | G1 as W46 planned it, with two STOP points (the gate report; the exposure report) and the ship-or-close call to the user on NEITHER; G2 the landing with 0.28.0 if shipped |
 | 7 | the standing rules | **RULED** by the parent, 2026-10-06 | no attribution; path-scoped adds; no file over 50 MB; evidence never rewritten; freeze 1,818 and X41 911 at every merge; nothing withheld renders before the exposure; the populations per phase as W46 defined them |
+| 8 | the ladder bars, re-stated once after G0's clause-5 stop | **RULED** by the parent, 2026-10-06 | part 1's ONE amendment spent: operator 1's bar is the landing rule's partition on the five thick rest cells against Apple (none away beyond 3 B, at most two of five beyond B, every thick cell over Apple at the reference moving toward it; the thin clause and L1 unchanged); operator 2's on T1-fine (both fine inactive cells' fine-band excess at least halved at both scales, the guards unchanged, the whole-band fall reported and carried to the gate); the joint both readings together on the four ladder cells with the photo inactive ratio held; the level check's unexplained excesses read beside L1, not gated; no cell set, grid, target or landing-rule clause changes; the existing renders re-read, no new render |
 
 ## Purpose
 
@@ -776,7 +779,7 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | not started | §5.211 |
+| G0 | stopped at clause 5 (neither operator separated under the hashed bars); part 1 amended once under Decision Log 8 and the ladders re-read | §5.211 |
 | G1 | not started | §5.212 |
 | G2 | not started | §5.213 |
 
@@ -885,6 +888,36 @@ release`.
 every merge; nothing withheld renders before the exposure; the populations per phase as W46
 defined them; the classifying census on every web render.
 
+### Decision Log 8 — RULED 2026-10-06 (the parent, after G0's clause-5 stop): the ladder bars re-stated once
+
+*Finding (§5.211 §8):* both operators move their targets in the predicted direction and stop short of
+their declared bars. Operator 1's closest rung leaves the two coarse thick checker cells 1.4–2 B UNDER
+the reference, which the reference itself draws under Apple, while the thick fine and text cells come
+within 1 B and the thin cells keep point A's gain. Operator 2 removes 74–104 % of the fine-band excess
+(the diagnostic's statistic) but about half of the whole-band excess the bar was written in, plateauing
+near 2.9 B on the span-160 cell at 1x against 3 B. The joint composition misses 2 B on three of four cells.
+
+*Ruling:* part 1's ONE amendment is spent to re-state the three bars in the forms the wave's own hashed
+instruments already use; no cell set, grid, target or landing-rule clause changes; the existing ladder
+renders are re-read under them, with no new render.
+1. Operator 1's bar is the landing rule's own partition on the five thick rest cells against Apple: no
+   thick cell away beyond 3 B, at most two of five beyond B, every thick cell that was over Apple at the
+   reference moving toward it; the thin clause and L1 unchanged. A coarse thick cell drawn further under
+   Apple counts as away.
+2. Operator 2's bar is read on T1-fine (W44's two-reader rule: a localised feature on the band that
+   carries it, the whole band reported beside it): both fine inactive cells' fine-band excess at least
+   halved on both scales; the coarse and photo guards unchanged; the whole-band fall reported at every
+   rung and carried to the gate.
+3. The joint bar is both readings together on the four ladder cells, with the photo inactive ratio held.
+4. The level check's unexplained excesses are read beside L1 at every fit stage and in the gate report,
+   not gated.
+*Why this is not moving the bar to the data:* the bars are re-stated to the hashed landing rule's
+partition and to the declared fine-band reader, not to numbers chosen from the result; the gate, hashed
+in part 1 and unchanged, remains the arbiter (W42, W44 and W45's lesson: a per-statistic
+never-worse-than-reference veto fails a model that is better on average). If both operators separate
+under the re-stated bars, part 2 is drafted and hashed; one separating and one not STOPS for the parent;
+neither closes the wave at G0 with the finding and the amendment recorded.
+
 ## Surprises & Discoveries
 
 - **2026-10-06 (G0 (f), the depth-split diagnostic): the deep sample's width at 2x is 7 CSS px, not
@@ -907,6 +940,9 @@ defined them; the classifying census on every web render.
 
 ## Revision Notes
 
+- 2026-10-06 (G0, after clause 5's stop): Decision Log 8 recorded verbatim from the parent's ruling; the
+  status line, the Decisions table and the Tracking Map updated. No Design, clause or contract text moved:
+  the re-stated bars live in part 1's one amendment (`amendments.json`), not in this charter's Design.
 - 2026-10-06 (v1.2; the scoped second round on v1.1 `e7d4f29e` approved with no material finding: the
   frozen planner reproduces the manifest byte for byte, the diagnostic cells are non-withheld and T1-fine is
   executable on them, the attenuation arithmetic reproduces; residual body-only wording in the summary is
