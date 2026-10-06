@@ -79,7 +79,7 @@
   "treeEqualsFetched": "diff -r exit 0"
  },
  "replay": {
-  "command": "python3.12 -B replay/replay.py ~/.cache/vitrea-archives/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac/extracted/archive --out replay/out --also-deny ~/vitrea-w48/archive --also-deny ~/vitrea-w48/archive-copy",
-  "record": "replay/out/replay.json"
+  "command": "python3.12 -B replay/replay.py ~/.cache/vitrea-archives/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac/extracted/archive --out replay/record --also-deny ~/vitrea-w48/archive --also-deny ~/vitrea-w48/archive-copy",
+  "record": "replay/record/replay.json"
  }
 }

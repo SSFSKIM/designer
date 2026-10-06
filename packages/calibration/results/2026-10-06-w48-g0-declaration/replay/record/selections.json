@@ -1,0 +1,40 @@
+{
+ "schema": "w47-ladder-selections-1",
+ "protocolSha256": "757db8651fd178f3affd444f2dc4dcc5d5f0425244b1a72730d4593b979bb85a",
+ "selections": {
+  "iii-width-1x": {
+   "value": 4,
+   "meanFallInB": 3.3397681746225656,
+   "candidates": {
+    "1.5": -0.20332475620311036,
+    "2": 1.115134585333438,
+    "3": 2.8234187713918493,
+    "4": 3.3397681746225656,
+    "6": 3.387611777542639
+   }
+  },
+  "iii-width-2x": {
+   "value": 4,
+   "meanFallInB": 2.820061598451961,
+   "candidates": {
+    "1.5": 1.1509453756779995,
+    "2": 1.8210454529833535,
+    "3": 2.601493490373642,
+    "4": 2.820061598451961,
+    "6": 2.8351013068672613
+   }
+  },
+  "iii-best": {
+   "label": "iii-s4",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 4,
+     "sizeFineTapSigma2x": 4
+    }
+   },
+   "pooledMeanFallInB": 3.079914886537263,
+   "form": "operator 2"
+  }
+ }
+}

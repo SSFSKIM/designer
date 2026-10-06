@@ -1,0 +1,146 @@
+{
+ "schema": "w48-replay-1",
+ "what": "W47's read.py and reread.py replayed read-only from the archive of record",
+ "archive": {
+  "root": "/Users/new/.cache/vitrea-archives/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac/extracted/archive",
+  "before": {
+   "entries": 14984,
+   "perSection": {
+    "ladders": 14463,
+    "drive": 95,
+    "reference": 426
+   },
+   "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa"
+  },
+  "after": {
+   "entries": 14984,
+   "perSection": {
+    "ladders": 14463,
+    "drive": 95,
+    "reference": 426
+   },
+   "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa"
+  },
+  "unchanged": true
+ },
+ "denied": {
+  "read": [
+   "/Users/new/vitrea-w47/g0-ladders",
+   "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+   "/Users/new/vitrea-w48/archive",
+   "/Users/new/vitrea-w48/archive-copy"
+  ],
+  "write": [
+   "/Users/new/vitrea-w48/g0/packages/calibration/results/2026-10-06-w47-g0-operators"
+  ]
+ },
+ "negativeControl": [
+  {
+   "what": "open /Users/new/vitrea-w47/g0-ladders/control/1x/matrix.json",
+   "refused": true,
+   "error": "denied in the archive-only replay (read): /Users/new/vitrea-w47/g0-ladders/control/1x/matrix.json"
+  },
+  {
+   "what": "listdir /Users/new/vitrea-w47/g0-ladders",
+   "refused": true,
+   "error": "denied in the archive-only replay (os.listdir): /Users/new/vitrea-w47/g0-ladders"
+  },
+  {
+   "what": "open a live canonical sidecar under /Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+   "refused": true,
+   "error": "denied in the archive-only replay (read): /Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/che"
+  },
+  {
+   "what": "scandir /Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+   "refused": true,
+   "error": "denied in the archive-only replay (os.scandir): /Users/new/Developer/GitHub/designer/packages/calibration/web-captures"
+  },
+  {
+   "what": "write /Users/new/vitrea-w48/g0/packages/calibration/results/2026-10-06-w47-g0-operators/ladders/.w48-replay-write-probe",
+   "refused": true,
+   "error": "denied in the archive-only replay (write into W47's directory): /Users/new/vitrea-w48/g0/packages/calibration/results/2026-10-06-w47-g0-operators/ladders/.w48-r"
+  },
+  {
+   "what": "listdir /Users/new/vitrea-w48/archive",
+   "refused": true,
+   "error": "denied in the archive-only replay (os.listdir): /Users/new/vitrea-w48/archive"
+  },
+  {
+   "what": "listdir /Users/new/vitrea-w48/archive-copy",
+   "refused": true,
+   "error": "denied in the archive-only replay (os.listdir): /Users/new/vitrea-w48/archive-copy"
+  }
+ ],
+ "rebound": {
+  "scratch": "archive ladders/",
+  "identityCanonical": "archive reference/",
+  "identityControlOperand": "archive ladders/control/merged-captures",
+  "x60Scan": "archive ladders/ (in-process, under the hook)",
+  "rereadResultsInput": "the replay's results.json"
+ },
+ "tools": {
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py": "8e8a752620a976b3be3a2aad3d90e1a311c9ac666df343e5e924e597b9a0b993",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.py": "c283539648b00f3ade8512f193d6d620d77af6a30d450407ccce71830f9b45f7",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py": "ae20016c857ea36bfdaa1bf1f947d71cabbd0f5657892b1b8e3831e594151d9a",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py": "d74854ee076976c137346b5e9183eb0f72a5637c4c5465392c02f8b5dc92dab4",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60.py": "4e710fda1b35fc87b30a58795b3d9f853236ec8b24597f5cb47949d320f4cf20",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/bindings.py": "8ba57a29c3b1fedc6521b8fe106314348491feeb8a953045bd9d828b96bf88f7",
+  "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/replay.py": "16b84b7875e5c220c1225df0730649674c910a2ce36c41e908b641bc8301e9a9",
+  "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/w47_ladders_archive.py": "960f0488ca4e74674f62f748ed6040f17402a7f74b7603b8fec0872acc2b3392"
+ },
+ "capturesSha256": "32d14925644e8de55e594395b6067065de94dd1e6ba5f21081e63ec107f30c44",
+ "counts": {
+  "matrices": 82,
+  "rows": 2726,
+  "bands": 294,
+  "identityCells": 142,
+  "identityIdentical": 142
+ },
+ "equality": [
+  {
+   "file": "results.json",
+   "committedSha256": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c",
+   "replaySha256": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c",
+   "bytes": 1228926,
+   "equal": true
+  },
+  {
+   "file": "results.txt",
+   "committedSha256": "e1cf64ede613579838977e30c41019048b9f323d4e9006b1f19d452ce9ef0061",
+   "replaySha256": "e1cf64ede613579838977e30c41019048b9f323d4e9006b1f19d452ce9ef0061",
+   "bytes": 2470,
+   "equal": true
+  },
+  {
+   "file": "selections.json",
+   "committedSha256": "fa5cc6d9310012eb3c140623f88e1300cbf40eca7beb0a3895894fc13040ae75",
+   "replaySha256": "fa5cc6d9310012eb3c140623f88e1300cbf40eca7beb0a3895894fc13040ae75",
+   "bytes": 888,
+   "equal": true
+  },
+  {
+   "file": "reread.json",
+   "committedSha256": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17",
+   "replaySha256": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17",
+   "bytes": 258392,
+   "equal": true
+  },
+  {
+   "file": "reread.txt",
+   "committedSha256": "9bc8454e2808470335dde66cc9e130db79d842ce274982dd8ea902fe7051ca85",
+   "replaySha256": "9bc8454e2808470335dde66cc9e130db79d842ce274982dd8ea902fe7051ca85",
+   "bytes": 13997,
+   "equal": true
+  },
+  {
+   "file": "x60-evidence.json",
+   "equalBut": [
+    "captureTreesScanned"
+   ],
+   "equal": true,
+   "scannedCommitted": 101,
+   "scannedReplay": 82
+  }
+ ],
+ "allEqual": true
+}

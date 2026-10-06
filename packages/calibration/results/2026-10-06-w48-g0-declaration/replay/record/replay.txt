@@ -1,0 +1,11 @@
+W48 G0 (a): W47's ladder readings replayed from the archive (14984 entries, inventory 4c6497236457; tree unchanged: True)
+denials: open /Users/new/vitrea-w47/g0-ladders/control/1x/matrix.json -> refused; listdir /Users/new/vitrea-w47/g0-ladders -> refused; open a live canonical sidecar under /Users/new/Developer/GitHub/designer/packages/calibration/web-captures -> refused; scandir /Users/new/Developer/GitHub/designer/packages/calibration/web-captures -> refused; write /Users/new/vitrea-w48/g0/packages/calibration/results/2026-10-06-w47-g0-operators/ladders/.w48-replay-write-probe -> refused; listdir /Users/new/vitrea-w48/archive -> refused; listdir /Users/new/vitrea-w48/archive-copy -> refused
+control identity: 142 of 142 against the archive's reference subset
+read: 82 matrices, 2726 rows, 294 band readings, each by capture SHA-256 (captures.json)
+  results.json         EQUAL (byte for byte, sha256 8d46082eccb9)
+  results.txt          EQUAL (byte for byte, sha256 e1cf64ede613)
+  selections.json      EQUAL (byte for byte, sha256 fa5cc6d93100)
+  reread.json          EQUAL (byte for byte, sha256 7d08536397ec)
+  reread.txt           EQUAL (byte for byte, sha256 9bc8454e2808)
+  x60-evidence.json    EQUAL (field for field but ['captureTreesScanned']; trees scanned 101 committed, 82 replay)
+REPLAY REPRODUCES W47's committed readings

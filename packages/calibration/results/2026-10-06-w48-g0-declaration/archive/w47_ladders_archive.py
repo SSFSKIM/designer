@@ -272,7 +272,13 @@ def fetch(tag, asset, digest, repo=GH_REPO, cache=CACHE, download=gh_download, s
     root = home / "extracted" / TOP
     marker = home / "verified.json"
     if root.is_dir() and marker.is_file() and json.loads(marker.read_text()).get("sha256") == digest:
-        verify_tree(root)
+        # The warm cache is bound to the inventory the authenticated extraction verified, not to whatever
+        # inventory the extracted tree now carries: a re-manifested tree refuses (W48 G0 review, P2).
+        tree = verify_tree(root)
+        recorded = json.loads(marker.read_text()).get("inventorySha256")
+        if tree["inventorySha256"] != recorded:
+            raise ValueError("cached tree's inventory %s is not the one verified at extraction %s; remove %s and "
+                             "fetch again" % (tree["inventorySha256"], recorded, home))
         return root
     home.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=home, prefix=".download-") as scratch:

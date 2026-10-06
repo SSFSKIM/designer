@@ -1,0 +1,56 @@
+W47 G0 (g): the ladders read (protocol sha256 757db8651fd1)
+control: IDENTICAL (142 of 142 rows pixel- and measurement-identical to d0219cd684bf)
+
+  (i) i-a0.7                 no; L1 passes
+  (i) i-a0.7-f0.2            no; L1 passes
+  (i) i-a0.7-f0.45           no; L1 passes
+  (i) i-a0.7-f0.2-t128       no; L1 passes
+  (i) i-a0.7-f0.2-t160       no; L1 passes
+  (i) i-a0.7-g0.2            no; L1 passes
+  (i) i-a0.7-g0.4            no; L1 passes
+  (i) i-a0.7-g0.6            no; L1 passes
+  (i) i-a0.8                 no; L1 passes
+  (i) i-a0.8-f0.2            no; L1 passes
+  (i) i-a0.8-f0.45           no; L1 passes
+  (i) i-a0.8-f0.2-t128       no; L1 passes
+  (i) i-a0.8-f0.2-t160       no; L1 passes
+  (i) i-a0.8-g0.2            no; L1 passes
+  (i) i-a0.8-g0.4            no; L1 passes
+  (i) i-a0.8-g0.6            no; L1 passes
+  (ii) ii-w6-d0.3-t256        no
+  (ii) ii-w6-d0.6-t256        no
+  (ii) ii-w10-d0.3-t256       no
+  (ii) ii-w10-d0.6-t256       no
+  (ii) ii-w14-d0.3-t256       no
+  (ii) ii-w14-d0.6-t256       no
+  (ii) ii-w6-d0.3-t128        no
+  (ii) ii-w6-d0.6-t128        no
+  (ii) ii-w10-d0.3-t128       no
+  (ii) ii-w10-d0.6-t128       no
+  (ii) ii-w14-d0.3-t128       no
+  (ii) ii-w14-d0.6-t128       no
+  (iii) iii-b2                 no
+  (iii) iii-b3                 no
+  (iii) iii-b4                 no
+  (iii) iii-s1.5               no
+  (iii) iii-s2                 no
+  (iii) iii-s3                 no
+  (iii) iii-s4                 no
+  (iii) iii-s6                 no
+  (iii) iii-q0.25              no
+  (iii) iii-q0.5               no
+  (iii) iii-q0.75              no
+  (iv) iv-joint               no
+
+ladder (i): complete; meets []
+ladder (ii): complete; meets []
+ladder (iii): complete; meets []
+ladder (iv): complete; meets []
+operator 1: {"separates": false, "complete": true, "rungs": [], "oneScaleOnly": []}
+2x width: {"meets": false, "complete": true, "rungs": []}
+operator 2: {"separates": false, "bodyWidthMeets": false, "complete": true, "rungs": [], "bodyRungs": [], "oneScaleOnly": [], "inapplicable": []}
+joint: {"meets": false, "complete": true}
+selection iii-width-1x: {"value": 4, "meanFallInB": 3.3397681746225656}
+selection iii-width-2x: {"value": 4, "meanFallInB": 2.820061598451961}
+selection iii-best: {"label": "iii-s4", "overrides": {"receded.dark": {"sizeFineTapShare": 1, "sizeFineTapSigma": 4, "sizeFineTapSigma2x": 4}}, "pooledMeanFallInB": 3.079914886537263, "form": "operator 2"}
+X60 by evidence: exit 0

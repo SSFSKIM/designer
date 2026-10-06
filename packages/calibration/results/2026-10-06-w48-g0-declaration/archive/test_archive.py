@@ -72,6 +72,16 @@ class ArchiveTest(unittest.TestCase):
             if p.is_file():
                 self.assertEqual((got / p.relative_to(self.root)).read_bytes(), p.read_bytes())
 
+    def test_a_re_manifested_warm_cache_refuses(self):
+        one = A.pack(self.root, self.tmp / "a")
+        got = A.fetch(A.TAG, one["asset"], one["sha256"], cache=self.tmp / "cache", source=Path(one["path"]))
+        (got / "drive/logs/control__1x.txt").write_bytes(b"changed\n")
+        inv = json.loads((got / "inventory.json").read_text())
+        inv["drive"][0].update(sha256=hashlib.sha256(b"changed\n").hexdigest(), bytes=8)
+        (got / "inventory.json").write_text(json.dumps(inv))
+        with self.assertRaisesRegex(ValueError, "verified at extraction"):
+            A.fetch(A.TAG, one["asset"], one["sha256"], cache=self.tmp / "cache", source=Path(one["path"]))
+
     def test_a_wrong_digest_extracts_nothing(self):
         one = A.pack(self.root, self.tmp / "a")
         wrong = "0" * 64

@@ -34,12 +34,12 @@
   "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa",
   "entries": 14984,
   "record": "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/archive.json",
-  "recordSha256": "9b37ff0e11c72f8e5446cbc216b26534f1fecce46da35fc092559cb19c3156e4"
+  "recordSha256": "532dd958bebb06ef7bee3339b23ce49c09979ceb4d68eaefe6ff55a76f39b2a3"
  },
  "replay": {
-  "record": "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/out/replay.json",
-  "recordSha256": "bc4736bd1bd01485c13fe184da7f9ed7853fd93e2637e7b5aac580fde52ab283",
-  "captures": "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/out/captures.json",
+  "record": "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.json",
+  "recordSha256": "c467995641debc318d8754d162817235c3b68d48d9e4ca5098bbc5ced084df14",
+  "captures": "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/captures.json",
   "capturesSha256": "32d14925644e8de55e594395b6067065de94dd1e6ba5f21081e63ec107f30c44",
   "allEqual": true,
   "controlIdentity": [
@@ -53,6 +53,7 @@
    "reread.json": true,
    "reread.txt": true,
    "x60-evidence.json": true
-  }
+  },
+  "correction": "the first replay's outputs (replay/out/, commit 80223fd12) were matched by the repository's `out/` ignore rule and never committed (W48 G0 review, P1); the replay was re-run from the same fetched archive into replay/record/ and reproduced again, captures.json byte-identical to the first run's"
  }
 }
