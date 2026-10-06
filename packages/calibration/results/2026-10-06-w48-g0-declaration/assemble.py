@@ -151,6 +151,9 @@ def build(given: dict) -> tuple[dict, str]:
     w47_ops = next(x for x in w47_part1["items"] if x["id"] == "operators")["declared"]
     files = tool_files()
     inherited = sorted(rel(p) for p in W.INHERITED)
+    # W47's test modules W48 runs under its bindings (tools/run_inherited.py, tools/inherited_suite.py): pinned too.
+    w47_tests = sorted(rel(p) for d in ("", "cuts", "fit", "seal", "stage", "sheets", "referees", "level", "ladders")
+                       for p in (W.W47_G0 / d).glob("test_*.py"))
     w47_read = sorted(set(pins["w47"]) | {rel(W.W47_G0 / "declaration.sha256"), rel(W.W47_G0 / "declaration.json"),
                                           rel(W.W47_G0 / "level/identity/identity.json")})
     ev_paths = protocol["evidence"]
@@ -211,7 +214,7 @@ def build(given: dict) -> tuple[dict, str]:
                        "W48's bindings on d0219cd684bf against itself and on W46's point A by its committed gate cut "
                        "(§5.209 §4 and §5.211 §6 reproduced); the gated groups per scale the charter's."),
         dict(id="tools", title="W48's tools, W47's inherited by path, their tests on d0219cd684bf", clause="clause 2",
-             source=sorted({rel(p) for p in files} | set(inherited)),
+             source=sorted({rel(p) for p in files} | set(inherited) | set(w47_tests)),
              declared=dict(tests=tests(), inheritedTests=inherited_tests(), inherited=inherited),
              statement="W48's own tools (bindings, inherit, the archive and replay, the census and launcher copies, "
                        "the builder and seal copies, declare and assemble, the verdict reader) with their tests; W47's "
