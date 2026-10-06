@@ -48976,3 +48976,194 @@ stands as written; this sentence corrects it.
 - **Any reading under the joint beyond its four cells.** The joint's photo clause misses by 0.02 /
   0.01 bar (§8's correction), and the joint was never read on the gate population.
 - **A mechanism for the level check's unexplained excesses**, which stay beside L1 and gate nothing.
+
+## 5.212 W48 G0: W47's ladder evidence archived and replayed to the last digit, the corrected declaration hashed, the verdicts read; one unruled one-scale rung stops part 2 (2026-10-06)
+
+Evidence directory: `results/2026-10-06-w48-g0-declaration/`, on branch `w48-g0-declaration` off
+`78d0211e0` (the charter v1.2 merge). Charter `2026-10-06-w48-dark-operators-fit.md`: clauses 1–5,
+the G0 child (a)–(e), Decision Logs 1–7, X71–X73. Nothing was rendered, no referee or holdout cell
+was read, and no profile document, generation, capture tree or runtime byte moved. `freeze.py
+verify` reads 1,818 and X41 911.
+
+### 1. W47's ladder evidence, archived (X71; G0 (a))
+
+`archive/w47_ladders_archive.py` (W42's `w42_archive.py` form: produce, deterministic pack, fetch
+with the digest verified before decompression, member check, tree-equals-inventory) bundled:
+- `ladders/`: every file of `~/vitrea-w47/g0-ladders/`, 14,463 (the PNGs, the 82 scratch matrices,
+  the sidecars and reports, the control's `merged-captures/` as regular files, the rung specs);
+- `drive/`: W47's committed drive logs, 95 files (`logs/`, `drive.jsonl`, `runs.jsonl`);
+- `reference/`: the canonical `d0219cd684bf` WebGPU capture, alpha PNG and sidecar of each of the
+  142 control cells, 426 files, copied from the main checkout's canonical tree. Every sidecar names
+  `sha256:d0219cd684bf` and `sha256:f0b36a71772a`, and all 284 PNGs equal the ladder control's.
+
+14,984 entries; inventory SHA-256 `4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa`
+(committed as `archive/inventory.json`).
+- **Published** as GitHub release **`w47-ladders-archive`** on `SSFSKIM/designer` ("W47 ladders
+  archive of record", `--latest=false`, target `78d0211e0`). Asset
+  **`w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst`**,
+  SHA-256 **`fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac`**, **66,241,907
+  bytes**. GitHub's own digest agrees, and a re-pack of the same tree reproduces it.
+- **Round-tripped.** `fetch` from GitHub verified the digest before extraction; the downloaded asset
+  equals the packed one and the extracted tree equals the producer's output (`diff -r`). A second
+  owner-controlled copy at `~/vitrea-w48/archive-copy/<sha256>/`, taken through `fetch --source`,
+  equals it. The scratch tree `~/vitrea-w47/g0-ladders/` is kept and was not modified.
+
+### 2. The replay, to the last digit (X71)
+
+`replay/replay.py` runs W47's `ladders/read.py` and `ladders/reread.py` unchanged, imported from
+W47's committed directory, on the fetched archive:
+- an audit hook installed before any W47 import refuses opens and listings under the raw ladder root
+  and the live canonical tree (and, beside them, the producer's output and the second copy), and any
+  write under W47's directory; the negative control shows each refusal firing;
+- the scratch root is the archive's `ladders/`; `level.identity`'s canonical root is re-bound to the
+  archive's `reference/` subset while its other operand stays the ladder's own control capture, so
+  the 142-cell identity still compares two independently produced files;
+- `read.main`'s outputs go to the replay's directory; `reread.main`'s two output paths and its
+  `results.json` input are redirected there; X60 by evidence runs in-process under the hook with its
+  tree scan re-bound to the archive's ladder trees (W47's subprocess walked all of `~/vitrea-w47`).
+
+**Result:** `results.json`, `results.txt`, `selections.json`, `reread.json` and `reread.txt` equal
+W47's committed files **byte for byte**; `x60-evidence.json` equal field for field but for the list
+of trees scanned (82 against W47's 101); **the control 142 of 142** identical; the archive tree
+unchanged. `replay/record/captures.json` records every scratch matrix, every row's capture, alpha
+PNG and sidecar, the identity's PNG pairs and each of the 294 band readings' `webSha256`, by
+SHA-256: 82 matrices and 2,726 rows. `ladders/evidence.json` then pinned W47's `results.json`,
+`reread.json`, `diagnostic/reading.json` and `record.json`, `protocol.json`, both part-1 hashes
+(`2d6d49ad…` superseded by `2d4a2c7f…`) and the amendment record.
+
+*Review (`doperpowers:reviewer-high`).* It re-ran the replay independently and reproduced every
+equality, and found two defects, both fixed before part 1's hash (`d53223bf1`): the first replay's
+outputs sat in `replay/out/`, which the repository's `out/` ignore rule kept out of `80223fd12`, so
+the replay was re-run into `replay/record/` (captures byte-identical to the first run's) and the pins
+re-pointed; and a warm-cache `fetch` checked the extracted tree only against its own mutable
+inventory, so it now also requires the inventory digest recorded at the authenticated extraction.
+
+### 3. The tools, the reader and the draft (G0 (b))
+
+- **Bindings and inheritance.** `bindings.py` is W48's; `inherit.py` installs it as the module
+  `bindings`, so W47's `cuts/`, `fit/`, `stage/`, `sheets/`, `referees/`, `level/` and ladder reader run
+  where they stand, by path, under W48's pins, scratch (`~/vitrea-w48`), lock and refusals (W44–W47's
+  places, part hashes and charters). Twenty W47 files are pinned in `INHERITED`. Three bindings could
+  not be reached by injection and are handled explicitly: `REBIND` re-points `stage.py`'s `SEALED_BY`
+  to "W48 G1"; `cuts/cuts.py` launches W47's `cuts.py` in a child process under W48's bindings
+  (review P2: W47's `fit.py` runs it in a new process, which would have imported W47's bindings); and
+  `census-gate.py`, `with-gpu.sh`, `fit/build-candidate.ts` and `seal/seal.ts` are W48 copies whose
+  diffs against W47's are their compiled-in constants only (a test holds the diff to them).
+- **The snapshots** at `78d0211e0` equal W47's byte for byte.
+- **Tests on `d0219cd684bf`.** The seal with every X64 and X67 key named reproduces
+  `b074fc6913a91c66` / `280f0fddf014e0f6`, the builder those and the light `3741b229…` / `c4ca0e1c…`.
+  The shipped stage, without a render: W47's committed rehearsal record (132 of 132 rows, 264 of 264
+  captures) is re-verified and W48's stage plan equals W47's launched scene lists, every planned cell
+  with its published row. X69's manifest checks and X70's red cases are carried. W48 tests: bindings
+  20, declare 24, verdicts 21, archive 10, fit 46, builder 24, stage sizes 6, seal 18, stage 14, level
+  14, X69/X70 6, the copies 5, the runner 3; W47's own `test_rule` 19, `test_cuts_refusals` 11,
+  `test_x60` 11, `test_sheets` 7 and `test_referees` 11 run unchanged under W48's bindings.
+- **The rule rehearsed** under W48's bindings: `d0219cd684bf` against itself NEITHER, 66 / 0 / 0 per
+  scale; W46's point A 16 / 8 at 1x and 17 / 10 at 2x; W45's 19 synthetic cases pass. W47's strict
+  port proof exits 1 on one key, `T1.rule.pBeside`, which `cuts.py` gained after W47's rehearsal cut;
+  all 56,289 leaf values agree and the added key re-derives from the committed rule groups.
+- **The level check** is W47's; the shipped rung's identity (130 of 130, reads no change) is
+  re-proven against the archive's reference subset on all 260 PNG hashes. X60 by evidence: IDENTICAL.
+- **`ladders/protocol.json`**, the corrected protocol over W47's rungs (none added): Decision Log 3's
+  bars with their numbers; the decision kinds `fit`, `name-unfitted`, `name-target`, `narrow`,
+  `strike`, `hold`, `stop`; no precedence kind; σ 2 and share 0.5 ruled off the grid, σ 1.5, share
+  0.25 and body width 2 met nowhere; the charter's clause-3 expectations, hashed before the reading.
+- **The verdict reader** (`ladders/verdicts.py`) reads by key only, recomputes R and requires it
+  equal to W47's, refuses before part 1's hash or unless part 1 pins it and the evidence.
+- **`declare.py`**, W48's own copy (W47's and its spent amendment untouched): `hold` beside `strike`
+  (a leaf the draft marks holdable, at a declared value, on a charter Decision Log naming the leaf;
+  it joins its family's `fixed`); no precedence kind; `check-fit` against `verdicts.json`, which must
+  name part 1's current hash and the pinned reader and evidence; the body width struck unless a
+  body-width rung meets, kept beside the tap when one does; the off-grid values refused on any grid;
+  empty ops refused by `amend`, `amend-fit` and on read; `hash` refuses once the verdicts or a fit
+  render exist, `hash-fit` before the verdicts exist. Review (`reviewer-medium`) found the child-
+  process binding above and that the level re-proof's status was only compared, not required; both
+  fixed before the hash.
+- **The draft**, narrowed from W47's: stage 1's span law at **432 points** (72 renders per scale;
+  108 / 18 with the gain held), the second tap off; then W46's rest scatter, 26 grid points per pass;
+  stage 2's transmission × tap σ {3, 4, 6}² × share {0, 0.75, 1} × body width {1.25, 3, 4} as one
+  factorial, **114 points** after the share-0 collapse (42 renders per scale); then W46's receded
+  scatter, 58 grid values per pass, which W47's search offers as **78 candidates** because it sweeps
+  the second tap's share and widths as one step. The span law offers the snapshot start beside its
+  grid (433 candidates, 73 renders per scale). `sizeOcclusionGain` is holdable at 0.05 and the span
+  tops at 128 or 160.
+
+### 4. Part 1, hashed (`608ce4a07`)
+
+`declaration.json` sha256 **`87ec90d48155f6592fd0557f7d67af7b4334fc83a66be9e028c4d17c957476f0`**:
+fifteen items over 156 pinned sources (documents, T1, the bar, the manifest, the rule, the tools,
+the level check, the operators as W47's bytes, the evidence, the targets with Decision Log 5's
+predictions, the ladders, the starting point, the references, S1, the draft), assembled and checked
+consistent on the committed tree before `verdicts.json` existed.
+
+### 5. The verdicts (G0 (d); `ladders/verdicts.json`, `.txt`)
+
+Read once by the pinned reader, after the hash, from W47's `reread.json` and `results.json` by key.
+- **Operator 1 separates** at `tintAlpha` 0.7 / far 0.2 / top 128 and top 160, at both scales:
+  1x −1.36 toward / −0.89 toward / −0.30 unchanged / +2.13 away / +1.37 away; 2x −0.10 / −0.27 /
+  0.00 unchanged / +1.98 / +1.59 away (change-band growth in B, `checkerboard-8` / `hc-text` /
+  `hc-text-7` / `checkerboard-32` / `checkerboard-64`, `rrect-lg` rest); two away beyond B, none past
+  3 B, no over-Apple cell away; thin gain 0.1074 / 0.1384 against point A's 0.1072 / 0.1384; L1 passes.
+- **Operator 2: the tap and the body width both meet**, both stage-2 members. R on T1-fine, the two
+  fine inactive cells, 1x | 2x: σ 3 .606 / .623 | .871 / .832; σ 4 .728 / .753 | 1.005 / .967;
+  σ 6 .739 / .769 | 1.044 / 1.011; σ 4 share 0.75 .629 / .642 | .792 / .753; body width 3 .705 / .733 |
+  .529 / .504; body width 4 .736 / .763 | .693 / .656. Guards at worst −0.83 B (σ 6, 1x). σ 2 (.591 /
+  .561) and share 0.5 (.553 / .511) meet at 2x only, as ruled off the grid.
+- **The joint** holds its partition and its halving (R .736 / .767 at 1x, 1.044 / 1.011 at 2x); photo
+  inactive ×0.4163 / ×0.4601 against point A's ×0.4171 / ×0.4604, −0.02 / −0.01 bar, reported only.
+- **Ladder (ii)** is not re-read: no rung met, the second tap stays out.
+- **Every expectation of clause 3's Bar holds.**
+- **Not predicted: `i-a0.8-g0.6` meets bar (a) at 1x only.** At 1x it reads −0.82 toward / −0.64
+  toward / −0.11 unchanged / +1.01 / +1.61 away, thin gain 0.0577 against 0.1072, L1 passing; at 2x
+  its partition holds but its thin gain 0.0629 is under half of point A's 0.1384. Under W47's
+  re-stated bar it failed at 1x on `hc-text-7` reading unchanged; Decision Log 3 (a) admits that state,
+  so it now meets at one scale. No ruling puts it off the grid, and the protocol (W47's one-scale rule,
+  carried by Decision Log 3 (f)) stops part 2 for the parent.
+
+### 6. Part 2 is not hashed: the STOP (G0 (e))
+
+A scratch part 2 equal to the draft with no change, checked by `check-fit` and never committed, reads
+exactly one failure: the unruled one-scale rung. Nothing else in the draft conflicts with the
+verdicts: both operators separate, both operator-2 levers are members, no off-grid value sits on a
+grid.
+
+**Why the hashed tooling stops here, and what the charter already says.** Design "The corrected bars"
+(f) (MARKED) reads: "A rung that meets at one scale only … is not a fit start and leaves the grid; it
+is recorded. *Ruled now, not at part 2.*" The protocol encoded that rule only for the two rungs the
+charter named (σ 2, share 0.5) and sent any other one-scale rung to the parent, as W47's one-scale
+rule does. `i-a0.8-g0.6` is a point no W48 grid contains: its far delta 0 and span top 256 are off
+the span law's grids (far {0.2, 0.3, 0.45}, tops {128, 160}), and the only start offered is the
+snapshot (0.9 / 0 / 256 / 0.05). So Design (f) is satisfied with no grid change, but the hashed
+`check-fit` cannot see that, and changing it is a change to a part-1 pin.
+
+**The route the tooling admits** (the one I recommend): a charter Decision Log recording the rung
+under Design (f) with grids unchanged; then part 1's one amendment in the content form, made after
+the verdicts and therefore additive: an `add` op stating the ruling in the `ladders` item, with
+`declare.py` (and `test_declare.py` / `.txt`) re-pinned so `check-fit` records a one-scale rung
+whose point lies on no grid instead of stopping. `protocol.json` and the reader stay as hashed. The
+verdicts are then re-read under the amended hash (the reader and evidence unchanged, so every number
+repeats) and part 2, the draft with no change, is checked and hashed. Re-pinning `protocol.json`
+instead does not pass `amend`: `check_ladders` holds its `offGrid` to the item's declared copy,
+which an add-only amendment cannot replace.
+
+*Alternatives.* Taking `tintAlpha` 0.8 or gain 0.6 off the stage-1 grid (Design (f) read as the
+lever's values rather than the rung's point) uses the same route, with values, and shrinks stage 1.
+Holding the gain at 0.05, which the charter's Risks anticipated for this rung's 2x thin loss, still
+needs the ruling first; the hold then rides part 2 at 108 points.
+
+### 7. For the parent
+
+1. The ruling of §6, before part 2. Part 1's one amendment is still unspent.
+2. **X70 does not cover a fit render.** It lives only in W47's `ladders/ladder.py` and `read.py`;
+   W47's `fit/fit.py` has no requested / planned / measured check, so G1's fit renders inherit none
+   (tracker).
+3. Label residue: W47's census labels ("w47-stage", "w47-fit") and the `what` strings of
+   `fit/joint.py`, `finding.py` and `recover.py` ("W47 G1") stay W47's bytes.
+
+### 8. What is not claimed
+
+- Any fit, gate, exposure, seal, publication or release; part 2 does not exist.
+- That `i-a0.8-g0.6` is a better start than the separating rung; the bar reads levers, the gate reads
+  points.
+- Any reading beyond W47's rungs and cells; the replay proves the committed readings come from the
+  archived bytes, not that the renders are W48's to repeat.

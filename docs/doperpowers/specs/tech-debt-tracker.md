@@ -7640,6 +7640,8 @@ rather than rediscover it. The pins-only form remains the only one part 1 accept
 
 ## W47's `declare.py amend` accepts an empty ops list and spends the final amendment on nothing (W47 G0, 2026-10-06)
 
+*Closed in W48 G0 (claims §5.212 §3): W48's own `declare.py` refuses an empty ops list in `amend`, `amend-fit` and on read; W47's pinned copy is unchanged.*
+
 *Small; found by the review of Decision Log 8's amendment (claims §5.211).*
 
 `amend` takes a content amendment's ops from a file and only checks that each op is an add or a
@@ -7657,6 +7659,8 @@ content amendment. It belongs in the next wave's port, or in a part-2 amendment,
 
 ## W47's protocol: body-width-first names the stronger lever unfitted (W47 G0, 2026-10-06)
 
+*Closed in W48 G0 (claims §5.212 §3, §5): W48's protocol has no precedence kind; the tap and the body width both meet and both are stage-2 members.*
+
 *Closed W47 at G0 (Decision Log 10; claims §5.211 §11).*
 
 W47's `ladders/protocol.json` decides `body-width-first` when a receded `optics.regular.blurSigma`
@@ -7670,6 +7674,8 @@ cheaper-first rule in the protocol.
 
 ## W47's protocol: a non-operator leaf can leave a grid only by `strike`, which needs flat rungs (W47 G0, 2026-10-06)
 
+*Closed in W48 G0 (claims §5.212 §3): `hold` joins the decision kinds; the draft marks `sizeOcclusionGain` holdable at 0.05 and the span tops at 128 or 160.*
+
 *Closed W47 at G0 (Decision Log 10).*
 
 Once operator 1 is named not fitted, the leaves its law shares with the span law should be holdable
@@ -7681,6 +7687,8 @@ validated against that operator's `notFitted` entry.
 
 ## W47's `check-fit` reads the original bars' results after a bar amendment (W47 G0, 2026-10-06)
 
+*Closed in W48 G0 (claims §5.212 §3): W48's `check-fit` validates part 2 against `verdicts.json`, bound to part 1's current hash.*
+
 *Closed W47 at G0 (Decision Log 10).*
 
 `declare.py check-fit` validates part 2 against `ladders/results.json`, the readings under the bars
@@ -7690,3 +7698,16 @@ bars read, so no part 2 could pass it in any content. Teaching it the re-read mo
 part-1 pin, and part 1's one amendment was spent on the bars. The shape of the fix, for the next
 port: `check-fit` reads the ladder readings named by part 1's current hash. That is the original
 results, or the re-read an amendment declares, pinned by that amendment.
+
+## X70 covers no fit render: W47's `fit/fit.py` has no requested / planned / measured check (W48 G0, 2026-10-06)
+
+*Found by the W48 G0 tools port (claims §5.212 §7).*
+
+X70's three-way check (the cells requested, the cells `compare` plans for them, the rows measured)
+lives only in W47's `ladders/ladder.py` and `ladders/read.py`. W47's `fit/fit.py`, which W48 G1
+inherits by path, launches `compare` per scope and reads the matrices it writes without comparing
+them to the requested cells, so a fit render that plans or measures a different cell set than its
+scope is not refused by the tool. The shape of the fix: the fit driver calls the same `planned` and
+measured-set comparison per scope and scale before a render is read; in W48 it can ride part 2's one
+amendment only if `fit.py` is made a W48 copy, since inherited files are W47's bytes.
+
