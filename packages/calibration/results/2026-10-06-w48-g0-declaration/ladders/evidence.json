@@ -1,0 +1,58 @@
+{
+ "schema": "w48-ladder-evidence-1",
+ "what": "W48 G0 (a), X71: W47's ladder evidence pinned after the replay from the archive reproduced it; the verdicts are read from these files by key",
+ "w47": {
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.json": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.txt": "e1cf64ede613579838977e30c41019048b9f323d4e9006b1f19d452ce9ef0061",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.json": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.txt": "9bc8454e2808470335dde66cc9e130db79d842ce274982dd8ea902fe7051ca85",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/selections.json": "fa5cc6d9310012eb3c140623f88e1300cbf40eca7beb0a3895894fc13040ae75",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json": "757db8651fd178f3affd444f2dc4dcc5d5f0425244b1a72730d4593b979bb85a",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json": "91c1834d0c783e489866dacbab68b6feb73553127c47a63104e4be3393f96894",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py": "8e8a752620a976b3be3a2aad3d90e1a311c9ac666df343e5e924e597b9a0b993",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.py": "c283539648b00f3ade8512f193d6d620d77af6a30d450407ccce71830f9b45f7",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py": "ae20016c857ea36bfdaa1bf1f947d71cabbd0f5657892b1b8e3831e594151d9a",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json": "11eef32e1f568e86893365fd8cd5eaf66ad158c2def4f95f4017d053084fa51b",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json": "940688015a02e06dfa6c92ba1024b5c8451bf075ee58f875e8c4e2c8a3dc8178",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.json": "2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.sha256": "665135a1679cbc713ca27c5cff52303a9939e5ba4bf1902fecb58328ff2e4ec1",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/amendments.json": "909fbfcf24b3867f220b9fc3fcd8963da24d8959f11204d09d40fb9240f105f2",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/declare.py": "e3a5b78cdce4e949d4552414468df21896ec0b8a87ef7ec556dc858478960a83",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json": "9ebb409c063b591cc7849fe65626d7a7c79656780a7fa7b691c80166eaf35ac5"
+ },
+ "w47PartOne": {
+  "superseded": "2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579",
+  "current": "2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e",
+  "amendments": "packages/calibration/results/2026-10-06-w47-g0-operators/amendments.json"
+ },
+ "archive": {
+  "release": "w47-ladders-archive",
+  "asset": "w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst",
+  "sha256": "fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+  "bytes": 66241907,
+  "inventory": "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/inventory.json",
+  "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa",
+  "entries": 14984,
+  "record": "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/archive.json",
+  "recordSha256": "9b37ff0e11c72f8e5446cbc216b26534f1fecce46da35fc092559cb19c3156e4"
+ },
+ "replay": {
+  "record": "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/out/replay.json",
+  "recordSha256": "bc4736bd1bd01485c13fe184da7f9ed7853fd93e2637e7b5aac580fde52ab283",
+  "captures": "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/out/captures.json",
+  "capturesSha256": "32d14925644e8de55e594395b6067065de94dd1e6ba5f21081e63ec107f30c44",
+  "allEqual": true,
+  "controlIdentity": [
+   142,
+   142
+  ],
+  "equality": {
+   "results.json": true,
+   "results.txt": true,
+   "selections.json": true,
+   "reread.json": true,
+   "reread.txt": true,
+   "x60-evidence.json": true
+  }
+ }
+}

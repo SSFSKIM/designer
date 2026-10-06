@@ -1,0 +1,85 @@
+{
+ "schema": "w48-archive-record-1",
+ "what": "W48 G0 (a), X71: W47's ladder evidence as the archive of record, produced, packed, published, fetched back, second-copied",
+ "producer": "results/2026-10-06-w48-g0-declaration/archive/w47_ladders_archive.py",
+ "sources": {
+  "rawRoot": "~/vitrea-w47/g0-ladders (14,463 files, read once by `produce`; not deleted, not modified)",
+  "drive": "W47's committed ladders/logs/ (93 files), drive.jsonl, runs.jsonl",
+  "reference": "the canonical d0219cd684bf WebGPU capture, alpha PNG and cell__webgpu.json of every control cell (142 cells, 71 per scale), copied from the main checkout's packages/calibration/web-captures; every sidecar names sha256:d0219cd684bf and sha256:f0b36a71772a; all 284 PNGs byte-identical to the ladder control's"
+ },
+ "inventory": {
+  "path": "archive/inventory.json",
+  "sha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa",
+  "entries": 14984,
+  "perSection": {
+   "ladders": 14463,
+   "drive": 95,
+   "reference": 426
+  }
+ },
+ "asset": {
+  "name": "w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst",
+  "sha256": "fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+  "bytes": 66241907,
+  "githubDigest": "sha256:fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+  "tarMembers": 14985,
+  "compression": "-19 -T1 -q -c",
+  "zstd": "*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***",
+  "deterministic": "sorted PAX tar, mtime 0, owner-free; a re-pack of the same tree reproduced the digest"
+ },
+ "release": {
+  "repo": "SSFSKIM/designer",
+  "tag": "w47-ladders-archive",
+  "title": "W47 ladders archive of record",
+  "target": "78d0211e01c1e24aaca366d9952f8a21b245e9f0",
+  "publishedAt": "2026-10-06T07:40:47Z",
+  "latest": false,
+  "created": "gh release create w47-ladders-archive --latest=false --target 78d0211e01c1e24aaca366d9952f8a21b245e9f0"
+ },
+ "roundTrip": {
+  "fetch": "python3.12 -B archive/w47_ladders_archive.py fetch --asset w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst --sha256 fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+  "fetchedFrom": "GitHub (gh release download), digest verified before decompression, tree verified against its inventory",
+  "fetchedRoot": "~/.cache/vitrea-archives/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac/extracted/archive",
+  "fetched": {
+   "sha256": "fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+   "asset": "w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst",
+   "tag": "w47-ladders-archive",
+   "repo": "SSFSKIM/designer",
+   "bytes": 66241907,
+   "source": null,
+   "entries": 14984,
+   "perSection": {
+    "ladders": 14463,
+    "drive": 95,
+    "reference": 426
+   },
+   "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa"
+  },
+  "downloadedEqualsPacked": true,
+  "fetchedTreeEqualsProducerOutput": "diff -r exit 0 (byte for byte)"
+ },
+ "secondCopy": {
+  "root": "~/vitrea-w48/archive-copy/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+  "via": "fetch --source <the downloaded asset> --cache ~/vitrea-w48/archive-copy",
+  "verified": {
+   "sha256": "fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+   "asset": "w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst",
+   "tag": "w47-ladders-archive",
+   "repo": "SSFSKIM/designer",
+   "bytes": 66241907,
+   "source": "/Users/new/.cache/vitrea-archives/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac/w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst",
+   "entries": 14984,
+   "perSection": {
+    "ladders": 14463,
+    "drive": 95,
+    "reference": 426
+   },
+   "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa"
+  },
+  "treeEqualsFetched": "diff -r exit 0"
+ },
+ "replay": {
+  "command": "python3.12 -B replay/replay.py ~/.cache/vitrea-archives/fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac/extracted/archive --out replay/out --also-deny ~/vitrea-w48/archive --also-deny ~/vitrea-w48/archive-copy",
+  "record": "replay/out/replay.json"
+ }
+}
