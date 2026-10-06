@@ -25,6 +25,7 @@ import contextlib
 import hashlib
 import io
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -37,18 +38,30 @@ import inherit  # noqa: E402
 
 W = inherit.W
 W.WITH_GPU = G1 / "with-gpu.sh"                       # G1's census log; G0's lock and census
+# The round (W48 Decision Log 9 and its addendum): the first freeze's stages were staged under the default
+# bindings (the dark captures in the worktree's tree, since moved beside that stage as
+# ~/vitrea-w48/g1-stage-dark/web-captures); the re-freeze's stages are new directories with their own
+# capture trees and evidence, so the first round's are kept, never overwritten. W48_G1_ROUND=dl9 selects them.
+ROUND = os.environ.get("W48_G1_ROUND", "first")
+if ROUND not in ("first", "dl9"):
+    raise W.Refusal(f"W48_G1_ROUND={ROUND!r}: 'first' or 'dl9'")
+if ROUND == "dl9":
+    W.STAGE = W.SCRATCH / "g1-stage-dark-dl9"
 STAGE = inherit.tool("stage/stage.py", "stage")
 X60 = inherit.tool("stage/x60.py", "x60")
+if ROUND == "dl9":
+    STAGE.MODES["g1"] = dict(stage=W.STAGE, out=HERE / "dl9", captures=W.STAGE / "web-captures", tiers="webgpu,css")
 
-LIGHT_STAGE = W.SCRATCH / "g1-stage-x60-light"
-X60_OUT = HERE / "x60-light"
+SUFFIX = "" if ROUND == "first" else "-dl9"
+LIGHT_STAGE = W.SCRATCH / f"g1-stage-x60-light{SUFFIX}"
+X60_OUT = HERE / f"x60-light{SUFFIX}"
 CELLS = HERE / "x60-light-cells.json"
 ACTIVE = "profiles/apple-macos-27.0-1x-light-standard-glass0.25.json"
 RECEDED = "profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json"
 SETS = "calibration,validation,recorded,probe"
 PER_SCALE = 138
 STAGE.MODES["x60"] = dict(stage=LIGHT_STAGE, out=X60_OUT, captures=LIGHT_STAGE / "web-captures", tiers="webgpu,css")
-if STAGE.MODES["g1"]["out"] != HERE:
+if STAGE.MODES["g1"]["out"] != (HERE if ROUND == "first" else HERE / "dl9"):
     raise W.Refusal(f"the bindings put G1's stage evidence at {STAGE.MODES['g1']['out']}, not {HERE}")
 
 
@@ -147,11 +160,11 @@ def main(argv) -> int:
         if verb == "measure":
             return x60_measure(argv[3])
         if verb == "read":
-            return x60_main(["render", "--stage", str(LIGHT_STAGE)], HERE / "x60-render.json")
+            return x60_main(["render", "--stage", str(LIGHT_STAGE)], HERE / f"x60-render{SUFFIX}.json")
         if verb == "evidence":
             extra = ["--after-exposure"] if "--after-exposure" in argv else []
-            return x60_main(["evidence", *extra], HERE / ("x60-evidence-after-exposure.json" if extra
-                                                          else "x60-evidence.json"))
+            return x60_main(["evidence", *extra], HERE / ((f"x60-evidence-after-exposure{SUFFIX}.json" if extra
+                                                           else f"x60-evidence{SUFFIX}.json")))
     print(__doc__)
     return 64
 

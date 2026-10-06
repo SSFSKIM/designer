@@ -26,10 +26,10 @@
     "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
   },
   "derivedFromCandidate": {
-    "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/candidate.json",
-    "declarationSha256": "eb336f767dd80fd6c23f54c14a817ff5f69474d8e22082a31af54d16343b1fd2",
-    "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/receded.dark.json",
-    "endpointSha256": "9f316210416b1c47818ad1995eff41fdae2f9bee42805ca5a5416a1c2757b739"
+    "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+    "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
+    "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/receded.dark.json",
+    "endpointSha256": "279939299213b748297411cbc2777578424dfa35575256b9f4df2f8ca9fa8464"
   },
   "supersedes": {
     "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
@@ -37,7 +37,7 @@
     "resolvedMaterialSha256": "280f0fddf014e0f6",
     "generation": "packages/calibration/results/generations/d0219cd684bf.json"
   },
-  "resolvedMaterialSha256": "aa1a1b198ee72850",
+  "resolvedMaterialSha256": "be472bc8e42b618d",
   "resolvedMaterialSha256Rule": 2,
   "measurement": {
     "gate": "W48 G1, claims §5.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
@@ -45,24 +45,7 @@
     "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
     "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
     "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
-    "cuts": {
-      "summary": {
-        "path": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/summary.json",
-        "sha256": "4e03dbd011ea96380c282a9f0658cb1828be19b689e3d0c8a5062ef595a0e4e9"
-      },
-      "perScale": {
-        "1x": {
-          "renderer": "d-x1-ta0.7-m1160-t10.2-rta0.8-rfa0.5-rk10.15-rn10.4-rg0-rm1160-rt10.2",
-          "path": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-x1-ta0.7-m1160-t10.2-rta0.8-rfa0.5-rk10.15-rn10.4-rg0-rm1160-rt10.2/cuts-1x.json.gz",
-          "sha256": "458875416a0cf8f2b9638203b0b0b3a3765edf1a494f2f555724313e05ae7127"
-        },
-        "2x": {
-          "renderer": "d-x2-ta0.7-m2160-t20.2-rta0.8-rn20.4-rg0-rm2160-rt20.2",
-          "path": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-x2-ta0.7-m2160-t20.2-rta0.8-rn20.4-rg0-rm2160-rt20.2/cuts-2x.json.gz",
-          "sha256": "2c505d71ea9cd5bc52f78ae4b6cccf66bfc5a832dfc326ddebe85dd5d98ef5e5"
-        }
-      }
-    }
+    "cuts": null
   },
   "entries": {
     "backdropToneResponseThick": {
@@ -105,22 +88,7 @@
       "value": 0,
       "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
     },
-    "sizeHeavySecondShare": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
     "sizeHeavySecondShareFar2x": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeHeavySecondSigma": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeHeavySecondSigma2x": {
       "status": "materialised",
       "value": 0,
       "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
@@ -171,9 +139,39 @@
       "previous": 0.89,
       "previousAt05": 0.89,
       "method": [
-        "W48 G1 (claims §5.213): fitted under part 2 ad5fdeceb244 (W48 charter Design \"The moves\", Decision Log 4) from the snapshots at 78d0211e0 by W47's search under W48's bindings with X70; stage objective W47's rule.stage_objective (median |log(web/native)| over F, C and P, both dark scales pooled, gate cells); the declared tie rule from the stage base",
-        "stage 1, the span law as ONE factorial (433 candidates: tintAlpha {0.7,0.8,0.9} x far1x {0.2,0.3,0.45} x far2x {0.2,0.3,0.45} x top1x {128,160} x top2x {128,160} x gain {0.05,0.2,0.4,0.6} and the snapshot start); landed tintAlpha 0.7, far 0.2 / 0.2, tops 160 / 160, gain 0.05 (objective 0.2289 against the start's 0.5723; minimum 0.2044 inside the tie 0.0365); then W46's rest scatter by coordinate sweep, every leaf held at its start (active.dark optics.regular.tintAlpha = 0.7)",
-        "stage 2 from the stage-1 point, the receded document materialised over it (X64, X67): transmission {0.8, 0.89} x tap sigma {3,4,6}^2 x share {0,0.75,1} x body width {1.25,3,4} as ONE factorial (114 points), landed at the start (0.8, tap off, width 1.25; objective 0.5063; every tap point higher, best 0.5373; width 3 0.5105 inside the tie 0.0544); then W46's receded scatter by coordinate sweep, landed on W46's point A's leaves (receded.dark optics.regular.tintAlpha = 0.8)"
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+      ]
+    },
+    "sizeHeavySecondShare": {
+      "status": "measured",
+      "value": 0.25,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeHeavySecondShare = 0.25)"
+      ]
+    },
+    "sizeHeavySecondSigma": {
+      "status": "measured",
+      "value": 5,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeHeavySecondSigma = 5)"
+      ]
+    },
+    "sizeHeavySecondSigma2x": {
+      "status": "measured",
+      "value": 5,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeHeavySecondSigma2x = 5)"
       ]
     },
     "sizeScatterFloor": {
@@ -182,9 +180,9 @@
       "previous": null,
       "previousAt05": null,
       "method": [
-        "W48 G1 (claims §5.213): fitted under part 2 ad5fdeceb244 (W48 charter Design \"The moves\", Decision Log 4) from the snapshots at 78d0211e0 by W47's search under W48's bindings with X70; stage objective W47's rule.stage_objective (median |log(web/native)| over F, C and P, both dark scales pooled, gate cells); the declared tie rule from the stage base",
-        "stage 1, the span law as ONE factorial (433 candidates: tintAlpha {0.7,0.8,0.9} x far1x {0.2,0.3,0.45} x far2x {0.2,0.3,0.45} x top1x {128,160} x top2x {128,160} x gain {0.05,0.2,0.4,0.6} and the snapshot start); landed tintAlpha 0.7, far 0.2 / 0.2, tops 160 / 160, gain 0.05 (objective 0.2289 against the start's 0.5723; minimum 0.2044 inside the tie 0.0365); then W46's rest scatter by coordinate sweep, every leaf held at its start (active.dark sizeScatterFloor = 0.34)",
-        "stage 2 from the stage-1 point, the receded document materialised over it (X64, X67): transmission {0.8, 0.89} x tap sigma {3,4,6}^2 x share {0,0.75,1} x body width {1.25,3,4} as ONE factorial (114 points), landed at the start (0.8, tap off, width 1.25; objective 0.5063; every tap point higher, best 0.5373; width 3 0.5105 inside the tie 0.0544); then W46's receded scatter by coordinate sweep, landed on W46's point A's leaves (receded.dark sizeScatterFloor = 0.5)"
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterFloor = 0.34)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterFloor = 0.5)"
       ]
     },
     "sizeScatterRampStartThick1x": {
@@ -193,8 +191,8 @@
       "previous": 0.3,
       "previousAt05": 0.3,
       "method": [
-        "W48 G1 (claims §5.213): fitted under part 2 ad5fdeceb244 (W48 charter Design \"The moves\", Decision Log 4) from the snapshots at 78d0211e0 by W47's search under W48's bindings with X70; stage objective W47's rule.stage_objective (median |log(web/native)| over F, C and P, both dark scales pooled, gate cells); the declared tie rule from the stage base",
-        "stage 2 from the stage-1 point, the receded document materialised over it (X64, X67): transmission {0.8, 0.89} x tap sigma {3,4,6}^2 x share {0,0.75,1} x body width {1.25,3,4} as ONE factorial (114 points), landed at the start (0.8, tap off, width 1.25; objective 0.5063; every tap point higher, best 0.5373; width 3 0.5105 inside the tie 0.0544); then W46's receded scatter by coordinate sweep, landed on W46's point A's leaves (receded.dark sizeScatterRampStartThick1x = 0.15)"
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterRampStartThick1x = 0.15)"
       ]
     },
     "sizeScatterRampStartThin1x": {
@@ -203,9 +201,9 @@
       "previous": 1,
       "previousAt05": 1,
       "method": [
-        "W48 G1 (claims §5.213): fitted under part 2 ad5fdeceb244 (W48 charter Design \"The moves\", Decision Log 4) from the snapshots at 78d0211e0 by W47's search under W48's bindings with X70; stage objective W47's rule.stage_objective (median |log(web/native)| over F, C and P, both dark scales pooled, gate cells); the declared tie rule from the stage base",
-        "stage 1, the span law as ONE factorial (433 candidates: tintAlpha {0.7,0.8,0.9} x far1x {0.2,0.3,0.45} x far2x {0.2,0.3,0.45} x top1x {128,160} x top2x {128,160} x gain {0.05,0.2,0.4,0.6} and the snapshot start); landed tintAlpha 0.7, far 0.2 / 0.2, tops 160 / 160, gain 0.05 (objective 0.2289 against the start's 0.5723; minimum 0.2044 inside the tie 0.0365); then W46's rest scatter by coordinate sweep, every leaf held at its start (active.dark sizeScatterRampStartThin1x = 0.72)",
-        "stage 2 from the stage-1 point, the receded document materialised over it (X64, X67): transmission {0.8, 0.89} x tap sigma {3,4,6}^2 x share {0,0.75,1} x body width {1.25,3,4} as ONE factorial (114 points), landed at the start (0.8, tap off, width 1.25; objective 0.5063; every tap point higher, best 0.5373; width 3 0.5105 inside the tie 0.0544); then W46's receded scatter by coordinate sweep, landed on W46's point A's leaves (receded.dark sizeScatterRampStartThin1x = 0.4)"
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterRampStartThin1x = 0.72)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterRampStartThin1x = 0.4)"
       ]
     },
     "sizeScatterRampStartThin2x": {
@@ -214,9 +212,9 @@
       "previous": 1,
       "previousAt05": 1,
       "method": [
-        "W48 G1 (claims §5.213): fitted under part 2 ad5fdeceb244 (W48 charter Design \"The moves\", Decision Log 4) from the snapshots at 78d0211e0 by W47's search under W48's bindings with X70; stage objective W47's rule.stage_objective (median |log(web/native)| over F, C and P, both dark scales pooled, gate cells); the declared tie rule from the stage base",
-        "stage 1, the span law as ONE factorial (433 candidates: tintAlpha {0.7,0.8,0.9} x far1x {0.2,0.3,0.45} x far2x {0.2,0.3,0.45} x top1x {128,160} x top2x {128,160} x gain {0.05,0.2,0.4,0.6} and the snapshot start); landed tintAlpha 0.7, far 0.2 / 0.2, tops 160 / 160, gain 0.05 (objective 0.2289 against the start's 0.5723; minimum 0.2044 inside the tie 0.0365); then W46's rest scatter by coordinate sweep, every leaf held at its start (active.dark sizeScatterRampStartThin2x = 0.46)",
-        "stage 2 from the stage-1 point, the receded document materialised over it (X64, X67): transmission {0.8, 0.89} x tap sigma {3,4,6}^2 x share {0,0.75,1} x body width {1.25,3,4} as ONE factorial (114 points), landed at the start (0.8, tap off, width 1.25; objective 0.5063; every tap point higher, best 0.5373; width 3 0.5105 inside the tie 0.0544); then W46's receded scatter by coordinate sweep, landed on W46's point A's leaves (receded.dark sizeScatterRampStartThin2x = 0.4)"
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterRampStartThin2x = 0.46)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterRampStartThin2x = 0.4)"
       ]
     },
     "sizeScatterScaleGain": {
@@ -225,9 +223,9 @@
       "previous": null,
       "previousAt05": null,
       "method": [
-        "W48 G1 (claims §5.213): fitted under part 2 ad5fdeceb244 (W48 charter Design \"The moves\", Decision Log 4) from the snapshots at 78d0211e0 by W47's search under W48's bindings with X70; stage objective W47's rule.stage_objective (median |log(web/native)| over F, C and P, both dark scales pooled, gate cells); the declared tie rule from the stage base",
-        "stage 1, the span law as ONE factorial (433 candidates: tintAlpha {0.7,0.8,0.9} x far1x {0.2,0.3,0.45} x far2x {0.2,0.3,0.45} x top1x {128,160} x top2x {128,160} x gain {0.05,0.2,0.4,0.6} and the snapshot start); landed tintAlpha 0.7, far 0.2 / 0.2, tops 160 / 160, gain 0.05 (objective 0.2289 against the start's 0.5723; minimum 0.2044 inside the tie 0.0365); then W46's rest scatter by coordinate sweep, every leaf held at its start (active.dark sizeScatterScaleGain = -2)",
-        "stage 2 from the stage-1 point, the receded document materialised over it (X64, X67): transmission {0.8, 0.89} x tap sigma {3,4,6}^2 x share {0,0.75,1} x body width {1.25,3,4} as ONE factorial (114 points), landed at the start (0.8, tap off, width 1.25; objective 0.5063; every tap point higher, best 0.5373; width 3 0.5105 inside the tie 0.0544); then W46's receded scatter by coordinate sweep, landed on W46's point A's leaves (receded.dark sizeScatterScaleGain = 0)"
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
       ]
     },
     "held": {
@@ -311,10 +309,10 @@
     "sizeScatterFloor": 0.5,
     "sizeScatterFloor2x": 1,
     "sizeHeavyTapSigma": 0,
-    "sizeHeavySecondShare": 0,
+    "sizeHeavySecondShare": 0.25,
     "sizeHeavySecondShareFar2x": 0,
-    "sizeHeavySecondSigma": 0,
-    "sizeHeavySecondSigma2x": 0,
+    "sizeHeavySecondSigma": 5,
+    "sizeHeavySecondSigma2x": 5,
     "sizeScatterScaleGain": 0,
     "sizeScatterSpanMax": 160,
     "sizeScatterSpanMax2x": 160,

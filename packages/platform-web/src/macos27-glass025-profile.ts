@@ -168,7 +168,7 @@ export const macos27Glass025DarkMaterialProfile: RendererMaterialProfile = {
   sizeHeavySecondSigma: 0,
   sizeHeavySecondSigma2x: 0,
   sizeHeavySecondShare: 0,
-  sizeScatterScaleGain: -2,
+  sizeScatterScaleGain: -0.5,
   sizeScatterScaleRef: 0.03,
   bodyChromaRetention: 0.336,
   backdropToneBlackStrength: 1,
@@ -307,10 +307,10 @@ export const macos27Glass025RecededMaterialProfile: Readonly<
     sizeScatterFloor: 0.5,
     sizeScatterFloor2x: 1,
     sizeHeavyTapSigma: 0,
-    sizeHeavySecondShare: 0,
+    sizeHeavySecondShare: 0.25,
     sizeHeavySecondShareFar2x: 0,
-    sizeHeavySecondSigma: 0,
-    sizeHeavySecondSigma2x: 0,
+    sizeHeavySecondSigma: 5,
+    sizeHeavySecondSigma2x: 5,
     sizeScatterScaleGain: 0,
     sizeScatterSpanMax: 160,
     sizeScatterSpanMax2x: 160,
@@ -340,7 +340,7 @@ export const macos27Glass025CssTierMapping: Partial<CssTierMapping> = {
  */
 export const MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256 = {
   light: "3741b22934f17f4d",
-  dark: "129316b87df6c562",
+  dark: "791cde91d97acbc7",
   recededLight: "c4ca0e1cd6791bde",
-  recededDark: "aa1a1b198ee72850",
+  recededDark: "be472bc8e42b618d",
 } as const;
