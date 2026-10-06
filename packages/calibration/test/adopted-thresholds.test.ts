@@ -3628,10 +3628,13 @@ const T1_BANDS_FILES = [
 /**
  * **T1 on the dark 0.25 profiles** (W46 G2; charter Decision Logs 3 and 10; claims §5.210). GATED on
  * their WebGPU tier by the same two clauses, in their own block below, each with its own inputs:
- * - **The reference** is clause (b)'s, by its documents' hashes: the published dark generation
- *   `d0219cd684bf`. W46 G1's refit closed at the finding, so it is the current generation itself and
- *   every cell reads `unchanged`; the next dark publication is the first thing the clause can stop.
- *   No regression is authorised against it.
+ * - **The reference** is clause (b)'s, by its documents' hashes. W46 G2 adopted the row on the
+ *   published dark generation `d0219cd684bf`, then the current generation itself. W48 G2 published
+ *   `b2d074d2df24`, witnessed its regressions against `d0219cd684bf` with both dark band fixtures
+ *   present, listed the ruled ones in `T1_DARK_AUTHORISED_REGRESSIONS` and moved the reference LAST
+ *   (charter clause 10 part (v); X59), so every dark cell reads `unchanged` against it and the next
+ *   dark publication is what the clause can stop. The seventeen stay witnessed against
+ *   `d0219cd684bf` by their standing case.
  * - **The referee manifest** is W46's (`w46-referees-1`, six scenes per dark scale). It labels a
  *   cell's partition and never selects.
  * - **The band fixtures**, ONE PER GENERATION as on the light side (W48 G2, charter clause 10 part (i);
@@ -3648,7 +3651,7 @@ const T1_DARK_GATED_PROFILES = [
   "apple-macos-27.0-1x-dark-standard-glass0.25",
   "apple-macos-27.0-2x-dark-standard-glass0.25",
 ] as const;
-const T1_DARK_REFERENCE = { active: "d0219cd684bf", receded: "f0b36a71772a" } as const;
+const T1_DARK_REFERENCE = { active: "b2d074d2df24", receded: "29da6a888a23" } as const;
 const T1_DARK_REFEREES_FILE = {
   path: "results/2026-10-05-w46-g0-declaration/referees/referees.json",
   sha256: "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
