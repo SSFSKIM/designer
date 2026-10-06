@@ -1,5 +1,11 @@
 # W47 — the span-graded dark transmission and the receded fine term: the two operators W46 deferred, landed inert and fitted on the same dark `-glass0.25` bed (2026-10-06)
 
+**Answered by W48 (2026-10-07).** W48 (`2026-10-06-w48-dark-operators-fit.md`; claims §5.212–§5.214)
+fitted both operators under the corrected declaration this wave's Deferred described: operator 1 is
+live on the dark 0.25 pair (0.2 / 0.2, span tops 160), operator 2 stays inert, named and not fitted,
+and the dark 0.25 generation `b2d074d2df24` shipped in 0.28.0. The status lines below are the record
+as this wave left it.
+
 **Closed on main (2026-10-06): the charter `c1f9bf84`, G0 `429d0a78` (§5.211; the merge gate: build, lint,
 every suite, 34 goldens, freeze 1,818, X41 911, `declare.py check` consistent). Both operators are on main
 inert, so Decision Log 10's "landed inert on main" holds from this merge. W48 opens from its Deferred.**
@@ -770,7 +776,9 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 
 ## Deferred / Out of Scope
 
-- **W48, the fit of these two operators under a corrected declaration** (Decision Log 10). It reuses
+- **W48, the fit of these two operators under a corrected declaration** (Decision Log 10). *Answered
+  (W48, claims §5.212–§5.214): chartered, fitted and landed as 0.28.0; the holdout and the referees
+  were spent at read 8.* It reuses
   this wave's ladder renders and the Decision Log 8 re-read as hashed evidence, with no new ladder.
   Its declaration differs from W47's in four places, each one a block this wave met (claims §5.211
   §11):
@@ -797,7 +805,7 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 | --- | --- | --- |
 | G0 | **CLOSED AT THE FINDING** (Decision Log 10): both operators landed inert; part 1 amended once under Decision Log 8; the re-read has operator 2 separating and operator 1 not; part 2 not hashed | §5.211 |
 | G1 | not run: the wave closed at G0 (Decision Log 10) | — |
-| G2 | not run: the wave closed at G0; no release | — |
+| G2 | not run: the wave closed at G0; no release. W48 G2 landed the fit of both operators (0.28.0) | — (§5.214) |
 
 ## Decision Log
 

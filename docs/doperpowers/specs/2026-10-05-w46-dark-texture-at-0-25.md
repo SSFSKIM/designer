@@ -1,5 +1,13 @@
 # W46 — the dark texture at 0.25: the flat photo body, the under-structured rest checkers and the over-structured receded fine checkers of the dark `-glass0.25` documents, declared from the grounding read and fitted on the existing bed (2026-10-05)
 
+**Answered by W48 (2026-10-07).** W48 (`2026-10-06-w48-dark-operators-fit.md`; claims §5.212–§5.214)
+fitted Deferred 2 (the span-graded dark transmission, W47's operator 1) and shipped the dark 0.25
+refit `b2d074d2df24` in 0.28.0 as an improvement landing with every exception named; Deferred 1 (the
+receded fine term, W47's operator 2) is landed inert and was named, not fitted. The dark 0.25 holdout
+and the six referees per scale were spent at W48's read 8, and the T1 row this wave adopted was
+re-baselined in five parts against `d0219cd684bf` (seventeen authorised regressions). The status
+lines below are the record as this wave left it.
+
 **Status: CLOSED AT THE FINDING, T1 LANDED ON DARK (2026-10-06).** The charter `b711762a` and its
 v1.3 `8881e9c2`, G0 `c011c8fb` (§5.208), and G1 and G2 together `3cce2579` (§5.209, §5.210). G0
 declared the three targets and read the ladders; G1 fitted inside the amended declaration and read
@@ -685,11 +693,17 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 
 ## Deferred / Out of Scope
 
-- **Deferred 1 (Decision Log 8 item 2): target F inactive's operator.** The ladders found no existing
+- **Deferred 1 (Decision Log 8 item 2): target F inactive's operator.** *Answered in part (W47, W48;
+  claims §5.211, §5.213 §3): landed inert by W47 as the receded fine term; W48 read it on top of
+  point A's receded scatter, found it improved the objective at neither scale and named it without
+  fitting it. F inactive halved at 1x by the receded scatter and the second tap alone; at 2x it is
+  a named miss (`T1_DARK_NAMED_TARGET_MISSES`).* The ladders found no existing
   lever for the receded fine cells (about 10 bars over Apple at spans 96–160; best −1.7 / −0.2 bars):
   a receded-only fine-pitch term that lowers the 4–8 px structure while coarse and photo structure
   hold, to be landed inert in its own wave's G0 with its own separating ladder, as W45 did.
-- **Deferred 2 (Decision Log 10): a span-graded dark transmission.** `optics.regular.tintAlpha` graded on
+- **Deferred 2 (Decision Log 10): a span-graded dark transmission.** *Answered (W47 landed it inert;
+  W48 fitted and shipped it, 0.28.0; claims §5.213): `tintAlpha` 0.7 with far 0.2 / 0.2 and span
+  tops 160, C rest halved at both scales.* `optics.regular.tintAlpha` graded on
   the span, as W45 graded the second tap's share (`sizeHeavySecondShareFar2x`). It would land inert in its
   own G0 with its own separating ladder. The numbers that identify it come from G1's point A (active 0.7)
   against `d0219cd684bf` (0.9), as the median T1 web/native ratio on the WebGPU rest gate cells:
@@ -724,6 +738,7 @@ the census; no attribution; path-scoped adds; merges with the freeze and X41 ver
 | G0 | done on `w46-g0-declaration`: part 1 `bc82562e…`, part 2 `5dca38e0…` hashed; three items for the parent's ruling (§5.208 §11) | §5.208 |
 | G1 | CLOSED AT THE FINDING on `w46-g1-refit` (Decision Log 10): part 2 amended (`ac642fea…`), the fit, the freeze-free gate on points A and B, both NEITHER; nothing sealed | §5.209 |
 | G2 | done on `w46-g2-landing`: T1 adopted for the dark 0.25 profiles at `d0219cd684bf` (134 of 154 named), CLAUDE.md's W46 paragraph; no changeset | §5.210 |
+| (W48 G2) | the adopted dark T1 row re-baselined at `b2d074d2df24` in five parts, seventeen regressions authorised against `d0219cd684bf`, 117 of 154 named; Deferred 1 and 2 answered above | §5.214 |
 
 ## Decision Log
 

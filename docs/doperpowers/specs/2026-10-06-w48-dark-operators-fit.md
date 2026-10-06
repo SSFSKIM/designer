@@ -1,5 +1,11 @@
 # W48 — the fit of W47's two dark operators under a corrected declaration: no new ladder, W47's renders as the hashed evidence, the body width and the tap both fittable (2026-10-06)
 
+**Status: G2 DONE (2026-10-07) on `w48-g2-landing`, the landing (§5.214); G1 published the dark 0.25
+generation `b2d074d2df24` (§5.213). An improvement landing under Decision Logs 9 and 10: operator 1
+live on the dark 0.25 pair, operator 2 inert and named, seventeen T1 regressions authorised against
+`d0219cd684bf`, P at both scales and F inactive at 2x named target misses; the changeset makes 0.28.0.
+G1 and G2 merge together.** The earlier status follows unchanged.
+
 **Status: DRAFT v1.2 (2026-10-06), chartered by the parent from W47's close (its Deferred, first
 item; Decision Log 10; claims §5.211 §11) under `/kairos`; two adversarial rounds folded (v1: two
 P2; v1.1 scoped: one P2), the loop closed.** Decision Logs 1–7
@@ -474,6 +480,19 @@ snapshots differing from W47's; a tool test failing on `d0219cd684bf`.
 
 ## Deferred / Out of Scope
 
+**Deferred at close (Decision Log 9 §7, Decision Log 10; claims §5.213–§5.214):**
+- **A span-graded receded scatter** for the thick coarse inactive cells. `checkerboard-64__rrect-lg__inactive`
+  (8.94 / 12.53 B) and `checkerboard-32__rrect-lg__inactive` (3.20 / 6.04 B) are the receded scatter's
+  cost on thick spans, and by eye those cells draw flat where Apple and `d0219cd684bf` keep the blurred
+  checker (`results/2026-10-06-w48-g2-landing/sheets/`). It is the shape W45's span-graded share answered
+  on the light scheme.
+- **The span law's own cost** on the thick and mid-span coarse rest cells (`checkerboard-32` / `-64`
+  lg rest, `checkerboard-lc16__rrect-md__rest`, `hc-text-28__rrect-lg__rest`, the 1x impulse capsule).
+- **The dark photo body** (P not halved at either scale; `photo__rrect-lg__inactive` also under §5.201's
+  gap) and **S1 dark** (0.304 / 0.300 against 0.314 / 0.311).
+- **F inactive at 2x** (0.535 against 0.942): operator 2 named, not fitted.
+
+
 - **The dark 0.5 pair** (X41; Decision Log 1's amendment if lifted).
 - **The 1x per-span width** (`sizeHeavySecondShareFar1x`): ladder (ii) met no rung at 2x, so the
   question stays as W47 left it.
@@ -485,9 +504,9 @@ snapshots differing from W47's; a tool test failing on `d0219cd684bf`.
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | not started | §5.212 |
-| G1 | not started | §5.213 |
-| G2 | not started | §5.214 |
+| G0 | DONE (merged `3bfdaaf0c`): W47's ladders archived and replayed, part 1 amended once, the verdicts read, part 2 hashed | §5.212 |
+| G1 | DONE on `w48-g1-fit` (`7788e596d`): the fit, the gate NEITHER, part 2 amended once after the gate (Decision Log 9), the re-freeze, the exposure (read 8), `b2d074d2df24` published | §5.213 |
+| G2 | DONE on `w48-g2-landing`: the tree copied and `d0219cd684bf`'s superseded, T1's dark row re-baselined in five parts, the dark blocks on the landing cut, the docs, the changeset (0.28.0), the c9d chain, the sheets | §5.214 |
 
 ## Decision Log
 
@@ -717,7 +736,17 @@ tier's recorded residual. G1 publishes (step 8), writes §5.213 and hands back; 
 
 ## Surprises & Discoveries
 
-(none yet)
+- **G1** (claims §5.213 §9): X60's two non-deterministic light rows; the hashed protocol did not say
+  whether a post-gate tie-break amendment was admissible; the exposure cut first read without the
+  withheld T bands; the inherited sheets' "W47" label; the published dark documents' `measurement`
+  header names "Decision Logs 1-7" while their per-leaf `method` entries cite Decision Log 9 (the files
+  are the generation's key and stay unedited).
+- **G2** (claims §5.214): W47's bed refuses the light cells W43 and W44 withheld, so the dark landing
+  cut carries the light rows its bed admits, held EQUAL to G1's exposure cut; the owner test reads each
+  scheme from its own landing cut (`GLASS025_VIEW`). G1 committed no standalone dark T-band fixture
+  (the bands were in its exposure cut); G2 read one off the canonical tree and held it equal to both
+  cuts. Three runtime doc comments still said every shipped material held operator 1 (and W45's share
+  delta) at 0; G2 corrected them, comment-only.
 
 ## Revision Notes
 
