@@ -3446,7 +3446,11 @@ const GLASS025_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
  * change from the 0.5 material. W45 G1's gate and exposure read the published c05 generation
  * instead, and the landing does too (claims §5.206 §2, §5.207): the light rows bound W45's change
  * from c05 (`6d18c059eb42`, retired at W45's publication and still loadable by its hashes), and the
- * dark generation W45 did not move is its own reference, so every dark cell reads unchanged.
+ * dark generation W45 did not move was its own reference, so every dark cell read unchanged. Since
+ * W48 G2 (claims §5.213, §5.214) that dark entry, `d0219cd684bf`, is the superseded generation W48's
+ * change is read against: retired at W48's publication, still loadable by its hashes, and read by the
+ * dark landing cut (`GLASS025_DARK_CUT`) as G1's gate and exposure read it. Against it the dark rows
+ * carry eight named M2 misses, 52 E2 cells with a larger edge error, and L1 growth up to +0.0049.
  */
 const GLASS025_REFERENCE = [
   { active: "6d18c059eb42", receded: "4d5f23d9d312" },
@@ -3480,7 +3484,8 @@ const glass025PerCellMisses = (): readonly Glass025ChromaCell[] =>
  * M2 at 0.25, directional against Apple's 0.25 texture in W42 Decision Log 5a's form: the same
  * `structureVerdict` the 0.5 row reads, with Apple's reading taken off the published row and the
  * reference off the cut's reference generation (`GLASS025_REFERENCE`: the pre-fit render until W45
- * G2, the published c05 generation since).
+ * G2, the published c05 generation since for the light rows; `d0219cd684bf` for the dark rows, their
+ * own generation until W48 G2 and the superseded one since).
  */
 const glass025StructureVerdicts = (): readonly StructureMiss[] => {
   const bed = bedFromMatrix(GLASS025_BED_PROFILES);
@@ -7662,7 +7667,11 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
  * W44 G2's adoption (§5.204) repeated for the dark scheme, in its own block, on the published dark
  * generation `d0219cd684bf`. The row, its arithmetic and the bar are the light block's; the inputs
  * are the dark ones declared beside `T1_DARK_GATED_PROFILES`. W46 G1's refit closed at the finding,
- * so the reference is the current dark generation itself and no regression is authorised.
+ * so at adoption the reference was the current dark generation itself and nothing was authorised.
+ * Since W48 G2 (claims §5.214) the block reads `b2d074d2df24`, re-baselined in the five-part order:
+ * two dark band fixtures, seventeen regressions authorised against `d0219cd684bf` in
+ * `T1_DARK_AUTHORISED_REGRESSIONS` with their standing witness, P at both scales and F inactive at 2x
+ * named target misses, and `T1_DARK_REFERENCE` moved last.
  */
 describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.210)", () => {
   /**
