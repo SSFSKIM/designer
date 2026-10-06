@@ -1,0 +1,27 @@
+{
+  "$comment": "W48 scratch candidate d-x2-ta0.7-m2160-t20.2-rta0.8-rq0.25-rw23-rn20.4-rg0-rm2160-rt20.2: the 2x scale twin",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w48-d-x2-ta0.7-m2160-t20.2-rta0.8-rq0.25-rw23-rn20.4-rg0-rm2160-rt20.2",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "daa52c804cd1d3680709d3a9830af6e93aa7db6ffcf714b329773b0beca8a501"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "1866d934a85147f253039c71d0334337cc4078a31898e10113623d35cd0ee0c7"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "abff4c7dfcd0e56097fe40536d4cc56a0b3d62ef31e68c1ae52eafb0c3c5f218"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "5d7e43a3a58f7ec8317965a9fdc0e48072694f4d3495a5f08199f738f5bb96f9"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

@@ -1,0 +1,100 @@
+d-x1-ta0.7-m1160-t10.2-rta0.8-rfa0.5-rk10.15-rn10.4-rg0-rm1160-rt10.2/rest-of-fit-1x exit 0 48 cells
+d-x2-ta0.7-m2160-t20.2-rta0.8-rn20.4-rg0-rm2160-rt20.2/rest-of-fit-2x exit 0 48 cells
+{
+ "label": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+ "stages": {
+  "stage1": {
+   "objective": 0.228911347270992,
+   "tie": 0.03650288722139161,
+   "within": "NOT WITHIN",
+   "notWithin": [
+    "photo__capsule-button__rest 1x",
+    "checkerboard__rrect-md__rest 1x",
+    "photo__rrect-md__rest 1x",
+    "impulse__capsule-button__rest 1x",
+    "photo__capsule-button__pressed 1x",
+    "photo__capsule-button__rest-tint-orange 1x",
+    "checkerboard-32__capsule-button__rest 1x",
+    "checkerboard-32__rrect-md__rest 1x",
+    "checkerboard-32__rrect-lg__rest 1x",
+    "checkerboard-64__rrect-sm__rest 1x",
+    "checkerboard-64__capsule-button__rest 1x",
+    "checkerboard-64__rrect-ml__rest 1x",
+    "checkerboard-64__rrect-lg__rest 1x",
+    "checkerboard-lc16__rrect-sm__rest 1x",
+    "checkerboard-lc16__capsule-button__rest 1x",
+    "checkerboard-lc16__rrect-md__rest 1x",
+    "checkerboard-lc16__rrect-ml__rest 1x",
+    "hc-text-28__rrect-sm__rest 1x",
+    "hc-text-28__rrect-lg__rest 1x",
+    "checkerboard-64__capsule-button__rest-tint-orange 1x",
+    "impulse__rrect-sm__rest 1x",
+    "photo__capsule-button__rest 2x",
+    "checkerboard__rrect-md__rest 2x",
+    "photo__rrect-md__rest 2x",
+    "photo__capsule-button__pressed 2x",
+    "checkerboard__capsule-button__rest-tint-orange 2x",
+    "photo__capsule-button__rest-tint-orange 2x",
+    "checkerboard-32__rrect-md__rest 2x",
+    "checkerboard-32__rrect-lg__rest 2x",
+    "checkerboard-64__rrect-sm__rest 2x",
+    "checkerboard-64__capsule-button__rest 2x",
+    "checkerboard-64__rrect-md__rest 2x",
+    "checkerboard-64__rrect-ml__rest 2x",
+    "checkerboard-64__rrect-lg__rest 2x",
+    "checkerboard-lc16__rrect-md__rest 2x",
+    "hc-text-28__rrect-sm__rest 2x",
+    "hc-text-28__rrect-lg__rest 2x",
+    "hc-text__rrect-sm__rest 2x",
+    "checkerboard-32__capsule-button__rest-tint-orange 2x",
+    "checkerboard-64__capsule-button__rest-tint-orange 2x",
+    "impulse__rrect-sm__rest 2x",
+    "impulse__rrect-ml__rest 2x",
+    "impulse__rrect-lg__rest 2x"
+   ],
+   "unmeasured": 0
+  },
+  "stage2": {
+   "objective": 0.5062679454142862,
+   "tie": 0.054413054993733175,
+   "within": "NOT WITHIN",
+   "notWithin": [
+    "photo__capsule-button__inactive-pressed 1x",
+    "photo__capsule-button__inactive-tint-orange 1x",
+    "photo__capsule-button__inactive 1x",
+    "photo__rrect-md__inactive 1x",
+    "checkerboard-8__rrect-md__inactive 1x",
+    "checkerboard-8__rrect-lg__inactive 1x",
+    "photo__rrect-ml__inactive 1x",
+    "photo__capsule-button__inactive-pressed 2x",
+    "photo__capsule-button__inactive-tint-orange 2x",
+    "photo__capsule-button__inactive 2x",
+    "photo__rrect-md__inactive 2x",
+    "checkerboard-8__rrect-md__inactive 2x",
+    "checkerboard-8__rrect-lg__inactive 2x",
+    "photo__rrect-ml__inactive 2x"
+   ],
+   "unmeasured": 0
+  }
+ },
+ "selectionMetric": 0.3431736306423968,
+ "rule": "NEITHER: closes at the finding",
+ "L1": {
+  "1x": {
+   "absoluteMisses": [],
+   "growthMisses": [],
+   "unmeasured": [
+    "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
+   ]
+  },
+  "2x": {
+   "absoluteMisses": [],
+   "growthMisses": [],
+   "unmeasured": [
+    "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
+   ]
+  }
+ }
+}

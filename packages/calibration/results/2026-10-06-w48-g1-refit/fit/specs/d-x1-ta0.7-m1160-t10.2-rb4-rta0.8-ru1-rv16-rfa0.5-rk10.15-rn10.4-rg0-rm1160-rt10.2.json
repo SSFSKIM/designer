@@ -1,0 +1,27 @@
+{
+  "label": "d-x1-ta0.7-m1160-t10.2-rb4-rta0.8-ru1-rv16-rfa0.5-rk10.15-rn10.4-rg0-rm1160-rt10.2",
+  "note": "the 1x scale twin",
+  "stage": "scale-twin",
+  "family": "1x",
+  "start": "d0219",
+  "scale": 1,
+  "overrides": {
+    "active.dark": {
+      "optics.regular.tintAlpha": 0.7,
+      "tintAlphaFar1x": 0.2,
+      "sizeScatterSpanMax": 160
+    },
+    "receded.dark": {
+      "sizeScatterFloor": 0.5,
+      "sizeScatterScaleGain": 0,
+      "optics.regular.blurSigma": 4,
+      "sizeScatterSpanMax": 160,
+      "tintAlphaFar1x": 0.2,
+      "sizeFineTapShare": 1,
+      "sizeFineTapSigma": 6,
+      "sizeScatterRampStartThin1x": 0.4,
+      "sizeScatterRampStartThick1x": 0.15,
+      "optics.regular.tintAlpha": 0.8
+    }
+  }
+}

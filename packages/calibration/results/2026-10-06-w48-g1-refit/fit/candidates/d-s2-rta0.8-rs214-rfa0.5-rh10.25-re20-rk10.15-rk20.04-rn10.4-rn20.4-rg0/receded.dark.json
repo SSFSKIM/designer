@@ -1,0 +1,153 @@
+{
+  "$comment": [
+    "SCRATCH CANDIDATE d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20-rk10.15-rk20.04-rn10.4-rn20.4-rg0, W48 candidate (charter clauses 6-8). Not a sealed or",
+    "shipped document; no publication stage names it. Keyed glass0.250 because candidate mode",
+    "refuses the shipped 0.25 keys (build-candidate.ts).",
+    "Built from the snapshot packages/calibration/results/2026-10-06-w48-g0-declaration/documents/f0b36a71772a.json (X62) with these leaves moved:",
+    "optics.regular.blurSigma, optics.regular.tintAlpha, sizeFineTapShare, sizeFineTapSigma, sizeFineTapSigma2x, sizeHeavySecondShare, sizeHeavySecondShareFar2x, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeHeavyTapSigma, sizeHeavyTapSigma2x, sizeOcclusionGain, sizeScatterFloor, sizeScatterFloor2x, sizeScatterHeavyShareThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartFar2x, sizeScatterRampStartThick1x, sizeScatterRampStartThick2x, sizeScatterRampStartThin1x, sizeScatterRampStartThin2x, sizeScatterScaleGain, sizeScatterSpanMax, sizeScatterSpanMax2x, tintAlphaFar1x, tintAlphaFar2x"
+  ],
+  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+  "schemaVersion": 1,
+  "recordedBy": "W48, scratch candidate d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "appliesOver": "active.dark.json (this candidate's own active document, beside this file)",
+  "resolvedOverActiveDocument": "active.dark.json",
+  "derivedFrom": {
+    "path": "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/f0b36a71772a.json",
+    "sha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25-receded"
+  },
+  "movedLeaves": [
+    "optics.regular.blurSigma",
+    "optics.regular.tintAlpha",
+    "sizeFineTapShare",
+    "sizeFineTapSigma",
+    "sizeFineTapSigma2x",
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x",
+    "sizeHeavySecondSigma",
+    "sizeHeavySecondSigma2x",
+    "sizeHeavyTapSigma",
+    "sizeHeavyTapSigma2x",
+    "sizeOcclusionGain",
+    "sizeScatterFloor",
+    "sizeScatterFloor2x",
+    "sizeScatterHeavyShareThick1x",
+    "sizeScatterRampStartFar1x",
+    "sizeScatterRampStartFar2x",
+    "sizeScatterRampStartThick1x",
+    "sizeScatterRampStartThick2x",
+    "sizeScatterRampStartThin1x",
+    "sizeScatterRampStartThin2x",
+    "sizeScatterScaleGain",
+    "sizeScatterSpanMax",
+    "sizeScatterSpanMax2x",
+    "tintAlphaFar1x",
+    "tintAlphaFar2x"
+  ],
+  "addedLeaves": [
+    "optics.regular.blurSigma",
+    "sizeFineTapShare",
+    "sizeFineTapSigma",
+    "sizeFineTapSigma2x",
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x",
+    "sizeHeavySecondSigma",
+    "sizeHeavySecondSigma2x",
+    "sizeHeavyTapSigma",
+    "sizeOcclusionGain",
+    "sizeScatterFloor",
+    "sizeScatterFloor2x",
+    "sizeScatterRampStartFar1x",
+    "sizeScatterScaleGain",
+    "sizeScatterSpanMax",
+    "sizeScatterSpanMax2x",
+    "tintAlphaFar1x",
+    "tintAlphaFar2x"
+  ],
+  "resolvedMaterialSha256": "17a8660ffcfd7264",
+  "resolvedMaterialSha256Rule": 2,
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0,
+        "tintAlpha": 0.8,
+        "blurSigma": 1.25
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0,
+      "thinOcclusionBright": 0,
+      "thickOcclusionAt96": 0,
+      "thickOcclusionAt128": 0,
+      "thickOcclusionAt160": 0,
+      "liftAmplitude": 0,
+      "reducedTransparencyOcclusion": 0
+    },
+    "sizeScatterRampStartThick1x": 0.15,
+    "sizeScatterRampStartThick2x": 0.04,
+    "sizeScatterRampStartFar2x": 0,
+    "sizeHeavyTapSigma2x": 14,
+    "tintShadeDark": 0.0202,
+    "tintShadeLight": 1.46,
+    "sizeScatterRampStartThin1x": 0.4,
+    "sizeScatterRampStartThin2x": 0.4,
+    "sizeScatterHeavyShareThick1x": 0.25,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.47,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0,
+      0.0187,
+      0.192,
+      0.448
+    ],
+    "backdropToneResponseThick": [
+      0,
+      0.0155,
+      0.167,
+      0.186
+    ],
+    "bodyChromaRetention": 0.142,
+    "backdropToneBlackStrength": 1,
+    "backdropToneBlackThin": 0.006995410187265387,
+    "backdropToneBlackThick": 0.006995410187265387,
+    "sizeScatterRampStartFar1x": 0.2,
+    "sizeScatterFloor": 0.5,
+    "sizeScatterFloor2x": 1,
+    "sizeHeavyTapSigma": 0,
+    "sizeHeavySecondShare": 0,
+    "sizeHeavySecondShareFar2x": 0,
+    "sizeHeavySecondSigma": 0,
+    "sizeHeavySecondSigma2x": 0,
+    "sizeScatterScaleGain": 0,
+    "sizeScatterSpanMax": 160,
+    "sizeScatterSpanMax2x": 160,
+    "sizeOcclusionGain": 0.05,
+    "tintAlphaFar1x": 0.2,
+    "tintAlphaFar2x": 0.2,
+    "sizeFineTapShare": 0,
+    "sizeFineTapSigma": 0,
+    "sizeFineTapSigma2x": 0
+  }
+}

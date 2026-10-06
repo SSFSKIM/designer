@@ -1,0 +1,284 @@
+[
+ {
+  "label": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+  "verdict": "NEITHER: closes at the finding",
+  "profiles": {
+   "apple-macos-27.0-1x-dark-standard-glass0.25": {
+    "verdict": "NEITHER: closes at the finding",
+    "why": [
+     "full close: target P: 9 cell(s) not within",
+     "improvement: target P aggregate 0.4953 above half of the reference's 0.8792",
+     "full close: target C rest: 17 cell(s) not within",
+     "full close: target F inactive: 2 cell(s) not within",
+     "improvement: target F inactive aggregate 0.4661 above half of the reference's 0.9169",
+     "budget count: 10 cells away beyond B (at most 3)",
+     "budget ceiling: 3 cell(s) beyond 3 B"
+    ],
+    "targets": {
+     "P": {
+      "A": 0.4953,
+      "ref": 0.8792,
+      "halved": false
+     },
+     "C rest": {
+      "A": 0.1556,
+      "ref": 0.39,
+      "halved": true
+     },
+     "F inactive": {
+      "A": 0.4661,
+      "ref": 0.9169,
+      "halved": false
+     }
+    },
+    "groups": {
+     "F rest": {
+      "A": 0.2694,
+      "ref": 0.358,
+      "tau": 0.0488,
+      "gated": true,
+      "holds": true,
+      "cells": 10
+     },
+     "F inactive": {
+      "A": 0.4661,
+      "ref": 0.9169,
+      "tau": 0.1331,
+      "gated": false,
+      "holds": true,
+      "cells": 2
+     },
+     "T rest": {
+      "A": 0.2347,
+      "ref": 0.3491,
+      "tau": 0.0525,
+      "gated": true,
+      "holds": true,
+      "cells": 3
+     },
+     "C rest": {
+      "A": 0.1556,
+      "ref": 0.39,
+      "tau": 0.0297,
+      "gated": true,
+      "holds": true,
+      "cells": 28
+     },
+     "C inactive": {
+      "A": 0.3508,
+      "ref": 0.5849,
+      "tau": 0.0776,
+      "gated": true,
+      "holds": true,
+      "cells": 14
+     },
+     "P rest": {
+      "A": 0.4112,
+      "ref": 0.6021,
+      "tau": 0.0353,
+      "gated": true,
+      "holds": true,
+      "cells": 4
+     },
+     "P inactive": {
+      "A": 0.8087,
+      "ref": 1.1926,
+      "tau": 0.0353,
+      "gated": true,
+      "holds": true,
+      "cells": 5
+     }
+    },
+    "awayBeyondB": [
+     [
+      "checkerboard-8__rrect-md__rest",
+      8.97
+     ],
+     [
+      "checkerboard-64__rrect-lg__inactive",
+      8.94
+     ],
+     [
+      "checkerboard-lc16__rrect-md__rest",
+      4.0
+     ],
+     [
+      "checkerboard-32__rrect-lg__rest",
+      2.13
+     ],
+     [
+      "checkerboard__capsule-button__inactive-tint-orange",
+      1.91
+     ],
+     [
+      "checkerboard__capsule-button__inactive",
+      1.62
+     ],
+     [
+      "impulse__capsule-button__rest",
+      1.46
+     ],
+     [
+      "checkerboard-64__rrect-lg__rest",
+      1.37
+     ],
+     [
+      "checkerboard__rrect-md__rest",
+      1.23
+     ],
+     [
+      "hc-text-28__rrect-lg__rest",
+      1.14
+     ]
+    ],
+    "pastCeiling": [
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-64__rrect-lg__inactive",
+     "checkerboard-lc16__rrect-md__rest"
+    ],
+    "budgetHolds": false,
+    "partition": {
+     "unchanged": 13,
+     "toward": 40,
+     "away": 13
+    }
+   },
+   "apple-macos-27.0-2x-dark-standard-glass0.25": {
+    "verdict": "NEITHER: closes at the finding",
+    "why": [
+     "full close: target P: 9 cell(s) not within",
+     "improvement: target P aggregate 0.6479 above half of the reference's 0.9652",
+     "full close: target C rest: 18 cell(s) not within",
+     "full close: target F inactive: 2 cell(s) not within",
+     "improvement: target F inactive aggregate 0.5783 above half of the reference's 0.9824",
+     "budget count: 9 cells away beyond B (at most 3)",
+     "budget ceiling: 3 cell(s) beyond 3 B"
+    ],
+    "targets": {
+     "P": {
+      "A": 0.6479,
+      "ref": 0.9652,
+      "halved": false
+     },
+     "C rest": {
+      "A": 0.2062,
+      "ref": 0.5377,
+      "halved": true
+     },
+     "F inactive": {
+      "A": 0.5783,
+      "ref": 0.9824,
+      "halved": false
+     }
+    },
+    "groups": {
+     "F rest": {
+      "A": 0.3489,
+      "ref": 0.4323,
+      "tau": 0.0763,
+      "gated": true,
+      "holds": true,
+      "cells": 10
+     },
+     "F inactive": {
+      "A": 0.5783,
+      "ref": 0.9824,
+      "tau": 0.1458,
+      "gated": false,
+      "holds": true,
+      "cells": 2
+     },
+     "T rest": {
+      "A": 0.4463,
+      "ref": 0.7897,
+      "tau": 0.0874,
+      "gated": true,
+      "holds": true,
+      "cells": 3
+     },
+     "C rest": {
+      "A": 0.2062,
+      "ref": 0.5377,
+      "tau": 0.0262,
+      "gated": true,
+      "holds": true,
+      "cells": 28
+     },
+     "C inactive": {
+      "A": 0.334,
+      "ref": 0.5573,
+      "tau": 0.0763,
+      "gated": true,
+      "holds": true,
+      "cells": 14
+     },
+     "P rest": {
+      "A": 0.4613,
+      "ref": 0.7997,
+      "tau": 0.0345,
+      "gated": true,
+      "holds": true,
+      "cells": 4
+     },
+     "P inactive": {
+      "A": 0.7593,
+      "ref": 1.1443,
+      "tau": 0.0354,
+      "gated": true,
+      "holds": true,
+      "cells": 5
+     }
+    },
+    "awayBeyondB": [
+     [
+      "checkerboard-64__rrect-lg__inactive",
+      12.53
+     ],
+     [
+      "checkerboard-lc16__rrect-md__rest",
+      3.77
+     ],
+     [
+      "checkerboard__capsule-button__inactive",
+      3.59
+     ],
+     [
+      "checkerboard__capsule-button__inactive-tint-orange",
+      2.87
+     ],
+     [
+      "checkerboard-4__rrect-md__rest",
+      2.05
+     ],
+     [
+      "checkerboard-32__rrect-lg__rest",
+      1.98
+     ],
+     [
+      "checkerboard-64__rrect-lg__rest",
+      1.59
+     ],
+     [
+      "checkerboard__rrect-md__inactive",
+      1.49
+     ],
+     [
+      "hc-text-28__rrect-lg__rest",
+      1.04
+     ]
+    ],
+    "pastCeiling": [
+     "checkerboard-64__rrect-lg__inactive",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard__capsule-button__inactive"
+    ],
+    "budgetHolds": false,
+    "partition": {
+     "unchanged": 16,
+     "toward": 38,
+     "away": 12
+    }
+   }
+  }
+ }
+]
