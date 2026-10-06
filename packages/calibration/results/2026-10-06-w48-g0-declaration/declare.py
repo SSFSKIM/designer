@@ -1284,6 +1284,55 @@ def apply_changes(draft, changes, verdicts, protocol):
     return body
 
 
+def resolved_value(slot: str, leaf: str, overrides: dict):
+    """A leaf's value at a rung's point: the rung's override, else the admitted leaf's resolved value at the
+    snapshots (X64, X67), else the snapshot's own patch value; None where none of them states it."""
+    if leaf in overrides.get(slot, {}):
+        return overrides[slot][leaf]
+    if leaf in W.ADMITTED.get(slot, {}):
+        return W.ADMITTED[slot][leaf]
+    node = W.document(slot)["patch"]
+    for part in leaf.split("."):
+        if not isinstance(node, dict) or part not in node:
+            return None
+        node = node[part]
+    return node
+
+
+def on_grid(body, overrides: dict) -> bool:
+    """Whether a rung's point is a candidate any searched step of `body` offers: for every slot it moves, some
+    family searching one of its leaves whose step (the factorial group holding the leaf, else the leaf alone)
+    has the rung's resolved value of EVERY key on that key's grid. A rung whose leaves no family searches is on
+    no grid. (W48 Decision Log 8: a one-scale rung whose point is on no grid is recorded, not a stop.)"""
+    if not overrides:
+        return True
+    for slot, leaves in overrides.items():
+        found = False
+        for m in body["moves"]:
+            for fb in m["families"].values():
+                searched = {k for k, spec in fb["leaves"].items() if spec["slot"] == slot}
+                for leaf in set(leaves) & searched:
+                    step = next((g["keys"] for g in fb.get("factorialGroups", []) if leaf in g["keys"]), [leaf])
+                    if all(resolved_value(slot, k, overrides) in fb["leaves"][k]["grid"] for k in step):
+                        found = True
+        if not found:
+            return False
+    return True
+
+
+def one_scale_reading(body, verdicts) -> tuple[list[str], list[str]]:
+    """(stopping, recorded): each one-scale rung no ruling put off the grid stops part 2 if its point is on some
+    grid of `body`, and is recorded (Design (f): not a fit start) if it is on none (W48 Decision Log 8)."""
+    stopping, recorded = [], []
+    for lab in (verdicts.get("oneScale") or {}).get("unruled") or []:
+        overrides = ((verdicts.get("rungs") or {}).get(lab) or {}).get("overrides")
+        if overrides is None or on_grid(body, overrides):
+            stopping.append(lab)
+        else:
+            recorded.append(lab)
+    return stopping, recorded
+
+
 def mandatory_failures(body, verdicts, protocol) -> list[str]:
     """What the verdicts REQUIRE of part 2 (Decision Log 3; X72, X73), read on the resulting body whatever its
     `changes` say: no unruled one-scale rung; no part 2 at all when neither operator separates; every operator not
@@ -1295,10 +1344,10 @@ def mandatory_failures(body, verdicts, protocol) -> list[str]:
     ops = verdicts.get("operators") or {}
     if not ops:
         return ["the verdicts carry no operator reading"]
-    unruled = (verdicts.get("oneScale") or {}).get("unruled") or []
+    unruled, _ = one_scale_reading(body, verdicts)
     if unruled:
-        out.append(f"rungs meeting at one scale only that no ruling put off the grid ({unruled}): the parent rules "
-                   "before part 2 (W47's one-scale rule, Decision Log 3 (f))")
+        out.append(f"rungs meeting at one scale only, no ruling putting them off the grid and their point on a grid "
+                   f"({unruled}): the parent rules before part 2 (W47's one-scale rule, Decision Log 3 (f))")
     for lid in ("i", "iii"):
         if not (verdicts.get("ladders") or {}).get(lid, {}).get("complete"):
             out.append(f"ladder ({lid}) is incomplete in the verdicts: an unread rung decides nothing")
@@ -1420,6 +1469,12 @@ def check_fit():
                      amendments("fit"))
     except Refusal as err:
         c.failures.append(f"fit: {err}")
+    body = {k: v for k, v in fit.items() if k not in ("status", "changes", "sources", "fromDraft")}
+    try:
+        c.recorded = [f"one-scale rung {lab}: its point is on no grid of part 2; recorded under Design (f), not a fit "
+                      "start (W48 Decision Log 8)" for lab in one_scale_reading(body, verdicts)[1]]
+    except (KeyError, TypeError):
+        c.recorded = []
     return c, fit
 
 
@@ -1561,6 +1616,8 @@ def amend(part, argv):
 def report(c, waiting, what):
     for f in c.failures:
         print("  MISMATCH", f)
+    for r in getattr(c, "recorded", []):
+        print("  RECORDED", r)
     for it in waiting:
         print(f"  PENDING ({it['pending']['on']}) {it['id']}: {it['pending'].get('note', '')}")
     if c.failures:

@@ -123,10 +123,28 @@ class CheckFitReadsTheVerdicts(unittest.TestCase):
         fails = D.mandatory_failures(D.apply_changes(DRAFT, [], v, PROTOCOL), v, PROTOCOL)
         self.assertTrue(any("neither operator separates" in f for f in fails))
 
-    def test_an_unruled_one_scale_rung_stops_part_two(self):
+    def test_an_unruled_one_scale_rung_on_a_grid_stops_part_two(self):
         v = verdicts(unruled=("iii-s6",))
+        v["rungs"] = {"iii-s6": dict(overrides={"receded.dark": {"sizeFineTapSigma": 6, "sizeFineTapSigma2x": 6,
+                                                                 "sizeFineTapShare": 1}})}
         fails = D.mandatory_failures(D.apply_changes(DRAFT, [], v, PROTOCOL), v, PROTOCOL)
         self.assertTrue(any("one scale only" in f for f in fails))
+        del v["rungs"]
+        fails = D.mandatory_failures(D.apply_changes(DRAFT, [], v, PROTOCOL), v, PROTOCOL)
+        self.assertTrue(any("one scale only" in f for f in fails), "a rung with no recorded point still stops")
+
+    def test_an_unruled_one_scale_rung_on_no_grid_is_recorded(self):
+        """W48 Decision Log 8: i-a0.8-g0.6's point (far 0, top 256) is on no W48 grid."""
+        v = verdicts(unruled=("i-a0.8-g0.6",))
+        v["rungs"] = {"i-a0.8-g0.6": dict(overrides={"active.dark": {"optics.regular.tintAlpha": 0.8,
+                                                                     "sizeOcclusionGain": 0.6}})}
+        body = D.apply_changes(DRAFT, [], v, PROTOCOL)
+        self.assertEqual(D.mandatory_failures(body, v, PROTOCOL), [])
+        self.assertEqual(D.one_scale_reading(body, v), ([], ["i-a0.8-g0.6"]))
+        on = dict(v, rungs={"i-a0.8-g0.6": dict(overrides={"active.dark": {
+            "optics.regular.tintAlpha": 0.8, "sizeOcclusionGain": 0.6, "tintAlphaFar1x": 0.2, "tintAlphaFar2x": 0.2,
+            "sizeScatterSpanMax": 128, "sizeScatterSpanMax2x": 128}})})
+        self.assertEqual(D.one_scale_reading(body, on), (["i-a0.8-g0.6"], []))
 
     def test_an_off_grid_value_on_a_grid_fails(self):
         body = json.loads(json.dumps(DRAFT))

@@ -1,6 +1,8 @@
 test_an_off_grid_value_on_a_grid_fails (test_declare.CheckFitReadsTheVerdicts.test_an_off_grid_value_on_a_grid_fails) ... ok
 test_an_operator_not_separating_must_be_named_and_its_leaves_leave (test_declare.CheckFitReadsTheVerdicts.test_an_operator_not_separating_must_be_named_and_its_leaves_leave) ... ok
-test_an_unruled_one_scale_rung_stops_part_two (test_declare.CheckFitReadsTheVerdicts.test_an_unruled_one_scale_rung_stops_part_two) ... ok
+test_an_unruled_one_scale_rung_on_a_grid_stops_part_two (test_declare.CheckFitReadsTheVerdicts.test_an_unruled_one_scale_rung_on_a_grid_stops_part_two) ... ok
+test_an_unruled_one_scale_rung_on_no_grid_is_recorded (test_declare.CheckFitReadsTheVerdicts.test_an_unruled_one_scale_rung_on_no_grid_is_recorded)
+W48 Decision Log 8: i-a0.8-g0.6's point (far 0, top 256) is on no W48 grid. ... ok
 test_both_levers_meeting_stay_members (test_declare.CheckFitReadsTheVerdicts.test_both_levers_meeting_stay_members) ... ok
 test_check_fit_refuses_without_the_verdicts (test_declare.CheckFitReadsTheVerdicts.test_check_fit_refuses_without_the_verdicts) ... ok
 test_neither_operator_separating_stops (test_declare.CheckFitReadsTheVerdicts.test_neither_operator_separating_stops) ... ok
@@ -24,6 +26,6 @@ test_an_operator_leaf_is_never_held (test_declare.Hold.test_an_operator_leaf_is_
 test_w47s_part_hashes_and_paths_refuse (test_declare.Refusals.test_w47s_part_hashes_and_paths_refuse) ... ok
 
 ----------------------------------------------------------------------
-Ran 24 tests in 0.045s
+Ran 25 tests in 0.041s
 
 OK
