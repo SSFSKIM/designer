@@ -7736,3 +7736,15 @@ tests in both parts (`partOnePins`) to admit exactly it: after the fit and the g
 Log 9 only, the record saying so (`POST_GATE_EVIDENCE`), with red cases. The next declaration states it up
 front: whether, and in what form, a selection among measured points may be amended after the gate, and the
 tie-break it would use.
+
+
+## W48's post-gate refusal of a replacing op is unreachable (W48 G1 review, 2026-10-07)
+
+*Found at W48 G1's review (claims §5.213; charter Decision Log 9).*
+
+In W48's `declare.py`, `amend` checks the generic post-verdicts branch before the post-gate branch, so a
+replacing op under Decision Log 9 is refused with W47 Decision Log 8's message rather than W48 Decision
+Log 9's. It is still refused (exit 2). The test asserts only the substring the two messages share, and the
+read-time empty-ops branch and the `POST_GATE_EVIDENCE` success path have no unit test. The file is
+pinned and its one amendment is spent, so it is not changed. The shape of the fix for the next port: test
+`post_gate` before the generic branch, and assert the Decision Log 9 message.

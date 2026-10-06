@@ -19,6 +19,7 @@ the new pair in scratch (no render). A point no render measures refuses (`NeedsR
 """
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 import os
@@ -85,18 +86,24 @@ search.choose = amended_choose
 search.PATH = OUT
 
 
-def receded_digest(overrides: dict, tag: str) -> str:
+def receded_digest(overrides: dict) -> str:
+    """The receded digest of `overrides` built over d0219 in scratch. The folder is keyed by the SHA-256 of the
+    overrides' canonical JSON, so a cached build is reused only for the spec it was built from, across runs."""
+    canonical = json.dumps(overrides, sort_keys=True, separators=(",", ":"))
+    tag = "rs-" + hashlib.sha256(canonical.encode()).hexdigest()
     folder = SCRATCH / tag
-    if not (folder / tag / "receded.dark.json").exists():
+    spec_path, built = folder / "spec.json", folder / tag / "receded.dark.json"
+    if not (built.exists() and spec_path.exists()
+            and json.loads(spec_path.read_text()).get("overrides") == overrides):
         folder.mkdir(parents=True, exist_ok=True)
-        (folder / "spec.json").write_text(json.dumps(dict(label=tag, note="reselect scratch", stage="scratch",
-                                                          family="scratch", start="d0219", overrides=overrides)))
+        spec_path.write_text(json.dumps(dict(label=tag, note="reselect scratch", stage="scratch",
+                                             family="scratch", start="d0219", overrides=overrides)))
         env = dict(os.environ, W47_CANDIDATE_ROOT=str(folder))
-        got = subprocess.run(["pnpm", "exec", "tsx", str(W.BUILDER), str(folder / "spec.json")], cwd=W.CAL,
+        got = subprocess.run(["pnpm", "exec", "tsx", str(W.BUILDER), str(spec_path)], cwd=W.CAL,
                              capture_output=True, text=True, env=env)
         if got.returncode:
             raise W.Refusal(f"scratch build {tag}: {got.stdout[-400:]} {got.stderr[-400:]}")
-    return json.loads((folder / tag / "receded.dark.json").read_text())["resolvedMaterialSha256"]
+    return json.loads(built.read_text())["resolvedMaterialSha256"]
 
 
 class NoRender(search.Runner):
@@ -110,13 +117,9 @@ class NoRender(search.Runner):
                 twin["active.dark"] = landed_active
                 known = search.same_point(twin, start)
                 if known is not None:
-                    tag = f"rs-{len(STATE['measuredBy'])}"
-                    if receded_digest(ov, tag) != receded_digest(search.base_overrides(known), tag + "-t"):
+                    if receded_digest(ov) != receded_digest(search.base_overrides(known)):
                         raise W.Refusal(f"{label}: its receded material is not {known}'s; not measured")
                     STATE["measuredBy"][label] = known
-                    known_label = label
-                    fit.write_spec(label, ov, f"Decision Log 9 re-selection: measured by {known}", stage_id,
-                                   family, start) if False else None
                     named.append(known)
                     continue
             if known is None:

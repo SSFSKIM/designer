@@ -35,7 +35,10 @@ class _W48Draw:
 
 sheets.ImageDraw.Draw = _W48Draw
 import os  # noqa: E402
-if os.environ.get("W48_G1_ROUND", "first") == "dl9":
+ROUND = os.environ.get("W48_G1_ROUND", "first")
+if ROUND not in ("first", "dl9"):
+    raise SystemExit(f"W48_G1_ROUND={ROUND!r}: 'first' or 'dl9'")
+if ROUND == "dl9":
     W.STAGE = W.SCRATCH / "g1-stage-dark-dl9"
     captures = W.STAGE / "web-captures"
 else:

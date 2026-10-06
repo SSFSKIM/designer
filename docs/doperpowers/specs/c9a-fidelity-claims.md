@@ -49373,6 +49373,12 @@ canonical tree (moving `d0219cd684bf`'s under `web-captures-superseded/d0219cd68
 - **The sheets' "W47" label.** The inherited sheet tool draws "W47" in its headers and columns; the gate's
   first sheets carry it beside W48's bytes. `sheets/run.py` now corrects the label at draw time; the
   exposure's sheets read "W48".
+- **The published dark documents' `measurement` header names the wrong selection.** The re-freeze sealed
+  through W48's unchanged `seal/seal.ts`, so the two published dark documents' `measurement` header still
+  says "Decision Logs 1-7" and describes the point as the search procedure's selection. The pair was in fact
+  chosen by Decision Log 9's post-gate selection; each document's per-leaf `method` entries cite Decision
+  Log 9 and `fit/select_dl9.py`. The documents are part of the published generation `b2d074d2df24` and are
+  not edited; this line is the correct reading beside them (W48 G1 review).
 
 ### 10. What is not claimed
 

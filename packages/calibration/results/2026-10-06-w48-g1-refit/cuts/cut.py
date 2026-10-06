@@ -25,6 +25,8 @@ W = inherit.W
 # The round (as `stage/run.py`): the first freeze's dark captures were taken into the worktree's tree and then
 # moved, unchanged, beside their stage; the re-freeze's (W48 Decision Log 9) are in their own stage's tree.
 ROUND = os.environ.get("W48_G1_ROUND", "first")
+if ROUND not in ("first", "dl9"):
+    raise SystemExit(f"W48_G1_ROUND={ROUND!r}: 'first' or 'dl9'")
 if ROUND == "dl9":
     W.STAGE = W.SCRATCH / "g1-stage-dark-dl9"
 SUFFIX = "" if ROUND == "first" else "-dl9"

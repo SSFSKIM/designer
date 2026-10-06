@@ -222,8 +222,8 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
  *
  * **W48 G1 re-sealed the two DARK documents** (claims §5.213; charter
  * `2026-10-06-w48-dark-operators-fit.md`, G1 child; X64 and X67, W46's and W47's narrowings of X44).
- * The dark pair's patches are W48's frozen candidate's (the fit's landed point under part 2
- * `ad5fdeceb244`), and each names, beyond its twin's leaves, exactly the keys X64 and X67 admit on its
+ * The dark pair's patches are W48 Decision Log 9's post-gate selection (part 2's amendment
+ * `50eccbe41e46`), the frozen candidate `d-dl9-g-0.5-rq0.25-rw15-rw25`, and each names, beyond its twin's leaves, exactly the keys X64 and X67 admit on its
  * slot that the candidate states: the active its stage-1 leaves (operator 1's far deltas, the span
  * tops, the occlusion gain) and the rest-scatter keys X64 lets it name; the receded every admitted key,
  * materialised at the stage-1 active's values where it holds them (X67: the span tops, the gain,
