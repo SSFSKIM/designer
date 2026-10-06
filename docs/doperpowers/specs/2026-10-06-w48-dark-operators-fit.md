@@ -21,6 +21,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 6 | the landing | **RULED** by the parent, 2026-10-06 | G1 with its two STOP points (the gate report; the exposure report), the ship-or-close call to the user on NEITHER; G2 the landing with 0.28.0 if shipped |
 | 7 | the standing rules | **RULED** by the parent, 2026-10-06 | no attribution; path-scoped adds; no file over 50 MB; evidence never rewritten; freeze 1,818 and X41 911 at every merge; nothing withheld renders before the exposure |
 | 8 | the one-scale rung `i-a0.8-g0.6` | **RULED** by the parent, 2026-10-06 | recorded under Design (f), its point on no W48 grid, grids unchanged; part 1's one amendment, additive, re-pins `declare.py` and its tests so `check-fit` records such a rung; the verdicts re-read under the amended hash |
+| 9 | the gate read NEITHER; ship, tie-broken by the budget | **RULED** by the user, 2026-10-07 | part 2 amended once after the gate: inside the objective's tie, fewest cells away beyond B, then fewest past 3 B, then the hashed tie rule; the selected point is the landed active with rest-scatter scale gain −0.5 over the landed receded; an improvement landing with every exception named |
 
 ## Purpose
 
@@ -602,6 +603,59 @@ amendment, the rung, part 2's hash, the stage sizes), and hand back the head and
 in the tracker, beside the X70 gap: "a one-scale rung off every grid still stops check-fit" as the
 defect this amendment worked around. Confirmed for G1 (not yours to do): X70's three-way check is
 added to `fit/fit.py` before any fit render.
+
+### Decision Log 9 — RULED 2026-10-07 (the user, on the parent's recommendation): the gate read NEITHER; ship, tie-broken by the budget
+
+**The reading (G1 steps 2–6, head `c85ba1ada`).** Under part 2 `ad5fdece…` as hashed, the fit landed at
+active `tintAlpha` 0.7, far delta 0.2 / 0.2, span tops 160 / 160, `sizeOcclusionGain` 0.05, the receded
+transmission 0.8 and the receded scatter at W46 point A's leaves exactly. The receded fine term (operator
+2) was not selected: every tap point scores worse than the start (best 0.5373 against 0.5063) and body
+width 3 sits inside the tie and halves F inactive at 1x only. The gate read NEITHER on both profiles: C
+rest halved at both scales (0.1556 / 0.2062 against 0.390 / 0.538), P not halved (0.4953 / 0.6479
+against 0.8792 / 0.9652), F inactive not halved (0.4661 / 0.5783 against 0.9169 / 0.9824, the 1x miss by
+0.008); the budget fails with 10 / 9 cells away beyond B and 3 / 3 past 3 B. A reading of 674 full-gate
+composites over the existing renders found NO point inside the budget at both scales: the receded
+scatter alone (point A's receded document over the unmoved `d0219cd684bf` active) gives 3 / 4 away and
+1 / 2 past 3 B, and no operator-1 rung keeps the rest cells to three away. The budget is unreachable
+with these levers, not narrowly missed.
+
+**Ruled (the user, AskUserQuestion, "Ship, tie-broken by the budget"):**
+
+1. **Part 2 is amended once, after the gate, and the record says so.** The amendment adds one
+   selection rule and nothing else: *inside the objective's declared tie, the point with the fewest
+   cells away beyond B at both scales is selected, then the fewest past 3 B, then the tie rule as
+   hashed.* The objective, grids, bars and targets do not move. This is the landing rule used as a
+   tie-break, a criterion declared before any render; it is not a refit. The superseded hash, this
+   ruling and the gate reading that prompted it go in `amendments.json`.
+2. **The selected point** is the landed active document with the rest-scatter scale gain −0.5 in
+   place of −2 (label `d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2`;
+   stage-1 objective 0.2253, inside the 0.0365 tie of 0.2044) over the landed receded document
+   (`aa1a1b198ee72850`, unchanged). Read from the existing renders: C rest halved at both scales
+   (0.1724 / 0.2007), P 0.4922 / 0.648, F inactive 0.4661 / 0.5783; 8 / 8 cells away beyond B; past
+   3 B 1 / 2, all inactive. The freeze, the strict-mode stage and the gate are re-run on that point;
+   the gate's reading of it must agree with the composite within the run-to-run bar, or STOP.
+3. **The landing is an improvement landing with every exception named** (W45 Decision Log 8's form):
+   each cell away beyond B against `d0219cd684bf` at the gate and at the exposure, listed here with
+   its growth in B and carried into `T1_DARK_AUTHORISED_REGRESSIONS` by G2 (cell, reference
+   `d0219cd684bf`, growth, "W48 Decision Log 9 and the exposure ruling, §5.213"); the P and F
+   inactive targets as not halved; S1 dark reading lower than the reference (0.256 / 0.293 against
+   0.314 / 0.311 at the landed point; re-read at the selected point) recorded as a gap; the eye
+   finding (thick coarse checkers flatter than Apple and than `d0219cd684bf`) recorded as a gap with
+   the sheet cited; E2's 52 cells read, not gated.
+4. **Operator 2 is named, not fitted** (X63): on top of W46 point A's receded scatter the receded
+   fine term does not improve the declared objective at either scale. It stays landed inert in every
+   document. The exception point `…rn10.7…` was read and not carried.
+5. **X60 holds.** The two light 2x CSS rows that differ by render are the driver's own
+   non-deterministic flags (`repeatNoise` 2e-5 and 0.0175); two scratch re-captures of each are
+   byte-identical to the published captures (`stage/x60-recheck/recheck.json`). A Surprise, not a
+   move of the light material (974 candidates IDENTICAL by evidence).
+6. **Then the exposure** (step 7, the cross-gate ledger's read 8: the seven holdout scenes and the six
+   referees per scale, once, into the same stage), the exposure report (STOP 2), publication (step 8),
+   §5.213, and G2 as Decision Log 6 planned it: 0.28.0, `@vitreajs/vitrea-web` minor.
+7. **Deferred at close, to be written by G2:** a span-graded receded scatter for the thick coarse
+   inactive cells (`checkerboard-64__rrect-lg__inactive` 8.9 / 12.5 B is the receded scatter's cost,
+   the same shape W45's span-graded share answered on the light scheme); the active thick coarse
+   rest cells (`checkerboard-32__rrect-lg__rest`, `lc16` md) as the span law's own cost.
 
 ## Surprises & Discoveries
 
