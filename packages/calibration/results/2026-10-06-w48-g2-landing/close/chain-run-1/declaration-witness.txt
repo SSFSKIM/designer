@@ -1,0 +1,14 @@
+W48 G2 declaration witness: a scratch worktree at 1301318cffd9c91a5053b10694c12858fb9ee653 (2026-10-06T23:51:11Z), with these files
+put back to their bytes at 3bfdaaf0c (W48 G0's merge, the bytes part 1 pins):
+  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json d0219cd684bf
+  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json f0b36a71772a
+  packages/calibration/results/generations/index.json 66cced87298d
+  packages/calibration/test/tier-coherence.test.ts dfe5184fe4d6
+  packages/renderer-webgpu/src/material.ts 64e392fdb892
+  packages/renderer-webgpu/src/wgsl/optics.ts 7b97bccaea57
+  packages/platform-web/src/optics.ts d0ef488eb6fe
+  packages/calibration/results/holdout-configuration/configuration-log.json d91de7b0156f
+  committed on the scratch worktree's detached HEAD as 2b4c164ae (no branch)
+with those bytes: declare.py check exit 0 (check: consistent)
+with those bytes: declare.py check-fit exit 0 (check-fit: consistent)
+scratch worktree removed

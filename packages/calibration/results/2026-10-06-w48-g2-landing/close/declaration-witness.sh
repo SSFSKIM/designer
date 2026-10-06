@@ -7,7 +7,8 @@
 #   - the two dark 0.25 documents, which the freeze re-sealed (the seal/stage tool tests build from them);
 #   - `results/generations/index.json`, which the publication moved;
 #   - `test/tier-coherence.test.ts`, which the freeze moved (operator 1 live on the dark pair);
-#   - the three runtime sources G2's comment-only commit edited;
+#   - the three runtime sources G2's comment-only commit edited, and W47's operator-1 GPU spec,
+#     whose assertions G2 re-based on the dark document at the identity once W48 shipped the leaves;
 #   - the cross-gate holdout ledger, which read 8 extended (W47's sheets test asserts the
 #     pre-exposure refusal, and reads the ledger as COMMITTED, `git show HEAD:<ledger>`, so the
 #     put-back bytes are committed on the scratch worktree's detached HEAD: a throwaway commit no
@@ -31,6 +32,7 @@ packages/calibration/test/tier-coherence.test.ts
 packages/renderer-webgpu/src/material.ts
 packages/renderer-webgpu/src/wgsl/optics.ts
 packages/platform-web/src/optics.ts
+packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts
 packages/calibration/results/holdout-configuration/configuration-log.json"
 {
   echo "W48 G2 declaration witness: a scratch worktree at $head ($(date -u +%Y-%m-%dT%H:%M:%SZ)), with these files"

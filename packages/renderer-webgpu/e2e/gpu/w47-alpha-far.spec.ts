@@ -29,6 +29,13 @@
  *   and span-96 members' pixels exactly where they were, because `farS` is 0 at and below the knee —
  *   the grading is per pixel and not per group, in the toned scene (where the solve runs at each
  *   pixel's alpha against ONE group mean) as in the untoned one.
+ *
+ * **Since W48 the dark 0.25 document names the operator** (0.2 / 0.2; claims §5.213), so the
+ * assertions' base is that document with its two leaves taken out (`DARK025_IDENTITY`), the
+ * material at the identity, and each shipped dark document (active and receded) is held to its base
+ * with 0.2 / 0.2 added: the shipped endpoint IS the law at its own values. The recorder still renders every shipped
+ * endpoint as it is, and its delta cases now sit on the identity base (W48 G2, claims §5.214); its
+ * W47 record (`claims §5.211`) was taken when the two coincided.
  */
 
 import { createHash } from "node:crypto";
@@ -71,6 +78,11 @@ const ACTIVE = (key: string): Patch => documentPatch(key);
 const RECEDED = (key: string): Patch => merge(documentPatch(key), documentPatch(`${key}-receded`));
 
 const DARK025 = "apple-macos-27.0-1x-dark-standard-glass0.25";
+/** A shipped dark 0.25 endpoint at the operator's identity: its two leaves taken out. */
+const atIdentity = (patch: Patch): Patch => Object.fromEntries(Object.entries(patch)
+  .filter(([key]) => key !== "tintAlphaFar1x" && key !== "tintAlphaFar2x"));
+const DARK025_IDENTITY: Patch = atIdentity(ACTIVE(DARK025));
+const DARK025_RECEDED_IDENTITY: Patch = atIdentity(RECEDED(DARK025));
 
 /**
  * Every shipped endpoint the identity is shown on. The renderer default is the macOS 26.5 light
@@ -101,9 +113,14 @@ const SCALES = [
   { tag: "1x", plain: "w47-span-quad-1x", toned: "w47-span-quad-toned-1x" },
 ] as const;
 
-/** The dark 0.25 material's far deltas: off, explicit 0, 2x-only, 1x-only, and the clamp. */
+/**
+ * The dark 0.25 material's far deltas over its identity base: the base itself, explicit 0, the
+ * shipped values, 2x-only, 1x-only, and the clamp.
+ */
 const DARK_DELTAS: Readonly<Record<string, Patch>> = {
+  "identity": {},
   "far0": { tintAlphaFar1x: 0, tintAlphaFar2x: 0 },
+  "shipped": { tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2 },
   "far2x+0.2": { tintAlphaFar2x: 0.2 },
   "far2x+0.45": { tintAlphaFar2x: 0.45 },
   "far2x+1": { tintAlphaFar2x: 1 },
@@ -117,12 +134,13 @@ const CASES: readonly Case[] = SCALES.flatMap(({ tag, plain, toned }) =>
       label: `${tag}/${form}/${name}`, scene: scene!, patch,
     })),
     ...Object.entries(DARK_DELTAS).map(([name, delta]) => ({
-      label: `${tag}/${form}/dark025/${name}`, scene: scene!, patch: { ...ENDPOINTS["dark025"], ...delta },
+      label: `${tag}/${form}/dark025/${name}`, scene: scene!, patch: { ...DARK025_IDENTITY, ...delta },
     })),
-    {
-      label: `${tag}/${form}/dark025-receded/far2x+0.45`, scene: scene!,
-      patch: { ...ENDPOINTS["dark025-receded"], tintAlphaFar2x: 0.45 },
-    },
+    ...Object.entries({ "identity": {}, "shipped": { tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2 },
+      "far2x+0.45": { tintAlphaFar2x: 0.45 } }).map(([name, delta]) => ({
+      label: `${tag}/${form}/dark025-receded/${name}`, scene: scene!,
+      patch: { ...DARK025_RECEDED_IDENTITY, ...delta },
+    })),
   ]),
 );
 
@@ -219,9 +237,14 @@ test.describe("@gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims 
     for (const { tag } of SCALES) {
       const dpr = tag === "2x" ? 2 : 1;
       for (const form of ["plain", "toned"]) {
-        const at = (name: string): string => `${tag}/${form}/dark025${name === "" ? "" : `/${name}`}`;
+        // "" is the identity base (the shipped dark document with the two leaves taken out).
+        const at = (name: string): string => `${tag}/${form}/dark025/${name === "" ? "identity" : name}`;
         // The dark material is not the default, so nothing below compares two default renders.
         expect(hash(at("")), at("")).not.toBe(hash(`${tag}/${form}/default`));
+
+        // The shipped document is the identity base with 0.2 / 0.2 (W48), byte for byte.
+        expect(hash(`${tag}/${form}/dark025`), `${tag}/${form}/dark025: the shipped document`)
+          .toBe(hash(at("shipped")));
 
         // An explicit 0 on both leaves is the absent leaf: `tintAlpha + 0·farS` is `tintAlpha`.
         expect(hash(at("far0")), at("far0")).toBe(hash(at("")));
@@ -247,16 +270,20 @@ test.describe("@gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims 
           expect(outsideDelta(base, moved, dpr), `${at(name)}: outside the members`).toBe(0);
         }
 
-        // The receded endpoint inherits the active's leaves by merge and grades the same way.
+        // The receded endpoint grades the same way, from its own identity base. (Since W48 its
+        // shipped base alpha is 0.8 and the delta 0.2, so a span-160 pixel already reads 1 and a
+        // larger delta clamps there; the base without the leaves is where a delta can be seen.)
+        expect(hash(`${tag}/${form}/dark025-receded`), `${tag}/${form}/dark025-receded: the shipped document`)
+          .toBe(hash(`${tag}/${form}/dark025-receded/shipped`));
         if (dpr === 2) {
-          const receded = bytes.get(`${tag}/${form}/dark025-receded`)!;
+          const receded = bytes.get(`${tag}/${form}/dark025-receded/identity`)!;
           const graded = bytes.get(`${tag}/${form}/dark025-receded/far2x+0.45`)!;
           expect(boxDelta(receded, graded, dpr, MEMBERS.span96), `${tag}/${form} receded: span 96`).toBe(0);
           expect(boxDelta(receded, graded, dpr, MEMBERS.span160), `${tag}/${form} receded: span 160`)
             .toBeGreaterThan(0);
         } else {
           expect(hash(`${tag}/${form}/dark025-receded/far2x+0.45`))
-            .toBe(hash(`${tag}/${form}/dark025-receded`));
+            .toBe(hash(`${tag}/${form}/dark025-receded/identity`));
         }
       }
     }

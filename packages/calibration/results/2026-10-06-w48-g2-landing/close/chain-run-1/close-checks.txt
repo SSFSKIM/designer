@@ -1,0 +1,50 @@
+W48 G2 close checks: the c9d chain at 34ad5cd9c85a7e8f9c6e7ec9df26d5c5d65cfe1b (chain.sh; one log per step), each gated on its own exit code
+invocations: 1 (invocation 2026-10-06T23:53:56Z at 34ad5cd9c85a7e8f9c6e7ec9df26d5c5d65cfe1b)
+
+freeze-open: exit 0
+    26.5 freeze intact: 1818 entries
+x41-open: exit 0
+    X41 0.5 generation intact: 911 entries
+capture-tree: exit 0
+    totals   captures 3024  match 3017  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+    VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+build: exit 0
+digests: exit 0
+    all ten digests at their expected values
+lint: exit 0
+eslint-root: exit 0
+units: exit 0
+    packages/policy test:       Tests  23 passed (23)
+    packages/motion test:       Tests  164 passed (164)
+    packages/geometry test:       Tests  170 passed (170)
+    packages/renderer-webgpu test:       Tests  673 passed (673)
+    packages/core test:       Tests  304 passed (304)
+    packages/platform-web test:       Tests  656 passed (656)
+    packages/react test:       Tests  180 passed (180)
+    packages/calibration test:       Tests  940 passed (940)
+    apps/demo test:       Tests  123 passed (123)
+goldens: exit 0
+    34 passed (13.2s)
+gpu: exit 1
+    1 failed
+    54 passed (38.6s)
+
+git status at the summary: ?? census.jsonl
+?? chain-build.txt
+?? chain-capture-tree.txt
+?? chain-digests.txt
+?? chain-eslint-root.txt
+?? chain-freeze-open.txt
+?? chain-goldens.port.txt
+?? chain-goldens.txt
+?? chain-gpu.port.txt
+?? chain-gpu.txt
+?? chain-invocations.txt
+?? chain-lint.txt
+?? chain-status.txt
+?? chain-units.txt
+?? chain-x41-open.txt
+?? declaration-witness-check-fit.txt
+?? declaration-witness-check.txt
+?? declaration-witness.txt
+?? summarise.py
