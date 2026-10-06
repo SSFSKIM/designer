@@ -1,7 +1,8 @@
 # W48 — the fit of W47's two dark operators under a corrected declaration: no new ladder, W47's renders as the hashed evidence, the body width and the tap both fittable (2026-10-06)
 
-**Status: DRAFT v1 (2026-10-06), chartered by the parent from W47's close (its Deferred, first item;
-Decision Log 10; claims §5.211 §11) under `/kairos`; adversarial review pending.** Decision Logs 1–7
+**Status: DRAFT v1.1 (2026-10-06), chartered by the parent from W47's close (its Deferred, first
+item; Decision Log 10; claims §5.211 §11) under `/kairos`; one adversarial round folded (two P2),
+scoped second round pending.** Decision Logs 1–7
 are the parent's rulings of 2026-10-06. This charter inherits W47's Design, operators, targets,
 contracts and tools by reference and states only what changes. Nothing is captured, no holdout is read
 and no document moves until G0's two hashes are on main.
@@ -13,7 +14,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
 | 1 | the scope, the bed, the rule | **RULED** by the parent, 2026-10-06 | as W47 Decision Log 1: the dark `-glass0.25` pair only (`d0219cd684bf` / `f0b36a71772a`); dark 0.5 frozen under X41 (the user's need-input stands; if lifted, ONE amendment, W47 Design "If the user lifts X41"); X60; no native capture; `w46-referees-1` by hash (X69); the canonical dark holdout read once at the new bytes as read 8; W45's rule at bar 0.5; T1's dark gate re-baselined in the five-part order with `T1_DARK_AUTHORISED_REGRESSIONS` and its witness |
-| 2 | no new ladder; G0 is declaration-only | **RULED** by the parent, 2026-10-06 | W47's ladder renders, `results.json`, the Decision Log 8 re-read and the diagnostic are this wave's hashed evidence (X71); G0 lands no operator and renders no ladder: it re-binds the tools under the corrected protocol, hashes part 1 on the assembled tree, READS the separation verdicts from the pinned evidence under the corrected bars, and hashes part 2; a verdict that would need a render that does not exist is a STOP, not a render |
+| 2 | no new ladder; G0 is declaration-only | **RULED** by the parent, 2026-10-06; sequence amended v1.1 | W47's ladder renders, `results.json`, the Decision Log 8 re-read and the diagnostic are this wave's hashed evidence (X71); G0 lands no operator and renders no ladder, in ONE sequence: (a) the ladder tree archived as `w47-ladders-archive` and W47's readings replayed from it to the last digit; (b) the W48 tool copies, the verdict reader and the part-2 draft prepared and tested with no verdict computed on the ladder evidence; (c) part 1 hashed on the assembled tree; (d) the verdicts derived by the pinned reader and committed; (e) part 2 validated against them and hashed; a verdict that would need a render that does not exist is a STOP, not a render |
 | 3 | the corrected bars and protocol | **RULED** by the parent, 2026-10-06 | six corrections, each closing a W47 block: (a) operator 1's bar is the landing rule's partition with "unchanged" admitted on over-Apple cells; (b) operator 2 on T1-fine with the whole band beside; (c) the gate reads the body width AND the tap, no precedence, and a `hold` decision joins `strike`; (d) `check-fit` reads the re-read; (e) the σ 2 and share 0.5 one-scale rungs are off the grid; (f) the empty-ops defect fixed |
 | 4 | the grids and the stage sizes | **RULED** by the parent, 2026-10-06 | W47's draft narrowed by the ladders: stage 1 the span law at 432 points (72 renders per scale), the second tap off (ladder (ii) did not meet), then W46's rest-scatter sweep; stage 2 the receded transmission × the fine term with the body width beside it at 114 points (42 renders per scale), then W46's receded-scatter sweep |
 | 5 | the targets and the predictions | **RULED** by the parent, 2026-10-06 | P pooled (rest and inactive beside), C rest, F inactive; C rest halves at both scales at operator 1's closest rung; F inactive's fine band falls ≥ 0.73 at tap σ 4, the whole band 2.3–3.9 B; P not halved from these operators alone; the level check's excesses beside L1, ungated |
@@ -70,8 +71,9 @@ ladders/results.json` and `reread.json`):
    targets with the whole band beside it, and when the existing body width and the new tap both meet
    the gate reads both (Decision Log 3; the lesson recorded beside W47's close).
 2. **No pixel re-rendered to re-decide.** The ladder renders exist and their readings are committed;
-   this wave pins them by hash and reads the verdicts from them (X71). The first new render is G1's
-   fit.
+   this wave archives the renders as replayable evidence, proves the committed readings replay from
+   the archive, pins both by hash and reads the verdicts from them (X71). The first new render is
+   G1's fit.
 3. **The same bed, the same referees, the same rule, one read.** As W47: W46's manifest by hash,
    W45's rule at bar 0.5, the canonical dark holdout read once at the new bytes (read 8), T1's dark
    gate re-baselined in the five-part order with every regression witnessed against `d0219cd684bf`.
@@ -87,23 +89,34 @@ bar or arithmetic. No new ladder, and no re-render of W47's.
    and `css-tier.ts`, `MATERIAL_IDENTITY_TABLE` and its tests byte-identical to main at this
    charter's merge; the ten shipped digests, the 34 goldens and `tier-coherence.test.ts` as at
    `429d0a78`. *Stop:* any runtime byte that moves before G1's freeze closes the child.
-2. **Declared before fitted, in two hashed parts, with W47's tools re-bound (G0).** *Metric:* W47's
-   `declare.py`, `cuts/`, `fit/`, `stage/`, `seal/`, `sheets/`, `referees/`, `level/` and
-   `ladders/read.py`, inherited by path and parameterised to W48's pins, evidence root and
-   generation hash, refusing W44–W47's hashes, directories and stages; the snapshots (X62) of the
-   four 0.25 documents at THIS charter's merge, which must equal W47's byte for byte (no document
-   moved since `c1f9bf84`); the corrected protocol (Decision Log 3) as `ladders/protocol.json` with
-   its decision kinds `fit`, `name-unfitted`, `name-target`, `narrow`, `strike`, **`hold`**, `stop`
-   and the body-width-first kind removed; `check-fit` reading the re-read; `amend` refusing an empty
-   ops list. Part 1 (T1 as gated; the bar; the manifest by hash; the rule and its rehearsal record;
-   the two operators by W47's part 1 by hash; the targets with their predictions; the bars; W47's
-   ladder evidence by hash, X71; the references by hash) and the part-2 draft hashed on the
-   assembled tree; part 2 as a validated diff after the verdicts are read; `amend` and `amend-fit`
-   once each. *Stop:* as W44 clause 1.
-3. **The verdicts are read, not rendered (G0).** *Metric:* `ladders/verdicts.json`, derived by a
-   committed tool from W47's `results.json` and `reread.json` under Decision Log 3's bars, with
-   every number traceable to those files by key; the tool's test shows each bar tripping on a
-   synthetic reading. *Bar:* operator 1 separates at `tintAlpha` 0.7 / far 0.2 / top 128 and 160 at
+2. **Declared before fitted, in two hashed parts, with W47's tools re-bound (G0), in ONE order.**
+   *Metric:* the order is (a) the inherited evidence preserved and pinned (X71); (b) the tools and
+   the part-2 draft prepared and tested, with no verdict computed on the ladder evidence; (c) part 1
+   hashed on the assembled tree, pinning the tools, the draft and the evidence; (d) the verdicts
+   derived by the pinned reader from the pinned evidence and committed; (e) part 2 validated against
+   them and hashed. The tools at (b): **the corrected `declare.py` is a W48 copy, a new file under
+   W48's evidence directory** (`hold` among its kinds, no precedence kind, `check-fit` reading
+   `verdicts.json`, `amend` and `amend-fit` refusing an empty ops list); W47's pinned `declare.py`
+   and its spent amendment are not touched. **The verdict reader** is a new W48 tool whose tests
+   use synthetic fixtures and W47's committed control rows only. W47's `cuts/`, `fit/`, `stage/`,
+   `seal/`, `sheets/`, `referees/`, `level/` and `ladders/read.py` are inherited by path and
+   parameterised to W48's pins, evidence root and generation hash, refusing W44–W47's hashes,
+   directories and stages. Also at (b): the snapshots (X62) of the four 0.25 documents at THIS
+   charter's merge, which must equal W47's byte for byte (no document moved since `c1f9bf84`); the
+   corrected protocol (Decision Log 3) as `ladders/protocol.json` with its decision kinds `fit`,
+   `name-unfitted`, `name-target`, `narrow`, `strike`, **`hold`**, `stop` and the body-width-first
+   kind removed. Part 1 (T1 as gated; the bar; the manifest by hash; the rule and its rehearsal
+   record; the two operators by W47's part 1 by hash; the targets with their predictions; the bars;
+   W47's ladder evidence by hash with the archive's digest, its manifest and the replay record, X71;
+   the W48 tools and the verdict reader by hash; the references by hash) and the part-2 draft are
+   hashed together at (c), before any verdict under Decision Log 3's bars exists; part 2 as a
+   validated diff at (e); `amend` and `amend-fit` once each. *Stop:* as W44 clause 1; a verdict
+   computed on the ladder evidence before (c) voids the declaration.
+3. **The verdicts are read, not rendered (G0, step (d)).** *Metric:* `ladders/verdicts.json`,
+   derived after part 1's hash by the reader part 1 pins, from W47's `results.json` and
+   `reread.json` as part 1 pins them, under Decision Log 3's bars, with every number traceable to
+   those files by key; the reader's test (committed at (b)) shows each bar tripping on a synthetic
+   reading. *Bar:* operator 1 separates at `tintAlpha` 0.7 / far 0.2 / top 128 and 160 at
    both scales; operator 2 at tap σ {3, 4, 6} × share 1, tap σ 4 × share 0.75, and body width {3, 4}
    at both scales; the joint holds its partition and halving and misses the photo floor by 0.02 /
    0.01 bar (recorded; the joint decides only name-target). *Stop:* a verdict that would need a
@@ -160,8 +173,18 @@ bar or arithmetic. No new ladder, and no re-render of W47's.
   T1-low through W44 G1's `readings.py`, six instrument cross-checks equal); `diagnostic/reading.json`
   (the body form: R 0.739 / 0.769 at 1x and 1.044 / 1.011 at 2x, the deep form 0); the candidates
   under `ladders/candidates/`. **The ladder captures themselves are not in the repository**: they are
-  in the scratch tree `~/vitrea-w47/g0-ladders/` on the capture machine (42 rung directories, 5,736
-  PNGs, 299 MB), which the re-read read. X71 pins them by a committed SHA-256 manifest.
+  only in the scratch tree `~/vitrea-w47/g0-ladders/` on the capture machine, which the read and
+  the re-read read: 41 rung directories (the control and 40 rungs) and `specs/` (41 rung specs),
+  14,463 files, 299 MB — 5,736 PNGs (2,868 captures and 2,868 alpha PNGs), 82 scratch matrices,
+  2,868 `cell__webgpu.json` sidecars, the per-cell reports and the control's merged captures. The
+  drive's logs are committed (`ladders/logs/`, 93 files; `drive.jsonl`; `runs.jsonl`). A replay
+  needs more than the PNGs: `read.py` takes its rows from the scratch matrices and compares capture
+  and alpha PNGs against the control's, and `reread.py`'s `Captures.bands()` admits a capture only
+  when its sidecar names the row's `capturePath`. `Captures.bands()` also computes each capture's
+  `webSha256`, but `rule_cell` keeps only the bands, so neither `results.json` nor `reread.json`
+  binds a measurement to the capture it was read off. A parent-side manifest of the tree (14,463
+  entries, file SHA-256 `93346334…`) verified clean against it at this charter's v1.1; it is not
+  evidence, and X71 replaces it.
 - **The documents.** `d0219cd684bf` / `f0b36a71772a` unchanged since W43 G3; the four 0.25 snapshots
   W47 took at `c1f9bf84` are byte-identical to the live documents at `f635f9ee`.
 - **The owner test.** T1 gated on both dark 0.25 profiles against `d0219cd684bf` with no authorised
@@ -283,29 +306,59 @@ and W46's point A, stated here and hashed in part 1 as predictions the gate repl
 ### G0: The declaration (ledger §5.212)
 
 Branch `w48-g0-declaration`, evidence `packages/calibration/results/2026-10-06-w48-g0-declaration/`.
-- (a) **The snapshots** (X62) of the four 0.25 documents at this charter's merge, verified equal to
-  W47's by hash.
-- (b) **The tools re-bound** (clause 2): W47's tools by path, parameterised to W48's pins, root and
-  generation hash, refusing W44–W47's bindings; the corrected protocol (`hold`; both levers; no
-  body-width-first; `check-fit` reading `verdicts.json`; `amend` refusing an empty ops list); each
-  tested on `d0219cd684bf` (the seal with every X64 and X67 key named reproduces `b074fc6913a91c66`
-  / `280f0fddf014e0f6`; the stage of the shipped documents reproduces the published rows); X69's
-  manifest checks and X70's runner carried with their red cases.
-- (c) **X71's witness**: `ladders/evidence.json` pinning W47's `results.json`, `reread.json`,
-  `diagnostic/reading.json`, `protocol.json`, both part-1 hashes and the amendment record by SHA-256,
-  and `ladders/png-sha256.json` over every PNG of the scratch tree `~/vitrea-w47/g0-ladders/`,
-  taken once and committed; the re-read's six instrument cross-checks re-run from the committed
-  numbers.
-- (d) **The verdicts read** (clause 3): `ladders/verdicts.json` and `.txt` from the pinned evidence
-  under Decision Log 3's bars, per rung, per cell, both scales; the tool's test with a synthetic
-  reading per bar.
-- (e) **The rule rehearsed** (clause 4) and **the level check** re-bound, the shipped rung's identity
-  re-proven from W47's committed records.
-- (f) **Part 1 hashed** on the assembled tree after (a)–(e) are committed; **part 2** drafted from
-  W47's `fit-declaration-draft.json` narrowed as Design "The moves" states, validated against the
-  verdicts, hashed; the stage sizes recorded.
-- Acceptance: clauses 1–5; `doperpowers:reviewer-medium` on the re-bound tools, the protocol and
-  the verdict tool; merge; both hashes checked on main.
+One sequence (clause 2; Decision Log 2); each step is committed before the next begins.
+- (a) **The inherited evidence preserved and pinned (X71), the child's first act.**
+  - *The bundle.* Every file of `~/vitrea-w47/g0-ladders/` (capture and alpha PNGs, the scratch
+    matrices, the `cell__webgpu.json` sidecars and reports, the merged control captures, the rung
+    specs) with the drive's committed logs, produced as a content-addressed archive with a per-file
+    SHA-256 manifest and an inventory digest.
+  - *The release.* Published as GitHub release **`w47-ladders-archive`** on `SSFSKIM/designer`
+    (`--latest=false`), asset `w47-ladders-archive-<sha256>.tar.zst`, exactly as `w39-archive`
+    (claims §5.185 §5) and `w42-archive` (§5.195 §5) were: the asset's SHA-256 checked against
+    GitHub's own digest, a `fetch` that verifies the digest before extraction, the fetched tree
+    equal to the producer's output byte for byte, a second owner-controlled copy taken through
+    `fetch --source`. W42's `w42_archive.py` (`produce` / `fetch` / `replay --deny-raw-root`) is
+    the model; the W48 producer is a new file under W48's directory.
+  - *The replay.* READ-ONLY, from the fetched bundle, with the raw root `~/vitrea-w47/g0-ladders/`
+    denied and a negative control showing the denial fire: W47's `read.py` and `reread.py`
+    unchanged in their arithmetic, the scratch root redirected to the bundle, and each
+    measurement's capture SHA-256 (the `webSha256` that `Captures.bands()` computes, and each PNG
+    `read.py` compares) recorded in the replay's output. The replay must equal the committed
+    `results.json` and `reread.json` to the last digit, the six instrument cross-checks included,
+    under W47's own bars; it computes nothing under Decision Log 3's.
+  - *The pin.* Only then are committed: the bundle's SHA-256 and its per-file manifest, the replay
+    record (outputs, capture hashes, the equality report), and `ladders/evidence.json` pinning
+    W47's `results.json`, `reread.json`, `diagnostic/reading.json`, `protocol.json`, both part-1
+    hashes and the amendment record by SHA-256. A replay that differs in any digit, a file missing
+    from the tree, or a manifest that does not verify is a STOP for the parent; nothing is
+    re-rendered. No pixel is rendered by this step, and the scratch tree is not deleted by this
+    wave.
+- (b) **The tools, the reader and the draft, prepared and tested** (clause 2), with no verdict
+  computed on the ladder evidence:
+  - the snapshots (X62) of the four 0.25 documents at this charter's merge, verified equal to W47's
+    by hash;
+  - the W48 copy of `declare.py` (`hold`; no precedence kind; `check-fit` reading `verdicts.json`;
+    `amend` and `amend-fit` refusing an empty ops list) and the corrected `ladders/protocol.json`;
+    W47's tools by path, parameterised to W48's pins, root and generation hash, refusing W44–W47's
+    bindings, each tested on `d0219cd684bf` (the seal with every X64 and X67 key named reproduces
+    `b074fc6913a91c66` / `280f0fddf014e0f6`; the stage of the shipped documents reproduces the
+    published rows); X69's manifest checks and X70's runner carried with their red cases;
+  - the verdict reader, its tests on synthetic fixtures (one tripping each bar) and on W47's
+    committed control rows only;
+  - the rule rehearsed (clause 4) and the level check re-bound, the shipped rung's identity
+    re-proven from W47's committed records (these read the reference and point A, not the
+    ladders);
+  - part 2 drafted from W47's `fit-declaration-draft.json`, narrowed as Design "The moves" states,
+    and its stage sizes recorded.
+- (c) **Part 1 hashed** on the assembled tree after (a) and (b) are committed, pinning the evidence
+  and the replay record, the tools and the reader, the protocol, the snapshots, the rehearsal and
+  the part-2 draft.
+- (d) **The verdicts derived** (clause 3): the pinned reader run once on the pinned evidence,
+  `ladders/verdicts.json` and `.txt` per rung, per cell, both scales, committed.
+- (e) **Part 2 validated and hashed**: `check-fit` on the draft against `verdicts.json`; part 2
+  hashed.
+- Acceptance: clauses 1–5; `doperpowers:reviewer-medium` on the archive and replay, the W48 tools,
+  the protocol and the verdict reader; merge; both hashes checked on main.
 
 ### G1: The fit, the gate, the exposure and the publication (ledger §5.213)
 
@@ -332,12 +385,20 @@ the worker and review rules; the census; no attribution; path-scoped adds; merge
 and X41 verified.
 
 **New:**
-- **X71 — W47's ladder evidence is this wave's, by hash, and is never re-rendered.** Part 1 pins
-  `results.json`, `reread.json`, `diagnostic/reading.json`, `protocol.json`, W47's two part-1 hashes
-  and its amendment record by SHA-256, and a committed manifest of every ladder capture's SHA-256
-  (the captures live in the scratch tree on the capture machine, as capture trees do; a missing or
-  changed capture is reported by the manifest, never re-made). A verdict is read from these files
-  by key; a verdict that would need a capture W47 did not render is a STOP.
+- **X71 — W47's ladder evidence is this wave's, archived, replayed and pinned, and is never
+  re-rendered.** G0's first act preserves the whole ladder tree (capture and alpha PNGs, scratch
+  matrices, sidecars, reports, rung specs, the drive's logs) as a content-addressed bundle
+  published as the GitHub release asset `w47-ladders-archive` by SHA-256, made, round-tripped and
+  second-copied as `w39-archive` and `w42-archive` were (claims §5.185 §5, §5.195 §5), with the
+  bundle's SHA-256 and a per-file manifest committed. A read-only replay of `results.json` and
+  `reread.json` from the fetched bundle, the raw root denied, W47's numerical tools unchanged and
+  each measurement's capture SHA-256 recorded in the replay's output, must equal the committed
+  readings to the last digit before the manifest seals; only then does part 1 pin the bundle, the
+  manifest, the replay record and W47's `results.json`, `reread.json`, `diagnostic/reading.json`,
+  `protocol.json`, two part-1 hashes and amendment record by SHA-256. A verdict is read from these
+  files by key; a verdict that would need a capture W47 did not render, or a replay that does not
+  reproduce, is a STOP. The no-new-render rule stands, and the scratch tree is not deleted by this
+  wave.
 - **X72 — the separating bars are the landing rule's form.** An operator's bar is the landing rule's
   partition on the operator's cells with every state the rule admits (`unchanged` included), a
   localised operator is read on the band it targets with the whole band beside it, and when two
@@ -345,24 +406,32 @@ and X41 verified.
   beside `strike`.
 - **X73 — part 2 is a validated diff whose check reads the corrected verdicts.** `check-fit`
   validates part 2 against `verdicts.json` (the Decision Log 3 reading), not against any earlier
-  bars' results; `amend` and `amend-fit` refuse an empty ops list.
+  bars' results; `amend` and `amend-fit` refuse an empty ops list. These live in W48's own copy of
+  `declare.py`; W47's pinned copy and its spent amendment do not change. `verdicts.json` exists
+  only after part 1's hash, and part 2 is hashed only after it.
 
 ## Ordering & Dependency Map
 
-1. The charter merged → G0 (a) snapshots → (b) tools → (c) X71 witness → (d) verdicts → (e)
-   rehearsal and level check → (f) part 1 hashed, part 2 drafted and hashed → review → merge.
+1. The charter merged → G0 (a) the ladder tree archived as `w47-ladders-archive`, fetched, replayed
+   to the last digit, then pinned (X71) → (b) snapshots, the W48 tool copies, the verdict reader
+   (synthetic and control-row tests only), rehearsal and level check, the part-2 draft → (c) part 1
+   hashed on the assembled tree → (d) the verdicts derived by the pinned reader and committed →
+   (e) part 2 validated against them and hashed → review → merge.
 2. G1 opens on G0's merge: stage 1 → stage 2 → the refit on the union → the gate reading → GATE
    REPORT (STOP) → the parent / the user → freeze → runtime → stage → gate → exposure (STOP) →
    publication.
 3. G2 opens on G1's merge.
-A STOP inside G0: a verdict needing a render (X71); the snapshots differing from W47's; a tool
-test failing on `d0219cd684bf`.
+A STOP inside G0: the archive not round-tripping or the replay not reproducing W47's readings
+(X71); a verdict needing a render (X71); a verdict computed on the ladder evidence before (c); the
+snapshots differing from W47's; a tool test failing on `d0219cd684bf`.
 
 ## Risks & Mitigations
 
 - **The ladder captures are only on this machine.** The re-read's numbers are committed; the
-  pixels are in `~/vitrea-w47/g0-ladders/`. *Mitigation:* X71's manifest at G0, taken before
-  anything else runs; the verdicts never need the pixels, only the committed readings.
+  pixels, matrices and sidecars are in `~/vitrea-w47/g0-ladders/` alone, and the committed readings
+  name no capture by hash. *Mitigation:* X71 at G0's first act: the release archive, its
+  round-trip and second copy, and the replay that proves the readings come from those bytes; the
+  verdicts then need only the committed readings.
 - **The mid-span coarse cells.** Operator 1's far knot starts at the knee; the gain knot governs
   span 96, where point A read `checkerboard-lc16` 2.8–4.6 B away. *Mitigation:* the gain is in the
   factorial; the landing rule reads it; `hold` lets the parent fix it if the ladder's reading
@@ -409,10 +478,20 @@ at G2 in the five-part order with the separate `T1_DARK_AUTHORISED_REGRESSIONS` 
 
 **Ruled:** W47's ladder renders, `results.json`, the Decision Log 8 re-read and the depth-split
 diagnostic are this wave's evidence, pinned by hash in part 1 (X71). G0 lands no operator (they are
-W47's bytes on main, clause 1), renders no ladder, and takes no pixel: it re-binds the tools under the
-corrected protocol, hashes part 1 on the assembled tree, reads the separation verdicts from the
-pinned evidence under Decision Log 3's bars, and drafts and hashes part 2. A verdict that would need a
-render W47 did not make is a STOP for the parent, not a render. *Why:* the question the ladders answer
+W47's bytes on main, clause 1), renders no ladder, and takes no pixel. It runs ONE sequence:
+(a) the inherited evidence preserved and pinned — the ladder tree archived as the release asset
+`w47-ladders-archive` by SHA-256 with a per-file manifest, and `results.json` and `reread.json`
+replayed read-only from the fetched bundle to the last digit, each measurement's capture hash
+recorded, before the manifest seals; (b) the W48 tool copies (the corrected `declare.py`, a new file
+under W48's directory, and the verdict reader) and the narrowed part-2 draft prepared and tested,
+with no verdict computed on the ladder evidence; (c) part 1 hashed on the assembled tree, pinning the
+tools, the draft and the evidence; (d) the verdicts derived by the pinned reader from the pinned
+evidence and committed; (e) part 2 validated against them and hashed. W47's pinned `declare.py` and
+its spent amendment are untouched. A verdict that would need a render W47 did not make is a STOP for
+the parent, not a render. *Amended v1.1* (adversarial round 1, two P2): v1 pinned scratch files by a
+PNG manifest that bound no measurement to a capture and could not replay without the matrices and
+sidecars, and gave the verdicts-before-hash order in G0's steps against this entry's hash-first
+order; the archive and the single sequence close both. *Why:* the question the ladders answer
 has been measured; re-rendering to re-decide would spend time and, worse, invite a reading tuned to
 the second render. *Declined:* a ladder for the far delta 0.3 and the mid-span coarse cells (the fit
 reads them; the budget is the arbiter).
@@ -485,3 +564,18 @@ defined them; renders under the classifying census with the pinned Playwright CL
 ## Revision Notes
 
 - 2026-10-06 (v1): drafted by the parent from W47's close.
+- 2026-10-06 (v1.1): one adversarial round folded, two P2, each on the parent's ruling.
+  - *P2-1, X71 pinned scratch files without making them replayable.* `results.json` and
+    `reread.json` bind no measurement to a capture (`reread.py`'s `Captures.bands()` computes
+    `webSha256` and `rule_cell` drops it), and a replay needs the scratch matrices and sidecars as
+    well as the PNGs. X71, G0 (a), clause 2 and Risks now archive the whole tree as release
+    `w47-ladders-archive` by SHA-256 as `w39-archive` / `w42-archive` were (§5.185 §5, §5.195 §5),
+    with a committed per-file manifest, and require a read-only replay from the fetched bundle,
+    capture hashes recorded, to equal the committed readings to the last digit before the manifest
+    seals and part 1 pins it. No new render; the scratch tree is kept. The Grounding Baseline's
+    "42 rung directories" is corrected to 41 and `specs/`, with the tree's composition.
+  - *P2-2, G0 gave opposite orders for hashing part 1 and reading the verdicts.* One sequence now
+    stands in Decision Log 2, the Decisions table, clauses 2 and 3, G0's steps, X73 and the
+    Ordering map: evidence preserved and pinned; tools, reader and draft prepared with no verdict on
+    the ladder evidence; part 1 hashed; verdicts derived by the pinned reader; part 2 validated and
+    hashed. The corrected `declare.py` is a W48 copy; W47's and its spent amendment are untouched.
