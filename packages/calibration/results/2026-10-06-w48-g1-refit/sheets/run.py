@@ -15,7 +15,32 @@ import inherit  # noqa: E402
 
 W = inherit.W
 sheets = inherit.tool("sheets/sheets.py", "sheets")
-args = ["--stage", str(W.STAGE / "matrix.json"), "--stage-captures", str(W.CAL / "web-captures"),
+
+# The inherited tool draws "W47" in its column names, page headers and per-row lines (its bytes are W47's,
+# pinned); the column it labels is W48's. Every string the tool draws goes through ImageDraw.Draw(...).text,
+# so the label is corrected there, at draw time, and nothing else about the sheets changes (§5.213 Surprises).
+_Draw = sheets.ImageDraw.Draw
+
+
+class _W48Draw:
+    def __init__(self, image, *a, **k):
+        self._d = _Draw(image, *a, **k)
+
+    def text(self, xy, text, *a, **k):
+        return self._d.text(xy, text.replace("W47", "W48"), *a, **k)
+
+    def __getattr__(self, name):
+        return getattr(self._d, name)
+
+
+sheets.ImageDraw.Draw = _W48Draw
+import os  # noqa: E402
+if os.environ.get("W48_G1_ROUND", "first") == "dl9":
+    W.STAGE = W.SCRATCH / "g1-stage-dark-dl9"
+    captures = W.STAGE / "web-captures"
+else:
+    captures = W.SCRATCH / "g1-stage-dark" / "web-captures"     # moved there from the worktree's tree
+args = ["--stage", str(W.STAGE / "matrix.json"), "--stage-captures", str(captures),
         "--out", sys.argv[1]]
 if "--cut" in sys.argv:
     args += ["--cut", sys.argv[sys.argv.index("--cut") + 1]]

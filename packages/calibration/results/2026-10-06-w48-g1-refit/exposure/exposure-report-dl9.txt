@@ -1,0 +1,95 @@
+== cut-025-w48-dl9-exposure
+hashed rule: NEITHER: closes at the finding
+  1x: NEITHER: closes at the finding; budget FAILS (8 away > B, 2 > 3B); partition {'unchanged': 22, 'toward': 43, 'away': 12}
+    target P          A 0.7644 ref 1.1005 halved False (12 cells)
+    target C rest     A 0.1934 ref 0.39 halved True (30 cells)
+    target F inactive A 0.3846 ref 0.8684 halved True (3 cells)
+    beside P rest       A 0.4543 ref 0.7615 halved False (5)
+    beside P inactive   A 0.972 ref 1.1939 halved False (7)
+    beside C inactive   A 0.3188 ref 0.5055 halved False (16)
+    beside F rest       A 0.2226 ref 0.4726 halved True (12)
+    group F rest       A 0.2226 <= 0.5214 (ref 0.4726 + tau 0.0488) gated holds
+    group F inactive   A 0.3846 <= 0.9931 (ref 0.8684 + tau 0.1246) reported holds
+    group T rest       A 0.2184 <= 0.4016 (ref 0.3491 + tau 0.0525) gated holds
+    group T inactive   A 0.4837 <= 0.6409 (ref 0.5153 + tau 0.1256) reported holds
+    group C rest       A 0.1934 <= 0.4197 (ref 0.39 + tau 0.0297) gated holds
+    group C inactive   A 0.3188 <= 0.5831 (ref 0.5055 + tau 0.0776) gated holds
+    group P rest       A 0.4543 <= 0.7965 (ref 0.7615 + tau 0.035) gated holds
+    group P inactive   A 0.972 <= 1.2292 (ref 1.1939 + tau 0.0353) gated holds
+    away beyond B: checkerboard-64__rrect-lg__inactive 8.94 B
+    away beyond B: checkerboard-32__rrect-lg__inactive 3.2 B
+    away beyond B: checkerboard-32__rrect-lg__rest 2.98 B
+    away beyond B: checkerboard-lc16__rrect-md__rest 2.66 B
+    away beyond B: photo__rrect-lg__inactive 2.64 B
+    away beyond B: impulse__capsule-button__rest 2.26 B
+    away beyond B: checkerboard-64__rrect-lg__rest 1.55 B
+    away beyond B: hc-text-28__rrect-lg__rest 1.39 B
+  2x: NEITHER: closes at the finding; budget FAILS (9 away > B, 2 > 3B); partition {'unchanged': 21, 'toward': 45, 'away': 11}
+    target P          A 0.7188 ref 1.1195 halved False (12 cells)
+    target C rest     A 0.2007 ref 0.5065 halved True (30 cells)
+    target F inactive A 0.535 ref 0.9423 halved False (3 cells)
+    beside P rest       A 0.5775 ref 0.955 halved False (5)
+    beside P inactive   A 0.9632 ref 1.1443 halved False (7)
+    beside C inactive   A 0.2446 ref 0.4816 halved False (16)
+    beside F rest       A 0.3325 ref 0.441 halved False (12)
+    group F rest       A 0.3325 <= 0.5155 (ref 0.441 + tau 0.0745) gated holds
+    group F inactive   A 0.535 <= 1.0887 (ref 0.9423 + tau 0.1464) reported holds
+    group T rest       A 0.3322 <= 0.877 (ref 0.7897 + tau 0.0874) gated holds
+    group T inactive   A 0.1737 <= 0.6591 (ref 0.3573 + tau 0.3018) reported holds
+    group C rest       A 0.2007 <= 0.5328 (ref 0.5065 + tau 0.0262) gated holds
+    group C inactive   A 0.2446 <= 0.5579 (ref 0.4816 + tau 0.0763) gated holds
+    group P rest       A 0.5775 <= 0.9891 (ref 0.955 + tau 0.034) gated holds
+    group P inactive   A 0.9632 <= 1.1798 (ref 1.1443 + tau 0.0354) gated holds
+    away beyond B: checkerboard-64__rrect-lg__inactive 12.53 B
+    away beyond B: checkerboard-32__rrect-lg__inactive 6.04 B
+    away beyond B: checkerboard-lc16__rrect-md__rest 2.91 B
+    away beyond B: photo__rrect-lg__inactive 2.9 B
+    away beyond B: checkerboard__capsule-button__inactive 2.79 B
+    away beyond B: checkerboard-32__rrect-lg__rest 2.71 B
+    away beyond B: checkerboard__capsule-button__inactive-tint-orange 1.93 B
+    away beyond B: checkerboard-64__rrect-lg__rest 1.71 B
+    away beyond B: hc-text-28__rrect-lg__rest 1.34 B
+  rows:
+    tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu      PASS
+    tables apple-macos-27.0-1x-dark-standard-glass0.25 css         PASS
+    tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu      PASS
+    tables apple-macos-27.0-2x-dark-standard-glass0.25 css         PASS
+    tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu     PASS
+    tables apple-macos-27.0-1x-light-standard-glass0.25 css        MISS
+    tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu     PASS
+    tables apple-macos-27.0-2x-light-standard-glass0.25 css        PASS
+    M1 webgpu (GATED)                                              PASS
+    M1 css (descriptive)                                           MISS
+    M2 webgpu (GATED)                                              NAMED MISSES
+    M2 css (descriptive)                                           FAIL
+    C1 webgpu (GATED)                                              PASS
+    C1 css (descriptive)                                           MISS
+    L1 webgpu (GATED)                                              PASS, 4 UNMEASURED
+    L1 css (descriptive)                                           MISS
+    X1 webgpu (GATED)                                              PASS
+    X1 css (descriptive)                                           MISS
+    E2 webgpu (GATED)                                              MISS
+    E2 css (descriptive)                                           MISS
+    S1 webgpu (GATED)                                              UNMEASURED
+    S1 css (GATED)                                                 UNMEASURED
+    T1 webgpu (GATED)                                              NEITHER: closes at the finding
+    T1 css (descriptive)                                           read (tier residual)
+    W47 rule (T1, dark 0.25 WebGPU, per profile)                   NEITHER: closes at the finding
+    L1 max {'error': 0.0505, 'growth': 0.0049}; misses []
+    M2 failures []
+    S1 medians {'apple-macos-27.0-1x-dark-standard-glass0.25': {'cells': 17, 'median': 0.3042772296802703}, 'apple-macos-27.0-2x-dark-standard-glass0.25': {'cells': 14, 'median': 0.2996803750496444}, 'apple-macos-27.0-1x-light-standard-glass0.25': {'cells': 76, 'median': 0.9844349352184213}, 'apple-macos-27.0-2x-light-standard-glass0.25': {'cells': 67, 'median': 0.9846820834187646}}
+  CSS T1 (gate cells, median web/native; reference's beside):
+    1x C inactive        n=14  x0.5061 (d0219 x0.5613) away 3 toward 2
+    1x C rest            n=28  x0.4474 (d0219 x0.2432) away 2 toward 17
+    1x F inactive        n=2   x0.6358 (d0219 x0.8385) away 1 toward 0
+    1x F rest            n=10  x0.1787 (d0219 x0.1551) away 0 toward 2
+    1x P inactive        n=5   x0.3173 (d0219 x0.213) away 0 toward 2
+    1x P rest            n=4   x0.4574 (d0219 x0.2702) away 0 toward 3
+    1x T rest            n=3   x0.5437 (d0219 x0.2615) away 0 toward 2
+    2x C inactive        n=14  x0.5694 (d0219 x0.6284) away 2 toward 3
+    2x C rest            n=28  x0.4599 (d0219 x0.252) away 2 toward 16
+    2x F inactive        n=2   x0.8088 (d0219 x1.4177) away 0 toward 0
+    2x F rest            n=10  x0.2263 (d0219 x0.1795) away 0 toward 2
+    2x P inactive        n=5   x0.4465 (d0219 x0.2595) away 0 toward 3
+    2x P rest            n=4   x0.9216 (d0219 x0.2409) away 0 toward 2
+    2x T rest            n=3   x0.6747 (d0219 x0.3608) away 0 toward 2

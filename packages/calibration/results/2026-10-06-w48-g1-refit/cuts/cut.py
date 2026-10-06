@@ -58,7 +58,10 @@ def main(argv) -> int:
             "--bed", str(LIGHT_STAGE / "matrix.json"), "--kind", "sealed", "--captures", str(merge()),
             "--out", str(out), "--text", str(HERE / f"{name}.txt")]
     if "--with-holdout" in argv:
-        args.append("--with-holdout")
+        # The exposure reads a T cell of every partition on its bands (W44 G1: "the exposure adds the referees
+        # and the holdout"); without them the T cells withheld until now have no reading and the rule is
+        # UNMEASURED.
+        args += ["--with-holdout", "--band-partitions", "gate,referee,holdout"]
     got = subprocess.run(args, cwd=W.CUTS, capture_output=True, text=True)
     if got.returncode:
         raise SystemExit(f"cuts.py exit {got.returncode}: {got.stderr[-2500:]}")
