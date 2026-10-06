@@ -160,8 +160,10 @@ test("case aliases and a hardlink of the frozen authority still read the current
 // 0.25 generations beside the glass 0.5 ones, by file: active document hash -> rows. W45 G1
 // (claims §5.206 §17) published the light one again as `ebc3d9105a4a`, 656 rows, and retired c05
 // (`6d18c059eb42`), which stays loadable by its hashes and is no longer in the union (§5.207).
-const GLASS_025_GENERATIONS = { "ebc3d9105a4a": 656, "d0219cd684bf": 468 } as const;
-const GLASS_025_RETIRED = ["6d18c059eb42"] as const;
+// W48 G1 (claims §5.213) published the dark one again as `b2d074d2df24`, 468 rows, and retired
+// `d0219cd684bf`, likewise loadable by its hashes and out of the union.
+const GLASS_025_GENERATIONS = { "ebc3d9105a4a": 656, "b2d074d2df24": 468 } as const;
+const GLASS_025_RETIRED = ["6d18c059eb42", "d0219cd684bf"] as const;
 
 test("a casing alias of the recorded frozen matrix reads all 3,017 current rows", () => {
   const canonical = join(import.meta.dirname, "../results/matrix.json");
