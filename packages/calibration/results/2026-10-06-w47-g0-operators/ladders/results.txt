@@ -37,19 +37,20 @@ control: IDENTICAL (142 of 142 rows pixel- and measurement-identical to d0219cd6
   (iii) iii-s3                 no
   (iii) iii-s4                 no
   (iii) iii-s6                 no
-  not read iii-q0.25: iii-q0.25: sizeFineTapSigma depends on the reading 'iii-width-1x', not yet recorded in selections.json (read the earlier rungs first)
-  not read iii-q0.5: iii-q0.5: sizeFineTapSigma depends on the reading 'iii-width-1x', not yet recorded in selections.json (read the earlier rungs first)
-  not read iii-q0.75: iii-q0.75: sizeFineTapSigma depends on the reading 'iii-width-1x', not yet recorded in selections.json (read the earlier rungs first)
-  not read iv-joint: iv-joint: depends on the reading 'iii-best', not yet recorded in selections.json
+  (iii) iii-q0.25              no
+  (iii) iii-q0.5               no
+  (iii) iii-q0.75              no
+  (iv) iv-joint               no
 
 ladder (i): complete; meets []
 ladder (ii): complete; meets []
-ladder (iii): INCOMPLETE; meets []
-ladder (iv): INCOMPLETE; meets []
+ladder (iii): complete; meets []
+ladder (iv): complete; meets []
 operator 1: {"separates": false, "complete": true, "rungs": [], "oneScaleOnly": []}
 2x width: {"meets": false, "complete": true, "rungs": []}
-operator 2: {"separates": false, "bodyWidthMeets": false, "complete": false, "rungs": [], "bodyRungs": [], "oneScaleOnly": [], "inapplicable": []}
-joint: {"meets": false, "complete": false}
+operator 2: {"separates": false, "bodyWidthMeets": false, "complete": true, "rungs": [], "bodyRungs": [], "oneScaleOnly": [], "inapplicable": []}
+joint: {"meets": false, "complete": true}
 selection iii-width-1x: {"value": 4, "meanFallInB": 3.3397681746225656}
 selection iii-width-2x: {"value": 4, "meanFallInB": 2.820061598451961}
+selection iii-best: {"label": "iii-s4", "overrides": {"receded.dark": {"sizeFineTapShare": 1, "sizeFineTapSigma": 4, "sizeFineTapSigma2x": 4}}, "pooledMeanFallInB": 3.079914886537263, "form": "operator 2"}
 X60 by evidence: exit 0

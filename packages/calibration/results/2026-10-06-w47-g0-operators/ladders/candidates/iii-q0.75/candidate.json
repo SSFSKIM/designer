@@ -1,0 +1,27 @@
+{
+  "$comment": "W47 scratch candidate iii-q0.75: W47 ladder iii receded sizeFineTapShare 1 -> 0.75 at the best width per scale",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w47-iii-q0.75",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "1837d43c98e5a4a7425220ed3b5d87c265a80ba33e45b543482fd3c5a7be67ab"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "407272e1c7cd8cfb1e3006e2725a05e9e28a98d308f76c5a17d8f65ccec7ac68"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "7d15ae83336be09a2d4390d29852dfe3dc2aed083016a456bc476d164da44d95"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "c856819e55689121a99b0ad4c0fdfdee28f503d33f87f4f12977c5821a625bc9"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}
