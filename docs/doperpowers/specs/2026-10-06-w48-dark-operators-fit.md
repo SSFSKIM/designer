@@ -1,8 +1,8 @@
 # W48 — the fit of W47's two dark operators under a corrected declaration: no new ladder, W47's renders as the hashed evidence, the body width and the tap both fittable (2026-10-06)
 
-**Status: DRAFT v1.1 (2026-10-06), chartered by the parent from W47's close (its Deferred, first
-item; Decision Log 10; claims §5.211 §11) under `/kairos`; one adversarial round folded (two P2),
-scoped second round pending.** Decision Logs 1–7
+**Status: DRAFT v1.2 (2026-10-06), chartered by the parent from W47's close (its Deferred, first
+item; Decision Log 10; claims §5.211 §11) under `/kairos`; two adversarial rounds folded (v1: two
+P2; v1.1 scoped: one P2), the loop closed.** Decision Logs 1–7
 are the parent's rulings of 2026-10-06. This charter inherits W47's Design, operators, targets,
 contracts and tools by reference and states only what changes. Nothing is captured, no holdout is read
 and no document moves until G0's two hashes are on main.
@@ -310,8 +310,15 @@ One sequence (clause 2; Decision Log 2); each step is committed before the next 
 - (a) **The inherited evidence preserved and pinned (X71), the child's first act.**
   - *The bundle.* Every file of `~/vitrea-w47/g0-ladders/` (capture and alpha PNGs, the scratch
     matrices, the `cell__webgpu.json` sidecars and reports, the merged control captures, the rung
-    specs) with the drive's committed logs, produced as a content-addressed archive with a per-file
-    SHA-256 manifest and an inventory digest.
+    specs) with the drive's committed logs, and, in the SAME bundle, **the canonical reference
+    subset the control's identity check reads**. `read.py` admits no ladder reading until
+    `level.identity` has compared every control capture and alpha PNG with the canonical tree, and
+    that tree defaults to the main checkout's live `packages/calibration/web-captures`
+    (`bindings.py`'s `CANONICAL_CAPTURES`), which W48's own landing will replace. The subset is
+    the `d0219cd684bf` WebGPU capture, alpha PNG and `cell__webgpu.json` sidecar of every control
+    cell (71 per scale, both scales). It is copied from the canonical tree, never from the ladder's
+    control, and its sidecars must name `d0219cd684bf`'s documents. All of it is produced as a
+    content-addressed archive with a per-file SHA-256 manifest and an inventory digest.
   - *The release.* Published as GitHub release **`w47-ladders-archive`** on `SSFSKIM/designer`
     (`--latest=false`), asset `w47-ladders-archive-<sha256>.tar.zst`, exactly as `w39-archive`
     (claims §5.185 §5) and `w42-archive` (§5.195 §5) were: the asset's SHA-256 checked against
@@ -319,13 +326,22 @@ One sequence (clause 2; Decision Log 2); each step is committed before the next 
     equal to the producer's output byte for byte, a second owner-controlled copy taken through
     `fetch --source`. W42's `w42_archive.py` (`produce` / `fetch` / `replay --deny-raw-root`) is
     the model; the W48 producer is a new file under W48's directory.
-  - *The replay.* READ-ONLY, from the fetched bundle, with the raw root `~/vitrea-w47/g0-ladders/`
-    denied and a negative control showing the denial fire: W47's `read.py` and `reread.py`
-    unchanged in their arithmetic, the scratch root redirected to the bundle, and each
+  - *The replay.* READ-ONLY, from the fetched bundle. W39/W42's audit-hook denial covers both the
+    raw root `~/vitrea-w47/g0-ladders/` and the live canonical tree, with a negative control showing
+    each denial fire. W47's `read.py` and `reread.py` keep their arithmetic unchanged. A
+    root-selection wrapper redirects their INPUTS: the scratch root goes to the bundle's ladder
+    tree, and `level.identity`'s canonical root goes to the bundle's immutable reference subset.
+    The control operand stays the ladder's own control capture, so the identity test still compares
+    two independent sources and is not tautological. The wrapper also redirects their OUTPUTS:
+    `read.main`'s `out` and `reread.main`'s `reread.json` / `.txt`, which it writes beside its
+    source unless adapted, go to W48's replay directory. Nothing is written into W47's directory.
+    The bundle's tree must be byte-identical after the replay; it carries
+    `control/merged-captures/`, so `read.py`'s link step finds every link present. Each
     measurement's capture SHA-256 (the `webSha256` that `Captures.bands()` computes, and each PNG
-    `read.py` compares) recorded in the replay's output. The replay must equal the committed
-    `results.json` and `reread.json` to the last digit, the six instrument cross-checks included,
-    under W47's own bars; it computes nothing under Decision Log 3's.
+    `read.py` and `level.identity` compare) is recorded in the replay's output. The replay must
+    equal the committed `results.json` and `reread.json` to the last digit, the control's
+    142-of-142 identity and the six instrument cross-checks included, under W47's own bars; it
+    computes nothing under Decision Log 3's.
   - *The pin.* Only then are committed: the bundle's SHA-256 and its per-file manifest, the replay
     record (outputs, capture hashes, the equality report), and `ladders/evidence.json` pinning
     W47's `results.json`, `reread.json`, `diagnostic/reading.json`, `protocol.json`, both part-1
@@ -387,13 +403,17 @@ and X41 verified.
 **New:**
 - **X71 — W47's ladder evidence is this wave's, archived, replayed and pinned, and is never
   re-rendered.** G0's first act preserves the whole ladder tree (capture and alpha PNGs, scratch
-  matrices, sidecars, reports, rung specs, the drive's logs) as a content-addressed bundle
-  published as the GitHub release asset `w47-ladders-archive` by SHA-256, made, round-tripped and
-  second-copied as `w39-archive` and `w42-archive` were (claims §5.185 §5, §5.195 §5), with the
-  bundle's SHA-256 and a per-file manifest committed. A read-only replay of `results.json` and
-  `reread.json` from the fetched bundle, the raw root denied, W47's numerical tools unchanged and
-  each measurement's capture SHA-256 recorded in the replay's output, must equal the committed
-  readings to the last digit before the manifest seals; only then does part 1 pin the bundle, the
+  matrices, sidecars, reports, rung specs, the drive's logs), with the canonical `d0219cd684bf`
+  reference subset that the control's identity check reads (captures, alpha PNGs and sidecars of
+  every control cell, both scales, hashed per file), as one content-addressed bundle published as
+  the GitHub release asset `w47-ladders-archive` by SHA-256, made, round-tripped and second-copied
+  as `w39-archive` and `w42-archive` were (claims §5.185 §5, §5.195 §5), with the bundle's SHA-256
+  and a per-file manifest committed. A read-only replay of `results.json` and `reread.json` from
+  the fetched bundle must equal the committed readings to the last digit before the manifest seals. During it the raw ladder root and the live canonical tree are both
+  denied. The control's identity check reads the bundle's reference subset against the ladder's
+  own control capture. W47's numerical tools are unchanged; a wrapper redirects their inputs AND
+  their outputs, so nothing is written into W47's directory. Each measurement's capture SHA-256 is
+  recorded in the replay's output. Only after the replay reproduces does part 1 pin the bundle, the
   manifest, the replay record and W47's `results.json`, `reread.json`, `diagnostic/reading.json`,
   `protocol.json`, two part-1 hashes and amendment record by SHA-256. A verdict is read from these
   files by key; a verdict that would need a capture W47 did not render, or a replay that does not
@@ -432,6 +452,11 @@ snapshots differing from W47's; a tool test failing on `d0219cd684bf`.
   name no capture by hash. *Mitigation:* X71 at G0's first act: the release archive, its
   round-trip and second copy, and the replay that proves the readings come from those bytes; the
   verdicts then need only the committed readings.
+- **The replay depends on a tree this wave replaces.** `read.py`'s control identity reads the
+  live canonical `web-captures`, whose dark 0.25 captures W48's own landing supersedes, so a replay
+  pointed at it would fail later with the archive intact. *Mitigation:* the `d0219cd684bf`
+  reference subset is archived in the same bundle, the live tree is denied during the replay, and
+  the wrapper redirects inputs and outputs (X71).
 - **The mid-span coarse cells.** Operator 1's far knot starts at the knee; the gain knot governs
   span 96, where point A read `checkerboard-lc16` 2.8–4.6 B away. *Mitigation:* the gain is in the
   factorial; the landing rule reads it; `hold` lets the parent fix it if the ladder's reading
@@ -482,16 +507,21 @@ W47's bytes on main, clause 1), renders no ladder, and takes no pixel. It runs O
 (a) the inherited evidence preserved and pinned — the ladder tree archived as the release asset
 `w47-ladders-archive` by SHA-256 with a per-file manifest, and `results.json` and `reread.json`
 replayed read-only from the fetched bundle to the last digit, each measurement's capture hash
-recorded, before the manifest seals; (b) the W48 tool copies (the corrected `declare.py`, a new file
-under W48's directory, and the verdict reader) and the narrowed part-2 draft prepared and tested,
-with no verdict computed on the ladder evidence; (c) part 1 hashed on the assembled tree, pinning the
+recorded, before the manifest seals (the same bundle carries the canonical `d0219cd684bf` reference
+subset the control's identity check reads; the replay denies the raw ladder root and the live
+canonical tree and redirects the tools' inputs and outputs); (b) the W48 tool copies (the corrected
+`declare.py`, a new file under W48's directory, and the verdict reader) and the narrowed part-2
+draft prepared and tested, with no verdict computed on the ladder evidence; (c) part 1 hashed on the assembled tree, pinning the
 tools, the draft and the evidence; (d) the verdicts derived by the pinned reader from the pinned
 evidence and committed; (e) part 2 validated against them and hashed. W47's pinned `declare.py` and
 its spent amendment are untouched. A verdict that would need a render W47 did not make is a STOP for
 the parent, not a render. *Amended v1.1* (adversarial round 1, two P2): v1 pinned scratch files by a
 PNG manifest that bound no measurement to a capture and could not replay without the matrices and
 sidecars, and gave the verdicts-before-hash order in G0's steps against this entry's hash-first
-order; the archive and the single sequence close both. *Why:* the question the ladders answer
+order; the archive and the single sequence close both. *Amended v1.2* (the scoped second round, one
+P2): the v1.1 replay still read the live canonical tree through `level.identity`, which W48's
+landing replaces, and the tools wrote beside their sources; the archived reference subset, the
+denial and the output redirect close it. *Why:* the question the ladders answer
 has been measured; re-rendering to re-decide would spend time and, worse, invite a reading tuned to
 the second render. *Declined:* a ladder for the far delta 0.3 and the mid-span coarse cells (the fit
 reads them; the budget is the arbiter).
@@ -579,3 +609,15 @@ defined them; renders under the classifying census with the pinned Playwright CL
     Ordering map: evidence preserved and pinned; tools, reader and draft prepared with no verdict on
     the ladder evidence; part 1 hashed; verdicts derived by the pinned reader; part 2 validated and
     hashed. The corrected `declare.py` is a W48 copy; W47's and its spent amendment are untouched.
+- 2026-10-06 (v1.2): the scoped second round on v1.1 `65814034`, one P2 accepted; otherwise
+  consistent; the loop closes here.
+  - *P2, the replay still depended on the live canonical tree.* `ladders/read.py` admits no ladder
+    reading until `level.identity` has compared every control capture and alpha PNG with
+    `bindings.py`'s `CANONICAL_CAPTURES`, the main checkout's live `web-captures`, which W48's
+    landing will replace. And `read.main` / `reread.main` write their outputs where they are told or
+    beside their sources. On the parent's ruling, X71, G0 (a) "The bundle" and "The replay", Risks
+    and Decision Log 2 now archive the `d0219cd684bf` reference subset of every control cell
+    (captures, alpha PNGs, sidecars; 71 per scale) in the same bundle, copied from the canonical
+    tree and hashed per file. The live tree is denied beside the raw ladder root, the identity
+    reader is redirected to the subset with the ladder's own control as the other operand, and the
+    wrapper redirects outputs so nothing is written into W47's directory.
