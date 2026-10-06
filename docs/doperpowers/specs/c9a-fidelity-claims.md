@@ -48725,3 +48725,104 @@ the refit's level change at 128 and 160.
 4. Stage 1 at 48,384 points (288 renders at 1x, 2,016 at 2x, with the second tap crossed in) is
    accepted, with no pruning beyond the declaration's. The second-tap share's grid is {0, 0.05}, so
    every span-law point is also offered with the tap off.
+
+### 8. The ladders (clause 5): neither operator separates
+
+All four ladders ran in candidate mode from the snapshots, on the WebGPU tier at both scales, on
+exactly the cells of `ladders/cells.json`, after part 1's hash. Every launch had X70's three-way check.
+There were 82 launches, all exit 0: 74 for the 37 built rungs, 6 for the three share rungs and 2 for
+`iv-joint`. The wall time from the first launch (22:14 UTC) to the last read (01:15 UTC) was 3 h 01 min.
+Of that, 1 h 29 min was census waits: 11 refusals while another session's Playwright CLI daemon and its
+Chrome were up, waited out with backoff and logged. No referee or holdout cell rendered.
+
+**The instrument.**
+- The control reads IDENTICAL to `d0219cd684bf` on 142 of 142 ladder rows (pixels and measured fields).
+- Every 1x capture of ladder (ii) is byte-identical to the control's on all twelve rungs, so the second
+  tap at a 1x width of 0 reaches no 1x pixel.
+- X60 by evidence: IDENTICAL over 42 candidates.
+
+**(i) Operator 1.** The bar: the five thick rest cells within 1 B of the reference, the thin rest cells
+keeping at least half of point A's gain, and L1 passing. No rung meets it at either scale. The far delta
+and the gain grade the thick cells and spare the thin ones, as the law intends. But the coarse thick
+cells leave the 1 B window before the fine and text cells reach it. Distances from the reference in B,
+in the order `checkerboard-8` / `hc-text` / `hc-text-7` / `checkerboard-32` / `checkerboard-64`, all at
+`rrect-lg`, rest:
+
+| rung | 1x | 2x | thin gain against point A |
+| --- | --- | --- | --- |
+| `tintAlpha` 0.7 (point A's alpha) | 12.27 / 10.38 / 6.76 / 14.76 / 21.07 | 11.16 / 9.05 / 6.60 / 19.16 / 25.32 | equal |
+| 0.7, far 0.45 at top 256 | 2.32 / 1.91 / 1.17 / 2.86 / 4.32 | 2.14 / 1.68 / 1.15 / 3.81 / 5.22 | equal |
+| 0.7, far 0.2 at top 128 (closest) | −1.36 / −0.89 / −0.22 / −2.13 / −1.37 | −0.10 / −0.27 / −0.07 / −1.98 / −1.59 | 0.1074 vs 0.1072; 0.1384 vs 0.1384 |
+| 0.8, gain 0.6 | −0.82 / −0.64 / −0.37 / −1.01 / −1.61 | −0.71 … −1.96 | 2x 0.0629 vs 0.1384, under half |
+
+At the closest rung only `checkerboard-32` and `checkerboard-64` are outside the window: they fall
+under the reference by about 2 B and 1.4–1.6 B. The top-128 and top-160 rungs read alike, because at span
+160 the far curve is 1 under either top. L1 passes at every rung: maximum error 0.0497–0.0505, growth at
+most +0.0045. The level check names 0–10 unexplained excesses per rung, none failing L1; the most
+frequent are on `hc-text-28__rrect-md__rest`, `impulse__rrect-sm__rest` and the thick text and
+`checkerboard-64__rrect-lg__rest` cells, where the solve predicts no level change (for example +0.0059
+on `checkerboard-64__rrect-lg__rest` at 0.7 / far 0.2).
+
+**(ii) The 2x width.** No rung meets. Neither `checkerboard-8__rrect-lg__rest` nor
+`hc-text__rrect-lg__rest` falls: their growth is −0.01 to −0.34 B. `checkerboard-64__rrect-lg__rest`
+holds only at width 6 / top 256 and at width 10 / far 0.3 / top 256; it falls 1–6 bars elsewhere. W45's
+leaves do not supply the thick width at these settings, so no 1x gap is named.
+
+**(iii) Operator 2, and the body width read first.** The bar: both fine inactive cells falling at least
+3 B toward Apple, with the coarse and photo guards holding. No rung meets it.
+
+| rung | `checkerboard-8__rrect-md__inactive` fall, 1x / 2x | `…rrect-lg__inactive` fall, 1x / 2x |
+| --- | --- | --- |
+| body width 4 device px (`iii-b4`) | 3.87 / 2.26 B | 2.88 / 2.02 B |
+| tap σ 4, share 1 (`iii-s4`, the selected best) | 3.83 / 2.98 B | 2.85 / 2.66 B |
+| tap σ 6, share 1 | 3.89 / 2.99 B | 2.89 / 2.68 B |
+| tap σ 4, share 0.75 | 3.34 / 2.63 B | 2.49 / 2.35 B |
+
+- The tap moves the fine cells as the diagnostic said it would; at 1x span 96, the ratio goes from ×2.88
+  to ×1.49 at σ 6.
+- It plateaus near 2.9 B on the span-160 cell at 1x and below 3 B at 2x on both cells, from σ 4 up.
+- The guards hold everywhere: `checkerboard-64__rrect-md__inactive` falls by at most 0.83 B, and photo
+  moves within 0.03 B.
+- The selection read width 4 at both scales.
+
+The ladder reads whole-band T1, where the diagnostic read T1-fine. That is why a form that removed
+74–104 % of the fine-band excess removes about half of the whole-band excess in B.
+
+**(iv) The joint composition.** At `iii-s4`, receded `tintAlpha` 0.8 and point A's receded scatter,
+the fine cells read 1.38 / 2.42 B from Apple at 1x and 2.02 / 2.97 B at 2x, against the 2 B bar. The
+photo inactive cell holds point A's ratio (×0.416 against ×0.417 at 1x, ×0.460 at 2x). The bar is not met.
+
+**The decision.** Clause 5's stop: an operator whose ladder shows no separation is not fitted, and *if
+neither separates, the wave closes at G0 with the finding*. No lever reads flat, so none is struck; every
+target has a lever that moves it, but none to its bar.
+- Target C rest's lever (operator 1) misses on the coarse thick cells.
+- Target F inactive's lever (operator 2) misses on the 3 B fall of the span-160 cell and on 2x.
+- Target P was predicted not to halve from operator 1 alone.
+
+`part2.py` stops ("neither operator separates; the wave closes at G0 with the finding"). **Part 2 is
+not drafted and not hashed, and `check-fit` was not run.** The fit-member counts per scale are
+unchanged: P rest 4, P inactive 5, C rest 28, F inactive 2 (reported), beside F rest 10, T rest 3,
+C inactive 14 and T inactive 0, so 66 of 72 gate cells.
+
+### 9. For the parent
+
+1. **The wave stops at G0 under clause 5, pending your ruling.** You can close at the finding, or rule
+   on the bars. Both operators move their targets in the predicted direction and stop short:
+   - operator 1's best rung leaves two coarse thick cells about 1.4–2 B under the reference;
+   - operator 2 plateaus at about 2.9 B on the span-160 fine cell at 1x and below 3 B at 2x;
+   - the joint composition misses the 2 B bar on three of four cells.
+   Any change to a bar, to its cell set or to the 3 B threshold is a change to part 1's hashed protocol,
+   so it needs part 1's one amendment.
+2. **The level check's unexplained excesses** on the thick text and coarse cells under operator 1 are
+   small (none fails L1), but the solve does not predict them. A fit on operator 1 would need them
+   read beside L1.
+3. **X41, the freeze and X60:** `freeze.py verify` reads 1,818, X41 reads 911, and no profile,
+   generation or matrix file differs from `c1f9bf84c`.
+
+### 10. What is not claimed
+
+- **Any fit, gate, exposure, seal or publication.** No part 2 exists.
+- **That the operators cannot close their targets.** The ladders read one leaf at a time, from the
+  snapshots, against bars declared before any render. A composition of operator 1's three knots with
+  each other, or operator 2's tap at a share and width off the grid, was not read.
+- **A mechanism for the level check's unexplained excesses.**
