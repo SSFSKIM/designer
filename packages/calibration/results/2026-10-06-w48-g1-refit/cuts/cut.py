@@ -22,9 +22,15 @@ sys.path.insert(0, str(G0))
 import inherit  # noqa: E402
 
 W = inherit.W
-LIGHT_STAGE = W.SCRATCH / "g1-stage-x60-light"
-TREES = (W.CAL / "web-captures", LIGHT_STAGE / "web-captures")
-MERGED = W.SCRATCH / "g1-scratch" / "gate" / "merged-captures"
+# The round (as `stage/run.py`): the first freeze's dark captures were taken into the worktree's tree and then
+# moved, unchanged, beside their stage; the re-freeze's (W48 Decision Log 9) are in their own stage's tree.
+ROUND = os.environ.get("W48_G1_ROUND", "first")
+if ROUND == "dl9":
+    W.STAGE = W.SCRATCH / "g1-stage-dark-dl9"
+SUFFIX = "" if ROUND == "first" else "-dl9"
+LIGHT_STAGE = W.SCRATCH / f"g1-stage-x60-light{SUFFIX}"
+TREES = (W.STAGE / "web-captures", LIGHT_STAGE / "web-captures")
+MERGED = W.SCRATCH / "g1-scratch" / "gate" / f"merged-captures{SUFFIX}"
 
 
 def merge() -> Path:
