@@ -7184,6 +7184,9 @@ light-solid anchor and any span law past 96 are unidentified by a calibration-on
 of the fix: a dark calibration cell at spans 128/160 declared before a refit, or a span-graded
 dark ordinate (an operator, so outside X44's leaf space).
 
+*Read again at W48 (2026-10-07): it moved the wrong way.* See "S1 on the dark 0.25 profiles falls
+under W48" below.
+
 ## The dark body over photo carries a fifth to two fifths of Apple's structure, at both positions (W43 G3, 2026-10-02)
 
 *Seen on the W43 G3 eye sheets (photo, dark), measured by `fit/side.py` (claims §5.201 §9).*
@@ -7199,6 +7202,14 @@ read with M2 directional, in a later wave.
 moves 0.602 → 0.411 (1x) and 0.800 → 0.461 (2x), not halved. The transmission over-opens the thick
 spans before the thin ones reach Apple. See "One uniform dark transmission cannot open the thin body
 without over-opening the thick one" below.
+
+*NARROWED at W48 (2026-10-07; claims §5.213 §7, §5.214).* The span-graded transmission shipped in
+0.28.0. Over all twelve P cells per profile T1's aggregate falls 1.10 → 0.76 (1x) and 1.12 → 0.72 (2x),
+not halved; P is a named target miss at both scales (`T1_DARK_NAMED_TARGET_MISSES`), and M2's eight
+untinted photo cells move toward Apple (×0.21–0.43 → ×0.33–0.69 of Apple's SD) as named misses. The
+thick receded photo moved the other way: `photo__rrect-lg__inactive` (holdout) reads web 0.0022
+against native 0.046, an authorised regression at 2.64 / 2.90 B. The dark photo body is still the
+open gap; the shape of the fix is unchanged, now with the span-graded transmission as its base.
 
 ## The light receded 0.25 checkers are over-structured, about twice Apple's (W43 G3, 2026-10-02)
 
@@ -7603,7 +7614,7 @@ W45's material at `?glass=0.25`, and the eye sheets show it beside Apple's; neit
 the demo itself. The shape of the fix: a 2x reference pair, with the @2x backdrop raster and the
 2x harness capture, and one fine-checker scene allowed onto the picker for it.
 
-## One uniform dark transmission cannot open the thin body without over-opening the thick one (W46 G1, 2026-10-06)
+## One uniform dark transmission cannot open the thin body without over-opening the thick one (W46 G1, 2026-10-06) — ANSWERED 2026-10-07 (W48): the span-graded transmission shipped; its own costs are the entries below
 
 *Closed at the finding by the user's ruling (W46 charter Decision Log 10; claims §5.209 §4; Deferred 2).*
 
@@ -7627,6 +7638,13 @@ share. It would sit below 0.7 at the thin spans and at 0.9 or above at 128–160
 its own separating ladder on the thin and thick rest cells. The dark 0.25 holdout and W46's referees
 are unspent for this purpose. G1's point A is a measured starting point for the receded side: its
 scatter dilutes the impulse dot so that L1 passes at receded 0.8.
+
+**Answered at W48 (2026-10-07; claims §5.213, §5.214).** W47 landed the operator inert and W48 fitted
+it: `tintAlpha` 0.7 with `tintAlphaFar1x` / `…2x` 0.2 / 0.2 and span tops 160, so thick surfaces rejoin
+0.9. C rest halves at both scales over all 77 cells (0.39 → 0.19, 0.51 → 0.20), and the thick fine and
+text rest overshoots W46 met are gone from the away list. What remains is the operator's own cost on
+the thick and mid-span coarse rest cells, and the receded scatter's on the thick inactive ones; see
+"W48 ships seventeen dark texture regressions against `d0219cd684bf`, by ruling" below.
 
 ## W46's `declare.py` carries a content-amendment form beside the pins-only one (W46 G1, 2026-10-05)
 
@@ -7748,3 +7766,62 @@ Log 9's. It is still refused (exit 2). The test asserts only the substring the t
 read-time empty-ops branch and the `POST_GATE_EVIDENCE` success path have no unit test. The file is
 pinned and its one amendment is spent, so it is not changed. The shape of the fix for the next port: test
 `post_gate` before the generic branch, and assert the Decision Log 9 message.
+
+## W48 ships seventeen dark texture regressions against `d0219cd684bf`, by ruling (W48 G2, 2026-10-07)
+
+*Ruled at W48's gate and exposure (charter Decision Logs 9 and 10; claims §5.213 §6–§7), authorised in
+the owner test at the landing (§5.214).*
+
+The dark 0.25 refit grew T1's error by more than B on 8 / 9 WebGPU cells (1x / 2x) against
+`d0219cd684bf`, two per scale by more than 3 B. `T1_DARK_AUTHORISED_REGRESSIONS` lists each with its
+growth; a standing witness reads them against `d0219cd684bf` on the current union, so the next dark
+publication must clear or re-rule them. Two shapes:
+- **The receded scatter's cost on thick inactive spans** (the inactive pose draws the receded
+  document alone): `checkerboard-64__rrect-lg__inactive` 8.94 / 12.53 B and
+  `checkerboard-32__rrect-lg__inactive` 3.20 / 6.04 B (a referee), both drawn far under Apple's
+  blurred checker; `photo__rrect-lg__inactive` 2.64 / 2.90 B (holdout); the 2x
+  `checkerboard__capsule-button__inactive` 2.79 B and its orange tint 1.93 B (a crossing W44's form
+  reads as overshoot). The shape of the fix is Decision Log 9 §7's deferred operator: a span-graded
+  receded scatter, as W45 graded the light tap's share.
+- **The span law's own cost on the thick and mid-span coarse rest cells**:
+  `checkerboard-32__rrect-lg__rest` 2.98 / 2.71 B, `checkerboard-lc16__rrect-md__rest` 2.66 / 2.91 B
+  (span 96, where the far curve is 0: the thin `tintAlpha` 0.7 reaches it), `checkerboard-64__rrect-lg__rest`
+  1.55 / 1.71 B, `hc-text-28__rrect-lg__rest` 1.39 / 1.34 B, and the 1x `impulse__capsule-button__rest`
+  2.26 B (a crossing). The thick lg cells pass less texture than Apple's; lc16 md passes more. The shape
+  of the fix: a knot between the knee and the top, or the occlusion gain's own grade, declared
+  against these cells; the mid-span cells need a lever that the far curve (0 at 96) cannot supply.
+
+## The thick coarse inactive checkers draw flat at W48 (W48 G1 exposure and G2 sheets, 2026-10-07)
+
+*Seen on the exposure's and the landing's whole-bed sheets (`results/2026-10-06-w48-g2-landing/sheets/`,
+C-2x-webgpu-inactive; claims §5.213 §7, §5.214).*
+
+`checkerboard-32` and `checkerboard-64` over `rrect-lg` in the inactive pose draw a near-uniform grey
+body where Apple's and `d0219cd684bf`'s keep the blurred checker. It is the eye's reading of the two
+largest authorised regressions (T1 0.0006–0.0159 against Apple's 0.038–0.074), and nothing in the
+gated rows bounds it beyond those two list entries. The shape of the fix is the deferred span-graded
+receded scatter above; the next sheet must show the checker back.
+
+## S1 on the dark 0.25 profiles falls under W48 (W48 G1, 2026-10-07)
+
+*Read at W48's gate and exposure (claims §5.213 §6–§7), read and not gated (W43 Decision Log 5 (c)).*
+
+S1's per-profile medians on the dark 0.25 profiles fall from 0.314 / 0.311 at `d0219cd684bf` to 0.304 /
+0.300 (1x / 2x): vitrea's change from glass 0.5 to 0.25 follows Apple's by a smaller fraction than
+before, the direction W43's entry above already called under-following. No W48 target read S1, and
+nothing here says which cells moved it. The shape of the fix is W43's: a dark calibration cell at
+spans 128 / 160 declared before a refit, read with S1 beside the texture targets.
+
+## W48's declaration checks read the live documents and runtime after the freeze (W48 G2, 2026-10-07)
+
+*Found at W48 G1's freeze and read at the landing's chain (claims §5.213 §9, §5.214;
+`results/2026-10-06-w48-g2-landing/close/`).*
+
+The W45 entry above, inherited: W48's `declare.py check` verifies part 1's pins by their bytes, and
+part 1 pins the operators' runtime files, `tier-coherence.test.ts`, the generation index and tool
+tests (`seal/test_seal`, `stage/test_stage`, W47's `sheets/test_sheets.py`) that build from the live
+dark 0.25 documents. After the freeze, the publication and G2's comment-only runtime edit, it exits 1
+on exactly those; with their part-1 bytes put back in a scratch worktree it reads consistent.
+`check-fit` reads consistent on the live tree. The shape of the fix is W45's: a starting point read by
+its generation's file hash, and a check that separates "the declaration's inputs are intact" from
+"the live tree still equals them".
