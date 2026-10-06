@@ -657,6 +657,39 @@ with these levers, not narrowly missed.
    the same shape W45's span-graded share answered on the light scheme); the active thick coarse
    rest cells (`checkerboard-32__rrect-lg__rest`, `lc16` md) as the span law's own cost.
 
+#### Decision Log 9, addendum — RULED 2026-10-07 (the parent): the selection over the rendered points, both stages
+
+**Ruled** (the parent, after G1's dry run of §1 inside W47's search procedure stopped at the span-law step on a
+point with no rest-scatter render; head `9b1b50fb9`): §1's rule is applied as ONE selection over the rendered
+points of each stage, not as a re-run of the procedure, in these words, which part 2's one amendment carries:
+"Inside the objective's declared tie of a stage's minimum, over every rendered point of that stage, the point
+with the fewest cells away beyond B summed over both scales is selected, then the fewest past 3 B, then the
+hashed tie rule. The budget of a rendered point is read by its exact composite (its own rest cells with the
+landed inactive cells, the receded document unchanged). This is a post-hoc selection among measured points,
+made after the gate, and the record says so; the selected point is re-rendered in full at the freeze and its
+gate reading must agree with the composite within the run-to-run bar." A stage-2 point's composite is its own
+inactive cells with the selected stage-1 point's rest cells.
+
+- **Stage 1** (474 rendered points; minimum 0.2044, tie 0.0365, 169 inside) selects §2's active document,
+  `d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2` (16 away, 3 past 3 B; 0.2253).
+- **Stage 2** (199 rendered points; minimum 0.5022, tie 0.0544, 45 inside) selects
+  `d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0`: the landed
+  receded document with the receded second heavy tap (`sizeHeavySecondShare` 0.25, `sizeHeavySecondSigma` /
+  `…2x` 5 / 5, `sizeHeavySecondShareFar2x` 0; W46's receded-scatter family, not operator 2). **§2's receded
+  digest `aa1a1b198ee72850` is superseded by the selected document's**, which the re-freeze records. Taking it,
+  rather than restricting stage 2 to the landed receded document, applies the rule as declared to both stages;
+  the restriction would tailor the rule to a point.
+
+  | | selected (second tap on) | landed receded (`aa1a1b198ee72850`) |
+  | --- | --- | --- |
+  | stage-2 objective | 0.5046 | 0.5063 |
+  | L1 | clean | clean |
+  | away beyond B, 1x / 2x | 6 / 7 (13) | 8 / 8 (16) |
+  | past 3 B, 1x / 2x | 1 / 1 (2) | 1 / 2 (3) |
+  | C rest | halved, 0.1724 / 0.2007 | the same |
+  | P | 0.4922 / 0.648, not halved | the same |
+  | F inactive | 0.4691 / 0.5795, not halved | 0.4661 / 0.5783, not halved |
+
 ## Surprises & Discoveries
 
 (none yet)
