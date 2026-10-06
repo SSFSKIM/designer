@@ -1,0 +1,1213 @@
+{
+ "schema": "w48-rehearsal-1",
+ "what": "W48 G0 (b): W45's landing rule as W46 bound it (W47's port, inherited by path), on d0219cd684bf against itself (cut by W47's cuts under W48's bindings) and on W46's point A by its committed gate cut, beside W45's synthetic cases under W48's bindings; nothing rendered",
+ "charter": "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0",
+ "rule": {
+  "path": "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py",
+  "sha256": "ad8de5a626299f330c758719abe0e0d1e7b25ac19a1a0c5d0a2c05ad8f23b1f8",
+  "constants": {
+   "budgetCount": 3,
+   "budgetCeilingB": 3.0,
+   "gatingMinCells": 3
+  },
+  "targets": {
+   "P": [
+    "P rest",
+    "P inactive"
+   ],
+   "C rest": [
+    "C rest"
+   ],
+   "F inactive": [
+    "F inactive"
+   ]
+  }
+ },
+ "pointAExpected": {
+  "apple-macos-27.0-1x-dark-standard-glass0.25": {
+   "awayBeyondB": 16,
+   "beyond3B": 8
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.25": {
+   "awayBeyondB": 17,
+   "beyond3B": 10
+  }
+ },
+ "rows": [
+  {
+   "label": "published d0219cd684bf against itself (W47's cuts, canonical captures)",
+   "kind": "complete map",
+   "source": "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.json.gz",
+   "sourceSha256": "b076e6967bd0cefd31427e2ec582a8aebde961dd85c05348a53256a83a786b60",
+   "verdict": "NEITHER: closes at the finding",
+   "complete": true,
+   "profiles": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 66,
+      "toward": 0,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.8791783438247661,
+       "referenceA": 0.8791783438247661,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.39000789236583844,
+       "referenceA": 0.39000789236583844,
+       "halved": false
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.9168898193476456,
+       "referenceA": 0.9168898193476456,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 23,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.3579867250475921,
+       "referenceA": 0.3579867250475921,
+       "tau": 0.04879348916174976,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.9168898193476456,
+       "referenceA": 0.9168898193476456,
+       "tau": 0.13312882520764546,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.34907264703527935,
+       "referenceA": 0.34907264703527935,
+       "tau": 0.052531228378024965,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.39000789236583844,
+       "referenceA": 0.39000789236583844,
+       "tau": 0.029716952899392322,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.5848612180013124,
+       "referenceA": 0.5848612180013124,
+       "tau": 0.07760670427169164,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.6020762017017587,
+       "referenceA": 0.6020762017017587,
+       "tau": 0.035259114651827475,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 1.1925608060409847,
+       "referenceA": 1.1925608060409847,
+       "tau": 0.035345871066986626,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.8792 above half of the reference's 0.8792",
+      "full close: target C rest: 23 cell(s) not within",
+      "improvement: target C rest aggregate 0.3900 above half of the reference's 0.3900",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.9169 above half of the reference's 0.9169"
+     ],
+     "perCellChange": {
+      "checkerboard__capsule-button__rest": "unchanged",
+      "photo__capsule-button__rest": "unchanged",
+      "checkerboard__rrect-md__rest": "unchanged",
+      "photo__rrect-md__rest": "unchanged",
+      "impulse__capsule-button__rest": "unchanged",
+      "photo__capsule-button__pressed": "unchanged",
+      "checkerboard__capsule-button__rest-tint-orange": "unchanged",
+      "photo__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-4__rrect-sm__rest": "unchanged",
+      "checkerboard-4__capsule-button__rest": "unchanged",
+      "checkerboard-4__rrect-md__rest": "unchanged",
+      "checkerboard-4__rrect-ml__rest": "unchanged",
+      "checkerboard-4__rrect-lg__rest": "unchanged",
+      "checkerboard-8__capsule-button__rest": "unchanged",
+      "checkerboard-8__rrect-md__rest": "unchanged",
+      "checkerboard-8__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-sm__rest": "unchanged",
+      "checkerboard-32__capsule-button__rest": "unchanged",
+      "checkerboard-32__rrect-md__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "unchanged",
+      "checkerboard-64__rrect-sm__rest": "unchanged",
+      "checkerboard-64__capsule-button__rest": "unchanged",
+      "checkerboard-64__rrect-md__rest": "unchanged",
+      "checkerboard-64__rrect-ml__rest": "unchanged",
+      "checkerboard-64__rrect-lg__rest": "unchanged",
+      "checkerboard-lc16__rrect-sm__rest": "unchanged",
+      "checkerboard-lc16__capsule-button__rest": "unchanged",
+      "checkerboard-lc16__rrect-md__rest": "unchanged",
+      "checkerboard-lc16__rrect-ml__rest": "unchanged",
+      "checkerboard-lc16__rrect-lg__rest": "unchanged",
+      "hc-text-7__rrect-sm__rest": "unchanged",
+      "hc-text-7__rrect-md__rest": "unchanged",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "hc-text-28__rrect-sm__rest": "unchanged",
+      "hc-text-28__rrect-md__rest": "unchanged",
+      "hc-text-28__rrect-lg__rest": "unchanged",
+      "hc-text__rrect-sm__rest": "unchanged",
+      "hc-text__rrect-lg__rest": "unchanged",
+      "checkerboard-4__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-8__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-32__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-64__capsule-button__rest-tint-orange": "unchanged",
+      "impulse__rrect-sm__rest": "unchanged",
+      "impulse__rrect-ml__rest": "unchanged",
+      "impulse__rrect-lg__rest": "unchanged",
+      "checkerboard__capsule-button__inactive-tint-orange": "unchanged",
+      "checkerboard__capsule-button__inactive": "unchanged",
+      "checkerboard__rrect-md__inactive": "unchanged",
+      "impulse__capsule-button__inactive": "unchanged",
+      "photo__capsule-button__inactive-pressed": "unchanged",
+      "photo__capsule-button__inactive-tint-orange": "unchanged",
+      "photo__capsule-button__inactive": "unchanged",
+      "photo__rrect-md__inactive": "unchanged",
+      "checkerboard__rrect-ml__inactive": "unchanged",
+      "checkerboard-8__rrect-md__inactive": "unchanged",
+      "checkerboard-8__rrect-lg__inactive": "unchanged",
+      "checkerboard-64__rrect-md__inactive": "unchanged",
+      "checkerboard-64__rrect-lg__inactive": "unchanged",
+      "checkerboard-lc16__capsule-button__inactive": "unchanged",
+      "checkerboard-lc16__rrect-md__inactive": "unchanged",
+      "impulse__rrect-ml__inactive": "unchanged",
+      "impulse__rrect-lg__inactive": "unchanged",
+      "hc-text__rrect-sm__inactive": "unchanged",
+      "hc-text__rrect-lg__inactive": "unchanged",
+      "hc-text-28__rrect-md__inactive": "unchanged",
+      "photo__rrect-ml__inactive": "unchanged"
+     }
+    },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 66,
+      "toward": 0,
+      "away": 0
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.9651537453062131,
+       "referenceA": 0.9651537453062131,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.5377208764861756,
+       "referenceA": 0.5377208764861756,
+       "halved": false
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.9824372032291502,
+       "referenceA": 0.9824372032291502,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 25,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.43227205835173965,
+       "referenceA": 0.43227205835173965,
+       "tau": 0.07632127778961525,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.9824372032291502,
+       "referenceA": 0.9824372032291502,
+       "tau": 0.14578116924507029,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.7896598257025865,
+       "referenceA": 0.7896598257025865,
+       "tau": 0.08736786097963681,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.5377208764861756,
+       "referenceA": 0.5377208764861756,
+       "tau": 0.02622208772215592,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.5572785918269356,
+       "referenceA": 0.5572785918269356,
+       "tau": 0.07632378803089943,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.7996916517732098,
+       "referenceA": 0.7996916517732098,
+       "tau": 0.03448124273607571,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 1.1443246876015263,
+       "referenceA": 1.1443246876015263,
+       "tau": 0.035445554444186914,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "budgetHolds": true,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.9652 above half of the reference's 0.9652",
+      "full close: target C rest: 25 cell(s) not within",
+      "improvement: target C rest aggregate 0.5377 above half of the reference's 0.5377",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.9824 above half of the reference's 0.9824"
+     ],
+     "perCellChange": {
+      "checkerboard__capsule-button__rest": "unchanged",
+      "photo__capsule-button__rest": "unchanged",
+      "checkerboard__rrect-md__rest": "unchanged",
+      "photo__rrect-md__rest": "unchanged",
+      "impulse__capsule-button__rest": "unchanged",
+      "photo__capsule-button__pressed": "unchanged",
+      "checkerboard__capsule-button__rest-tint-orange": "unchanged",
+      "photo__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-4__rrect-sm__rest": "unchanged",
+      "checkerboard-4__capsule-button__rest": "unchanged",
+      "checkerboard-4__rrect-md__rest": "unchanged",
+      "checkerboard-4__rrect-ml__rest": "unchanged",
+      "checkerboard-4__rrect-lg__rest": "unchanged",
+      "checkerboard-8__capsule-button__rest": "unchanged",
+      "checkerboard-8__rrect-md__rest": "unchanged",
+      "checkerboard-8__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-sm__rest": "unchanged",
+      "checkerboard-32__capsule-button__rest": "unchanged",
+      "checkerboard-32__rrect-md__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "unchanged",
+      "checkerboard-64__rrect-sm__rest": "unchanged",
+      "checkerboard-64__capsule-button__rest": "unchanged",
+      "checkerboard-64__rrect-md__rest": "unchanged",
+      "checkerboard-64__rrect-ml__rest": "unchanged",
+      "checkerboard-64__rrect-lg__rest": "unchanged",
+      "checkerboard-lc16__rrect-sm__rest": "unchanged",
+      "checkerboard-lc16__capsule-button__rest": "unchanged",
+      "checkerboard-lc16__rrect-md__rest": "unchanged",
+      "checkerboard-lc16__rrect-ml__rest": "unchanged",
+      "checkerboard-lc16__rrect-lg__rest": "unchanged",
+      "hc-text-7__rrect-sm__rest": "unchanged",
+      "hc-text-7__rrect-md__rest": "unchanged",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "hc-text-28__rrect-sm__rest": "unchanged",
+      "hc-text-28__rrect-md__rest": "unchanged",
+      "hc-text-28__rrect-lg__rest": "unchanged",
+      "hc-text__rrect-sm__rest": "unchanged",
+      "hc-text__rrect-lg__rest": "unchanged",
+      "checkerboard-4__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-8__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-32__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-64__capsule-button__rest-tint-orange": "unchanged",
+      "impulse__rrect-sm__rest": "unchanged",
+      "impulse__rrect-ml__rest": "unchanged",
+      "impulse__rrect-lg__rest": "unchanged",
+      "checkerboard__capsule-button__inactive-tint-orange": "unchanged",
+      "checkerboard__capsule-button__inactive": "unchanged",
+      "checkerboard__rrect-md__inactive": "unchanged",
+      "impulse__capsule-button__inactive": "unchanged",
+      "photo__capsule-button__inactive-pressed": "unchanged",
+      "photo__capsule-button__inactive-tint-orange": "unchanged",
+      "photo__capsule-button__inactive": "unchanged",
+      "photo__rrect-md__inactive": "unchanged",
+      "checkerboard__rrect-ml__inactive": "unchanged",
+      "checkerboard-8__rrect-md__inactive": "unchanged",
+      "checkerboard-8__rrect-lg__inactive": "unchanged",
+      "checkerboard-64__rrect-md__inactive": "unchanged",
+      "checkerboard-64__rrect-lg__inactive": "unchanged",
+      "checkerboard-lc16__capsule-button__inactive": "unchanged",
+      "checkerboard-lc16__rrect-md__inactive": "unchanged",
+      "impulse__rrect-ml__inactive": "unchanged",
+      "impulse__rrect-lg__inactive": "unchanged",
+      "hc-text__rrect-sm__inactive": "unchanged",
+      "hc-text__rrect-lg__inactive": "unchanged",
+      "hc-text-28__rrect-md__inactive": "unchanged",
+      "photo__rrect-ml__inactive": "unchanged"
+     }
+    }
+   },
+   "pooledTargets": {
+    "P": {
+     "cells": 18,
+     "A": 0.9600976542906277,
+     "referenceA": 0.9600976542906277,
+     "halved": false
+    },
+    "C rest": {
+     "cells": 56,
+     "A": 0.47963839064150526,
+     "referenceA": 0.47963839064150526,
+     "halved": false
+    },
+    "F inactive": {
+     "cells": 4,
+     "A": 0.953814617237472,
+     "referenceA": 0.953814617237472,
+     "halved": false
+    }
+   }
+  },
+  {
+   "label": "W46's point A (d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0) against d0219cd684bf, W46 G1's committed gate cut read by W47's rule",
+   "kind": "complete map",
+   "source": "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz",
+   "sourceSha256": "7f1d3b5fb84c2f4ccbdaec2114c839763fc3a494d0a4740bb8a566758485aa0a",
+   "verdict": "NEITHER: closes at the finding",
+   "candidate": "packages/calibration/results/2026-10-05-w46-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/candidate.json",
+   "candidateSha256": "7554455cf0202a7868f4deff62745e42caf7d79f4bbe32f8da3508a8a530245e",
+   "endpointDigests": {
+    "active.dark": "ba1ab4ef73bfe228",
+    "receded.dark": "1a2c804a11e632ba"
+   },
+   "cutReference": [
+    "packages/calibration/results/generations/ebc3d9105a4a.json",
+    "packages/calibration/results/generations/d0219cd684bf.json"
+   ],
+   "complete": true,
+   "profiles": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 10,
+      "toward": 39,
+      "away": 17
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.49511008259527134,
+       "referenceA": 0.8791783438247661,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.17122879800585888,
+       "referenceA": 0.39000789236583844,
+       "halved": true
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.5195947375090219,
+       "referenceA": 0.9168898193476456,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 19,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.31309675225287503,
+       "referenceA": 0.3579867250475921,
+       "tau": 0.04879348916174976,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.5195947375090219,
+       "referenceA": 0.9168898193476456,
+       "tau": 0.13312882520764546,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.6434283790135157,
+       "referenceA": 0.34907264703527935,
+       "tau": 0.052531228378024965,
+       "gated": true,
+       "holds": false,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.17122879800585888,
+       "referenceA": 0.39000789236583844,
+       "tau": 0.029716952899392322,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.39025706414142847,
+       "referenceA": 0.5848612180013124,
+       "tau": 0.07760670427169164,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.4112289054168792,
+       "referenceA": 0.6020762017017587,
+       "tau": 0.035259114651827475,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 0.7725086179197663,
+       "referenceA": 1.1925608060409847,
+       "tau": 0.035345871066986626,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [
+      "T rest"
+     ],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [
+      {
+       "scene": "checkerboard-8__rrect-lg__rest",
+       "growthInB": 12.273953326733517
+      },
+      {
+       "scene": "hc-text__rrect-lg__rest",
+       "growthInB": 10.380476370096739
+      },
+      {
+       "scene": "checkerboard-8__rrect-md__rest",
+       "growthInB": 10.262359250978898
+      },
+      {
+       "scene": "hc-text-7__rrect-lg__rest",
+       "growthInB": 6.462598131378039
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__rest",
+       "growthInB": 4.569493921045156
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-ml__rest",
+       "growthInB": 3.5509820906507006
+      },
+      {
+       "scene": "checkerboard__rrect-md__rest",
+       "growthInB": 3.217001660068898
+      },
+      {
+       "scene": "hc-text-28__rrect-lg__rest",
+       "growthInB": 3.052965156555148
+      },
+      {
+       "scene": "impulse__rrect-lg__inactive",
+       "growthInB": 2.899853577896899
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-lg__rest",
+       "growthInB": 2.8012574669317853
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive-tint-orange",
+       "growthInB": 1.8654873632822195
+      },
+      {
+       "scene": "hc-text__rrect-lg__inactive",
+       "growthInB": 1.7040390724024121
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "growthInB": 1.569085440764688
+      },
+      {
+       "scene": "impulse__capsule-button__rest",
+       "growthInB": 1.4704389276245011
+      },
+      {
+       "scene": "impulse__rrect-ml__inactive",
+       "growthInB": 1.4406353714633326
+      },
+      {
+       "scene": "checkerboard-4__rrect-lg__rest",
+       "growthInB": 1.070910778749426
+      }
+     ],
+     "awayBeyondCeiling": [
+      {
+       "scene": "checkerboard-8__rrect-lg__rest",
+       "growthInB": 12.273953326733517
+      },
+      {
+       "scene": "hc-text__rrect-lg__rest",
+       "growthInB": 10.380476370096739
+      },
+      {
+       "scene": "checkerboard-8__rrect-md__rest",
+       "growthInB": 10.262359250978898
+      },
+      {
+       "scene": "hc-text-7__rrect-lg__rest",
+       "growthInB": 6.462598131378039
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__rest",
+       "growthInB": 4.569493921045156
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-ml__rest",
+       "growthInB": 3.5509820906507006
+      },
+      {
+       "scene": "checkerboard__rrect-md__rest",
+       "growthInB": 3.217001660068898
+      },
+      {
+       "scene": "hc-text-28__rrect-lg__rest",
+       "growthInB": 3.052965156555148
+      }
+     ],
+     "budgetHolds": false,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.4951 above half of the reference's 0.8792",
+      "full close: target C rest: 19 cell(s) not within",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.5196 above half of the reference's 0.9169",
+      "aggregate: T rest A 0.6434 > 0.3491 + τ 0.0525",
+      "budget count: 16 cells away beyond B (at most 3)",
+      "budget ceiling: 8 cell(s) beyond 3 B"
+     ],
+     "perCellChange": {
+      "checkerboard__capsule-button__rest": "toward",
+      "photo__capsule-button__rest": "toward",
+      "checkerboard__rrect-md__rest": "away",
+      "photo__rrect-md__rest": "toward",
+      "impulse__capsule-button__rest": "away",
+      "photo__capsule-button__pressed": "toward",
+      "checkerboard__capsule-button__rest-tint-orange": "unchanged",
+      "photo__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-4__rrect-sm__rest": "toward",
+      "checkerboard-4__capsule-button__rest": "toward",
+      "checkerboard-4__rrect-md__rest": "toward",
+      "checkerboard-4__rrect-ml__rest": "toward",
+      "checkerboard-4__rrect-lg__rest": "away",
+      "checkerboard-8__capsule-button__rest": "toward",
+      "checkerboard-8__rrect-md__rest": "away",
+      "checkerboard-8__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-sm__rest": "toward",
+      "checkerboard-32__capsule-button__rest": "toward",
+      "checkerboard-32__rrect-md__rest": "toward",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-sm__rest": "toward",
+      "checkerboard-64__capsule-button__rest": "toward",
+      "checkerboard-64__rrect-md__rest": "toward",
+      "checkerboard-64__rrect-ml__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward",
+      "checkerboard-lc16__rrect-sm__rest": "toward",
+      "checkerboard-lc16__capsule-button__rest": "toward",
+      "checkerboard-lc16__rrect-md__rest": "away",
+      "checkerboard-lc16__rrect-ml__rest": "away",
+      "checkerboard-lc16__rrect-lg__rest": "away",
+      "hc-text-7__rrect-sm__rest": "toward",
+      "hc-text-7__rrect-md__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "away",
+      "hc-text-28__rrect-sm__rest": "toward",
+      "hc-text-28__rrect-md__rest": "toward",
+      "hc-text-28__rrect-lg__rest": "away",
+      "hc-text__rrect-sm__rest": "toward",
+      "hc-text__rrect-lg__rest": "away",
+      "checkerboard-4__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-8__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-32__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-64__capsule-button__rest-tint-orange": "unchanged",
+      "impulse__rrect-sm__rest": "toward",
+      "impulse__rrect-ml__rest": "toward",
+      "impulse__rrect-lg__rest": "unchanged",
+      "checkerboard__capsule-button__inactive-tint-orange": "away",
+      "checkerboard__capsule-button__inactive": "away",
+      "checkerboard__rrect-md__inactive": "toward",
+      "impulse__capsule-button__inactive": "unchanged",
+      "photo__capsule-button__inactive-pressed": "toward",
+      "photo__capsule-button__inactive-tint-orange": "toward",
+      "photo__capsule-button__inactive": "toward",
+      "photo__rrect-md__inactive": "toward",
+      "checkerboard__rrect-ml__inactive": "toward",
+      "checkerboard-8__rrect-md__inactive": "toward",
+      "checkerboard-8__rrect-lg__inactive": "toward",
+      "checkerboard-64__rrect-md__inactive": "toward",
+      "checkerboard-64__rrect-lg__inactive": "toward",
+      "checkerboard-lc16__capsule-button__inactive": "away",
+      "checkerboard-lc16__rrect-md__inactive": "unchanged",
+      "impulse__rrect-ml__inactive": "away",
+      "impulse__rrect-lg__inactive": "away",
+      "hc-text__rrect-sm__inactive": "toward",
+      "hc-text__rrect-lg__inactive": "away",
+      "hc-text-28__rrect-md__inactive": "unchanged",
+      "photo__rrect-ml__inactive": "toward"
+     }
+    },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": {
+     "verdict": "NEITHER: closes at the finding",
+     "read": 66,
+     "cells": 66,
+     "unmeasured": 0,
+     "partition": {
+      "unchanged": 9,
+      "toward": 39,
+      "away": 18
+     },
+     "targets": {
+      "P": {
+       "cells": 9,
+       "A": 0.6479263369733339,
+       "referenceA": 0.9651537453062131,
+       "halved": false
+      },
+      "C rest": {
+       "cells": 28,
+       "A": 0.23837870130217576,
+       "referenceA": 0.5377208764861756,
+       "halved": true
+      },
+      "F inactive": {
+       "cells": 2,
+       "A": 0.5807727294136966,
+       "referenceA": 0.9824372032291502,
+       "halved": false
+      }
+     },
+     "targetNotWithin": {
+      "P": 9,
+      "C rest": 21,
+      "F inactive": 2
+     },
+     "groups": {
+      "F rest": {
+       "A": 0.41027026124037314,
+       "referenceA": 0.43227205835173965,
+       "tau": 0.07632127778961525,
+       "gated": true,
+       "holds": true,
+       "cells": 10,
+       "gateCells": 10
+      },
+      "F inactive": {
+       "A": 0.5807727294136966,
+       "referenceA": 0.9824372032291502,
+       "tau": 0.14578116924507029,
+       "gated": false,
+       "holds": true,
+       "cells": 2,
+       "gateCells": 2
+      },
+      "T rest": {
+       "A": 0.8593895743879124,
+       "referenceA": 0.7896598257025865,
+       "tau": 0.08736786097963681,
+       "gated": true,
+       "holds": true,
+       "cells": 3,
+       "gateCells": 3
+      },
+      "C rest": {
+       "A": 0.23837870130217576,
+       "referenceA": 0.5377208764861756,
+       "tau": 0.02622208772215592,
+       "gated": true,
+       "holds": true,
+       "cells": 28,
+       "gateCells": 28
+      },
+      "C inactive": {
+       "A": 0.3339554248305413,
+       "referenceA": 0.5572785918269356,
+       "tau": 0.07632378803089943,
+       "gated": true,
+       "holds": true,
+       "cells": 14,
+       "gateCells": 14
+      },
+      "P rest": {
+       "A": 0.46128735326732473,
+       "referenceA": 0.7996916517732098,
+       "tau": 0.03448124273607571,
+       "gated": true,
+       "holds": true,
+       "cells": 4,
+       "gateCells": 4
+      },
+      "P inactive": {
+       "A": 0.6918103981126156,
+       "referenceA": 1.1443246876015263,
+       "tau": 0.035445554444186914,
+       "gated": true,
+       "holds": true,
+       "cells": 5,
+       "gateCells": 5
+      }
+     },
+     "gatedAggregateFailures": [],
+     "reportedAggregateOver": [],
+     "awayBeyondB": [
+      {
+       "scene": "checkerboard-8__rrect-lg__rest",
+       "growthInB": 11.160572654006984
+      },
+      {
+       "scene": "hc-text__rrect-lg__rest",
+       "growthInB": 9.04928161049999
+      },
+      {
+       "scene": "hc-text-28__rrect-lg__rest",
+       "growthInB": 7.75728932701823
+      },
+      {
+       "scene": "hc-text-7__rrect-lg__rest",
+       "growthInB": 6.172146564191038
+      },
+      {
+       "scene": "checkerboard-32__rrect-lg__rest",
+       "growthInB": 5.116390261177668
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__rest",
+       "growthInB": 3.7690830510805955
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-ml__rest",
+       "growthInB": 3.7545248833402036
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "growthInB": 3.5882924150397884
+      },
+      {
+       "scene": "impulse__rrect-ml__inactive",
+       "growthInB": 3.5648288833578716
+      },
+      {
+       "scene": "impulse__rrect-lg__inactive",
+       "growthInB": 3.5505237630528996
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive-tint-orange",
+       "growthInB": 2.8703310242326374
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-lg__rest",
+       "growthInB": 2.7920766185933945
+      },
+      {
+       "scene": "checkerboard-4__rrect-ml__rest",
+       "growthInB": 2.287680468816499
+      },
+      {
+       "scene": "hc-text__rrect-lg__inactive",
+       "growthInB": 2.265812516368854
+      },
+      {
+       "scene": "checkerboard-4__rrect-lg__rest",
+       "growthInB": 2.178059434058487
+      },
+      {
+       "scene": "checkerboard-4__rrect-md__rest",
+       "growthInB": 2.0453918896796512
+      },
+      {
+       "scene": "checkerboard__rrect-md__inactive",
+       "growthInB": 1.4863730817186382
+      }
+     ],
+     "awayBeyondCeiling": [
+      {
+       "scene": "checkerboard-8__rrect-lg__rest",
+       "growthInB": 11.160572654006984
+      },
+      {
+       "scene": "hc-text__rrect-lg__rest",
+       "growthInB": 9.04928161049999
+      },
+      {
+       "scene": "hc-text-28__rrect-lg__rest",
+       "growthInB": 7.75728932701823
+      },
+      {
+       "scene": "hc-text-7__rrect-lg__rest",
+       "growthInB": 6.172146564191038
+      },
+      {
+       "scene": "checkerboard-32__rrect-lg__rest",
+       "growthInB": 5.116390261177668
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__rest",
+       "growthInB": 3.7690830510805955
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-ml__rest",
+       "growthInB": 3.7545248833402036
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "growthInB": 3.5882924150397884
+      },
+      {
+       "scene": "impulse__rrect-ml__inactive",
+       "growthInB": 3.5648288833578716
+      },
+      {
+       "scene": "impulse__rrect-lg__inactive",
+       "growthInB": 3.5505237630528996
+      }
+     ],
+     "budgetHolds": false,
+     "why": [
+      "full close: target P: 9 cell(s) not within",
+      "improvement: target P aggregate 0.6479 above half of the reference's 0.9652",
+      "full close: target C rest: 21 cell(s) not within",
+      "full close: target F inactive: 2 cell(s) not within",
+      "improvement: target F inactive aggregate 0.5808 above half of the reference's 0.9824",
+      "budget count: 17 cells away beyond B (at most 3)",
+      "budget ceiling: 10 cell(s) beyond 3 B"
+     ],
+     "perCellChange": {
+      "checkerboard__capsule-button__rest": "toward",
+      "photo__capsule-button__rest": "toward",
+      "checkerboard__rrect-md__rest": "toward",
+      "photo__rrect-md__rest": "toward",
+      "impulse__capsule-button__rest": "toward",
+      "photo__capsule-button__pressed": "toward",
+      "checkerboard__capsule-button__rest-tint-orange": "unchanged",
+      "photo__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-4__rrect-sm__rest": "toward",
+      "checkerboard-4__capsule-button__rest": "toward",
+      "checkerboard-4__rrect-md__rest": "away",
+      "checkerboard-4__rrect-ml__rest": "away",
+      "checkerboard-4__rrect-lg__rest": "away",
+      "checkerboard-8__capsule-button__rest": "toward",
+      "checkerboard-8__rrect-md__rest": "away",
+      "checkerboard-8__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-sm__rest": "toward",
+      "checkerboard-32__capsule-button__rest": "toward",
+      "checkerboard-32__rrect-md__rest": "toward",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-sm__rest": "toward",
+      "checkerboard-64__capsule-button__rest": "toward",
+      "checkerboard-64__rrect-md__rest": "toward",
+      "checkerboard-64__rrect-ml__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward",
+      "checkerboard-lc16__rrect-sm__rest": "toward",
+      "checkerboard-lc16__capsule-button__rest": "toward",
+      "checkerboard-lc16__rrect-md__rest": "away",
+      "checkerboard-lc16__rrect-ml__rest": "away",
+      "checkerboard-lc16__rrect-lg__rest": "away",
+      "hc-text-7__rrect-sm__rest": "toward",
+      "hc-text-7__rrect-md__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "away",
+      "hc-text-28__rrect-sm__rest": "toward",
+      "hc-text-28__rrect-md__rest": "toward",
+      "hc-text-28__rrect-lg__rest": "away",
+      "hc-text__rrect-sm__rest": "toward",
+      "hc-text__rrect-lg__rest": "away",
+      "checkerboard-4__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-8__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-32__capsule-button__rest-tint-orange": "unchanged",
+      "checkerboard-64__capsule-button__rest-tint-orange": "unchanged",
+      "impulse__rrect-sm__rest": "toward",
+      "impulse__rrect-ml__rest": "unchanged",
+      "impulse__rrect-lg__rest": "unchanged",
+      "checkerboard__capsule-button__inactive-tint-orange": "away",
+      "checkerboard__capsule-button__inactive": "away",
+      "checkerboard__rrect-md__inactive": "away",
+      "impulse__capsule-button__inactive": "toward",
+      "photo__capsule-button__inactive-pressed": "toward",
+      "photo__capsule-button__inactive-tint-orange": "toward",
+      "photo__capsule-button__inactive": "toward",
+      "photo__rrect-md__inactive": "toward",
+      "checkerboard__rrect-ml__inactive": "toward",
+      "checkerboard-8__rrect-md__inactive": "toward",
+      "checkerboard-8__rrect-lg__inactive": "toward",
+      "checkerboard-64__rrect-md__inactive": "toward",
+      "checkerboard-64__rrect-lg__inactive": "toward",
+      "checkerboard-lc16__capsule-button__inactive": "toward",
+      "checkerboard-lc16__rrect-md__inactive": "unchanged",
+      "impulse__rrect-ml__inactive": "away",
+      "impulse__rrect-lg__inactive": "away",
+      "hc-text__rrect-sm__inactive": "toward",
+      "hc-text__rrect-lg__inactive": "away",
+      "hc-text-28__rrect-md__inactive": "toward",
+      "photo__rrect-ml__inactive": "toward"
+     }
+    }
+   },
+   "pooledTargets": {
+    "P": {
+     "cells": 18,
+     "A": 0.6132486208325707,
+     "referenceA": 0.9600976542906277,
+     "halved": false
+    },
+    "C rest": {
+     "cells": 56,
+     "A": 0.2039940765942311,
+     "referenceA": 0.47963839064150526,
+     "halved": true
+    },
+    "F inactive": {
+     "cells": 4,
+     "A": 0.5542968445253369,
+     "referenceA": 0.953814617237472,
+     "halved": false
+    }
+   }
+  }
+ ],
+ "groupsAgainstCharter": {
+  "apple-macos-27.0-1x-dark-standard-glass0.25": {
+   "got": {
+    "F rest": [
+     10,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ]
+   },
+   "charter": {
+    "F rest": [
+     10,
+     true
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ]
+   },
+   "equal": true
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.25": {
+   "got": {
+    "F rest": [
+     10,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ]
+   },
+   "charter": {
+    "F rest": [
+     10,
+     true
+    ],
+    "T rest": [
+     3,
+     true
+    ],
+    "C rest": [
+     28,
+     true
+    ],
+    "C inactive": [
+     14,
+     true
+    ],
+    "P rest": [
+     4,
+     true
+    ],
+    "P inactive": [
+     5,
+     true
+    ],
+    "F inactive": [
+     2,
+     false
+    ]
+   },
+   "equal": true
+  }
+ },
+ "synthetic": {
+  "path": "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.txt",
+  "sha256": "ebc8895d32cbda8813862811fd7a979fce0d9e7f2b9e49087bd8886e7c74c350",
+  "result": [
+   "Ran 19 tests in 0.027s",
+   "",
+   "OK"
+  ]
+ },
+ "checks": {
+  "d0219 every gate cell unchanged": true,
+  "point A reproduces §5.209 §4 (16/8 at 1x, 17/10 at 2x, NEITHER)": true,
+  "gated and reported groups equal the charter's per scale": true,
+  "W45's synthetic cases pass": true,
+  "W45's synthetic cases pass under W48's bindings (19)": true
+ },
+ "syntheticW48": {
+  "path": "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_rule.txt",
+  "sha256": "16e1c55976e776d86c4865baf375c95815508932ecc12452b65c129c0942856b",
+  "ran": 19,
+  "result": [
+   "Ran 19 tests in 0.030s",
+   "",
+   "OK"
+  ]
+ },
+ "portProof": {
+  "path": "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/port-proof.txt",
+  "w47ProofExit": 1,
+  "differ": [
+   "T1.rule.pBeside: only in W47"
+  ],
+  "onlyPBeside": true,
+  "pBesideRederived": true,
+  "holds": true
+ }
+}

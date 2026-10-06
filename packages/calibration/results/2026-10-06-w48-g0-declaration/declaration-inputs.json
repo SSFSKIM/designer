@@ -1,0 +1,38 @@
+{
+ "schema": "w48-declaration-inputs-1",
+ "$comment": [
+  "W48 G0 (c): the parent's readings part 1 declares as given (assemble.py refuses while a TO FILL",
+  "remains; part 1 pins this file). The targets' predictions are the charter's Design \"The targets and the",
+  "predictions\" (MARKED; Decision Log 5), verbatim, hashed as predictions the gate replaces; S1 as W47 predicted."
+ ],
+ "targets": {
+  "statement": "PREDICTIONS, which the gate replaces (W48 Decision Log 5): W47's three targets, each a stratum × pose aggregate halved per profile (P pooled over both poses with P rest and P inactive reported beside it; C rest; F inactive). Predictions from W47's ladders and W46's point A, stated here and hashed in part 1 as predictions the gate replaces: - **C rest halves at both scales** at operator 1's closest rung: the thin gain is point A's (W46's C rest fell 0.390 → 0.171 at 1x and 0.538 → 0.238 at 2x at `tintAlpha` 0.7), and the thick cells sit inside the budget instead of 10–12 B away. - **F inactive's fine band falls by at least 0.73 of its excess** at tap σ 4 (R .728 / .753 at 1x, 1.005 / .967 at 2x), the whole band by 2.3–3.9 B; the joint with the receded transmission 0.8 keeps it (R .736 / .767 and 1.044 / 1.011). - **P is not halved from these operators alone** (W47 part 1's prediction: operator 1 alone 0.759 / 0.740 against 0.879 / 0.965 at the reference; the receded photo body at point A ×0.42–0.46). The gate reads it; if it is not halved, the landing rule's improvement clause reads what is. - **The budget** is predicted to hold at operator 1's closest rung (two coarse thick cells away per scale) and to be at risk from the mid-span coarse cells (`checkerboard-lc16` md / ml / lg read 2.8–4.6 B away at point A, which operator 1's gain knot and not its far knot governs). - **The level check's excesses** (`hc-text-28__rrect-md__rest` −0.005 to −0.032, `impulse__rrect-sm__rest` +0.0074 / +0.0083 on every 0.7 rung; none failing L1) are read beside L1 at every stage and in the gate report, ungated. - **S1 dark** read and not gated, direction as W47 predicted.",
+  "targets": {
+   "P": [
+    "P rest",
+    "P inactive"
+   ],
+   "C rest": [
+    "C rest"
+   ],
+   "F inactive": [
+    "F inactive"
+   ]
+  },
+  "predictions": {
+   "C rest": "halves at both scales at operator 1's closest rung (W46's C rest fell 0.390 -> 0.171 at 1x and 0.538 -> 0.238 at 2x at tintAlpha 0.7; the thick cells inside the budget instead of 10-12 B away)",
+   "F inactive": "the fine band falls by at least 0.73 of its excess at tap sigma 4 (R .728 / .753 at 1x, 1.005 / .967 at 2x), the whole band by 2.3-3.9 B; the joint with the receded transmission 0.8 keeps it (R .736 / .767 and 1.044 / 1.011)",
+   "P": "not halved from these operators alone (W47 part 1: operator 1 alone 0.759 / 0.740 against 0.879 / 0.965; the receded photo body at point A x0.42-0.46); if not halved, the landing rule's improvement clause reads what is",
+   "budget": "holds at operator 1's closest rung (two coarse thick cells away per scale); at risk from the mid-span coarse cells (checkerboard-lc16 md / ml / lg 2.8-4.6 B away at point A)",
+   "level": "the level check's excesses (hc-text-28__rrect-md__rest -0.005 to -0.032, impulse__rrect-sm__rest +0.0074 / +0.0083 on every 0.7 rung; none failing L1) read beside L1 at every stage and in the gate report, ungated"
+  },
+  "sources": [
+   "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0"
+  ]
+ },
+ "s1": {
+  "predictedDirection": "away from the dark medians 0.31 (0.314 / 0.311), toward the refit's level change at spans 128 and 160 (W47's prediction, carried by W48 Decision Log 5)",
+  "sentence": "S1 dark is read and not gated, direction as W47 predicted (W48 Decision Log 5); with dark 0.5 frozen (X41), S1 after a dark 0.25 refit reads the refit's change plus the slider's, not the slider's alone.",
+  "sources": []
+ }
+}

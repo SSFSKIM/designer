@@ -1,0 +1,20 @@
+check-stage: 2 rows, no referee or holdout cell (w46-referees-1 sha256 0eb8ef7712ad)
+check-stage REFUSES: /var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp42a186zg/bad.json: holds 1 withheld cell(s) before the exposure (w46-referees-1 sha256 0eb8ef7712ad, and the dark holdout): apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-sm__rest
+W48 G0 (b): W47's referees/test_referees.py run under W48's bindings (docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0); bindings module /Users/new/vitrea-w48/g0/packages/calibration/results/2026-10-06-w48-g0-declaration/bindings.py
+test_red_a_w47_ladder_naming_a_referee (test_referees.Disjoint.test_red_a_w47_ladder_naming_a_referee) ... ok
+test_w47s_committed_ladders_name_no_referee (test_referees.Disjoint.test_w47s_committed_ladders_name_no_referee) ... ok
+test_a_byte_off_refuses (test_referees.Frozen.test_a_byte_off_refuses) ... ok
+test_loaded_by_hash_with_w46s_six (test_referees.Frozen.test_loaded_by_hash_with_w46s_six) ... ok
+test_w46s_adapter_given_w47s_ladders_refuses_the_frozen_file (test_referees.Frozen.test_w46s_adapter_given_w47s_ladders_refuses_the_frozen_file) ... ok
+test_w46s_adapter_reproduces_it_from_w46s_frozen_ladders (test_referees.Frozen.test_w46s_adapter_reproduces_it_from_w46s_frozen_ladders) ... ok
+test_the_whitelists (test_referees.Lists.test_the_whitelists) ... ok
+test_red_a_scene_one_dark_profile_does_not_declare (test_referees.Membership.test_red_a_scene_one_dark_profile_does_not_declare) ... ok
+test_a_clean_stage_passes_and_check_stage_reads_it (test_referees.Withholding.test_a_clean_stage_passes_and_check_stage_reads_it) ... ok
+test_red_a_dark_holdout_row_in_a_stage (test_referees.Withholding.test_red_a_dark_holdout_row_in_a_stage) ... ok
+test_red_a_referee_row_in_a_stage (test_referees.Withholding.test_red_a_referee_row_in_a_stage) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.019s
+
+OK
+

@@ -1,0 +1,343 @@
+{
+ "schema": "w48-ladder-protocol-1",
+ "$comment": [
+  "W48 G0 (b): the corrected protocol (charter 2026-10-06-w48-dark-operators-fit.md, Decision Log 3, X71-X73),",
+  "hashed in part 1 BEFORE any verdict exists. No ladder is rendered: the rungs are W47's, read from W47's",
+  "committed readings by key (X71; ladders/evidence.json pins them and the archive they replay from). The",
+  "verdicts are ladders/verdicts.py's reading of W47's reread.json (ladders (i), (iii), (iv)) and results.json",
+  "(ladder (ii), not re-read) under the bars below, written to ladders/verdicts.json after part 1's hash (clause 3).",
+  "Units: B = max(1 code, 2 bar) per cell (bar 0.5 code on every dark cell); a cell's change band and away band",
+  "are cuts/rule.py `reads()`'s, as W47's re-read recorded them; R is the share of a fine cell's T1-fine excess",
+  "E = fine(reference) - fine(native) a rung removes."
+ ],
+ "charter": "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0",
+ "tier": "webgpu",
+ "profiles": [
+  "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "apple-macos-27.0-2x-dark-standard-glass0.25"
+ ],
+ "evidence": {
+  "pins": {
+   "path": "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/evidence.json",
+   "sha256": "518d118a471edc4b5d2171981220aed6358628ab088695c7cdb801e824e08f06"
+  },
+  "rungs": {
+   "path": "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json",
+   "sha256": "757db8651fd178f3affd444f2dc4dcc5d5f0425244b1a72730d4593b979bb85a",
+   "what": "the rungs, their overrides and cells are W47's protocol's; no rung is added, removed or rendered"
+  },
+  "results": {
+   "path": "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.json",
+   "sha256": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c"
+  },
+  "reread": {
+   "path": "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.json",
+   "sha256": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17"
+  },
+  "cells": {
+   "path": "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+   "sha256": "91c1834d0c783e489866dacbab68b6feb73553127c47a63104e4be3393f96894"
+  }
+ },
+ "ladders": {
+  "i": {
+   "rungs": [
+    "i-a0.7",
+    "i-a0.7-f0.2",
+    "i-a0.7-f0.45",
+    "i-a0.7-f0.2-t128",
+    "i-a0.7-f0.2-t160",
+    "i-a0.7-g0.2",
+    "i-a0.7-g0.4",
+    "i-a0.7-g0.6",
+    "i-a0.8",
+    "i-a0.8-f0.2",
+    "i-a0.8-f0.45",
+    "i-a0.8-f0.2-t128",
+    "i-a0.8-f0.2-t160",
+    "i-a0.8-g0.2",
+    "i-a0.8-g0.4",
+    "i-a0.8-g0.6"
+   ]
+  },
+  "ii": {
+   "rungs": [
+    "ii-w6-d0.3-t256",
+    "ii-w6-d0.6-t256",
+    "ii-w10-d0.3-t256",
+    "ii-w10-d0.6-t256",
+    "ii-w14-d0.3-t256",
+    "ii-w14-d0.6-t256",
+    "ii-w6-d0.3-t128",
+    "ii-w6-d0.6-t128",
+    "ii-w10-d0.3-t128",
+    "ii-w10-d0.6-t128",
+    "ii-w14-d0.3-t128",
+    "ii-w14-d0.6-t128"
+   ]
+  },
+  "iii": {
+   "rungs": [
+    "iii-b2",
+    "iii-b3",
+    "iii-b4",
+    "iii-s1.5",
+    "iii-s2",
+    "iii-s3",
+    "iii-s4",
+    "iii-s6",
+    "iii-q0.25",
+    "iii-q0.5",
+    "iii-q0.75"
+   ]
+  },
+  "iv": {
+   "rungs": [
+    "iv-joint"
+   ]
+  }
+ },
+ "bars": {
+  "operator 1": {
+   "decisionLog": "3 (a)",
+   "ladder": "i",
+   "cells": [
+    "checkerboard-8__rrect-lg__rest",
+    "hc-text__rrect-lg__rest",
+    "hc-text-7__rrect-lg__rest",
+    "checkerboard-32__rrect-lg__rest",
+    "checkerboard-64__rrect-lg__rest"
+   ],
+   "perScale": [
+    "no thick cell whose away band reads `away` with growth > awayCeilingB x B",
+    "at most awayBeyondBMax of the five whose away band reads `away` with growth > B",
+    "no thick cell over Apple at the reference on its change band (reference > native) reads `away`: `toward` and `unchanged` are both admitted, the rule's own states",
+    "the thin rest cells keep at least half of point A's gain (W47 ladder (i)'s thin clause, unchanged: reread.json thinKeepsHalf)",
+    "L1 passes on its population (W47's level reading, unchanged: reread.json L1passes)"
+   ],
+   "awayCeilingB": 3,
+   "awayBeyondBMax": 2,
+   "overAppleAdmits": [
+    "toward",
+    "unchanged"
+   ],
+   "reads": "reread.json rungs[label].perScale[scale]: thick[cell].changeBand and .awayBand {n, c, k, B, growth, change}, thinGain, pointAThinGain, thinKeepsHalf, L1passes"
+  },
+  "operator 2": {
+   "decisionLog": "3 (b)",
+   "ladder": "iii",
+   "fine": [
+    "checkerboard-8__rrect-md__inactive",
+    "checkerboard-8__rrect-lg__inactive"
+   ],
+   "guards": [
+    "checkerboard-64__rrect-md__inactive",
+    "photo__rrect-md__inactive"
+   ],
+   "perScale": [
+    "each fine cell: E = fine(reference) - fine(native) > 0 and R = (fine(reference) - fine(rung)) / E >= fineExcessRemovedMin on T1-fine",
+    "each guard: whole-band T1 (k - c) / B >= -guardFloorB",
+    "beside, deciding nothing: each fine cell's whole-band fall -g / B, carried to the gate"
+   ],
+   "fineExcessRemovedMin": 0.5,
+   "guardFloorB": 1,
+   "reads": "reread.json rungs[label].perScale[scale]: fine.cells[cell] {native, reference, rung, E, R, wholeFallInB}, guards.deltaInB"
+  },
+  "joint": {
+   "decisionLog": "3 (c)",
+   "ladder": "iv",
+   "cells": [
+    "checkerboard-8__rrect-md__inactive",
+    "checkerboard-8__rrect-lg__inactive"
+   ],
+   "scales": [
+    1,
+    2
+   ],
+   "reading": "operator 1's partition (a) over the four readings (the two fine cells at 1x and 2x) on their change and away bands, and operator 2's halving (b) on each; the photo inactive ratio against point A's is reported and decides nothing; ladder (iv) decides only name-target",
+   "awayCeilingB": 3,
+   "awayBeyondBMax": 2,
+   "overAppleAdmits": [
+    "toward",
+    "unchanged"
+   ],
+   "fineExcessRemovedMin": 0.5,
+   "reads": "reread.json rungs['iv-joint'].perScale[scale]: partitionReads[cell].changeBand / .awayBand, fine.cells[cell], photo"
+  },
+  "2x width": {
+   "ladder": "ii",
+   "reading": "not re-stated and not re-read (W47 Decision Log 8; W48 Decision Log 4): results.json operators['2x width'] stands; the second tap is not a stage-1 member and no 1x gap is named"
+  }
+ },
+ "separation": {
+  "operator 1": "separates when a ladder (i) rung meets bar (a) at BOTH scales",
+  "operator 2": "the tap separates when a ladder (iii) tap rung (sizeFineTapSigma / sizeFineTapShare) meets bar (b) at BOTH scales; the receded body width meets when a ladder (iii) optics.regular.blurSigma rung does; when both meet, both are stage-2 members and the gate reads both (Decision Log 3 (c); no precedence)",
+  "oneScale": "a rung meeting at one scale only is recorded and is not a fit start (Decision Log 3 (f)); the ones the parent ruled off the grid are `offGrid`; any OTHER rung meeting at one scale only stops part 2 for the parent (W47's one-scale rule stands for the fit)"
+ },
+ "levers": {
+  "operator 1": [
+   "i-a0.7",
+   "i-a0.7-f0.2",
+   "i-a0.7-f0.45",
+   "i-a0.7-f0.2-t128",
+   "i-a0.7-f0.2-t160",
+   "i-a0.7-g0.2",
+   "i-a0.7-g0.4",
+   "i-a0.7-g0.6",
+   "i-a0.8",
+   "i-a0.8-f0.2",
+   "i-a0.8-f0.45",
+   "i-a0.8-f0.2-t128",
+   "i-a0.8-f0.2-t160",
+   "i-a0.8-g0.2",
+   "i-a0.8-g0.4",
+   "i-a0.8-g0.6"
+  ],
+  "operator 2": [
+   "iii-s1.5",
+   "iii-s2",
+   "iii-s3",
+   "iii-s4",
+   "iii-s6",
+   "iii-q0.25",
+   "iii-q0.5",
+   "iii-q0.75"
+  ],
+  "body width": [
+   "iii-b2",
+   "iii-b3",
+   "iii-b4"
+  ]
+ },
+ "offGrid": {
+  "oneScale": [
+   {
+    "rung": "iii-s2",
+    "values": {
+     "receded.dark": {
+      "sizeFineTapSigma": 2,
+      "sizeFineTapSigma2x": 2
+     }
+    }
+   },
+   {
+    "rung": "iii-q0.5",
+    "values": {
+     "receded.dark": {
+      "sizeFineTapShare": 0.5
+     }
+    }
+   }
+  ],
+  "metNowhere": [
+   {
+    "rung": "iii-s1.5",
+    "values": {
+     "receded.dark": {
+      "sizeFineTapSigma": 1.5,
+      "sizeFineTapSigma2x": 1.5
+     }
+    }
+   },
+   {
+    "rung": "iii-q0.25",
+    "values": {
+     "receded.dark": {
+      "sizeFineTapShare": 0.25
+     }
+    }
+   },
+   {
+    "rung": "iii-b2",
+    "values": {
+     "receded.dark": {
+      "optics.regular.blurSigma": 2
+     }
+    }
+   }
+  ],
+  "note": "Decision Log 3 (f) and Decision Log 4, ruled before any W48 verdict from W47's re-read as the charter quotes it; part 2's grids carry none of these values"
+ },
+ "decisions": {
+  "fit": "an operator whose bar is met at BOTH scales by some rung (verdicts.json) is fitted on the draft's grids; when the tap and the body width both meet, both are fitted (no precedence)",
+  "name-unfitted": "an operator with no rung meeting its bar at both scales is NOT fitted: part 2 names it with its reading (X63) and none of its leaves stays",
+  "name-target": "a target no lever moves is named, not fitted (X63): recorded in notFitted with its ladder and the operator's shape, every draft leaf carrying it removed",
+  "narrow": "replace a declared grid by a non-empty subset of itself inside the lever's non-flat range (the active tintAlpha: the snapshot's value and the ladder (i) base rungs at which L1 passes)",
+  "strike": "remove a family leaf whose rungs read flat (no cell beyond its bar), or the receded body width when no body-width rung meets bar (b) at both scales",
+  "hold": "fix a non-operator leaf at a named value without a flat rung: the leaf leaves the search and joins its family's `fixed` at that value; only a leaf the draft marks `holdable` with that value, only on a parent's ruling named by its charter Decision Log (Decision Log 3 (d))",
+  "stop": "if neither operator separates, the wave closes at G0 with the finding and part 2 is not hashed"
+ },
+ "decisionKinds": {
+  "changes": [
+   "name-unfitted",
+   "name-target",
+   "narrow",
+   "strike",
+   "hold"
+  ],
+  "outcomes": [
+   "fit",
+   "stop"
+  ],
+  "removed": {
+   "body-width-first": "Decision Log 3 (c)",
+   "name-1x-gap": "ladder (ii) met no rung and is not re-read; its leaves are not in the draft (Decision Log 4)"
+  }
+ },
+ "decides": {
+  "i": [
+   "name-unfitted",
+   "name-target",
+   "narrow",
+   "strike",
+   "hold"
+  ],
+  "ii": [],
+  "iii": [
+   "name-unfitted",
+   "name-target",
+   "strike"
+  ],
+  "iv": [
+   "name-target"
+  ]
+ },
+ "expected": {
+  "what": "the charter's predictions (clause 3's Bar), hashed here BEFORE the verdicts; verdicts.py reports each against the reading and a difference is said, never absorbed",
+  "operator 1": {
+   "meetsBoth": [
+    "i-a0.7-f0.2-t128",
+    "i-a0.7-f0.2-t160"
+   ]
+  },
+  "operator 2": {
+   "meetsBoth": [
+    "iii-s3",
+    "iii-s4",
+    "iii-s6",
+    "iii-q0.75"
+   ]
+  },
+  "body width": {
+   "meetsBoth": [
+    "iii-b3",
+    "iii-b4"
+   ]
+  },
+  "joint": {
+   "partitionHolds": true,
+   "halvingHolds": true,
+   "photoBelowPointA": true,
+   "note": "misses the photo floor by 0.02 / 0.01 bar (recorded; the joint decides only name-target)"
+  }
+ },
+ "rulings": {
+  "decision-log-3-a": "operator 1's separating bar is the landing rule's partition on the five thick rest cells against Apple, with `unchanged` admitted on the over-Apple cells (closes W47 Decision Log 8's \"toward\" clause, which failed a rung inside the budget on `hc-text-7` at −0.30 / 0.00 B);",
+  "decision-log-3-b": "operator 2 is read on T1-fine, R ≥ 0.5 per cell and scale, the whole band reported beside it (closes the whole-band bar);",
+  "decision-log-3-c": "when the receded body width and the tap both meet (b), both are stage-2 members and the gate reads both; there is no precedence decision kind (closes body-width-first, which named the stronger lever unfitted);",
+  "decision-log-3-d": "`hold` joins the decision kinds: a non-operator leaf may be held at a named value without flat rungs (closes `strike` as the only removal); the parent may hold `sizeOcclusionGain` at 0.05 and the span tops at part 2 if the ladders' gain reading argues it;",
+  "decision-log-3-e": "`check-fit` validates part 2 against `verdicts.json`, the Decision Log 3 reading (closes the check that read the original bars' `results.json`);",
+  "decision-log-3-f": "the σ 2 and share 0.5 rungs, which met at one scale only, are off the grid: a lever that meets at one scale is not a fit start (ruled now; W47's one-scale rule stands for the fit);",
+  "decision-log-3-g": "`amend` and `amend-fit` refuse an empty ops list (closes the empty-ops defect)."
+ }
+}
