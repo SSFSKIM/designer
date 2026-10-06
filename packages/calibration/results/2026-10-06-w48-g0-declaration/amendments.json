@@ -1,0 +1,48 @@
+{
+  "schema": "w48-protocol-amendments-1",
+  "amendments": [
+    {
+      "n": 1,
+      "supersedes": "87ec90d48155f6592fd0557f7d67af7b4334fc83a66be9e028c4d17c957476f0",
+      "declarationSha256": "2f190a757fade243a5e0ae6a7b09591395e7a7c038abdb19ba15a08c1ded549f",
+      "reason": "W48 Decision Log 8: the one-scale rung i-a0.8-g0.6, whose point is on no grid, is recorded under Design (f) instead of stopping check-fit",
+      "cause": "97620e98f",
+      "charter": "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@f22af5402",
+      "ruling": "### Decision Log 8 \u2014 RULED 2026-10-06 (the parent): the one-scale rung `i-a0.8-g0.6`, recorded under Design (f)\n\n**Ruled:** take your recommended route. `i-a0.8-g0.6` meets bar (a) at 1x only (its 2x thin gain 0.0629\nis under half of point A's 0.1384); under Design (f) a one-scale rung is not a fit start and is\nrecorded; its point (far 0, top 256) is on no W48 grid, so the grids stay exactly as pinned. Spend part\n1's one amendment, additive only: an `add` op stating this ruling and re-pinning the W48 `declare.py`\nand its tests so that `check-fit` records a one-scale rung whose point is on no grid instead of\nstopping on it; no bar, verdict reader, grid, target, reference or protocol decision changes. Then\nre-read the verdicts under the amended hash (the numbers must repeat byte for byte), check and hash\npart 2 as the unchanged draft, `declare.py check` and `check-fit` consistent, finish \u00a75.212 (the\namendment, the rung, part 2's hash, the stage sizes), and hand back the head and both hashes. Also log\nin the tracker, beside the X70 gap: \"a one-scale rung off every grid still stops check-fit\" as the\ndefect this amendment worked around. Confirmed for G1 (not yours to do): X70's three-way check is\nadded to `fit/fit.py` before any fit render.\n",
+      "ops": [
+        {
+          "op": "add",
+          "path": [
+            "items",
+            10,
+            "declared",
+            "decisionLog8"
+          ],
+          "to": {
+            "ruling": "W48 Decision Log 8 (the parent, 2026-10-06)",
+            "rung": "i-a0.8-g0.6",
+            "reading": "meets bar (a) at 1x only: its 2x thin gain 0.0629 is under half of point A's 0.1384 (ladders/verdicts.json under 87ec90d48155)",
+            "decision": "under Design (f) a one-scale rung is not a fit start and is recorded; its point (tintAlpha 0.8, gain 0.6, far 0, top 256) is on no W48 grid, so the grids stay exactly as pinned",
+            "tool": "declare.py check-fit records a one-scale rung whose point is on no grid of part 2 (one_scale_reading) instead of stopping on it; a one-scale rung on a grid still stops",
+            "unchanged": "no bar, verdict reader, grid, target, reference or protocol decision changes; the verdicts are re-read under the amended hash and must repeat byte for byte"
+          }
+        }
+      ],
+      "pins": {
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": {
+          "from": "6802b7165922d9109b5b5b2220bcc3c72d4c93c3474f24cf4e089f23ca0c4635",
+          "to": "039c6b1b851ef55be86882f9869109859568fa58f2689fc58586e2b4fb91cb2f"
+        },
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py": {
+          "from": "e3735f3df4de9a2d007ec4fcefbbd6c391c2fac684197e998be15e9cf00f8962",
+          "to": "aef2b74234230955763b11382ff115fff20812bc3b7b8aac3ba2f5e4ea7edfc0"
+        },
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt": {
+          "from": "96b086b905ba41ebaebdbe5b43617de39168605af11b7f88dd154cdb02aa2684",
+          "to": "a8689937f445044c444e04e24070cf6248823dba6b3be0ed9871f6fde241f793"
+        }
+      },
+      "renderEvidenceAtAmendment": "after the verdicts read, additive only: /Users/new/vitrea-w48/g0/packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/verdicts.json"
+    }
+  ]
+}

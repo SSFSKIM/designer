@@ -1026,7 +1026,15 @@
           "decision-log-3-f": "the σ 2 and share 0.5 rungs, which met at one scale only, are off the grid: a lever that meets at one scale is not a fit start (ruled now; W47's one-scale rule stands for the fit);",
           "decision-log-3-g": "`amend` and `amend-fit` refuse an empty ops list (closes the empty-ops defect)."
         },
-        "readerSha256": "4c4499b31eae68bbad3c869018198c88fe868ddfa4101b80ef0c5cd27f283b30"
+        "readerSha256": "4c4499b31eae68bbad3c869018198c88fe868ddfa4101b80ef0c5cd27f283b30",
+        "decisionLog8": {
+          "ruling": "W48 Decision Log 8 (the parent, 2026-10-06)",
+          "rung": "i-a0.8-g0.6",
+          "reading": "meets bar (a) at 1x only: its 2x thin gain 0.0629 is under half of point A's 0.1384 (ladders/verdicts.json under 87ec90d48155)",
+          "decision": "under Design (f) a one-scale rung is not a fit start and is recorded; its point (tintAlpha 0.8, gain 0.6, far 0, top 256) is on no W48 grid, so the grids stay exactly as pinned",
+          "tool": "declare.py check-fit records a one-scale rung whose point is on no grid of part 2 (one_scale_reading) instead of stopping on it; a one-scale rung on a grid still stops",
+          "unchanged": "no bar, verdict reader, grid, target, reference or protocol decision changes; the verdicts are re-read under the amended hash and must repeat byte for byte"
+        }
       },
       "statement": "W47's rungs, read by key from its re-read and results (no ladder rendered), under Decision Log 3's bars: (a) operator 1 the landing rule's partition with `unchanged` admitted on over-Apple cells; (b) operator 2 on T1-fine, R >= 0.5, the whole band beside; (c) the joint, deciding only name-target; no precedence kind, `hold` beside `strike`; the sigma 2 and share 0.5 one-scale rungs off the grid. The verdicts are written by ladders/verdicts.py after this hash."
     },
@@ -1224,7 +1232,7 @@
     "packages/calibration/results/2026-10-06-w48-g0-declaration/census-gate.py": "44bd65ebbc0ad0a54b7ce2fb7fcfc2cb81a8b6c0bdcab0a71a1f9f1030580473",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/cuts/cuts.py": "a0e1ddf424db22b834866d42cd0ec73df01f3e3fe80c36ec48f7662de35238ed",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/declaration-inputs.json": "a00f4f7801d2cb6ee2fcd0f82ac1bfca072e5b6d49226cad80446c27459b9565",
-    "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": "6802b7165922d9109b5b5b2220bcc3c72d4c93c3474f24cf4e089f23ca0c4635",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": "039c6b1b851ef55be86882f9869109859568fa58f2689fc58586e2b4fb91cb2f",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/12712d534b78.json": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/d0219cd684bf.json": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/ebc3d9105a4a.json": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
@@ -1277,8 +1285,8 @@
     "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60_evidence.py": "ce18ad5a1b1e3f9c446f7cbd75bf2fdd467da5fa64879d224b08b49ac04be0ee",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.py": "bffb1751e2d64aab61a26ae75c8a0896905e0b2a2d26da5d8fdbf9bae2c3ed1f",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.txt": "bf3a8c7280829f96cf740b59535265a3c95acad97318d18ddc64707c77678f0b",
-    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py": "e3735f3df4de9a2d007ec4fcefbbd6c391c2fac684197e998be15e9cf00f8962",
-    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt": "96b086b905ba41ebaebdbe5b43617de39168605af11b7f88dd154cdb02aa2684",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py": "aef2b74234230955763b11382ff115fff20812bc3b7b8aac3ba2f5e4ea7edfc0",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt": "a8689937f445044c444e04e24070cf6248823dba6b3be0ed9871f6fde241f793",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/README.txt": "b46e6d3c25cbe7de16299da984f4d1ef6be932f307b44945be98b7fc46492f38",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_cuts_refusals.txt": "35d913105e6a3a99cc27ec4aa4a9600028304f900376e4d8e3f7beb04742c23b",
     "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_rule.txt": "16e1c55976e776d86c4865baf375c95815508932ecc12452b65c129c0942856b",
