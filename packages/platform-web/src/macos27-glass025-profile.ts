@@ -132,7 +132,7 @@ export const macos27Glass025DarkMaterialProfile: RendererMaterialProfile = {
   optics: {
     regular: {
       tint: [0.05, 0.05, 0.05],
-      tintAlpha: 0.9,
+      tintAlpha: 0.7,
       rimAlpha: 0.055,
       specularGain: 0,
       rimLevelGain: 0.44,
@@ -174,6 +174,14 @@ export const macos27Glass025DarkMaterialProfile: RendererMaterialProfile = {
   backdropToneBlackStrength: 1,
   backdropToneBlackThin: 0.014443843596092545,
   backdropToneBlackThick: 0.014443843596092545,
+  tintAlphaFar1x: 0.2,
+  tintAlphaFar2x: 0.2,
+  sizeScatterSpanMax: 160,
+  sizeScatterSpanMax2x: 160,
+  sizeOcclusionGain: 0.05,
+  sizeScatterFloor2x: 1,
+  sizeScatterRampStartThin1x: 0.72,
+  sizeScatterRampStartThin2x: 0.46,
 };
 
 /**
@@ -258,7 +266,8 @@ export const macos27Glass025RecededMaterialProfile: Readonly<
         rimAlpha: 0,
         rimLevelGain: 0,
         shadowAlpha: 0,
-        tintAlpha: 0.89,
+        tintAlpha: 0.8,
+        blurSigma: 1.25,
       },
       clear: {
         rimAlpha: 0,
@@ -278,14 +287,14 @@ export const macos27Glass025RecededMaterialProfile: Readonly<
       liftAmplitude: 0,
       reducedTransparencyOcclusion: 0,
     },
-    sizeScatterRampStartThick1x: 0.3,
+    sizeScatterRampStartThick1x: 0.15,
     sizeScatterRampStartThick2x: 0.04,
     sizeScatterRampStartFar2x: 0.04,
     sizeHeavyTapSigma2x: 14,
     tintShadeDark: 0.0202,
     tintShadeLight: 1.46,
-    sizeScatterRampStartThin1x: 1,
-    sizeScatterRampStartThin2x: 1,
+    sizeScatterRampStartThin1x: 0.4,
+    sizeScatterRampStartThin2x: 0.4,
     sizeScatterHeavyShareThick1x: 0.25,
     backdropToneAnchorX: [0.004, 0.11, 0.47, 0.95],
     backdropToneResponseThin: [0, 0.0187, 0.192, 0.448],
@@ -294,6 +303,23 @@ export const macos27Glass025RecededMaterialProfile: Readonly<
     backdropToneBlackStrength: 1,
     backdropToneBlackThin: 0.006995410187265387,
     backdropToneBlackThick: 0.006995410187265387,
+    sizeScatterRampStartFar1x: 0.2,
+    sizeScatterFloor: 0.5,
+    sizeScatterFloor2x: 1,
+    sizeHeavyTapSigma: 0,
+    sizeHeavySecondShare: 0,
+    sizeHeavySecondShareFar2x: 0,
+    sizeHeavySecondSigma: 0,
+    sizeHeavySecondSigma2x: 0,
+    sizeScatterScaleGain: 0,
+    sizeScatterSpanMax: 160,
+    sizeScatterSpanMax2x: 160,
+    sizeOcclusionGain: 0.05,
+    tintAlphaFar1x: 0.2,
+    tintAlphaFar2x: 0.2,
+    sizeFineTapShare: 0,
+    sizeFineTapSigma: 0,
+    sizeFineTapSigma2x: 0,
   },
 };
 
@@ -314,7 +340,7 @@ export const macos27Glass025CssTierMapping: Partial<CssTierMapping> = {
  */
 export const MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256 = {
   light: "3741b22934f17f4d",
-  dark: "b074fc6913a91c66",
+  dark: "129316b87df6c562",
   recededLight: "c4ca0e1cd6791bde",
-  recededDark: "280f0fddf014e0f6",
+  recededDark: "aa1a1b198ee72850",
 } as const;
