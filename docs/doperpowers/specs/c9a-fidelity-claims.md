@@ -48792,6 +48792,11 @@ The ladder reads whole-band T1, where the diagnostic read T1-fine. That is why a
 the fine cells read 1.38 / 2.42 B from Apple at 1x and 2.02 / 2.97 B at 2x, against the 2 B bar. The
 photo inactive cell holds point A's ratio (×0.416 against ×0.417 at 1x, ×0.460 at 2x). The bar is not met.
 
+*Correction (Decision Log 9 item 4; the sentence above stands as written):* the photo inactive cell does
+NOT hold point A's ratio. The reading recorded `photoHolds: false` at both scales: ×0.4163 against
+×0.4171 at 1x and ×0.4601 against ×0.4604 at 2x, which is 0.02 and 0.01 bar below point A's web SD.
+The bar fails on that clause as well as on the 2 B clause.
+
 **The decision.** Clause 5's stop: an operator whose ladder shows no separation is not fitted, and *if
 neither separates, the wave closes at G0 with the finding*. No lever reads flat, so none is struck; every
 target has a lever that moves it, but none to its bar.
@@ -48826,3 +48831,106 @@ C inactive 14 and T inactive 0, so 66 of 72 gate cells.
   snapshots, against bars declared before any render. A composition of operator 1's three knots with
   each other, or operator 2's tap at a share and width off the grid, was not read.
 - **A mechanism for the level check's unexplained excesses.**
+
+### 11. Decision Logs 8 and 9: part 1 amended once, the ladders re-read, and part 2 stopped before its hash
+
+**The amendment (Decision Log 8; `amendments.json`, `5fd2300d8`).** Part 1's one amendment re-states
+the three ladder bars of clause 5. Operator 1's bar becomes the landing rule's partition on the five
+thick rest cells against Apple. Operator 2's is read on T1-fine. The joint is both readings together
+on the four ladder cells. The level check's unexplained excesses are read beside L1 and gate nothing.
+
+The amendment is in the content form, with the ruling verbatim from the charter at `91dff7566`:
+- `declaration.json` **`2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579`** is
+  superseded by **`2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e`**.
+- Its two ops only ADD `decisionLog8` to the `ladders` and `level` items. Each states the ruling's
+  text and its operational reading, with the thresholds as numbers.
+- No cell set, grid, target, reference, selection, decision kind or landing-rule clause moved.
+  `protocol.json`'s bars and `results.json`'s readings stand as hashed (§8). Ladder (ii) is not
+  re-stated.
+
+`declare.py` refused any part-1 amendment once a ladder render existed. It now admits exactly one
+additive content amendment of part 1 after the ladders and records the render evidence it was made
+over. On read it refuses a post-render record that is pins-only, replaces a value or sits on part 2.
+That file, its test (44 cases) and the recorded run are the amendment's three re-pins. `declare.py
+check` is consistent on the amended chain, and a second amendment refuses (`amendment-check.txt`).
+
+Review found that `amend` also accepts an empty ops list, which would spend the final amendment on
+nothing. That defect is logged in the tech-debt tracker. It is not fixed in place, because
+`declare.py` is a pinned part-1 source.
+
+**The re-read (`ladders/reread.py`, `reread.json`, `reread.txt`; no render).** The tool takes its
+thresholds from the amended declaration after `declare.py`'s own chain validation. It re-admits every
+rung's rows and requires their whole-band T1 to equal `results.json`'s. Before reading a capture's
+bands, it admits the capture's sidecar against its row. It reads T1-fine and T1-low off the ladder
+captures through W44 G1's `readings.py`. All six cross-checks are equal: the control's T1-fine
+against the diagnostic's values, and the control's bands against W46 G2's `d0219cd684bf` T-band
+fixture.
+
+- **Operator 1 separates at no rung and neither scale.** The cells are `checkerboard-8` /
+  `hc-text` / `hc-text-7` (T1-fine) / `checkerboard-32` / `checkerboard-64`, all at `rrect-lg` at rest.
+  Each figure is that cell's change-band growth in B.
+  - The closest rung, 0.7 / far 0.2 / top 128 (top 160 reads the same):
+    - 1x: −1.36 toward / −0.89 toward / **−0.30 unchanged** / +2.13 away / +1.37 away;
+    - 2x: **−0.10 / −0.27 / 0.00 unchanged** / +1.98 / +1.59 away.
+  - That rung is inside the landing rule's budget at both scales: two cells away beyond B, none past
+    3 B. The thin gain holds at point A's (0.1074 against 0.1072; 0.1384 against 0.1384), and L1 passes.
+  - The other rungs:
+    - 0.8 / gain 0.6 leaves `hc-text-7` unchanged at both scales (−0.11 / −0.16 B) and loses the
+      thin clause at 2x (0.0629 against 0.1384).
+    - 0.8 / far 0.45 moves every over-Apple cell toward Apple at 2x, but puts the coarse cells
+      4.60 / 7.17 B away.
+    - Every other rung grows the over-Apple cells' error.
+  - Beside L1 (maximum error 0.0497–0.0505, growth ≤ +0.0045), the level check names unexplained
+    excesses on most rungs: `hc-text-28__rrect-md__rest` at −0.005 to −0.032, and
+    `impulse__rrect-sm__rest` at +0.0074 / +0.0083 on every 0.7 rung. On several far-delta and
+    gain rungs they also name the thick text cells at −0.010 to +0.006 and `checkerboard-64` at +0.005
+    to +0.010. They gate nothing.
+- **Operator 2 separates.** Each pair below is R on the two fine cells, `checkerboard-8__rrect-md` /
+  `rrect-lg` inactive, as 1x | 2x. The rungs that meet at both scales:
+
+  | rung | 1x | 2x |
+  | --- | --- | --- |
+  | tap σ 3 | .606 / .623 | .871 / .832 |
+  | tap σ 4 | .728 / .753 | 1.005 / .967 |
+  | tap σ 6 | .739 / .769 | 1.044 / 1.011 |
+  | share 0.75 | .629 / .642 | .792 / .753 |
+  | receded body width 3 | .705 / .733 | .529 / .504 (marginal) |
+  | receded body width 4 | .736 / .763 | .693 / .656 |
+
+  - σ 2 and share 0.5 meet at 2x only.
+  - The guards hold everywhere: worst −0.83 B on `checkerboard-64__rrect-md__inactive` at σ 6, 1x.
+  - The body-width rungs meeting makes this body-width-first under `protocol.json`'s decisions.
+- **The joint** holds the partition and the fine halving on all four cells: R .736 / .767 and
+  1.044 / 1.011. It fails the photo clause by 0.02 / 0.01 bar, as corrected in §8.
+
+**Decision Log 9 (the parent):**
+- operator 1 named not fitted;
+- operator 2 fitted, the body width first on {3, 4}, the tap where the protocol permits it;
+- the active `tintAlpha` {0.9} and the receded {0.8, 0.89};
+- the §8 correction above;
+- the level excesses beside L1.
+
+Its item 2 says to stop before hashing part 2 if the protocol has no fallback to the tap.
+
+**Part 2 was not hashed: item 2's stop, and three further blocks the hashed tooling sets.** I
+reproduced each one in scratch with `declare.py`'s own `apply_changes` and `mandatory_failures`. No
+part-2 file was written.
+1. **No tap fallback.** `protocol.json`'s body-width-first reads: "part 2 fits the body width and
+   names the tap unfitted (X63); the tap stays landed inert". `apply_changes` removes the tap's
+   three leaves. `mandatory_failures` requires operator 2 in `notFitted` with that decision and none
+   of its leaves retained. Nothing re-admits the tap at the gate, and no `narrow` decision exists for
+   `optics.regular.blurSigma`, so its grid stays {1.25, 2, 3, 4} rather than {3, 4}.
+2. **`sizeOcclusionGain` cannot be held.** The only removal the protocol has for a non-operator
+   leaf is `strike`, which requires flat rungs. Its rungs (`i-a*-g*`) are not flat, so the leaf
+   stays in stage 1's span-law family at {0.05, 0.2, 0.4, 0.6}. The span tops stay at
+   {128, 160, 192, 256} for the same reason.
+3. **`check-fit` reads the hashed bars' readings.** It reads `ladders/results.json`, where neither
+   operator separates and no body-width rung meets. It refuses body-width-first and requires the
+   stop. Read on the re-read's operators instead, the permitted changes apply, but the protocol's
+   one-scale-only rule (σ 2 and share 0.5) still asks for a ruling first.
+4. **No tool route.** Teaching `check-fit` the re-read, the tap's fallback or the held occlusion gain
+   moves `declare.py`, a pinned part-1 source. Part 1's amendment is spent. Part 2 can re-pin a
+   part-1 tool only through its own amendment, which needs part 2 hashed first and spends the
+   amendment Decision Log 9 keeps.
+
+So no part 2 can pass the hashed `check-fit` in any content until the parent rules the route.
