@@ -48934,3 +48934,45 @@ part-2 file was written.
    amendment Decision Log 9 keeps.
 
 So no part 2 can pass the hashed `check-fit` in any content until the parent rules the route.
+
+**Decision Log 10 (the parent): option A. W47 closes at G0 with the finding.** The parent ruled that a
+validator changed after the readings are known is what the declaration discipline exists to prevent.
+Decision Log 8 changed a bar's form inside the hashed tooling; a part-2 route would not have stayed
+inside it. What stands:
+- **Both operators, landed inert** with their byte proofs (§3, §4). They ship as identity, and there
+  is no release.
+- **Part 1**, amended once, final: `2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e`.
+- **The evidence**: the ladder renders, `results.json` under the hashed bars (§8), and the Decision
+  Log 8 re-read (`reread.json`).
+- **The finding.**
+  - Operator 2 separates at both scales: tap σ 4 R 0.73 / 0.75 at 1x and 1.00 / 0.97 at 2x; body
+    width 4 R 0.74 / 0.76 and 0.69 / 0.66.
+  - Operator 1's closest rung sits inside the landing budget and misses the re-stated bar on one
+    unchanged cell, `hc-text-7__rrect-lg__rest` at 1x.
+  - The three protocol defects that stopped part 2 are in the charter's Surprises and the tracker.
+- **Unspent**: no referee or holdout cell was rendered. The dark 0.25 holdout and W46's referees
+  remain unspent.
+
+**The next wave** (the charter's Deferred, W48) fits these operators under a corrected declaration,
+reusing these ladder renders as hashed evidence with no new ladder. Its declaration differs in four
+places:
+- operator 2's body width and tap both fittable, with the gate reading both;
+- operator 1's bar admitting "unchanged" on over-Apple cells;
+- `sizeOcclusionGain` and the span tops holdable without a strike;
+- the σ 2 and share 0.5 one-scale rungs ruled there.
+
+This section's title says "part 2 hashed". No part 2 was drafted into a file or hashed. The title
+stands as written; this sentence corrects it.
+
+### 12. What is not claimed (the close)
+
+- **Any fit, gate, exposure, seal, publication or release.** Part 2 does not exist, and no document,
+  generation, capture tree or matrix row moved.
+- **That operator 1 cannot meet a landing-rule bar.** Its closest rung is inside the rule's budget at
+  both scales. It missed only the re-stated bar's toward clause on one cell that reads unchanged. A
+  bar admitting "unchanged" was never declared or read.
+- **That the receded body width is as good as the tap.** Both separate; the tap removes more of the
+  fine excess at 2x. Neither was read on the gate population.
+- **Any reading under the joint beyond its four cells.** The joint's photo clause misses by 0.02 /
+  0.01 bar (§8's correction), and the joint was never read on the gate population.
+- **A mechanism for the level check's unexplained excesses**, which stay beside L1 and gate nothing.

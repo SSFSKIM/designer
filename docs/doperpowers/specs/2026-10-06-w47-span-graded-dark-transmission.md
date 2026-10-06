@@ -1,16 +1,16 @@
 # W47 — the span-graded dark transmission and the receded fine term: the two operators W46 deferred, landed inert and fitted on the same dark `-glass0.25` bed (2026-10-06)
 
-**Status: DRAFT v1.2 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
+**Status: CLOSED AT G0 WITH THE FINDING (2026-10-06)** (Decision Log 10; claims §5.211 §11–§12). DRAFT v1.2 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
 ledger §5.209 §7) under `/kairos`; two adversarial rounds folded (v1: one P1, four P2; v1.1
 scoped: approved, no material finding), the loop closed. G0 stopped at clause 5; part 1 amended
-once under Decision Log 8; Decision Log 9's part 2 stopped at its own item 2 (claims §5.211 §11).** Decision Logs 1–9 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
+once under Decision Log 8; Decision Log 9's part 2 stopped at its own item 2 (claims §5.211 §11).** Decision Logs 1–10 are the parent's rulings of 2026-10-06; Decision Logs 1 and 3
 carry the parent's v1.1 amendments from that round, and Decision Log 8 re-states the three ladder bars
 after G0's clause-5 stop (claims §5.211 §8–§9). Nothing is captured, no holdout is read and no
 document moves until G0's two hashes are on main.
 
 ## Decisions
 
-The full entries are Decision Logs 1–9 at the tail.
+The full entries are Decision Logs 1–10 at the tail.
 
 | DL | question | status | what holds |
 | --- | --- | --- | --- |
@@ -23,6 +23,7 @@ The full entries are Decision Logs 1–9 at the tail.
 | 7 | the standing rules | **RULED** by the parent, 2026-10-06 | no attribution; path-scoped adds; no file over 50 MB; evidence never rewritten; freeze 1,818 and X41 911 at every merge; nothing withheld renders before the exposure; the populations per phase as W46 defined them |
 | 8 | the ladder bars, re-stated once after G0's clause-5 stop | **RULED** by the parent, 2026-10-06 | part 1's ONE amendment spent: operator 1's bar is the landing rule's partition on the five thick rest cells against Apple (none away beyond 3 B, at most two of five beyond B, every thick cell over Apple at the reference moving toward it; the thin clause and L1 unchanged); operator 2's on T1-fine (both fine inactive cells' fine-band excess at least halved at both scales, the guards unchanged, the whole-band fall reported and carried to the gate); the joint both readings together on the four ladder cells with the photo inactive ratio held; the level check's unexplained excesses read beside L1, not gated; no cell set, grid, target or landing-rule clause changes; the existing renders re-read, no new render |
 | 9 | the re-read's consequences: which operator is fitted, and part 2 | **RULED** by the parent, 2026-10-06; item 2's STOP reached | operator 1 named not fitted (X63), its leaves at identity and `sizeOcclusionGain` at its inherited value; operator 2 fitted, the body width first on {3, 4} and the tap (σ {3, 4, 6}, share {0.75, 1}) where the protocol permits; the active `tintAlpha` {0.9}, the receded {0.8, 0.89}; §5.211 §8's photo sentence corrected beside it; the level excesses beside L1, ungated. The protocol has no tap fallback after body-width-first, so part 2 was not hashed (§5.211 §11) |
+| 10 | the route for part 2 | **RULED** by the parent, 2026-10-06 | option A: W47 closes at G0 with the finding. A validator that changes after the readings are known is not admitted. Both operators stay landed inert (identity, no release); part 1 amended once and final; the ladder renders and the Decision Log 8 re-read stand as hashed evidence; no referee or holdout spent; the fit is the next wave's (Deferred) |
 
 ## Purpose
 
@@ -765,6 +766,16 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 
 ## Deferred / Out of Scope
 
+- **W48, the fit of these two operators under a corrected declaration** (Decision Log 10). It reuses
+  this wave's ladder renders and the Decision Log 8 re-read as hashed evidence, with no new ladder.
+  Its declaration differs from W47's in four places, each one a block this wave met (claims §5.211
+  §11):
+  - operator 2 is declared with the receded body width AND the tap both fittable; the cheaper-first
+    rule (body-width-first) is replaced by the gate reading both;
+  - operator 1's bar is the landing rule's partition with "unchanged" admitted on over-Apple cells;
+  - `sizeOcclusionGain` and the span tops can be held without a strike;
+  - the σ 2 and share 0.5 rungs, which meet at one scale only, are ruled there.
+  The dark 0.25 holdout and W46's referees remain unspent for it.
 - **The 1x per-span width.** W45's `sizeHeavySecondShareFar2x` is 2x-anchored with an implicit 1x
   zero, so the 1x thick spans have no width that grows with the span; a `sizeHeavySecondShareFar1x`
   twin (identity 0, plain value drop) is the next operator if ladder (ii) shows the 2x width is
@@ -780,9 +791,9 @@ review rules; the census; no attribution; path-scoped adds; merges with the free
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | stopped at clause 5 (neither operator separated under the hashed bars); part 1 amended once under Decision Log 8 and the ladders re-read (operator 2 separates, operator 1 does not); Decision Log 9 recorded, part 2 not hashed: item 2's STOP, the protocol has no tap fallback | §5.211 |
-| G1 | not started | §5.212 |
-| G2 | not started | §5.213 |
+| G0 | **CLOSED AT THE FINDING** (Decision Log 10): both operators landed inert; part 1 amended once under Decision Log 8; the re-read has operator 2 separating and operator 1 not; part 2 not hashed | §5.211 |
+| G1 | not run: the wave closed at G0 (Decision Log 10) | — |
+| G2 | not run: the wave closed at G0; no release | — |
 
 ## Decision Log
 
@@ -928,8 +939,24 @@ neither closes the wave at G0 with the finding and the amendment recorded.
 4. §5.211 §8's "holds point A's ratio" is corrected beside it (the reading recorded `photoHolds: false`; ×0.4163 against ×0.4171 at 1x, ×0.4601 against ×0.4604 at 2x), never rewritten.
 5. The level check's excesses stay beside L1, ungated, in every reading.
 
+### Decision Log 10 — RULED 2026-10-06 (the parent, on part 2's stop): option A, the wave closes at G0
+
+*Ruling:* option A. W47 CLOSES AT G0 WITH THE FINDING. A validator that changes after the readings are known is what the declaration discipline exists to prevent; Decision Log 8 changed a bar's form and stayed inside the hashed tooling, and this would not. What stands: both operators landed inert on main with their byte proofs (they ship as identity, no release); part 1 amended once and final; the ladder renders and the Decision Log 8 re-read as hashed evidence; the finding that operator 2 separates at both scales (tap σ 4: R 0.73 / 0.75 at 1x, 1.00 / 0.97 at 2x; body width 4: 0.74 / 0.76 and 0.69 / 0.66) and that operator 1's closest rung sits inside the landing budget while missing the re-stated bar on one unchanged cell. No referee or holdout spent.
+
 ## Surprises & Discoveries
 
+- **2026-10-06 (G0, part 2): three protocol defects stopped part 2 after the bars were re-stated**
+  (claims §5.211 §11; tracker entries).
+  - *Body-width-first excludes the stronger lever.* The protocol fits the receded body width and
+    names the tap unfitted when a body-width rung meets the bar. Both met it, and the tap removes
+    more of the fine excess at 2x (R 1.00 / 0.97 at σ 4 against 0.69 / 0.66 at body width 4).
+    Nothing re-admits the tap at the gate.
+  - *`strike` is the only removal of a non-operator leaf, and it needs flat rungs.* So
+    `sizeOcclusionGain` and the span tops, whose rungs move cells, cannot be held at their
+    inherited values once operator 1 is not fitted.
+  - *`check-fit` reads the original bars' `results.json` after a bar amendment.* It requires the
+    stop that those bars read. Teaching it the re-read moves `declare.py`, a part-1 pin whose
+    amendment is spent.
 - **2026-10-06 (G0 (f), the depth-split diagnostic): the deep sample's width at 2x is 7 CSS px, not
   14.** The Grounding and Design "Operator 2" sentences that read "the deep component at 2x is
   already a σ 14 CSS px texture" (and the Purpose's "σ 14 CSS px heavy texture") stand as written;
@@ -950,6 +977,9 @@ neither closes the wave at G0 with the finding and the amendment recorded.
 
 ## Revision Notes
 
+- 2026-10-06 (the close): Decision Log 10 recorded verbatim; the status line reads CLOSED AT G0 WITH
+  THE FINDING; the Decisions table, the Tracking Map, Deferred (W48) and Surprises (the three
+  protocol defects) updated.
 - 2026-10-06 (G0, on the re-read): Decision Log 9 recorded verbatim from the parent's ruling; the status
   line, the Decisions table and the Tracking Map updated. Its item 2 stopped part 2 before the hash:
   `protocol.json`'s body-width-first names the tap unfitted and admits no fallback (claims §5.211 §11).
