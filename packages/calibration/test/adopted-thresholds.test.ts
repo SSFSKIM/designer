@@ -3515,8 +3515,13 @@ const T1_BANDS_FILES = [
  *   No regression is authorised against it.
  * - **The referee manifest** is W46's (`w46-referees-1`, six scenes per dark scale). It labels a
  *   cell's partition and never selects.
- * - **The band fixture** holds the dark T cells' T1-fine and T1-low, read off `d0219cd684bf`'s
- *   canonical captures by W44 G1's readers (`results/2026-10-05-w46-g2-landing/t1/bands.py`).
+ * - **The band fixtures**, ONE PER GENERATION as on the light side (W48 G2, charter clause 10 part (i);
+ *   claims §5.214): each holds the dark T cells' T1-fine and T1-low read off its generation's captures
+ *   by W44 G1's readers and is keyed by its rows' capture paths, so no key can come from both.
+ *   `d0219cd684bf`'s is W46 G2's (`results/2026-10-05-w46-g2-landing/t1/bands.py`), unchanged, and is
+ *   what witnesses a regression against that generation; `b2d074d2df24`'s is W48 G2's, read off the
+ *   canonical tree G1's stage was copied to and equal on every entry to the bands G1's exposure cut
+ *   and the landing cut carry (`results/2026-10-06-w48-g2-landing/t1/bands.py`).
  * - **The gate's cut** of `d0219cd684bf` against itself, by W46's ported cuts
  *   (`results/2026-10-05-w46-g1-refit/references/`), is the Python referee the port agrees with.
  */
@@ -3530,6 +3535,11 @@ const T1_DARK_REFEREES_FILE = {
   sha256: "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
 } as const;
 const T1_DARK_BANDS_FILES = [
+  {
+    generation: "b2d074d2df24",
+    path: "results/2026-10-06-w48-g2-landing/t1/t-bands-b2d074d2df24.json",
+    sha256: "c21d7aa072a38716747bd707171adfb5b0a3930732599b6d490387dcab8bb8de",
+  },
   {
     generation: "d0219cd684bf",
     path: "results/2026-10-05-w46-g2-landing/t1/t-bands-d0219cd684bf.json",
@@ -3668,6 +3678,13 @@ const T1_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = ([
   profile: "apple-macos-27.0-2x-light-standard-glass0.25", scene, reference: T1_W45_REFERENCE, growthInB,
   ruling: T1_W45_RULING,
 }));
+
+/**
+ * **The dark scheme's authorised regressions** (W47 Design "The landing rule"; W48 charter clause 10,
+ * X59; claims §5.214): a list SEPARATE from the light one, read by the dark block's clause (b) and its
+ * own standing witness, with the same entry form and the same refusals (`t1ClauseBFailures`).
+ */
+const T1_DARK_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = [];
 
 /**
  * **The landing rule's aggregate misses a ruling names** (W45 Decision Log 3's clause "every gated
@@ -7487,7 +7504,7 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     for (const profile of T1_DARK_GATED_PROFILES) {
       const { cells } = t1Cut(profile, "webgpu");
       for (const form of ["w44", "growth"] as const) {
-        expect(t1ClauseBFailures(cells, T1_DARK_REFERENCE, T1_AUTHORISED_REGRESSIONS, form),
+        expect(t1ClauseBFailures(cells, T1_DARK_REFERENCE, T1_DARK_AUTHORISED_REGRESSIONS, form),
           `${profile}: T1 cells away from Apple beyond B against ${T1_DARK_REFERENCE.active} (${form})`).toEqual([]);
       }
     }

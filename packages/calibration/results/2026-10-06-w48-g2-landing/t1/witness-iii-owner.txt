@@ -1,0 +1,63 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w48/g2/packages/calibration
+
+T1 dark CSS readings (not gated; W46 G2, claims §5.210):
+  apple-macos-27.0-1x-dark-standard-glass0.25 css F: 3 of 15 within, median |log| 1.1472
+  apple-macos-27.0-1x-dark-standard-glass0.25 css T: 1 of 4 within, median |log| 0.3846
+  apple-macos-27.0-1x-dark-standard-glass0.25 css C: 6 of 46 within, median |log| 0.6027
+  apple-macos-27.0-1x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 0.9818
+  apple-macos-27.0-2x-dark-standard-glass0.25 css F: 2 of 15 within, median |log| 0.8201
+  apple-macos-27.0-2x-dark-standard-glass0.25 css T: 2 of 4 within, median |log| 0.2281
+  apple-macos-27.0-2x-dark-standard-glass0.25 css C: 4 of 46 within, median |log| 0.6210
+  apple-macos-27.0-2x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 0.9232
+ ❯ test/adopted-thresholds.test.ts (160 tests | 2 failed | 154 skipped) 483ms
+     × (a) fidelity: every dark cell is within, or named in MISSED_27_ROWS; none UNMEASURED 109ms
+     × (b) regression: no dark cell moves away from Apple by more than B against d0219cd684bf, both forms 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.210) > (a) fidelity: every dark cell is within, or named in MISSED_27_ROWS; none UNMEASURED
+AssertionError: texture / probe / checkerboard-lc16__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev: web/native 1.60533, |Δ| 0.01311 against 0.00406: a T1 miss MISSED_27_ROWS does not name: expected undefined to be defined
+ ❯ test/adopted-thresholds.test.ts:7490:55
+    7488|         expect(MISSED_27_ROWS[t1Key(cell)], `${t1Key(cell)}: web/nativ…
+    7489|           + `|Δ| ${Math.abs(cell.web - cell.native).toFixed(5)} agains…
+    7490|           + "a T1 miss MISSED_27_ROWS does not name").toBeDefined();
+       |                                                       ^
+    7491|       }
+    7492|       for (const stratum of Object.keys(T1_STRATA) as T1Stratum[]) {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.210) > (b) regression: no dark cell moves away from Apple by more than B against d0219cd684bf, both forms
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.25: T1 cells away from Apple beyond B against d0219cd684bf (w44): expected [ …(7) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "checkerboard-32__rrect-lg__rest: g 0.00897 > B 0.00301 (2.98 B)",
++   "checkerboard-64__rrect-lg__rest: g 0.00464 > B 0.00299 (1.55 B)",
++   "checkerboard-lc16__rrect-md__rest: g 0.01081 > B 0.00406 (2.66 B)",
++   "hc-text-28__rrect-lg__rest: g 0.00497 > B 0.00356 (1.39 B)",
++   "photo__rrect-lg__inactive: g 0.00868 > B 0.00329 (2.64 B)",
++   "checkerboard-32__rrect-lg__inactive: g 0.00951 > B 0.00297 (3.20 B)",
++   "checkerboard-64__rrect-lg__inactive: g 0.02672 > B 0.00299 (8.94 B)",
++ ]
+
+ ❯ test/adopted-thresholds.test.ts:7508:106
+    7506|       for (const form of ["w44", "growth"] as const) {
+    7507|         expect(t1ClauseBFailures(cells, T1_DARK_REFERENCE, T1_DARK_AUT…
+    7508|           `${profile}: T1 cells away from Apple beyond B against ${T1_…
+       |                                                                                                          ^
+    7509|       }
+    7510|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 4 passed | 154 skipped (160)
+   Start at  08:29:51
+   Duration  1.70s (transform 190ms, setup 0ms, import 1.12s, tests 483ms, environment 0ms)
+
