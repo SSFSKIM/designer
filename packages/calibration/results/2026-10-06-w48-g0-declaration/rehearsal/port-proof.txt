@@ -1,0 +1,6 @@
+W48 G0 (b): W47's port-proof.py run under W48's bindings; in its line "W46" is W47's committed d0219 cut (packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/d0219-cuts.json.gz) and "W47" is W48's (packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.json.gz).
+port proof: 56289 leaf values of W47's d0219cd684bf cut compared with W46's (d0219-cuts.json.gz, committed); 1 differ; provenance only: cutsSource, ownerTest.sha256 b2ea87147348 → b2ea87147348, summary's rule key renamed W46 → W47, what
+  T1.rule.pBeside: only in W47
+W47's proof exits 1. The difference it names: ['T1.rule.pBeside: only in W47'].
+W48: the only difference is T1.rule.pBeside, a key W47's committed cut lacks (cuts.py gained it at b8907ff07, after W47's cut at 7d5093078): True; its values re-derive from W47's committed cut's own rule groups: True.
+PORT PROOF HOLDS (every leaf value of W47's cut equal; the one added key stated)

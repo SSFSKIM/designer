@@ -1,0 +1,1317 @@
+{
+  "schema": "w48-declaration-1",
+  "charter": "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0",
+  "what": "W48 G0 part 1: the declaration hashed on the assembled tree after the evidence was archived, replayed and pinned (a) and the tools, the reader and the draft were committed (b), before any verdict exists",
+  "items": [
+    {
+      "id": "documents",
+      "title": "the starting point is four document snapshots (X62), at this charter's merge",
+      "clause": "clause 2; X62",
+      "source": [
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/bindings.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/inherit.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/ebc3d9105a4a.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/d0219cd684bf.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/12712d534b78.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/f0b36a71772a.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/ebc3d9105a4a.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/d0219cd684bf.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/12712d534b78.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/documents/f0b36a71772a.json",
+        "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0"
+      ],
+      "declared": {
+        "files": {
+          "active.light": "ebc3d9105a4a",
+          "active.dark": "d0219cd684bf",
+          "receded.light": "12712d534b78",
+          "receded.dark": "f0b36a71772a"
+        },
+        "digests": {
+          "active.dark": "b074fc6913a91c66",
+          "receded.dark": "280f0fddf014e0f6",
+          "active.light": "3741b22934f17f4d",
+          "receded.light": "c4ca0e1cd6791bde"
+        },
+        "commit": "78d0211e0"
+      },
+      "statement": "The dark and light 0.25 document bodies at the charter's merge 78d0211e0, each verified against its hash and its bytes there, and equal to W47's snapshots byte for byte (no 0.25 document moved since c1f9bf84c). Every W48 tool builds from these and refuses the live profiles/ as a start."
+    },
+    {
+      "id": "t1",
+      "title": "T1 as gated, its shared arithmetic, and its dark population",
+      "clause": "clause 2; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py",
+        "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py",
+        "packages/calibration/test/adopted-thresholds.test.ts@78d0211e0"
+      ],
+      "declared": {
+        "populationPerDarkProfile": {
+          "cells": 77,
+          "F": 15,
+          "T": 4,
+          "C": 46,
+          "P": 12,
+          "gate": 66,
+          "holdout": 5,
+          "referee": 6
+        },
+        "strata": {
+          "F": [
+            "checkerboard-4",
+            "checkerboard-8"
+          ],
+          "T": [
+            "hc-text-7"
+          ],
+          "C": [
+            "checkerboard",
+            "checkerboard-lc16",
+            "checkerboard-32",
+            "checkerboard-64",
+            "hc-text",
+            "hc-text-28",
+            "impulse"
+          ],
+          "P": [
+            "photo"
+          ]
+        },
+        "ratioClause": 0.1,
+        "equalTolerance": 1e-12,
+        "ownerTest": "packages/calibration/test/adopted-thresholds.test.ts@78d0211e0",
+        "ownerNeedles": [
+          "const T1_DARK_GATED_PROFILES = [\n  \"apple-macos-27.0-1x-dark-standard-glass0.25\",\n  \"apple-macos-27.0-2x-dark-standard-glass0.25\",",
+          "const T1_DARK_REFERENCE = { active: \"d0219cd684bf\", receded: \"f0b36a71772a\" } as const;",
+          "sha256: \"0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf\""
+        ]
+      },
+      "statement": "T1 is GATED on the dark 0.25 profiles since W46 G2 against d0219cd684bf (§5.210); its statistic, bar and arithmetic unchanged (W44 G1's t1.py by path, pinned). G2 re-baselines it in the five-part order with the separate dark authorised list."
+    },
+    {
+      "id": "bar",
+      "title": "the bar: 0.5 code on every dark cell",
+      "clause": "clause 2; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json"
+      ],
+      "declared": {
+        "darkCells": 154,
+        "maxSeparation": 0.0
+      },
+      "statement": "W44 G0's measurement: 77 cells per dark scale, the seven runs pixel-identical, bar = half a code."
+    },
+    {
+      "id": "manifest",
+      "title": "W46's referee manifest, by hash (X69)",
+      "clause": "clause 5; X69; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/cells.json",
+        "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/plan.py",
+        "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/referees.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/referees/test_x69_x70.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/referees/test_x69_x70.txt"
+      ],
+      "declared": {
+        "schema": "w46-referees-1",
+        "scenes": [
+          "checkerboard-8__rrect-sm__rest",
+          "checkerboard-8__rrect-ml__rest",
+          "checkerboard-4__rrect-md__inactive",
+          "checkerboard-32__rrect-ml__rest",
+          "checkerboard-32__rrect-lg__inactive",
+          "hc-text-7__rrect-md__inactive"
+        ],
+        "profiles": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "apple-macos-27.0-2x-dark-standard-glass0.25"
+        ],
+        "sha256": "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
+        "pregateProbe": {
+          "count": 81,
+          "listSha256": "91e76b666fe5d1bbec3defba7cd3c5a11f549822e4b2a3612dd2ce8d699c2f46"
+        },
+        "exposure": {
+          "count": 13,
+          "listSha256": "3172866644397e984e6ef0ecdf18b986e6b17713a8462122c2a1a87306b4b7a1"
+        }
+      },
+      "statement": "w46-referees-1 loaded by its SHA-256 through W47's X69 loader (inherited by path); W46's adapter, given only W46's frozen ladder list, still reproduces it; the six referee and seven holdout scenes per dark scale are withheld from every fit, stage, gate read and sheet."
+    },
+    {
+      "id": "rule",
+      "title": "the landing rule, its synthetic cases and its rehearsal",
+      "clause": "clause 4; Decision Log 1",
+      "source": [
+        "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.json.gz",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/port-proof.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearsal.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_rule.txt"
+      ],
+      "declared": {
+        "constants": {
+          "budgetCount": 3,
+          "budgetCeilingB": 3.0,
+          "gatingMinCells": 3
+        },
+        "targets": {
+          "P": [
+            "P rest",
+            "P inactive"
+          ],
+          "C rest": [
+            "C rest"
+          ],
+          "F inactive": [
+            "F inactive"
+          ]
+        },
+        "reference": "d0219cd684bf",
+        "syntheticCases": 19,
+        "rehearsal": {
+          "published d0219cd684bf against itself (W47's cuts, canonical captures)": [
+            "NEITHER: closes at the finding",
+            [
+              66,
+              0,
+              0
+            ],
+            [
+              66,
+              0,
+              0
+            ]
+          ],
+          "W46's point A (d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0) against d0219cd684bf, W46 G1's committed gate cut read by W47's rule": [
+            "NEITHER: closes at the finding",
+            [
+              10,
+              16,
+              8
+            ],
+            [
+              9,
+              17,
+              10
+            ]
+          ]
+        }
+      },
+      "statement": "W45's growth-only rule as W46 and W47 bound it, W47's cuts/rule.py inherited by path: d0219cd684bf, bar 0.5, per dark profile, the verdict the weaker profile's. Rehearsed under W48's bindings on d0219cd684bf against itself and on W46's point A by its committed gate cut (§5.209 §4 and §5.211 §6 reproduced); the gated groups per scale the charter's."
+    },
+    {
+      "id": "tools",
+      "title": "W48's tools, W47's inherited by path, their tests on d0219cd684bf",
+      "clause": "clause 2",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/bed.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/cuts.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_cuts_refusals.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/finding.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/fit.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/joint.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/labels.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/recover.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/search.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_build_candidate.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_fit.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/part2.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_reread.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/seal/test_seal.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/sheets.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/test_sheets.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/stage.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_stage.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_x60.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/README.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/archive.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/inventory.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/test_archive.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/test_archive.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/w47_ladders_archive.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/assemble.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/bindings.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/census-gate.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/cuts/cuts.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declaration-inputs.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/12712d534b78.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/d0219cd684bf.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/ebc3d9105a4a.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/f0b36a71772a.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit-declaration-draft.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/build-candidate.ts",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_build_candidate.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_build_candidate.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_fit.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_fit.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_stage_sizes.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_stage_sizes.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/inherit.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/evidence.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/protocol.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/test_verdicts.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/test_verdicts.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/verdicts.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity-reproof.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity-reproof.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity_reproof.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/test_level.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/test_level.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/referees/test_x69_x70.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/referees/test_x69_x70.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.json.gz",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/port-proof.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearsal.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearsal.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearse.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/captures.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay-stdout.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/reread.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/reread.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/results.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/results.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/selections.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/x60-evidence.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/replay.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/seal/seal.ts",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/seal/test_seal.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/seal/test_seal.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/test_stage.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/test_stage.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60/evidence-g0.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60/evidence-g0.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60_evidence.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/README.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_cuts_refusals.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_rule.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/referees__test_referees.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/sheets__test_sheets.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/stage__test_x60.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited_suite.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/run_inherited.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_run_inherited.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_run_inherited.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_ts_copies.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_ts_copies.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/ts_copies.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/with-gpu.sh"
+      ],
+      "declared": {
+        "tests": [
+          [
+            "test_archive",
+            "archive",
+            10
+          ],
+          [
+            "test_build_candidate",
+            "fit",
+            24
+          ],
+          [
+            "test_fit",
+            "fit",
+            46
+          ],
+          [
+            "test_stage_sizes",
+            "fit",
+            6
+          ],
+          [
+            "test_verdicts",
+            "ladders",
+            21
+          ],
+          [
+            "test_level",
+            "level",
+            14
+          ],
+          [
+            "test_x69_x70",
+            "referees",
+            6
+          ],
+          [
+            "test_seal",
+            "seal",
+            18
+          ],
+          [
+            "test_stage",
+            "stage",
+            14
+          ],
+          [
+            "test_bindings",
+            ".",
+            20
+          ],
+          [
+            "test_declare",
+            ".",
+            24
+          ],
+          [
+            "test_run_inherited",
+            "tools",
+            3
+          ],
+          [
+            "test_ts_copies",
+            "tools",
+            5
+          ]
+        ],
+        "inheritedTests": [
+          [
+            "cuts/test_cuts_refusals.py",
+            11
+          ],
+          [
+            "cuts/test_rule.py",
+            19
+          ],
+          [
+            "referees/test_referees.py",
+            11
+          ],
+          [
+            "sheets/test_sheets.py",
+            7
+          ],
+          [
+            "stage/test_x60.py",
+            11
+          ]
+        ],
+        "inherited": [
+          "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/bed.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/cuts.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/fit/finding.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/fit/fit.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/fit/joint.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/fit/labels.json",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/fit/recover.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/fit/search.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/part2.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearse.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/sheets.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/stage/stage.py",
+          "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60.py"
+        ]
+      },
+      "statement": "W48's own tools (bindings, inherit, the archive and replay, the census and launcher copies, the builder and seal copies, declare and assemble, the verdict reader) with their tests; W47's cuts, fit, stage, sheets, referees, level and ladder reader inherited BY PATH under W48's bindings, pinned byte-identical, their tests re-run under W48's bindings; X60 by evidence."
+    },
+    {
+      "id": "level",
+      "title": "the level check (X61), re-bound; the shipped rung's identity re-proven",
+      "clause": "G0 (b); X61",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity-reproof.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity-reproof.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity_reproof.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/test_level.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/level/test_level.txt"
+      ],
+      "declared": {
+        "identity": [
+          "IDENTICAL",
+          130,
+          130,
+          true
+        ],
+        "projection": "every field but capturedAt, key.web.capturePath",
+        "reproof": "REPRODUCED"
+      },
+      "statement": "W47's level check, inherited by path, knowing operator 1's per-pixel alpha. The shipped rung's identity is W47's committed record (130 of 130, reads no change), re-proven against the archive's d0219cd684bf reference subset; its unexplained excesses are read beside L1, ungated."
+    },
+    {
+      "id": "operators",
+      "title": "the two operators are W47's bytes (clause 1)",
+      "clause": "clause 1; X65, X66, X68",
+      "source": [
+        "packages/renderer-webgpu/src/material.ts",
+        "packages/renderer-webgpu/src/wgsl/optics.ts",
+        "packages/renderer-webgpu/src/pyramid.ts",
+        "packages/renderer-webgpu/src/renderer.ts",
+        "packages/renderer-webgpu/src/passes.ts",
+        "packages/platform-web/src/optics.ts",
+        "packages/platform-web/src/css-tier.ts",
+        "packages/calibration/test/w31-identity-table.test.ts",
+        "packages/renderer-webgpu/test/w31-gate-groups.test.ts",
+        "packages/calibration/test/tier-coherence.test.ts",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.sha256"
+      ],
+      "declared": {
+        "w47PartOne": {
+          "sha256": "2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e",
+          "supersedes": "2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579"
+        },
+        "w47Operators": {
+          "operator 1": {
+            "leaves": [
+              "tintAlphaFar1x",
+              "tintAlphaFar2x"
+            ],
+            "slots": [
+              "active.dark",
+              "receded.dark"
+            ],
+            "domains": {
+              "active.dark": {
+                "tintAlphaFar1x": [
+                  [
+                    "interval",
+                    0,
+                    0.6
+                  ]
+                ],
+                "tintAlphaFar2x": [
+                  [
+                    "interval",
+                    0,
+                    0.6
+                  ]
+                ]
+              },
+              "receded.dark": {
+                "tintAlphaFar1x": [
+                  [
+                    "interval",
+                    0,
+                    0.6
+                  ]
+                ],
+                "tintAlphaFar2x": [
+                  [
+                    "interval",
+                    0,
+                    0.6
+                  ]
+                ]
+              }
+            },
+            "law": "farS = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span); alphaBase = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr)·farS, 0, 1); sizedAlpha = alphaBase + sizeOcclusionGain·sizeK·(1 − alphaBase), per pixel on the WebGPU tier, per surface on the CSS tier (X65: mirrored)",
+            "identity": "two plain value drops in MATERIAL_IDENTITY_TABLE, each at 0 (no gate leaf)",
+            "grid": {
+              "tintAlphaFar1x": [
+                0,
+                0.1,
+                0.2,
+                0.3,
+                0.45,
+                0.6
+              ],
+              "tintAlphaFar2x": [
+                0,
+                0.1,
+                0.2,
+                0.3,
+                0.45,
+                0.6
+              ],
+              "optics.regular.tintAlpha": [
+                0.7,
+                0.8,
+                0.9
+              ],
+              "sizeOcclusionGain": [
+                0.05,
+                0.2,
+                0.4,
+                0.6
+              ],
+              "sizeScatterSpanMax": [
+                128,
+                160,
+                192,
+                256
+              ],
+              "sizeScatterSpanMax2x": [
+                128,
+                160,
+                192,
+                256
+              ]
+            },
+            "units": {
+              "tintAlphaFar1x": "alpha per unit of farS",
+              "tintAlphaFar2x": "alpha per unit of farS",
+              "optics.regular.tintAlpha": "alpha",
+              "sizeOcclusionGain": "share of (1 − alpha) at sizeK 1",
+              "sizeScatterSpanMax": "CSS px (span)",
+              "sizeScatterSpanMax2x": "CSS px (span)"
+            }
+          },
+          "operator 2": {
+            "leaves": [
+              "sizeFineTapShare",
+              "sizeFineTapSigma",
+              "sizeFineTapSigma2x"
+            ],
+            "slots": [
+              "receded.dark"
+            ],
+            "domains": {
+              "active.dark": {},
+              "receded.dark": {
+                "sizeFineTapShare": [
+                  [
+                    "interval",
+                    0,
+                    1
+                  ]
+                ],
+                "sizeFineTapSigma": [
+                  [
+                    "set",
+                    [
+                      0
+                    ]
+                  ],
+                  [
+                    "interval",
+                    1.5,
+                    6
+                  ]
+                ],
+                "sizeFineTapSigma2x": [
+                  [
+                    "set",
+                    [
+                      0
+                    ]
+                  ],
+                  [
+                    "interval",
+                    1.5,
+                    6
+                  ]
+                ]
+              }
+            },
+            "law": "receded-only by document (X66): in the form G0 (f) chose — body: bodySample' = bodySample + sizeFineTapShare·(fineSample − bodySample), fineSample the source blurred at sizeFineTapSigma(dpr) CSS px; deep: scatterColour' = scatterColour + sizeFineTapShare·(deepFine − scatterColour), deepFine at √(σdeep² + sizeFineTapSigma(dpr)²); interior = mix(·, ·, kScatter); the CSS tier declines it",
+            "identity": "one gate-group in MATERIAL_IDENTITY_TABLE: gate { sizeFineTapShare: 0 }, gated [sizeFineTapSigma, sizeFineTapSigma2x]",
+            "grid": {
+              "sizeFineTapSigma": [
+                1.5,
+                2,
+                3,
+                4,
+                6
+              ],
+              "sizeFineTapSigma2x": [
+                1.5,
+                2,
+                3,
+                4,
+                6
+              ],
+              "sizeFineTapShare": [
+                0.25,
+                0.5,
+                0.75,
+                1
+              ],
+              "optics.regular.blurSigma": [
+                1.25,
+                2,
+                3,
+                4
+              ]
+            },
+            "units": {
+              "sizeFineTapSigma": "CSS px",
+              "sizeFineTapSigma2x": "CSS px",
+              "sizeFineTapShare": "share of the chosen component",
+              "optics.regular.blurSigma": "device px (receded difference only)"
+            }
+          },
+          "clause1Evidence": {
+            "packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts": "c6d3ed87634c11fea8728a385059628787d7191b7f30bb8ebadb4e478b8ada6c",
+            "packages/renderer-webgpu/e2e/gpu/w47-fine-tap.spec.ts": "51a82527451ca87c9b2910f525ae464fcb9329f9ef574c4e93d463a315b6c05d",
+            "packages/renderer-webgpu/e2e/fixtures/scenes.ts": "7ce2d0b427f342aab5740b30c66998a5ded60a9baede818a0720a7372ad5542a",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/compare.txt": "44dee374e585f80c483717a054328ad470c7f8150b7d557ed742a034c71a7bed",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/png-sha256.json": "c31fad540775aa70efff3ac7dcbe8aff17cc7468a4c40d69da2156164fb85111",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/digests.txt": "343f2f6f8204244a5aeacc01add8147f4c94e4d6cf390332765acf112505e255",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/suites.txt": "5143c7067cd3a028f1208138263faf8670a85cfa0b970406d05a468d4995cffc",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/x60.txt": "ed783804db4dad8d3f42f7cda2488462d6d4f6ca30e8969a050758d9fc9548c3",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-1/readers.txt": "2d6cdbb907e6e969354414794a890fd924298db5e51358fd977375a08e94c664",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/compare.txt": "b6f6fccfcfd63da4e052dd7bfe9c71ac28ee83f927dfdc1029694701d4916a91",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/png-sha256.json": "83960ffeb062ee021d55c10dffd846bd05e7dc55f683a280393119f4cdc03abb",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/digests.txt": "944fbbcc01561e998557e68f4724c54204259fe59d4801ce9031254319b27fe0",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/suites.txt": "3da7e8aa832709863f49c8a5a122390ff39cf0632aae1af50ce3dd303b9e92a9",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/identity.txt": "c2f73e4a4281df9a2cde3c227b49a820c0609507941bc0e08cd831a91f4ec367",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/x60.txt": "775ae1f49b6495c0638aaea68ae39c16c0a7b288055dd7d73b997d8e364b4220",
+            "packages/calibration/results/2026-10-06-w47-g0-operators/operator-2/readers.txt": "96f558bdfd52154f8d35ecc8abae99bb424337ee29573084f1f9a5a50c0d0769"
+          }
+        },
+        "runtime": {
+          "packages/renderer-webgpu/src/material.ts": "64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9",
+          "packages/renderer-webgpu/src/wgsl/optics.ts": "7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197",
+          "packages/renderer-webgpu/src/pyramid.ts": "348d7d8839f7aaa8b0897f45a96a33a4adbc317f45ce539c1adec14d96d8cd07",
+          "packages/renderer-webgpu/src/renderer.ts": "6518e60d36498123509800b0789a7dcb42a24870be5642ca051863899b820b61",
+          "packages/renderer-webgpu/src/passes.ts": "0162632aeaf4503ba565aa1895704bf585b4216f8c9aadc491bd1229c23da710",
+          "packages/platform-web/src/optics.ts": "d0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4",
+          "packages/platform-web/src/css-tier.ts": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a",
+          "packages/calibration/test/w31-identity-table.test.ts": "6a15a7adf8321b9a7d66ca5791a332c5b93a163018da84972f24315137de74da",
+          "packages/renderer-webgpu/test/w31-gate-groups.test.ts": "81e9303645a90c514272f41563d03d62371dc22d8b019dfbd1becbf227ce6f34",
+          "packages/calibration/test/tier-coherence.test.ts": "dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837"
+        }
+      },
+      "statement": "Operator 1 (tintAlphaFar1x / 2x) and operator 2 (sizeFineTapShare with its two widths, the body form) as W47's part 1 states them (2d4a2c7f…, its operators item verbatim), landed inert on main at 429d0a78; every runtime file and identity-table test byte-identical to this charter's merge. Any runtime byte that moves before G1's freeze closes the child."
+    },
+    {
+      "id": "evidence",
+      "title": "W47's ladder evidence, archived, replayed and pinned (X71)",
+      "clause": "G0 (a); X71; Decision Log 2",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/amendments.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.sha256",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/declare.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.py",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.txt",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/selections.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/archive.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/inventory.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/test_archive.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/test_archive.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/w47_ladders_archive.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/evidence.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/captures.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay-stdout.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/reread.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/reread.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/results.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/results.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/selections.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/x60-evidence.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/replay.py"
+      ],
+      "declared": {
+        "release": "w47-ladders-archive",
+        "asset": "w47-ladders-archive-fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac.tar.zst",
+        "sha256": "fd89b7618aed56a1a7a12becf07c653a444166709df24aeac636a6b5673202ac",
+        "bytes": 66241907,
+        "inventorySha256": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa",
+        "entries": {
+          "ladders": 14463,
+          "drive": 95,
+          "reference": 426
+        },
+        "w47PartOne": [
+          "2d6d49ad7af5dc9190227ba02f57e3eb9681a85f31890f127e6c08c621103579",
+          "2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e"
+        ]
+      },
+      "statement": "The ladder tree, the drive's logs and the canonical d0219cd684bf reference subset as release w47-ladders-archive by SHA-256; W47's read.py and reread.py replayed read-only from the fetched archive with the raw root and the live canonical tree denied, equal to W47's committed readings byte for byte, the control 142 of 142; W47's readings, protocol, diagnostic, both part-1 hashes and amendment record pinned. The verdicts are read from these files by key."
+    },
+    {
+      "id": "targets",
+      "title": "the three targets, their families and the predictions",
+      "clause": "Decision Log 5",
+      "source": [
+        "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declaration-inputs.json"
+      ],
+      "declared": {
+        "given": {
+          "statement": "PREDICTIONS, which the gate replaces (W48 Decision Log 5): W47's three targets, each a stratum × pose aggregate halved per profile (P pooled over both poses with P rest and P inactive reported beside it; C rest; F inactive). Predictions from W47's ladders and W46's point A, stated here and hashed in part 1 as predictions the gate replaces: - **C rest halves at both scales** at operator 1's closest rung: the thin gain is point A's (W46's C rest fell 0.390 → 0.171 at 1x and 0.538 → 0.238 at 2x at `tintAlpha` 0.7), and the thick cells sit inside the budget instead of 10–12 B away. - **F inactive's fine band falls by at least 0.73 of its excess** at tap σ 4 (R .728 / .753 at 1x, 1.005 / .967 at 2x), the whole band by 2.3–3.9 B; the joint with the receded transmission 0.8 keeps it (R .736 / .767 and 1.044 / 1.011). - **P is not halved from these operators alone** (W47 part 1's prediction: operator 1 alone 0.759 / 0.740 against 0.879 / 0.965 at the reference; the receded photo body at point A ×0.42–0.46). The gate reads it; if it is not halved, the landing rule's improvement clause reads what is. - **The budget** is predicted to hold at operator 1's closest rung (two coarse thick cells away per scale) and to be at risk from the mid-span coarse cells (`checkerboard-lc16` md / ml / lg read 2.8–4.6 B away at point A, which operator 1's gain knot and not its far knot governs). - **The level check's excesses** (`hc-text-28__rrect-md__rest` −0.005 to −0.032, `impulse__rrect-sm__rest` +0.0074 / +0.0083 on every 0.7 rung; none failing L1) are read beside L1 at every stage and in the gate report, ungated. - **S1 dark** read and not gated, direction as W47 predicted.",
+          "targets": {
+            "P": [
+              "P rest",
+              "P inactive"
+            ],
+            "C rest": [
+              "C rest"
+            ],
+            "F inactive": [
+              "F inactive"
+            ]
+          },
+          "predictions": {
+            "C rest": "halves at both scales at operator 1's closest rung (W46's C rest fell 0.390 -> 0.171 at 1x and 0.538 -> 0.238 at 2x at tintAlpha 0.7; the thick cells inside the budget instead of 10-12 B away)",
+            "F inactive": "the fine band falls by at least 0.73 of its excess at tap sigma 4 (R .728 / .753 at 1x, 1.005 / .967 at 2x), the whole band by 2.3-3.9 B; the joint with the receded transmission 0.8 keeps it (R .736 / .767 and 1.044 / 1.011)",
+            "P": "not halved from these operators alone (W47 part 1: operator 1 alone 0.759 / 0.740 against 0.879 / 0.965; the receded photo body at point A x0.42-0.46); if not halved, the landing rule's improvement clause reads what is",
+            "budget": "holds at operator 1's closest rung (two coarse thick cells away per scale); at risk from the mid-span coarse cells (checkerboard-lc16 md / ml / lg 2.8-4.6 B away at point A)",
+            "level": "the level check's excesses (hc-text-28__rrect-md__rest -0.005 to -0.032, impulse__rrect-sm__rest +0.0074 / +0.0083 on every 0.7 rung; none failing L1) read beside L1 at every stage and in the gate report, ungated"
+          },
+          "sources": [
+            "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0"
+          ]
+        },
+        "families": {
+          "P": [
+            "active.dark optics.regular.tintAlpha",
+            "active.dark sizeOcclusionGain",
+            "active.dark sizeScatterSpanMax",
+            "active.dark sizeScatterSpanMax2x",
+            "active.dark tintAlphaFar1x",
+            "active.dark tintAlphaFar2x",
+            "receded.dark optics.regular.tintAlpha"
+          ],
+          "C rest": [
+            "active.dark sizeHeavyTapSigma",
+            "active.dark sizeScatterFloor",
+            "active.dark sizeScatterFloor2x",
+            "active.dark sizeScatterRampStartThin1x",
+            "active.dark sizeScatterRampStartThin2x",
+            "active.dark sizeScatterScaleGain"
+          ],
+          "F inactive": [
+            "receded.dark optics.regular.blurSigma",
+            "receded.dark sizeFineTapShare",
+            "receded.dark sizeFineTapSigma",
+            "receded.dark sizeFineTapSigma2x",
+            "receded.dark sizeHeavySecondShare",
+            "receded.dark sizeHeavySecondShareFar2x",
+            "receded.dark sizeHeavySecondSigma",
+            "receded.dark sizeHeavySecondSigma2x",
+            "receded.dark sizeHeavyTapSigma",
+            "receded.dark sizeHeavyTapSigma2x",
+            "receded.dark sizeScatterFloor",
+            "receded.dark sizeScatterFloor2x",
+            "receded.dark sizeScatterHeavyShareThick1x",
+            "receded.dark sizeScatterRampStartFar1x",
+            "receded.dark sizeScatterRampStartFar2x",
+            "receded.dark sizeScatterRampStartThick1x",
+            "receded.dark sizeScatterRampStartThick2x",
+            "receded.dark sizeScatterRampStartThin1x",
+            "receded.dark sizeScatterRampStartThin2x",
+            "receded.dark sizeScatterScaleGain"
+          ]
+        }
+      },
+      "statement": "PREDICTIONS, which the gate replaces (W48 Decision Log 5): W47's three targets, each a stratum × pose aggregate halved per profile (P pooled over both poses with P rest and P inactive reported beside it; C rest; F inactive). Predictions from W47's ladders and W46's point A, stated here and hashed in part 1 as predictions the gate replaces: - **C rest halves at both scales** at operator 1's closest rung: the thin gain is point A's (W46's C rest fell 0.390 → 0.171 at 1x and 0.538 → 0.238 at 2x at `tintAlpha` 0.7), and the thick cells sit inside the budget instead of 10–12 B away. - **F inactive's fine band falls by at least 0.73 of its excess** at tap σ 4 (R .728 / .753 at 1x, 1.005 / .967 at 2x), the whole band by 2.3–3.9 B; the joint with the receded transmission 0.8 keeps it (R .736 / .767 and 1.044 / 1.011). - **P is not halved from these operators alone** (W47 part 1's prediction: operator 1 alone 0.759 / 0.740 against 0.879 / 0.965 at the reference; the receded photo body at point A ×0.42–0.46). The gate reads it; if it is not halved, the landing rule's improvement clause reads what is. - **The budget** is predicted to hold at operator 1's closest rung (two coarse thick cells away per scale) and to be at risk from the mid-span coarse cells (`checkerboard-lc16` md / ml / lg read 2.8–4.6 B away at point A, which operator 1's gain knot and not its far knot governs). - **The level check's excesses** (`hc-text-28__rrect-md__rest` −0.005 to −0.032, `impulse__rrect-sm__rest` +0.0074 / +0.0083 on every 0.7 rung; none failing L1) are read beside L1 at every stage and in the gate report, ungated. - **S1 dark** read and not gated, direction as W47 predicted."
+    },
+    {
+      "id": "ladders",
+      "title": "the corrected protocol (Decision Log 3) and the verdict reader",
+      "clause": "clause 3; Decision Log 3; X72, X73",
+      "source": [
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/evidence.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/protocol.json",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/test_verdicts.py",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/test_verdicts.txt",
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/verdicts.py"
+      ],
+      "declared": {
+        "bars": {
+          "operator 1": {
+            "decisionLog": "3 (a)",
+            "ladder": "i",
+            "cells": [
+              "checkerboard-8__rrect-lg__rest",
+              "hc-text__rrect-lg__rest",
+              "hc-text-7__rrect-lg__rest",
+              "checkerboard-32__rrect-lg__rest",
+              "checkerboard-64__rrect-lg__rest"
+            ],
+            "perScale": [
+              "no thick cell whose away band reads `away` with growth > awayCeilingB x B",
+              "at most awayBeyondBMax of the five whose away band reads `away` with growth > B",
+              "no thick cell over Apple at the reference on its change band (reference > native) reads `away`: `toward` and `unchanged` are both admitted, the rule's own states",
+              "the thin rest cells keep at least half of point A's gain (W47 ladder (i)'s thin clause, unchanged: reread.json thinKeepsHalf)",
+              "L1 passes on its population (W47's level reading, unchanged: reread.json L1passes)"
+            ],
+            "awayCeilingB": 3,
+            "awayBeyondBMax": 2,
+            "overAppleAdmits": [
+              "toward",
+              "unchanged"
+            ],
+            "reads": "reread.json rungs[label].perScale[scale]: thick[cell].changeBand and .awayBand {n, c, k, B, growth, change}, thinGain, pointAThinGain, thinKeepsHalf, L1passes"
+          },
+          "operator 2": {
+            "decisionLog": "3 (b)",
+            "ladder": "iii",
+            "fine": [
+              "checkerboard-8__rrect-md__inactive",
+              "checkerboard-8__rrect-lg__inactive"
+            ],
+            "guards": [
+              "checkerboard-64__rrect-md__inactive",
+              "photo__rrect-md__inactive"
+            ],
+            "perScale": [
+              "each fine cell: E = fine(reference) - fine(native) > 0 and R = (fine(reference) - fine(rung)) / E >= fineExcessRemovedMin on T1-fine",
+              "each guard: whole-band T1 (k - c) / B >= -guardFloorB",
+              "beside, deciding nothing: each fine cell's whole-band fall -g / B, carried to the gate"
+            ],
+            "fineExcessRemovedMin": 0.5,
+            "guardFloorB": 1,
+            "reads": "reread.json rungs[label].perScale[scale]: fine.cells[cell] {native, reference, rung, E, R, wholeFallInB}, guards.deltaInB"
+          },
+          "joint": {
+            "decisionLog": "3 (c)",
+            "ladder": "iv",
+            "cells": [
+              "checkerboard-8__rrect-md__inactive",
+              "checkerboard-8__rrect-lg__inactive"
+            ],
+            "scales": [
+              1,
+              2
+            ],
+            "reading": "operator 1's partition (a) over the four readings (the two fine cells at 1x and 2x) on their change and away bands, and operator 2's halving (b) on each; the photo inactive ratio against point A's is reported and decides nothing; ladder (iv) decides only name-target",
+            "awayCeilingB": 3,
+            "awayBeyondBMax": 2,
+            "overAppleAdmits": [
+              "toward",
+              "unchanged"
+            ],
+            "fineExcessRemovedMin": 0.5,
+            "reads": "reread.json rungs['iv-joint'].perScale[scale]: partitionReads[cell].changeBand / .awayBand, fine.cells[cell], photo"
+          },
+          "2x width": {
+            "ladder": "ii",
+            "reading": "not re-stated and not re-read (W47 Decision Log 8; W48 Decision Log 4): results.json operators['2x width'] stands; the second tap is not a stage-1 member and no 1x gap is named"
+          }
+        },
+        "separation": {
+          "operator 1": "separates when a ladder (i) rung meets bar (a) at BOTH scales",
+          "operator 2": "the tap separates when a ladder (iii) tap rung (sizeFineTapSigma / sizeFineTapShare) meets bar (b) at BOTH scales; the receded body width meets when a ladder (iii) optics.regular.blurSigma rung does; when both meet, both are stage-2 members and the gate reads both (Decision Log 3 (c); no precedence)",
+          "oneScale": "a rung meeting at one scale only is recorded and is not a fit start (Decision Log 3 (f)); the ones the parent ruled off the grid are `offGrid`; any OTHER rung meeting at one scale only stops part 2 for the parent (W47's one-scale rule stands for the fit)"
+        },
+        "offGrid": {
+          "oneScale": [
+            {
+              "rung": "iii-s2",
+              "values": {
+                "receded.dark": {
+                  "sizeFineTapSigma": 2,
+                  "sizeFineTapSigma2x": 2
+                }
+              }
+            },
+            {
+              "rung": "iii-q0.5",
+              "values": {
+                "receded.dark": {
+                  "sizeFineTapShare": 0.5
+                }
+              }
+            }
+          ],
+          "metNowhere": [
+            {
+              "rung": "iii-s1.5",
+              "values": {
+                "receded.dark": {
+                  "sizeFineTapSigma": 1.5,
+                  "sizeFineTapSigma2x": 1.5
+                }
+              }
+            },
+            {
+              "rung": "iii-q0.25",
+              "values": {
+                "receded.dark": {
+                  "sizeFineTapShare": 0.25
+                }
+              }
+            },
+            {
+              "rung": "iii-b2",
+              "values": {
+                "receded.dark": {
+                  "optics.regular.blurSigma": 2
+                }
+              }
+            }
+          ],
+          "note": "Decision Log 3 (f) and Decision Log 4, ruled before any W48 verdict from W47's re-read as the charter quotes it; part 2's grids carry none of these values"
+        },
+        "expected": {
+          "what": "the charter's predictions (clause 3's Bar), hashed here BEFORE the verdicts; verdicts.py reports each against the reading and a difference is said, never absorbed",
+          "operator 1": {
+            "meetsBoth": [
+              "i-a0.7-f0.2-t128",
+              "i-a0.7-f0.2-t160"
+            ]
+          },
+          "operator 2": {
+            "meetsBoth": [
+              "iii-s3",
+              "iii-s4",
+              "iii-s6",
+              "iii-q0.75"
+            ]
+          },
+          "body width": {
+            "meetsBoth": [
+              "iii-b3",
+              "iii-b4"
+            ]
+          },
+          "joint": {
+            "partitionHolds": true,
+            "halvingHolds": true,
+            "photoBelowPointA": true,
+            "note": "misses the photo floor by 0.02 / 0.01 bar (recorded; the joint decides only name-target)"
+          }
+        },
+        "parentRulings": {
+          "decision-log-3-a": "operator 1's separating bar is the landing rule's partition on the five thick rest cells against Apple, with `unchanged` admitted on the over-Apple cells (closes W47 Decision Log 8's \"toward\" clause, which failed a rung inside the budget on `hc-text-7` at −0.30 / 0.00 B);",
+          "decision-log-3-b": "operator 2 is read on T1-fine, R ≥ 0.5 per cell and scale, the whole band reported beside it (closes the whole-band bar);",
+          "decision-log-3-c": "when the receded body width and the tap both meet (b), both are stage-2 members and the gate reads both; there is no precedence decision kind (closes body-width-first, which named the stronger lever unfitted);",
+          "decision-log-3-d": "`hold` joins the decision kinds: a non-operator leaf may be held at a named value without flat rungs (closes `strike` as the only removal); the parent may hold `sizeOcclusionGain` at 0.05 and the span tops at part 2 if the ladders' gain reading argues it;",
+          "decision-log-3-e": "`check-fit` validates part 2 against `verdicts.json`, the Decision Log 3 reading (closes the check that read the original bars' `results.json`);",
+          "decision-log-3-f": "the σ 2 and share 0.5 rungs, which met at one scale only, are off the grid: a lever that meets at one scale is not a fit start (ruled now; W47's one-scale rule stands for the fit);",
+          "decision-log-3-g": "`amend` and `amend-fit` refuse an empty ops list (closes the empty-ops defect)."
+        },
+        "readerSha256": "4c4499b31eae68bbad3c869018198c88fe868ddfa4101b80ef0c5cd27f283b30",
+        "decisionLog8": {
+          "ruling": "W48 Decision Log 8 (the parent, 2026-10-06)",
+          "rung": "i-a0.8-g0.6",
+          "reading": "meets bar (a) at 1x only: its 2x thin gain 0.0629 is under half of point A's 0.1384 (ladders/verdicts.json under 87ec90d48155)",
+          "decision": "under Design (f) a one-scale rung is not a fit start and is recorded; its point (tintAlpha 0.8, gain 0.6, far 0, top 256) is on no W48 grid, so the grids stay exactly as pinned",
+          "tool": "declare.py check-fit records a one-scale rung whose point is on no grid of part 2 (one_scale_reading) instead of stopping on it; a one-scale rung on a grid still stops",
+          "unchanged": "no bar, verdict reader, grid, target, reference or protocol decision changes; the verdicts are re-read under the amended hash and must repeat byte for byte"
+        }
+      },
+      "statement": "W47's rungs, read by key from its re-read and results (no ladder rendered), under Decision Log 3's bars: (a) operator 1 the landing rule's partition with `unchanged` admitted on over-Apple cells; (b) operator 2 on T1-fine, R >= 0.5, the whole band beside; (c) the joint, deciding only name-target; no precedence kind, `hold` beside `strike`; the sigma 2 and share 0.5 one-scale rungs off the grid. The verdicts are written by ladders/verdicts.py after this hash."
+    },
+    {
+      "id": "startingPoint",
+      "title": "the starting point, by hash",
+      "clause": "Design \"The moves\"; X62",
+      "source": [
+        "packages/calibration/results/generations/index.json"
+      ],
+      "declared": {
+        "generation": "d0219cd684bf",
+        "generationFileSha12": "6e20f04f60c4",
+        "documents": {
+          "apple-macos-27.0-1x-dark-standard-glass0.25.json": "d0219cd684bf",
+          "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": "f0b36a71772a"
+        },
+        "digests": {
+          "active.dark": "b074fc6913a91c66",
+          "receded.dark": "280f0fddf014e0f6"
+        }
+      },
+      "statement": "One space, one starting point: d0219cd684bf, the snapshots of its two documents."
+    },
+    {
+      "id": "references",
+      "title": "the references, by hash",
+      "clause": "Decision Log 1; X52, X60",
+      "source": [
+        "packages/calibration/results/generations/index.json"
+      ],
+      "declared": {
+        "files": {
+          "d0219cd684bf": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02",
+          "ebc3d9105a4a": "6e13171051de77a2236d5545e1cc9ea1d35fd5fe566c6862dedf4b51a8a253f5",
+          "85ad7f7e3e0d": "39ac0ba98ca200b10b194f6b45af54df8bf8b2dcbe6b98946a1c8b8aed58356e",
+          "0eac5b294cc2": "f72429653e29fd760123a7273436aaaeebc332311c4a53c677b03c004468f979"
+        }
+      },
+      "statement": "d0219cd684bf is every regression row's and T1's reference; ebc3d9105a4a is what X60 holds the light rows to; the two 0.5 generations are frozen (X41)."
+    },
+    {
+      "id": "s1",
+      "title": "S1's predicted direction",
+      "clause": "Decision Log 5",
+      "source": [
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declaration-inputs.json"
+      ],
+      "declared": {
+        "given": {
+          "predictedDirection": "away from the dark medians 0.31 (0.314 / 0.311), toward the refit's level change at spans 128 and 160 (W47's prediction, carried by W48 Decision Log 5)",
+          "sentence": "S1 dark is read and not gated, direction as W47 predicted (W48 Decision Log 5); with dark 0.5 frozen (X41), S1 after a dark 0.25 refit reads the refit's change plus the slider's, not the slider's alone.",
+          "sources": []
+        }
+      },
+      "statement": "S1 dark is read and not gated, direction as W47 predicted (W48 Decision Log 5); with dark 0.5 frozen (X41), S1 after a dark 0.25 refit reads the refit's change plus the slider's, not the slider's alone."
+    },
+    {
+      "id": "draft",
+      "title": "the part-2 draft, narrowed (Decision Log 4)",
+      "clause": "clause 2; Design \"The moves\"",
+      "source": [
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/fit-declaration-draft.json",
+        "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json"
+      ],
+      "declared": {
+        "stages": [
+          "stage1",
+          "stage2"
+        ],
+        "searchedLeaves": 33,
+        "targets": [
+          "P",
+          "C rest",
+          "F inactive"
+        ],
+        "stageSizes": {
+          "stage1": {
+            "spanLaw": {
+              "points": 432,
+              "rendersPerScale": {
+                "1x": 72,
+                "2x": 72
+              },
+              "gainHeld": {
+                "points": 108,
+                "rendersPerScale": {
+                  "1x": 18,
+                  "2x": 18
+                }
+              },
+              "plusStart": "the step's start (the snapshot) is offered beside the 432 grid points: 433 candidates, 73 renders per scale (fit/test_stage_sizes.py)"
+            },
+            "restScatter": {
+              "gridPointsPerPass": 26,
+              "passesAtMost": 2,
+              "renders": "about 52 across both scales"
+            }
+          },
+          "stage2": {
+            "transmissionFineTerm": {
+              "points": 114,
+              "rendersPerScale": {
+                "1x": 42,
+                "2x": 42
+              }
+            },
+            "recededScatter": {
+              "gridPointsPerPass": 58,
+              "passesAtMost": 2,
+              "renders": "about 116 across both scales",
+              "candidatesPerPass": 78,
+              "candidatesNote": "58 grid values one by one; W47's search sweeps the second tap's share and widths as one factorial step (3 x 4 x 4, 33 after the share-0 collapse), so a pass from the snapshot start offers 78 candidates (fit/test_stage_sizes.py)"
+            }
+          },
+          "note": "W48 Design \"The moves\" and Decision Log 4; recomputed from this body through W47's fit/search.py (fit/test_stage_sizes.py)"
+        }
+      },
+      "statement": "W47's draft narrowed by the ladders as Design \"The moves\" states: stage 1 the span law at 432 points (72 renders per scale; 108 / 18 with the gain held), the second tap off, then W46's rest scatter; stage 2 the receded transmission x the fine term x the body width at 114 points (42 per scale), then W46's receded scatter. Part 2 is this body changed only by the decisions the verdicts support."
+    }
+  ],
+  "sources": {
+    "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@78d0211e0": "e1a5c11f70fd6207f244495d09cdf4831fab643b5fa3f9df02a1127dbf7939b6",
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/bar/t1-bar.json": "1c3e63ad086b59cc959be67e220ceeb4b6f3d42529d295960f84d7d8fbf0932f",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/readings.py": "d4063705869df3933e27a0f329084e4280a472aab2103bb9873b08c5c93d1b5f",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
+    "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/test_t1.py": "8e89a511de7c3035b0844d32c0a46d3c42a3e08b50215c31faf002e9307b235a",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/ladders/cells.json": "93a1fb4fd36c58c1c08bdc152fdee9cf033fbe22b324f7714b3a85538db13b15",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/plan.py": "732f26487ce6725d08f36ea8e45f7e266f18c272af67ba47882b83e7d9902fe8",
+    "packages/calibration/results/2026-10-05-w46-g0-declaration/referees/referees.json": "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
+    "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz": "7f1d3b5fb84c2f4ccbdaec2114c839763fc3a494d0a4740bb8a566758485aa0a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/amendments.json": "909fbfcf24b3867f220b9fc3fcd8963da24d8959f11204d09d40fb9240f105f2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/bed.py": "c87493e8cc4d2b50cfbf8ff9a0195c9891b1d46ab9a12ec16a036a526572ca84",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/cuts.py": "7ea1fd1ae039cc86bddc43f41539c7c0675725f0d1c9b2406c75ecaf09c86577",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/rule.py": "ad8de5a626299f330c758719abe0e0d1e7b25ac19a1a0c5d0a2c05ad8f23b1f8",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_cuts_refusals.py": "7fe777ed6be6ef6e3b313972a0e9629a94c0e6e440404cea23ca1e52bccb214d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/test_rule.py": "cc22ea22a828c52591975576ba2d98fcd5a69f98a17d8efdef0f2a6d6697c33a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.json": "2d4a2c7f73b5a0708c1e80ff06b64043657b0f7fafe3c05c3393da84d769c30e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/declaration.sha256": "665135a1679cbc713ca27c5cff52303a9939e5ba4bf1902fecb58328ff2e4ec1",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/declare.py": "e3a5b78cdce4e949d4552414468df21896ec0b8a87ef7ec556dc858478960a83",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/reading.json": "11eef32e1f568e86893365fd8cd5eaf66ad158c2def4f95f4017d053084fa51b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/diagnostic/record.json": "940688015a02e06dfa6c92ba1024b5c8451bf075ee58f875e8c4e2c8a3dc8178",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/12712d534b78.json": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/d0219cd684bf.json": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/ebc3d9105a4a.json": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/documents/f0b36a71772a.json": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit-declaration-draft.json": "9ebb409c063b591cc7849fe65626d7a7c79656780a7fa7b691c80166eaf35ac5",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/finding.py": "e07b4bc71500e645c18c7a06cd8f5b2b14a2cf78ec71f49e87c825e0e4c2cc9c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/fit.py": "34b20ddf169a8fd11757586d59828a03285ed1220103c0434946f7cee7ef23e0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/joint.py": "56ea2f738f953ddecfa516b796865c85875222a630ea203d8988ed32d13eb99d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/labels.json": "09d7590592ef32ac817fc8de78d237eea8444ed458852f5a143e0a01c63bfe64",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/recover.py": "dfd96fc02984a9d479cbe612320234659d2ff6d87d52b6f070386b80120e8a77",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/search.py": "42c4d6ae14d59382eaf0fb78d6cc82cfcd93ceca61d965a335111d417e717e31",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_build_candidate.py": "c592a9ac45d0166aec837cccb223d1f55ab50ecc398df1ff058930d89bb8f762",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/fit/test_fit.py": "47d4d3991517ce9c5409f66230ef7eb81becdd555a1d6cb379e835e09be916f2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/cells.json": "91c1834d0c783e489866dacbab68b6feb73553127c47a63104e4be3393f96894",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/ladder.py": "ae20016c857ea36bfdaa1bf1f947d71cabbd0f5657892b1b8e3831e594151d9a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/part2.py": "624bf3fb90971289c7667c8cf426dc04ea0c6d3eedf92d71baec907c40c7f54a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/protocol.json": "757db8651fd178f3affd444f2dc4dcc5d5f0425244b1a72730d4593b979bb85a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/read.py": "8e8a752620a976b3be3a2aad3d90e1a311c9ac666df343e5e924e597b9a0b993",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.json": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.py": "c283539648b00f3ade8512f193d6d620d77af6a30d450407ccce71830f9b45f7",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/reread.txt": "9bc8454e2808470335dde66cc9e130db79d842ce274982dd8ea902fe7051ca85",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.json": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/results.txt": "e1cf64ede613579838977e30c41019048b9f323d4e9006b1f19d452ce9ef0061",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/selections.json": "fa5cc6d9310012eb3c140623f88e1300cbf40eca7beb0a3895894fc13040ae75",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_ladder.py": "a94a7bf9d95072ef6824e5d27104cc2cb80ef44ba09960ce01fb8184cb3ed90d",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_read.py": "6f7511984e8abbebe44e6048ca2ded8e7b185dd0043fbdc336e4f2e01198383a",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/ladders/test_reread.py": "a8318d5692a17279d93d841d5b7ba7c2da15f6911c0cef27154554d86eac6951",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/arith.ts": "7f9eb35fb4634a3863d0569fb2e07e37ddd524e820072a196a2dfdd3f351251b",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/identity/identity.json": "6cb226dd108f2ef1038e776bdf022333232337b83cf37971cc3d1909041e2659",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/level.py": "d74854ee076976c137346b5e9183eb0f72a5637c4c5465392c02f8b5dc92dab4",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/level/test_level.py": "17879ce6ee456dcf6cada7f684cda9bf3be1d2dbb75a76783f4832e845a56193",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/referees/referees.py": "763a2b22164071b0fd7aa9b6601ef977adee0b5c288b595e96eda9b0f9d950bf",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/referees/test_referees.py": "1fc5fa9b0eb5ca63b1b7c29ee11060241b07235e286921a8df939ca1abc6990c",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/port-proof.py": "b229681b2cf231e9cb82fa8b34f2f5e1ce204d7b4a5d144b215852ef7c9260c0",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/rehearsal/rehearse.py": "138a603a2dda2f58a3c6fd17ae04ad1f50b3d1329f8e13d8364dc37ad8bcd0c1",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/seal/test_seal.py": "b73b936e4dab17350be32d775c3519238d8a6664de09f00660f12703a7586576",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/sheets.py": "22282a08cd0aef6102e2e2b2468605da69b53b50acdfe9f1eac25c5c44b3116e",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/sheets/test_sheets.py": "0bc02a9347035fc3080a696582e54e04adca5eba1255bc55c25f22178f4948f6",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/stage.py": "7aa1c2418e053646082ce5aa20d10f3a47758a1a7e4f2614c37abe88e8772df2",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_stage.py": "1e6737ea1e112662c4def9651ce14be619fe2437a7e361fc7921035d0070d098",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/test_x60.py": "8583b3ab516984ccfc7625cbc9284b554384ad8e42013984bbed97ee136fecb9",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/stage/x60.py": "4e710fda1b35fc87b30a58795b3d9f853236ec8b24597f5cb47949d320f4cf20",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/test_bindings.py": "5ebcb4361c6470665210c0e49032bd89c7a0ec15db56c084528ab7b1e2343f85",
+    "packages/calibration/results/2026-10-06-w47-g0-operators/test_declare.py": "d1b22c018a041968ba53b8c765da8e244bb2730366192a27bf1ca0edf7f3f722",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/README.txt": "ebb00b97ad595b7fe62e1ecf10759059b26772495307ecb4b3e4152b4b2cddea",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/archive.json": "532dd958bebb06ef7bee3339b23ce49c09979ceb4d68eaefe6ff55a76f39b2a3",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/inventory.json": "4c6497236457bea0911893954c80ae523ec7ba55db4866762a264526d81880aa",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/test_archive.py": "7acbe49950d4a7e45357e0ceba8f66293965aa672666e8e9afc31117c6327da0",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/test_archive.txt": "69a4ee6241eac1c9960c5aef3e25cc653e4c08070be746e10820fdb07bf5b0da",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/archive/w47_ladders_archive.py": "960f0488ca4e74674f62f748ed6040f17402a7f74b7603b8fec0872acc2b3392",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/assemble.py": "5a571ae46f551e764f5f206b25368d9ed0a4e8e31c2eb6607b66daa6c7c41a9f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/bindings.py": "735b996e7cb816d4bfd750fd08778caa12a06e7c4c19e960d2553820c6c2156e",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/census-gate.py": "44bd65ebbc0ad0a54b7ce2fb7fcfc2cb81a8b6c0bdcab0a71a1f9f1030580473",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/cuts/cuts.py": "a0e1ddf424db22b834866d42cd0ec73df01f3e3fe80c36ec48f7662de35238ed",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/declaration-inputs.json": "a00f4f7801d2cb6ee2fcd0f82ac1bfca072e5b6d49226cad80446c27459b9565",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": "039c6b1b851ef55be86882f9869109859568fa58f2689fc58586e2b4fb91cb2f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/12712d534b78.json": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/d0219cd684bf.json": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/ebc3d9105a4a.json": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/documents/f0b36a71772a.json": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit-declaration-draft.json": "075f1425b5bdf34621fb3450c9b460887a11418c77aebc3c47c216a128b48501",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/build-candidate.ts": "53efd982edf07d2839a485a5976454afcb32d413eb2d6ff42065b403b2c2d7f0",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_build_candidate.py": "a9e886a62b547b7291e50c6e3f136a4ba2cbb88f860935ac47293d87e7969cc3",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_build_candidate.txt": "34da93065030ca8ddcce0bbca861351716e1ee9299f163320d4346c733e32b44",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_fit.py": "041fdafda067c59e88c0d3dc92cc9313d918d16c2e34328ba0dce31dacec9301",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_fit.txt": "4d320b5cd8e2da71c12b3cd0b8763c737ea9eaffcc4a19794ac4cff5e0c70050",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_stage_sizes.py": "9b5b5efaad4be2b04d959eccd02ce96ec76e83b6bdd0df9b6675d5315ad326cc",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/fit/test_stage_sizes.txt": "b60eba9956ae8cdc04a8830ff946d7ed46efe0718321358eb588f3b132ed9e3e",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/inherit.py": "7cd32e0f7573a09a0c82b78d2f7dac465cdf63d94e269dd76c4b3ac96d3591ac",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/evidence.json": "518d118a471edc4b5d2171981220aed6358628ab088695c7cdb801e824e08f06",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/protocol.json": "78deac1b78424ef9c81b79ef3088078bb1313b97926b85b7d99d96d5c5100af1",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/test_verdicts.py": "9fa5fbbaf9637984684f52fb6325fd5244c5b3d792b8b0630fd0af67ce8a3d40",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/test_verdicts.txt": "2793c3ecc9aa333337f6de63c4576fccb59bbb58a1e283de021215e077a53f0b",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/ladders/verdicts.py": "4c4499b31eae68bbad3c869018198c88fe868ddfa4101b80ef0c5cd27f283b30",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity-reproof.json": "3eba4cc7629aab0834f3a40b6a7c90e55a2e9769dffa377f21be4c2ea91a40b5",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity-reproof.txt": "7ad926f4dbe42fe06b4f9ce55239580e31d10b00aad215b8fa15b3292b13ad6e",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/level/identity_reproof.py": "a5ade76acab2e28379f48f64f9895ab329a0fa3c158ea1a3713f6ba0e254c705",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/level/test_level.py": "8bc97e688e008b3085a564cb3a41853b1a4c60c3aac5ba7912793801efdca38f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/level/test_level.txt": "c6d9b6dfa773b7405ab4f5b60cb9ef3fce76aa4926559b5cbee80f4214725606",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/referees/test_x69_x70.py": "9486e7e6b87ae3a7aaac618beee8d378a1ffadfb9f8a13695da45a16e025ce0e",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/referees/test_x69_x70.txt": "adc0c743072af772746c4734bce062103b020c7252e578cf6127ad61f657030c",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.json.gz": "b076e6967bd0cefd31427e2ec582a8aebde961dd85c05348a53256a83a786b60",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/d0219-cuts.txt": "d823e4af87da8357114405d650445b1145dbb162d81d648dc52b408f2da69161",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/port-proof.txt": "8802491d5771b14fe6478206e988dba60ca9cd6ffb7fc084294ce305bd2814a1",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearsal.json": "288a12238e8f8ae8ff164c3a0004f4dadd317414162dd3e55e9221984d1e395e",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearsal.txt": "9753f1cb1f17c056bb7b6d54c209fe96e8c1dc8f26ee1308010e0e1165fa7495",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/rehearsal/rehearse.py": "717bdd8c300e3e4edeaa4a24d1fe05d3c54a144e105b5e92f5f043142068c2eb",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/captures.json": "32d14925644e8de55e594395b6067065de94dd1e6ba5f21081e63ec107f30c44",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay-stdout.txt": "1d5d60f1fb984fa9f907a548ced574ba1b224880f3fbcb66fd1cd5ba6314617a",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.json": "c467995641debc318d8754d162817235c3b68d48d9e4ca5098bbc5ced084df14",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/replay.txt": "f4227ece31c8217fb990d938f3f5e76373a7aad4f0b53c7fe382b4791fdfd1f6",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/reread.json": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/reread.txt": "9bc8454e2808470335dde66cc9e130db79d842ce274982dd8ea902fe7051ca85",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/results.json": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/results.txt": "e1cf64ede613579838977e30c41019048b9f323d4e9006b1f19d452ce9ef0061",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/selections.json": "fa5cc6d9310012eb3c140623f88e1300cbf40eca7beb0a3895894fc13040ae75",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/record/x60-evidence.json": "8827eac74ef93c3737c0113c5c28cf835f17f14dc925a51ad375aa78fe48b886",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/replay/replay.py": "16b84b7875e5c220c1225df0730649674c910a2ce36c41e908b641bc8301e9a9",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/seal/seal.ts": "02604599f4c9eafdfbaed12614e89929070b0e7052dc00d739023cd49a9f7031",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/seal/test_seal.py": "51554a4df478d818aba96fce364e5fc1421ce0418e610b2a9136dede54664f4f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/seal/test_seal.txt": "8984087182aa2a91eaab5970d8245941145d0357bf814552321ee9f213e40b1e",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/test_stage.py": "3d23b3813940afbc685e9722bf324a55d40812b0dd0425cab48b042c47d26075",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/test_stage.txt": "c894cdab062fb77ef239790bd878ea49ca631ec5a1ff4e972c97edceb07a0b31",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60/evidence-g0.json": "a446da995f0881e6d6aec3b8d68b3d37d893f9ad72d946a202c848fd5bbf3a11",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60/evidence-g0.txt": "067be1a59b2144b1d9897666297e6ec7c83c8f25598e6daa979f8e3634d26941",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/stage/x60_evidence.py": "ce18ad5a1b1e3f9c446f7cbd75bf2fdd467da5fa64879d224b08b49ac04be0ee",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.py": "bffb1751e2d64aab61a26ae75c8a0896905e0b2a2d26da5d8fdbf9bae2c3ed1f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_bindings.txt": "bf3a8c7280829f96cf740b59535265a3c95acad97318d18ddc64707c77678f0b",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py": "aef2b74234230955763b11382ff115fff20812bc3b7b8aac3ba2f5e4ea7edfc0",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt": "a8689937f445044c444e04e24070cf6248823dba6b3be0ed9871f6fde241f793",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/README.txt": "b46e6d3c25cbe7de16299da984f4d1ef6be932f307b44945be98b7fc46492f38",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_cuts_refusals.txt": "35d913105e6a3a99cc27ec4aa4a9600028304f900376e4d8e3f7beb04742c23b",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/cuts__test_rule.txt": "16e1c55976e776d86c4865baf375c95815508932ecc12452b65c129c0942856b",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/referees__test_referees.txt": "1fc9549caa624b13de70d1b42bb6ad0049819595ab34a8f3541dbd1e6b6d5f1b",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/sheets__test_sheets.txt": "a0d4fc355cc986a09aef1727c4bafba999ea5115d22057d945df1e6eb4e1f205",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited/stage__test_x60.txt": "94571f0ae8cb69bc1be7d6fa5ebcd38496b44a446530fdfe6c4e4777f2c1d3f1",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/inherited_suite.py": "5fe1f50c45129aee139c3ef3a51e921a4d608b4438918cf2377423a880ea6eba",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/run_inherited.py": "d695ecfb9c04833a5265a4f971a08547b246a1cabc997f19692a84053121804f",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_run_inherited.py": "1bfdb2fb330b10d241535b2e6be19d0e103d321f0da703bef75544a8d3e18c14",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_run_inherited.txt": "a8e20d8dc393c97c43868e8c184319760c6eafffe646a26fcb705048443b5057",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_ts_copies.py": "a30b2111802b18a05a78ba5b35e0b82d912c56da4e4589e8663089ee34e36f96",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/test_ts_copies.txt": "664c353886941d59df0226a524ddd17d5b37c868fe0eb902ac468afdf3891cf1",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/tools/ts_copies.py": "f3088eee2753d7c86d63cb941d20a516eb42da04ae2fbe762b1cbe31e1df7b05",
+    "packages/calibration/results/2026-10-06-w48-g0-declaration/with-gpu.sh": "5902246566d7858f6aac07db36c73d8384d1309a67b640a688a1789d82c4bd76",
+    "packages/calibration/results/generations/index.json": "66cced87298ddb5665a5c7be712a80d8e8ce93090bb2f03da2213f7c1e2f6a51",
+    "packages/calibration/test/adopted-thresholds.test.ts@78d0211e0": "b2ea87147348b4065c62f41cf4e0408b42b916281dca0495f62926a311888072",
+    "packages/calibration/test/tier-coherence.test.ts": "dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837",
+    "packages/calibration/test/w31-identity-table.test.ts": "6a15a7adf8321b9a7d66ca5791a332c5b93a163018da84972f24315137de74da",
+    "packages/platform-web/src/css-tier.ts": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a",
+    "packages/platform-web/src/optics.ts": "d0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4",
+    "packages/renderer-webgpu/src/material.ts": "64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9",
+    "packages/renderer-webgpu/src/passes.ts": "0162632aeaf4503ba565aa1895704bf585b4216f8c9aadc491bd1229c23da710",
+    "packages/renderer-webgpu/src/pyramid.ts": "348d7d8839f7aaa8b0897f45a96a33a4adbc317f45ce539c1adec14d96d8cd07",
+    "packages/renderer-webgpu/src/renderer.ts": "6518e60d36498123509800b0789a7dcb42a24870be5642ca051863899b820b61",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197",
+    "packages/renderer-webgpu/test/w31-gate-groups.test.ts": "81e9303645a90c514272f41563d03d62371dc22d8b019dfbd1becbf227ce6f34"
+  }
+}

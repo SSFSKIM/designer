@@ -1,0 +1,15 @@
+test_a_missing_file_refuses (test_archive.ArchiveTest.test_a_missing_file_refuses) ... ok
+test_a_path_outside_its_section_refuses (test_archive.ArchiveTest.test_a_path_outside_its_section_refuses) ... ok
+test_a_re_manifested_warm_cache_refuses (test_archive.ArchiveTest.test_a_re_manifested_warm_cache_refuses) ... ok
+test_a_tree_verifies (test_archive.ArchiveTest.test_a_tree_verifies) ... ok
+test_a_wrong_digest_extracts_nothing (test_archive.ArchiveTest.test_a_wrong_digest_extracts_nothing) ... ok
+test_an_altered_file_refuses (test_archive.ArchiveTest.test_an_altered_file_refuses) ... ok
+test_an_asset_not_named_by_its_digest_refuses (test_archive.ArchiveTest.test_an_asset_not_named_by_its_digest_refuses) ... ok
+test_an_unlisted_file_refuses (test_archive.ArchiveTest.test_an_unlisted_file_refuses) ... ok
+test_pack_is_deterministic_and_round_trips_through_fetch (test_archive.ArchiveTest.test_pack_is_deterministic_and_round_trips_through_fetch) ... ok
+test_the_asset_is_never_written_into_the_repository (test_archive.ArchiveTest.test_the_asset_is_never_written_into_the_repository) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.115s
+
+OK

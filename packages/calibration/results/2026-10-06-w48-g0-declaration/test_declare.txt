@@ -1,0 +1,31 @@
+test_an_off_grid_value_on_a_grid_fails (test_declare.CheckFitReadsTheVerdicts.test_an_off_grid_value_on_a_grid_fails) ... ok
+test_an_operator_not_separating_must_be_named_and_its_leaves_leave (test_declare.CheckFitReadsTheVerdicts.test_an_operator_not_separating_must_be_named_and_its_leaves_leave) ... ok
+test_an_unruled_one_scale_rung_on_a_grid_stops_part_two (test_declare.CheckFitReadsTheVerdicts.test_an_unruled_one_scale_rung_on_a_grid_stops_part_two) ... ok
+test_an_unruled_one_scale_rung_on_no_grid_is_recorded (test_declare.CheckFitReadsTheVerdicts.test_an_unruled_one_scale_rung_on_no_grid_is_recorded)
+W48 Decision Log 8: i-a0.8-g0.6's point (far 0, top 256) is on no W48 grid. ... ok
+test_both_levers_meeting_stay_members (test_declare.CheckFitReadsTheVerdicts.test_both_levers_meeting_stay_members) ... ok
+test_check_fit_refuses_without_the_verdicts (test_declare.CheckFitReadsTheVerdicts.test_check_fit_refuses_without_the_verdicts) ... ok
+test_neither_operator_separating_stops (test_declare.CheckFitReadsTheVerdicts.test_neither_operator_separating_stops) ... ok
+test_part_two_beyond_its_changes_is_refused (test_declare.CheckFitReadsTheVerdicts.test_part_two_beyond_its_changes_is_refused) ... ok
+test_the_body_width_must_leave_when_no_body_width_rung_meets (test_declare.CheckFitReadsTheVerdicts.test_the_body_width_must_leave_when_no_body_width_rung_meets) ... ok
+test_the_draft_unchanged_validates_when_everything_separates (test_declare.CheckFitReadsTheVerdicts.test_the_draft_unchanged_validates_when_everything_separates) ... ok
+test_the_verdicts_must_name_part_one_and_its_pins (test_declare.CheckFitReadsTheVerdicts.test_the_verdicts_must_name_part_one_and_its_pins) ... ok
+test_a_precedence_change_is_refused (test_declare.DecisionKinds.test_a_precedence_change_is_refused) ... ok
+test_hold_is_a_kind_and_no_precedence_kind_exists (test_declare.DecisionKinds.test_hold_is_a_kind_and_no_precedence_kind_exists) ... ok
+test_a_conditional_leaf_and_the_second_tap_fail (test_declare.Draft.test_a_conditional_leaf_and_the_second_tap_fail) ... ok
+test_holdable_only_where_decision_log_3_names_it (test_declare.Draft.test_holdable_only_where_decision_log_3_names_it) ... ok
+test_the_draft_is_well_formed (test_declare.Draft.test_the_draft_is_well_formed) ... ok
+test_the_stage_two_factorial_must_cross_the_body_width (test_declare.Draft.test_the_stage_two_factorial_must_cross_the_body_width) ... ok
+test_a_recorded_empty_ops_list_fails_on_read (test_declare.EmptyOps.test_a_recorded_empty_ops_list_fails_on_read) ... ok
+test_amend_and_amend_fit_refuse_an_empty_ops_list (test_declare.EmptyOps.test_amend_and_amend_fit_refuse_an_empty_ops_list) ... ok
+test_a_hold_moves_the_leaf_to_fixed_at_its_value (test_declare.Hold.test_a_hold_moves_the_leaf_to_fixed_at_its_value) ... ok
+test_a_hold_off_its_declared_values_is_refused (test_declare.Hold.test_a_hold_off_its_declared_values_is_refused) ... ok
+test_a_hold_without_a_ruling_or_with_one_not_naming_the_leaf_is_refused (test_declare.Hold.test_a_hold_without_a_ruling_or_with_one_not_naming_the_leaf_is_refused) ... ok
+test_a_leaf_the_draft_does_not_mark_holdable_is_refused (test_declare.Hold.test_a_leaf_the_draft_does_not_mark_holdable_is_refused) ... ok
+test_an_operator_leaf_is_never_held (test_declare.Hold.test_an_operator_leaf_is_never_held) ... ok
+test_w47s_part_hashes_and_paths_refuse (test_declare.Refusals.test_w47s_part_hashes_and_paths_refuse) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.041s
+
+OK

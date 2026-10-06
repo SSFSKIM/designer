@@ -1,0 +1,2946 @@
+{
+ "schema": "w48-verdicts-1",
+ "what": "W48 G0 (d): the verdicts under Decision Log 3's bars, read by key from W47's re-read and results (X71), after part 1's hash; no pixel read, no render",
+ "declarationSha256": "87ec90d48155f6592fd0557f7d67af7b4334fc83a66be9e028c4d17c957476f0",
+ "inputs": {
+  "reader": "4c4499b31eae68bbad3c869018198c88fe868ddfa4101b80ef0c5cd27f283b30",
+  "protocol": "78deac1b78424ef9c81b79ef3088078bb1313b97926b85b7d99d96d5c5100af1",
+  "evidence": "518d118a471edc4b5d2171981220aed6358628ab088695c7cdb801e824e08f06",
+  "results": "8d46082eccb9b1afcfae07b540511214a52460d22838c3e359ad429d9ece932c",
+  "reread": "7d08536397eca80bf791dd76fa7342886a8e3c12a51d2e9847fdcc47400b1c17",
+  "rungs": "757db8651fd178f3affd444f2dc4dcc5d5f0425244b1a72730d4593b979bb85a"
+ },
+ "bars": {
+  "operator 1": {
+   "decisionLog": "3 (a)",
+   "ladder": "i",
+   "cells": [
+    "checkerboard-8__rrect-lg__rest",
+    "hc-text__rrect-lg__rest",
+    "hc-text-7__rrect-lg__rest",
+    "checkerboard-32__rrect-lg__rest",
+    "checkerboard-64__rrect-lg__rest"
+   ],
+   "perScale": [
+    "no thick cell whose away band reads `away` with growth > awayCeilingB x B",
+    "at most awayBeyondBMax of the five whose away band reads `away` with growth > B",
+    "no thick cell over Apple at the reference on its change band (reference > native) reads `away`: `toward` and `unchanged` are both admitted, the rule's own states",
+    "the thin rest cells keep at least half of point A's gain (W47 ladder (i)'s thin clause, unchanged: reread.json thinKeepsHalf)",
+    "L1 passes on its population (W47's level reading, unchanged: reread.json L1passes)"
+   ],
+   "awayCeilingB": 3,
+   "awayBeyondBMax": 2,
+   "overAppleAdmits": [
+    "toward",
+    "unchanged"
+   ],
+   "reads": "reread.json rungs[label].perScale[scale]: thick[cell].changeBand and .awayBand {n, c, k, B, growth, change}, thinGain, pointAThinGain, thinKeepsHalf, L1passes"
+  },
+  "operator 2": {
+   "decisionLog": "3 (b)",
+   "ladder": "iii",
+   "fine": [
+    "checkerboard-8__rrect-md__inactive",
+    "checkerboard-8__rrect-lg__inactive"
+   ],
+   "guards": [
+    "checkerboard-64__rrect-md__inactive",
+    "photo__rrect-md__inactive"
+   ],
+   "perScale": [
+    "each fine cell: E = fine(reference) - fine(native) > 0 and R = (fine(reference) - fine(rung)) / E >= fineExcessRemovedMin on T1-fine",
+    "each guard: whole-band T1 (k - c) / B >= -guardFloorB",
+    "beside, deciding nothing: each fine cell's whole-band fall -g / B, carried to the gate"
+   ],
+   "fineExcessRemovedMin": 0.5,
+   "guardFloorB": 1,
+   "reads": "reread.json rungs[label].perScale[scale]: fine.cells[cell] {native, reference, rung, E, R, wholeFallInB}, guards.deltaInB"
+  },
+  "joint": {
+   "decisionLog": "3 (c)",
+   "ladder": "iv",
+   "cells": [
+    "checkerboard-8__rrect-md__inactive",
+    "checkerboard-8__rrect-lg__inactive"
+   ],
+   "scales": [
+    1,
+    2
+   ],
+   "reading": "operator 1's partition (a) over the four readings (the two fine cells at 1x and 2x) on their change and away bands, and operator 2's halving (b) on each; the photo inactive ratio against point A's is reported and decides nothing; ladder (iv) decides only name-target",
+   "awayCeilingB": 3,
+   "awayBeyondBMax": 2,
+   "overAppleAdmits": [
+    "toward",
+    "unchanged"
+   ],
+   "fineExcessRemovedMin": 0.5,
+   "reads": "reread.json rungs['iv-joint'].perScale[scale]: partitionReads[cell].changeBand / .awayBand, fine.cells[cell], photo"
+  },
+  "2x width": {
+   "ladder": "ii",
+   "reading": "not re-stated and not re-read (W47 Decision Log 8; W48 Decision Log 4): results.json operators['2x width'] stands; the second tap is not a stage-1 member and no 1x gap is named"
+  }
+ },
+ "rungs": {
+  "i-a0.7": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.10722245408688917,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 12.273953326733517,
+      "hc-text__rrect-lg__rest": 10.380476370096739,
+      "hc-text-7__rrect-lg__rest": 2.243256200171356,
+      "checkerboard-32__rrect-lg__rest": -4.6106559357331856,
+      "checkerboard-64__rrect-lg__rest": -13.629968808869156
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.1383699374070693,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 11.160572654006984,
+      "hc-text__rrect-lg__rest": 9.04928161049999,
+      "hc-text-7__rrect-lg__rest": 2.0286644097883353,
+      "checkerboard-32__rrect-lg__rest": 5.116390261177668,
+      "checkerboard-64__rrect-lg__rest": -4.752937283383561
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.7-f0.2": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "tintAlphaFar1x": 0.2,
+     "tintAlphaFar2x": 0.2
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.10722245408688917,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 7.734026717693161,
+      "hc-text__rrect-lg__rest": 6.483322909388791,
+      "hc-text-7__rrect-lg__rest": 1.3727661047963102,
+      "checkerboard-32__rrect-lg__rest": -9.382862859960397,
+      "checkerboard-64__rrect-lg__rest": -13.600019243471992
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.1383699374070693,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 7.038682300551497,
+      "hc-text__rrect-lg__rest": 5.669845011677901,
+      "hc-text-7__rrect-lg__rest": 1.3163683599797833,
+      "checkerboard-32__rrect-lg__rest": -1.8073899025758844,
+      "checkerboard-64__rrect-lg__rest": -13.714939346535202
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.7-f0.45": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "tintAlphaFar1x": 0.45,
+     "tintAlphaFar2x": 0.45
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.10722245408688917,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 2.3181737145581867,
+      "hc-text__rrect-lg__rest": 1.9112481493260154,
+      "hc-text-7__rrect-lg__rest": 0.3705417145237798,
+      "checkerboard-32__rrect-lg__rest": -2.856558446100693,
+      "checkerboard-64__rrect-lg__rest": -4.32071670761282
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.1383699374070693,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 2.139854670227371,
+      "hc-text__rrect-lg__rest": 1.6769622125837134,
+      "hc-text-7__rrect-lg__rest": 0.4066208391356006,
+      "checkerboard-32__rrect-lg__rest": -3.8062206242857206,
+      "checkerboard-64__rrect-lg__rest": -5.220908827627994
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.7-f0.2-t128": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "tintAlphaFar1x": 0.2,
+     "tintAlphaFar2x": 0.2,
+     "sizeScatterSpanMax": 128,
+     "sizeScatterSpanMax2x": 128
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": true,
+      "holds": true
+     },
+     "thinGain": 0.10742069700481259,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -1.3623110657957778,
+      "hc-text__rrect-lg__rest": -0.8897495879125732,
+      "hc-text-7__rrect-lg__rest": -0.29816033479373677,
+      "checkerboard-32__rrect-lg__rest": 2.1345960345235997,
+      "checkerboard-64__rrect-lg__rest": 1.368763511336989
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": true
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": true,
+      "holds": true
+     },
+     "thinGain": 0.1383699374070693,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -0.10488486595669318,
+      "hc-text__rrect-lg__rest": -0.27068109850112765,
+      "hc-text-7__rrect-lg__rest": 0.004099170242292354,
+      "checkerboard-32__rrect-lg__rest": 1.9781919673821804,
+      "checkerboard-64__rrect-lg__rest": 1.5879871059460078
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "unchanged",
+      "hc-text__rrect-lg__rest": "unchanged",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "i-a0.7-f0.2-t160": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "tintAlphaFar1x": 0.2,
+     "tintAlphaFar2x": 0.2,
+     "sizeScatterSpanMax": 160,
+     "sizeScatterSpanMax2x": 160
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": true,
+      "holds": true
+     },
+     "thinGain": 0.10728461169237109,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -1.3623110657957778,
+      "hc-text__rrect-lg__rest": -0.8897495879125732,
+      "hc-text-7__rrect-lg__rest": -0.29816033479373677,
+      "checkerboard-32__rrect-lg__rest": 2.1345960345235997,
+      "checkerboard-64__rrect-lg__rest": 1.368763511336989
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": true
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": true,
+      "holds": true
+     },
+     "thinGain": 0.1383699374070693,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -0.10488486595669318,
+      "hc-text__rrect-lg__rest": -0.27068109850112765,
+      "hc-text-7__rrect-lg__rest": 0.004099170242292354,
+      "checkerboard-32__rrect-lg__rest": 1.9781919673821804,
+      "checkerboard-64__rrect-lg__rest": 1.5879871059460078
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "unchanged",
+      "hc-text__rrect-lg__rest": "unchanged",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "i-a0.7-g0.2": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "sizeOcclusionGain": 0.2
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.10779871793313553,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 9.231162513394223,
+      "hc-text__rrect-lg__rest": 7.75098690049518,
+      "hc-text-7__rrect-lg__rest": 1.6682164891375892,
+      "checkerboard-32__rrect-lg__rest": -8.245478232664176,
+      "checkerboard-64__rrect-lg__rest": -16.038632183879997
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.13579895974264394,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 8.351980889609631,
+      "hc-text__rrect-lg__rest": 6.746925608403991,
+      "hc-text-7__rrect-lg__rest": 1.5576456385709645,
+      "checkerboard-32__rrect-lg__rest": 0.46523479139986385,
+      "checkerboard-64__rrect-lg__rest": -10.766224545475279
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.7-g0.4": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "sizeOcclusionGain": 0.4
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.10855262087885009,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 5.228473842916505,
+      "hc-text__rrect-lg__rest": 4.354625173088447,
+      "hc-text-7__rrect-lg__rest": 0.8746546072781695,
+      "checkerboard-32__rrect-lg__rest": -6.3644110390478845,
+      "checkerboard-64__rrect-lg__rest": -9.340586609830947
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.13217563070011012,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 4.749103452062161,
+      "hc-text__rrect-lg__rest": 3.7639907730836653,
+      "hc-text-7__rrect-lg__rest": 0.8778056908733721,
+      "checkerboard-32__rrect-lg__rest": -5.675924519063804,
+      "checkerboard-64__rrect-lg__rest": -11.282127571788555
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.7-g0.6": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.7,
+     "sizeOcclusionGain": 0.6
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.10913718361641025,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 1.4492658178947855,
+      "hc-text__rrect-lg__rest": 1.171190621639376,
+      "hc-text-7__rrect-lg__rest": 0.2231390023104791,
+      "checkerboard-32__rrect-lg__rest": -1.7913324433751359,
+      "checkerboard-64__rrect-lg__rest": -2.7282315047923658
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.1285799453210187,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 1.328660363148048,
+      "hc-text__rrect-lg__rest": 1.0412066622490228,
+      "hc-text-7__rrect-lg__rest": 0.26143119978388996,
+      "checkerboard-32__rrect-lg__rest": -2.3996512693577565,
+      "checkerboard-64__rrect-lg__rest": -3.2799769019854508
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.06436140711100549,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 5.876513802984562,
+      "hc-text__rrect-lg__rest": 4.890914093829883,
+      "hc-text-7__rrect-lg__rest": 0.9973641074111412,
+      "checkerboard-32__rrect-lg__rest": -7.155036617970029,
+      "checkerboard-64__rrect-lg__rest": -10.46788847270962
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.07009446498034808,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 5.366746317003898,
+      "hc-text__rrect-lg__rest": 4.281529714499808,
+      "hc-text-7__rrect-lg__rest": 1.0042095139354057,
+      "checkerboard-32__rrect-lg__rest": -4.670880212182278,
+      "checkerboard-64__rrect-lg__rest": -12.611011998549198
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-f0.2": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "tintAlphaFar1x": 0.2,
+     "tintAlphaFar2x": 0.2
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.06436140711100549,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 1.643837357595911,
+      "hc-text__rrect-lg__rest": 1.3281073174197344,
+      "hc-text-7__rrect-lg__rest": 0.25469225399176093,
+      "checkerboard-32__rrect-lg__rest": -2.0106189341479666,
+      "checkerboard-64__rrect-lg__rest": -3.0678691171901167
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.07009446498034808,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 1.497812138609931,
+      "hc-text__rrect-lg__rest": 1.1488197701039982,
+      "hc-text-7__rrect-lg__rest": 0.2866139759527092,
+      "checkerboard-32__rrect-lg__rest": -2.7045890366421097,
+      "checkerboard-64__rrect-lg__rest": -3.731477100672581
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-f0.45": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "tintAlphaFar1x": 0.45,
+     "tintAlphaFar2x": 0.45
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": true,
+      "holds": false
+     },
+     "thinGain": 0.06436140711100549,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -2.578418910366626,
+      "hc-text__rrect-lg__rest": -0.9885938873946918,
+      "hc-text-7__rrect-lg__rest": -0.33195567781075014,
+      "checkerboard-32__rrect-lg__rest": 3.2718026544301226,
+      "checkerboard-64__rrect-lg__rest": 5.692277198775651
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": true,
+      "holds": false
+     },
+     "thinGain": 0.07009446498034808,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -2.315587709742674,
+      "hc-text__rrect-lg__rest": -0.3040394604141908,
+      "hc-text-7__rrect-lg__rest": -0.5419308138586162,
+      "checkerboard-32__rrect-lg__rest": 4.604484979065274,
+      "checkerboard-64__rrect-lg__rest": 7.166700359577046
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "toward",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-f0.2-t128": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "tintAlphaFar1x": 0.2,
+     "tintAlphaFar2x": 0.2,
+     "sizeScatterSpanMax": 128,
+     "sizeScatterSpanMax2x": 128
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": true,
+      "holds": false
+     },
+     "thinGain": 0.06430001686753108,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -3.26060421056642,
+      "hc-text__rrect-lg__rest": -0.4656010759262493,
+      "hc-text-7__rrect-lg__rest": -0.45947438613541647,
+      "checkerboard-32__rrect-lg__rest": 4.23068025249965,
+      "checkerboard-64__rrect-lg__rest": 8.102585068642087
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.07009446498034808,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -2.9195555905609667,
+      "hc-text__rrect-lg__rest": 0.1652063648149783,
+      "hc-text-7__rrect-lg__rest": -0.7443787864320005,
+      "checkerboard-32__rrect-lg__rest": 6.098091060847462,
+      "checkerboard-64__rrect-lg__rest": 10.576467645956333
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "toward",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-f0.2-t160": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "tintAlphaFar1x": 0.2,
+     "tintAlphaFar2x": 0.2,
+     "sizeScatterSpanMax": 160,
+     "sizeScatterSpanMax2x": 160
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": true,
+      "holds": false
+     },
+     "thinGain": 0.06433425058513587,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -3.26060421056642,
+      "hc-text__rrect-lg__rest": -0.4656010759262493,
+      "hc-text-7__rrect-lg__rest": -0.45947438613541647,
+      "checkerboard-32__rrect-lg__rest": 4.23068025249965,
+      "checkerboard-64__rrect-lg__rest": 8.102585068642087
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "hc-text-7__rrect-lg__rest",
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.07009446498034808,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -2.9195555905609667,
+      "hc-text__rrect-lg__rest": 0.1652063648149783,
+      "hc-text-7__rrect-lg__rest": -0.7443787864320005,
+      "checkerboard-32__rrect-lg__rest": 6.098091060847462,
+      "checkerboard-64__rrect-lg__rest": 10.576467645956333
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "toward",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-g0.2": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "sizeOcclusionGain": 0.2
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.06221374519342473,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 3.9326214627476537,
+      "hc-text__rrect-lg__rest": 3.2421448266861415,
+      "hc-text-7__rrect-lg__rest": 0.642145557530195,
+      "checkerboard-32__rrect-lg__rest": -4.800226786183336,
+      "checkerboard-64__rrect-lg__rest": -7.143101368045216
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [
+       "checkerboard-8__rrect-lg__rest"
+      ],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest",
+       "hc-text-7__rrect-lg__rest"
+      ],
+      "ceilingHolds": false,
+      "countHolds": false,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.06813789281039694,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": false,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 3.5944000085981567,
+      "hc-text__rrect-lg__rest": 2.842348367983941,
+      "hc-text-7__rrect-lg__rest": 0.6854082224141805,
+      "checkerboard-32__rrect-lg__rest": -6.356228258887694,
+      "checkerboard-64__rrect-lg__rest": -8.638113352015756
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "away",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-g0.4": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "sizeOcclusionGain": 0.4
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.06022254808321208,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 1.4492658178947855,
+      "hc-text__rrect-lg__rest": 1.171190621639376,
+      "hc-text-7__rrect-lg__rest": 0.2231390023104791,
+      "checkerboard-32__rrect-lg__rest": -1.7913324433751359,
+      "checkerboard-64__rrect-lg__rest": -2.7282315047923658
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [
+       "checkerboard-8__rrect-lg__rest",
+       "hc-text__rrect-lg__rest"
+      ],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": false,
+      "holds": false
+     },
+     "thinGain": 0.0655011583038502,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": false,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": 1.328660363148048,
+      "hc-text__rrect-lg__rest": 1.0412066622490228,
+      "hc-text-7__rrect-lg__rest": 0.26143119978388996,
+      "checkerboard-32__rrect-lg__rest": -2.3996512693577565,
+      "checkerboard-64__rrect-lg__rest": -3.2799769019854508
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "away",
+      "hc-text__rrect-lg__rest": "away",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "toward",
+      "checkerboard-64__rrect-lg__rest": "toward"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "i-a0.8-g0.6": {
+   "ladder": "i",
+   "overrides": {
+    "active.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "sizeOcclusionGain": 0.6
+    }
+   },
+   "perScale": {
+    "1": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": true,
+      "holds": true
+     },
+     "thinGain": 0.05770497212186475,
+     "pointAThinGain": 0.10722245408688917,
+     "thinKeepsHalf": true,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -0.8194256871354394,
+      "hc-text__rrect-lg__rest": -0.6352583857257015,
+      "hc-text-7__rrect-lg__rest": -0.11234207939743411,
+      "checkerboard-32__rrect-lg__rest": 1.0094003605296986,
+      "checkerboard-64__rrect-lg__rest": 1.6146791898546078
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": true
+    },
+    "2": {
+     "partition": {
+      "awayBeyondB": [
+       "checkerboard-32__rrect-lg__rest",
+       "checkerboard-64__rrect-lg__rest"
+      ],
+      "awayBeyondCeiling": [],
+      "overAppleNotAdmitted": [],
+      "ceilingHolds": true,
+      "countHolds": true,
+      "overAppleHolds": true,
+      "holds": true
+     },
+     "thinGain": 0.06289497105461203,
+     "pointAThinGain": 0.1383699374070693,
+     "thinKeepsHalf": false,
+     "L1passes": true,
+     "changeGrowthInB": {
+      "checkerboard-8__rrect-lg__rest": -0.7145546013686768,
+      "hc-text__rrect-lg__rest": -0.5391146953011906,
+      "hc-text-7__rrect-lg__rest": -0.16072138983566145,
+      "checkerboard-32__rrect-lg__rest": 1.387767013341984,
+      "checkerboard-64__rrect-lg__rest": 1.955319020784693
+     },
+     "changeState": {
+      "checkerboard-8__rrect-lg__rest": "toward",
+      "hc-text__rrect-lg__rest": "toward",
+      "hc-text-7__rrect-lg__rest": "unchanged",
+      "checkerboard-32__rrect-lg__rest": "away",
+      "checkerboard-64__rrect-lg__rest": "away"
+     },
+     "overApple": {
+      "checkerboard-8__rrect-lg__rest": true,
+      "hc-text__rrect-lg__rest": true,
+      "hc-text-7__rrect-lg__rest": true,
+      "checkerboard-32__rrect-lg__rest": false,
+      "checkerboard-64__rrect-lg__rest": false
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [
+    1
+   ],
+   "meets": false
+  },
+  "iii-b2": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "optics.regular.blurSigma": 2
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.01734680605595668,
+        "E": 0.015304637359621022,
+        "R": 0.3400781660481918,
+        "meets": false,
+        "wholeFallInB": 1.8222715697572254
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.014029974339810684,
+        "E": 0.013195862522230296,
+        "R": 0.3467771141561681,
+        "meets": false,
+        "wholeFallInB": 1.4174714283840115
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.11416900208628754,
+       "photo__rrect-md__inactive": -0.00486917270031364
+      },
+      "holds": true
+     },
+     "meets": false
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.008425711911510005,
+        "E": 0.0085767707716703,
+        "R": 0.21101358158367722,
+        "meets": false,
+        "wholeFallInB": 0.6034011496911929
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.00824919212107,
+        "E": 0.008874648705073788,
+        "R": 0.19728161864085755,
+        "meets": false,
+        "wholeFallInB": 0.525551449848442
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.005277146356052352,
+       "photo__rrect-md__inactive": -6.20525518699956e-05
+      },
+      "holds": true
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "iii-b3": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "optics.regular.blurSigma": 3
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.011756966400962951,
+        "E": 0.015304637359621022,
+        "R": 0.7053164610594593,
+        "meets": true,
+        "wholeFallInB": 3.722478834061414
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.008929015866247333,
+        "E": 0.013195862522230296,
+        "R": 0.7333345267519772,
+        "meets": true,
+        "wholeFallInB": 2.7943148730238416
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.3876607805212046,
+       "photo__rrect-md__inactive": -0.013407030723691187
+      },
+      "holds": true
+     },
+     "meets": true
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.005696373169875153,
+        "E": 0.0085767707716703,
+        "R": 0.5292380992133261,
+        "meets": true,
+        "wholeFallInB": 1.700305497029889
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.0055242923787271764,
+        "E": 0.008874648705073788,
+        "R": 0.504324729066733,
+        "meets": true,
+        "wholeFallInB": 1.5279007956763424
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.02257490271818945,
+       "photo__rrect-md__inactive": -0.00010326509008207694
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "iii-b4": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "optics.regular.blurSigma": 4
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.011284251250572381,
+        "E": 0.015304637359621022,
+        "R": 0.7362035143938792,
+        "meets": true,
+        "wholeFallInB": 3.874954859442885
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.008536604109675308,
+        "E": 0.013195862522230296,
+        "R": 0.763072011202952,
+        "meets": true,
+        "wholeFallInB": 2.877202142113902
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.5645132184147155,
+       "photo__rrect-md__inactive": -0.019842861405349774
+      },
+      "holds": true
+     },
+     "meets": true
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.004291550471798041,
+        "E": 0.0085767707716703,
+        "R": 0.6930319950135199,
+        "meets": true,
+        "wholeFallInB": 2.2635943951727513
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.004181318884979689,
+        "E": 0.008874648705073788,
+        "R": 0.6556516760116511,
+        "meets": true,
+        "wholeFallInB": 2.01581083637645
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.03568807158262175,
+       "photo__rrect-md__inactive": -0.00019531528648832283
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "iii-s1.5": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 1.5,
+     "sizeFineTapSigma2x": 1.5
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.02321234842355774,
+        "E": 0.015304637359621022,
+        "R": -0.043174454041743256,
+        "meets": false,
+        "wholeFallInB": -0.21416879518248572
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.01927571479864901,
+        "E": 0.013195862522230296,
+        "R": -0.050752069707420674,
+        "meets": false,
+        "wholeFallInB": -0.192480717223735
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": 0.002399194023146963,
+       "photo__rrect-md__inactive": -0.0002467069228881682
+      },
+      "holds": true
+     },
+     "meets": false
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.006844385963049064,
+        "E": 0.0085767707716703,
+        "R": 0.3953866971255052,
+        "meets": false,
+        "wholeFallInB": 1.2252817448942468
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.006686044594350677,
+        "E": 0.008874648705073788,
+        "R": 0.37341788934480613,
+        "meets": false,
+        "wholeFallInB": 1.0766090064617524
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.01271255604615648,
+       "photo__rrect-md__inactive": -9.258908762156081e-05
+      },
+      "holds": true
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "iii-s2": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 2,
+     "sizeFineTapSigma2x": 2
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.018993155287267117,
+        "E": 0.015304637359621022,
+        "R": 0.23250624568018086,
+        "meets": false,
+        "wholeFallInB": 1.2511759074695152
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.015480955478337922,
+        "E": 0.013195862522230296,
+        "R": 0.23681983504062287,
+        "meets": false,
+        "wholeFallInB": 0.9790932631973606
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.07920456479851358,
+       "photo__rrect-md__inactive": -0.0031416940385259333
+      },
+      "holds": true
+     },
+     "meets": false
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.005166476964874549,
+        "E": 0.0085767707716703,
+        "R": 0.5910208166378013,
+        "meets": true,
+        "wholeFallInB": 1.9225338809396084
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.005021112399535565,
+        "E": 0.008874648705073788,
+        "R": 0.5610233090233611,
+        "meets": true,
+        "wholeFallInB": 1.7195570250270986
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.027004041221337205,
+       "photo__rrect-md__inactive": -0.00012290741380729212
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    2
+   ],
+   "meets": false
+  },
+  "iii-s3": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 3,
+     "sizeFineTapSigma2x": 3
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.013274283133819413,
+        "E": 0.015304637359621022,
+        "R": 0.6061754819429156,
+        "meets": true,
+        "wholeFallInB": 3.217536149861601
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.010384633297926125,
+        "E": 0.013195862522230296,
+        "R": 0.6230259031795051,
+        "meets": true,
+        "wholeFallInB": 2.4293013929220972
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.25573083441690986,
+       "photo__rrect-md__inactive": -0.007782353783426267
+      },
+      "holds": true
+     },
+     "meets": true
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.0027691683792887313,
+        "E": 0.0085767707716703,
+        "R": 0.8705326106925407,
+        "meets": true,
+        "wholeFallInB": 2.7456356442738343
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.0026126007943361347,
+        "E": 0.008874648705073788,
+        "R": 0.8324156407358764,
+        "meets": true,
+        "wholeFallInB": 2.45735133647345
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.05565185428647571,
+       "photo__rrect-md__inactive": -0.00021401678642491472
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "iii-s4": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 4,
+     "sizeFineTapSigma2x": 4
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.011404230528024436,
+        "E": 0.015304637359621022,
+        "R": 0.7283641076420013,
+        "meets": true,
+        "wholeFallInB": 3.8332245886488487
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.00867213010795882,
+        "E": 0.013195862522230296,
+        "R": 0.7528016709311282,
+        "meets": true,
+        "wholeFallInB": 2.846311760596282
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.4488060459301397,
+       "photo__rrect-md__inactive": -0.014626138515655447
+      },
+      "holds": true
+     },
+     "meets": true
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.0016131778519459516,
+        "E": 0.0085767707716703,
+        "R": 1.0053141687074874,
+        "meets": true,
+        "wholeFallInB": 2.9789645221780843
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.0014221720843832517,
+        "E": 0.008874648705073788,
+        "R": 0.9665537626507522,
+        "meets": true,
+        "wholeFallInB": 2.6611586747258373
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.0956567041347001,
+       "photo__rrect-md__inactive": -0.0004502116877916981
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "iii-s6": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 6,
+     "sizeFineTapSigma2x": 6
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.011236583918384429,
+        "E": 0.015304637359621022,
+        "R": 0.7393180822903859,
+        "meets": true,
+        "wholeFallInB": 3.8861600944011188
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.008457692902314363,
+        "E": 0.013195862522230296,
+        "R": 0.7690520073743282,
+        "meets": true,
+        "wholeFallInB": 2.8890634606841585
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.8264194511121673,
+       "photo__rrect-md__inactive": -0.031309177419233385
+      },
+      "holds": true
+     },
+     "meets": true
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.0012818309376626121,
+        "E": 0.0085767707716703,
+        "R": 1.0439472303928716,
+        "meets": true,
+        "wholeFallInB": 2.9922886926581818
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.001027164668383006,
+        "E": 0.008874648705073788,
+        "R": 1.011063402313944,
+        "meets": true,
+        "wholeFallInB": 2.6779139210763403
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.17817568787098742,
+       "photo__rrect-md__inactive": -0.00052642855514252
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "iii-q0.25": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 0.25,
+     "sizeFineTapSigma": 4,
+     "sizeFineTapSigma2x": 4
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.018800054208207715,
+        "E": 0.015304637359621022,
+        "R": 0.24512340703605004,
+        "meets": false,
+        "wholeFallInB": 1.3066826630190806
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.015422628035538654,
+        "E": 0.013195862522230296,
+        "R": 0.2412399661765003,
+        "meets": false,
+        "wholeFallInB": 0.9955796633432513
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.13419488584121808,
+       "photo__rrect-md__inactive": -0.004398253201927642
+      },
+      "holds": true
+     },
+     "meets": false
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.007882318637241162,
+        "E": 0.0085767707716703,
+        "R": 0.2743699762845489,
+        "meets": false,
+        "wholeFallInB": 1.0549552381537772
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.007808152310087307,
+        "E": 0.008874648705073788,
+        "R": 0.24697821234721387,
+        "meets": false,
+        "wholeFallInB": 0.900056217195353
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.026072264537053354,
+       "photo__rrect-md__inactive": -0.00010627588060005951
+      },
+      "holds": true
+     },
+     "meets": false
+    }
+   },
+   "meetsAt": [],
+   "meets": false
+  },
+  "iii-q0.5": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 0.5,
+     "sizeFineTapSigma": 4,
+     "sizeFineTapSigma2x": 4
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.015590268091720419,
+        "E": 0.015304637359621022,
+        "R": 0.45484978219053973,
+        "meets": false,
+        "wholeFallInB": 2.4251552798150016
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.012504402082645189,
+        "E": 0.013195862522230296,
+        "R": 0.4623870073780361,
+        "meets": false,
+        "wholeFallInB": 1.8502132928868817
+       }
+      },
+      "holds": false
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.2431787267856445,
+       "photo__rrect-md__inactive": -0.007709947017586212
+      },
+      "holds": true
+     },
+     "meets": false
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.005495880691696878,
+        "E": 0.0085767707716703,
+        "R": 0.5526143189486741,
+        "meets": true,
+        "wholeFallInB": 2.0230904578086055
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.005465184463204212,
+        "E": 0.008874648705073788,
+        "R": 0.5109850395181396,
+        "meets": true,
+        "wholeFallInB": 1.7872231094911515
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.04998116509367571,
+       "photo__rrect-md__inactive": -0.0001899645175834397
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    2
+   ],
+   "meets": false
+  },
+  "iii-q0.75": {
+   "ladder": "iii",
+   "overrides": {
+    "receded.dark": {
+     "sizeFineTapShare": 0.75,
+     "sizeFineTapSigma": 4,
+     "sizeFineTapSigma2x": 4
+    }
+   },
+   "perScale": {
+    "1": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.012924821406687357,
+        "E": 0.015304637359621022,
+        "R": 0.629009196909208,
+        "meets": true,
+        "wholeFallInB": 3.337538780709651
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.010140211853000326,
+        "E": 0.013195862522230296,
+        "R": 0.6415484851262355,
+        "meets": true,
+        "wholeFallInB": 2.4917206453977676
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.35308679076061156,
+       "photo__rrect-md__inactive": -0.012733395429273516
+      },
+      "holds": true
+     },
+     "meets": true
+    },
+    "2": {
+     "fine": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.0034419129608299908,
+        "E": 0.0085767707716703,
+        "R": 0.792094629842757,
+        "meets": true,
+        "wholeFallInB": 2.6339649976356254
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.003321240095523795,
+        "E": 0.008874648705073788,
+        "R": 0.7525657982533769,
+        "meets": true,
+        "wholeFallInB": 2.3473443819700317
+       }
+      },
+      "holds": true
+     },
+     "guards": {
+      "deltaInB": {
+       "checkerboard-64__rrect-md__inactive": -0.0711088004809114,
+       "photo__rrect-md__inactive": -0.00027614587655885983
+      },
+      "holds": true
+     },
+     "meets": true
+    }
+   },
+   "meetsAt": [
+    1,
+    2
+   ],
+   "meets": true
+  },
+  "iv-joint": {
+   "ladder": "iv",
+   "overrides": {
+    "receded.dark": {
+     "optics.regular.tintAlpha": 0.8,
+     "sizeScatterRampStartThin1x": 0.4,
+     "sizeScatterRampStartThin2x": 0.4,
+     "sizeScatterFloor": 0.5,
+     "sizeScatterRampStartThick1x": 0.15,
+     "sizeScatterScaleGain": 0,
+     "sizeFineTapShare": 1,
+     "sizeFineTapSigma": 4,
+     "sizeFineTapSigma2x": 4
+    }
+   },
+   "joint": {
+    "partition": {
+     "awayBeyondB": [],
+     "awayBeyondCeiling": [],
+     "overAppleNotAdmitted": [],
+     "ceilingHolds": true,
+     "countHolds": true,
+     "overAppleHolds": true,
+     "holds": true
+    },
+    "halving": {
+     "1": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.007246941701628215,
+        "reference": 0.022551579061249237,
+        "rung": 0.011285002310575812,
+        "E": 0.015304637359621022,
+        "R": 0.7361544403788742,
+        "meets": true,
+        "wholeFallInB": 3.875815361803587
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0054101349418409425,
+        "reference": 0.01860599746407124,
+        "rung": 0.008484436411994646,
+        "E": 0.013195862522230296,
+        "R": 0.7670253486670835,
+        "meets": true,
+        "wholeFallInB": 2.8831357076859976
+       }
+      },
+      "holds": true
+     },
+     "2": {
+      "cells": {
+       "checkerboard-8__rrect-md__inactive": {
+        "native": 0.0016587562587920546,
+        "reference": 0.010235527030462354,
+        "rung": 0.0012817465067143149,
+        "E": 0.0085767707716703,
+        "R": 1.0439570745347457,
+        "meets": true,
+        "wholeFallInB": 2.9934919418111683
+       },
+       "checkerboard-8__rrect-lg__inactive": {
+        "native": 0.0011253484774021597,
+        "reference": 0.009999997182475948,
+        "rung": 0.0010271586446928725,
+        "E": 0.008874648705073788,
+        "R": 1.0110640810664595,
+        "meets": true,
+        "wholeFallInB": 2.67761311376551
+       }
+      },
+      "holds": true
+     }
+    },
+    "photo": {
+     "1": {
+      "ratio": 0.4162985326256796,
+      "pointA": 0.4170778860859188,
+      "atOrAbovePointA": false,
+      "deltaFromPointAInBars": -0.018733920632240393
+     },
+     "2": {
+      "ratio": 0.4600895000928244,
+      "pointA": 0.4603611667442744,
+      "atOrAbovePointA": false,
+      "deltaFromPointAInBars": -0.006730809292733058
+     }
+    },
+    "holds": true,
+    "decides": "name-target only (protocol.json decides.iv); the photo ratio is reported and decides nothing"
+   },
+   "meets": true
+  }
+ },
+ "operators": {
+  "operator 1": {
+   "separates": true,
+   "rungs": [
+    "i-a0.7-f0.2-t128",
+    "i-a0.7-f0.2-t160"
+   ],
+   "oneScaleOnly": [
+    "i-a0.8-g0.6"
+   ],
+   "complete": true
+  },
+  "operator 2": {
+   "separates": true,
+   "rungs": [
+    "iii-s3",
+    "iii-s4",
+    "iii-s6",
+    "iii-q0.75"
+   ],
+   "oneScaleOnly": [
+    "iii-s2",
+    "iii-q0.5"
+   ],
+   "bodyWidthMeets": true,
+   "bodyRungs": [
+    "iii-b3",
+    "iii-b4"
+   ],
+   "bodyOneScaleOnly": [],
+   "complete": true,
+   "members": [
+    "the tap",
+    "the body width"
+   ]
+  },
+  "2x width": {
+   "meets": false,
+   "rungs": [],
+   "complete": true,
+   "source": "results.json operators['2x width'] (not re-read)"
+  },
+  "joint": {
+   "meets": true,
+   "partitionHolds": true,
+   "halvingHolds": true,
+   "photoAtOrAbovePointA": {
+    "1": false,
+    "2": false
+   },
+   "decides": "name-target only"
+  }
+ },
+ "ladders": {
+  "i": {
+   "complete": true,
+   "rungs": [
+    "i-a0.7",
+    "i-a0.7-f0.2",
+    "i-a0.7-f0.45",
+    "i-a0.7-f0.2-t128",
+    "i-a0.7-f0.2-t160",
+    "i-a0.7-g0.2",
+    "i-a0.7-g0.4",
+    "i-a0.7-g0.6",
+    "i-a0.8",
+    "i-a0.8-f0.2",
+    "i-a0.8-f0.45",
+    "i-a0.8-f0.2-t128",
+    "i-a0.8-f0.2-t160",
+    "i-a0.8-g0.2",
+    "i-a0.8-g0.4",
+    "i-a0.8-g0.6"
+   ],
+   "meets": [
+    "i-a0.7-f0.2-t128",
+    "i-a0.7-f0.2-t160"
+   ],
+   "meetsAtOneScaleOnly": [
+    "i-a0.8-g0.6"
+   ],
+   "passingL1": [
+    "i-a0.7",
+    "i-a0.7-f0.2",
+    "i-a0.7-f0.45",
+    "i-a0.7-f0.2-t128",
+    "i-a0.7-f0.2-t160",
+    "i-a0.7-g0.2",
+    "i-a0.7-g0.4",
+    "i-a0.7-g0.6",
+    "i-a0.8",
+    "i-a0.8-f0.2",
+    "i-a0.8-f0.45",
+    "i-a0.8-f0.2-t128",
+    "i-a0.8-f0.2-t160",
+    "i-a0.8-g0.2",
+    "i-a0.8-g0.4",
+    "i-a0.8-g0.6"
+   ]
+  },
+  "ii": {
+   "complete": true,
+   "meets": [],
+   "source": "results.json (not re-read)"
+  },
+  "iii": {
+   "complete": true,
+   "rungs": [
+    "iii-b2",
+    "iii-b3",
+    "iii-b4",
+    "iii-s1.5",
+    "iii-s2",
+    "iii-s3",
+    "iii-s4",
+    "iii-s6",
+    "iii-q0.25",
+    "iii-q0.5",
+    "iii-q0.75"
+   ],
+   "meets": [
+    "iii-s3",
+    "iii-s4",
+    "iii-s6",
+    "iii-q0.75",
+    "iii-b3",
+    "iii-b4"
+   ],
+   "meetsAtOneScaleOnly": [
+    "iii-s2",
+    "iii-q0.5"
+   ]
+  },
+  "iv": {
+   "complete": true,
+   "meets": [
+    "iv-joint"
+   ]
+  }
+ },
+ "oneScale": {
+  "rungs": [
+   "i-a0.8-g0.6",
+   "iii-s2",
+   "iii-q0.5"
+  ],
+  "ruledOffGrid": [
+   "iii-q0.5",
+   "iii-s2"
+  ],
+  "unruled": [
+   "i-a0.8-g0.6"
+  ],
+  "ruledButMeetsBoth": []
+ },
+ "flat": {
+  "i-a0.7": false,
+  "i-a0.7-f0.2": false,
+  "i-a0.7-f0.45": false,
+  "i-a0.7-f0.2-t128": false,
+  "i-a0.7-f0.2-t160": false,
+  "i-a0.7-g0.2": false,
+  "i-a0.7-g0.4": false,
+  "i-a0.7-g0.6": false,
+  "i-a0.8": false,
+  "i-a0.8-f0.2": false,
+  "i-a0.8-f0.45": false,
+  "i-a0.8-f0.2-t128": false,
+  "i-a0.8-f0.2-t160": false,
+  "i-a0.8-g0.2": false,
+  "i-a0.8-g0.4": false,
+  "i-a0.8-g0.6": false,
+  "ii-w6-d0.3-t256": true,
+  "ii-w6-d0.6-t256": true,
+  "ii-w10-d0.3-t256": true,
+  "ii-w10-d0.6-t256": false,
+  "ii-w14-d0.3-t256": false,
+  "ii-w14-d0.6-t256": false,
+  "ii-w6-d0.3-t128": false,
+  "ii-w6-d0.6-t128": false,
+  "ii-w10-d0.3-t128": false,
+  "ii-w10-d0.6-t128": false,
+  "ii-w14-d0.3-t128": false,
+  "ii-w14-d0.6-t128": false,
+  "iii-b2": false,
+  "iii-b3": false,
+  "iii-b4": false,
+  "iii-s1.5": false,
+  "iii-s2": false,
+  "iii-s3": false,
+  "iii-s4": false,
+  "iii-s6": false,
+  "iii-q0.25": false,
+  "iii-q0.5": false,
+  "iii-q0.75": false,
+  "iv-joint": false
+ },
+ "outcome": "STOP for the parent: rungs meeting at one scale only that no ruling put off the grid: ['i-a0.8-g0.6']",
+ "againstCharter": {
+  "differences": [],
+  "asPredicted": true
+ }
+}

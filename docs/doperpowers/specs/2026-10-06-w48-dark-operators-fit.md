@@ -20,6 +20,7 @@ The full entries are Decision Logs 1–7 at the tail.
 | 5 | the targets and the predictions | **RULED** by the parent, 2026-10-06 | P pooled (rest and inactive beside), C rest, F inactive; C rest halves at both scales at operator 1's closest rung; F inactive's fine band falls ≥ 0.73 at tap σ 4, the whole band 2.3–3.9 B; P not halved from these operators alone; the level check's excesses beside L1, ungated |
 | 6 | the landing | **RULED** by the parent, 2026-10-06 | G1 with its two STOP points (the gate report; the exposure report), the ship-or-close call to the user on NEITHER; G2 the landing with 0.28.0 if shipped |
 | 7 | the standing rules | **RULED** by the parent, 2026-10-06 | no attribution; path-scoped adds; no file over 50 MB; evidence never rewritten; freeze 1,818 and X41 911 at every merge; nothing withheld renders before the exposure |
+| 8 | the one-scale rung `i-a0.8-g0.6` | **RULED** by the parent, 2026-10-06 | recorded under Design (f), its point on no W48 grid, grids unchanged; part 1's one amendment, additive, re-pins `declare.py` and its tests so `check-fit` records such a rung; the verdicts re-read under the amended hash |
 
 ## Purpose
 
@@ -586,6 +587,21 @@ committed evidence never rewritten (corrections beside it); `freeze.py verify` 1
 at every merge; `pnpm -r build` before any vitest or `declare.py check`; every check gated on its
 own exit code; nothing withheld renders before the exposure; the populations per phase as W46
 defined them; renders under the classifying census with the pinned Playwright CLI and Chromium.
+
+### Decision Log 8 — RULED 2026-10-06 (the parent): the one-scale rung `i-a0.8-g0.6`, recorded under Design (f)
+
+**Ruled:** take your recommended route. `i-a0.8-g0.6` meets bar (a) at 1x only (its 2x thin gain 0.0629
+is under half of point A's 0.1384); under Design (f) a one-scale rung is not a fit start and is
+recorded; its point (far 0, top 256) is on no W48 grid, so the grids stay exactly as pinned. Spend part
+1's one amendment, additive only: an `add` op stating this ruling and re-pinning the W48 `declare.py`
+and its tests so that `check-fit` records a one-scale rung whose point is on no grid instead of
+stopping on it; no bar, verdict reader, grid, target, reference or protocol decision changes. Then
+re-read the verdicts under the amended hash (the numbers must repeat byte for byte), check and hash
+part 2 as the unchanged draft, `declare.py check` and `check-fit` consistent, finish §5.212 (the
+amendment, the rung, part 2's hash, the stage sizes), and hand back the head and both hashes. Also log
+in the tracker, beside the X70 gap: "a one-scale rung off every grid still stops check-fit" as the
+defect this amendment worked around. Confirmed for G1 (not yours to do): X70's three-way check is
+added to `fit/fit.py` before any fit render.
 
 ## Surprises & Discoveries
 
