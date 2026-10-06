@@ -1,5 +1,9 @@
 # W47 — the span-graded dark transmission and the receded fine term: the two operators W46 deferred, landed inert and fitted on the same dark `-glass0.25` bed (2026-10-06)
 
+**Closed on main (2026-10-06): the charter `c1f9bf84`, G0 `429d0a78` (§5.211; the merge gate: build, lint,
+every suite, 34 goldens, freeze 1,818, X41 911, `declare.py check` consistent). Both operators are on main
+inert, so Decision Log 10's "landed inert on main" holds from this merge. W48 opens from its Deferred.**
+
 **Status: CLOSED AT G0 WITH THE FINDING (2026-10-06)** (Decision Log 10; claims §5.211 §11–§12). DRAFT v1.2 (2026-10-06), chartered by the parent from W46's close (its Deferred 1 and 2;
 ledger §5.209 §7) under `/kairos`; two adversarial rounds folded (v1: one P1, four P2; v1.1
 scoped: approved, no material finding), the loop closed. G0 stopped at clause 5; part 1 amended
@@ -977,6 +981,7 @@ neither closes the wave at G0 with the finding and the amendment recorded.
 
 ## Revision Notes
 
+- 2026-10-06 (close on main `429d0a78`): the closed-on-main line only.
 - 2026-10-06 (the close): Decision Log 10 recorded verbatim; the status line reads CLOSED AT G0 WITH
   THE FINDING; the Decisions table, the Tracking Map, Deferred (W48) and Surprises (the three
   protocol defects) updated.
