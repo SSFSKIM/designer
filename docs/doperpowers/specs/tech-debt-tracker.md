@@ -7711,3 +7711,15 @@ scope is not refused by the tool. The shape of the fix: the fit driver calls the
 measured-set comparison per scope and scale before a render is read; in W48 it can ride part 2's one
 amendment only if `fit.py` is made a W48 copy, since inherited files are W47's bytes.
 
+## A one-scale rung off every grid still stops check-fit (W48 G0, 2026-10-06)
+
+*Worked around by W48 Decision Log 8 (claims §5.212 §6, §6a).*
+
+W48's hashed protocol encoded Design "The corrected bars" (f) only for the two rungs the charter named
+(σ 2, share 0.5) and sent any other rung meeting at one scale to the parent. `check-fit` therefore
+stopped on `i-a0.8-g0.6`, whose point (far 0, top 256) no W48 grid contains, though Design (f) already
+recorded such a rung. The fix landed through part 1's one amendment: `check-fit` records a one-scale
+rung whose point is on no grid, and still stops on one whose point a searched step offers. The shape of
+the fix for the next declaration: encode Design (f) as a rule over the rung's point and the draft's
+grids from the start, so it needs no amendment.
+

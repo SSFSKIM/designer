@@ -48977,7 +48977,7 @@ stands as written; this sentence corrects it.
   0.01 bar (§8's correction), and the joint was never read on the gate population.
 - **A mechanism for the level check's unexplained excesses**, which stay beside L1 and gate nothing.
 
-## 5.212 W48 G0: W47's ladder evidence archived and replayed to the last digit, the corrected declaration hashed, the verdicts read; one unruled one-scale rung stops part 2 (2026-10-06)
+## 5.212 W48 G0: W47's ladder evidence archived and replayed to the last digit, the corrected declaration hashed and amended once, the verdicts read, part 2 hashed (2026-10-06)
 
 Evidence directory: `results/2026-10-06-w48-g0-declaration/`, on branch `w48-g0-declaration` off
 `78d0211e0` (the charter v1.2 merge). Charter `2026-10-06-w48-dark-operators-fit.md`: clauses 1–5,
@@ -49151,18 +49151,62 @@ lever's values rather than the rung's point) uses the same route, with values, a
 Holding the gain at 0.05, which the charter's Risks anticipated for this rung's 2x thin loss, still
 needs the ruling first; the hold then rides part 2 at 108 points.
 
+### 6a. Decision Log 8: part 1 amended once, the verdicts re-read, part 2 hashed
+
+**The ruling** (W48 Decision Log 8, the parent, recorded verbatim in the charter at `f22af5402`):
+`i-a0.8-g0.6` is recorded under Design (f), not a fit start; its point (far 0, top 256) is on no W48
+grid, so the grids stay exactly as pinned.
+
+**The tool change** (`97620e98f`). `declare.py`'s mandatory reading now separates the unruled one-scale
+rungs. A rung whose point is a candidate of some searched step still stops part 2. A rung whose point
+is on no grid is recorded. The point is the rung's overrides over the snapshots' resolved values, and
+a step is the factorial group holding a leaf, else the leaf alone. Two cases are added to
+`test_declare` (25 in all). No bar, verdict reader, grid, target, reference or protocol decision moved.
+
+**The amendment.** Part 1 **`87ec90d48155…`** is superseded by
+**`2f190a757fade243a5e0ae6a7b09591395e7a7c038abdb19ba15a08c1ded549f`**, its one amendment, final:
+- the content form, made after the verdicts, so additive only: one `add` op putting
+  `decisionLog8` into the `ladders` item;
+- re-pinning `declare.py`, `test_declare.py` and `test_declare.txt`.
+
+`declare.py check` reads consistent on the amended chain (`amendment-check.txt`).
+
+**The re-read.** The same reader on the same evidence, under the amended hash. The first reading is kept
+as `ladders/verdicts-87ec90d48155.json` / `.txt`, moved and not edited. The new `verdicts.json` differs
+from it only in `declarationSha256`, and the `.txt` only in the header line that prints it. **Every
+verdict and number repeats byte for byte.**
+
+**Part 2** **`ad5fdeceb2448cb491ec575a67e9d84c33c43f37b9af89f81d8ca5ec80b9ea27`**. It is the draft with
+no change (`changes: []`). It pins `verdicts.json`, the draft, the protocol and `declare.py`.
+`check-fit` reads consistent, recording `i-a0.8-g0.6` (`fit-check.txt`). `declare.py check` and
+`check-fit` are both consistent at the head.
+
+The fit G1 runs:
+
+| stage | step | size |
+| --- | --- | --- |
+| 1 | the span law | 432 points, 72 renders per scale; 433 / 73 with the snapshot start |
+| 1 | W46's rest scatter | 26 grid points per pass, at most two passes |
+| 2 | transmission × fine term × body width | 114 points, 42 renders per scale |
+| 2 | W46's receded scatter | 58 grid values, 78 candidates per pass, at most two passes |
+
+The tap (σ {3, 4, 6}², share {0, 0.75, 1}) and the body width ({1.25, 3, 4}) are both searched. Nothing
+is held: holding the gain at 0.05 (108 points, 18 renders per scale) remains available to part 2's
+one amendment.
+
 ### 7. For the parent
 
-1. The ruling of §6, before part 2. Part 1's one amendment is still unspent.
+1. Ruled (Decision Log 8; §6a). Both parts' amendments: part 1's is spent; part 2's is unspent.
 2. **X70 does not cover a fit render.** It lives only in W47's `ladders/ladder.py` and `read.py`;
    W47's `fit/fit.py` has no requested / planned / measured check, so G1's fit renders inherit none
-   (tracker).
+   (tracker). The parent confirmed that G1 adds X70's three-way check to `fit/fit.py` before any fit
+   render.
 3. Label residue: W47's census labels ("w47-stage", "w47-fit") and the `what` strings of
    `fit/joint.py`, `finding.py` and `recover.py` ("W47 G1") stay W47's bytes.
 
 ### 8. What is not claimed
 
-- Any fit, gate, exposure, seal, publication or release; part 2 does not exist.
+- Any fit, gate, exposure, seal, publication or release; part 2 is declared, not run.
 - That `i-a0.8-g0.6` is a better start than the separating rung; the bar reads levers, the gate reads
   points.
 - Any reading beyond W47's rungs and cells; the replay proves the committed readings come from the
