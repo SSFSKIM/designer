@@ -1,0 +1,103 @@
+{
+ "cells": 132,
+ "compositeCells": 132,
+ "worstCodes": 0.0,
+ "disagreements": [],
+ "budget": {
+  "1x": {
+   "composite": {
+    "away": 6,
+    "past3B": 1
+   },
+   "gate": {
+    "away": 6,
+    "past3B": 1
+   },
+   "awaySame": true,
+   "targets": {
+    "composite": {
+     "P": {
+      "A": 0.4922,
+      "ref": 0.8792,
+      "halved": false
+     },
+     "C rest": {
+      "A": 0.1724,
+      "ref": 0.39,
+      "halved": true
+     },
+     "F inactive": {
+      "A": 0.4691,
+      "ref": 0.9169,
+      "halved": false
+     }
+    },
+    "gate": {
+     "P": {
+      "A": 0.4922,
+      "ref": 0.8792,
+      "halved": false
+     },
+     "C rest": {
+      "A": 0.1724,
+      "ref": 0.39,
+      "halved": true
+     },
+     "F inactive": {
+      "A": 0.4691,
+      "ref": 0.9169,
+      "halved": false
+     }
+    }
+   }
+  },
+  "2x": {
+   "composite": {
+    "away": 7,
+    "past3B": 1
+   },
+   "gate": {
+    "away": 7,
+    "past3B": 1
+   },
+   "awaySame": true,
+   "targets": {
+    "composite": {
+     "P": {
+      "A": 0.648,
+      "ref": 0.9652,
+      "halved": false
+     },
+     "C rest": {
+      "A": 0.2007,
+      "ref": 0.5377,
+      "halved": true
+     },
+     "F inactive": {
+      "A": 0.5795,
+      "ref": 0.9824,
+      "halved": false
+     }
+    },
+    "gate": {
+     "P": {
+      "A": 0.648,
+      "ref": 0.9652,
+      "halved": false
+     },
+     "C rest": {
+      "A": 0.2007,
+      "ref": 0.5377,
+      "halved": true
+     },
+     "F inactive": {
+      "A": 0.5795,
+      "ref": 0.9824,
+      "halved": false
+     }
+    }
+   }
+  }
+ },
+ "agrees": true
+}

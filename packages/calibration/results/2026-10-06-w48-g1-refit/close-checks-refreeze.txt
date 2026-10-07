@@ -1,0 +1,23 @@
+W48 G1, the re-freeze (W48 Decision Log 9 and its addendum; part 2 50eccbe41e46): checks after the seal, each gated
+on its own exit code (2026-10-07)
+
+The selected pair, built as the candidate d-dl9-g-0.5-rq0.25-rw15-rw25 (the stage-1 selection's active overrides
+with the stage-2 selection's receded overrides): its active digest is the stage-1 point's (791cde91d97acbc7) and
+its receded digest the stage-2 point's (be472bc8e42b618d), so both selected renders measure it exactly.
+seal.ts (W48's copy), over the dark snapshots restored from 3bfdaaf0c, record seal/refreeze/:
+  active dark   file b2d074d2df24…  resolvedMaterialSha256 791cde91d97acbc7  (supersedes the first freeze's 129316b87df6c562, file b465044f7882)
+  receded dark  file 29da6a888a23…  resolvedMaterialSha256 be472bc8e42b618d  (supersedes the first freeze's aa1a1b198ee72850, file 85ccd1bb851a)
+  The first freeze's evidence (seal/method.json, seal/sealed-manifest.json, seal/digests-after-freeze.txt,
+  runtime/*.txt, close-checks-freeze.txt) is kept as recorded.
+operator-2/digests.ts: exit 0, 10 of 10; the dark 0.25 pair at the values above, the other eight unchanged.
+runtime/refreeze/: macos27-profile-export 31/31 (the frozen candidate re-pinned with the reason); tier-coherence
+  79/79 (operator 1 live at 0.2 / 0.2 on the dark pair; the receded second heavy tap is declined by the CSS tier,
+  which draws no second tap, as for the light 0.25 receded document since W45); w31-identity-table 8/8;
+  w30-operator-identity 4/4; the 34 goldens; @vitreajs/vitrea-web 656/656.
+@vitrea/calibration: the same 18 adopted-thresholds failures as the first freeze (the dark 0.25 profiles leave the
+  owner test's settled bed until the publication and G2's re-baseline). Four more failed in a first run because the
+  worktree's gitignored web-captures held the first stage's dark captures, which those cases read when present;
+  that tree was moved, unchanged, to ~/vitrea-w48/g1-stage-dark/web-captures beside its stage, and the rerun reads 18.
+freeze.py verify: exit 0, 1818. x41.ts verify: exit 0, 911.
+declare.py check-fit: consistent. declare.py check: consistent on the pre-freeze bytes with the amended declare.py
+  (fit/dl9-witness-check.txt); on the live tree it reads the freeze's pre-freeze pins, as close-checks-freeze.txt.

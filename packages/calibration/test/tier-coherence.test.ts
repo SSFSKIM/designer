@@ -3613,8 +3613,8 @@ describe("the CSS tier declines the floor and span top at the light 0.25 positio
  * per pixel in the optics pass and per surface on the CSS tier, before each tier's own occlusion
  * term. The renderer's `spanGradedTintAlpha` is the CPU statement of the shader's line, and the
  * CSS tier's is the mirror `materialAtBackdrop` applies; these cases hold the two to each other
- * on the ten shipped documents (where both anchors are 0 and the law is the identity, so no
- * shipped CSS output moves) AND on synthetic documents naming non-zero deltas, either side of the
+ * on the ten shipped documents (the identity on eight, so none of their CSS outputs moves; live on
+ * the dark 0.25 pair since W48 G1 sealed far 0.2) AND on synthetic documents naming non-zero deltas, either side of the
  * knee and at both scales, so a later document that names the leaves inherits the mirror or fails
  * here. The full chain is pinned too: what `materialAtBackdrop` hands the tone solve, against the
  * renderer's occlusion lifting from the renderer's graded alpha, nominal and under the two
@@ -3684,8 +3684,24 @@ describe("W47 operator 1 is one law on both tiers (X65)", () => {
     }
   });
 
-  it("is the identity on every shipped document, so no shipped output moves on either tier", () => {
-    for (const { name, patch } of SHIPPED) {
+  // W48 G1 sealed the dark 0.25 pair with operator 1 live (claims §5.213: far 0.2 at both scales, the
+  // span tops 160, the receded document inheriting both), so the identity is the other eight
+  // documents' and the dark 0.25 pair is pinned to its sealed anchors; the case above holds the two
+  // tiers to each other on it at every span and scale.
+  const LIVE = new Set(["0.25 dark", "0.25 dark receded"]);
+
+  it("is live on the dark 0.25 pair at its sealed anchors (W48 G1)", () => {
+    for (const { name, patch } of SHIPPED.filter((d) => LIVE.has(d.name))) {
+      const profile = profileOf(patch);
+      expect(profile.tintAlphaFar1x, name).toBe(0.2);
+      expect(profile.tintAlphaFar2x, name).toBe(0.2);
+      expect(sourceSize(patch as never).tintAlphaFar1x, name).toBe(0.2);
+      expect(sourceSize(patch as never).tintAlphaFar2x, name).toBe(0.2);
+    }
+  });
+
+  it("is the identity on every other shipped document, so none of their outputs moves on either tier", () => {
+    for (const { name, patch } of SHIPPED.filter((d) => !LIVE.has(d.name))) {
       const profile = profileOf(patch);
       expect(profile.tintAlphaFar1x, name).toBe(0);
       expect(profile.tintAlphaFar2x, name).toBe(0);

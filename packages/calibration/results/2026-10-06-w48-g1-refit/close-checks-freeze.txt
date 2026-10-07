@@ -1,0 +1,25 @@
+W48 G1 step 3, the freeze: checks after the seal, each gated on its own exit code (2026-10-07)
+
+seal.ts (W48's copy) on d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0:
+  active dark   file b465044f7882…  resolvedMaterialSha256 129316b87df6c562 (from d0219cd684bf / b074fc6913a91c66)
+  receded dark  file 85ccd1bb851a…  resolvedMaterialSha256 aa1a1b198ee72850 (from f0b36a71772a / 280f0fddf014e0f6)
+operator-2/digests.ts (W47's, the ten shipped documents on the live runtime): exit 0, 10 of 10 reproduce;
+  the dark 0.25 pair at the sealed values above, the other eight at their recorded digests
+  (seal/digests-after-freeze.txt; the tool's "unchanged" compares each document's recorded field with its live digest).
+profile:macos27-glass025 regenerated src/macos27-glass025-profile.ts from the four 0.25 documents.
+runtime/: macos27-profile-export 31/31 (the dark pair's pin re-recorded with the reason: W48's frozen candidate, the
+  X64/X67 keys it names); tier-coherence 79/79 (operator 1 live on the dark 0.25 pair at its sealed 0.2 / 0.2, the
+  identity on the other eight, the mirror held on all ten); w31-identity-table 8/8; w30-operator-identity 4/4;
+  the 34 goldens pass; @vitreajs/vitrea-web 656/656.
+@vitrea/calibration: 18 failures, all in adopted-thresholds.test.ts, all the dark 0.25 profiles: the owner test reads
+  the current union's rows and requires each row's documents to be the live documents, and the live dark 0.25
+  documents are now the sealed bytes, so the dark 0.25 profiles leave its settled bed until the publication and G2's
+  re-baseline (charter clause 10). Not a regression of any recorded number.
+freeze.py verify: exit 0, 1818 entries. x41.ts verify: exit 0, 911 entries.
+declare.py check: exit 1, 6 mismatches, exactly the pre-freeze pins reading the live files: tier-coherence.test.ts
+  (part 1 pins it as W47's operator bytes, clause 1: "any runtime byte that moves before G1's freeze"; it moved AT the
+  freeze, with the dark pair's sealed operator-1 anchors), and seal/test_seal and stage/test_stage, which build from
+  the live dark documents taken to be the snapshots. declare.py check-fit: exit 0.
+Witness: with the two dark documents, tier-coherence.test.ts and the generated module temporarily replaced by their
+  bytes at 3bfdaaf0c, declare.py check exits 0 (consistent) and check-fit exits 0 (seal/witness-*.txt); the sealed
+  bytes were restored (files hash to b465044f7882 / 85ccd1bb851a again) and nothing was committed in between.

@@ -1,0 +1,2842 @@
+$ tsx cli/matrix.ts -- status /Users/new/vitrea-w48/g1-stage-dark-dl9
+{
+  "membership": {
+    "schemaVersion": 1,
+    "profiles": [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "apple-macos-27.0-2x-dark-standard-glass0.25"
+    ],
+    "tiers": [
+      "webgpu",
+      "css"
+    ],
+    "sets": [
+      "calibration",
+      "validation",
+      "holdout",
+      "recorded",
+      "probe"
+    ],
+    "active": {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+      "sha256": "b2d074d2df24"
+    },
+    "receded": {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+      "sha256": "29da6a888a23"
+    },
+    "cells": [
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__inactive-pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__inactive-pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-64__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-64__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "photo__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "photo__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "checkerboard__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "calibration",
+        "sceneId": "photo__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "validation",
+        "sceneId": "impulse__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "checkerboard__glass-over-glass__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "mid-dark-solid__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__glass-over-glass__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "holdout",
+        "sceneId": "photo__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__inactive-pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__inactive-pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "recorded",
+        "sceneId": "photo__capsule-button__pressed"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-32__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-4__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-64__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__capsule-button__rest-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-8__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__capsule-button__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "checkerboard-lc16__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-48__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-64__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-64__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-80__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-md-clear20__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-28__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "hc-text-7__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-ml__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "impulse__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "light-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__capsule-button__inactive-tint-orange"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-chroma-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-lg__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-md__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-dark-solid__rrect-sm__rest"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__capsule-button__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-lg__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "mid-light-solid__rrect-sm__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "fixtureSet": "probe",
+        "sceneId": "photo__rrect-ml__inactive"
+      },
+      {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "css",
+        "fixtureSet": "probe",
+        "sceneId": "photo__rrect-ml__inactive"
+      }
+    ]
+  },
+  "declared": 468,
+  "present": 468,
+  "missing": 0
+}

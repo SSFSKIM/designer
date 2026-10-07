@@ -1,5 +1,11 @@
 # W48 — the fit of W47's two dark operators under a corrected declaration: no new ladder, W47's renders as the hashed evidence, the body width and the tap both fittable (2026-10-06)
 
+**Status: G2 DONE (2026-10-07) on `w48-g2-landing`, the landing (§5.214); G1 published the dark 0.25
+generation `b2d074d2df24` (§5.213). An improvement landing under Decision Logs 9 and 10: operator 1
+live on the dark 0.25 pair, operator 2 inert and named, seventeen T1 regressions authorised against
+`d0219cd684bf`, P at both scales and F inactive at 2x named target misses; the changeset makes 0.28.0.
+G1 and G2 merge together.** The earlier status follows unchanged.
+
 **Status: DRAFT v1.2 (2026-10-06), chartered by the parent from W47's close (its Deferred, first
 item; Decision Log 10; claims §5.211 §11) under `/kairos`; two adversarial rounds folded (v1: two
 P2; v1.1 scoped: one P2), the loop closed.** Decision Logs 1–7
@@ -21,6 +27,8 @@ The full entries are Decision Logs 1–7 at the tail.
 | 6 | the landing | **RULED** by the parent, 2026-10-06 | G1 with its two STOP points (the gate report; the exposure report), the ship-or-close call to the user on NEITHER; G2 the landing with 0.28.0 if shipped |
 | 7 | the standing rules | **RULED** by the parent, 2026-10-06 | no attribution; path-scoped adds; no file over 50 MB; evidence never rewritten; freeze 1,818 and X41 911 at every merge; nothing withheld renders before the exposure |
 | 8 | the one-scale rung `i-a0.8-g0.6` | **RULED** by the parent, 2026-10-06 | recorded under Design (f), its point on no W48 grid, grids unchanged; part 1's one amendment, additive, re-pins `declare.py` and its tests so `check-fit` records such a rung; the verdicts re-read under the amended hash |
+| 9 | the gate read NEITHER; ship, tie-broken by the budget | **RULED** by the user, 2026-10-07 | part 2 amended once after the gate: inside the objective's tie, fewest cells away beyond B, then fewest past 3 B, then the hashed tie rule; the selected point is the landed active with rest-scatter scale gain −0.5 over the landed receded; an improvement landing with every exception named |
+| 10 | the exposure | **RULED** by the parent, 2026-10-07 | the ship ruling stands; every exposure exception an authorised regression against `d0219cd684bf` at G2; P (both scales) and F inactive at 2x named misses; `photo__rrect-lg__inactive` also under the dark photo body gap; the CSS holdout cells the tier's residual |
 
 ## Purpose
 
@@ -472,6 +480,19 @@ snapshots differing from W47's; a tool test failing on `d0219cd684bf`.
 
 ## Deferred / Out of Scope
 
+**Deferred at close (Decision Log 9 §7, Decision Log 10; claims §5.213–§5.214):**
+- **A span-graded receded scatter** for the thick coarse inactive cells. `checkerboard-64__rrect-lg__inactive`
+  (8.94 / 12.53 B) and `checkerboard-32__rrect-lg__inactive` (3.20 / 6.04 B) are the receded scatter's
+  cost on thick spans, and by eye those cells draw flat where Apple and `d0219cd684bf` keep the blurred
+  checker (`results/2026-10-06-w48-g2-landing/sheets/`). It is the shape W45's span-graded share answered
+  on the light scheme.
+- **The span law's own cost** on the thick and mid-span coarse rest cells (`checkerboard-32` / `-64`
+  lg rest, `checkerboard-lc16__rrect-md__rest`, `hc-text-28__rrect-lg__rest`, the 1x impulse capsule).
+- **The dark photo body** (P not halved at either scale; `photo__rrect-lg__inactive` also under §5.201's
+  gap) and **S1 dark** (0.304 / 0.300 against 0.314 / 0.311).
+- **F inactive at 2x** (0.535 against 0.942): operator 2 named, not fitted.
+
+
 - **The dark 0.5 pair** (X41; Decision Log 1's amendment if lifted).
 - **The 1x per-span width** (`sizeHeavySecondShareFar1x`): ladder (ii) met no rung at 2x, so the
   question stays as W47 left it.
@@ -483,9 +504,9 @@ snapshots differing from W47's; a tool test failing on `d0219cd684bf`.
 
 | child | status | ledger |
 | --- | --- | --- |
-| G0 | not started | §5.212 |
-| G1 | not started | §5.213 |
-| G2 | not started | §5.214 |
+| G0 | DONE (merged `3bfdaaf0c`): W47's ladders archived and replayed, part 1 amended once, the verdicts read, part 2 hashed | §5.212 |
+| G1 | DONE on `w48-g1-fit` (`7788e596d`): the fit, the gate NEITHER, part 2 amended once after the gate (Decision Log 9), the re-freeze, the exposure (read 8), `b2d074d2df24` published | §5.213 |
+| G2 | DONE on `w48-g2-landing`: the tree copied and `d0219cd684bf`'s superseded, T1's dark row re-baselined in five parts, the dark blocks on the landing cut, the docs, the changeset (0.28.0), the c9d chain, the sheets | §5.214 |
 
 ## Decision Log
 
@@ -603,9 +624,129 @@ in the tracker, beside the X70 gap: "a one-scale rung off every grid still stops
 defect this amendment worked around. Confirmed for G1 (not yours to do): X70's three-way check is
 added to `fit/fit.py` before any fit render.
 
+### Decision Log 9 — RULED 2026-10-07 (the user, on the parent's recommendation): the gate read NEITHER; ship, tie-broken by the budget
+
+**The reading (G1 steps 2–6, head `c85ba1ada`).** Under part 2 `ad5fdece…` as hashed, the fit landed at
+active `tintAlpha` 0.7, far delta 0.2 / 0.2, span tops 160 / 160, `sizeOcclusionGain` 0.05, the receded
+transmission 0.8 and the receded scatter at W46 point A's leaves exactly. The receded fine term (operator
+2) was not selected: every tap point scores worse than the start (best 0.5373 against 0.5063) and body
+width 3 sits inside the tie and halves F inactive at 1x only. The gate read NEITHER on both profiles: C
+rest halved at both scales (0.1556 / 0.2062 against 0.390 / 0.538), P not halved (0.4953 / 0.6479
+against 0.8792 / 0.9652), F inactive not halved (0.4661 / 0.5783 against 0.9169 / 0.9824, the 1x miss by
+0.008); the budget fails with 10 / 9 cells away beyond B and 3 / 3 past 3 B. A reading of 674 full-gate
+composites over the existing renders found NO point inside the budget at both scales: the receded
+scatter alone (point A's receded document over the unmoved `d0219cd684bf` active) gives 3 / 4 away and
+1 / 2 past 3 B, and no operator-1 rung keeps the rest cells to three away. The budget is unreachable
+with these levers, not narrowly missed.
+
+**Ruled (the user, AskUserQuestion, "Ship, tie-broken by the budget"):**
+
+1. **Part 2 is amended once, after the gate, and the record says so.** The amendment adds one
+   selection rule and nothing else: *inside the objective's declared tie, the point with the fewest
+   cells away beyond B at both scales is selected, then the fewest past 3 B, then the tie rule as
+   hashed.* The objective, grids, bars and targets do not move. This is the landing rule used as a
+   tie-break, a criterion declared before any render; it is not a refit. The superseded hash, this
+   ruling and the gate reading that prompted it go in `amendments.json`.
+2. **The selected point** is the landed active document with the rest-scatter scale gain −0.5 in
+   place of −2 (label `d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2`;
+   stage-1 objective 0.2253, inside the 0.0365 tie of 0.2044) over the landed receded document
+   (`aa1a1b198ee72850`, unchanged). Read from the existing renders: C rest halved at both scales
+   (0.1724 / 0.2007), P 0.4922 / 0.648, F inactive 0.4661 / 0.5783; 8 / 8 cells away beyond B; past
+   3 B 1 / 2, all inactive. The freeze, the strict-mode stage and the gate are re-run on that point;
+   the gate's reading of it must agree with the composite within the run-to-run bar, or STOP.
+3. **The landing is an improvement landing with every exception named** (W45 Decision Log 8's form):
+   each cell away beyond B against `d0219cd684bf` at the gate and at the exposure, listed here with
+   its growth in B and carried into `T1_DARK_AUTHORISED_REGRESSIONS` by G2 (cell, reference
+   `d0219cd684bf`, growth, "W48 Decision Log 9 and the exposure ruling, §5.213"); the P and F
+   inactive targets as not halved; S1 dark reading lower than the reference (0.256 / 0.293 against
+   0.314 / 0.311 at the landed point; re-read at the selected point) recorded as a gap; the eye
+   finding (thick coarse checkers flatter than Apple and than `d0219cd684bf`) recorded as a gap with
+   the sheet cited; E2's 52 cells read, not gated.
+4. **Operator 2 is named, not fitted** (X63): on top of W46 point A's receded scatter the receded
+   fine term does not improve the declared objective at either scale. It stays landed inert in every
+   document. The exception point `…rn10.7…` was read and not carried.
+5. **X60 holds.** The two light 2x CSS rows that differ by render are the driver's own
+   non-deterministic flags (`repeatNoise` 2e-5 and 0.0175); two scratch re-captures of each are
+   byte-identical to the published captures (`stage/x60-recheck/recheck.json`). A Surprise, not a
+   move of the light material (974 candidates IDENTICAL by evidence).
+6. **Then the exposure** (step 7, the cross-gate ledger's read 8: the seven holdout scenes and the six
+   referees per scale, once, into the same stage), the exposure report (STOP 2), publication (step 8),
+   §5.213, and G2 as Decision Log 6 planned it: 0.28.0, `@vitreajs/vitrea-web` minor.
+7. **Deferred at close, to be written by G2:** a span-graded receded scatter for the thick coarse
+   inactive cells (`checkerboard-64__rrect-lg__inactive` 8.9 / 12.5 B is the receded scatter's cost,
+   the same shape W45's span-graded share answered on the light scheme); the active thick coarse
+   rest cells (`checkerboard-32__rrect-lg__rest`, `lc16` md) as the span law's own cost.
+
+#### Decision Log 9, addendum — RULED 2026-10-07 (the parent): the selection over the rendered points, both stages
+
+**Ruled** (the parent, after G1's dry run of §1 inside W47's search procedure stopped at the span-law step on a
+point with no rest-scatter render; head `9b1b50fb9`): §1's rule is applied as ONE selection over the rendered
+points of each stage, not as a re-run of the procedure, in these words, which part 2's one amendment carries:
+"Inside the objective's declared tie of a stage's minimum, over every rendered point of that stage, the point
+with the fewest cells away beyond B summed over both scales is selected, then the fewest past 3 B, then the
+hashed tie rule. The budget of a rendered point is read by its exact composite (its own rest cells with the
+landed inactive cells, the receded document unchanged). This is a post-hoc selection among measured points,
+made after the gate, and the record says so; the selected point is re-rendered in full at the freeze and its
+gate reading must agree with the composite within the run-to-run bar." A stage-2 point's composite is its own
+inactive cells with the selected stage-1 point's rest cells.
+
+- **Stage 1** (474 rendered points; minimum 0.2044, tie 0.0365, 169 inside) selects §2's active document,
+  `d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2` (16 away, 3 past 3 B; 0.2253).
+- **Stage 2** (199 rendered points; minimum 0.5022, tie 0.0544, 45 inside) selects
+  `d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0`: the landed
+  receded document with the receded second heavy tap (`sizeHeavySecondShare` 0.25, `sizeHeavySecondSigma` /
+  `…2x` 5 / 5, `sizeHeavySecondShareFar2x` 0; W46's receded-scatter family, not operator 2). **§2's receded
+  digest `aa1a1b198ee72850` is superseded by the selected document's**, which the re-freeze records. Taking it,
+  rather than restricting stage 2 to the landed receded document, applies the rule as declared to both stages;
+  the restriction would tailor the rule to a point.
+
+  | | selected (second tap on) | landed receded (`aa1a1b198ee72850`) |
+  | --- | --- | --- |
+  | stage-2 objective | 0.5046 | 0.5063 |
+  | L1 | clean | clean |
+  | away beyond B, 1x / 2x | 6 / 7 (13) | 8 / 8 (16) |
+  | past 3 B, 1x / 2x | 1 / 1 (2) | 1 / 2 (3) |
+  | C rest | halved, 0.1724 / 0.2007 | the same |
+  | P | 0.4922 / 0.648, not halved | the same |
+  | F inactive | 0.4691 / 0.5795, not halved | 0.4661 / 0.5783, not halved |
+
+### Decision Log 10 — RULED 2026-10-07 (the parent, under Decision Log 9): the exposure
+
+**The reading (G1 step 7, head `1d9ba205e`; read 8 of the cross-gate ledger).** On the pair
+`791cde91d97acbc7` / `be472bc8e42b618d` the exposure's 77 T1 cells per profile read NEITHER on both
+profiles, as the gate did: C rest halved at both scales (0.1934 / 0.2007 against 0.39 / 0.5065),
+F inactive halved at 1x only (0.3846 against 0.8684; 2x 0.535 against 0.9423), P not halved
+(0.7644 / 0.7188 against 1.1005 / 1.1195); 8 / 9 cells away beyond B, 2 / 2 past 3 B; every group
+holds, T inactive included. Two cells are away for the first time at the exposure:
+`checkerboard-32__rrect-lg__inactive` (a referee; 3.20 / 6.04 B, past 3 B) and
+`photo__rrect-lg__inactive` (a holdout cell; 2.64 / 2.90 B; web 0.0022 against native 0.046). The
+gate's cells read as at the gate. L1, M1, C1, X1 and the dark tables pass; M2's eight photo cells
+move toward native; E2's 52 cells are read; S1 dark 0.304 / 0.300 against 0.314 / 0.311; X60
+IDENTICAL after the exposure; the CSS tier moves toward Apple on every gate stratum but F rest
+(flat), toward on the referees and slightly away on the holdout (two cells per scale).
+
+**Ruled.** The ship ruling stands; nothing in the exposure changes its shape. Both new cells are
+the receded scatter's cost on thick inactive spans, the shape Decision Log 9 §7 defers, now with a
+holdout and a referee witness. Every cell in the exposure report's exception table is an authorised
+regression against `d0219cd684bf` and goes into `T1_DARK_AUTHORISED_REGRESSIONS` at G2 with its
+growth in B and "W48 Decision Logs 9 and 10, §5.213"; the P target (both scales) and the F inactive
+target at 2x are named misses; `photo__rrect-lg__inactive` is also named under the dark photo
+body gap (claims §5.201) as the inactive pose's reading of it; the CSS holdout cells away are the
+tier's recorded residual. G1 publishes (step 8), writes §5.213 and hands back; G2 lands 0.28.0.
+
 ## Surprises & Discoveries
 
-(none yet)
+- **G1** (claims §5.213 §9): X60's two non-deterministic light rows; the hashed protocol did not say
+  whether a post-gate tie-break amendment was admissible; the exposure cut first read without the
+  withheld T bands; the inherited sheets' "W47" label; the published dark documents' `measurement`
+  header names "Decision Logs 1-7" while their per-leaf `method` entries cite Decision Log 9 (the files
+  are the generation's key and stay unedited).
+- **G2** (claims §5.214): W47's bed refuses the light cells W43 and W44 withheld, so the dark landing
+  cut carries the light rows its bed admits, held EQUAL to G1's exposure cut; the owner test reads each
+  scheme from its own landing cut (`GLASS025_VIEW`). G1 committed no standalone dark T-band fixture
+  (the bands were in its exposure cut); G2 read one off the canonical tree and held it equal to both
+  cuts. Three runtime doc comments still said every shipped material held operator 1 (and W45's share
+  delta) at 0; G2 corrected them, comment-only.
 
 ## Revision Notes
 

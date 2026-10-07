@@ -4,18 +4,18 @@
     "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a PATCH over the unmoved runtime",
     "default — W43 Decision Log 6; it is not a difference over the 0.5 document.",
     "",
-    "W43 G3 (ii), claims §5.201: the freeze of G3 (i)'s scratch candidate c05, fitted on the",
-    "WebGPU tier on the calibration rows of the W43 G1a bed (seven runs, plurality-published,",
-    "side bundle), transferred to validation, the CSS tier derived from the same document. It names",
-    "exactly the leaves of its 0.5 twin (X44); `entries` records every leaf that moved, with its 0.5",
-    "value, and every family that held, with the ruling that held it. The holdout was not read to",
-    "fit it. Every non-holdout miss it reads was ruled a named miss by the user on 2026-10-02",
-    "(Decision Log 5 (e); results/2026-10-02-w43-g3-refit/read/misses.md)."
+    "W48 G1, claims §5.213: the span-graded dark transmission and the receded fine term over",
+    "d0219cd684bf (two operators, the tone ordinates held), fitted in two stages in scratch under the hashed part 2 on the dark",
+    "WebGPU fit cells at both scales, T1 read against Apple's texture. The light 0.25 pair, the 0.5",
+    "generations and the 26.5 rows did not move (X60). It supersedes the document named in",
+    "`supersedes`; `entries` keeps the snapshot's record for every leaf W48 left where it was and",
+    "records each leaf W48 moved with its previous and 0.5 values. By X64 and X67 it may name",
+    "sizeScatterFloor2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar2x, sizeHeavySecondShareFar2x, sizeOcclusionGain, sizeScatterSpanMax, sizeScatterSpanMax2x, tintAlphaFar1x and tintAlphaFar2x beside its 0.5 twin's leaves (X44 narrowed)."
   ],
   "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
   "schemaVersion": 1,
-  "recordedAt": "2026-10-02",
-  "recordedBy": "W43 G3 (ii)",
+  "recordedAt": "2026-10-06",
+  "recordedBy": "W48 G1",
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "glassTintAmount": 0.25,
@@ -24,21 +24,26 @@
     "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
   },
   "derivedFromCandidate": {
-    "declaration": "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json",
-    "declarationSha256": "95388218f94db34b1c1a4bb57bb529e58618d7106c663bb90ce30cd402f2a6a4",
-    "endpoint": "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/active.dark.json",
-    "endpointSha256": "54f94dffbe8fa11ba8ddf9b63ed8bea1fa7736ab83bb7e66465c025eb57705be"
+    "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+    "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
+    "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/active.dark.json",
+    "endpointSha256": "72c7157a9c8eda7559f2d551e8a9455d5666d60c1af0fe9350d926156a939f91"
   },
-  "resolvedMaterialSha256": "b074fc6913a91c66",
+  "supersedes": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+    "sha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+    "resolvedMaterialSha256": "b074fc6913a91c66",
+    "generation": "packages/calibration/results/generations/d0219cd684bf.json"
+  },
+  "resolvedMaterialSha256": "791cde91d97acbc7",
   "resolvedMaterialSha256Rule": 2,
   "measurement": {
-    "gate": "W43 G3 (i)-(ii), claims §5.201; charter clause 10; Decision Logs 5 and 7 as RULED 2026-10-02",
-    "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (§5.199)",
-    "fixtureSets": "calibration fitted; validation checked and never fitted; holdout not read to fit",
-    "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
-    "objective": "L1's own clauses as constraints over the light calibration cells (solve_tone.py); the structure step chosen on the gated rows against the comparison twin c05t",
-    "cuts": "results/2026-10-02-w43-g3-refit/read/c05-cuts.json",
-    "reproduce": "python3.12 -B packages/calibration/results/2026-10-02-w43-g3-refit/fit/fit.py render c05 --set calibration,validation,recorded,probe"
+    "gate": "W48 G1, claims §5.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
+    "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (§5.199); T1's bar from those runs (§5.202 §2)",
+    "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
+    "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
+    "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
+    "cuts": null
   },
   "entries": {
     "backdropToneResponseThick": {
@@ -59,6 +64,92 @@
         "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
         "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
         "(Decision Log 7 item 3: only the thick row moves in dark)."
+      ]
+    },
+    "sizeOcclusionGain": {
+      "status": "materialised",
+      "value": 0.05,
+      "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+    },
+    "sizeScatterFloor2x": {
+      "status": "materialised",
+      "value": 1,
+      "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+    },
+    "sizeScatterRampStartThin1x": {
+      "status": "materialised",
+      "value": 0.72,
+      "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+    },
+    "sizeScatterRampStartThin2x": {
+      "status": "materialised",
+      "value": 0.46,
+      "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+    },
+    "optics.regular.tintAlpha": {
+      "status": "measured",
+      "value": 0.7,
+      "previous": 0.9,
+      "previousAt05": 0.9,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+      ]
+    },
+    "sizeScatterScaleGain": {
+      "status": "measured",
+      "value": -0.5,
+      "previous": -2,
+      "previousAt05": -2,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
+      ]
+    },
+    "sizeScatterSpanMax": {
+      "status": "measured",
+      "value": 160,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax = 160)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax = 160)"
+      ]
+    },
+    "sizeScatterSpanMax2x": {
+      "status": "measured",
+      "value": 160,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax2x = 160)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax2x = 160)"
+      ]
+    },
+    "tintAlphaFar1x": {
+      "status": "measured",
+      "value": 0.2,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar1x = 0.2)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar1x = 0.2)"
+      ]
+    },
+    "tintAlphaFar2x": {
+      "status": "measured",
+      "value": 0.2,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar2x = 0.2)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar2x = 0.2)"
       ]
     },
     "held": {
@@ -102,7 +193,7 @@
           0.05,
           0.05
         ],
-        "tintAlpha": 0.9,
+        "tintAlpha": 0.7,
         "rimAlpha": 0.055,
         "specularGain": 0,
         "rimLevelGain": 0.44,
@@ -146,12 +237,20 @@
     "sizeHeavySecondSigma": 0,
     "sizeHeavySecondSigma2x": 0,
     "sizeHeavySecondShare": 0,
-    "sizeScatterScaleGain": -2,
+    "sizeScatterScaleGain": -0.5,
     "sizeScatterScaleRef": 0.03,
     "bodyChromaRetention": 0.336,
     "backdropToneBlackStrength": 1,
     "backdropToneBlackThin": 0.014443843596092545,
-    "backdropToneBlackThick": 0.014443843596092545
+    "backdropToneBlackThick": 0.014443843596092545,
+    "tintAlphaFar1x": 0.2,
+    "tintAlphaFar2x": 0.2,
+    "sizeScatterSpanMax": 160,
+    "sizeScatterSpanMax2x": 160,
+    "sizeOcclusionGain": 0.05,
+    "sizeScatterFloor2x": 1,
+    "sizeScatterRampStartThin1x": 0.72,
+    "sizeScatterRampStartThin2x": 0.46
   },
   "cssTierMapping": {
     "blurSigmaScale": 2.2

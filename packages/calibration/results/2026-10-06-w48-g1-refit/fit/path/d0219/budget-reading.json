@@ -1,0 +1,761 @@
+{
+ "fullGate": {
+  "points": 199,
+  "insideBudget": [],
+  "nearest": [
+   {
+    "label": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg-1",
+    "objective": 0.6992234687333818,
+    "reading": {
+     "1x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-8__rrect-md__rest",
+        "pose": "rest",
+        "B": 8.97
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 8.94
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 4.0
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 2.13
+       },
+       {
+        "scene": "impulse__capsule-button__rest",
+        "pose": "rest",
+        "B": 1.46
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.37
+       },
+       {
+        "scene": "checkerboard__rrect-md__rest",
+        "pose": "rest",
+        "B": 1.23
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.14
+       },
+       {
+        "scene": "hc-text__rrect-sm__inactive",
+        "pose": "inactive",
+        "B": 1.13
+       }
+      ],
+      "past3B": [
+       "checkerboard-8__rrect-md__rest",
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.4953,
+        "ref": 0.8792,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.1556,
+        "ref": 0.39,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.6524,
+        "ref": 0.9169,
+        "halved": false
+       }
+      }
+     },
+     "2x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 12.53
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 3.77
+       },
+       {
+        "scene": "checkerboard-4__rrect-md__rest",
+        "pose": "rest",
+        "B": 2.05
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.98
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.59
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.04
+       }
+      ],
+      "past3B": [
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.6479,
+        "ref": 0.9652,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.2062,
+        "ref": 0.5377,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.7855,
+        "ref": 0.9824,
+        "halved": false
+       }
+      }
+     }
+    }
+   },
+   {
+    "label": "d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+    "objective": 0.5045996727083937,
+    "reading": {
+     "1x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-8__rrect-md__rest",
+        "pose": "rest",
+        "B": 8.97
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 8.94
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 4.0
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 2.13
+       },
+       {
+        "scene": "impulse__capsule-button__rest",
+        "pose": "rest",
+        "B": 1.46
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.37
+       },
+       {
+        "scene": "checkerboard__rrect-md__rest",
+        "pose": "rest",
+        "B": 1.23
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.14
+       }
+      ],
+      "past3B": [
+       "checkerboard-8__rrect-md__rest",
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.4953,
+        "ref": 0.8792,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.1556,
+        "ref": 0.39,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.4691,
+        "ref": 0.9169,
+        "halved": false
+       }
+      }
+     },
+     "2x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 12.53
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 3.77
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive",
+        "pose": "inactive",
+        "B": 2.79
+       },
+       {
+        "scene": "checkerboard-4__rrect-md__rest",
+        "pose": "rest",
+        "B": 2.05
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.98
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive-tint-orange",
+        "pose": "inactive",
+        "B": 1.93
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.59
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.04
+       }
+      ],
+      "past3B": [
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.6479,
+        "ref": 0.9652,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.2062,
+        "ref": 0.5377,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.5795,
+        "ref": 0.9824,
+        "halved": false
+       }
+      }
+     }
+    }
+   },
+   {
+    "label": "d-s2-rta0.8-rq0.5-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+    "objective": 0.5178702893179524,
+    "reading": {
+     "1x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-8__rrect-md__rest",
+        "pose": "rest",
+        "B": 8.97
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 8.94
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 4.0
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 2.13
+       },
+       {
+        "scene": "impulse__capsule-button__rest",
+        "pose": "rest",
+        "B": 1.46
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.37
+       },
+       {
+        "scene": "checkerboard__rrect-md__rest",
+        "pose": "rest",
+        "B": 1.23
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.14
+       }
+      ],
+      "past3B": [
+       "checkerboard-8__rrect-md__rest",
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.4953,
+        "ref": 0.8792,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.1556,
+        "ref": 0.39,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.4724,
+        "ref": 0.9169,
+        "halved": false
+       }
+      }
+     },
+     "2x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 12.53
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 3.77
+       },
+       {
+        "scene": "checkerboard-4__rrect-md__rest",
+        "pose": "rest",
+        "B": 2.05
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.98
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive",
+        "pose": "inactive",
+        "B": 1.94
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.59
+       },
+       {
+        "scene": "impulse__rrect-ml__inactive",
+        "pose": "inactive",
+        "B": 1.46
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.04
+       }
+      ],
+      "past3B": [
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.6479,
+        "ref": 0.9652,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.2062,
+        "ref": 0.5377,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.5811,
+        "ref": 0.9824,
+        "halved": false
+       }
+      }
+     }
+    }
+   },
+   {
+    "label": "d-s2-rta0.8-rq0.25-rw13-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+    "objective": 0.568372439798944,
+    "reading": {
+     "1x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-8__rrect-md__rest",
+        "pose": "rest",
+        "B": 8.97
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 8.94
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 4.0
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 2.13
+       },
+       {
+        "scene": "impulse__capsule-button__rest",
+        "pose": "rest",
+        "B": 1.46
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.37
+       },
+       {
+        "scene": "impulse__capsule-button__inactive",
+        "pose": "inactive",
+        "B": 1.24
+       },
+       {
+        "scene": "checkerboard__rrect-md__rest",
+        "pose": "rest",
+        "B": 1.23
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.14
+       }
+      ],
+      "past3B": [
+       "checkerboard-8__rrect-md__rest",
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.4953,
+        "ref": 0.8792,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.1556,
+        "ref": 0.39,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.5214,
+        "ref": 0.9169,
+        "halved": false
+       }
+      }
+     },
+     "2x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 12.53
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 3.77
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive",
+        "pose": "inactive",
+        "B": 2.79
+       },
+       {
+        "scene": "checkerboard-4__rrect-md__rest",
+        "pose": "rest",
+        "B": 2.05
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.98
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive-tint-orange",
+        "pose": "inactive",
+        "B": 1.93
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.59
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.04
+       }
+      ],
+      "past3B": [
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.6479,
+        "ref": 0.9652,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.2062,
+        "ref": 0.5377,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.5795,
+        "ref": 0.9824,
+        "halved": false
+       }
+      }
+     }
+    }
+   },
+   {
+    "label": "d-s2-rta0.8-rq0.25-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+    "objective": 0.5061017512235184,
+    "reading": {
+     "1x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-8__rrect-md__rest",
+        "pose": "rest",
+        "B": 8.97
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 8.94
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 4.0
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 2.13
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive-tint-orange",
+        "pose": "inactive",
+        "B": 1.91
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive",
+        "pose": "inactive",
+        "B": 1.62
+       },
+       {
+        "scene": "impulse__capsule-button__rest",
+        "pose": "rest",
+        "B": 1.46
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.37
+       },
+       {
+        "scene": "checkerboard__rrect-md__rest",
+        "pose": "rest",
+        "B": 1.23
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.14
+       }
+      ],
+      "past3B": [
+       "checkerboard-8__rrect-md__rest",
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.4953,
+        "ref": 0.8792,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.1556,
+        "ref": 0.39,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.4661,
+        "ref": 0.9169,
+        "halved": false
+       }
+      }
+     },
+     "2x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [
+       {
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "pose": "inactive",
+        "B": 12.53
+       },
+       {
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "pose": "rest",
+        "B": 3.77
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive",
+        "pose": "inactive",
+        "B": 2.79
+       },
+       {
+        "scene": "checkerboard-4__rrect-md__rest",
+        "pose": "rest",
+        "B": 2.05
+       },
+       {
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.98
+       },
+       {
+        "scene": "checkerboard__capsule-button__inactive-tint-orange",
+        "pose": "inactive",
+        "B": 1.93
+       },
+       {
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.59
+       },
+       {
+        "scene": "hc-text-28__rrect-lg__rest",
+        "pose": "rest",
+        "B": 1.04
+       }
+      ],
+      "past3B": [
+       "checkerboard-64__rrect-lg__inactive",
+       "checkerboard-lc16__rrect-md__rest"
+      ],
+      "targets": {
+       "P": {
+        "A": 0.6479,
+        "ref": 0.9652,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.2062,
+        "ref": 0.5377,
+        "halved": true
+       },
+       "F inactive": {
+        "A": 0.5795,
+        "ref": 0.9824,
+        "halved": false
+       }
+      }
+     }
+    }
+   }
+  ]
+ },
+ "stage1RestOnly": {
+  "points": 475,
+  "insideBudgetOnRest": 1,
+  "best": [
+   {
+    "label": "start-d0219",
+    "objective": 0.5722879840334082,
+    "reading": {
+     "1x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [],
+      "past3B": [],
+      "targets": {
+       "P": {
+        "A": 0.6021,
+        "ref": 0.6021,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.39,
+        "ref": 0.39,
+        "halved": false
+       },
+       "F inactive": null
+      }
+     },
+     "2x": {
+      "verdict": "NEITHER: closes at the finding",
+      "away": [],
+      "past3B": [],
+      "targets": {
+       "P": {
+        "A": 0.7997,
+        "ref": 0.7997,
+        "halved": false
+       },
+       "C rest": {
+        "A": 0.5377,
+        "ref": 0.5377,
+        "halved": false
+       },
+       "F inactive": null
+      }
+     }
+    }
+   }
+  ]
+ }
+}

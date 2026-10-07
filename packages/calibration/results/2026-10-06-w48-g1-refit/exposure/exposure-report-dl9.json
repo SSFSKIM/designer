@@ -1,0 +1,1708 @@
+{
+ "what": "W48 G1 step 6: the gate report on the sealed strict-mode stage (non-withheld cells)",
+ "cut": "cut-025-w48-dl9-exposure",
+ "reference": {
+  "rule": {
+   "apple-macos-27.0-1x-dark-standard-glass0.25": {
+    "verdict": "NEITHER: closes at the finding",
+    "why": [
+     "full close: target P: 9 cell(s) not within",
+     "improvement: target P aggregate 0.8792 above half of the reference's 0.8792",
+     "full close: target C rest: 23 cell(s) not within",
+     "improvement: target C rest aggregate 0.3900 above half of the reference's 0.3900",
+     "full close: target F inactive: 2 cell(s) not within",
+     "improvement: target F inactive aggregate 0.9169 above half of the reference's 0.9169"
+    ],
+    "read": 66,
+    "hashedTargets": {
+     "P": {
+      "A": 0.8792,
+      "ref": 0.8792,
+      "halved": false,
+      "cells": 9
+     },
+     "C rest": {
+      "A": 0.39,
+      "ref": 0.39,
+      "halved": false,
+      "cells": 28
+     },
+     "F inactive": {
+      "A": 0.9169,
+      "ref": 0.9169,
+      "halved": false,
+      "cells": 2
+     }
+    },
+    "beside": {
+     "P rest": {
+      "A": 0.6021,
+      "ref": 0.6021,
+      "halved": false,
+      "cells": 4
+     },
+     "P inactive": {
+      "A": 1.1926,
+      "ref": 1.1926,
+      "halved": false,
+      "cells": 5
+     },
+     "C inactive": {
+      "A": 0.5849,
+      "ref": 0.5849,
+      "halved": false,
+      "cells": 14
+     },
+     "F rest": {
+      "A": 0.358,
+      "ref": 0.358,
+      "halved": false,
+      "cells": 10
+     }
+    },
+    "groups": {
+     "F rest": {
+      "A": 0.358,
+      "ref": 0.358,
+      "tau": 0.0488,
+      "bound": 0.4068,
+      "gated": true,
+      "holds": true,
+      "cells": 10
+     },
+     "F inactive": {
+      "A": 0.9169,
+      "ref": 0.9169,
+      "tau": 0.1331,
+      "bound": 1.05,
+      "gated": false,
+      "holds": true,
+      "cells": 2
+     },
+     "T rest": {
+      "A": 0.3491,
+      "ref": 0.3491,
+      "tau": 0.0525,
+      "bound": 0.4016,
+      "gated": true,
+      "holds": true,
+      "cells": 3
+     },
+     "C rest": {
+      "A": 0.39,
+      "ref": 0.39,
+      "tau": 0.0297,
+      "bound": 0.4197,
+      "gated": true,
+      "holds": true,
+      "cells": 28
+     },
+     "C inactive": {
+      "A": 0.5849,
+      "ref": 0.5849,
+      "tau": 0.0776,
+      "bound": 0.6625,
+      "gated": true,
+      "holds": true,
+      "cells": 14
+     },
+     "P rest": {
+      "A": 0.6021,
+      "ref": 0.6021,
+      "tau": 0.0353,
+      "bound": 0.6373,
+      "gated": true,
+      "holds": true,
+      "cells": 4
+     },
+     "P inactive": {
+      "A": 1.1926,
+      "ref": 1.1926,
+      "tau": 0.0353,
+      "bound": 1.2279,
+      "gated": true,
+      "holds": true,
+      "cells": 5
+     }
+    },
+    "partition": {
+     "unchanged": 66,
+     "toward": 0,
+     "away": 0
+    },
+    "awayBeyondB": [],
+    "beyondCeiling": [],
+    "budgetHolds": true,
+    "targetNotWithin": {
+     "P": 9,
+     "C rest": 23,
+     "F inactive": 2
+    }
+   },
+   "apple-macos-27.0-2x-dark-standard-glass0.25": {
+    "verdict": "NEITHER: closes at the finding",
+    "why": [
+     "full close: target P: 9 cell(s) not within",
+     "improvement: target P aggregate 0.9652 above half of the reference's 0.9652",
+     "full close: target C rest: 25 cell(s) not within",
+     "improvement: target C rest aggregate 0.5377 above half of the reference's 0.5377",
+     "full close: target F inactive: 2 cell(s) not within",
+     "improvement: target F inactive aggregate 0.9824 above half of the reference's 0.9824"
+    ],
+    "read": 66,
+    "hashedTargets": {
+     "P": {
+      "A": 0.9652,
+      "ref": 0.9652,
+      "halved": false,
+      "cells": 9
+     },
+     "C rest": {
+      "A": 0.5377,
+      "ref": 0.5377,
+      "halved": false,
+      "cells": 28
+     },
+     "F inactive": {
+      "A": 0.9824,
+      "ref": 0.9824,
+      "halved": false,
+      "cells": 2
+     }
+    },
+    "beside": {
+     "P rest": {
+      "A": 0.7997,
+      "ref": 0.7997,
+      "halved": false,
+      "cells": 4
+     },
+     "P inactive": {
+      "A": 1.1443,
+      "ref": 1.1443,
+      "halved": false,
+      "cells": 5
+     },
+     "C inactive": {
+      "A": 0.5573,
+      "ref": 0.5573,
+      "halved": false,
+      "cells": 14
+     },
+     "F rest": {
+      "A": 0.4323,
+      "ref": 0.4323,
+      "halved": false,
+      "cells": 10
+     }
+    },
+    "groups": {
+     "F rest": {
+      "A": 0.4323,
+      "ref": 0.4323,
+      "tau": 0.0763,
+      "bound": 0.5086,
+      "gated": true,
+      "holds": true,
+      "cells": 10
+     },
+     "F inactive": {
+      "A": 0.9824,
+      "ref": 0.9824,
+      "tau": 0.1458,
+      "bound": 1.1282,
+      "gated": false,
+      "holds": true,
+      "cells": 2
+     },
+     "T rest": {
+      "A": 0.7897,
+      "ref": 0.7897,
+      "tau": 0.0874,
+      "bound": 0.877,
+      "gated": true,
+      "holds": true,
+      "cells": 3
+     },
+     "C rest": {
+      "A": 0.5377,
+      "ref": 0.5377,
+      "tau": 0.0262,
+      "bound": 0.5639,
+      "gated": true,
+      "holds": true,
+      "cells": 28
+     },
+     "C inactive": {
+      "A": 0.5573,
+      "ref": 0.5573,
+      "tau": 0.0763,
+      "bound": 0.6336,
+      "gated": true,
+      "holds": true,
+      "cells": 14
+     },
+     "P rest": {
+      "A": 0.7997,
+      "ref": 0.7997,
+      "tau": 0.0345,
+      "bound": 0.8342,
+      "gated": true,
+      "holds": true,
+      "cells": 4
+     },
+     "P inactive": {
+      "A": 1.1443,
+      "ref": 1.1443,
+      "tau": 0.0354,
+      "bound": 1.1798,
+      "gated": true,
+      "holds": true,
+      "cells": 5
+     }
+    },
+    "partition": {
+     "unchanged": 66,
+     "toward": 0,
+     "away": 0
+    },
+    "awayBeyondB": [],
+    "beyondCeiling": [],
+    "budgetHolds": true,
+    "targetNotWithin": {
+     "P": 9,
+     "C rest": 25,
+     "F inactive": 2
+    }
+   }
+  },
+  "cssT1": {
+   "1x C inactive": {
+    "cells": 14,
+    "medianRatio": 0.5613,
+    "referenceMedianRatio": 0.5613,
+    "away": 0,
+    "toward": 0
+   },
+   "1x C rest": {
+    "cells": 28,
+    "medianRatio": 0.2432,
+    "referenceMedianRatio": 0.2432,
+    "away": 0,
+    "toward": 0
+   },
+   "1x F inactive": {
+    "cells": 2,
+    "medianRatio": 0.8385,
+    "referenceMedianRatio": 0.8385,
+    "away": 0,
+    "toward": 0
+   },
+   "1x F rest": {
+    "cells": 10,
+    "medianRatio": 0.1551,
+    "referenceMedianRatio": 0.1551,
+    "away": 0,
+    "toward": 0
+   },
+   "1x P inactive": {
+    "cells": 5,
+    "medianRatio": 0.213,
+    "referenceMedianRatio": 0.213,
+    "away": 0,
+    "toward": 0
+   },
+   "1x P rest": {
+    "cells": 4,
+    "medianRatio": 0.2702,
+    "referenceMedianRatio": 0.2702,
+    "away": 0,
+    "toward": 0
+   },
+   "1x T rest": {
+    "cells": 3,
+    "medianRatio": 0.2615,
+    "referenceMedianRatio": 0.2615,
+    "away": 0,
+    "toward": 0
+   },
+   "2x C inactive": {
+    "cells": 14,
+    "medianRatio": 0.6284,
+    "referenceMedianRatio": 0.6284,
+    "away": 0,
+    "toward": 0
+   },
+   "2x C rest": {
+    "cells": 28,
+    "medianRatio": 0.252,
+    "referenceMedianRatio": 0.252,
+    "away": 0,
+    "toward": 0
+   },
+   "2x F inactive": {
+    "cells": 2,
+    "medianRatio": 1.4177,
+    "referenceMedianRatio": 1.4177,
+    "away": 0,
+    "toward": 0
+   },
+   "2x F rest": {
+    "cells": 10,
+    "medianRatio": 0.1795,
+    "referenceMedianRatio": 0.1795,
+    "away": 0,
+    "toward": 0
+   },
+   "2x P inactive": {
+    "cells": 5,
+    "medianRatio": 0.2595,
+    "referenceMedianRatio": 0.2595,
+    "away": 0,
+    "toward": 0
+   },
+   "2x P rest": {
+    "cells": 4,
+    "medianRatio": 0.2409,
+    "referenceMedianRatio": 0.2409,
+    "away": 0,
+    "toward": 0
+   },
+   "2x T rest": {
+    "cells": 3,
+    "medianRatio": 0.3608,
+    "referenceMedianRatio": 0.3608,
+    "away": 0,
+    "toward": 0
+   }
+  }
+ },
+ "rule": {
+  "apple-macos-27.0-1x-dark-standard-glass0.25": {
+   "verdict": "NEITHER: closes at the finding",
+   "why": [
+    "full close: target P: 12 cell(s) not within",
+    "improvement: target P aggregate 0.7644 above half of the reference's 1.1005",
+    "full close: target C rest: 19 cell(s) not within",
+    "full close: target F inactive: 3 cell(s) not within",
+    "budget count: 8 cells away beyond B (at most 3)",
+    "budget ceiling: 2 cell(s) beyond 3 B"
+   ],
+   "read": 77,
+   "hashedTargets": {
+    "P": {
+     "A": 0.7644,
+     "ref": 1.1005,
+     "halved": false,
+     "cells": 12
+    },
+    "C rest": {
+     "A": 0.1934,
+     "ref": 0.39,
+     "halved": true,
+     "cells": 30
+    },
+    "F inactive": {
+     "A": 0.3846,
+     "ref": 0.8684,
+     "halved": true,
+     "cells": 3
+    }
+   },
+   "beside": {
+    "P rest": {
+     "A": 0.4543,
+     "ref": 0.7615,
+     "halved": false,
+     "cells": 5
+    },
+    "P inactive": {
+     "A": 0.972,
+     "ref": 1.1939,
+     "halved": false,
+     "cells": 7
+    },
+    "C inactive": {
+     "A": 0.3188,
+     "ref": 0.5055,
+     "halved": false,
+     "cells": 16
+    },
+    "F rest": {
+     "A": 0.2226,
+     "ref": 0.4726,
+     "halved": true,
+     "cells": 12
+    }
+   },
+   "groups": {
+    "F rest": {
+     "A": 0.2226,
+     "ref": 0.4726,
+     "tau": 0.0488,
+     "bound": 0.5214,
+     "gated": true,
+     "holds": true,
+     "cells": 12
+    },
+    "F inactive": {
+     "A": 0.3846,
+     "ref": 0.8684,
+     "tau": 0.1246,
+     "bound": 0.9931,
+     "gated": false,
+     "holds": true,
+     "cells": 3
+    },
+    "T rest": {
+     "A": 0.2184,
+     "ref": 0.3491,
+     "tau": 0.0525,
+     "bound": 0.4016,
+     "gated": true,
+     "holds": true,
+     "cells": 3
+    },
+    "T inactive": {
+     "A": 0.4837,
+     "ref": 0.5153,
+     "tau": 0.1256,
+     "bound": 0.6409,
+     "gated": false,
+     "holds": true,
+     "cells": 1
+    },
+    "C rest": {
+     "A": 0.1934,
+     "ref": 0.39,
+     "tau": 0.0297,
+     "bound": 0.4197,
+     "gated": true,
+     "holds": true,
+     "cells": 30
+    },
+    "C inactive": {
+     "A": 0.3188,
+     "ref": 0.5055,
+     "tau": 0.0776,
+     "bound": 0.5831,
+     "gated": true,
+     "holds": true,
+     "cells": 16
+    },
+    "P rest": {
+     "A": 0.4543,
+     "ref": 0.7615,
+     "tau": 0.035,
+     "bound": 0.7965,
+     "gated": true,
+     "holds": true,
+     "cells": 5
+    },
+    "P inactive": {
+     "A": 0.972,
+     "ref": 1.1939,
+     "tau": 0.0353,
+     "bound": 1.2292,
+     "gated": true,
+     "holds": true,
+     "cells": 7
+    }
+   },
+   "partition": {
+    "unchanged": 22,
+    "toward": 43,
+    "away": 12
+   },
+   "awayBeyondB": [
+    {
+     "scene": "checkerboard-64__rrect-lg__inactive",
+     "growthInB": 8.94
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__inactive",
+     "growthInB": 3.2
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 2.98
+    },
+    {
+     "scene": "checkerboard-lc16__rrect-md__rest",
+     "growthInB": 2.66
+    },
+    {
+     "scene": "photo__rrect-lg__inactive",
+     "growthInB": 2.64
+    },
+    {
+     "scene": "impulse__capsule-button__rest",
+     "growthInB": 2.26
+    },
+    {
+     "scene": "checkerboard-64__rrect-lg__rest",
+     "growthInB": 1.55
+    },
+    {
+     "scene": "hc-text-28__rrect-lg__rest",
+     "growthInB": 1.39
+    }
+   ],
+   "beyondCeiling": [
+    "checkerboard-64__rrect-lg__inactive",
+    "checkerboard-32__rrect-lg__inactive"
+   ],
+   "budgetHolds": false,
+   "targetNotWithin": {
+    "P": 12,
+    "C rest": 19,
+    "F inactive": 3
+   }
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.25": {
+   "verdict": "NEITHER: closes at the finding",
+   "why": [
+    "full close: target P: 12 cell(s) not within",
+    "improvement: target P aggregate 0.7188 above half of the reference's 1.1195",
+    "full close: target C rest: 22 cell(s) not within",
+    "full close: target F inactive: 3 cell(s) not within",
+    "improvement: target F inactive aggregate 0.5350 above half of the reference's 0.9423",
+    "budget count: 9 cells away beyond B (at most 3)",
+    "budget ceiling: 2 cell(s) beyond 3 B"
+   ],
+   "read": 77,
+   "hashedTargets": {
+    "P": {
+     "A": 0.7188,
+     "ref": 1.1195,
+     "halved": false,
+     "cells": 12
+    },
+    "C rest": {
+     "A": 0.2007,
+     "ref": 0.5065,
+     "halved": true,
+     "cells": 30
+    },
+    "F inactive": {
+     "A": 0.535,
+     "ref": 0.9423,
+     "halved": false,
+     "cells": 3
+    }
+   },
+   "beside": {
+    "P rest": {
+     "A": 0.5775,
+     "ref": 0.955,
+     "halved": false,
+     "cells": 5
+    },
+    "P inactive": {
+     "A": 0.9632,
+     "ref": 1.1443,
+     "halved": false,
+     "cells": 7
+    },
+    "C inactive": {
+     "A": 0.2446,
+     "ref": 0.4816,
+     "halved": false,
+     "cells": 16
+    },
+    "F rest": {
+     "A": 0.3325,
+     "ref": 0.441,
+     "halved": false,
+     "cells": 12
+    }
+   },
+   "groups": {
+    "F rest": {
+     "A": 0.3325,
+     "ref": 0.441,
+     "tau": 0.0745,
+     "bound": 0.5155,
+     "gated": true,
+     "holds": true,
+     "cells": 12
+    },
+    "F inactive": {
+     "A": 0.535,
+     "ref": 0.9423,
+     "tau": 0.1464,
+     "bound": 1.0887,
+     "gated": false,
+     "holds": true,
+     "cells": 3
+    },
+    "T rest": {
+     "A": 0.3322,
+     "ref": 0.7897,
+     "tau": 0.0874,
+     "bound": 0.877,
+     "gated": true,
+     "holds": true,
+     "cells": 3
+    },
+    "T inactive": {
+     "A": 0.1737,
+     "ref": 0.3573,
+     "tau": 0.3018,
+     "bound": 0.6591,
+     "gated": false,
+     "holds": true,
+     "cells": 1
+    },
+    "C rest": {
+     "A": 0.2007,
+     "ref": 0.5065,
+     "tau": 0.0262,
+     "bound": 0.5328,
+     "gated": true,
+     "holds": true,
+     "cells": 30
+    },
+    "C inactive": {
+     "A": 0.2446,
+     "ref": 0.4816,
+     "tau": 0.0763,
+     "bound": 0.5579,
+     "gated": true,
+     "holds": true,
+     "cells": 16
+    },
+    "P rest": {
+     "A": 0.5775,
+     "ref": 0.955,
+     "tau": 0.034,
+     "bound": 0.9891,
+     "gated": true,
+     "holds": true,
+     "cells": 5
+    },
+    "P inactive": {
+     "A": 0.9632,
+     "ref": 1.1443,
+     "tau": 0.0354,
+     "bound": 1.1798,
+     "gated": true,
+     "holds": true,
+     "cells": 7
+    }
+   },
+   "partition": {
+    "unchanged": 21,
+    "toward": 45,
+    "away": 11
+   },
+   "awayBeyondB": [
+    {
+     "scene": "checkerboard-64__rrect-lg__inactive",
+     "growthInB": 12.53
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__inactive",
+     "growthInB": 6.04
+    },
+    {
+     "scene": "checkerboard-lc16__rrect-md__rest",
+     "growthInB": 2.91
+    },
+    {
+     "scene": "photo__rrect-lg__inactive",
+     "growthInB": 2.9
+    },
+    {
+     "scene": "checkerboard__capsule-button__inactive",
+     "growthInB": 2.79
+    },
+    {
+     "scene": "checkerboard-32__rrect-lg__rest",
+     "growthInB": 2.71
+    },
+    {
+     "scene": "checkerboard__capsule-button__inactive-tint-orange",
+     "growthInB": 1.93
+    },
+    {
+     "scene": "checkerboard-64__rrect-lg__rest",
+     "growthInB": 1.71
+    },
+    {
+     "scene": "hc-text-28__rrect-lg__rest",
+     "growthInB": 1.34
+    }
+   ],
+   "beyondCeiling": [
+    "checkerboard-64__rrect-lg__inactive",
+    "checkerboard-32__rrect-lg__inactive"
+   ],
+   "budgetHolds": false,
+   "targetNotWithin": {
+    "P": 12,
+    "C rest": 22,
+    "F inactive": 3
+   }
+  }
+ },
+ "ruleVerdict": "NEITHER: closes at the finding",
+ "rows": {
+  "tables apple-macos-27.0-1x-dark-standard-glass0.25 webgpu": "PASS",
+  "tables apple-macos-27.0-1x-dark-standard-glass0.25 css": "PASS",
+  "tables apple-macos-27.0-2x-dark-standard-glass0.25 webgpu": "PASS",
+  "tables apple-macos-27.0-2x-dark-standard-glass0.25 css": "PASS",
+  "tables apple-macos-27.0-1x-light-standard-glass0.25 webgpu": "PASS",
+  "tables apple-macos-27.0-1x-light-standard-glass0.25 css": "MISS",
+  "tables apple-macos-27.0-2x-light-standard-glass0.25 webgpu": "PASS",
+  "tables apple-macos-27.0-2x-light-standard-glass0.25 css": "PASS",
+  "M1 webgpu (GATED)": "PASS",
+  "M1 css (descriptive)": "MISS",
+  "M2 webgpu (GATED)": "NAMED MISSES",
+  "M2 css (descriptive)": "FAIL",
+  "C1 webgpu (GATED)": "PASS",
+  "C1 css (descriptive)": "MISS",
+  "L1 webgpu (GATED)": "PASS, 4 UNMEASURED",
+  "L1 css (descriptive)": "MISS",
+  "X1 webgpu (GATED)": "PASS",
+  "X1 css (descriptive)": "MISS",
+  "E2 webgpu (GATED)": "MISS",
+  "E2 css (descriptive)": "MISS",
+  "S1 webgpu (GATED)": "UNMEASURED",
+  "S1 css (GATED)": "UNMEASURED",
+  "T1 webgpu (GATED)": "NEITHER: closes at the finding",
+  "T1 css (descriptive)": "read (tier residual)",
+  "W47 rule (T1, dark 0.25 WebGPU, per profile)": "NEITHER: closes at the finding",
+  "L1 webgpu misses": [],
+  "L1 webgpu max": {
+   "error": 0.0505,
+   "growth": 0.0049
+  },
+  "M2 webgpu failures": [],
+  "M2 webgpu misses": [
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/photo__capsule-button__inactive",
+    "reference": 0.01020053707586984,
+    "web": 0.01499695314305537,
+    "native": 0.045429247528223596,
+    "delta": 0.47021211054973,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/photo__capsule-button__rest",
+    "reference": 0.020805142025849117,
+    "web": 0.02839182326411439,
+    "native": 0.04882433989816848,
+    "delta": 0.3646541431363115,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-md__inactive",
+    "reference": 0.009617184393473852,
+    "web": 0.016897194825756533,
+    "native": 0.03917577871308019,
+    "delta": 0.7569793958846044,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-md__rest",
+    "reference": 0.016342450308966017,
+    "web": 0.029692887380575867,
+    "native": 0.044231999205674485,
+    "delta": 0.8169177093526392,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/photo__capsule-button__inactive",
+    "reference": 0.009403865629746587,
+    "web": 0.015150541146849711,
+    "native": 0.04541656948438994,
+    "delta": 0.6110971533796771,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/photo__capsule-button__rest",
+    "reference": 0.01709223603789663,
+    "web": 0.026651935663995006,
+    "native": 0.05041170627926561,
+    "delta": 0.559300702664225,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-md__inactive",
+    "reference": 0.010660390891631658,
+    "web": 0.018778490330890303,
+    "native": 0.04046902256325525,
+    "delta": 0.7615198656206222,
+    "verdict": "named"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-md__rest",
+    "reference": 0.015056110409752518,
+    "web": 0.03128581272330585,
+    "native": 0.04514260586195709,
+    "delta": 1.0779478810835914,
+    "verdict": "named"
+   }
+  ],
+  "X1 webgpu failing": [],
+  "E2 webgpu failing": [
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest-tint-orange",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 7.645555555555556,
+    "prefitMeanAbsCodes": 7.632777777777777,
+    "change": 0.012777777777778887,
+    "worstBinDelta": 0.4399999999999977,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 16.21258199165176,
+    "prefitMeanAbsCodes": 15.701860962035381,
+    "change": 0.5107210296163789,
+    "worstBinDelta": 2.19186046511628,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 23.823333333333338,
+    "prefitMeanAbsCodes": 23.21555555555555,
+    "change": 0.6077777777777875,
+    "worstBinDelta": 3.460000000000001,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest-tint-orange",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 8.636111111111111,
+    "prefitMeanAbsCodes": 8.633333333333333,
+    "change": 0.002777777777778212,
+    "worstBinDelta": 0.08000000000000007,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 11.29152199074074,
+    "prefitMeanAbsCodes": 10.922309027777779,
+    "change": 0.3692129629629619,
+    "worstBinDelta": 2.145833333333334,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 14.55502136752137,
+    "prefitMeanAbsCodes": 13.41727539256609,
+    "change": 1.1377459749552798,
+    "worstBinDelta": 2.348837209302328,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 36.55666666666667,
+    "prefitMeanAbsCodes": 30.363333333333337,
+    "change": 6.193333333333335,
+    "worstBinDelta": 14.240000000000002,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest-tint-orange",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 8.326666666666668,
+    "prefitMeanAbsCodes": 8.318888888888887,
+    "change": 0.00777777777778077,
+    "worstBinDelta": 0.14000000000000057,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 18.41840277777778,
+    "prefitMeanAbsCodes": 13.757957175925926,
+    "change": 4.660445601851853,
+    "worstBinDelta": 9.5625,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__capsule-button__rest",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 9.032222222222222,
+    "prefitMeanAbsCodes": 8.316666666666668,
+    "change": 0.7155555555555537,
+    "worstBinDelta": 7.4399999999999995,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 18.088396990740744,
+    "prefitMeanAbsCodes": 17.03197337962963,
+    "change": 1.0564236111111143,
+    "worstBinDelta": 8.4375,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-ml__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 13.289869450195537,
+    "prefitMeanAbsCodes": 13.218843455256499,
+    "change": 0.07102599493903838,
+    "worstBinDelta": 0.8333333333333339,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__rest-tint-orange",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 7.897222222222222,
+    "prefitMeanAbsCodes": 7.888333333333334,
+    "change": 0.008888888888888502,
+    "worstBinDelta": 0.379999999999999,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__rrect-md__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 19.349247685185187,
+    "prefitMeanAbsCodes": 17.197771990740744,
+    "change": 2.151475694444443,
+    "worstBinDelta": 12.0625,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__rest",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 5.75,
+    "prefitMeanAbsCodes": 5.638888888888889,
+    "change": 0.11111111111111072,
+    "worstBinDelta": 1.0,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-48__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 5.402777777777778,
+    "prefitMeanAbsCodes": 5.400574252136753,
+    "change": 0.0022035256410246618,
+    "worstBinDelta": 0.6875,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-80__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 4.718768634466309,
+    "prefitMeanAbsCodes": 4.718569866825681,
+    "change": 0.00019876764062765062,
+    "worstBinDelta": 0.07692307692307665,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 11.756391621943946,
+    "prefitMeanAbsCodes": 10.394181077320614,
+    "change": 1.3622105446233324,
+    "worstBinDelta": 4.6686046511627906,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-md__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 23.363425925925924,
+    "prefitMeanAbsCodes": 21.55396412037037,
+    "change": 1.8094618055555536,
+    "worstBinDelta": 21.875,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-7__rrect-md__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 15.581741898148149,
+    "prefitMeanAbsCodes": 14.56076388888889,
+    "change": 1.0209780092592595,
+    "worstBinDelta": 8.114583333333332,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 16.858333333333334,
+    "prefitMeanAbsCodes": 16.435000000000002,
+    "change": 0.423333333333332,
+    "worstBinDelta": 3.539999999999999,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 18.272361359570663,
+    "prefitMeanAbsCodes": 18.16595855694693,
+    "change": 0.1064028026237338,
+    "worstBinDelta": 0.4534883720930232,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.25/photo__capsule-button__rest-tint-orange",
+    "status": "measured",
+    "bins": 12,
+    "meanAbsCodes": 8.818888888888889,
+    "prefitMeanAbsCodes": 8.767222222222223,
+    "change": 0.05166666666666586,
+    "worstBinDelta": 1.0,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 14.177516913198028,
+    "prefitMeanAbsCodes": 14.079395281504414,
+    "change": 0.09812163169361376,
+    "worstBinDelta": 1.3274853801169595,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 18.5087890625,
+    "prefitMeanAbsCodes": 18.182472511574073,
+    "change": 0.3263165509259274,
+    "worstBinDelta": 19.052083333333336,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__capsule-button__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 33.17513888888888,
+    "prefitMeanAbsCodes": 31.338472222222222,
+    "change": 1.836666666666659,
+    "worstBinDelta": 7.140000000000001,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 7.153862847222222,
+    "prefitMeanAbsCodes": 7.152850115740741,
+    "change": 0.0010127314814809552,
+    "worstBinDelta": 2.796875,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-ml__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 5.782651828847481,
+    "prefitMeanAbsCodes": 5.553017885898321,
+    "change": 0.22963394294916029,
+    "worstBinDelta": 1.4523809523809526,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-4__rrect-sm__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 34.27065058479533,
+    "prefitMeanAbsCodes": 33.317251461988306,
+    "change": 0.9533991228070207,
+    "worstBinDelta": 8.416666666666671,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 12.718712972518443,
+    "prefitMeanAbsCodes": 11.666824332072009,
+    "change": 1.0518886404464336,
+    "worstBinDelta": 2.1520467836257318,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__capsule-button__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 41.422916666666666,
+    "prefitMeanAbsCodes": 36.30430555555555,
+    "change": 5.1186111111111146,
+    "worstBinDelta": 10.469999999999999,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-8__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 18.04586226851852,
+    "prefitMeanAbsCodes": 15.095594618055555,
+    "change": 2.9502676504629637,
+    "worstBinDelta": 7.609375,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__capsule-button__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 10.453611111111112,
+    "prefitMeanAbsCodes": 9.841944444444444,
+    "change": 0.6116666666666681,
+    "worstBinDelta": 6.969999999999999,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 18.966182002314817,
+    "prefitMeanAbsCodes": 17.916377314814813,
+    "change": 1.0498046875000036,
+    "worstBinDelta": 10.953125,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-ml__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 14.821809581320451,
+    "prefitMeanAbsCodes": 14.775725356567749,
+    "change": 0.04608422475270224,
+    "worstBinDelta": 0.988095238095239,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 22.474211516203706,
+    "prefitMeanAbsCodes": 19.76287615740741,
+    "change": 2.7113353587962976,
+    "worstBinDelta": 21.125,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 7.6338888888888885,
+    "prefitMeanAbsCodes": 7.631666666666667,
+    "change": 0.0022222222222216814,
+    "worstBinDelta": 0.03999999999999915,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-80__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 4.808804164182071,
+    "prefitMeanAbsCodes": 4.806226396342676,
+    "change": 0.0025777678393952286,
+    "worstBinDelta": 0.21153846153846168,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md-clear20__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 4.537688078703704,
+    "prefitMeanAbsCodes": 4.536892361111111,
+    "change": 0.0007957175925934479,
+    "worstBinDelta": 0.15625,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 4.538158275462964,
+    "prefitMeanAbsCodes": 4.537398726851851,
+    "change": 0.0007595486111124927,
+    "worstBinDelta": 0.15625,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-ml__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 5.0951662065792505,
+    "prefitMeanAbsCodes": 5.094763630089718,
+    "change": 0.000402576489532791,
+    "worstBinDelta": 0.08333333333333393,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 11.641787782364409,
+    "prefitMeanAbsCodes": 11.300671511294578,
+    "change": 0.341116271069831,
+    "worstBinDelta": 2.593567251461991,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 30.59722222222222,
+    "prefitMeanAbsCodes": 25.01801215277778,
+    "change": 5.579210069444443,
+    "worstBinDelta": 35.78125,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-7__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 17.324363425925924,
+    "prefitMeanAbsCodes": 15.779369212962962,
+    "change": 1.544994212962962,
+    "worstBinDelta": 8.401041666666668,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 15.415416666666667,
+    "prefitMeanAbsCodes": 15.012916666666667,
+    "change": 0.40249999999999986,
+    "worstBinDelta": 3.66,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 16.38208777663112,
+    "prefitMeanAbsCodes": 16.25217148262814,
+    "change": 0.12991629400298166,
+    "worstBinDelta": 0.7058823529411775,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 16.180059523809526,
+    "prefitMeanAbsCodes": 16.02325957556936,
+    "change": 0.15679994824016674,
+    "worstBinDelta": 1.25,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 20.24232456140351,
+    "prefitMeanAbsCodes": 20.167763157894736,
+    "change": 0.07456140350877405,
+    "worstBinDelta": 5.342105263157897,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/light-solid__rrect-lg__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 14.50255011848794,
+    "prefitMeanAbsCodes": 14.502400814126823,
+    "change": 0.00014930436111804113,
+    "worstBinDelta": 0.009803921568627416,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/mid-dark-solid__rrect-md__rest",
+    "status": "measured",
+    "bins": 48,
+    "meanAbsCodes": 4.667209201388889,
+    "prefitMeanAbsCodes": 4.667100694444445,
+    "change": 0.00010850694444464182,
+    "worstBinDelta": 0.005208333333335702,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/photo__capsule-button__rest",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 24.319583333333338,
+    "prefitMeanAbsCodes": 23.83958333333333,
+    "change": 0.48000000000000753,
+    "worstBinDelta": 5.42,
+    "verdict": "FAIL"
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.25/photo__capsule-button__rest-tint-orange",
+    "status": "measured",
+    "bins": 24,
+    "meanAbsCodes": 9.179027777777778,
+    "prefitMeanAbsCodes": 9.16,
+    "change": 0.019027777777777644,
+    "worstBinDelta": 0.7300000000000004,
+    "verdict": "FAIL"
+   }
+  ],
+  "C1 webgpu": {
+   "1x light span 96": {
+    "cells": 10,
+    "statistic": 0.000580533333333344,
+    "min": 0.0005265333333333307,
+    "max": 0.0012970666666666613,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 10,
+     "statistic": 0.000580533333333344,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 10,
+     "statistic": 0.000580533333333344,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "1x light span 128": {
+    "cells": 6,
+    "statistic": 0.0020785714285714374,
+    "min": 0.00201271428571432,
+    "max": 0.0030694285714285563,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 6,
+     "statistic": 0.0020785714285714374,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 6,
+     "statistic": 0.0020785714285714374,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "1x light span 160": {
+    "cells": 8,
+    "statistic": 0.00035566666666671704,
+    "min": 0.00018533333333329663,
+    "max": 0.002718666666666684,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 8,
+     "statistic": 0.00035566666666671704,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 7,
+     "statistic": 0.0002466666666666543,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "2x light span 96": {
+    "cells": 10,
+    "statistic": 0.0006662666666666632,
+    "min": 0.0006111333333333505,
+    "max": 0.0013460666666666788,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 10,
+     "statistic": 0.0006662666666666632,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 10,
+     "statistic": 0.0006662666666666632,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "2x light span 128": {
+    "cells": 6,
+    "statistic": 0.002120999999999992,
+    "min": 0.0020895714285714523,
+    "max": 0.0033300000000000074,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 6,
+     "statistic": 0.002120999999999992,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 6,
+     "statistic": 0.002120999999999992,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "2x light span 160": {
+    "cells": 8,
+    "statistic": 0.0006419999999999945,
+    "min": 0.0003586666666666923,
+    "max": 0.0036246666666666094,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 8,
+     "statistic": 0.0006419999999999945,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 7,
+     "statistic": 0.0006419999999999945,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "1x dark span 96": {
+    "cells": 9,
+    "statistic": 0.0012644666666666489,
+    "min": 0.0010231333333333332,
+    "max": 0.002196733333333345,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 9,
+     "statistic": 0.0012644666666666489,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 9,
+     "statistic": 0.0012644666666666489,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "1x dark span 128": {
+    "cells": 3,
+    "statistic": 0.0034638571428571613,
+    "min": 0.0034368571428571144,
+    "max": 0.003495285714285669,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 3,
+     "statistic": 0.0034638571428571613,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 3,
+     "statistic": 0.0034638571428571613,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "1x dark span 160": {
+    "cells": 8,
+    "statistic": 0.0011626666666666823,
+    "min": 0.0009590000000000062,
+    "max": 0.0015823333333333522,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 8,
+     "statistic": 0.0011626666666666823,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 7,
+     "statistic": 0.0011606666666666616,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "2x dark span 96": {
+    "cells": 9,
+    "statistic": 0.0012392666666666793,
+    "min": 0.0009992,
+    "max": 0.0021861333333333286,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 9,
+     "statistic": 0.0012392666666666793,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 9,
+     "statistic": 0.0012392666666666793,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "2x dark span 128": {
+    "cells": 3,
+    "statistic": 0.00382471428571434,
+    "min": 0.0032395714285714367,
+    "max": 0.003914714285714248,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 3,
+     "statistic": 0.00382471428571434,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 3,
+     "statistic": 0.00382471428571434,
+     "maxAbsCellChange": 0.0
+    }
+   },
+   "2x dark span 160": {
+    "cells": 8,
+    "statistic": 0.0010666666666666973,
+    "min": 0.0008146666666666672,
+    "max": 0.0019293333333333385,
+    "noRow": [],
+    "verdict": "PASS",
+    "prefit": {
+     "cells": 8,
+     "statistic": 0.0010666666666666973,
+     "maxAbsCellChange": 0.0
+    },
+    "shipped05": {
+     "cells": 7,
+     "statistic": 0.0010666666666666973,
+     "maxAbsCellChange": 0.0
+    }
+   }
+  },
+  "S1 per profile median": {
+   "apple-macos-27.0-1x-dark-standard-glass0.25": {
+    "cells": 17,
+    "median": 0.3042772296802703
+   },
+   "apple-macos-27.0-2x-dark-standard-glass0.25": {
+    "cells": 14,
+    "median": 0.2996803750496444
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.25": {
+    "cells": 76,
+    "median": 0.9844349352184213
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.25": {
+    "cells": 67,
+    "median": 0.9846820834187646
+   }
+  }
+ },
+ "cssT1": {
+  "1x C inactive": {
+   "cells": 14,
+   "medianRatio": 0.5061,
+   "referenceMedianRatio": 0.5613,
+   "away": 3,
+   "toward": 2
+  },
+  "1x C rest": {
+   "cells": 28,
+   "medianRatio": 0.4474,
+   "referenceMedianRatio": 0.2432,
+   "away": 2,
+   "toward": 17
+  },
+  "1x F inactive": {
+   "cells": 2,
+   "medianRatio": 0.6358,
+   "referenceMedianRatio": 0.8385,
+   "away": 1,
+   "toward": 0
+  },
+  "1x F rest": {
+   "cells": 10,
+   "medianRatio": 0.1787,
+   "referenceMedianRatio": 0.1551,
+   "away": 0,
+   "toward": 2
+  },
+  "1x P inactive": {
+   "cells": 5,
+   "medianRatio": 0.3173,
+   "referenceMedianRatio": 0.213,
+   "away": 0,
+   "toward": 2
+  },
+  "1x P rest": {
+   "cells": 4,
+   "medianRatio": 0.4574,
+   "referenceMedianRatio": 0.2702,
+   "away": 0,
+   "toward": 3
+  },
+  "1x T rest": {
+   "cells": 3,
+   "medianRatio": 0.5437,
+   "referenceMedianRatio": 0.2615,
+   "away": 0,
+   "toward": 2
+  },
+  "2x C inactive": {
+   "cells": 14,
+   "medianRatio": 0.5694,
+   "referenceMedianRatio": 0.6284,
+   "away": 2,
+   "toward": 3
+  },
+  "2x C rest": {
+   "cells": 28,
+   "medianRatio": 0.4599,
+   "referenceMedianRatio": 0.252,
+   "away": 2,
+   "toward": 16
+  },
+  "2x F inactive": {
+   "cells": 2,
+   "medianRatio": 0.8088,
+   "referenceMedianRatio": 1.4177,
+   "away": 0,
+   "toward": 0
+  },
+  "2x F rest": {
+   "cells": 10,
+   "medianRatio": 0.2263,
+   "referenceMedianRatio": 0.1795,
+   "away": 0,
+   "toward": 2
+  },
+  "2x P inactive": {
+   "cells": 5,
+   "medianRatio": 0.4465,
+   "referenceMedianRatio": 0.2595,
+   "away": 0,
+   "toward": 3
+  },
+  "2x P rest": {
+   "cells": 4,
+   "medianRatio": 0.9216,
+   "referenceMedianRatio": 0.2409,
+   "away": 0,
+   "toward": 2
+  },
+  "2x T rest": {
+   "cells": 3,
+   "medianRatio": 0.6747,
+   "referenceMedianRatio": 0.3608,
+   "away": 0,
+   "toward": 2
+  }
+ }
+}

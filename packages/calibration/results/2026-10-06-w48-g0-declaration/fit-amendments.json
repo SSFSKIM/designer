@@ -1,0 +1,65 @@
+{
+  "schema": "w48-fit-amendments-1",
+  "amendments": [
+    {
+      "n": 1,
+      "supersedes": "ad5fdeceb2448cb491ec575a67e9d84c33c43f37b9af89f81d8ca5ec80b9ea27",
+      "declarationSha256": "50eccbe41e46859bc9c0b7b6e745ced0f810a09f6e0a0d78b6b0a125ee4184df",
+      "reason": "W48 Decision Log 9 and its addendum: the gate read NEITHER and the user ruled to ship, tie-broken by the budget, as one selection over each stage's rendered points; added beside the hashed selection rule, nothing else moves",
+      "cause": "c82e65161",
+      "charter": "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md@c82e65161",
+      "ruling": "### Decision Log 9 \u2014 RULED 2026-10-07 (the user, on the parent's recommendation): the gate read NEITHER; ship, tie-broken by the budget\n\n**The reading (G1 steps 2\u20136, head `c85ba1ada`).** Under part 2 `ad5fdece\u2026` as hashed, the fit landed at\nactive `tintAlpha` 0.7, far delta 0.2 / 0.2, span tops 160 / 160, `sizeOcclusionGain` 0.05, the receded\ntransmission 0.8 and the receded scatter at W46 point A's leaves exactly. The receded fine term (operator\n2) was not selected: every tap point scores worse than the start (best 0.5373 against 0.5063) and body\nwidth 3 sits inside the tie and halves F inactive at 1x only. The gate read NEITHER on both profiles: C\nrest halved at both scales (0.1556 / 0.2062 against 0.390 / 0.538), P not halved (0.4953 / 0.6479\nagainst 0.8792 / 0.9652), F inactive not halved (0.4661 / 0.5783 against 0.9169 / 0.9824, the 1x miss by\n0.008); the budget fails with 10 / 9 cells away beyond B and 3 / 3 past 3 B. A reading of 674 full-gate\ncomposites over the existing renders found NO point inside the budget at both scales: the receded\nscatter alone (point A's receded document over the unmoved `d0219cd684bf` active) gives 3 / 4 away and\n1 / 2 past 3 B, and no operator-1 rung keeps the rest cells to three away. The budget is unreachable\nwith these levers, not narrowly missed.\n\n**Ruled (the user, AskUserQuestion, \"Ship, tie-broken by the budget\"):**\n\n1. **Part 2 is amended once, after the gate, and the record says so.** The amendment adds one\n   selection rule and nothing else: *inside the objective's declared tie, the point with the fewest\n   cells away beyond B at both scales is selected, then the fewest past 3 B, then the tie rule as\n   hashed.* The objective, grids, bars and targets do not move. This is the landing rule used as a\n   tie-break, a criterion declared before any render; it is not a refit. The superseded hash, this\n   ruling and the gate reading that prompted it go in `amendments.json`.\n2. **The selected point** is the landed active document with the rest-scatter scale gain \u22120.5 in\n   place of \u22122 (label `d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2`;\n   stage-1 objective 0.2253, inside the 0.0365 tie of 0.2044) over the landed receded document\n   (`aa1a1b198ee72850`, unchanged). Read from the existing renders: C rest halved at both scales\n   (0.1724 / 0.2007), P 0.4922 / 0.648, F inactive 0.4661 / 0.5783; 8 / 8 cells away beyond B; past\n   3 B 1 / 2, all inactive. The freeze, the strict-mode stage and the gate are re-run on that point;\n   the gate's reading of it must agree with the composite within the run-to-run bar, or STOP.\n3. **The landing is an improvement landing with every exception named** (W45 Decision Log 8's form):\n   each cell away beyond B against `d0219cd684bf` at the gate and at the exposure, listed here with\n   its growth in B and carried into `T1_DARK_AUTHORISED_REGRESSIONS` by G2 (cell, reference\n   `d0219cd684bf`, growth, \"W48 Decision Log 9 and the exposure ruling, \u00a75.213\"); the P and F\n   inactive targets as not halved; S1 dark reading lower than the reference (0.256 / 0.293 against\n   0.314 / 0.311 at the landed point; re-read at the selected point) recorded as a gap; the eye\n   finding (thick coarse checkers flatter than Apple and than `d0219cd684bf`) recorded as a gap with\n   the sheet cited; E2's 52 cells read, not gated.\n4. **Operator 2 is named, not fitted** (X63): on top of W46 point A's receded scatter the receded\n   fine term does not improve the declared objective at either scale. It stays landed inert in every\n   document. The exception point `\u2026rn10.7\u2026` was read and not carried.\n5. **X60 holds.** The two light 2x CSS rows that differ by render are the driver's own\n   non-deterministic flags (`repeatNoise` 2e-5 and 0.0175); two scratch re-captures of each are\n   byte-identical to the published captures (`stage/x60-recheck/recheck.json`). A Surprise, not a\n   move of the light material (974 candidates IDENTICAL by evidence).\n6. **Then the exposure** (step 7, the cross-gate ledger's read 8: the seven holdout scenes and the six\n   referees per scale, once, into the same stage), the exposure report (STOP 2), publication (step 8),\n   \u00a75.213, and G2 as Decision Log 6 planned it: 0.28.0, `@vitreajs/vitrea-web` minor.\n7. **Deferred at close, to be written by G2:** a span-graded receded scatter for the thick coarse\n   inactive cells (`checkerboard-64__rrect-lg__inactive` 8.9 / 12.5 B is the receded scatter's cost,\n   the same shape W45's span-graded share answered on the light scheme); the active thick coarse\n   rest cells (`checkerboard-32__rrect-lg__rest`, `lc16` md) as the span law's own cost.\n\n#### Decision Log 9, addendum \u2014 RULED 2026-10-07 (the parent): the selection over the rendered points, both stages\n\n**Ruled** (the parent, after G1's dry run of \u00a71 inside W47's search procedure stopped at the span-law step on a\npoint with no rest-scatter render; head `9b1b50fb9`): \u00a71's rule is applied as ONE selection over the rendered\npoints of each stage, not as a re-run of the procedure, in these words, which part 2's one amendment carries:\n\"Inside the objective's declared tie of a stage's minimum, over every rendered point of that stage, the point\nwith the fewest cells away beyond B summed over both scales is selected, then the fewest past 3 B, then the\nhashed tie rule. The budget of a rendered point is read by its exact composite (its own rest cells with the\nlanded inactive cells, the receded document unchanged). This is a post-hoc selection among measured points,\nmade after the gate, and the record says so; the selected point is re-rendered in full at the freeze and its\ngate reading must agree with the composite within the run-to-run bar.\" A stage-2 point's composite is its own\ninactive cells with the selected stage-1 point's rest cells.\n\n- **Stage 1** (474 rendered points; minimum 0.2044, tie 0.0365, 169 inside) selects \u00a72's active document,\n  `d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2` (16 away, 3 past 3 B; 0.2253).\n- **Stage 2** (199 rendered points; minimum 0.5022, tie 0.0544, 45 inside) selects\n  `d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0`: the landed\n  receded document with the receded second heavy tap (`sizeHeavySecondShare` 0.25, `sizeHeavySecondSigma` /\n  `\u20262x` 5 / 5, `sizeHeavySecondShareFar2x` 0; W46's receded-scatter family, not operator 2). **\u00a72's receded\n  digest `aa1a1b198ee72850` is superseded by the selected document's**, which the re-freeze records. Taking it,\n  rather than restricting stage 2 to the landed receded document, applies the rule as declared to both stages;\n  the restriction would tailor the rule to a point.\n\n  | | selected (second tap on) | landed receded (`aa1a1b198ee72850`) |\n  | --- | --- | --- |\n  | stage-2 objective | 0.5046 | 0.5063 |\n  | L1 | clean | clean |\n  | away beyond B, 1x / 2x | 6 / 7 (13) | 8 / 8 (16) |\n  | past 3 B, 1x / 2x | 1 / 1 (2) | 1 / 2 (3) |\n  | C rest | halved, 0.1724 / 0.2007 | the same |\n  | P | 0.4922 / 0.648, not halved | the same |\n  | F inactive | 0.4691 / 0.5795, not halved | 0.4661 / 0.5783, not halved |\n",
+      "ops": [
+        {
+          "op": "add",
+          "path": [
+            "selectionRule",
+            "postGateSelection"
+          ],
+          "to": {
+            "rule": "Inside the objective's declared tie of a stage's minimum, over every rendered point of that stage, the point with the fewest cells away beyond B summed over both scales is selected, then the fewest past 3 B, then the hashed tie rule. The budget of a rendered point is read by its exact composite (its own rest cells with the landed inactive cells, the receded document unchanged). This is a post-hoc selection among measured points, made after the gate, and the record says so; the selected point is re-rendered in full at the freeze and its gate reading must agree with the composite within the run-to-run bar.",
+            "stage2Composite": "a stage-2 point's composite is its own inactive cells with the selected stage-1 point's rest cells",
+            "ruling": "W48 Decision Log 9 and its addendum (the user's ship ruling, tie-broken by the budget; the parent's option 1)",
+            "madeAfter": "the fit (part 2 ad5fdeceb244 as hashed) and the gate on its landed point (G1 head c85ba1ada)",
+            "implementation": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/select_dl9.py (budget by reselect.py, the landing rule's rule.evaluate); path/d0219/dl9-selection.json",
+            "selected": {
+              "stage1": {
+                "label": "d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2",
+                "objective": 0.2253,
+                "awayBeyondB": 16,
+                "past3B": 3
+              },
+              "stage2": {
+                "label": "d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+                "objective": 0.5046,
+                "awayBeyondB": 13,
+                "past3B": 2
+              }
+            }
+          }
+        }
+      ],
+      "partOnePins": {
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": {
+          "from": "039c6b1b851ef55be86882f9869109859568fa58f2689fc58586e2b4fb91cb2f",
+          "to": "086602b817648054b6305b51995901c6670c12ad8c428bb4b09fa69204c7c912"
+        },
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.py": {
+          "from": "aef2b74234230955763b11382ff115fff20812bc3b7b8aac3ba2f5e4ea7edfc0",
+          "to": "18b192655285723bf7088b628b614715414461f756e4605a17b44e20543f5549"
+        },
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/test_declare.txt": {
+          "from": "a8689937f445044c444e04e24070cf6248823dba6b3be0ed9871f6fde241f793",
+          "to": "8cd6e476b4ea724100a520cf45bb4e75745c79f1526cdf06864bed9b4dcee932"
+        }
+      },
+      "pins": {
+        "packages/calibration/results/2026-10-06-w48-g0-declaration/declare.py": {
+          "from": "039c6b1b851ef55be86882f9869109859568fa58f2689fc58586e2b4fb91cb2f",
+          "to": "086602b817648054b6305b51995901c6670c12ad8c428bb4b09fa69204c7c912"
+        }
+      },
+      "renderEvidenceAtAmendment": "after the fit and the gate, additive only: /Users/new/vitrea-w48/g1/packages/calibration/results/2026-10-06-w48-g1-refit/fit/runs.jsonl, /Users/new/vitrea-w48/g1-scratch/fit/d-x1-base/stage1-1x/matrix.json, /Users/new/vitrea-w48/g1-scratch/fit/d-x1-m1128-t10.2/stage1-1x/matrix.json, /Users/new/vitrea-w48/g1-scratch/fit/d-x1-m1128-t10.3/stage1-1x/matrix.json, /Users/new/vitrea-w48/g1-scratch/fit/d-x1-base/merged-captures-1x/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__capsule-button__rest/checkerboard-32__capsule-button__rest__webgpu.png"
+    }
+  ]
+}

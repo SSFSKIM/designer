@@ -217,6 +217,17 @@
  *     > rest aggregate 0.390 → 0.171 (1x) and 0.538 → 0.238 (2x) on these rows (§5.209 §4), so the
  *     > bed separates what the row reads. 134 of its 154 cells miss and are named (124 of the 144
  *     > outside the holdout). The dark referee manifest is W46's, which labels and never selects.
+ *     > **2026-10-07, W48 G2 (Decision Logs 9 and 10; claims §5.213, §5.214): the first material
+ *     > change the dark 0.25 rows gate, landed as an improvement with its exceptions named.** The dark
+ *     > 0.25 generation moved from `d0219cd684bf` to `b2d074d2df24` (the span-graded dark transmission
+ *     > live, the active rest scatter's scale gain, the receded scatter and second heavy tap). Every dark
+ *     > 0.25 block reads a cut regenerated at the landing (`GLASS025_DARK_CUT`), the light blocks keep
+ *     > W45's, and M2, L1 and E2 read `d0219cd684bf` by its hashes. T1's dark row re-baselined in the
+ *     > five-part order: two dark band fixtures, the regressions witnessed against `d0219cd684bf`,
+ *     > seventeen authorised by name in their own list, the misses re-derived (117 of 154), the
+ *     > reference moved last. P at both scales and F inactive at 2x are named target misses. Neither
+ *     > ground moved: the bar is the same, and the move (dark C rest 0.39 → 0.19 and 0.51 → 0.20 over
+ *     > all 77 cells, §5.213 §7) is what the rows identify.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -2065,8 +2076,12 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   // unchanged (claims §5.206 §16's holdout table).
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: ssimMean": { measured: 0.91994, bound: "≥ 0.92" },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: ssimMean": { measured: 0.86607, bound: "≥ 0.9" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: oklabDeltaEP95": { measured: 0.20600, bound: "≤ 0.18" },
-  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: oklabDeltaEP95": { measured: 0.20071, bound: "≤ 0.19" },
+  // W48 G2 (§5.214): the two CSS dark holdout photo rows re-read at the exposure (read 8) under W48's
+  // dark documents, the span-graded transmission live on the CSS tier: measured 0.20600 -> 0.20903 (1x)
+  // and 0.20071 -> 0.20357 (2x); still missed, bounds unchanged. Both move slightly away, inside the
+  // CSS holdout residual W48 Decision Log 10 records (§5.213 §7).
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: oklabDeltaEP95": { measured: 0.20903, bound: "≤ 0.18" },
+  "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: oklabDeltaEP95": { measured: 0.20357, bound: "≤ 0.19" },
   "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.25 :: ssimMean": { measured: 0.86409, bound: "≥ 0.88" },
   // **W45 G2 (claims §5.207): M2 at 0.25 re-baselined to c05** (`GLASS025_REFERENCE`, W32 Decision
   // Log 4's rule). W43's seventeen were W43's change from the pre-fit render; against c05 every 1x
@@ -2076,6 +2091,18 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.03952, bound: "≤ 0.02", native: 0.08935 },
   "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.07611, bound: "≤ 0.02", native: 0.03918 },
   "texture / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.05144, bound: "≤ 0.02", native: 0.10760 },
+  // **W48 G2 (claims §5.213 §6–§7, §5.214): M2 at 0.25 on the dark scheme, against `d0219cd684bf`**
+  // (`GLASS025_REFERENCE`), re-baselined at the gate that adopted W48's material change. The eight
+  // untinted photo cells move TOWARD Apple's texture and none past it (×0.21–0.43 of Apple's SD at
+  // `d0219cd684bf`, ×0.33–0.69 now); named misses, as G1's gate and exposure read them.
+  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.47021, bound: "≤ 0.02", native: 0.04543 },
+  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.61110, bound: "≤ 0.02", native: 0.04542 },
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.36465, bound: "≤ 0.02", native: 0.04882 },
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.55930, bound: "≤ 0.02", native: 0.05041 },
+  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.75698, bound: "≤ 0.02", native: 0.03918 },
+  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.76152, bound: "≤ 0.02", native: 0.04047 },
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 0.81692, bound: "≤ 0.02", native: 0.04423 },
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: interiorStdDevStructureDelta": { measured: 1.07795, bound: "≤ 0.02", native: 0.04514 },
   // **W45 charter Decision Log 8 (RULED by the user 2026-10-04): the four receded photo cells are
   // named misses although M2 reads each as a FAILURE** — a move away from Apple's texture against
   // c05, which no entry otherwise excuses (`GLASS025_M2_RULED_FAILURES` lists them by name). The
@@ -2281,140 +2308,138 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   // NEITHER at its gate and closed at the finding (§5.209), so the dark rows stand as published. The
   // 2x `impulse__capsule-button__inactive` entry reads Infinity: its L1 mask is the uniform impulse
   // dot, so Apple's SD there is exactly 0.
-  "texture / probe / hc-text-7__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 1.48656, bound: "|Δ| ≤ 0.00375 or 10 %", native: 0.00951 },
-  "texture / probe / hc-text-7__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 1.92058, bound: "|Δ| ≤ 0.00361 or 10 %", native: 0.00988 },
-  "texture / probe / hc-text-7__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.66971, bound: "|Δ| ≤ 0.00370 or 10 %", native: 0.03057 },
-  "texture / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.24114, bound: "|Δ| ≤ 0.00403 or 10 %", native: 0.07932 },
-  "texture / calibration / checkerboard__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.75738, bound: "|Δ| ≤ 0.00330 or 10 %", native: 0.05953 },
-  "texture / calibration / checkerboard__capsule-button__inactive-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.81154, bound: "|Δ| ≤ 0.00420 or 10 %", native: 0.07772 },
-  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.43288, bound: "|Δ| ≤ 0.00328 or 10 %", native: 0.11069 },
-  "texture / calibration / checkerboard__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.86330, bound: "|Δ| ≤ 0.00316 or 10 %", native: 0.01498 },
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.60990, bound: "|Δ| ≤ 0.00309 or 10 %", native: 0.06159 },
-  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.22454, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.04543 },
-  "texture / calibration / photo__capsule-button__inactive-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.26110, bound: "|Δ| ≤ 0.00432 or 10 %", native: 0.04739 },
-  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.42612, bound: "|Δ| ≤ 0.00374 or 10 %", native: 0.04882 },
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.54380, bound: "|Δ| ≤ 0.00555 or 10 %", native: 0.02013 },
-  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.24549, bound: "|Δ| ≤ 0.00326 or 10 %", native: 0.03918 },
-  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.36947, bound: "|Δ| ≤ 0.00345 or 10 %", native: 0.04423 },
-  "texture / holdout / checkerboard__glass-over-glass__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.74323, bound: "|Δ| ≤ 0.00313 or 10 %", native: 0.01364 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.72799, bound: "|Δ| ≤ 0.00318 or 10 %", native: 0.04449 },
-  "texture / holdout / photo__glass-over-glass__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.25092, bound: "|Δ| ≤ 0.00326 or 10 %", native: 0.04354 },
-  "texture / holdout / photo__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.23471, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.04639 },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.29698, bound: "|Δ| ≤ 0.00340 or 10 %", native: 0.04868 },
-  "texture / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.35326, bound: "|Δ| ≤ 0.00333 or 10 %", native: 0.13212 },
-  "texture / probe / checkerboard-32__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.62064, bound: "|Δ| ≤ 0.00297 or 10 %", native: 0.03817 },
-  "texture / probe / checkerboard-32__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.50057, bound: "|Δ| ≤ 0.00301 or 10 %", native: 0.05841 },
-  "texture / probe / checkerboard-32__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.46239, bound: "|Δ| ≤ 0.00300 or 10 %", native: 0.07733 },
-  "texture / probe / checkerboard-32__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.49850, bound: "|Δ| ≤ 0.00296 or 10 %", native: 0.06789 },
-  "texture / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.42096, bound: "|Δ| ≤ 0.00334 or 10 %", native: 0.13242 },
-  "texture / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33116, bound: "|Δ| ≤ 0.00347 or 10 %", native: 0.08807 },
-  "texture / probe / checkerboard-4__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.57623, bound: "|Δ| ≤ 0.00323 or 10 %", native: 0.00893 },
-  "texture / probe / checkerboard-4__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.52359, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.03935 },
-  "texture / probe / checkerboard-4__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.79423, bound: "|Δ| ≤ 0.00327 or 10 %", native: 0.02326 },
-  "texture / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39213, bound: "|Δ| ≤ 0.00350 or 10 %", native: 0.08754 },
-  "texture / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.25427, bound: "|Δ| ≤ 0.00400 or 10 %", native: 0.18236 },
-  "texture / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.74508, bound: "|Δ| ≤ 0.00553 or 10 %", native: 0.03391 },
-  "texture / probe / checkerboard-64__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39135, bound: "|Δ| ≤ 0.00299 or 10 %", native: 0.07329 },
-  "texture / probe / checkerboard-64__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39454, bound: "|Δ| ≤ 0.00299 or 10 %", native: 0.08565 },
-  "texture / probe / checkerboard-64__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.43076, bound: "|Δ| ≤ 0.00293 or 10 %", native: 0.07833 },
-  "texture / probe / checkerboard-64__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.40631, bound: "|Δ| ≤ 0.00283 or 10 %", native: 0.10100 },
-  "texture / probe / checkerboard-64__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.40179, bound: "|Δ| ≤ 0.00288 or 10 %", native: 0.08552 },
-  "texture / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.70000, bound: "|Δ| ≤ 0.00535 or 10 %", native: 0.06386 },
-  "texture / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39088, bound: "|Δ| ≤ 0.00336 or 10 %", native: 0.10225 },
-  "texture / probe / checkerboard-8__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 3.34521, bound: "|Δ| ≤ 0.00313 or 10 %", native: 0.00708 },
-  "texture / probe / checkerboard-8__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.82429, bound: "|Δ| ≤ 0.00330 or 10 %", native: 0.01516 },
-  "texture / probe / checkerboard-8__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.87676, bound: "|Δ| ≤ 0.00322 or 10 %", native: 0.00901 },
-  "texture / probe / checkerboard-8__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.80819, bound: "|Δ| ≤ 0.00325 or 10 %", native: 0.04136 },
-  "texture / probe / checkerboard-8__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.62977, bound: "|Δ| ≤ 0.00331 or 10 %", native: 0.01853 },
-  "texture / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.43476, bound: "|Δ| ≤ 0.00334 or 10 %", native: 0.10535 },
-  "texture / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.62573, bound: "|Δ| ≤ 0.00465 or 10 %", native: 0.05471 },
-  "texture / probe / checkerboard-lc16__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.46994, bound: "|Δ| ≤ 0.00386 or 10 %", native: 0.00577 },
-  "texture / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.70566, bound: "|Δ| ≤ 0.00465 or 10 %", native: 0.05775 },
-  "texture / probe / checkerboard__rrect-ml__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.65625, bound: "|Δ| ≤ 0.00310 or 10 %", native: 0.00974 },
-  "texture / probe / hc-text-28__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.67650, bound: "|Δ| ≤ 0.00356 or 10 %", native: 0.04600 },
-  "texture / probe / hc-text-28__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.71910, bound: "|Δ| ≤ 0.00350 or 10 %", native: 0.03548 },
-  "texture / probe / hc-text-28__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.41807, bound: "|Δ| ≤ 0.00332 or 10 %", native: 0.08496 },
-  "texture / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.41813, bound: "|Δ| ≤ 0.00355 or 10 %", native: 0.12039 },
-  "texture / probe / hc-text__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.67267, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.01640 },
-  "texture / probe / hc-text__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.22332, bound: "|Δ| ≤ 0.00372 or 10 %", native: 0.02485 },
-  "texture / probe / hc-text__rrect-sm__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.34695, bound: "|Δ| ≤ 0.00376 or 10 %", native: 0.03092 },
-  "texture / probe / hc-text__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.44762, bound: "|Δ| ≤ 0.00411 or 10 %", native: 0.09646 },
-  "texture / probe / impulse__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 5.74914, bound: "|Δ| ≤ 0.00058 or 10 %", native: 0.00056 },
-  "texture / probe / impulse__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.89848, bound: "|Δ| ≤ 0.00123 or 10 %", native: 0.01888 },
-  "texture / probe / impulse__rrect-ml__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 7.20141, bound: "|Δ| ≤ 0.00056 or 10 %", native: 0.00056 },
-  "texture / probe / impulse__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.89669, bound: "|Δ| ≤ 0.00128 or 10 %", native: 0.01868 },
-  "texture / probe / impulse__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.73085, bound: "|Δ| ≤ 0.00142 or 10 %", native: 0.02243 },
-  "texture / probe / photo__rrect-ml__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.25270, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.04554 },
-  "texture / recorded / photo__capsule-button__inactive-pressed / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.70530, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.04543 },
-  "texture / recorded / photo__capsule-button__pressed / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.57869, bound: "|Δ| ≤ 0.00374 or 10 %", native: 0.04882 },
-  "texture / validation / impulse__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 6.50420, bound: "|Δ| ≤ 0.00074 or 10 %", native: 0.00081 },
-  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.87288, bound: "|Δ| ≤ 0.00135 or 10 %", native: 0.01977 },
-  "texture / probe / hc-text-7__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.33203, bound: "|Δ| ≤ 0.00373 or 10 %", native: 0.01669 },
-  "texture / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.13448, bound: "|Δ| ≤ 0.00390 or 10 %", native: 0.08120 },
-  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.34896, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.11694 },
-  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.60117, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.02632 },
-  "texture / calibration / checkerboard__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.84219, bound: "|Δ| ≤ 0.00309 or 10 %", native: 0.02758 },
-  "texture / calibration / checkerboard__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.48218, bound: "|Δ| ≤ 0.00305 or 10 %", native: 0.06937 },
-  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.20706, bound: "|Δ| ≤ 0.00353 or 10 %", native: 0.04542 },
-  "texture / calibration / photo__capsule-button__inactive-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.25284, bound: "|Δ| ≤ 0.00433 or 10 %", native: 0.04765 },
-  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33905, bound: "|Δ| ≤ 0.00375 or 10 %", native: 0.05041 },
-  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39738, bound: "|Δ| ≤ 0.00555 or 10 %", native: 0.02067 },
-  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.26342, bound: "|Δ| ≤ 0.00327 or 10 %", native: 0.04047 },
-  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33352, bound: "|Δ| ≤ 0.00346 or 10 %", native: 0.04514 },
-  "texture / holdout / checkerboard__glass-over-glass__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.32021, bound: "|Δ| ≤ 0.00309 or 10 %", native: 0.01626 },
-  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.74324, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.03962 },
-  "texture / holdout / photo__glass-over-glass__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.27240, bound: "|Δ| ≤ 0.00327 or 10 %", native: 0.04358 },
-  "texture / holdout / photo__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.25471, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.04657 },
-  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.28284, bound: "|Δ| ≤ 0.00340 or 10 %", native: 0.04856 },
-  "texture / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33079, bound: "|Δ| ≤ 0.00331 or 10 %", native: 0.13318 },
-  "texture / probe / checkerboard-32__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.56130, bound: "|Δ| ≤ 0.00553 or 10 %", native: 0.02644 },
-  "texture / probe / checkerboard-32__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.81733, bound: "|Δ| ≤ 0.00294 or 10 %", native: 0.04122 },
-  "texture / probe / checkerboard-32__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.61646, bound: "|Δ| ≤ 0.00304 or 10 %", native: 0.05559 },
-  "texture / probe / checkerboard-32__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.46893, bound: "|Δ| ≤ 0.00298 or 10 %", native: 0.08156 },
-  "texture / probe / checkerboard-32__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.58912, bound: "|Δ| ≤ 0.00300 or 10 %", native: 0.06491 },
-  "texture / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.38124, bound: "|Δ| ≤ 0.00332 or 10 %", native: 0.13180 },
-  "texture / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.23044, bound: "|Δ| ≤ 0.00335 or 10 %", native: 0.10603 },
-  "texture / probe / checkerboard-4__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.60079, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.02603 },
-  "texture / probe / checkerboard-4__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.13531, bound: "|Δ| ≤ 0.00323 or 10 %", native: 0.00685 },
-  "texture / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.29070, bound: "|Δ| ≤ 0.00336 or 10 %", native: 0.10491 },
-  "texture / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.26200, bound: "|Δ| ≤ 0.00398 or 10 %", native: 0.18203 },
-  "texture / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.54040, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.03125 },
-  "texture / probe / checkerboard-64__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.51161, bound: "|Δ| ≤ 0.00298 or 10 %", native: 0.07423 },
-  "texture / probe / checkerboard-64__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.46635, bound: "|Δ| ≤ 0.00300 or 10 %", native: 0.08461 },
-  "texture / probe / checkerboard-64__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.47823, bound: "|Δ| ≤ 0.00294 or 10 %", native: 0.08209 },
-  "texture / probe / checkerboard-64__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.43016, bound: "|Δ| ≤ 0.00281 or 10 %", native: 0.10274 },
-  "texture / probe / checkerboard-64__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.47910, bound: "|Δ| ≤ 0.00291 or 10 %", native: 0.08436 },
-  "texture / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.53543, bound: "|Δ| ≤ 0.00533 or 10 %", native: 0.06511 },
-  "texture / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33118, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.11237 },
-  "texture / probe / checkerboard-8__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.61869, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.02617 },
-  "texture / probe / checkerboard-8__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 3.60066, bound: "|Δ| ≤ 0.00314 or 10 %", native: 0.00682 },
-  "texture / probe / checkerboard-8__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.72449, bound: "|Δ| ≤ 0.00332 or 10 %", native: 0.01490 },
-  "texture / probe / checkerboard-8__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 3.27713, bound: "|Δ| ≤ 0.00322 or 10 %", native: 0.00710 },
-  "texture / probe / checkerboard-8__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.58986, bound: "|Δ| ≤ 0.00322 or 10 %", native: 0.04912 },
-  "texture / probe / checkerboard-8__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.61825, bound: "|Δ| ≤ 0.00334 or 10 %", native: 0.01705 },
-  "texture / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.38590, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.11373 },
-  "texture / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.49435, bound: "|Δ| ≤ 0.00464 or 10 %", native: 0.05820 },
-  "texture / probe / checkerboard-lc16__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.98371, bound: "|Δ| ≤ 0.00385 or 10 %", native: 0.00693 },
-  "texture / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.56718, bound: "|Δ| ≤ 0.00464 or 10 %", native: 0.06076 },
-  "texture / probe / checkerboard__rrect-ml__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.49966, bound: "|Δ| ≤ 0.00306 or 10 %", native: 0.01610 },
-  "texture / probe / hc-text-28__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.77473, bound: "|Δ| ≤ 0.00359 or 10 %", native: 0.04192 },
-  "texture / probe / hc-text-28__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.50514, bound: "|Δ| ≤ 0.00335 or 10 %", native: 0.05132 },
-  "texture / probe / hc-text-28__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39675, bound: "|Δ| ≤ 0.00328 or 10 %", native: 0.09115 },
-  "texture / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.36240, bound: "|Δ| ≤ 0.00349 or 10 %", native: 0.12309 },
-  "texture / probe / hc-text__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.73543, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.01635 },
-  "texture / probe / hc-text__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.15262, bound: "|Δ| ≤ 0.00373 or 10 %", native: 0.02449 },
-  "texture / probe / hc-text__rrect-sm__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.29317, bound: "|Δ| ≤ 0.00372 or 10 %", native: 0.01983 },
-  "texture / probe / hc-text__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.36509, bound: "|Δ| ≤ 0.00411 or 10 %", native: 0.10104 },
-  "texture / probe / impulse__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.77927, bound: "|Δ| ≤ 0.00058 or 10 %", native: 0.00059 },
-  "texture / probe / impulse__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.77275, bound: "|Δ| ≤ 0.00126 or 10 %", native: 0.02194 },
-  "texture / probe / impulse__rrect-ml__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.60003, bound: "|Δ| ≤ 0.00057 or 10 %", native: 0.00085 },
-  "texture / probe / impulse__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.80597, bound: "|Δ| ≤ 0.00131 or 10 %", native: 0.02195 },
-  "texture / probe / impulse__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.71109, bound: "|Δ| ≤ 0.00144 or 10 %", native: 0.02617 },
-  "texture / probe / photo__rrect-ml__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.27554, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.04608 },
-  "texture / recorded / photo__capsule-button__inactive-pressed / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.71347, bound: "|Δ| ≤ 0.00353 or 10 %", native: 0.04542 },
-  "texture / recorded / photo__capsule-button__pressed / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.54515, bound: "|Δ| ≤ 0.00375 or 10 %", native: 0.05041 },
+  //
+  // **W48 G2 (2026-10-07; charter clause 10 part (iv), Decision Logs 9 and 10; claims §5.214):
+  // re-derived at the published dark generation `b2d074d2df24`** by
+  // `results/2026-10-06-w48-g2-landing/t1/derive.py`, both directions. 117 of 154 cells miss:
+  //   1x: F 11 of 15, T 2 of 4, C 31 of 46, P 12 of 12;
+  //   2x: F 12 of 15, T 2 of 4, C 35 of 46, P 12 of 12.
+  // Twenty-two entries left the list, now within: `checkerboard__rrect-md__rest` and
+  // `checkerboard-8__rrect-lg__rest` at both scales; `checkerboard-lc16` capsule and sm rest at both;
+  // `checkerboard__glass-over-glass__inactive` (holdout) at both; at 1x `checkerboard-32` and `-64` md
+  // rest, `hc-text` lg rest and inactive, `impulse` lg rest and inactive, and the two `hc-text-7` rest
+  // T cells (md, lg) on T1-fine; at 2x `checkerboard-32__rrect-sm__rest`, `checkerboard__rrect-ml__inactive`,
+  // `hc-text-28__rrect-md__rest` and `hc-text__rrect-lg__rest`. Five entered: four are in
+  // `T1_DARK_AUTHORISED_REGRESSIONS` with their growth (`checkerboard-lc16__rrect-md__rest` at both
+  // scales, the 2x `checkerboard__capsule-button__inactive` and its orange tint), and the 2x
+  // `checkerboard-4__rrect-ml__rest` is `unchanged` (+0.21 B) and crosses its bound by 1.6e-6.
+  "texture / probe / hc-text-7__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 1.84943, bound: "|Δ| ≤ 0.00361 or 10 %", native: 0.00988 },
+  "texture / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.45000, bound: "|Δ| ≤ 0.00403 or 10 %", native: 0.07932 },
+  "texture / calibration / checkerboard__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.71897, bound: "|Δ| ≤ 0.00330 or 10 %", native: 0.05953 },
+  "texture / calibration / checkerboard__capsule-button__inactive-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.76574, bound: "|Δ| ≤ 0.00420 or 10 %", native: 0.07772 },
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.84362, bound: "|Δ| ≤ 0.00328 or 10 %", native: 0.11069 },
+  "texture / calibration / checkerboard__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.31911, bound: "|Δ| ≤ 0.00316 or 10 %", native: 0.01498 },
+  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33012, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.04543 },
+  "texture / calibration / photo__capsule-button__inactive-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.40685, bound: "|Δ| ≤ 0.00432 or 10 %", native: 0.04739 },
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.58151, bound: "|Δ| ≤ 0.00374 or 10 %", native: 0.04882 },
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.53426, bound: "|Δ| ≤ 0.00555 or 10 %", native: 0.02013 },
+  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.43132, bound: "|Δ| ≤ 0.00326 or 10 %", native: 0.03918 },
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.67130, bound: "|Δ| ≤ 0.00345 or 10 %", native: 0.04423 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.68038, bound: "|Δ| ≤ 0.00318 or 10 %", native: 0.04449 },
+  "texture / holdout / photo__glass-over-glass__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.22361, bound: "|Δ| ≤ 0.00326 or 10 %", native: 0.04354 },
+  "texture / holdout / photo__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.04764, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.04639 },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.29229, bound: "|Δ| ≤ 0.00340 or 10 %", native: 0.04868 },
+  "texture / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.80332, bound: "|Δ| ≤ 0.00333 or 10 %", native: 0.13212 },
+  "texture / probe / checkerboard-32__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.37160, bound: "|Δ| ≤ 0.00297 or 10 %", native: 0.03817 },
+  "texture / probe / checkerboard-32__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.34701, bound: "|Δ| ≤ 0.00301 or 10 %", native: 0.05841 },
+  "texture / probe / checkerboard-32__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.58317, bound: "|Δ| ≤ 0.00296 or 10 %", native: 0.06789 },
+  "texture / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.86443, bound: "|Δ| ≤ 0.00334 or 10 %", native: 0.13242 },
+  "texture / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.37902, bound: "|Δ| ≤ 0.00347 or 10 %", native: 0.08807 },
+  "texture / probe / checkerboard-4__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.52040, bound: "|Δ| ≤ 0.00323 or 10 %", native: 0.00893 },
+  "texture / probe / checkerboard-4__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.59414, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.03935 },
+  "texture / probe / checkerboard-4__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.79763, bound: "|Δ| ≤ 0.00327 or 10 %", native: 0.02326 },
+  "texture / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.42358, bound: "|Δ| ≤ 0.00350 or 10 %", native: 0.08754 },
+  "texture / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.69091, bound: "|Δ| ≤ 0.00400 or 10 %", native: 0.18236 },
+  "texture / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.78087, bound: "|Δ| ≤ 0.00553 or 10 %", native: 0.03391 },
+  "texture / probe / checkerboard-64__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.02671, bound: "|Δ| ≤ 0.00299 or 10 %", native: 0.07329 },
+  "texture / probe / checkerboard-64__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.34039, bound: "|Δ| ≤ 0.00299 or 10 %", native: 0.08565 },
+  "texture / probe / checkerboard-64__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.69065, bound: "|Δ| ≤ 0.00293 or 10 %", native: 0.07833 },
+  "texture / probe / checkerboard-64__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.63545, bound: "|Δ| ≤ 0.00288 or 10 %", native: 0.08552 },
+  "texture / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.76639, bound: "|Δ| ≤ 0.00535 or 10 %", native: 0.06386 },
+  "texture / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.69638, bound: "|Δ| ≤ 0.00336 or 10 %", native: 0.10225 },
+  "texture / probe / checkerboard-8__rrect-lg__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.06654, bound: "|Δ| ≤ 0.00313 or 10 %", native: 0.00708 },
+  "texture / probe / checkerboard-8__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.63642, bound: "|Δ| ≤ 0.00322 or 10 %", native: 0.00901 },
+  "texture / probe / checkerboard-8__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.24517, bound: "|Δ| ≤ 0.00325 or 10 %", native: 0.04136 },
+  "texture / probe / checkerboard-8__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.47966, bound: "|Δ| ≤ 0.00331 or 10 %", native: 0.01853 },
+  "texture / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.77961, bound: "|Δ| ≤ 0.00334 or 10 %", native: 0.10535 },
+  "texture / probe / checkerboard-lc16__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.33401, bound: "|Δ| ≤ 0.00386 or 10 %", native: 0.00577 },
+  "texture / probe / checkerboard-lc16__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.60533, bound: "|Δ| ≤ 0.00406 or 10 %", native: 0.02165 },
+  "texture / probe / checkerboard__rrect-ml__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.51191, bound: "|Δ| ≤ 0.00310 or 10 %", native: 0.00974 },
+  "texture / probe / hc-text-28__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.56857, bound: "|Δ| ≤ 0.00356 or 10 %", native: 0.04600 },
+  "texture / probe / hc-text-28__rrect-md__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.86268, bound: "|Δ| ≤ 0.00350 or 10 %", native: 0.03548 },
+  "texture / probe / hc-text-28__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.82877, bound: "|Δ| ≤ 0.00332 or 10 %", native: 0.08496 },
+  "texture / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.74494, bound: "|Δ| ≤ 0.00355 or 10 %", native: 0.12039 },
+  "texture / probe / hc-text__rrect-sm__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.28729, bound: "|Δ| ≤ 0.00376 or 10 %", native: 0.03092 },
+  "texture / probe / hc-text__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.80523, bound: "|Δ| ≤ 0.00411 or 10 %", native: 0.09646 },
+  "texture / probe / impulse__rrect-ml__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 4.74424, bound: "|Δ| ≤ 0.00056 or 10 %", native: 0.00056 },
+  "texture / probe / impulse__rrect-ml__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.89629, bound: "|Δ| ≤ 0.00128 or 10 %", native: 0.01868 },
+  "texture / probe / impulse__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.26507, bound: "|Δ| ≤ 0.00142 or 10 %", native: 0.02243 },
+  "texture / probe / photo__rrect-ml__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.23498, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.04554 },
+  "texture / recorded / photo__capsule-button__inactive-pressed / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.65620, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.04543 },
+  "texture / recorded / photo__capsule-button__pressed / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.47815, bound: "|Δ| ≤ 0.00374 or 10 %", native: 0.04882 },
+  "texture / validation / impulse__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 6.73093, bound: "|Δ| ≤ 0.00074 or 10 %", native: 0.00081 },
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.28107, bound: "|Δ| ≤ 0.00135 or 10 %", native: 0.01977 },
+  "texture / probe / hc-text-7__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.65424, bound: "|Δ| ≤ 0.00373 or 10 %", native: 0.01669 },
+  "texture / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1FineStdDev": { measured: 0.33267, bound: "|Δ| ≤ 0.00390 or 10 %", native: 0.08120 },
+  "texture / calibration / checkerboard__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.76451, bound: "|Δ| ≤ 0.00337 or 10 %", native: 0.05008 },
+  "texture / calibration / checkerboard__capsule-button__inactive-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.82937, bound: "|Δ| ≤ 0.00429 or 10 %", native: 0.06500 },
+  "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.76892, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.11694 },
+  "texture / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.61454, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.02632 },
+  "texture / calibration / checkerboard__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.78277, bound: "|Δ| ≤ 0.00309 or 10 %", native: 0.02758 },
+  "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.33359, bound: "|Δ| ≤ 0.00353 or 10 %", native: 0.04542 },
+  "texture / calibration / photo__capsule-button__inactive-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.42311, bound: "|Δ| ≤ 0.00433 or 10 %", native: 0.04765 },
+  "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.52869, bound: "|Δ| ≤ 0.00375 or 10 %", native: 0.05041 },
+  "texture / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.39496, bound: "|Δ| ≤ 0.00555 or 10 %", native: 0.02067 },
+  "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.46402, bound: "|Δ| ≤ 0.00327 or 10 %", native: 0.04047 },
+  "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.69304, bound: "|Δ| ≤ 0.00346 or 10 %", native: 0.04514 },
+  "texture / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.73365, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.03962 },
+  "texture / holdout / photo__glass-over-glass__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.24134, bound: "|Δ| ≤ 0.00327 or 10 %", native: 0.04358 },
+  "texture / holdout / photo__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.04956, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.04657 },
+  "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.27514, bound: "|Δ| ≤ 0.00340 or 10 %", native: 0.04856 },
+  "texture / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.86587, bound: "|Δ| ≤ 0.00331 or 10 %", native: 0.13318 },
+  "texture / probe / checkerboard-32__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.56930, bound: "|Δ| ≤ 0.00553 or 10 %", native: 0.02644 },
+  "texture / probe / checkerboard-32__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.38660, bound: "|Δ| ≤ 0.00294 or 10 %", native: 0.04122 },
+  "texture / probe / checkerboard-32__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.46827, bound: "|Δ| ≤ 0.00304 or 10 %", native: 0.05559 },
+  "texture / probe / checkerboard-32__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.21805, bound: "|Δ| ≤ 0.00298 or 10 %", native: 0.08156 },
+  "texture / probe / checkerboard-32__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.89531, bound: "|Δ| ≤ 0.00300 or 10 %", native: 0.06491 },
+  "texture / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.34970, bound: "|Δ| ≤ 0.00335 or 10 %", native: 0.10603 },
+  "texture / probe / checkerboard-4__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.60377, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.02603 },
+  "texture / probe / checkerboard-4__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.04086, bound: "|Δ| ≤ 0.00323 or 10 %", native: 0.00685 },
+  "texture / probe / checkerboard-4__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.20726, bound: "|Δ| ≤ 0.00335 or 10 %", native: 0.01617 },
+  "texture / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.41885, bound: "|Δ| ≤ 0.00336 or 10 %", native: 0.10491 },
+  "texture / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.74602, bound: "|Δ| ≤ 0.00398 or 10 %", native: 0.18203 },
+  "texture / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.57096, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.03125 },
+  "texture / probe / checkerboard-64__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.00847, bound: "|Δ| ≤ 0.00298 or 10 %", native: 0.07423 },
+  "texture / probe / checkerboard-64__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.40556, bound: "|Δ| ≤ 0.00300 or 10 %", native: 0.08461 },
+  "texture / probe / checkerboard-64__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.82491, bound: "|Δ| ≤ 0.00294 or 10 %", native: 0.08209 },
+  "texture / probe / checkerboard-64__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.16251, bound: "|Δ| ≤ 0.00281 or 10 %", native: 0.10274 },
+  "texture / probe / checkerboard-64__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.83115, bound: "|Δ| ≤ 0.00291 or 10 %", native: 0.08436 },
+  "texture / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.59681, bound: "|Δ| ≤ 0.00533 or 10 %", native: 0.06511 },
+  "texture / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.54879, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.11237 },
+  "texture / probe / checkerboard-8__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.62959, bound: "|Δ| ≤ 0.00554 or 10 %", native: 0.02617 },
+  "texture / probe / checkerboard-8__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.36687, bound: "|Δ| ≤ 0.00314 or 10 %", native: 0.00682 },
+  "texture / probe / checkerboard-8__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.93980, bound: "|Δ| ≤ 0.00322 or 10 %", native: 0.00710 },
+  "texture / probe / checkerboard-8__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.81334, bound: "|Δ| ≤ 0.00322 or 10 %", native: 0.04912 },
+  "texture / probe / checkerboard-8__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.41850, bound: "|Δ| ≤ 0.00334 or 10 %", native: 0.01705 },
+  "texture / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.64182, bound: "|Δ| ≤ 0.00329 or 10 %", native: 0.11373 },
+  "texture / probe / checkerboard-lc16__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.13383, bound: "|Δ| ≤ 0.00385 or 10 %", native: 0.00693 },
+  "texture / probe / checkerboard-lc16__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.58979, bound: "|Δ| ≤ 0.00406 or 10 %", native: 0.02302 },
+  "texture / probe / hc-text-28__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.65965, bound: "|Δ| ≤ 0.00359 or 10 %", native: 0.04192 },
+  "texture / probe / hc-text-28__rrect-md__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.77280, bound: "|Δ| ≤ 0.00335 or 10 %", native: 0.05132 },
+  "texture / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.76874, bound: "|Δ| ≤ 0.00349 or 10 %", native: 0.12309 },
+  "texture / probe / hc-text__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.29750, bound: "|Δ| ≤ 0.00352 or 10 %", native: 0.01635 },
+  "texture / probe / hc-text__rrect-sm__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.60975, bound: "|Δ| ≤ 0.00372 or 10 %", native: 0.01983 },
+  "texture / probe / hc-text__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.66245, bound: "|Δ| ≤ 0.00411 or 10 %", native: 0.10104 },
+  "texture / probe / impulse__rrect-lg__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.00000, bound: "|Δ| ≤ 0.00058 or 10 %", native: 0.00059 },
+  "texture / probe / impulse__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.77963, bound: "|Δ| ≤ 0.00126 or 10 %", native: 0.02194 },
+  "texture / probe / impulse__rrect-ml__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 2.91590, bound: "|Δ| ≤ 0.00057 or 10 %", native: 0.00085 },
+  "texture / probe / impulse__rrect-ml__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.79889, bound: "|Δ| ≤ 0.00131 or 10 %", native: 0.02195 },
+  "texture / probe / impulse__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.20260, bound: "|Δ| ≤ 0.00144 or 10 %", native: 0.02617 },
+  "texture / probe / photo__rrect-ml__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.25568, bound: "|Δ| ≤ 0.00324 or 10 %", native: 0.04608 },
+  "texture / recorded / photo__capsule-button__inactive-pressed / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.65644, bound: "|Δ| ≤ 0.00353 or 10 %", native: 0.04542 },
+  "texture / recorded / photo__capsule-button__pressed / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.44104, bound: "|Δ| ≤ 0.00375 or 10 %", native: 0.05041 },
   "texture / validation / impulse__capsule-button__inactive / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: Infinity, bound: "|Δ| ≤ 0.00066 or 10 %", native: 0.00000 },
-  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 0.77092, bound: "|Δ| ≤ 0.00138 or 10 %", native: 0.02411 },
+  "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25 :: t1InteriorStdDev": { measured: 1.11462, bound: "|Δ| ≤ 0.00138 or 10 %", native: 0.02411 },
 };
 
 /*
@@ -3208,6 +3233,7 @@ interface Glass025Cut {
   readonly bed: {
     readonly kind: string;
     readonly rows: number;
+    readonly pairs: Readonly<Record<string, number>>;
     readonly documents: Readonly<Record<string, string>>;
     readonly missingNonHoldout: Readonly<Record<string, readonly string[]>>;
   };
@@ -3275,7 +3301,11 @@ interface Glass025Cut {
     readonly failing: readonly { readonly cell: string }[];
     readonly perCell: readonly { readonly cell: string; readonly verdict: string }[];
   } };
-  readonly S1: { readonly webgpu: { readonly population: number; readonly pooledMedianRatio: number } };
+  readonly S1: { readonly webgpu: {
+    readonly population: number;
+    readonly pooledMedianRatio: number;
+    readonly perProfileMedian: Readonly<Record<string, { readonly cells: number; readonly median: number }>>;
+  } };
   /** W45's landing rule over T1 (Decision Log 3; `cuts/rule.py`), read by the T1 block. */
   readonly T1: { readonly rule: {
     readonly scope: string;
@@ -3311,6 +3341,95 @@ const GLASS025_CUT_FILE = {
 } as const;
 const GLASS025_CUT = readJson<Glass025Cut>(resolve(PACKAGE_ROOT, GLASS025_CUT_FILE.path));
 
+/**
+ * **The dark landing cut** (W48 G2; charter clause 10; claims §5.214), regenerated at the landing that
+ * publishes `b2d074d2df24` by `results/2026-10-06-w48-g2-landing/cuts/landing.py` with W47's cuts
+ * (inherited by path under W48's bindings, as G1's gate and exposure cuts were) from the current union's
+ * rows: the dark generation in every set, W46's referees and the holdout read once at read 8 and counted
+ * as ordinary members here; the light rows W47's bed admits, against their own generation. Its
+ * references are selected explicitly by hash, `d0219cd684bf` dark and `ebc3d9105a4a` light, as G1's
+ * cuts selected them, and `landing.json` holds it EQUAL to G1's exposure cut on every section but for
+ * exactly the dark referee cells on C1, X1 and E2. Its rule's T1 section is W45's rule bound to the
+ * dark profiles (W46 Decision Log 3), against `d0219cd684bf`.
+ *
+ * The owner test reads its DARK entries: every dark 0.25 block (tables, M1, M2, C1, X1, L1, E2, S1's
+ * dark half, and the dark T1 rule) reads this cut, and every light 0.25 block keeps reading W45's
+ * landing cut above, whose light rows and c05 reference are unchanged (charter clause 9). A dark entry
+ * read from W45's cut is `d0219cd684bf` against itself, which is history. Pinned by its bytes.
+ */
+const GLASS025_DARK_CUT_FILE = {
+  path: "results/2026-10-06-w48-g2-landing/cuts/cut-025-dark-w48-landing.json",
+  sha256: "2533c75355664a6552b885d0424387e28e1d7eb4f26b6dbf80b2a8f9c8ace34c",
+} as const;
+const GLASS025_DARK_CUT = readJson<Glass025Cut>(resolve(PACKAGE_ROOT, GLASS025_DARK_CUT_FILE.path));
+
+/** Whether a 0.25 cut entry is the dark scheme's: it names a dark profile, or (a bed key) the scheme. */
+const glass025IsDark = (entry: unknown): boolean => {
+  const text = typeof entry === "string" ? entry : JSON.stringify(entry);
+  return text.includes("-dark-standard-glass0.25") || /^(?:dark\||[12]x dark )/.test(text);
+};
+const glass025List = <T>(light: readonly T[], dark: readonly T[]): readonly T[] =>
+  [...light.filter((entry) => !glass025IsDark(entry)), ...dark.filter((entry) => glass025IsDark(entry))];
+const glass025Record = <T>(light: Readonly<Record<string, T>>, dark: Readonly<Record<string, T>>):
+  Readonly<Record<string, T>> => Object.fromEntries([
+  ...Object.entries(light).filter(([name]) => !glass025IsDark(name)),
+  ...Object.entries(dark).filter(([name]) => glass025IsDark(name)),
+]);
+
+/**
+ * **The 0.25 adopted rows as the blocks below read them** (W48 G2): each scheme's entries from its own
+ * landing cut, the light ones from W45's and the dark ones from W48's, joined per section by the
+ * profile or bed each entry names. A count is the joined list's length, never one cut's total, and
+ * the provenance case holds each cut's own totals to its own lists. S1 pools both schemes and is read,
+ * not gated: each scheme's per-profile medians come from its own cut.
+ */
+const GLASS025_VIEW = (() => {
+  const L = GLASS025_CUT, D = GLASS025_DARK_CUT;
+  const x1 = glass025List(L.X1.webgpu.perCell, D.X1.webgpu.perCell);
+  const l1 = glass025List(L.L1.webgpu.cells, D.L1.webgpu.cells);
+  const e2 = glass025List(L.E2.webgpu.perCell, D.E2.webgpu.perCell);
+  const e2Unmeasured = glass025List(L.E2.webgpu.unmeasured, D.E2.webgpu.unmeasured);
+  return {
+    M1M2cells: { webgpu: glass025List(L.M1M2cells.webgpu, D.M1M2cells.webgpu) },
+    M1: { webgpu: {
+      beds: glass025Record(L.M1.webgpu.beds, D.M1.webgpu.beds),
+      cellMisses: glass025List(L.M1.webgpu.cellMisses, D.M1.webgpu.cellMisses),
+      unmeasured: glass025List(L.M1.webgpu.unmeasured, D.M1.webgpu.unmeasured),
+      noRow: glass025List(L.M1.webgpu.noRow, D.M1.webgpu.noRow),
+    } },
+    C1: { webgpu: {
+      perBedSpan: glass025Record(L.C1.webgpu.perBedSpan, D.C1.webgpu.perBedSpan),
+      cells: glass025Record(L.C1.webgpu.cells, D.C1.webgpu.cells),
+      noRow: glass025List(L.C1.webgpu.noRow, D.C1.webgpu.noRow),
+    } },
+    X1: { webgpu: {
+      cells: x1.length,
+      perCell: x1,
+      failing: glass025List(L.X1.webgpu.failing, D.X1.webgpu.failing),
+      noRow: glass025List(L.X1.webgpu.noRow, D.X1.webgpu.noRow),
+    } },
+    L1: { webgpu: {
+      population: l1.length,
+      measured: l1.filter((cell) => cell.status === "MEASURED").length,
+      cells: l1,
+      unmeasured: glass025List(L.L1.webgpu.unmeasured, D.L1.webgpu.unmeasured),
+      growthUnmeasured: glass025List(L.L1.webgpu.growthUnmeasured, D.L1.webgpu.growthUnmeasured),
+      noRow: glass025List(L.L1.webgpu.noRow, D.L1.webgpu.noRow),
+      absoluteMisses: glass025List(L.L1.webgpu.absoluteMisses, D.L1.webgpu.absoluteMisses),
+      growthMisses: glass025List(L.L1.webgpu.growthMisses, D.L1.webgpu.growthMisses),
+    } },
+    E2: { webgpu: {
+      cells: e2.length,
+      measured: e2.length - e2Unmeasured.length,
+      perCell: e2,
+      unmeasured: e2Unmeasured,
+      noRow: glass025List(L.E2.webgpu.noRow, D.E2.webgpu.noRow),
+      failing: glass025List(L.E2.webgpu.failing, D.E2.webgpu.failing),
+    } },
+    S1: { webgpu: { perProfileMedian: glass025Record(L.S1.webgpu.perProfileMedian, D.S1.webgpu.perProfileMedian) } },
+  };
+})();
+
 /** The beds the 0.25 M1 / M2 rows are stated over, with the scheme each reads at. */
 const GLASS025_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
   "apple-macos-27.0-1x-light-standard-glass0.25": "light",
@@ -3327,7 +3446,11 @@ const GLASS025_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
  * change from the 0.5 material. W45 G1's gate and exposure read the published c05 generation
  * instead, and the landing does too (claims §5.206 §2, §5.207): the light rows bound W45's change
  * from c05 (`6d18c059eb42`, retired at W45's publication and still loadable by its hashes), and the
- * dark generation W45 did not move is its own reference, so every dark cell reads unchanged.
+ * dark generation W45 did not move was its own reference, so every dark cell read unchanged. Since
+ * W48 G2 (claims §5.213, §5.214) that dark entry, `d0219cd684bf`, is the superseded generation W48's
+ * change is read against: retired at W48's publication, still loadable by its hashes, and read by the
+ * dark landing cut (`GLASS025_DARK_CUT`) as G1's gate and exposure read it. Against it the dark rows
+ * carry eight named M2 misses, 52 E2 cells with a larger edge error, and L1 growth up to +0.0049.
  */
 const GLASS025_REFERENCE = [
   { active: "6d18c059eb42", receded: "4d5f23d9d312" },
@@ -3351,7 +3474,7 @@ const glass025Reference = (): Map<string, Cell> => {
 
 /** The 0.25 cut's M1 / M2 cells, on the texture tier the rows are stated on. */
 const glass025ChromaCells = (): readonly Glass025ChromaCell[] =>
-  GLASS025_CUT.M1M2cells.webgpu.map((cell) => ({ ...cell, tier: "texture" as const }));
+  GLASS025_VIEW.M1M2cells.webgpu.map((cell) => ({ ...cell, tier: "texture" as const }));
 
 /** M1's per-cell clause at 0.25: the derivation the owner and the row share. */
 const glass025PerCellMisses = (): readonly Glass025ChromaCell[] =>
@@ -3361,7 +3484,8 @@ const glass025PerCellMisses = (): readonly Glass025ChromaCell[] =>
  * M2 at 0.25, directional against Apple's 0.25 texture in W42 Decision Log 5a's form: the same
  * `structureVerdict` the 0.5 row reads, with Apple's reading taken off the published row and the
  * reference off the cut's reference generation (`GLASS025_REFERENCE`: the pre-fit render until W45
- * G2, the published c05 generation since).
+ * G2, the published c05 generation since for the light rows; `d0219cd684bf` for the dark rows, their
+ * own generation until W48 G2 and the superseded one since).
  */
 const glass025StructureVerdicts = (): readonly StructureMiss[] => {
   const bed = bedFromMatrix(GLASS025_BED_PROFILES);
@@ -3509,14 +3633,22 @@ const T1_BANDS_FILES = [
 /**
  * **T1 on the dark 0.25 profiles** (W46 G2; charter Decision Logs 3 and 10; claims §5.210). GATED on
  * their WebGPU tier by the same two clauses, in their own block below, each with its own inputs:
- * - **The reference** is clause (b)'s, by its documents' hashes: the published dark generation
- *   `d0219cd684bf`. W46 G1's refit closed at the finding, so it is the current generation itself and
- *   every cell reads `unchanged`; the next dark publication is the first thing the clause can stop.
- *   No regression is authorised against it.
+ * - **The reference** is clause (b)'s, by its documents' hashes. W46 G2 adopted the row on the
+ *   published dark generation `d0219cd684bf`, then the current generation itself. W48 G2 published
+ *   `b2d074d2df24`, witnessed its regressions against `d0219cd684bf` with both dark band fixtures
+ *   present, listed the ruled ones in `T1_DARK_AUTHORISED_REGRESSIONS` and moved the reference LAST
+ *   (charter clause 10 part (v); X59), so every dark cell reads `unchanged` against it and the next
+ *   dark publication is what the clause can stop. The seventeen stay witnessed against
+ *   `d0219cd684bf` by their standing case.
  * - **The referee manifest** is W46's (`w46-referees-1`, six scenes per dark scale). It labels a
  *   cell's partition and never selects.
- * - **The band fixture** holds the dark T cells' T1-fine and T1-low, read off `d0219cd684bf`'s
- *   canonical captures by W44 G1's readers (`results/2026-10-05-w46-g2-landing/t1/bands.py`).
+ * - **The band fixtures**, ONE PER GENERATION as on the light side (W48 G2, charter clause 10 part (i);
+ *   claims §5.214): each holds the dark T cells' T1-fine and T1-low read off its generation's captures
+ *   by W44 G1's readers and is keyed by its rows' capture paths, so no key can come from both.
+ *   `d0219cd684bf`'s is W46 G2's (`results/2026-10-05-w46-g2-landing/t1/bands.py`), unchanged, and is
+ *   what witnesses a regression against that generation; `b2d074d2df24`'s is W48 G2's, read off the
+ *   canonical tree G1's stage was copied to and equal on every entry to the bands G1's exposure cut
+ *   and the landing cut carry (`results/2026-10-06-w48-g2-landing/t1/bands.py`).
  * - **The gate's cut** of `d0219cd684bf` against itself, by W46's ported cuts
  *   (`results/2026-10-05-w46-g1-refit/references/`), is the Python referee the port agrees with.
  */
@@ -3524,12 +3656,17 @@ const T1_DARK_GATED_PROFILES = [
   "apple-macos-27.0-1x-dark-standard-glass0.25",
   "apple-macos-27.0-2x-dark-standard-glass0.25",
 ] as const;
-const T1_DARK_REFERENCE = { active: "d0219cd684bf", receded: "f0b36a71772a" } as const;
+const T1_DARK_REFERENCE = { active: "b2d074d2df24", receded: "29da6a888a23" } as const;
 const T1_DARK_REFEREES_FILE = {
   path: "results/2026-10-05-w46-g0-declaration/referees/referees.json",
   sha256: "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
 } as const;
 const T1_DARK_BANDS_FILES = [
+  {
+    generation: "b2d074d2df24",
+    path: "results/2026-10-06-w48-g2-landing/t1/t-bands-b2d074d2df24.json",
+    sha256: "c21d7aa072a38716747bd707171adfb5b0a3930732599b6d490387dcab8bb8de",
+  },
   {
     generation: "d0219cd684bf",
     path: "results/2026-10-05-w46-g2-landing/t1/t-bands-d0219cd684bf.json",
@@ -3668,6 +3805,68 @@ const T1_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = ([
   profile: "apple-macos-27.0-2x-light-standard-glass0.25", scene, reference: T1_W45_REFERENCE, growthInB,
   ruling: T1_W45_RULING,
 }));
+
+/**
+ * **The dark scheme's authorised regressions** (W47 Design "The landing rule"; W48 charter clause 10,
+ * X59; claims §5.213 §7, §5.214): a list SEPARATE from the light one, read by the dark block's clause
+ * (b) and its own standing witness, with the same entry form and the same refusals
+ * (`t1ClauseBFailures`). Filled at W48 G2's landing (part (iv)) with exactly the cells Decision Logs 9
+ * and 10 rule, each regressed against the superseded `d0219cd684bf` and read at part (iii) with both
+ * dark band fixtures present: the growth-only form trips on exactly these 8 / 9 (1x / 2x), two per
+ * scale beyond the 3 B ceiling, and W44's form on 7 / 7 of them
+ * (`results/2026-10-06-w48-g2-landing/t1/witness-iii.txt`). Thirteen were read at the gate and four
+ * are new at the exposure (`checkerboard-32__rrect-lg__inactive` at both scales, a referee, and
+ * `photo__rrect-lg__inactive` at both, a holdout cell). Three cross Apple with a larger error, which
+ * W44's form reads as `overshoot` and the growth-only form gates (1x `impulse__capsule-button__rest`,
+ * 2x `checkerboard-lc16__rrect-md__rest` and the orange capsule-button tint). The shapes (§5.213 §6–§7;
+ * Decision Log 9 §7): the receded scatter's cost on the thick inactive spans (the `checkerboard-32` /
+ * `-64` lg inactive cells, the thick photo, the 2x capsule-button checkers), and the span law's own cost
+ * on the thick and mid-span coarse rest cells (`checkerboard-32` / `-64` lg, `hc-text-28` lg,
+ * `checkerboard-lc16` md, the 1x impulse capsule).
+ */
+const T1_DARK_W46_REFERENCE = { active: "d0219cd684bf", receded: "f0b36a71772a" } as const;
+const T1_DARK_W48_RULING = "W48 Decision Logs 9 and 10, §5.213";
+const T1_DARK_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = ([
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__inactive", 8.94],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__inactive", 3.20],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__rest", 2.98],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-lc16__rrect-md__rest", 2.66],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "photo__rrect-lg__inactive", 2.64],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "impulse__capsule-button__rest", 2.26],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__rest", 1.55],
+  ["apple-macos-27.0-1x-dark-standard-glass0.25", "hc-text-28__rrect-lg__rest", 1.39],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__inactive", 12.53],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__inactive", 6.04],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-lc16__rrect-md__rest", 2.91],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "photo__rrect-lg__inactive", 2.90],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard__capsule-button__inactive", 2.79],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__rest", 2.71],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard__capsule-button__inactive-tint-orange", 1.93],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__rest", 1.71],
+  ["apple-macos-27.0-2x-dark-standard-glass0.25", "hc-text-28__rrect-lg__rest", 1.34],
+] as const).map(([profile, scene, growthInB]) => ({
+  profile, scene, reference: T1_DARK_W46_REFERENCE, growthInB, ruling: T1_DARK_W48_RULING,
+}));
+
+/**
+ * **The dark targets the landing names as misses** (W48 Decision Logs 9 §3 and 10; claims §5.213 §7):
+ * W48's rule (W45's, bound to the dark profiles by W46 Decision Log 3) read each target's aggregate A
+ * against half of `d0219cd684bf`'s, per profile, over all 77 cells. C rest halves at both scales and F
+ * inactive at 1x; P at both scales and F inactive at 2x do not, and are named here with the landing
+ * cut's values to four decimals. P's misses are the dark photo body gap (§5.201), which these operators
+ * were not predicted to close (W48 Decision Log 5); F inactive at 2x is the receded fine term W48 named
+ * and did not fit (Decision Log 9 §4).
+ */
+const T1_DARK_NAMED_TARGET_MISSES: readonly {
+  readonly profile: string;
+  readonly target: string;
+  readonly A: number;
+  readonly referenceA: number;
+}[] = [
+  { profile: "apple-macos-27.0-1x-dark-standard-glass0.25", target: "P", A: 0.7644, referenceA: 1.1005 },
+  { profile: "apple-macos-27.0-2x-dark-standard-glass0.25", target: "P", A: 0.7188, referenceA: 1.1195 },
+  { profile: "apple-macos-27.0-2x-dark-standard-glass0.25", target: "F inactive", A: 0.5350, referenceA: 0.9423 },
+];
 
 /**
  * **The landing rule's aggregate misses a ruling names** (W45 Decision Log 3's clause "every gated
@@ -6268,7 +6467,9 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
    * shipped 0.5 generation's statistic beside each bed × span; this case re-derives the 0.25
    * readings from the rows in both directions and gates them. W45 moved no shadow leaf, and C1 at
    * its landing reads as at c05 but for the referee `checkerboard-4__rrect-ml__rest`, a span-128
-   * member the pre-exposure cuts left out (claims §5.207).
+   * member the pre-exposure cuts left out (claims §5.207). W48 moved no shadow leaf either; its dark
+   * rows are read off W48's landing cut (`GLASS025_VIEW`), whose `prefit` column is `d0219cd684bf`'s and
+   * which adds W46's two span-128 dark referees, `checkerboard-8` and `-32__rrect-ml__rest` (§5.214).
    */
   const glass025C1 = () => new Map(
     deriveClause(MATRIX_FILE.cells, 0.25).map((entry) => [entry.key, entry] as const),
@@ -6276,8 +6477,8 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
 
   it("glass 0.25: re-derives every reading of the clause from the published rows", () => {
     const derived = glass025C1();
-    const fromCut = GLASS025_CUT.C1.webgpu.cells;
-    expect(GLASS025_CUT.C1.webgpu.noRow, "a declared C1 member with no row").toEqual([]);
+    const fromCut = GLASS025_VIEW.C1.webgpu.cells;
+    expect(GLASS025_VIEW.C1.webgpu.noRow, "a declared C1 member with no row").toEqual([]);
     expect(
       Object.keys(fromCut).map((key) => key.replace("/", " ")).sort(),
       "the 0.25 clause's cells against the published rows'",
@@ -6300,7 +6501,7 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
             return at === bed && spanOf(entry.cell.key.sceneId.split("__")[1] ?? "") === span;
           })
           .map((entry) => entry.T);
-        const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} span ${span}`];
+        const recorded = GLASS025_VIEW.C1.webgpu.perBedSpan[`${bed} span ${span}`];
         expect(recorded, `${bed} span ${span}: the landing cut's bed × span`).toBeDefined();
         expect(readings.length, `${bed} span ${span}: the cells read`).toBe(recorded?.cells);
         expect(readings.length, `${bed} span ${span}: nothing to gate`).toBeGreaterThan(0);
@@ -6539,16 +6740,16 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
       && BLACK.includes(scene?.background ?? "")
       && (kind === "rrect" || kind === "capsule");
   });
-  const cut025 = new Map(GLASS025_CUT.X1.webgpu.perCell.map(r => [r.cell, r] as const));
+  const cut025 = new Map(GLASS025_VIEW.X1.webgpu.perCell.map(r => [r.cell, r] as const));
 
   it("glass 0.25: the cut covers the bed's population, and both targets read zero", () => {
     expect(population025.length).toBeGreaterThan(0);
     expect([...cut025.keys()].sort()).toEqual(
       population025.map(c => `${c.key.profileKey}/${c.key.sceneId}`).sort(),
     );
-    expect(GLASS025_CUT.X1.webgpu.cells).toBe(population025.length);
-    expect(GLASS025_CUT.X1.webgpu.noRow).toEqual([]);
-    expect(GLASS025_CUT.X1.webgpu.failing).toEqual([]);
+    expect(GLASS025_VIEW.X1.webgpu.cells).toBe(population025.length);
+    expect(GLASS025_VIEW.X1.webgpu.noRow).toEqual([]);
+    expect(GLASS025_VIEW.X1.webgpu.failing).toEqual([]);
     for (const r of cut025.values()) {
       for (const mask of ["integer", "analytic"] as const) {
         expect(r[mask].pixels, r.cell).toBeGreaterThan(0);
@@ -6856,9 +7057,11 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
    * over the same declared population rule at the new position. Growth is read against the
    * reference generations (`GLASS025_REFERENCE`): until W45 G2 the pre-fit render, the baseline W43's
    * ruling named; since W45 G2 the published c05 generation by its hashes, re-baselined at the gate
-   * that adopted W45's material change (W32 Decision Log 4), so it bounds W45's change from c05 and
-   * reads every dark cell against itself. The four dark inactive dark-solid means are UNMEASURED at
-   * 0.25 as at 0.5, and no cell misses either clause, so the 0.25 rows carry no named miss here.
+   * that adopted W45's material change (W32 Decision Log 4), so it bounds W45's change from c05.
+   * The dark cells read `d0219cd684bf`, against itself until W48 G2 and since then the reference of
+   * W48's change, re-baselined at the gate that adopted it (max error 0.0505, growth at most +0.0049;
+   * claims §5.213 §6, §5.214). The four dark inactive dark-solid means are UNMEASURED at 0.25 as at
+   * 0.5, and no cell misses either clause, so the 0.25 rows carry no named miss here.
    */
   const MISSING_025 = [1, 2].flatMap(scale => ["capsule-button", "rrect-md"].map(component =>
     `apple-macos-27.0-${scale}x-dark-standard-glass0.25/dark-solid__${component}__inactive`));
@@ -6870,7 +7073,7 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
     glass025Reference().get(`${c.key.profileKey} webgpu ${c.key.sceneId}`);
 
   it("glass 0.25: the population, its UNMEASURED means and the reference baseline it names", () => {
-    const L1 = GLASS025_CUT.L1.webgpu;
+    const L1 = GLASS025_VIEW.L1.webgpu;
     expect(population025).toHaveLength(140);
     expect(new Set(population025.map(key)).size).toBe(140);
     expect(L1.population).toBe(140);
@@ -6894,7 +7097,7 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
   });
 
   it("glass 0.25: re-derives every recorded mean, error and growth from the rows", () => {
-    const L1 = GLASS025_CUT.L1.webgpu;
+    const L1 = GLASS025_VIEW.L1.webgpu;
     const byCell = new Map(L1.cells.map(r => [r.cell, r] as const));
     for (const c of population025) {
       const baseline = reference025(c)!;
@@ -6975,26 +7178,56 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
     // included (read once at W45 G1's exposure; recorded rows here): the four sealed documents at
     // their live hash, every declared non-holdout cell present. W43's cut read the non-holdout rows
     // only, because its holdout was read by a separate reader; W45's cuts read S1 off the holdout.
-    expect(sha256Of(GLASS025_CUT_FILE.path), GLASS025_CUT_FILE.path).toBe(GLASS025_CUT_FILE.sha256);
-    expect(GLASS025_CUT.bed.kind).toBe("sealed");
-    expect(GLASS025_CUT.withHoldout).toBe(true);
-    for (const [path, sha] of Object.entries(GLASS025_CUT.bed.documents)) {
-      expect(SHIPPED_DOCUMENT_HASHES.get(path), path).toBe(sha);
-    }
-    expect(Object.keys(GLASS025_CUT.bed.documents)).toHaveLength(4);
-    expect(GLASS025_CUT.bed.missingNonHoldout).toEqual({});
-    const published = MATRIX_FILE.cells.filter((cell) => glassOf(cell.key.profileKey) === 0.25);
-    expect(GLASS025_CUT.bed.rows).toBe(published.length);
-    // Its references are the generations `GLASS025_REFERENCE` selects, each named by its file and
-    // the file's SHA-256 in the generation index, and its documents' hashes.
+    //
+    // Since W48 G2 (claims §5.214) the blocks read each scheme from its own landing cut
+    // (`GLASS025_VIEW`): W45's for the light rows, whose generation and documents have not moved, and
+    // W48's for the dark ones. Each cut is held here to the published rows of the scheme it is read
+    // for, with its documents at their live hash, and to its own totals.
     const index = readJson<{ readonly files: Readonly<Record<string, { readonly sha256: string }>> }>(
       resolve(PACKAGE_ROOT, "results", "generations", "index.json"));
+    const published = (dark: boolean): number => MATRIX_FILE.cells.filter((cell) =>
+      glassOf(cell.key.profileKey) === 0.25 && glass025IsDark(cell.key.profileKey) === dark).length;
+    const pairs = (cut: Glass025Cut, dark: boolean): number => Object.entries(cut.bed.pairs)
+      .filter(([pair]) => glass025IsDark(pair) === dark).reduce((sum, [, rows]) => sum + rows, 0);
+    for (const [cut, file] of [[GLASS025_CUT, GLASS025_CUT_FILE], [GLASS025_DARK_CUT, GLASS025_DARK_CUT_FILE]] as const) {
+      expect(sha256Of(file.path), file.path).toBe(file.sha256);
+      expect(cut.bed.kind, file.path).toBe("sealed");
+      expect(cut.withHoldout, file.path).toBe(true);
+      expect(Object.keys(cut.bed.documents), file.path).toHaveLength(4);
+      // Each cut's own totals are its own lists' lengths (the view joins lists, never totals).
+      expect(cut.X1.webgpu.cells, file.path).toBe(cut.X1.webgpu.perCell.length);
+      expect(cut.L1.webgpu.population, file.path).toBe(cut.L1.webgpu.cells.length);
+      expect(cut.E2.webgpu.cells, file.path).toBe(cut.E2.webgpu.perCell.length);
+    }
+    // W45's: the light rows and documents as published at W45 G1, the whole bed present.
+    for (const [path, sha] of Object.entries(GLASS025_CUT.bed.documents)) {
+      if (!glass025IsDark(path)) expect(SHIPPED_DOCUMENT_HASHES.get(path), path).toBe(sha);
+    }
+    expect(GLASS025_CUT.bed.missingNonHoldout).toEqual({});
+    expect(pairs(GLASS025_CUT, false), "W45's cut: the light rows").toBe(published(false));
+    // W48's: the dark rows in every set and the dark documents as published at W48 G1; the light rows
+    // W47's bed refuses for good (the cells W43 and W44 withheld) are its only missing members.
+    for (const [path, sha] of Object.entries(GLASS025_DARK_CUT.bed.documents)) {
+      expect(SHIPPED_DOCUMENT_HASHES.get(path), path).toBe(sha);
+    }
+    expect(Object.keys(GLASS025_DARK_CUT.bed.missingNonHoldout).filter((pair) => glass025IsDark(pair))).toEqual([]);
+    expect(pairs(GLASS025_DARK_CUT, true), "W48's cut: the dark rows").toBe(published(true));
+    // Their references are the generations `GLASS025_REFERENCE` selects, each named by its file and
+    // the file's SHA-256 in the generation index, and its documents' hashes: W45's cut names both,
+    // W48's names the dark one beside its light rows' own generation.
+    const named = (cut: Glass025Cut) => cut.reference.matrices.map((matrix) =>
+      [matrix.path, matrix.sha256, Object.values(matrix.documents).sort()]);
+    const expected = (g: { readonly active: string; readonly receded: string }) =>
+      [`packages/calibration/results/generations/${g.active}.json`, index.files[`${g.active}.json`]?.sha256,
+        [g.active, g.receded].sort()];
     expect(GLASS025_CUT.reference.kind).toBe(`published:${GLASS025_REFERENCE.map((g) => g.active).join("+")}`);
-    expect(GLASS025_CUT.reference.matrices.map((matrix) =>
-      [matrix.path, matrix.sha256, Object.values(matrix.documents).sort()])).toEqual(
-      GLASS025_REFERENCE.map((g) => [`packages/calibration/results/generations/${g.active}.json`,
-        index.files[`${g.active}.json`]?.sha256, [g.active, g.receded].sort()]));
+    expect(named(GLASS025_CUT)).toEqual(GLASS025_REFERENCE.map(expected));
     expect(GLASS025_CUT.reference.rows).toBe(glass025Reference().size);
+    const darkReference = GLASS025_REFERENCE.filter((g) => g.active === "d0219cd684bf");
+    expect(darkReference).toHaveLength(1);
+    expect(named(GLASS025_DARK_CUT)).toContainEqual(expected(darkReference[0]!));
+    expect(GLASS025_DARK_CUT.reference.matrices.filter((matrix) =>
+      Object.keys(matrix.documents).some((path) => glass025IsDark(path)))).toHaveLength(1);
   });
 
   it("re-derives every M1 / M2 figure from the published rows and the reference generations", () => {
@@ -7022,8 +7255,8 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
     const counted: Record<string, number> = {};
     for (const cell of cells) counted[`${cell.scheme}|${cell.pose}`] = (counted[`${cell.scheme}|${cell.pose}`] ?? 0) + 1;
     expect(counted).toEqual(CONTRIBUTING_CELLS);
-    expect(GLASS025_CUT.M1.webgpu.unmeasured).toEqual([]);
-    expect(GLASS025_CUT.M1.webgpu.noRow).toEqual([]);
+    expect(GLASS025_VIEW.M1.webgpu.unmeasured).toEqual([]);
+    expect(GLASS025_VIEW.M1.webgpu.noRow).toEqual([]);
   });
 
   it("M1 at glass 0.25: every bed's median R in [0.80, 1.20], every cell in [0.60, 1.40]", () => {
@@ -7038,12 +7271,12 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
         : (values[Math.floor(middle)] ?? Number.NaN);
       expect(median, `${bed}: median R over ${values.length} cells`).toBeGreaterThanOrEqual(CHROMA_MEDIAN_MIN);
       expect(median, `${bed}: median R over ${values.length} cells`).toBeLessThanOrEqual(CHROMA_MEDIAN_MAX);
-      expect(GLASS025_CUT.M1.webgpu.beds[bed]?.median, `${bed}: the cut's median`).toBeCloseTo(median, 12);
+      expect(GLASS025_VIEW.M1.webgpu.beds[bed]?.median, `${bed}: the cut's median`).toBeCloseTo(median, 12);
     }
     // A per-cell miss would be recorded in `MISSED_27_ROWS`, where the owner derives it; there
     // is none at 0.25, and the cut agrees.
     expect(glass025PerCellMisses().map(chromaKey)).toEqual([]);
-    expect(GLASS025_CUT.M1.webgpu.cellMisses).toEqual([]);
+    expect(GLASS025_VIEW.M1.webgpu.cellMisses).toEqual([]);
   });
 
   it("M2 at glass 0.25: the failures are exactly the ruled ones, and every miss is recorded", () => {
@@ -7066,9 +7299,10 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
         .sort(),
     );
     // Against c05 since W45 G2: four named (the 2x rest photo cells, toward Apple) beside the four
-    // ruled failures; W43's seventeen were against the pre-fit render. A change in either count is
-    // a change a ruling or a re-baseline records.
-    expect(glass025StructureNamedMisses()).toHaveLength(4);
+    // ruled failures; W43's seventeen were against the pre-fit render. Since W48 G2 the dark rows
+    // read against `d0219cd684bf` add eight named (the untinted dark photo cells, toward Apple). A
+    // change in either count is a change a ruling or a re-baseline records.
+    expect(glass025StructureNamedMisses()).toHaveLength(12);
     expect(glass025StructureRuledFailures()).toHaveLength(GLASS025_M2_RULED_FAILURES.length);
   });
 
@@ -7079,8 +7313,10 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
     // render and 62 cells moved farther from Apple at the edge (14 of them rrect-lg; Decision Log 5
     // (e) ruled them named); since W45 G2 it is c05, and 52 of the 288 read a larger mean edge
     // error than c05's, every one a 2x light cell and the checkerboard cells worst (the gate's 50
-    // and two referees; claims §5.206 §13, §5.207).
-    const E2 = GLASS025_CUT.E2.webgpu;
+    // and two referees; claims §5.206 §13, §5.207). Since W48 G2 the dark rows read against
+    // `d0219cd684bf` (W48's landing cut): 52 dark cells read a larger mean edge error than it, read
+    // and not gated as at G1's gate and exposure (claims §5.213 §6–§7, §5.214).
+    const E2 = GLASS025_VIEW.E2.webgpu;
     expect(E2.cells).toBe(288);
     expect(E2.measured).toBe(E2.cells);
     expect(E2.unmeasured).toEqual([]);
@@ -7093,9 +7329,18 @@ describe("W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims 
   it("S1 is read on its fixed population and adopted by no ruling, so nothing gates it", () => {
     // Decision Log 7 item 11 fixes R2's population (183 WebGPU cells); Decision Log 5 (c) adopts
     // S1 only by the user's ruling at the landing. Until that ruling this file records the
-    // reading's presence, and its value is the ledger's (§5.201 §6), not a bound's.
+    // reading's presence, and its value is the ledger's (§5.201 §6), not a bound's. Since W48 G2
+    // each scheme's per-profile medians are read off its own cut: the dark ones at W48's documents
+    // (0.304 / 0.300 against `d0219cd684bf`'s 0.314 / 0.311, a recorded gap, §5.213 §7).
     expect(GLASS025_CUT.S1.webgpu.population).toBe(183);
+    expect(GLASS025_DARK_CUT.S1.webgpu.population).toBe(183);
     expect(Number.isFinite(GLASS025_CUT.S1.webgpu.pooledMedianRatio)).toBe(true);
+    const medians = GLASS025_VIEW.S1.webgpu.perProfileMedian;
+    expect(Object.keys(medians).sort()).toEqual(DECLARED_27_GLASS025_PROFILES.map((p) => p.profileKey).sort());
+    for (const [profile, entry] of Object.entries(medians)) {
+      expect(entry.cells, profile).toBeGreaterThan(0);
+      expect(Number.isFinite(entry.median), profile).toBe(true);
+    }
   });
 });
 
@@ -7422,20 +7667,29 @@ describe("T1 — the texture row at glass 0.25 (W44 G2; X51; claims §5.204)", (
  * W44 G2's adoption (§5.204) repeated for the dark scheme, in its own block, on the published dark
  * generation `d0219cd684bf`. The row, its arithmetic and the bar are the light block's; the inputs
  * are the dark ones declared beside `T1_DARK_GATED_PROFILES`. W46 G1's refit closed at the finding,
- * so the reference is the current dark generation itself and no regression is authorised.
+ * so at adoption the reference was the current dark generation itself and nothing was authorised.
+ * Since W48 G2 (claims §5.214) the block reads `b2d074d2df24`, re-baselined in the five-part order:
+ * two dark band fixtures, seventeen regressions authorised against `d0219cd684bf` in
+ * `T1_DARK_AUTHORISED_REGRESSIONS` with their standing witness, P at both scales and F inactive at 2x
+ * named target misses, and `T1_DARK_REFERENCE` moved last.
  */
 describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.210)", () => {
-  /** The named misses per profile and stratum at adoption on `d0219cd684bf` (§5.210). */
+  /**
+   * The named misses per profile and stratum on the current dark generation: at adoption on
+   * `d0219cd684bf` (§5.210) 1x 12 / 4 / 40 / 12 and 2x 12 / 2 / 40 / 12; re-derived at W48 G2 on
+   * `b2d074d2df24` (§5.214).
+   */
   const NAMED_DARK: Readonly<Record<string, Readonly<Record<T1Stratum, readonly [number, number]>>>> = {
-    "apple-macos-27.0-1x-dark-standard-glass0.25": { F: [12, 15], T: [4, 4], C: [40, 46], P: [12, 12] },
-    "apple-macos-27.0-2x-dark-standard-glass0.25": { F: [12, 15], T: [2, 4], C: [40, 46], P: [12, 12] },
+    "apple-macos-27.0-1x-dark-standard-glass0.25": { F: [11, 15], T: [2, 4], C: [31, 46], P: [12, 12] },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": { F: [12, 15], T: [2, 4], C: [35, 46], P: [12, 12] },
   };
 
-  it("reads its pinned inputs: the bar, W46's referee manifest, the band fixture and the gate's cut", () => {
+  it("reads its pinned inputs: the bar, W46's referee manifest, the band fixtures and the two cuts", () => {
     expect(sha256Of(T1_BAR_FILE.path), T1_BAR_FILE.path).toBe(T1_BAR_FILE.sha256);
     expect(sha256Of(T1_DARK_REFEREES_FILE.path), T1_DARK_REFEREES_FILE.path).toBe(T1_DARK_REFEREES_FILE.sha256);
     for (const file of T1_DARK_BANDS_FILES) expect(sha256Of(file.path), file.path).toBe(file.sha256);
     expect(sha256Of(T1_DARK_REFERENCE_CUT.path), T1_DARK_REFERENCE_CUT.path).toBe(T1_DARK_REFERENCE_CUT.sha256);
+    expect(sha256Of(GLASS025_DARK_CUT_FILE.path), GLASS025_DARK_CUT_FILE.path).toBe(GLASS025_DARK_CUT_FILE.sha256);
     const manifest = readJson<{ readonly schema: string; readonly profiles: readonly string[];
       readonly scenes: readonly string[] }>(resolve(PACKAGE_ROOT, T1_DARK_REFEREES_FILE.path));
     expect(manifest.schema).toBe("w46-referees-1");
@@ -7480,18 +7734,105 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     }
   });
 
-  it("(b) regression: no dark cell moves away from Apple by more than B against d0219cd684bf, both forms", () => {
-    // The reference is the current dark generation, so every cell reads `unchanged` today; the next
-    // dark publication is what this clause can stop. Nothing is authorised against it.
+  it("(b) regression: no dark cell moves away from Apple by more than B against the dark reference, both forms", () => {
+    // The reference is named by its documents' hashes and re-baselined at each gate that adopts a
+    // material change. W46 G2 adopted the row against `d0219cd684bf`; W48 G2 published `b2d074d2df24`,
+    // listed the ruled regressions against `d0219cd684bf` in `T1_DARK_AUTHORISED_REGRESSIONS` and only
+    // then moved the reference (charter clause 10, X59). The light list names no dark cell, and the
+    // dark list no light one.
     expect(T1_AUTHORISED_REGRESSIONS.filter((e) => t1IsDark(e.profile))).toEqual([]);
+    expect(T1_DARK_AUTHORISED_REGRESSIONS.filter((e) => !t1IsDark(e.profile))).toEqual([]);
     for (const profile of T1_DARK_GATED_PROFILES) {
       const { cells } = t1Cut(profile, "webgpu");
       for (const form of ["w44", "growth"] as const) {
-        expect(t1ClauseBFailures(cells, T1_DARK_REFERENCE, T1_AUTHORISED_REGRESSIONS, form),
+        expect(t1ClauseBFailures(cells, T1_DARK_REFERENCE, T1_DARK_AUTHORISED_REGRESSIONS, form),
           `${profile}: T1 cells away from Apple beyond B against ${T1_DARK_REFERENCE.active} (${form})`).toEqual([]);
       }
     }
     expect(t1Reference(T1_DARK_REFERENCE).size, "the dark reference generation's rows").toBeGreaterThan(0);
+  });
+
+  it("(b) the dark authorised list is well formed", () => {
+    // Filled at W48 G2 (part (iv)): an entry names a dark gated profile's declared cell, a reference by
+    // its documents' hashes, a growth beyond B and a ruling; a cell is listed once.
+    expect(T1_DARK_AUTHORISED_REGRESSIONS.length).toBeGreaterThan(0);
+    for (const entry of T1_DARK_AUTHORISED_REGRESSIONS) {
+      expect(T1_DARK_GATED_PROFILES as readonly string[]).toContain(entry.profile);
+      expect(t1Population(entry.profile)).toContain(entry.scene);
+      expect(entry.reference.active).toMatch(/^[0-9a-f]{12}$/);
+      expect(entry.reference.receded).toMatch(/^[0-9a-f]{12}$/);
+      expect(entry.growthInB).toBeGreaterThan(1);
+      expect(entry.ruling.length).toBeGreaterThan(0);
+    }
+    expect(new Set(T1_DARK_AUTHORISED_REGRESSIONS.map((e) => `${e.profile} ${e.scene}`)).size)
+      .toBe(T1_DARK_AUTHORISED_REGRESSIONS.length);
+  });
+
+  it("(b) the dark witness: against its own reference, each listed cell trips at its listed growth, and no other cell does", () => {
+    // X59 as a standing case for the dark list (W48 G2; the light list's case above, on the dark
+    // profiles). Every reference the list names is read on the CURRENT union, both forms: the
+    // growth-only form must trip on exactly the listed cells of that reference, each at its listed
+    // growth to the recorded two decimals, and both forms must pass with the list. The next dark
+    // publication moves these rows, this case fails, and that landing clears the list or re-rules it.
+    const references = [...new Map(T1_DARK_AUTHORISED_REGRESSIONS.map((e) =>
+      [`${e.reference.active} ${e.reference.receded}`, e.reference] as const)).values()];
+    expect(references.length, "a filled list names its reference").toBeGreaterThan(0);
+    for (const reference of references) {
+      for (const profile of T1_DARK_GATED_PROFILES) {
+        const { cells, unmeasured } = t1Cut(profile, "webgpu", reference);
+        expect(unmeasured, `${profile} against ${reference.active}`).toEqual([]);
+        const listed = T1_DARK_AUTHORISED_REGRESSIONS.filter((e) => e.profile === profile
+          && e.reference.active === reference.active && e.reference.receded === reference.receded);
+        const tripped = cells.filter((cell) => cell.growth === "away" && cell.regression.growth > cell.regression.B);
+        expect(tripped.map((cell) => cell.scene).sort(), `${profile}: the cells that trip against ${reference.active}`)
+          .toEqual(listed.map((e) => e.scene).sort());
+        for (const entry of listed) {
+          const cell = tripped.find((c) => c.scene === entry.scene)!;
+          expect(Math.round(100 * cell.regression.growth / cell.regression.B) / 100, `${entry.scene}: g / B`)
+            .toBeCloseTo(entry.growthInB, 10);
+        }
+        for (const form of ["w44", "growth"] as const) {
+          expect(t1ClauseBFailures(cells, reference, T1_DARK_AUTHORISED_REGRESSIONS, form), `${profile} ${form}`)
+            .toEqual([]);
+        }
+      }
+    }
+  });
+
+  it("(b) the landing cut's dark rule read the same cells over all 77, and the target misses are named", () => {
+    // The dark landing cut's rule (W45's, bound to the dark profiles; W47's `cuts/rule.py`, Python),
+    // per profile over every partition, read independently of this file's port: its away-beyond-B list
+    // is the dark authorised list, cell for cell at the recorded growth; no gated aggregate fails; and
+    // the targets that do not halve are exactly the named ones (W48 Decision Logs 9 §3 and 10).
+    const cut = readJson<{ readonly T1: { readonly rule: {
+      readonly scope: string;
+      readonly profiles: Readonly<Record<string, {
+        readonly read: number;
+        readonly awayBeyondB: readonly { readonly scene: string; readonly growthInB: number }[];
+        readonly gatedAggregateFailures: readonly string[];
+        readonly targets: Readonly<Record<string, { readonly A: number; readonly referenceA: number;
+          readonly halved: boolean }>>;
+      }>>;
+    } } }>(resolve(PACKAGE_ROOT, GLASS025_DARK_CUT_FILE.path));
+    const rule = cut.T1.rule;
+    expect(rule.scope).toContain("partitions gate, referee, holdout");
+    expect(rule.scope).toContain("reference d0219cd684bf");
+    for (const profile of T1_DARK_GATED_PROFILES) {
+      const here = rule.profiles[profile];
+      expect(here?.read, profile).toBe(77);
+      expect((here?.awayBeyondB ?? []).map((c) => [c.scene, Math.round(100 * c.growthInB) / 100]).sort(), profile)
+        .toEqual(T1_DARK_AUTHORISED_REGRESSIONS.filter((e) => e.profile === profile)
+          .map((e) => [e.scene, e.growthInB]).sort());
+      expect(here?.gatedAggregateFailures, profile).toEqual([]);
+      const missed = Object.entries(here?.targets ?? {}).filter(([, t]) => !t.halved).map(([name]) => name).sort();
+      expect(missed, `${profile}: the targets not halved`).toEqual(
+        T1_DARK_NAMED_TARGET_MISSES.filter((m) => m.profile === profile).map((m) => m.target).sort());
+      for (const miss of T1_DARK_NAMED_TARGET_MISSES.filter((m) => m.profile === profile)) {
+        expect(here?.targets[miss.target]?.A, `${profile} ${miss.target}: A`).toBeCloseTo(miss.A, 4);
+        expect(here?.targets[miss.target]?.referenceA, `${profile} ${miss.target}: d0219cd684bf's A`)
+          .toBeCloseTo(miss.referenceA, 4);
+      }
+    }
   });
 
   it("agrees cell for cell with the gate's cut of d0219cd684bf (W46's Python cuts, the referee)", () => {
@@ -7501,6 +7842,7 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     // union, which clauses (a) and (b) govern), agrees with every one to 1e-12 and by state; its W46
     // rule reads the generation against itself as unchanged on every gate cell. A check of the
     // arithmetic, so it holds whatever the next dark publication draws (the review of W46 G2, P2).
+    // Since W48 G2 it names that generation itself rather than `T1_DARK_REFERENCE`, which moved on.
     const cut = JSON.parse(gunzipSync(readFileSync(resolve(PACKAGE_ROOT, T1_DARK_REFERENCE_CUT.path))).toString()) as {
       readonly T1: {
         readonly cells: readonly { readonly profile: string; readonly tier: string; readonly scene: string;
@@ -7512,10 +7854,10 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
           readonly partition: Readonly<Record<string, { readonly total: number }>> }>> };
       };
     };
-    const referenceRows = loadGeneration(T1_DARK_REFERENCE.active, T1_DARK_REFERENCE.receded) as unknown as readonly Cell[];
+    const referenceRows = loadGeneration(T1_DARK_W46_REFERENCE.active, T1_DARK_W46_REFERENCE.receded) as unknown as readonly Cell[];
     let compared = 0;
     for (const profile of T1_DARK_GATED_PROFILES) {
-      const port = new Map(t1Cut(profile, "webgpu", T1_DARK_REFERENCE, referenceRows).cells
+      const port = new Map(t1Cut(profile, "webgpu", T1_DARK_W46_REFERENCE, referenceRows).cells
         .map((cell) => [cell.scene, cell] as const));
       for (const theirs of cut.T1.cells.filter((c) => c.profile === profile && c.tier === "webgpu")) {
         const mine = port.get(theirs.scene);
@@ -7536,7 +7878,49 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     expect(compared, "cells the port and the cut both read").toBeGreaterThanOrEqual(2 * 74);
   });
 
-  it("reads a dark T cell's bands off the committed fixture, which names d0219cd684bf's captures", ctx => {
+  it("agrees cell for cell with the dark landing cut of b2d074d2df24 (W47's Python cuts, the referee)", () => {
+    // W48 G2: the landing cut read the published dark generation in every partition, against
+    // `d0219cd684bf`. This file's port, run on THAT generation's rows against the same reference,
+    // agrees with every T1 cell of the dark WebGPU tier: native, web (the cut's `candidate`) and
+    // fidelity to 1e-12 and by state, a T cell on its T1-fine band; and the error growth against
+    // `d0219cd684bf` to 1e-12, a T cell's on T1-low. A check of the arithmetic on the generation this
+    // landing published, beside W46's on its own.
+    const cut = readJson<{ readonly T1: { readonly cells: readonly {
+      readonly profile: string; readonly tier: string; readonly scene: string; readonly stratum: string;
+      readonly native: number; readonly reference: number; readonly candidate: number; readonly fidelity: string;
+      readonly bands?: Readonly<Record<"fine" | "low", { readonly native: number; readonly reference: number;
+        readonly candidate: number; readonly fidelity: string }>>;
+    }[] } }>(resolve(PACKAGE_ROOT, GLASS025_DARK_CUT_FILE.path));
+    const rows = loadGeneration("b2d074d2df24", "29da6a888a23") as unknown as readonly Cell[];
+    let compared = 0;
+    for (const profile of T1_DARK_GATED_PROFILES) {
+      const port = new Map(t1Cut(profile, "webgpu", T1_DARK_W46_REFERENCE, rows).cells
+        .map((cell) => [cell.scene, cell] as const));
+      const theirs = cut.T1.cells.filter((c) => c.profile === profile && c.tier === "webgpu");
+      expect(theirs, profile).toHaveLength(77);
+      for (const cell of theirs) {
+        const mine = port.get(cell.scene);
+        expect(mine, `${profile} ${cell.scene}: in the cut, not in the port`).toBeDefined();
+        if (mine === undefined) continue;
+        const reading = cell.stratum === "T" ? cell.bands?.fine : cell;
+        expect(reading, `${profile} ${cell.scene}: the cut carries no reading`).toBeDefined();
+        if (reading === undefined) continue;
+        expect(Math.abs(mine.native - reading.native), `${profile} ${cell.scene}: native`).toBeLessThan(1e-12);
+        expect(Math.abs(mine.web - reading.candidate), `${profile} ${cell.scene}: web`).toBeLessThan(1e-12);
+        expect(mine.fidelity.fidelity, `${profile} ${cell.scene}: fidelity`).toBe(reading.fidelity);
+        const low = cell.stratum === "T" ? cell.bands?.low : cell;
+        expect(low, `${profile} ${cell.scene}: the cut carries no regression reading`).toBeDefined();
+        if (low === undefined) continue;
+        const growth = Math.abs(low.candidate - low.native) - Math.abs(low.reference - low.native);
+        expect(Math.abs(mine.regression.growth - growth), `${profile} ${cell.scene}: growth against d0219cd684bf`)
+          .toBeLessThan(1e-12);
+        compared += 1;
+      }
+    }
+    expect(compared, "cells the port and the cut both read").toBe(2 * 77);
+  });
+
+  it("reads a dark T cell's bands off the committed fixtures, which name each generation's captures", ctx => {
     const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
     const tree = existsSync(captures);
     for (const file of T1_DARK_BANDS_FILES) {

@@ -219,12 +219,34 @@ describe("the shipped macOS 27 material and the macOS 27 profile documents", () 
  * receded document adds it and `sizeHeavySecondShare`, each as a difference over its active document
  * (W44 Decision Log 7 item 1 for the share). The dark pair names exactly its twins' leaves, as
  * before. The light pair's patches are W45's frozen candidate's; the dark pair's are still c05's.
+ *
+ * **W48 G1 re-sealed the two DARK documents** (claims §5.213; charter
+ * `2026-10-06-w48-dark-operators-fit.md`, G1 child; X64 and X67, W46's and W47's narrowings of X44).
+ * The dark pair's patches are W48 Decision Log 9's post-gate selection (part 2's amendment
+ * `50eccbe41e46`), the frozen candidate `d-dl9-g-0.5-rq0.25-rw15-rw25`, and each names, beyond its twin's leaves, exactly the keys X64 and X67 admit on its
+ * slot that the candidate states: the active its stage-1 leaves (operator 1's far deltas, the span
+ * tops, the occlusion gain) and the rest-scatter keys X64 lets it name; the receded every admitted key,
+ * materialised at the stage-1 active's values where it holds them (X67: the span tops, the gain,
+ * operator 1's leaves; operator 2's leaves at 0 and the body width at 1.25, both at their identity, so
+ * digest-neutral) and moved where its own scatter moved them (X64). The frozen candidate is the pair W48
+ * Decision Log 9 and its addendum select over the fit's rendered points (part 2's amendment `50eccbe41e46`:
+ * the gain −0.5 active over the landed receded document with its second heavy tap at 0.25, 5 / 5), which
+ * supersedes the first freeze's pair (`129316b87df6c562` / `aa1a1b198ee72850`, the procedure's landed point).
  */
 const RULED_EXTRA_LEAVES: Readonly<Record<string, readonly string[]>> = {
   "apple-macos-27.0-1x-light-standard-glass0.25": ["sizeHeavySecondShareFar2x"],
   "apple-macos-27.0-1x-light-standard-glass0.25-receded": ["sizeHeavySecondShare", "sizeHeavySecondShareFar2x"],
-  "apple-macos-27.0-1x-dark-standard-glass0.25": [],
-  "apple-macos-27.0-1x-dark-standard-glass0.25-receded": [],
+  "apple-macos-27.0-1x-dark-standard-glass0.25": [
+    "sizeOcclusionGain", "sizeScatterFloor2x", "sizeScatterRampStartThin1x", "sizeScatterRampStartThin2x",
+    "sizeScatterSpanMax", "sizeScatterSpanMax2x", "tintAlphaFar1x", "tintAlphaFar2x",
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.25-receded": [
+    "optics.regular.blurSigma", "sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x",
+    "sizeHeavySecondShare", "sizeHeavySecondShareFar2x", "sizeHeavySecondSigma", "sizeHeavySecondSigma2x",
+    "sizeHeavyTapSigma", "sizeOcclusionGain", "sizeScatterFloor", "sizeScatterFloor2x",
+    "sizeScatterRampStartFar1x", "sizeScatterScaleGain", "sizeScatterSpanMax", "sizeScatterSpanMax2x",
+    "tintAlphaFar1x", "tintAlphaFar2x",
+  ],
 };
 const FROZEN_CANDIDATE: Readonly<Record<string, string>> = {
   "apple-macos-27.0-1x-light-standard-glass0.25":
@@ -232,9 +254,9 @@ const FROZEN_CANDIDATE: Readonly<Record<string, string>> = {
   "apple-macos-27.0-1x-light-standard-glass0.25-receded":
     "packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/candidate.json",
   "apple-macos-27.0-1x-dark-standard-glass0.25":
-    "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json",
+    "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
   "apple-macos-27.0-1x-dark-standard-glass0.25-receded":
-    "packages/calibration/results/2026-10-02-w43-g3-refit/fit/candidates/c05/candidate.json",
+    "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
 };
 describe("the four sealed -glass0.25 documents (W43 G3 (ii); the light pair re-sealed by W45 G1)", () => {
   const sealed = (key: string): ProfileDocument & {

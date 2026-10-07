@@ -1,0 +1,27 @@
+{
+  "$comment": "W48 scratch candidate d-x1-ta0.7-m1160-t10.2-rb3-rta0.8-ru0.75-rv16-rfa0.5-rk10.15-rn10.4-rg0-rm1160-rt10.2: the 1x scale twin",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w48-d-x1-ta0.7-m1160-t10.2-rb3-rta0.8-ru0.75-rv16-rfa0.5-rk10.15-rn10.4-rg0-rm1160-rt10.2",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "8d3739bcf0d1b9c4a69569d77a0470e9ce657aded02e6e26c2030c387c4ba14b"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "1a3362e13b6cf2e6d1ff9e2f87672cf447c7ed40de7a16fd3c897e4c969efcd1"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "42c676263133c3c03dfa8ab7ce3e85ed46c4e520e76ad021bd87da1f932cc9ca"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "52428760842c7dfbfd3e913f6cbb228967ebb12cddbb1f77deab5e3e06816b40"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

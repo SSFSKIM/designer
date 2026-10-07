@@ -1,0 +1,27 @@
+{
+  "$comment": "W48 scratch candidate d-x1-ta0.7-o0.4-m1128-t10.45: the 1x scale twin",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w48-d-x1-ta0.7-o0.4-m1128-t10.45",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "b96656392895160ba5b1647d3702c17d2ab8b3928ba7bfd10059c3d28da5a101"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "0933c2aeb8959c0119c483ce7c630a45ec03cd3ccc65f14d7d39dd2b6fa44798"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "ca3b90bc0ff2e3dbaced6a180648853d68ae7e517a87012990d15b62c8a2deb0"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "8166556b55de329238badc8df852f64375c11d09ccddaff987ec33620b606c45"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

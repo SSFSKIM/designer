@@ -1,0 +1,65 @@
+census w48-x60-recheck-1: passes (26 annotated, refusals [])
+$ tsx cli/compare.ts -- --stage /Users/new/vitrea-w48/g1-stage-x60-light-recheck-1 --profile apple-macos-27.0-2x-light-standard-glass0.25 --renderer css --material-profile profiles/apple-macos-27.0-1x-light-standard-glass0.25.json --receded-profile profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json --set recorded,probe,calibration,validation --scene impulse__rrect-ml__rest,mid-chroma-solid__rrect-lg__rest --alpha --write-partial
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.25, 2 scene(s)) ─────────────────────────────
+(node:33727) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json sha256:ebc3d9105a4a sections=renderer+cssTierMapping
+receded profile:, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json sha256:12712d534b78
+
+mid-chroma-solid__rrect-lg__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w48/g1-stage-x60-light-recheck-1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/mid-chroma-solid__rrect-lg__rest/
+
+impulse__rrect-ml__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w48/g1-stage-x60-light-recheck-1/web-captures/apple-macos-27.0-2x-light-standard-glass0.25/impulse__rrect-ml__rest/
+
+2 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (2 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w48/g1-stage-x60-light-recheck-1/matrix.json (2 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-light-standard-glass0.25   mid-chroma-solid__rrect-lg__rest              1.000    0.03   0.922   0.0970     —   /  —       0.3594/ 0.5379    0.0081/ 0.0072    0.0128/ 0.0013
+probe       2x-light-standard-glass0.25   impulse__rrect-ml__rest                       0.999    0.10   0.961   0.0150    0.021/ 0.104    0.1864/ 0.2039    0.0145/ 0.0175    0.0472/ 0.0122
+
+2x-light-standard-glass0.25   probe       n= 2  IoU mean 0.9993 worst 0.9988   contour p95 mean 0.50 worst 1.00   SSIM mean 0.9418 worst 0.9224   dE mean 0.05601 worst 0.09700
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard-glass0.25   mid-chroma-solid__rrect-lg__rest                1.00  0.3380/ 0.1090    —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        35.1/  40.1
+2x-light-standard-glass0.25   impulse__rrect-ml__rest                         0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 1 cell(s) across 1 scene(s): impulse__rrect-ml__rest. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+coherence axis on 0 of 2 dom cell(s) — this tier against its texture twin, web against web; absent on 2 scene(s) with no webgpu capture on disk: mid-chroma-solid__rrect-lg__rest, impulse__rrect-ml__rest. Run the webgpu tier first to pair them.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+receded profile posed on the inactive scenes: /Users/new/vitrea-w48/g1/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json
+material profile applied to the web side: /Users/new/vitrea-w48/g1/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json
+web accessibility for apple-macos-27.0-2x-light-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (6) ────────────
+  mid-chroma-solid__rrect-lg__rest: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.2667, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  mid-chroma-solid__rrect-lg__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  mid-chroma-solid__rrect-lg__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 175194 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  impulse__rrect-ml__rest: declaration conformance NOT MEASURED: this tier's interior alpha over a transparent page is 0.6118, under the 0.9 an alpha coverage rule needs. A tier that composites its material below the threshold cannot be separated from its own outer shadow by any fixed alpha, so the reading is refused rather than reported. Absent, not a conformance failure.
+  impulse__rrect-ml__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-ml__rest: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+(node:33537) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

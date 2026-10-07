@@ -1,0 +1,44 @@
+W48 G2 part (iii), the owner test's TypeScript port: clause (b) on both forms and both dark profiles against
+d0219cd684bf, T1_DARK_AUTHORISED_REGRESSIONS empty and both dark band fixtures pinned. Read by a scratch copy of
+test/adopted-thresholds.test.ts whose dark (b) case printed each list and used expect.soft (the committed case
+stops at its first profile and form; witness-iii-owner.txt is that run). The copy was deleted after the run.
+
+WITNESS apple-macos-27.0-1x-dark-standard-glass0.25 w44: [
+ "checkerboard-32__rrect-lg__rest: g 0.00897 > B 0.00301 (2.98 B)",
+ "checkerboard-64__rrect-lg__rest: g 0.00464 > B 0.00299 (1.55 B)",
+ "checkerboard-lc16__rrect-md__rest: g 0.01081 > B 0.00406 (2.66 B)",
+ "hc-text-28__rrect-lg__rest: g 0.00497 > B 0.00356 (1.39 B)",
+ "photo__rrect-lg__inactive: g 0.00868 > B 0.00329 (2.64 B)",
+ "checkerboard-32__rrect-lg__inactive: g 0.00951 > B 0.00297 (3.20 B)",
+ "checkerboard-64__rrect-lg__inactive: g 0.02672 > B 0.00299 (8.94 B)"
+]
+WITNESS apple-macos-27.0-1x-dark-standard-glass0.25 growth: [
+ "impulse__capsule-button__rest: g 0.00304 > B 0.00135 (2.26 B)",
+ "checkerboard-32__rrect-lg__rest: g 0.00897 > B 0.00301 (2.98 B)",
+ "checkerboard-64__rrect-lg__rest: g 0.00464 > B 0.00299 (1.55 B)",
+ "checkerboard-lc16__rrect-md__rest: g 0.01081 > B 0.00406 (2.66 B)",
+ "hc-text-28__rrect-lg__rest: g 0.00497 > B 0.00356 (1.39 B)",
+ "photo__rrect-lg__inactive: g 0.00868 > B 0.00329 (2.64 B)",
+ "checkerboard-32__rrect-lg__inactive: g 0.00951 > B 0.00297 (3.20 B)",
+ "checkerboard-64__rrect-lg__inactive: g 0.02672 > B 0.00299 (8.94 B)"
+]
+WITNESS apple-macos-27.0-2x-dark-standard-glass0.25 w44: [
+ "checkerboard-32__rrect-lg__rest: g 0.00824 > B 0.00304 (2.71 B)",
+ "checkerboard-64__rrect-lg__rest: g 0.00514 > B 0.00300 (1.71 B)",
+ "hc-text-28__rrect-lg__rest: g 0.00482 > B 0.00359 (1.34 B)",
+ "checkerboard__capsule-button__inactive: g 0.00939 > B 0.00337 (2.79 B)",
+ "photo__rrect-lg__inactive: g 0.00955 > B 0.00329 (2.90 B)",
+ "checkerboard-32__rrect-lg__inactive: g 0.01776 > B 0.00294 (6.04 B)",
+ "checkerboard-64__rrect-lg__inactive: g 0.03735 > B 0.00298 (12.53 B)"
+]
+WITNESS apple-macos-27.0-2x-dark-standard-glass0.25 growth: [
+ "checkerboard-32__rrect-lg__rest: g 0.00824 > B 0.00304 (2.71 B)",
+ "checkerboard-64__rrect-lg__rest: g 0.00514 > B 0.00300 (1.71 B)",
+ "checkerboard-lc16__rrect-md__rest: g 0.01184 > B 0.00406 (2.91 B)",
+ "hc-text-28__rrect-lg__rest: g 0.00482 > B 0.00359 (1.34 B)",
+ "checkerboard__capsule-button__inactive-tint-orange: g 0.00826 > B 0.00429 (1.93 B)",
+ "checkerboard__capsule-button__inactive: g 0.00939 > B 0.00337 (2.79 B)",
+ "photo__rrect-lg__inactive: g 0.00955 > B 0.00329 (2.90 B)",
+ "checkerboard-32__rrect-lg__inactive: g 0.01776 > B 0.00294 (6.04 B)",
+ "checkerboard-64__rrect-lg__inactive: g 0.03735 > B 0.00298 (12.53 B)"
+]

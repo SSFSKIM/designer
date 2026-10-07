@@ -1,0 +1,34 @@
+freeze-open exit=0
+x41-open exit=0
+capture-tree exit=0
+build exit=0
+digests exit=0
+lint exit=0
+eslint-root exit=0
+units exit=0
+goldens exit=0
+gpu exit=0
+platform-web exit=0
+react-e2e exit=1
+HALT after react-e2e (exit 1): diagnose before resuming
+react-e2e re-invoked once after a red in the tracker's open press intermittent class (firefox press.spec.ts re-press 0.0438 against 0.05); the red log is chain-react-e2e.red-1.txt
+react-e2e exit=1
+HALT after react-e2e (exit 1): diagnose before resuming
+react-e2e red again (firefox morph-materialize 'returns focus to the trigger': focus never entered the open platter; the tracker's open class); probes: firefox morph-materialize + press x3 parallel 30/33 (3 red on 'the end that is absent is inert'), morph-materialize x3 at --workers=1 15/15, load average 26; re-invoked once more
+react-e2e exit=1
+HALT after react-e2e (exit 1): diagnose before resuming
+react-e2e red a third time on the same firefox focus case; probes in react-firefox-probe/ show the same reds on 0.27.0 under the same load (load average 26-76) and head green; re-invoked again
+resumed by the parent's ruling at one worker (load { 31.37 49.40 34.26 }), at 2fcebf489
+react-e2e load average before: { 31.37 49.40 34.26 }
+react-e2e load average after: { 8.79 32.97 29.94 }
+react-e2e exit=0
+demo-e2e load average before: { 8.79 32.97 29.94 }
+demo-e2e load average after: { 4.74 8.03 16.40 }
+demo-e2e exit=0
+declare-check exit=1
+declare-check-fit exit=0
+declaration-witness exit=0
+capture-tree-close exit=0
+x41-close exit=0
+freeze-close exit=0
+chain complete 2026-10-07T00:32:52Z

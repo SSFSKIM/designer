@@ -335,6 +335,11 @@ growth and three M2 failures. CSS derives the branch but retains +1/+2 active-bl
 its combined boundary projection; its receded black is exact and its existing coherence and
 conditioning contracts remain. No rim, contour, middle or chroma leaf moved in this seal.
 
+**The dark 0.25 body's transmission is graded by span** (W47 operator 1, fitted at W48, §5.213):
+`alphaBase = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr) · farS, 0, 1)` per
+pixel, before the occlusion term the W9 solve reads, and per surface on the CSS tier
+(`spanGradedTintAlpha`). Identity 0; only the dark `-glass0.25` pair names it (0.2 / 0.2).
+
 **Two of the material's operators are functions of the surface rather than constants** (W30, claims
 §5.159). The outer shadow's blur is graded by the CASTING SPAN —
 `σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))`,
@@ -657,8 +662,8 @@ Logs 9 and 10).
   without over-opening the thick one. **Deferred 2 is a span-graded dark transmission**, below 0.7
   thin and 0.9 or above at 128–160, landed inert with its own ladder as W45's tap share was. The
   user ruled "Close at the finding".
-- **Unspent.** The dark 0.25 holdout and W46's six referees per scale are unspent for any new dark
-  bytes.
+- **Unspent.** The dark 0.25 holdout and W46's six referees per scale were unspent for any new dark
+  bytes; W48 spent them at read 8 on `b2d074d2df24`'s.
 - **G2.** Adopted T1 for the two dark 0.25 profiles in their own block of the owner test, against
   `d0219cd684bf` (the current dark generation, so nothing is authorised). Its inputs: W46's referee
   manifest, a dark T-band fixture (`results/2026-10-05-w46-g2-landing/t1/`), and G1's gate cut as
@@ -693,7 +698,54 @@ nothing shipped** (charter `2026-10-06-w47-span-graded-dark-transmission.md`, De
   unfitted, `strike` needs flat rungs, and `check-fit` reads the original bars' results. Changing
   the validator after the readings was ruled out (Decision Log 10).
 - **Next: W48** fits both operators under a corrected declaration, reusing W47's ladder renders. The
-  dark 0.25 holdout and W46's referees remain unspent.
+  dark 0.25 holdout and W46's referees remained unspent until W48's read 8 (below).
+
+**W48 (§5.212–§5.214, 2026-10-06/07) fitted W47's operators on the dark `-glass0.25` bed and
+shipped the dark refit as an improvement landing with every exception named** (charter
+`2026-10-06-w48-dark-operators-fit.md`, Decision Logs 9 and 10; 0.28.0).
+- **The declaration.** G0 archived W47's ladder renders as release `w47-ladders-archive`, replayed
+  W47's readings from it to the last digit, and read the verdicts under corrected bars (the landing
+  rule's own partition, `hold` beside `strike`, no precedence kind). No ladder was re-rendered.
+- **Operator 1 is live on the dark 0.25 pair only:** active `tintAlpha` 0.9 → 0.7, `tintAlphaFar1x`
+  / `…2x` 0.2 / 0.2, `sizeScatterSpanMax` / `…2x` 256 → 160, so the thin body is clearer and the
+  thick one rejoins 0.9. The active rest scatter's `sizeScatterScaleGain` is −2 → −0.5. The receded
+  document takes W46 point A's scatter, `tintAlpha` 0.8 and the second heavy tap (share 0.25, widths
+  5 / 5 CSS px), which the CSS tier declines as on the light receded document.
+- **Operator 2 is landed inert and named, not fitted:** on top of point A's receded scatter the fine
+  term improved the declared objective at neither scale (Decision Log 9 §4).
+- **The selection.** The gate read NEITHER; no rendered point met the budget at both scales. The user
+  ruled to ship, and part 2 was amended once AFTER the gate with a tie-break by the landing budget
+  (Decision Log 9 and its addendum). That is a post-hoc selection among measured points, and the
+  record says so.
+- **The landing** (the exposure, the cross-gate ledger's read 8, 77 T1 cells per profile): C rest
+  0.39 → 0.19 (1x) and 0.51 → 0.20 (2x), halved; F inactive 0.87 → 0.38 at 1x, halved, and 0.94 →
+  0.54 at 2x, not; P 1.10 → 0.76 and 1.12 → 0.72, not halved. Both P scales and F inactive at 2x are
+  named misses (`T1_DARK_NAMED_TARGET_MISSES`).
+- **The exceptions,** in `T1_DARK_AUTHORISED_REGRESSIONS` against `d0219cd684bf` (growth in B,
+  1x / 2x): `checkerboard-64__rrect-lg__inactive` 8.94 / 12.53, `checkerboard-32__rrect-lg__inactive`
+  3.20 / 6.04 (a referee), `photo__rrect-lg__inactive` 2.64 / 2.90 (holdout; also the dark photo body
+  gap), `checkerboard-32__rrect-lg__rest` 2.98 / 2.71, `checkerboard-lc16__rrect-md__rest` 2.66 /
+  2.91, `impulse__capsule-button__rest` 2.26 (1x), `checkerboard-64__rrect-lg__rest` 1.55 / 1.71,
+  `hc-text-28__rrect-lg__rest` 1.39 / 1.34, and at 2x `checkerboard__capsule-button__inactive` 2.79
+  and its orange tint 1.93. M2's eight dark photo cells are named misses moving toward Apple; the
+  CSS holdout cells that move away are the tier's residual.
+- **Published** as `results/generations/b2d074d2df24.json` (468 rows), superseding `d0219cd684bf`
+  (retired, loadable by hash; its captures under `web-captures-superseded/d0219cd684bf/`). Digests
+  `791cde91d97acbc7` / `be472bc8e42b618d` (active / receded); the other eight are unchanged. The
+  union stays 3,017 rows. The two documents' `measurement` header still says "Decision Logs 1-7"
+  while their per-leaf `method` entries cite Decision Log 9; the files are the generation's key and
+  stay unedited (§5.213 §9).
+- **The owner test** re-baselined T1's dark row in the five-part order (X59): two dark band
+  fixtures, the witness against `d0219cd684bf`, the seventeen listed with a standing witness,
+  `MISSED_27_ROWS` re-derived (117 of 154 dark cells miss), `T1_DARK_REFERENCE` moved last. Its
+  dark 0.25 blocks read `cut-025-dark-w48-landing.json` through `GLASS025_VIEW`; the light ones keep
+  W45's cut. M2, L1 and E2 read `d0219cd684bf` by hash.
+- **Gaps** (claims §5.213–§5.214; tracker): S1 dark falls to 0.304 / 0.300 from 0.314 / 0.311;
+  the thick coarse inactive checkers draw flat where Apple and `d0219cd684bf` keep the blurred checker
+  (seen on the sheets); the span law's own cost on the thick and mid-span coarse rest cells; the
+  dark photo body; `declare.py check` reads the live documents after the freeze. **Deferred:** a
+  span-graded receded scatter for the thick coarse inactive cells, the shape W45's span-graded share
+  answered on the light scheme. The dark 0.25 holdout and W46's referees are spent for these bytes.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

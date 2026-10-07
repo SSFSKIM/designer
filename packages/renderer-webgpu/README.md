@@ -146,12 +146,29 @@ existing measured-chain-plus-residual plan. The diagnostic chose the body form: 
 least 0.7393 of the fine excess on every declared cell, pooled 0.8908; widening the deep removed
 none. Actual conditioned body weights, not position inside the ramp, explained that reading.
 
-All three leaves ship at 0 and no document is fitted yet. Share 0 requests no texture and makes
+All three leaves ship at 0: W48 read the tap on top of the receded scatter it fitted, found it
+improved the declared objective at neither scale, and named it without fitting it (claims §5.213
+§3). Share 0 requests no texture and makes
 both widths unread; width 0 also stands down at that scale, on the second tap's rule. One
 identity-table gate-group drops the share and its two gated widths together. A live share is
 receded-only by document (X66); the operator itself has no pose. The CSS tier declines this
 independent texture and share. Byte recording is declared in `e2e/gpu/w47-fine-tap.spec.ts`;
 proofs are recorded on the assembled operator tree, after review.
+
+**The span-graded dark transmission (W47 landed inert; W48 fitted, 0.28.0).** `tintAlphaFar1x` /
+`tintAlphaFar2x` grade the body's base transmission by the surface's span, per pixel on the same far
+curve, before the occlusion term the W9 tone solve reads:
+
+```
+alphaBase(px) = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr)
+                      · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span(px)), 0, 1)
+```
+
+Identity 0 on both anchors, two plain value drops in the identity table. One uniform transmission
+could not open Apple's dark 0.25 thin body without over-opening the thick one (claims §5.209); the
+dark 0.25 pair now names `tintAlpha` 0.7 with far 0.2 / 0.2 and span tops 160 / 160, so the thin
+body is clearer and the thick one rejoins 0.9 (claims §5.213). The CSS tier mirrors the law per
+surface (`spanGradedTintAlpha`).
 
 **The span-graded tap (W45, 0.27.0).** `sizeHeavySecondShareFar2x` makes the
 second tap's share a function of the surface's span. The optics pass grades it
@@ -173,14 +190,18 @@ spanning set:
 
 | leaf | identity | macOS 27 at 0.5 | macOS 27 at 0.25 |
 | --- | --- | --- | --- |
-| `sizeHeavySecondSigma` / `sizeHeavySecondSigma2x` | 0 | declined | declined / 2 CSS px, light only |
-| `sizeHeavySecondShare` (the gate) | 0 | declined | 0.5 light (0.25 receded); dark declined |
+| `sizeHeavySecondSigma` / `sizeHeavySecondSigma2x` | 0 | declined | declined / 2 CSS px light; 5 / 5 CSS px dark receded |
+| `sizeHeavySecondShare` (the gate) | 0 | declined | 0.5 light (0.25 receded); 0.25 dark receded, dark active declined |
 | `sizeHeavySecondShareFar2x` | 0 | 0 | −0.25 light (−0.125 receded); dark 0 |
-| `sizeScatterScaleGain` / `sizeScatterScaleRef` | 0 / 0 | −2 about 0.03, dark only | as at 0.5 |
+| `sizeScatterScaleGain` / `sizeScatterScaleRef` | 0 / 0 | −2 about 0.03, dark only | −0.5 dark active, 0 dark receded; light 0 |
+| `tintAlphaFar1x` / `tintAlphaFar2x` | 0 / 0 | 0 / 0 | 0.2 / 0.2 dark (both poses); light 0 |
 
 The light 0.25 pair also moves the deep composition the tap mixes into: the 2x floor
 0.6 → 1 and span top 256 → 128 (claims §5.206). Every other document resolves the
-new leaf to 0, which rule 2 drops before hashing, so no other fingerprint moved.
+new leaf to 0, which rule 2 drops before hashing, so no other fingerprint moved. The dark
+0.25 pair (0.28.0) moves its span tops 256 → 160 at both scales, its active `tintAlpha` 0.9 →
+0.7 and receded 0.89 → 0.8, and its receded scatter; its digests are `791cde91d97acbc7` (active)
+and `be472bc8e42b618d` (receded), from `b074fc6913a91c66` / `280f0fddf014e0f6` (claims §5.213).
 
 `packages/renderer-webgpu/test/w30-inert-laws.test.ts` states each identity over
 a span sweep and both scales, and `e2e/gpu/w30-heavy-second-tap.spec.ts` opens

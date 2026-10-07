@@ -11,6 +11,7 @@ import json
 import sys
 import tempfile
 import unittest
+import unittest.mock
 from contextlib import redirect_stdout
 from pathlib import Path
 
@@ -187,6 +188,70 @@ class EmptyOps(unittest.TestCase):
     def test_a_recorded_empty_ops_list_fails_on_read(self):
         a = dict(ruling="### Decision Log 3 x\n", charter=f"{W.CHARTER_PATH}@{W.CHARTER_COMMIT}", ops=[])
         self.assertTrue(any("empty ops" in f for f in D.content_failures("amendments.json", 1, a)))
+
+
+class PostGateAmendment(unittest.TestCase):
+    """W48 Decision Log 9: part 2's one amendment after the fit and the gate, adds only, that ruling only."""
+
+    def record(self, part="fit", ops=None, heading="Decision Log 9"):
+        return dict(n=1, supersedes="a", declarationSha256="b", reason="r", cause="c", pins={},
+                    ruling=f"### {heading} — x\n", charter=f"{W.CHARTER_PATH}@{W.CHARTER_COMMIT}",
+                    ops=[dict(op="add", path=["selectionRule", "x"], to=1)] if ops is None else ops,
+                    renderEvidenceAtAmendment=D.POST_GATE_EVIDENCE + "runs.jsonl")
+
+    def failures(self, part, a):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "amendments.json"
+            path.write_text(json.dumps(dict(schema=f"W48-{part}-amendments-1", amendments=[a])))
+            parts = {k: dict(v) for k, v in D.PARTS.items()}
+            parts[part]["amendments"] = path
+            orig = D.PARTS
+            D.PARTS = parts
+            try:
+                return D.amendment_failures(part, dict(sources={}))
+            finally:
+                D.PARTS = orig
+
+    def test_an_add_only_post_gate_record_under_decision_log_9_reads_clean(self):
+        got = [f for f in self.failures("fit", self.record()) if "after the fit and the gate" in f]
+        self.assertEqual(got, [])
+
+    def test_a_replacing_op_after_the_gate_is_refused_on_read(self):
+        a = self.record(ops=[dict(op="replace", path=["selectionRule", "withinAStage"], **{"from": "x"}, to="y")])
+        self.assertTrue(any("replaces a hashed value" in f for f in self.failures("fit", a)))
+
+    def test_another_ruling_after_the_gate_is_refused_on_read(self):
+        self.assertTrue(any("only Decision Log 9 admits" in f
+                            for f in self.failures("fit", self.record(heading="Decision Log 8"))))
+
+    def test_a_post_gate_record_on_part_one_is_refused_on_read(self):
+        self.assertTrue(any("is not part 2's content form" in f for f in self.failures("protocol", self.record())))
+
+    def test_amend_fit_after_a_fit_render_refuses_without_decision_log_9(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ops = Path(tmp) / "ops.json"
+            ops.write_text(json.dumps([dict(op="add", path=["selectionRule", "x"], to=1)]))
+            out = io.StringIO()
+            with redirect_stdout(out), unittest.mock.patch.object(D, "fit_evidence", lambda: ["runs.jsonl"]):
+                rc = D.amend("fit", ["--reason", "r", "--cause", "c", "--ruling", "Decision Log 8",
+                                     "--charter-commit", W.CHARTER_COMMIT, "--ops", str(ops)])
+            self.assertEqual(rc, 2)
+            self.assertIn("post-reading evidence exists", out.getvalue())
+
+    def test_amend_fit_after_a_fit_render_refuses_a_replacing_op_under_decision_log_9(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            ops = Path(tmp) / "ops.json"
+            ops.write_text(json.dumps([dict(op="replace", path=["selectionRule", "withinAStage"], **{"from": "x"},
+                                            to="y")]))
+            out = io.StringIO()
+            with redirect_stdout(out), unittest.mock.patch.object(D, "fit_evidence", lambda: ["runs.jsonl"]), \
+                    unittest.mock.patch.object(D, "amendments", lambda part: []), \
+                    unittest.mock.patch.object(D, "check_fit", lambda: (D.Check(), None)), \
+                    unittest.mock.patch.object(D, "decision_log", lambda charter, heading: "### Decision Log 9 x\n"):
+                rc = D.amend("fit", ["--reason", "r", "--cause", "c", "--ruling", "Decision Log 9",
+                                     "--charter-commit", W.CHARTER_COMMIT, "--ops", str(ops)])
+            self.assertEqual(rc, 2)
+            self.assertIn("only adds beside the hashed body", out.getvalue())
 
 
 class Draft(unittest.TestCase):

@@ -1,0 +1,44 @@
+W48 G2 part (iii): T1 clause (b) against the superseded dark reference d0219cd684bf /
+f0b36a71772a on the published dark generation b2d074d2df24 / 29da6a888a23, with BOTH dark band
+fixtures present and T1_DARK_AUTHORISED_REGRESSIONS empty (claims §5.214; X59). A T cell's
+regression reads T1-low. g / B is error growth over B = max(1 code, 2 bar).
+
+apple-macos-27.0-1x-dark-standard-glass0.25, W44 form: 7 away beyond B, 2 beyond 3 B
+  checkerboard-64__rrect-lg__inactive            gate     n 0.0733 d0219 0.0287 W48 0.0020  g 8.9363 B (away / away)
+  checkerboard-32__rrect-lg__inactive            referee  n 0.0382 d0219 0.0237 W48 0.0142  g 3.2029 B (away / away)
+  checkerboard-32__rrect-lg__rest                gate     n 0.0584 d0219 0.0292 W48 0.0203  g 2.9787 B (away / away)
+  checkerboard-lc16__rrect-md__rest              gate     n 0.0217 d0219 0.0240 W48 0.0348  g 2.6620 B (away / away)
+  photo__rrect-lg__inactive                      holdout  n 0.0464 d0219 0.0109 W48 0.0022  g 2.6379 B (away / away)
+  checkerboard-64__rrect-lg__rest                gate     n 0.0856 d0219 0.0338 W48 0.0292  g 1.5518 B (away / away)
+  hc-text-28__rrect-lg__rest                     gate     n 0.0460 d0219 0.0311 W48 0.0262  g 1.3932 B (away / away)
+apple-macos-27.0-1x-dark-standard-glass0.25, growth-only: 8 away beyond B, 2 beyond 3 B
+  checkerboard-64__rrect-lg__inactive            gate     n 0.0733 d0219 0.0287 W48 0.0020  g 8.9363 B (away / away)
+  checkerboard-32__rrect-lg__inactive            referee  n 0.0382 d0219 0.0237 W48 0.0142  g 3.2029 B (away / away)
+  checkerboard-32__rrect-lg__rest                gate     n 0.0584 d0219 0.0292 W48 0.0203  g 2.9787 B (away / away)
+  checkerboard-lc16__rrect-md__rest              gate     n 0.0217 d0219 0.0240 W48 0.0348  g 2.6620 B (away / away)
+  photo__rrect-lg__inactive                      holdout  n 0.0464 d0219 0.0109 W48 0.0022  g 2.6379 B (away / away)
+  impulse__capsule-button__rest                  gate     n 0.0198 d0219 0.0173 W48 0.0253  g 2.2611 B (overshoot / away)
+  checkerboard-64__rrect-lg__rest                gate     n 0.0856 d0219 0.0338 W48 0.0292  g 1.5518 B (away / away)
+  hc-text-28__rrect-lg__rest                     gate     n 0.0460 d0219 0.0311 W48 0.0262  g 1.3932 B (away / away)
+  partition: W44 {'away': 11, 'overshoot': 4, 'toward': 41, 'unchanged': 21}; growth-only {'away': 13, 'toward': 43, 'unchanged': 21}
+
+apple-macos-27.0-2x-dark-standard-glass0.25, W44 form: 7 away beyond B, 2 beyond 3 B
+  checkerboard-64__rrect-lg__inactive            gate     n 0.0742 d0219 0.0380 W48 0.0006  g 12.5255 B (away / away)
+  checkerboard-32__rrect-lg__inactive            referee  n 0.0412 d0219 0.0337 W48 0.0159  g 6.0355 B (away / away)
+  photo__rrect-lg__inactive                      holdout  n 0.0466 d0219 0.0119 W48 0.0023  g 2.9024 B (away / away)
+  checkerboard__capsule-button__inactive         gate     n 0.0501 d0219 0.0477 W48 0.0383  g 2.7859 B (away / away)
+  checkerboard-32__rrect-lg__rest                gate     n 0.0556 d0219 0.0343 W48 0.0260  g 2.7136 B (away / away)
+  checkerboard-64__rrect-lg__rest                gate     n 0.0846 d0219 0.0395 W48 0.0343  g 1.7129 B (away / away)
+  hc-text-28__rrect-lg__rest                     gate     n 0.0419 d0219 0.0325 W48 0.0277  g 1.3428 B (away / away)
+apple-macos-27.0-2x-dark-standard-glass0.25, growth-only: 9 away beyond B, 2 beyond 3 B
+  checkerboard-64__rrect-lg__inactive            gate     n 0.0742 d0219 0.0380 W48 0.0006  g 12.5255 B (away / away)
+  checkerboard-32__rrect-lg__inactive            referee  n 0.0412 d0219 0.0337 W48 0.0159  g 6.0355 B (away / away)
+  checkerboard-lc16__rrect-md__rest              gate     n 0.0230 d0219 0.0213 W48 0.0366  g 2.9144 B (overshoot / away)
+  photo__rrect-lg__inactive                      holdout  n 0.0466 d0219 0.0119 W48 0.0023  g 2.9024 B (away / away)
+  checkerboard__capsule-button__inactive         gate     n 0.0501 d0219 0.0477 W48 0.0383  g 2.7859 B (away / away)
+  checkerboard-32__rrect-lg__rest                gate     n 0.0556 d0219 0.0343 W48 0.0260  g 2.7136 B (away / away)
+  checkerboard__capsule-button__inactive-tint-orange gate     n 0.0650 d0219 0.0678 W48 0.0539  g 1.9266 B (overshoot / away)
+  checkerboard-64__rrect-lg__rest                gate     n 0.0846 d0219 0.0395 W48 0.0343  g 1.7129 B (away / away)
+  hc-text-28__rrect-lg__rest                     gate     n 0.0419 d0219 0.0325 W48 0.0277  g 1.3428 B (away / away)
+  partition: W44 {'away': 9, 'overshoot': 7, 'toward': 41, 'unchanged': 20}; growth-only {'away': 11, 'toward': 46, 'unchanged': 20}
+

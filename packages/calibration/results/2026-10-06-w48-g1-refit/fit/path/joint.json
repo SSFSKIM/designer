@@ -1,0 +1,75 @@
+{
+ "what": "W47 G1: the joint point of the one lineage and the interactions rule",
+ "stages": [
+  "stage1",
+  "stage2"
+ ],
+ "path": {
+  "start": "d0219",
+  "landed": {
+   "stage1": "d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-2-m1160-m2160-t10.2-t20.2",
+   "stage2": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0"
+  },
+  "components": {
+   "stage1": [
+    {
+     "family": "span-law",
+     "best": "d-s1-ta0.7-o0.05-m1160-m2160-t10.2-t20.2"
+    },
+    {
+     "family": "rest-scatter",
+     "best": "d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-2-m1160-m2160-t10.2-t20.2"
+    }
+   ],
+   "stage2": [
+    {
+     "family": "transmission-fine-term",
+     "best": "d-s2-rta0.8"
+    },
+    {
+     "family": "receded-scatter",
+     "best": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0"
+    }
+   ]
+  },
+  "joint": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+  "cellsInScope": 132,
+  "unmeasured": [],
+  "undone": {
+   "stage1": {
+    "by": [
+     "stage2"
+    ],
+    "cells": []
+   }
+  },
+  "interactions": "no stage undid an earlier one",
+  "selectionMetric": 0.3431736306423968,
+  "movedLeaves": 38,
+  "rule": "NEITHER: closes at the finding",
+  "ruleProfiles": {
+   "apple-macos-27.0-1x-dark-standard-glass0.25": "NEITHER: closes at the finding",
+   "apple-macos-27.0-2x-dark-standard-glass0.25": "NEITHER: closes at the finding"
+  },
+  "L1": {
+   "1x": {
+    "absoluteMisses": [],
+    "growthMisses": [],
+    "unmeasured": [
+     "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
+     "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
+    ]
+   },
+   "2x": {
+    "absoluteMisses": [],
+    "growthMisses": [],
+    "unmeasured": [
+     "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__capsule-button__inactive",
+     "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-md__inactive"
+    ]
+   }
+  }
+ },
+ "landed": "d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0",
+ "how": "the last stage's landed point (one starting point, Design \"The moves\")"
+}

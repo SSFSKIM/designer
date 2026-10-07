@@ -1,0 +1,71 @@
+{
+  "label": "d-s2-rb4-rta0.8-ru1-rv16-rv24",
+  "holds": true,
+  "endpoints": {
+    "active.light": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "3741b22934f17f4d",
+      "snapshotDigest": "3741b22934f17f4d",
+      "snapshot": "ebc3d9105a4a.json",
+      "patchIdentical": true,
+      "digestIdentical": true
+    },
+    "active.dark": {
+      "moved": [
+        "optics.regular.tintAlpha",
+        "sizeOcclusionGain",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin1x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "undeclared": [],
+      "digest": "129316b87df6c562",
+      "snapshotDigest": "b074fc6913a91c66",
+      "snapshot": "d0219cd684bf.json"
+    },
+    "receded.light": {
+      "moved": [],
+      "undeclared": [],
+      "digest": "c4ca0e1cd6791bde",
+      "snapshotDigest": "c4ca0e1cd6791bde",
+      "snapshot": "12712d534b78.json",
+      "patchIdentical": true,
+      "digestIdentical": true
+    },
+    "receded.dark": {
+      "moved": [
+        "optics.regular.blurSigma",
+        "optics.regular.tintAlpha",
+        "sizeFineTapShare",
+        "sizeFineTapSigma",
+        "sizeFineTapSigma2x",
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavyTapSigma",
+        "sizeOcclusionGain",
+        "sizeScatterFloor",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartFar1x",
+        "sizeScatterRampStartThick1x",
+        "sizeScatterRampStartThin1x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterScaleGain",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "undeclared": [],
+      "digest": "06e6ebd8c6d4568c",
+      "snapshotDigest": "280f0fddf014e0f6",
+      "snapshot": "f0b36a71772a.json"
+    }
+  }
+}

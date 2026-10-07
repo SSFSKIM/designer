@@ -23,9 +23,15 @@ test_a_hold_off_its_declared_values_is_refused (test_declare.Hold.test_a_hold_of
 test_a_hold_without_a_ruling_or_with_one_not_naming_the_leaf_is_refused (test_declare.Hold.test_a_hold_without_a_ruling_or_with_one_not_naming_the_leaf_is_refused) ... ok
 test_a_leaf_the_draft_does_not_mark_holdable_is_refused (test_declare.Hold.test_a_leaf_the_draft_does_not_mark_holdable_is_refused) ... ok
 test_an_operator_leaf_is_never_held (test_declare.Hold.test_an_operator_leaf_is_never_held) ... ok
+test_a_post_gate_record_on_part_one_is_refused_on_read (test_declare.PostGateAmendment.test_a_post_gate_record_on_part_one_is_refused_on_read) ... ok
+test_a_replacing_op_after_the_gate_is_refused_on_read (test_declare.PostGateAmendment.test_a_replacing_op_after_the_gate_is_refused_on_read) ... ok
+test_amend_fit_after_a_fit_render_refuses_a_replacing_op_under_decision_log_9 (test_declare.PostGateAmendment.test_amend_fit_after_a_fit_render_refuses_a_replacing_op_under_decision_log_9) ... ok
+test_amend_fit_after_a_fit_render_refuses_without_decision_log_9 (test_declare.PostGateAmendment.test_amend_fit_after_a_fit_render_refuses_without_decision_log_9) ... ok
+test_an_add_only_post_gate_record_under_decision_log_9_reads_clean (test_declare.PostGateAmendment.test_an_add_only_post_gate_record_under_decision_log_9_reads_clean) ... ok
+test_another_ruling_after_the_gate_is_refused_on_read (test_declare.PostGateAmendment.test_another_ruling_after_the_gate_is_refused_on_read) ... ok
 test_w47s_part_hashes_and_paths_refuse (test_declare.Refusals.test_w47s_part_hashes_and_paths_refuse) ... ok
 
 ----------------------------------------------------------------------
-Ran 25 tests in 0.041s
+Ran 31 tests in 0.087s
 
 OK

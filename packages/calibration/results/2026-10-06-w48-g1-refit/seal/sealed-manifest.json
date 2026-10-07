@@ -1,0 +1,121 @@
+{
+  "what": "W48 G1: candidate d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 sealed as the two dark -glass0.25 documents; the light two untouched (X60)",
+  "charter": "docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md",
+  "candidate": {
+    "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/candidate.json",
+    "sha256": "eb336f767dd80fd6c23f54c14a817ff5f69474d8e22082a31af54d16343b1fd2"
+  },
+  "profiles": "packages/calibration/profiles",
+  "digestRule": 2,
+  "documents": {
+    "apple-macos-27.0-1x-dark-standard-glass0.25.json": {
+      "fileSha256": "b465044f78826002709a5503723168b605dedcd41e6c048c3a3ad37bba87fcbb",
+      "resolvedMaterialSha256": "129316b87df6c562",
+      "previousResolvedMaterialSha256": "b074fc6913a91c66",
+      "movedFromSnapshot": [
+        "optics.regular.tintAlpha",
+        "sizeOcclusionGain",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin1x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "materialised": [
+        "sizeOcclusionGain",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin1x",
+        "sizeScatterRampStartThin2x"
+      ],
+      "addedToTwinLeafSet": [
+        "sizeOcclusionGain",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartThin1x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "supersedes": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+      "twinSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "candidateEndpointSha256": "859f89e6723cecb9f2d98b07586e453283481593d4a3228aacd8094d014fa370"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json": {
+      "fileSha256": "85ccd1bb851aa776e2c7bf1411864c0a68c6909cb75e0690b216c2f3854a17ee",
+      "resolvedMaterialSha256": "aa1a1b198ee72850",
+      "previousResolvedMaterialSha256": "280f0fddf014e0f6",
+      "movedFromSnapshot": [
+        "optics.regular.blurSigma",
+        "optics.regular.tintAlpha",
+        "sizeFineTapShare",
+        "sizeFineTapSigma",
+        "sizeFineTapSigma2x",
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavyTapSigma",
+        "sizeOcclusionGain",
+        "sizeScatterFloor",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartFar1x",
+        "sizeScatterRampStartThick1x",
+        "sizeScatterRampStartThin1x",
+        "sizeScatterRampStartThin2x",
+        "sizeScatterScaleGain",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "materialised": [
+        "optics.regular.blurSigma",
+        "sizeFineTapShare",
+        "sizeFineTapSigma",
+        "sizeFineTapSigma2x",
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavyTapSigma",
+        "sizeOcclusionGain",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartFar1x",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "addedToTwinLeafSet": [
+        "optics.regular.blurSigma",
+        "sizeFineTapShare",
+        "sizeFineTapSigma",
+        "sizeFineTapSigma2x",
+        "sizeHeavySecondShare",
+        "sizeHeavySecondShareFar2x",
+        "sizeHeavySecondSigma",
+        "sizeHeavySecondSigma2x",
+        "sizeHeavyTapSigma",
+        "sizeOcclusionGain",
+        "sizeScatterFloor",
+        "sizeScatterFloor2x",
+        "sizeScatterRampStartFar1x",
+        "sizeScatterScaleGain",
+        "sizeScatterSpanMax",
+        "sizeScatterSpanMax2x",
+        "tintAlphaFar1x",
+        "tintAlphaFar2x"
+      ],
+      "supersedes": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+      "twinSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+      "candidateEndpointSha256": "9f316210416b1c47818ad1995eff41fdae2f9bee42805ca5a5416a1c2757b739"
+    }
+  },
+  "lightUnchanged": {
+    "apple-macos-27.0-1x-light-standard-glass0.25.json": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+    "apple-macos-27.0-1x-light-standard-glass0.25-receded.json": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203"
+  }
+}

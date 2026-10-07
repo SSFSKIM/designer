@@ -1,0 +1,530 @@
+$ vitest run
+
+ RUN  v4.1.11 /Users/new/vitrea-w48/g1/packages/calibration
+
+T1 change partitions against ebc3d9105a4a (W44 / growth-only):
+  apple-macos-27.0-1x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+  apple-macos-27.0-2x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+T1 readings (not gated; W44 G2, claims §5.204):
+  apple-macos-27.0-1x-light-standard-glass0.25 css F: 0 of 15 within, median |log| 1.5069
+  apple-macos-27.0-1x-light-standard-glass0.25 css T: 0 of 4 within, median |log| 0.3973
+  apple-macos-27.0-1x-light-standard-glass0.25 css C: 14 of 69 within, median |log| 0.3522
+  apple-macos-27.0-1x-light-standard-glass0.25 css P: 2 of 28 within, median |log| 0.5377
+  apple-macos-27.0-2x-light-standard-glass0.25 css F: 2 of 15 within, median |log| 0.9216
+  apple-macos-27.0-2x-light-standard-glass0.25 css T: 1 of 4 within, median |log| 0.3314
+  apple-macos-27.0-2x-light-standard-glass0.25 css C: 11 of 69 within, median |log| 0.3953
+  apple-macos-27.0-2x-light-standard-glass0.25 css P: 4 of 28 within, median |log| 0.4196
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu F: 5 of 15 within, median |log| 0.1815
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1267
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2494
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu P: 1 of 24 within, median |log| 0.3468
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 css F: 0 of 15 within, median |log| 1.2147
+  apple-macos-27.0-1x-light-standard-glass0.5 css T: 0 of 4 within, median |log| 0.4455
+  apple-macos-27.0-1x-light-standard-glass0.5 css C: 12 of 59 within, median |log| 0.2830
+  apple-macos-27.0-1x-light-standard-glass0.5 css P: 1 of 24 within, median |log| 0.7047
+  apple-macos-27.0-1x-light-standard-glass0.5 css: 14 UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu F: 8 of 15 within, median |log| 0.1427
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu T: 0 of 4 within, median |log| 0.3259
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2525
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu P: 3 of 24 within, median |log| 0.3307
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 css C: 3 of 29 within, median |log| 0.7233
+  apple-macos-27.0-2x-light-standard-glass0.5 css P: 3 of 23 within, median |log| 0.6099
+  apple-macos-27.0-2x-light-standard-glass0.5 css: 64 UNMEASURED
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4075
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1575
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu C: 7 of 40 within, median |log| 0.3566
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 1.0533
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+  apple-macos-27.0-1x-dark-standard-glass0.5 css F: 2 of 15 within, median |log| 1.0690
+  apple-macos-27.0-1x-dark-standard-glass0.5 css T: 1 of 4 within, median |log| 0.5555
+  apple-macos-27.0-1x-dark-standard-glass0.5 css C: 7 of 40 within, median |log| 0.8928
+  apple-macos-27.0-1x-dark-standard-glass0.5 css P: 0 of 10 within, median |log| 1.2375
+  apple-macos-27.0-1x-dark-standard-glass0.5 css: 8 UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4703
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu T: 1 of 4 within, median |log| 0.1833
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu C: 5 of 40 within, median |log| 0.4340
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 0.9904
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5 css C: 3 of 10 within, median |log| 1.0015
+  apple-macos-27.0-2x-dark-standard-glass0.5 css P: 0 of 9 within, median |log| 1.1279
+  apple-macos-27.0-2x-dark-standard-glass0.5 css: 58 UNMEASURED
+T1 dark CSS readings (not gated; W46 G2, claims §5.210):
+  apple-macos-27.0-1x-dark-standard-glass0.25 css F: 3 of 15 within, median |log| 1.1481
+  apple-macos-27.0-1x-dark-standard-glass0.25 css T: 0 of 4 within, median |log| 0.7936
+  apple-macos-27.0-1x-dark-standard-glass0.25 css C: 3 of 46 within, median |log| 1.1692
+  apple-macos-27.0-1x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 1.3315
+  apple-macos-27.0-2x-dark-standard-glass0.25 css F: 2 of 15 within, median |log| 0.7649
+  apple-macos-27.0-2x-dark-standard-glass0.25 css T: 2 of 4 within, median |log| 0.4879
+  apple-macos-27.0-2x-dark-standard-glass0.25 css C: 4 of 46 within, median |log| 1.0287
+  apple-macos-27.0-2x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 1.1733
+ ❯ test/adopted-thresholds.test.ts (160 tests | 18 failed | 4 skipped) 2323ms
+     × covers four profiles of the settled bed, and names the two it leaves 17ms
+     × gates the texture-tier apple-macos-27.0-1x-dark-standard-glass0.25 cells against TEXTURE_TIER_27_GLASS025_DARK 1ms
+     × gates the dom-tier apple-macos-27.0-1x-dark-standard-glass0.25 cells against DOM_TIER_27_GLASS025_DARK 0ms
+     × gates the texture-tier apple-macos-27.0-2x-dark-standard-glass0.25 cells against TEXTURE_TIER_27_GLASS025_2X_DARK 0ms
+     × gates the dom-tier apple-macos-27.0-2x-dark-standard-glass0.25 cells against DOM_TIER_27_GLASS025_2X_DARK 0ms
+     × machine-checks the well-conditioned predicate and names every cell it excludes 2ms
+     × names every 27 row the refit missed, and nothing it did not 4ms
+     × glass 0.25: re-derives every reading of the clause from the published rows 6ms
+     × glass 0.25, 1x dark, span 96: the exterior's shape is within 0.0042 2ms
+     × glass 0.25, 1x dark, span 128: the exterior's shape is within 0.0042 2ms
+     × glass 0.25, 1x dark, span 160: the exterior's shape is within 0.0042 1ms
+     × glass 0.25, 2x dark, span 96: the exterior's shape is within 0.0042 14ms
+     × glass 0.25, 2x dark, span 128: the exterior's shape is within 0.0042 4ms
+     × glass 0.25, 2x dark, span 160: the exterior's shape is within 0.0042 5ms
+     × glass 0.25: the population, its UNMEASURED means and the reference baseline it names 373ms
+     × reads a cut regenerated at this gate from the published generation 3ms
+     × re-derives every M1 / M2 figure from the published rows and the reference generations 1ms
+     × M2 at glass 0.25: the failures are exactly the ruled ones, and every miss is recorded 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 18 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > covers four profiles of the settled bed, and names the two it leaves
+AssertionError: expected { …(14) } to deeply equal { …(16) }
+
+- Expected
++ Received
+
+@@ -3,16 +3,14 @@
+    "apple-macos-26.5-1x-light-increased-contrast": 17,
+    "apple-macos-26.5-1x-light-reduced-transparency": 16,
+    "apple-macos-26.5-1x-light-standard": 72,
+    "apple-macos-26.5-2x-dark-standard": 26,
+    "apple-macos-26.5-2x-light-standard": 72,
+-   "apple-macos-27.0-1x-dark-standard-glass0.25": 26,
+    "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 18,
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
+    "apple-macos-27.0-1x-light-standard-glass0.25": 72,
+    "apple-macos-27.0-1x-light-standard-glass0.5": 72,
+-   "apple-macos-27.0-2x-dark-standard-glass0.25": 26,
+    "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
+    "apple-macos-27.0-2x-light-standard-glass0.25": 72,
+    "apple-macos-27.0-2x-light-standard-glass0.5": 72,
+  }
+
+ ❯ test/adopted-thresholds.test.ts:3903:56
+    3901|       perProfile.set(cell.key.profileKey, (perProfile.get(cell.key.pro…
+    3902|     }
+    3903|     expect(Object.fromEntries([...perProfile].sort())).toEqual(MATRIX_…
+       |                                                        ^
+    3904|
+    3905|     // Total, in both directions: the gated profiles plus the ungated …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-dark-standard-glass0.25 cells against TEXTURE_TIER_27_GLASS025_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-dark-standard-glass0.25 cells against DOM_TIER_27_GLASS025_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-2x-dark-standard-glass0.25 cells against TEXTURE_TIER_27_GLASS025_2X_DARK
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-2x-dark-standard-glass0.25 cells against DOM_TIER_27_GLASS025_2X_DARK
+AssertionError: expected [] to have a length of 13 but got +0
+
+- Expected
++ Received
+
+- 13
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:3946:28
+    3944|         // reasons only. Derived from the names so a new such scene ca…
+    3945|         // unnoticed and shrink the gate.
+    3946|         expect(shapeCells).toHaveLength(profile.cells[tier] - noShape.…
+       |                            ^
+    3947|         expect(
+    3948|           cells
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(79) ] to deeply equal [ …(95) ]
+
+- Expected
++ Received
+
+@@ -14,34 +14,26 @@
+    "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+    "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.25",
+    "dom / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+    "dom / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.25",
+    "dom / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.25",
+-   "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "dom / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+-   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "dom / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    "dom / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+-   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+-   "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "dom / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+    "texture / calibration / checkerboard__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    "texture / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    "texture / calibration / checkerboard__rrect-md__rest / apple-macos-26.5-1x-light-increased-contrast",
+@@ -64,34 +56,26 @@
+    "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-1x-light-standard-glass0.5",
+    "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.25",
+    "texture / calibration / light-solid__rrect-md__rest / apple-macos-27.0-2x-light-standard-glass0.5",
+    "texture / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-1x-light-standard-glass0.25",
+    "texture / calibration / light-solid__rrect-ml__rest / apple-macos-27.0-2x-light-standard-glass0.25",
+-   "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "texture / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+-   "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "texture / calibration / photo__rrect-md__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+    "texture / holdout / checkerboard__rrect-lg__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-increased-contrast",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-26.5-1x-light-reduced-transparency",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+    "texture / holdout / hc-text__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+-   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+-   "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.25",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+-   "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.25",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
+  ]
+
+ ❯ test/adopted-thresholds.test.ts:4002:78
+    4000|   it("machine-checks the well-conditioned predicate and names every ce…
+    4001|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    4002|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    4003|       ...PREDICATE_EXCLUDES,
+    4004|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > names every 27 row the refit missed, and nothing it did not
+Error: texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25: no published row to read Apple from
+ ❯ test/adopted-thresholds.test.ts:3370:34
+    3368|   return glass025ChromaCells().flatMap((cell): StructureMiss[] => {
+    3369|     const row = bed.get(`${cell.profile} ${cell.scene}`);
+    3370|     if (row === undefined) throw new Error(`${chromaKey(cell)}: no pub…
+       |                                  ^
+    3371|     const native = reading(row, "material", "interiorStdDevNative");
+    3372|     const verdict = structureVerdict(cell, native);
+ ❯ glass025StructureVerdicts test/adopted-thresholds.test.ts:3368:32
+ ❯ glass025StructureNamedMisses test/adopted-thresholds.test.ts:3379:3
+ ❯ test/adopted-thresholds.test.ts:4568:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25: re-derives every reading of the clause from the published rows
+AssertionError: the 0.25 clause's cells against the published rows': expected [ …(94) ] to deeply equal [ …(50) ]
+
+- Expected
++ Received
+
+@@ -1,6 +1,28 @@
+  [
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-32__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-32__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-32__rrect-ml__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-4__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-4__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-4__rrect-ml__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-64__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-64__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-64__rrect-ml__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-8__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-8__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-8__rrect-ml__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-lc16__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-lc16__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard-lc16__rrect-ml__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 checkerboard__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 hc-text-28__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 hc-text-28__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 hc-text-7__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 hc-text-7__rrect-md__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 hc-text__rrect-lg__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 checkerboard-32__rrect-lg__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 checkerboard-32__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 checkerboard-32__rrect-ml__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 checkerboard-4__rrect-lg__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 checkerboard-4__rrect-md__rest",
+@@ -22,10 +44,32 @@
+    "apple-macos-27.0-1x-light-standard-glass0.25 hc-text-7__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 hc-text__rrect-lg__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-md__rest-tint-orange",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-ml__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-32__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-32__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-32__rrect-ml__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-4__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-4__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-4__rrect-ml__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-64__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-64__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-64__rrect-ml__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-8__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-8__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-8__rrect-ml__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-lc16__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-lc16__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard-lc16__rrect-ml__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 checkerboard__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 hc-text-28__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 hc-text-28__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 hc-text-7__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 hc-text-7__rrect-md__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 hc-text__rrect-lg__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 checkerboard-32__rrect-lg__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 checkerboard-32__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 checkerboard-32__rrect-ml__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 checkerboard-4__rrect-lg__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 checkerboard-4__rrect-md__rest",
+
+ ❯ test/adopted-thresholds.test.ts:6284:7
+    6282|       Object.keys(fromCut).map((key) => key.replace("/", " ")).sort(),
+    6283|       "the 0.25 clause's cells against the published rows'",
+    6284|     ).toEqual([...derived.keys()].sort());
+       |       ^
+    6285|     for (const [key, row] of Object.entries(fromCut)) {
+    6286|       const here = derived.get(key.replace("/", " "));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25, 1x dark, span 96: the exterior's shape is within 0.0042
+AssertionError: 1x dark span 96: the cells read: expected +0 to be 9 // Object.is equality
+
+- Expected
++ Received
+
+- 9
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:6305:72
+    6303|         const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} spa…
+    6304|         expect(recorded, `${bed} span ${span}: the landing cut's bed ×…
+    6305|         expect(readings.length, `${bed} span ${span}: the cells read`)…
+       |                                                                        ^
+    6306|         expect(readings.length, `${bed} span ${span}: nothing to gate`…
+    6307|         const statistic = upperMiddle(readings);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25, 1x dark, span 128: the exterior's shape is within 0.0042
+AssertionError: 1x dark span 128: the cells read: expected +0 to be 5 // Object.is equality
+
+- Expected
++ Received
+
+- 5
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:6305:72
+    6303|         const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} spa…
+    6304|         expect(recorded, `${bed} span ${span}: the landing cut's bed ×…
+    6305|         expect(readings.length, `${bed} span ${span}: the cells read`)…
+       |                                                                        ^
+    6306|         expect(readings.length, `${bed} span ${span}: nothing to gate`…
+    6307|         const statistic = upperMiddle(readings);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25, 1x dark, span 160: the exterior's shape is within 0.0042
+AssertionError: 1x dark span 160: the cells read: expected +0 to be 8 // Object.is equality
+
+- Expected
++ Received
+
+- 8
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:6305:72
+    6303|         const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} spa…
+    6304|         expect(recorded, `${bed} span ${span}: the landing cut's bed ×…
+    6305|         expect(readings.length, `${bed} span ${span}: the cells read`)…
+       |                                                                        ^
+    6306|         expect(readings.length, `${bed} span ${span}: nothing to gate`…
+    6307|         const statistic = upperMiddle(readings);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25, 2x dark, span 96: the exterior's shape is within 0.0042
+AssertionError: 2x dark span 96: the cells read: expected +0 to be 9 // Object.is equality
+
+- Expected
++ Received
+
+- 9
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:6305:72
+    6303|         const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} spa…
+    6304|         expect(recorded, `${bed} span ${span}: the landing cut's bed ×…
+    6305|         expect(readings.length, `${bed} span ${span}: the cells read`)…
+       |                                                                        ^
+    6306|         expect(readings.length, `${bed} span ${span}: nothing to gate`…
+    6307|         const statistic = upperMiddle(readings);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25, 2x dark, span 128: the exterior's shape is within 0.0042
+AssertionError: 2x dark span 128: the cells read: expected +0 to be 5 // Object.is equality
+
+- Expected
++ Received
+
+- 5
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:6305:72
+    6303|         const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} spa…
+    6304|         expect(recorded, `${bed} span ${span}: the landing cut's bed ×…
+    6305|         expect(readings.length, `${bed} span ${span}: the cells read`)…
+       |                                                                        ^
+    6306|         expect(readings.length, `${bed} span ${span}: nothing to gate`…
+    6307|         const statistic = upperMiddle(readings);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > glass 0.25, 2x dark, span 160: the exterior's shape is within 0.0042
+AssertionError: 2x dark span 160: the cells read: expected +0 to be 8 // Object.is equality
+
+- Expected
++ Received
+
+- 8
++ 0
+
+ ❯ test/adopted-thresholds.test.ts:6305:72
+    6303|         const recorded = GLASS025_CUT.C1.webgpu.perBedSpan[`${bed} spa…
+    6304|         expect(recorded, `${bed} span ${span}: the landing cut's bed ×…
+    6305|         expect(readings.length, `${bed} span ${span}: the cells read`)…
+       |                                                                        ^
+    6306|         expect(readings.length, `${bed} span ${span}: nothing to gate`…
+    6307|         const statistic = upperMiddle(readings);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > glass 0.25: the population, its UNMEASURED means and the reference baseline it names
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange: expected 'b465044f7882' to be 'd0219cd684bf' // Object.is equality
+
+Expected: "d0219cd684bf"
+Received: "b465044f7882"
+
+ ❯ test/adopted-thresholds.test.ts:6891:64
+    6889|       expect(documents, key(c)).toHaveLength(2);
+    6890|       for (const match of documents) {
+    6891|         expect(SHIPPED_DOCUMENT_HASHES.get(match[1]!), key(c)).toBe(ma…
+       |                                                                ^
+    6892|       }
+    6893|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims §5.201) > reads a cut regenerated at this gate from the published generation
+AssertionError: packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json: expected 'b465044f7882' to be 'd0219cd684bf' // Object.is equality
+
+Expected: "d0219cd684bf"
+Received: "b465044f7882"
+
+ ❯ test/adopted-thresholds.test.ts:6982:55
+    6980|     expect(GLASS025_CUT.withHoldout).toBe(true);
+    6981|     for (const [path, sha] of Object.entries(GLASS025_CUT.bed.document…
+    6982|       expect(SHIPPED_DOCUMENT_HASHES.get(path), path).toBe(sha);
+       |                                                       ^
+    6983|     }
+    6984|     expect(Object.keys(GLASS025_CUT.bed.documents)).toHaveLength(4);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims §5.201) > re-derives every M1 / M2 figure from the published rows and the reference generations
+AssertionError: expected [ …(26) ] to deeply equal [ …(18) ]
+
+- Expected
++ Received
+
+@@ -1,15 +1,23 @@
+  [
++   "apple-macos-27.0-1x-dark-standard-glass0.25 photo__capsule-button__inactive",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 photo__capsule-button__rest",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 photo__rrect-md__inactive",
++   "apple-macos-27.0-1x-dark-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__capsule-button__inactive",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__capsule-button__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-md__inactive",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-ml__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-sm__inactive",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__rrect-sm__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__toolbar-group__inactive",
+    "apple-macos-27.0-1x-light-standard-glass0.25 photo__toolbar-group__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 photo__capsule-button__inactive",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 photo__capsule-button__rest",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 photo__rrect-md__inactive",
++   "apple-macos-27.0-2x-dark-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 photo__capsule-button__inactive",
+    "apple-macos-27.0-2x-light-standard-glass0.25 photo__capsule-button__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 photo__rrect-md__inactive",
+    "apple-macos-27.0-2x-light-standard-glass0.25 photo__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.25 photo__rrect-ml__rest",
+
+ ❯ test/adopted-thresholds.test.ts:7003:73
+    7001|     const bed = bedFromMatrix(GLASS025_BED_PROFILES);
+    7002|     const cells = glass025ChromaCells();
+    7003|     expect(cells.map((cell) => `${cell.profile} ${cell.scene}`).sort()…
+       |                                                                         ^
+    7004|     for (const cut of cells) {
+    7005|       const row = bed.get(`${cut.profile} ${cut.scene}`)!;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/18]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W43 — the glass 0.25 rows (Decision Log 5, RULED 2026-10-02; claims §5.201) > M2 at glass 0.25: the failures are exactly the ruled ones, and every miss is recorded
+Error: texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-dark-standard-glass0.25: no published row to read Apple from
+ ❯ test/adopted-thresholds.test.ts:3370:34
+    3368|   return glass025ChromaCells().flatMap((cell): StructureMiss[] => {
+    3369|     const row = bed.get(`${cell.profile} ${cell.scene}`);
+    3370|     if (row === undefined) throw new Error(`${chromaKey(cell)}: no pub…
+       |                                  ^
+    3371|     const native = reading(row, "material", "interiorStdDevNative");
+    3372|     const verdict = structureVerdict(cell, native);
+ ❯ glass025StructureVerdicts test/adopted-thresholds.test.ts:3368:32
+ ❯ test/adopted-thresholds.test.ts:7050:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/18]⎯
+
+
+ Test Files  1 failed | 61 passed (62)
+      Tests  18 failed | 914 passed | 4 skipped (936)
+   Start at  01:41:26
+   Duration  117.37s (transform 5.50s, setup 0ms, import 16.52s, tests 460.51s, environment 3ms)
+
+/Users/new/vitrea-w48/g1/packages/calibration:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/calibration@0.0.0 test: `vitest run`
+Exit status 1
