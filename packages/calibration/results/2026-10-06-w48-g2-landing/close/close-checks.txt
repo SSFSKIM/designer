@@ -1,0 +1,134 @@
+W48 G2 close checks: the c9d chain at 67e877d34f5f984331157f1fbfd29a014f6aafbd (chain.sh; one log per step), each gated on its own exit code
+invocations: 37 (invocation 2026-10-06T23:59:56Z at 67e877d34f5f984331157f1fbfd29a014f6aafbd; invocation 2026-10-07T00:06:08Z at 67e877d34f5f984331157f1fbfd29a014f6aafbd; freeze-open skipped: already recorded; x41-open skipped: already recorded; capture-tree skipped: already recorded; build skipped: already recorded; digests skipped: already recorded; lint skipped: already recorded; eslint-root skipped: already recorded; units skipped: already recorded; goldens skipped: already recorded; gpu skipped: already recorded; platform-web skipped: already recorded; invocation 2026-10-07T00:08:36Z at 67e877d34f5f984331157f1fbfd29a014f6aafbd; freeze-open skipped: already recorded; x41-open skipped: already recorded; capture-tree skipped: already recorded; build skipped: already recorded; digests skipped: already recorded; lint skipped: already recorded; eslint-root skipped: already recorded; units skipped: already recorded; goldens skipped: already recorded; gpu skipped: already recorded; platform-web skipped: already recorded; invocation 2026-10-07T00:15:29Z at 2fcebf489d336f63612f3b4ef0d42de6702ebca7; freeze-open skipped: already recorded; x41-open skipped: already recorded; capture-tree skipped: already recorded; build skipped: already recorded; digests skipped: already recorded; lint skipped: already recorded; eslint-root skipped: already recorded; units skipped: already recorded; goldens skipped: already recorded; gpu skipped: already recorded; platform-web skipped: already recorded)
+
+freeze-open: exit 0
+    26.5 freeze intact: 1818 entries
+x41-open: exit 0
+    X41 0.5 generation intact: 911 entries
+capture-tree: exit 0
+    totals   captures 3024  match 3017  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+    VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+build: exit 0
+digests: exit 0
+    all ten digests at their expected values
+lint: exit 0
+eslint-root: exit 0
+units: exit 0
+    packages/policy test:       Tests  23 passed (23)
+    packages/motion test:       Tests  164 passed (164)
+    packages/geometry test:       Tests  170 passed (170)
+    packages/renderer-webgpu test:       Tests  673 passed (673)
+    packages/core test:       Tests  304 passed (304)
+    packages/platform-web test:       Tests  656 passed (656)
+    packages/react test:       Tests  180 passed (180)
+    packages/calibration test:       Tests  940 passed (940)
+    apps/demo test:       Tests  123 passed (123)
+goldens: exit 0
+    34 passed (12.3s)
+gpu: exit 0
+    55 passed (39.0s)
+platform-web: exit 0
+    411 passed (59.2s)
+react-e2e: exit 0
+    3 skipped
+    174 passed (2.4m)
+    react-e2e load average before: { 31.37 49.40 34.26 }
+    react-e2e load average after: { 8.79 32.97 29.94 }
+demo-e2e: exit 0
+    89 passed (11.5m)
+    demo-e2e load average before: { 8.79 32.97 29.94 }
+    demo-e2e load average after: { 4.74 8.03 16.40 }
+declare-check: exit 1
+    MISMATCH tools: seal/test_seal does not pass (FAILED (failures=1, skipped=1))
+    MISMATCH tools: stage/test_stage does not pass (FAILED (failures=2))
+    MISMATCH tools: W47's sheets/test_sheets.py under W48's bindings does not pass (FAILED (errors=1))
+    check: 20 mismatch(es)
+declare-check-fit: exit 0
+    check-fit: consistent
+declaration-witness: exit 0
+    committed on the scratch worktree's detached HEAD as 353ba9781 (no branch)
+    with those bytes: declare.py check exit 0 (check: consistent)
+    with those bytes: declare.py check-fit exit 0 (check-fit: consistent)
+    scratch worktree removed
+capture-tree-close: exit 0
+    totals   captures 3024  match 3017  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+    VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+x41-close: exit 0
+    X41 0.5 generation intact: 911 entries
+freeze-close: exit 0
+    26.5 freeze intact: 1818 entries
+
+the chain's status record, whole (every halt, re-invocation and load reading in order):
+    freeze-open exit=0
+    x41-open exit=0
+    capture-tree exit=0
+    build exit=0
+    digests exit=0
+    lint exit=0
+    eslint-root exit=0
+    units exit=0
+    goldens exit=0
+    gpu exit=0
+    platform-web exit=0
+    react-e2e exit=1
+    HALT after react-e2e (exit 1): diagnose before resuming
+    react-e2e re-invoked once after a red in the tracker's open press intermittent class (firefox press.spec.ts re-press 0.0438 against 0.05); the red log is chain-react-e2e.red-1.txt
+    react-e2e exit=1
+    HALT after react-e2e (exit 1): diagnose before resuming
+    react-e2e red again (firefox morph-materialize 'returns focus to the trigger': focus never entered the open platter; the tracker's open class); probes: firefox morph-materialize + press x3 parallel 30/33 (3 red on 'the end that is absent is inert'), morph-materialize x3 at --workers=1 15/15, load average 26; re-invoked once more
+    react-e2e exit=1
+    HALT after react-e2e (exit 1): diagnose before resuming
+    react-e2e red a third time on the same firefox focus case; probes in react-firefox-probe/ show the same reds on 0.27.0 under the same load (load average 26-76) and head green; re-invoked again
+    resumed by the parent's ruling at one worker (load { 31.37 49.40 34.26 }), at 2fcebf489
+    react-e2e load average before: { 31.37 49.40 34.26 }
+    react-e2e load average after: { 8.79 32.97 29.94 }
+    react-e2e exit=0
+    demo-e2e load average before: { 8.79 32.97 29.94 }
+    demo-e2e load average after: { 4.74 8.03 16.40 }
+    demo-e2e exit=0
+    declare-check exit=1
+    declare-check-fit exit=0
+    declaration-witness exit=0
+    capture-tree-close exit=0
+    x41-close exit=0
+    freeze-close exit=0
+    chain complete 2026-10-07T00:32:52Z
+
+git status at the summary: M summarise.py
+?? census.jsonl
+?? chain-build.txt
+?? chain-capture-tree-close.txt
+?? chain-capture-tree.txt
+?? chain-declaration-witness.txt
+?? chain-declare-check-fit.txt
+?? chain-declare-check.txt
+?? chain-demo-e2e.port.txt
+?? chain-demo-e2e.txt
+?? chain-digests.txt
+?? chain-eslint-root.txt
+?? chain-freeze-close.txt
+?? chain-freeze-open.txt
+?? chain-goldens.port.txt
+?? chain-goldens.txt
+?? chain-gpu.port.txt
+?? chain-gpu.txt
+?? chain-invocations.txt
+?? chain-lint.txt
+?? chain-platform-web.port.txt
+?? chain-platform-web.txt
+?? chain-react-e2e.port.txt
+?? chain-react-e2e.red-1.port.txt
+?? chain-react-e2e.red-1.txt
+?? chain-react-e2e.red-2.port.txt
+?? chain-react-e2e.red-2.txt
+?? chain-react-e2e.red-3.port.txt
+?? chain-react-e2e.red-3.txt
+?? chain-react-e2e.txt
+?? chain-status.txt
+?? chain-units.txt
+?? chain-x41-close.txt
+?? chain-x41-open.txt
+?? close-checks.txt
+?? declaration-witness-check-fit.txt
+?? declaration-witness-check.txt
+?? declaration-witness.txt

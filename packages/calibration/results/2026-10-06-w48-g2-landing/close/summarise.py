@@ -31,7 +31,8 @@ PICK = {
 
 def main() -> int:
     status = {}
-    for line in (HERE / "chain-status.txt").read_text().splitlines():
+    status_lines = (HERE / "chain-status.txt").read_text().splitlines()
+    for line in status_lines:
         m = re.match(r"(\S+) exit=(\d+)$", line)
         if m:
             status[m[1]] = int(m[2])
@@ -45,6 +46,10 @@ def main() -> int:
         picked = [l for l in lines if re.search(PICK.get(step, r"$^"), l)]
         out.append(f"{step}: exit {code}")
         out += [f"    {l}" for l in picked[-12:]]
+        out += [f"    {l}" for l in status_lines if l.startswith(f"{step} load average")]
+    out.append("")
+    out.append("the chain's status record, whole (every halt, re-invocation and load reading in order):")
+    out += [f"    {l}" for l in status_lines]
     out.append("")
     out.append("git status at the summary: " + (subprocess.run(["git", "status", "--short"], capture_output=True,
                                                                 text=True, cwd=HERE).stdout.strip() or "clean"))

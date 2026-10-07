@@ -1,0 +1,22 @@
+W48 G0 part 1: 15 items, 156 pinned sources
+  MISMATCH pin packages/calibration/results/generations/index.json: found '8411f67e4eac5fb57b605a3d0360ab376a461afc374d2803373e91eda74a65c0', declared '66cced87298ddb5665a5c7be712a80d8e8ce93090bb2f03da2213f7c1e2f6a51'
+  MISMATCH pin packages/calibration/test/tier-coherence.test.ts: found 'b96637c863a072839ee0d639311a531cdd12d13173ea9c04c178d9ccf9cb0d9c', declared 'dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837'
+  MISMATCH pin packages/platform-web/src/optics.ts: found 'f1286ffb8f233215a0eeb509d7fbadf170f2a29582a41b243a867052e4e1d60d', declared 'd0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4'
+  MISMATCH pin packages/renderer-webgpu/src/material.ts: found '840ed0c1fc326b135b14ac3f52b1a24dca60243303ba5991cd8947332b66edfd', declared '64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9'
+  MISMATCH pin packages/renderer-webgpu/src/wgsl/optics.ts: found 'a06721811828e17c06f7d0166366284d8469daa6d9346d353f696427328f5057', declared '7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197'
+  MISMATCH tools: seal/test_seal does not pass (FAILED (failures=1, skipped=1))
+  MISMATCH tools: stage/test_stage does not pass (FAILED (failures=2))
+  MISMATCH tools: W47's sheets/test_sheets.py under W48's bindings does not pass (FAILED (errors=1))
+  MISMATCH operators: packages/renderer-webgpu/src/material.ts is this charter's merge's bytes: found '840ed0c1fc326b135b14ac3f52b1a24dca60243303ba5991cd8947332b66edfd', declared '64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9'
+  MISMATCH operators: packages/renderer-webgpu/src/material.ts is the pinned bytes: found '840ed0c1fc326b135b14ac3f52b1a24dca60243303ba5991cd8947332b66edfd', declared '64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9'
+  MISMATCH operators: packages/renderer-webgpu/src/material.ts is the bytes W47's part 1 pinned: found '840ed0c1fc326b135b14ac3f52b1a24dca60243303ba5991cd8947332b66edfd', declared '64e392fdb89279ea383841aa4a4143f33343aecbbf63f6ac7e1d54e6ec6cfbb9'
+  MISMATCH operators: packages/renderer-webgpu/src/wgsl/optics.ts is this charter's merge's bytes: found 'a06721811828e17c06f7d0166366284d8469daa6d9346d353f696427328f5057', declared '7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197'
+  MISMATCH operators: packages/renderer-webgpu/src/wgsl/optics.ts is the pinned bytes: found 'a06721811828e17c06f7d0166366284d8469daa6d9346d353f696427328f5057', declared '7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197'
+  MISMATCH operators: packages/renderer-webgpu/src/wgsl/optics.ts is the bytes W47's part 1 pinned: found 'a06721811828e17c06f7d0166366284d8469daa6d9346d353f696427328f5057', declared '7b97bccaea5764a866f5ffc5fddca417fd0b0d19f09a800da0d9528de750e197'
+  MISMATCH operators: packages/platform-web/src/optics.ts is this charter's merge's bytes: found 'f1286ffb8f233215a0eeb509d7fbadf170f2a29582a41b243a867052e4e1d60d', declared 'd0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4'
+  MISMATCH operators: packages/platform-web/src/optics.ts is the pinned bytes: found 'f1286ffb8f233215a0eeb509d7fbadf170f2a29582a41b243a867052e4e1d60d', declared 'd0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4'
+  MISMATCH operators: packages/platform-web/src/optics.ts is the bytes W47's part 1 pinned: found 'f1286ffb8f233215a0eeb509d7fbadf170f2a29582a41b243a867052e4e1d60d', declared 'd0ef488eb6fe6881bee8aa46e97c871dcc72b223ee040a5a7bda7f66207759c4'
+  MISMATCH operators: packages/calibration/test/tier-coherence.test.ts is this charter's merge's bytes: found 'b96637c863a072839ee0d639311a531cdd12d13173ea9c04c178d9ccf9cb0d9c', declared 'dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837'
+  MISMATCH operators: packages/calibration/test/tier-coherence.test.ts is the pinned bytes: found 'b96637c863a072839ee0d639311a531cdd12d13173ea9c04c178d9ccf9cb0d9c', declared 'dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837'
+  MISMATCH operators: packages/calibration/test/tier-coherence.test.ts is the bytes W47's part 1 pinned: found 'b96637c863a072839ee0d639311a531cdd12d13173ea9c04c178d9ccf9cb0d9c', declared 'dfe5184fe4d6a7c4cf1e1915efbdac31e849904e22299ce530474c7e2fdaa837'
+check: 20 mismatch(es)
