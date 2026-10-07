@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 576,
+    "height": 456
+  },
+  "backgrounds": {
+    "checkerboard-32": {
+      "kind": "checkerboard",
+      "cell": 32,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Twice the canonical pitch \u2014 the first pitch on which the reference's thick cells read a width above 4 device px, and with checkerboard-64 the fitting ground the heavy share needs."
+    },
+    "impulse": {
+      "kind": "impulse",
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "foreground": [
+        255,
+        255,
+        255
+      ],
+      "size": 4,
+      "spacing": 64,
+      "$comment": "Spec-mandated. A grid of small bright squares on black approximates a 2-D impulse train: the material's response to it IS the blur kernel, and the spacing keeps neighbouring responses from overlapping at any plausible sigma. A literal single pixel is too little energy to measure at 1x."
+    },
+    "dark-solid": {
+      "kind": "solid",
+      "srgb": [
+        28,
+        28,
+        30
+      ],
+      "$comment": "System dark. Pairs with the dark-scheme profiles."
+    }
+  },
+  "components": {
+    "rrect-md": {
+      "kind": "rrect",
+      "size": [
+        160,
+        96
+      ],
+      "radius": 20
+    },
+    "rrect-ml": {
+      "kind": "rrect",
+      "size": [
+        224,
+        128
+      ],
+      "radius": 27,
+      "$comment-w32-g0": "Upheld and narrowed, with its own two predictions measured (W32 G0, claims 5.166; evidence packages/calibration/results/2026-09-21-w32-g0-exterior-cut/clearance.txt section 6). CONFIRMED: the cell is marginal, and the admitted-band rule says in what. The 24-48 affine band's outer edge is 48 CSS px against 35.5 of vertical clearance and 47.5 of horizontal, so it lies outside the frame in every direction while carrying 53 % of the shape statistic's weight; dropping it moves the span-128 reading from 0.00487-0.00532 to 0.00738-0.00889 on the four standard beds. FALSIFIED, in mechanism and not in verdict: the truncation guard did NOT withdraw the downward extent here. extentBelowNative is present on 42 of 42 span-128 rows of the 0.21.0 generation and extentBelowWeb on 39 of 42, the median native downward extent is 27.00 CSS px inside a 35.50 px clearance, and the shipped reach outerShadowReachPx declares is 32.89 CSS px light and 34.60 dark - both inside the clearance, by 2.61 and 0.90 px. The native blurred-edge residual here is 0.0043 against span 96's 0.0069, a tighter fit than at the span this declaration offers as the safe one. The sentence stands as written: no shadow constant is fitted on this cell alone. W32 fits spans 32, 44, 96 and 128 jointly with the 24-48 band not admitted at 128, which is one span of four in a joint objective and not what the sentence forbids. Nothing above is edited; this is recorded beside it.",
+      "$comment": "The band's calibration point. sizeThickness saturates at sizeSpanMax = 96, so every existing calibration cell sits at or below the band's top and the band cannot be identified from them (claims 5.16). Span 128 is the largest this 320x200 canvas carries with the reference's own shadow substantially intact: 36 px of vertical margin against a downward reach of 33-37 px, comparable to the margin-35 glass-over-glass cells whose fitted sigma is within 1% of the unclipped value. Expect the truncation guard to withdraw the downward extent here (clearance 35.5 px against that reach) while sigma and amplitude survive; that is the instrument working, not a defect in the cell. r/min = 0.211 matches rrect-md's 0.208 and rrect-lg's 0.2125 and stays well under Apple's 0.327 saturation point, so corners remain comparable across the sweep (S2). The shadow axis on this cell is marginal by construction and must not be used to fit a shadow constant. Declared without committed fixtures while the stability study runs (claims 5.21): the study publishes no bed, and compare refuses a planned cell with no capture rather than inventing one."
+    },
+    "rrect-lg": {
+      "kind": "rrect",
+      "size": [
+        280,
+        160
+      ],
+      "radius": 34,
+      "$comment": "The size sweep exists because Apple's material is size-parameterised: a larger surface must show deeper shadow and stronger lensing over the same backdrop (parent acceptance #2). r/side = 0.2125, safely under Apple's 0.327083 saturation point, so these corners stay comparable (S2)."
+    }
+  },
+  "scenes": [
+    {
+      "id": "checkerboard-32__rrect-lg__rest",
+      "background": "checkerboard-32",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-32__rrect-lg__inactive",
+      "background": "checkerboard-32",
+      "component": "rrect-lg",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse__rrect-ml__rest",
+      "background": "impulse",
+      "component": "rrect-ml",
+      "state": "rest"
+    },
+    {
+      "id": "impulse__rrect-ml__inactive",
+      "background": "impulse",
+      "component": "rrect-ml",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse__rrect-lg__rest",
+      "background": "impulse",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "impulse__rrect-lg__inactive",
+      "background": "impulse",
+      "component": "rrect-lg",
+      "state": "inactive"
+    },
+    {
+      "id": "dark-solid__rrect-md__rest",
+      "background": "dark-solid",
+      "component": "rrect-md",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-md__inactive",
+      "background": "dark-solid",
+      "component": "rrect-md",
+      "state": "inactive"
+    },
+    {
+      "id": "dark-solid__rrect-lg__rest",
+      "background": "dark-solid",
+      "component": "rrect-lg",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__rrect-lg__inactive",
+      "background": "dark-solid",
+      "component": "rrect-lg",
+      "state": "inactive"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "checkerboard-32__rrect-lg__rest",
+        "checkerboard-32__rrect-lg__inactive",
+        "impulse__rrect-ml__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-lg__inactive",
+        "dark-solid__rrect-md__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-lg__rest",
+        "dark-solid__rrect-lg__inactive"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "checkerboard-32__rrect-lg__rest",
+        "checkerboard-32__rrect-lg__inactive",
+        "impulse__rrect-ml__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-lg__inactive",
+        "dark-solid__rrect-md__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-lg__rest",
+        "dark-solid__rrect-lg__inactive"
+      ]
+    }
+  ],
+  "split": {
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "recorded": [
+      "checkerboard-32__rrect-lg__rest",
+      "checkerboard-32__rrect-lg__inactive",
+      "impulse__rrect-ml__rest",
+      "impulse__rrect-ml__inactive",
+      "impulse__rrect-lg__rest",
+      "impulse__rrect-lg__inactive",
+      "dark-solid__rrect-md__rest",
+      "dark-solid__rrect-md__inactive",
+      "dark-solid__rrect-lg__rest",
+      "dark-solid__rrect-lg__inactive"
+    ],
+    "probe": []
+  }
+}

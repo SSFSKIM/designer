@@ -7863,3 +7863,32 @@ The check's diagnostic also names `probes` although its serialised value is unch
 `PROFILES` uses integer keys and the recorded JSON has string keys. Normalising both through
 JSON leaves only the three changed pins (`close/declaration-probe-diagnostic.txt`). This is a
 minor reporting defect in the frozen tool, not permission to rehash its declaration.
+
+
+## Isolated Python 3.12 exposes an architecture-mismatched framework NumPy (W49b G0, 2026-10-08)
+
+The framework Python at `/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12`
+runs arm64. In the **normal user environment**, `site.ENABLE_USER_SITE` is true and the arm64
+NumPy **2.3.5** in `~/Library/Python/3.12/lib/python/site-packages` imports successfully, shadowing
+the framework's x86_64 NumPy 2.2.2. W49b reproduced the failure specifically with **`python3.12 -I`**:
+user-site loading is disabled, the framework `_multiarray_umath` is selected, and `dlopen` rejects
+its x86_64 architecture. Executing that framework interpreter as x86_64 also fails (`Bad CPU type`).
+The same hidden framework defect is relevant when `PYTHONNOUSERSITE` or another environment
+removes the working user installation; it is not a blanket inability to run `python3.12`.
+
+W49b uses the dedicated pinned arm64 venv `~/vitrea-w49/py` (Python 3.14.6, NumPy 2.5.3,
+Pillow 12.3.0, SciPy 1.18.1; requirements under
+`packages/calibration/results/2026-10-08-w49b-g0-declaration/native-bed/requirements.txt`).
+Earlier waves' tools hard-coding `python3.12` work in the normal user environment but cannot
+import NumPy under isolation until the framework installation is repaired. Standard-library-only
+Python tools are unaffected. Repair that architecture-matched install rather than replacing a
+versioned executable name with another Python version or rewriting frozen historical tools.
+
+**Verification-path audit.** `.github/workflows/ci.yml` provisions Python 3.12, installs NumPy/Pillow
+into that interpreter, checks imports, and runs `pnpm -r test`. Calibration evidence tests W34,
+W35, W37, W38, W39, W41 and the generation store invoke `python3.12`; these normal invocations
+retain the working user site locally. The initial W49b calibration run reported **956 passed / four
+skipped**. A targeted JSON-reporter rerun confirmed the four are the adopted-thresholds capture-tree
+assertions (X1 at 0.5 and 0.25, light/dark T1-band bytes), **not** Python-availability skips:
+the canonical gitignored capture tree is absent in this worktree. W34/W39/W41 numerical cases
+ran and passed. CI's separately provisioned installation is not shown broken by this local finding.

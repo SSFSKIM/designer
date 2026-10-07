@@ -1,0 +1,5 @@
+{
+  "extends": "../../../scripts/tsconfig.json",
+  "include": ["build.ts", "verify-candidate.ts", "../../../../renderer-webgpu/types"],
+  "exclude": []
+}

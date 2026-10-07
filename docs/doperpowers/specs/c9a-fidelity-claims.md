@@ -49964,3 +49964,101 @@ new digest and DL10. The old W48 measurements remain historical evidence, not re
 The parent merges this branch and checks the canonical capture tree against the landed index;
 then the normal user-controlled version/release path applies. W49b is the next charter, not
 another selection or exposure in W49a.
+
+
+## §5.216 — W49b G0: independent transmission, bandwidth and capture density (2026-10-08)
+
+**G0 identification, not a material landing.** Charter `2026-10-08-w49b-span-selective-bandwidth.md`,
+parent DL1–DL4. Current dark0.25 remains `b2d074d2df24-940384c06f73`; no document is fitted,
+resealed or published. The binding success set is ten thick entries, with the other five protected
+at zero current-error growth and retained as W49c targets. The five W49a repairs remain historical
+constraints. All twenty stay independently discoverable: fifteen enforced historical repairs and
+five authorised historical targets, not a requirement to erase the protected five in this wave.
+
+### 1. The three inert laws and their actual scope
+
+D supplies `tintAlphaSpanMax` / `…2x`, identity0. A zero anchor follows its own scale's scatter top
+BEFORE DPR interpolation; a nonzero top must be finite and above the knee. Only alpha's far curve
+moves. CSS mirrors it per surface, and the X75 reader uses that resolved top rather than assuming
+scatter's top. When the resolved tops agree the GPU executes the old expression exactly.
+
+W supplies `sizeHeavySecondSigmaFar1x` / `…2x`, identity0. Its second sample is
+`G(sigma2) + H(span) × (G(sigma2 + delta) − G(sigma2))`, then the existing signed secondary share
+mixes it into the deep sample. It is a **two-bandwidth mixture**, not a Gaussian at interpolated
+sigma. The extra texture and separable pair exist only at a live delta and share. A shared-source
+thin surface keeps the old bandwidth while a far surface samples the extra texture. CSS declines
+W with the second tap it already lacks.
+
+S supplies `backdropCaptureScale`, identity1. It scales the policy-rounded/capped import extent
+BEFORE analysis and every blur, preserving physical blur units; it adds no pass. The initial code
+multiplied the pre-cap scale, so a capped4096×2048 source did not move at0.5. High review caught it;
+a bounded fix wave moved S after the cap and proved capped, odd-aspect and rounded cases. CSS
+explicitly declines capture density because backdrop-filter exposes no such control, without an
+opacity/blur substitute. All five leaves are append-only plain Rule2 drops at their identities.
+
+Memo F attests bd.scale0.5 on EVERY measured dark0.25 shape throughspan160, both poses/scales.
+Vitrea's calibration PNG currently enters at full source density. Thus S first tests **uniform0.5**;
+0.25/0.125 are identifying controls, not attested settings at this slider position. There is no
+identified span-dependent capture law here. The charter tabulates the other eight documents:
+light0.25's uniform scale and the0.5 endpoints' lg step are separate follow-ups, not changes in W49b.
+
+### 2. Identity and operator verification
+
+All ten recorded material digests are unchanged. The identical raw recorder on pre-operator
+`fee4e8f3b` and the assembled tree yields **43 identical raster hashes**: all ten shipped endpoints
+at1x/1.5x/2x plus the thirteen golden scene rasters. The golden suite has34tests, not34image files;
+all34 pass and no golden is regenerated. All57GPU specs pass, including mixed-span shared-source
+D/W reach and identity, fractional DPR and the recorder. Resource tests prove allocation, clean-source
+invalidation and release. Workspace build, lint and units pass; the four calibration skips are the
+absent canonical-capture-tree X1/T1 pixel assertions, NOT Python-availability skips. Numerical
+historical instruments run in the normal Python3.12 user environment; W49b's isolated numerical
+reads use the pinned arm64 venv described in the tracker.
+
+Independent high review found the capture-cap defect and a cost-bench coverage defect (the standard
+bench tops out at96, so W's extra texture was built but never sampled). A bounded fix wave addressed
+both; the reviewer verified closure with31targeted tests and no remaining material finding. The
+corrected bench has a resolvedspan160, seven thin controls and a live2048² source; it records one
+rebuild per frame. Its first corrected run failed the ordering control and is retained as invalid
+for cost attribution; the repeat passes. Timings are recorded with the final G0 readings below.
+
+### 3. Two prospective parts, sealed before the first ladder
+
+Evidence root `packages/calibration/results/2026-10-08-w49b-g0-declaration/`.
+Part1 `f8cf52f6846977e32afa322b1890aa7180acd2ca1d39f1bbe2bf584d59311b2e`;
+part2 `0bbad26c0fd1bec4b196424c4a04e53faeb81e04f38c37eb358a1ce7c097a715`.
+Each has71assembled source pins; `declare.py check` validates both, with no amendment verb.
+The27prospective candidate points request54scale-runs /1,686gate cells. The builder checks X75
+and all four candidate endpoints before launch; the renderer checks classifying census, browser
+pin and requested/planned/measured equality, without killing any foreign process.
+
+Four standing constraints are withheld: checker32-lg-inactive at both scales and photo-lg-inactive
+at both scales. They remain **UNMEASURED in G0**, not repaired by analogy. The frozen G1 point would
+face them once as a non-blind prediction check (read10) unless a newly captured blind native bed is
+available. T cells use T1-low for regression and T1-fine for fidelity. Direction/overshoot labels
+never replace absolute-error growth. S wins only when it clears the same separation/protection
+clauses as W; halo resemblance alone is not separation. NEITHER means no seal/publication/re-selection.
+
+### 4. Prospective native bed, not captured
+
+The new bed declares dark0.25, both poses/scales; spans44/64/96/112/128/144/160/192/224; crossed
+encoded level/contrast, periodic inputs, signed isolated impulses and footprint controls, held-span
+area controls, reachable integer shifts, no-glass references and canonical/canvas bridges. It has
+180shape units,35no-glass inputs, five independent glass repeats and three no-glass/bridge repeats:
+**4,200stored fixture frames,100capture launches,84dumped scenes,32passes**. Blind membership includes
+spans112/144/224, new pitches12/24/48, a new structured-photo seed and crossed level/contrast cells;
+exclusive no-glass controls stay blind too. The exporter excludes blind passes and rejects a blind
+scene misfiled as calibration. Truncated/empty populations are UNMEASURED; integral displacement is
+not presumed to actuate the private capture grid.
+
+W43's timing estimator over88admitted W42runs estimates11.39hours,12.53with10%stoploss; reserve
+roughly13including setup/restore. New-canvas cadence is estimated, not measured. Dry generation,
+every derived run document/argv, shell checks and11boundary tests pass. **No native app was launched.**
+The user must lift X5 and decide/positively grant a compatible bundle. The runbook recommends
+re-granting the unchanged W39 side bundle; the presently granted original lacks required window/path
+attestations and is not rebuilt or launched. A new separately authorised side bundle is an explicit
+alternative, requiring new pins before capture. No agent message supplies that consent.
+
+### 5. G0 ladder outcome
+
+Prospective declaration complete; ladder readings and PASS-to-fit or STOP-at-finding follow here
+when the sealed batch completes. This paragraph is not a claim that any family already separates.

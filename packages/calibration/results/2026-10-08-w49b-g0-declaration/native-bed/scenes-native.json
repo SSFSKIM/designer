@@ -1,0 +1,4572 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 576,
+    "height": 456
+  },
+  "backgrounds": {
+    "checker-p4-000-255": {
+      "kind": "checkerboard",
+      "cell": 4,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p8-000-255": {
+      "kind": "checkerboard",
+      "cell": 8,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p16-000-255": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p32-000-255": {
+      "kind": "checkerboard",
+      "cell": 32,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p64-000-255": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "impulse-positive-4": {
+      "kind": "impulse",
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "foreground": [
+        255,
+        255,
+        255
+      ],
+      "size": 4,
+      "spacing": 512
+    },
+    "impulse-negative-4": {
+      "kind": "impulse",
+      "background": [
+        255,
+        255,
+        255
+      ],
+      "foreground": [
+        0,
+        0,
+        0
+      ],
+      "size": 4,
+      "spacing": 512
+    },
+    "photo-fit": {
+      "kind": "synthetic-photo",
+      "seed": 20260825
+    },
+    "grey-0": {
+      "kind": "solid",
+      "srgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "grey-128": {
+      "kind": "solid",
+      "srgb": [
+        128,
+        128,
+        128
+      ]
+    },
+    "grey-255": {
+      "kind": "solid",
+      "srgb": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p16-m64-c32": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        48,
+        48,
+        48
+      ],
+      "b": [
+        80,
+        80,
+        80
+      ]
+    },
+    "checker-p64-m64-c32": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        48,
+        48,
+        48
+      ],
+      "b": [
+        80,
+        80,
+        80
+      ]
+    },
+    "checker-p16-m64-c96": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        16,
+        16,
+        16
+      ],
+      "b": [
+        112,
+        112,
+        112
+      ]
+    },
+    "checker-p64-m64-c96": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        16,
+        16,
+        16
+      ],
+      "b": [
+        112,
+        112,
+        112
+      ]
+    },
+    "checker-p16-m128-c32": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        112,
+        112,
+        112
+      ],
+      "b": [
+        144,
+        144,
+        144
+      ]
+    },
+    "checker-p64-m128-c32": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        112,
+        112,
+        112
+      ],
+      "b": [
+        144,
+        144,
+        144
+      ]
+    },
+    "checker-p16-m128-c96": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        80,
+        80,
+        80
+      ],
+      "b": [
+        176,
+        176,
+        176
+      ]
+    },
+    "checker-p64-m128-c96": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        80,
+        80,
+        80
+      ],
+      "b": [
+        176,
+        176,
+        176
+      ]
+    },
+    "checker-p16-m192-c32": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        176,
+        176,
+        176
+      ],
+      "b": [
+        208,
+        208,
+        208
+      ]
+    },
+    "checker-p64-m192-c32": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        176,
+        176,
+        176
+      ],
+      "b": [
+        208,
+        208,
+        208
+      ]
+    },
+    "checker-p16-m192-c96": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        144,
+        144,
+        144
+      ],
+      "b": [
+        240,
+        240,
+        240
+      ]
+    },
+    "checker-p64-m192-c96": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        144,
+        144,
+        144
+      ],
+      "b": [
+        240,
+        240,
+        240
+      ]
+    },
+    "checker-p16-m128-c254": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        1,
+        1,
+        1
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p64-m128-c254": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        1,
+        1,
+        1
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "grey-64": {
+      "kind": "solid",
+      "srgb": [
+        64,
+        64,
+        64
+      ]
+    },
+    "grey-192": {
+      "kind": "solid",
+      "srgb": [
+        192,
+        192,
+        192
+      ]
+    },
+    "checker-p24-m96-c64": {
+      "kind": "checkerboard",
+      "cell": 24,
+      "a": [
+        64,
+        64,
+        64
+      ],
+      "b": [
+        128,
+        128,
+        128
+      ]
+    },
+    "checker-p24-m160-c64": {
+      "kind": "checkerboard",
+      "cell": 24,
+      "a": [
+        128,
+        128,
+        128
+      ],
+      "b": [
+        192,
+        192,
+        192
+      ]
+    },
+    "impulse-positive-1": {
+      "kind": "impulse",
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "foreground": [
+        255,
+        255,
+        255
+      ],
+      "size": 1,
+      "spacing": 512
+    },
+    "impulse-positive-2": {
+      "kind": "impulse",
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "foreground": [
+        255,
+        255,
+        255
+      ],
+      "size": 2,
+      "spacing": 512
+    },
+    "checker-p12-000-255": {
+      "kind": "checkerboard",
+      "cell": 12,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p24-000-255": {
+      "kind": "checkerboard",
+      "cell": 24,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "checker-p48-000-255": {
+      "kind": "checkerboard",
+      "cell": 48,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ]
+    },
+    "photo-blind": {
+      "kind": "synthetic-photo",
+      "seed": 20261008
+    }
+  },
+  "components": {
+    "none": {
+      "kind": "none"
+    },
+    "rrect-s44": {
+      "kind": "rrect",
+      "size": [
+        77.0,
+        44
+      ],
+      "radius": 9.35,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s64": {
+      "kind": "rrect",
+      "size": [
+        112.0,
+        64
+      ],
+      "radius": 13.6,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s96": {
+      "kind": "rrect",
+      "size": [
+        168.0,
+        96
+      ],
+      "radius": 20.4,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s112": {
+      "kind": "rrect",
+      "size": [
+        196.0,
+        112
+      ],
+      "radius": 23.8,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s128": {
+      "kind": "rrect",
+      "size": [
+        224.0,
+        128
+      ],
+      "radius": 27.2,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s144": {
+      "kind": "rrect",
+      "size": [
+        252.0,
+        144
+      ],
+      "radius": 30.599999999999998,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s160": {
+      "kind": "rrect",
+      "size": [
+        280.0,
+        160
+      ],
+      "radius": 34.0,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s192": {
+      "kind": "rrect",
+      "size": [
+        336.0,
+        192
+      ],
+      "radius": 40.8,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s224": {
+      "kind": "rrect",
+      "size": [
+        392.0,
+        224
+      ],
+      "radius": 47.6,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s128-shift-x": {
+      "kind": "rrect",
+      "size": [
+        224.0,
+        128
+      ],
+      "radius": 27.2,
+      "offset": [
+        -31,
+        28
+      ]
+    },
+    "rrect-s128-shift-y": {
+      "kind": "rrect",
+      "size": [
+        224.0,
+        128
+      ],
+      "radius": 27.2,
+      "offset": [
+        -32,
+        29
+      ]
+    },
+    "rrect-s160-shift-x": {
+      "kind": "rrect",
+      "size": [
+        280.0,
+        160
+      ],
+      "radius": 34.0,
+      "offset": [
+        -31,
+        28
+      ]
+    },
+    "rrect-s160-shift-y": {
+      "kind": "rrect",
+      "size": [
+        280.0,
+        160
+      ],
+      "radius": 34.0,
+      "offset": [
+        -32,
+        29
+      ]
+    },
+    "rrect-s192-shift-x": {
+      "kind": "rrect",
+      "size": [
+        336.0,
+        192
+      ],
+      "radius": 40.8,
+      "offset": [
+        -31,
+        28
+      ]
+    },
+    "rrect-s192-shift-y": {
+      "kind": "rrect",
+      "size": [
+        336.0,
+        192
+      ],
+      "radius": 40.8,
+      "offset": [
+        -32,
+        29
+      ]
+    },
+    "rrect-s128-wide": {
+      "kind": "rrect",
+      "size": [
+        256,
+        128
+      ],
+      "radius": 27.2,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s160-wide": {
+      "kind": "rrect",
+      "size": [
+        320,
+        160
+      ],
+      "radius": 34.0,
+      "offset": [
+        -32,
+        28
+      ]
+    },
+    "rrect-s192-wide": {
+      "kind": "rrect",
+      "size": [
+        384,
+        192
+      ],
+      "radius": 40.8,
+      "offset": [
+        -32,
+        28
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "checker-p4-000-255--rrect-s44__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s44__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s44__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s44__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s44__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s44__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s44__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s44__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s44__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s44__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s44__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s44__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s44__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s44__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s44__rest",
+      "background": "photo-fit",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s44__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s44__rest",
+      "background": "grey-0",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s44__inactive",
+      "background": "grey-0",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s44__rest",
+      "background": "grey-128",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s44__inactive",
+      "background": "grey-128",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s44__rest",
+      "background": "grey-255",
+      "component": "rrect-s44",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s44__inactive",
+      "background": "grey-255",
+      "component": "rrect-s44",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s64__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s64__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s64__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s64__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s64__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s64__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s64__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s64__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s64__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s64__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s64__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s64__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s64__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s64__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s64__rest",
+      "background": "photo-fit",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s64__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s64__rest",
+      "background": "grey-0",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s64__inactive",
+      "background": "grey-0",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s64__rest",
+      "background": "grey-128",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s64__inactive",
+      "background": "grey-128",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s64__rest",
+      "background": "grey-255",
+      "component": "rrect-s64",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s64__inactive",
+      "background": "grey-255",
+      "component": "rrect-s64",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s96__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s96__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s96__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s96__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s96__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s96__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s96__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s96__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s96__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s96__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s96__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s96__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s96__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s96__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s96__rest",
+      "background": "photo-fit",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s96__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s96__rest",
+      "background": "grey-0",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s96__inactive",
+      "background": "grey-0",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s96__rest",
+      "background": "grey-128",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s96__inactive",
+      "background": "grey-128",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s96__rest",
+      "background": "grey-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s96__inactive",
+      "background": "grey-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s112__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s112__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s112__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s112__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s112__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s112__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s112__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s112__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s112__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s112__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s112__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s112__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s112__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s112__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s112__rest",
+      "background": "photo-fit",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s112__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s112__rest",
+      "background": "grey-0",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s112__inactive",
+      "background": "grey-0",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s112__rest",
+      "background": "grey-128",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s112__inactive",
+      "background": "grey-128",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s112__rest",
+      "background": "grey-255",
+      "component": "rrect-s112",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s112__inactive",
+      "background": "grey-255",
+      "component": "rrect-s112",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s128__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s128__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s128__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s128__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s128__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s128__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s128__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s128__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s128__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s128__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s128__rest",
+      "background": "photo-fit",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s128__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s128__rest",
+      "background": "grey-0",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s128__inactive",
+      "background": "grey-0",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s128__rest",
+      "background": "grey-128",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s128__inactive",
+      "background": "grey-128",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s128__rest",
+      "background": "grey-255",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s128__inactive",
+      "background": "grey-255",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s144__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s144__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s144__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s144__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s144__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s144__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s144__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s144__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s144__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s144__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s144__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s144__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s144__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s144__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s144__rest",
+      "background": "photo-fit",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s144__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s144__rest",
+      "background": "grey-0",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s144__inactive",
+      "background": "grey-0",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s144__rest",
+      "background": "grey-128",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s144__inactive",
+      "background": "grey-128",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s144__rest",
+      "background": "grey-255",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s144__inactive",
+      "background": "grey-255",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s160__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s160__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s160__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s160__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s160__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s160__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s160__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s160__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s160__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s160__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s160__rest",
+      "background": "photo-fit",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s160__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s160__rest",
+      "background": "grey-0",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s160__inactive",
+      "background": "grey-0",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s160__rest",
+      "background": "grey-128",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s160__inactive",
+      "background": "grey-128",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s160__rest",
+      "background": "grey-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s160__inactive",
+      "background": "grey-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s192__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s192__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s192__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s192__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s192__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s192__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s192__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s192__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s192__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s192__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s192__rest",
+      "background": "photo-fit",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s192__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s192__rest",
+      "background": "grey-0",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s192__inactive",
+      "background": "grey-0",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s192__rest",
+      "background": "grey-128",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s192__inactive",
+      "background": "grey-128",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s192__rest",
+      "background": "grey-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s192__inactive",
+      "background": "grey-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s224__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s224__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s224__rest",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s224__inactive",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s224__rest",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s224__inactive",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s224__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s224__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s224__rest",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s224__inactive",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s224__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s224__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s224__rest",
+      "background": "impulse-negative-4",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-negative-4--rrect-s224__inactive",
+      "background": "impulse-negative-4",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-fit--rrect-s224__rest",
+      "background": "photo-fit",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "photo-fit--rrect-s224__inactive",
+      "background": "photo-fit",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0--rrect-s224__rest",
+      "background": "grey-0",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0--rrect-s224__inactive",
+      "background": "grey-0",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s224__rest",
+      "background": "grey-128",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s224__inactive",
+      "background": "grey-128",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255--rrect-s224__rest",
+      "background": "grey-255",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255--rrect-s224__inactive",
+      "background": "grey-255",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m64-c32--rrect-s96__rest",
+      "background": "checker-p16-m64-c32",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m64-c32--rrect-s96__inactive",
+      "background": "checker-p16-m64-c32",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m64-c32--rrect-s160__rest",
+      "background": "checker-p16-m64-c32",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m64-c32--rrect-s160__inactive",
+      "background": "checker-p16-m64-c32",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m64-c32--rrect-s96__rest",
+      "background": "checker-p64-m64-c32",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m64-c32--rrect-s96__inactive",
+      "background": "checker-p64-m64-c32",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m64-c32--rrect-s160__rest",
+      "background": "checker-p64-m64-c32",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m64-c32--rrect-s160__inactive",
+      "background": "checker-p64-m64-c32",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m64-c96--rrect-s96__rest",
+      "background": "checker-p16-m64-c96",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m64-c96--rrect-s96__inactive",
+      "background": "checker-p16-m64-c96",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m64-c96--rrect-s160__rest",
+      "background": "checker-p16-m64-c96",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m64-c96--rrect-s160__inactive",
+      "background": "checker-p16-m64-c96",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m64-c96--rrect-s96__rest",
+      "background": "checker-p64-m64-c96",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m64-c96--rrect-s96__inactive",
+      "background": "checker-p64-m64-c96",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m64-c96--rrect-s160__rest",
+      "background": "checker-p64-m64-c96",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m64-c96--rrect-s160__inactive",
+      "background": "checker-p64-m64-c96",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m128-c32--rrect-s96__rest",
+      "background": "checker-p16-m128-c32",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m128-c32--rrect-s96__inactive",
+      "background": "checker-p16-m128-c32",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m128-c32--rrect-s160__rest",
+      "background": "checker-p16-m128-c32",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m128-c32--rrect-s160__inactive",
+      "background": "checker-p16-m128-c32",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m128-c32--rrect-s96__rest",
+      "background": "checker-p64-m128-c32",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m128-c32--rrect-s96__inactive",
+      "background": "checker-p64-m128-c32",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m128-c32--rrect-s160__rest",
+      "background": "checker-p64-m128-c32",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m128-c32--rrect-s160__inactive",
+      "background": "checker-p64-m128-c32",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m128-c96--rrect-s96__rest",
+      "background": "checker-p16-m128-c96",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m128-c96--rrect-s96__inactive",
+      "background": "checker-p16-m128-c96",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m128-c96--rrect-s160__rest",
+      "background": "checker-p16-m128-c96",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m128-c96--rrect-s160__inactive",
+      "background": "checker-p16-m128-c96",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m128-c96--rrect-s96__rest",
+      "background": "checker-p64-m128-c96",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m128-c96--rrect-s96__inactive",
+      "background": "checker-p64-m128-c96",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m128-c96--rrect-s160__rest",
+      "background": "checker-p64-m128-c96",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m128-c96--rrect-s160__inactive",
+      "background": "checker-p64-m128-c96",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m192-c32--rrect-s96__rest",
+      "background": "checker-p16-m192-c32",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m192-c32--rrect-s96__inactive",
+      "background": "checker-p16-m192-c32",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m192-c32--rrect-s160__rest",
+      "background": "checker-p16-m192-c32",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m192-c32--rrect-s160__inactive",
+      "background": "checker-p16-m192-c32",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m192-c32--rrect-s96__rest",
+      "background": "checker-p64-m192-c32",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m192-c32--rrect-s96__inactive",
+      "background": "checker-p64-m192-c32",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m192-c32--rrect-s160__rest",
+      "background": "checker-p64-m192-c32",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m192-c32--rrect-s160__inactive",
+      "background": "checker-p64-m192-c32",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m192-c96--rrect-s96__rest",
+      "background": "checker-p16-m192-c96",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m192-c96--rrect-s96__inactive",
+      "background": "checker-p16-m192-c96",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m192-c96--rrect-s160__rest",
+      "background": "checker-p16-m192-c96",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m192-c96--rrect-s160__inactive",
+      "background": "checker-p16-m192-c96",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m192-c96--rrect-s96__rest",
+      "background": "checker-p64-m192-c96",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m192-c96--rrect-s96__inactive",
+      "background": "checker-p64-m192-c96",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m192-c96--rrect-s160__rest",
+      "background": "checker-p64-m192-c96",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m192-c96--rrect-s160__inactive",
+      "background": "checker-p64-m192-c96",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m128-c254--rrect-s96__rest",
+      "background": "checker-p16-m128-c254",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m128-c254--rrect-s96__inactive",
+      "background": "checker-p16-m128-c254",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p16-m128-c254--rrect-s160__rest",
+      "background": "checker-p16-m128-c254",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p16-m128-c254--rrect-s160__inactive",
+      "background": "checker-p16-m128-c254",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m128-c254--rrect-s96__rest",
+      "background": "checker-p64-m128-c254",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m128-c254--rrect-s96__inactive",
+      "background": "checker-p64-m128-c254",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p64-m128-c254--rrect-s160__rest",
+      "background": "checker-p64-m128-c254",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p64-m128-c254--rrect-s160__inactive",
+      "background": "checker-p64-m128-c254",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-64--rrect-s96__rest",
+      "background": "grey-64",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "grey-64--rrect-s96__inactive",
+      "background": "grey-64",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-64--rrect-s160__rest",
+      "background": "grey-64",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-64--rrect-s160__inactive",
+      "background": "grey-64",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-192--rrect-s96__rest",
+      "background": "grey-192",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "grey-192--rrect-s96__inactive",
+      "background": "grey-192",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-192--rrect-s160__rest",
+      "background": "grey-192",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-192--rrect-s160__inactive",
+      "background": "grey-192",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-m96-c64--rrect-s144__rest",
+      "background": "checker-p24-m96-c64",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-m96-c64--rrect-s144__inactive",
+      "background": "checker-p24-m96-c64",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-m96-c64--rrect-s224__rest",
+      "background": "checker-p24-m96-c64",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-m96-c64--rrect-s224__inactive",
+      "background": "checker-p24-m96-c64",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-m160-c64--rrect-s144__rest",
+      "background": "checker-p24-m160-c64",
+      "component": "rrect-s144",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-m160-c64--rrect-s144__inactive",
+      "background": "checker-p24-m160-c64",
+      "component": "rrect-s144",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-m160-c64--rrect-s224__rest",
+      "background": "checker-p24-m160-c64",
+      "component": "rrect-s224",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-m160-c64--rrect-s224__inactive",
+      "background": "checker-p24-m160-c64",
+      "component": "rrect-s224",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-shift-x__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-shift-x__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128-shift-x__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128-shift-x__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s128-shift-x__rest",
+      "background": "grey-128",
+      "component": "rrect-s128-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s128-shift-x__inactive",
+      "background": "grey-128",
+      "component": "rrect-s128-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-shift-y__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-shift-y__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128-shift-y__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128-shift-y__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s128-shift-y__rest",
+      "background": "grey-128",
+      "component": "rrect-s128-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s128-shift-y__inactive",
+      "background": "grey-128",
+      "component": "rrect-s128-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-shift-x__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-shift-x__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160-shift-x__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160-shift-x__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s160-shift-x__rest",
+      "background": "grey-128",
+      "component": "rrect-s160-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s160-shift-x__inactive",
+      "background": "grey-128",
+      "component": "rrect-s160-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-shift-y__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-shift-y__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160-shift-y__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160-shift-y__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s160-shift-y__rest",
+      "background": "grey-128",
+      "component": "rrect-s160-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s160-shift-y__inactive",
+      "background": "grey-128",
+      "component": "rrect-s160-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-shift-x__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-shift-x__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192-shift-x__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192-shift-x__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s192-shift-x__rest",
+      "background": "grey-128",
+      "component": "rrect-s192-shift-x",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s192-shift-x__inactive",
+      "background": "grey-128",
+      "component": "rrect-s192-shift-x",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-shift-y__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-shift-y__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192-shift-y__rest",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192-shift-y__inactive",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s192-shift-y__rest",
+      "background": "grey-128",
+      "component": "rrect-s192-shift-y",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s192-shift-y__inactive",
+      "background": "grey-128",
+      "component": "rrect-s192-shift-y",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-1--rrect-s128__rest",
+      "background": "impulse-positive-1",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-1--rrect-s128__inactive",
+      "background": "impulse-positive-1",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-1--rrect-s160__rest",
+      "background": "impulse-positive-1",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-1--rrect-s160__inactive",
+      "background": "impulse-positive-1",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-1--rrect-s192__rest",
+      "background": "impulse-positive-1",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-1--rrect-s192__inactive",
+      "background": "impulse-positive-1",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-2--rrect-s128__rest",
+      "background": "impulse-positive-2",
+      "component": "rrect-s128",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-2--rrect-s128__inactive",
+      "background": "impulse-positive-2",
+      "component": "rrect-s128",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-2--rrect-s160__rest",
+      "background": "impulse-positive-2",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-2--rrect-s160__inactive",
+      "background": "impulse-positive-2",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-2--rrect-s192__rest",
+      "background": "impulse-positive-2",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-2--rrect-s192__inactive",
+      "background": "impulse-positive-2",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-wide__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-wide",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-wide__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s128-wide__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s128-wide",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s128-wide__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s128-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s128-wide__rest",
+      "background": "grey-128",
+      "component": "rrect-s128-wide",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s128-wide__inactive",
+      "background": "grey-128",
+      "component": "rrect-s128-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-wide__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-wide",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-wide__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s160-wide__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s160-wide",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s160-wide__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s160-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s160-wide__rest",
+      "background": "grey-128",
+      "component": "rrect-s160-wide",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s160-wide__inactive",
+      "background": "grey-128",
+      "component": "rrect-s160-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-wide__rest",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-wide",
+      "state": "rest"
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-wide__inactive",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s192-wide__rest",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s192-wide",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s192-wide__inactive",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s192-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128--rrect-s192-wide__rest",
+      "background": "grey-128",
+      "component": "rrect-s192-wide",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128--rrect-s192-wide__inactive",
+      "background": "grey-128",
+      "component": "rrect-s192-wide",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s96__rest",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s96__inactive",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s160__rest",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s160__inactive",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s192__rest",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s192__inactive",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s96__rest",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s96__inactive",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s160__rest",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s160__inactive",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s192__rest",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s192__inactive",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s96__rest",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s96__inactive",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s160__rest",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s160__inactive",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s192__rest",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s192__inactive",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-blind--rrect-s96__rest",
+      "background": "photo-blind",
+      "component": "rrect-s96",
+      "state": "rest"
+    },
+    {
+      "id": "photo-blind--rrect-s96__inactive",
+      "background": "photo-blind",
+      "component": "rrect-s96",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-blind--rrect-s160__rest",
+      "background": "photo-blind",
+      "component": "rrect-s160",
+      "state": "rest"
+    },
+    {
+      "id": "photo-blind--rrect-s160__inactive",
+      "background": "photo-blind",
+      "component": "rrect-s160",
+      "state": "inactive"
+    },
+    {
+      "id": "photo-blind--rrect-s192__rest",
+      "background": "photo-blind",
+      "component": "rrect-s192",
+      "state": "rest"
+    },
+    {
+      "id": "photo-blind--rrect-s192__inactive",
+      "background": "photo-blind",
+      "component": "rrect-s192",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p4-000-255__rest",
+      "background": "checker-p4-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p4-000-255__inactive",
+      "background": "checker-p4-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p8-000-255__rest",
+      "background": "checker-p8-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p8-000-255__inactive",
+      "background": "checker-p8-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-000-255__rest",
+      "background": "checker-p16-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-000-255__inactive",
+      "background": "checker-p16-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p32-000-255__rest",
+      "background": "checker-p32-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p32-000-255__inactive",
+      "background": "checker-p32-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-000-255__rest",
+      "background": "checker-p64-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-000-255__inactive",
+      "background": "checker-p64-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-impulse-positive-4__rest",
+      "background": "impulse-positive-4",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-impulse-positive-4__inactive",
+      "background": "impulse-positive-4",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-impulse-negative-4__rest",
+      "background": "impulse-negative-4",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-impulse-negative-4__inactive",
+      "background": "impulse-negative-4",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-photo-fit__rest",
+      "background": "photo-fit",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-photo-fit__inactive",
+      "background": "photo-fit",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-0__rest",
+      "background": "grey-0",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-0__inactive",
+      "background": "grey-0",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-128__rest",
+      "background": "grey-128",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-128__inactive",
+      "background": "grey-128",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-255__rest",
+      "background": "grey-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-255__inactive",
+      "background": "grey-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m64-c32__rest",
+      "background": "checker-p16-m64-c32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m64-c32__inactive",
+      "background": "checker-p16-m64-c32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m64-c32__rest",
+      "background": "checker-p64-m64-c32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m64-c32__inactive",
+      "background": "checker-p64-m64-c32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m64-c96__rest",
+      "background": "checker-p16-m64-c96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m64-c96__inactive",
+      "background": "checker-p16-m64-c96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m64-c96__rest",
+      "background": "checker-p64-m64-c96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m64-c96__inactive",
+      "background": "checker-p64-m64-c96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m128-c32__rest",
+      "background": "checker-p16-m128-c32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m128-c32__inactive",
+      "background": "checker-p16-m128-c32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m128-c32__rest",
+      "background": "checker-p64-m128-c32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m128-c32__inactive",
+      "background": "checker-p64-m128-c32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m128-c96__rest",
+      "background": "checker-p16-m128-c96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m128-c96__inactive",
+      "background": "checker-p16-m128-c96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m128-c96__rest",
+      "background": "checker-p64-m128-c96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m128-c96__inactive",
+      "background": "checker-p64-m128-c96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m192-c32__rest",
+      "background": "checker-p16-m192-c32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m192-c32__inactive",
+      "background": "checker-p16-m192-c32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m192-c32__rest",
+      "background": "checker-p64-m192-c32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m192-c32__inactive",
+      "background": "checker-p64-m192-c32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m192-c96__rest",
+      "background": "checker-p16-m192-c96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m192-c96__inactive",
+      "background": "checker-p16-m192-c96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m192-c96__rest",
+      "background": "checker-p64-m192-c96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m192-c96__inactive",
+      "background": "checker-p64-m192-c96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p16-m128-c254__rest",
+      "background": "checker-p16-m128-c254",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p16-m128-c254__inactive",
+      "background": "checker-p16-m128-c254",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p64-m128-c254__rest",
+      "background": "checker-p64-m128-c254",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p64-m128-c254__inactive",
+      "background": "checker-p64-m128-c254",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-64__rest",
+      "background": "grey-64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-64__inactive",
+      "background": "grey-64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-192__rest",
+      "background": "grey-192",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-192__inactive",
+      "background": "grey-192",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p24-m96-c64__rest",
+      "background": "checker-p24-m96-c64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p24-m96-c64__inactive",
+      "background": "checker-p24-m96-c64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p24-m160-c64__rest",
+      "background": "checker-p24-m160-c64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p24-m160-c64__inactive",
+      "background": "checker-p24-m160-c64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-impulse-positive-1__rest",
+      "background": "impulse-positive-1",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-impulse-positive-1__inactive",
+      "background": "impulse-positive-1",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-impulse-positive-2__rest",
+      "background": "impulse-positive-2",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-impulse-positive-2__inactive",
+      "background": "impulse-positive-2",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p12-000-255__rest",
+      "background": "checker-p12-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p12-000-255__inactive",
+      "background": "checker-p12-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p24-000-255__rest",
+      "background": "checker-p24-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p24-000-255__inactive",
+      "background": "checker-p24-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-p48-000-255__rest",
+      "background": "checker-p48-000-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-p48-000-255__inactive",
+      "background": "checker-p48-000-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-photo-blind__rest",
+      "background": "photo-blind",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-photo-blind__inactive",
+      "background": "photo-blind",
+      "component": "none",
+      "state": "inactive"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "checker-p4-000-255--rrect-s44__rest",
+        "checker-p4-000-255--rrect-s44__inactive",
+        "checker-p8-000-255--rrect-s44__rest",
+        "checker-p8-000-255--rrect-s44__inactive",
+        "checker-p16-000-255--rrect-s44__rest",
+        "checker-p16-000-255--rrect-s44__inactive",
+        "checker-p32-000-255--rrect-s44__rest",
+        "checker-p32-000-255--rrect-s44__inactive",
+        "checker-p64-000-255--rrect-s44__rest",
+        "checker-p64-000-255--rrect-s44__inactive",
+        "impulse-positive-4--rrect-s44__rest",
+        "impulse-positive-4--rrect-s44__inactive",
+        "impulse-negative-4--rrect-s44__rest",
+        "impulse-negative-4--rrect-s44__inactive",
+        "photo-fit--rrect-s44__rest",
+        "photo-fit--rrect-s44__inactive",
+        "grey-0--rrect-s44__rest",
+        "grey-0--rrect-s44__inactive",
+        "grey-128--rrect-s44__rest",
+        "grey-128--rrect-s44__inactive",
+        "grey-255--rrect-s44__rest",
+        "grey-255--rrect-s44__inactive",
+        "checker-p4-000-255--rrect-s64__rest",
+        "checker-p4-000-255--rrect-s64__inactive",
+        "checker-p8-000-255--rrect-s64__rest",
+        "checker-p8-000-255--rrect-s64__inactive",
+        "checker-p16-000-255--rrect-s64__rest",
+        "checker-p16-000-255--rrect-s64__inactive",
+        "checker-p32-000-255--rrect-s64__rest",
+        "checker-p32-000-255--rrect-s64__inactive",
+        "checker-p64-000-255--rrect-s64__rest",
+        "checker-p64-000-255--rrect-s64__inactive",
+        "impulse-positive-4--rrect-s64__rest",
+        "impulse-positive-4--rrect-s64__inactive",
+        "impulse-negative-4--rrect-s64__rest",
+        "impulse-negative-4--rrect-s64__inactive",
+        "photo-fit--rrect-s64__rest",
+        "photo-fit--rrect-s64__inactive",
+        "grey-0--rrect-s64__rest",
+        "grey-0--rrect-s64__inactive",
+        "grey-128--rrect-s64__rest",
+        "grey-128--rrect-s64__inactive",
+        "grey-255--rrect-s64__rest",
+        "grey-255--rrect-s64__inactive",
+        "checker-p4-000-255--rrect-s96__rest",
+        "checker-p4-000-255--rrect-s96__inactive",
+        "checker-p8-000-255--rrect-s96__rest",
+        "checker-p8-000-255--rrect-s96__inactive",
+        "checker-p16-000-255--rrect-s96__rest",
+        "checker-p16-000-255--rrect-s96__inactive",
+        "checker-p32-000-255--rrect-s96__rest",
+        "checker-p32-000-255--rrect-s96__inactive",
+        "checker-p64-000-255--rrect-s96__rest",
+        "checker-p64-000-255--rrect-s96__inactive",
+        "impulse-positive-4--rrect-s96__rest",
+        "impulse-positive-4--rrect-s96__inactive",
+        "impulse-negative-4--rrect-s96__rest",
+        "impulse-negative-4--rrect-s96__inactive",
+        "photo-fit--rrect-s96__rest",
+        "photo-fit--rrect-s96__inactive",
+        "grey-0--rrect-s96__rest",
+        "grey-0--rrect-s96__inactive",
+        "grey-128--rrect-s96__rest",
+        "grey-128--rrect-s96__inactive",
+        "grey-255--rrect-s96__rest",
+        "grey-255--rrect-s96__inactive",
+        "checker-p4-000-255--rrect-s112__rest",
+        "checker-p4-000-255--rrect-s112__inactive",
+        "checker-p8-000-255--rrect-s112__rest",
+        "checker-p8-000-255--rrect-s112__inactive",
+        "checker-p16-000-255--rrect-s112__rest",
+        "checker-p16-000-255--rrect-s112__inactive",
+        "checker-p32-000-255--rrect-s112__rest",
+        "checker-p32-000-255--rrect-s112__inactive",
+        "checker-p64-000-255--rrect-s112__rest",
+        "checker-p64-000-255--rrect-s112__inactive",
+        "impulse-positive-4--rrect-s112__rest",
+        "impulse-positive-4--rrect-s112__inactive",
+        "impulse-negative-4--rrect-s112__rest",
+        "impulse-negative-4--rrect-s112__inactive",
+        "photo-fit--rrect-s112__rest",
+        "photo-fit--rrect-s112__inactive",
+        "grey-0--rrect-s112__rest",
+        "grey-0--rrect-s112__inactive",
+        "grey-128--rrect-s112__rest",
+        "grey-128--rrect-s112__inactive",
+        "grey-255--rrect-s112__rest",
+        "grey-255--rrect-s112__inactive",
+        "checker-p4-000-255--rrect-s128__rest",
+        "checker-p4-000-255--rrect-s128__inactive",
+        "checker-p8-000-255--rrect-s128__rest",
+        "checker-p8-000-255--rrect-s128__inactive",
+        "checker-p16-000-255--rrect-s128__rest",
+        "checker-p16-000-255--rrect-s128__inactive",
+        "checker-p32-000-255--rrect-s128__rest",
+        "checker-p32-000-255--rrect-s128__inactive",
+        "checker-p64-000-255--rrect-s128__rest",
+        "checker-p64-000-255--rrect-s128__inactive",
+        "impulse-positive-4--rrect-s128__rest",
+        "impulse-positive-4--rrect-s128__inactive",
+        "impulse-negative-4--rrect-s128__rest",
+        "impulse-negative-4--rrect-s128__inactive",
+        "photo-fit--rrect-s128__rest",
+        "photo-fit--rrect-s128__inactive",
+        "grey-0--rrect-s128__rest",
+        "grey-0--rrect-s128__inactive",
+        "grey-128--rrect-s128__rest",
+        "grey-128--rrect-s128__inactive",
+        "grey-255--rrect-s128__rest",
+        "grey-255--rrect-s128__inactive",
+        "checker-p4-000-255--rrect-s144__rest",
+        "checker-p4-000-255--rrect-s144__inactive",
+        "checker-p8-000-255--rrect-s144__rest",
+        "checker-p8-000-255--rrect-s144__inactive",
+        "checker-p16-000-255--rrect-s144__rest",
+        "checker-p16-000-255--rrect-s144__inactive",
+        "checker-p32-000-255--rrect-s144__rest",
+        "checker-p32-000-255--rrect-s144__inactive",
+        "checker-p64-000-255--rrect-s144__rest",
+        "checker-p64-000-255--rrect-s144__inactive",
+        "impulse-positive-4--rrect-s144__rest",
+        "impulse-positive-4--rrect-s144__inactive",
+        "impulse-negative-4--rrect-s144__rest",
+        "impulse-negative-4--rrect-s144__inactive",
+        "photo-fit--rrect-s144__rest",
+        "photo-fit--rrect-s144__inactive",
+        "grey-0--rrect-s144__rest",
+        "grey-0--rrect-s144__inactive",
+        "grey-128--rrect-s144__rest",
+        "grey-128--rrect-s144__inactive",
+        "grey-255--rrect-s144__rest",
+        "grey-255--rrect-s144__inactive",
+        "checker-p4-000-255--rrect-s160__rest",
+        "checker-p4-000-255--rrect-s160__inactive",
+        "checker-p8-000-255--rrect-s160__rest",
+        "checker-p8-000-255--rrect-s160__inactive",
+        "checker-p16-000-255--rrect-s160__rest",
+        "checker-p16-000-255--rrect-s160__inactive",
+        "checker-p32-000-255--rrect-s160__rest",
+        "checker-p32-000-255--rrect-s160__inactive",
+        "checker-p64-000-255--rrect-s160__rest",
+        "checker-p64-000-255--rrect-s160__inactive",
+        "impulse-positive-4--rrect-s160__rest",
+        "impulse-positive-4--rrect-s160__inactive",
+        "impulse-negative-4--rrect-s160__rest",
+        "impulse-negative-4--rrect-s160__inactive",
+        "photo-fit--rrect-s160__rest",
+        "photo-fit--rrect-s160__inactive",
+        "grey-0--rrect-s160__rest",
+        "grey-0--rrect-s160__inactive",
+        "grey-128--rrect-s160__rest",
+        "grey-128--rrect-s160__inactive",
+        "grey-255--rrect-s160__rest",
+        "grey-255--rrect-s160__inactive",
+        "checker-p4-000-255--rrect-s192__rest",
+        "checker-p4-000-255--rrect-s192__inactive",
+        "checker-p8-000-255--rrect-s192__rest",
+        "checker-p8-000-255--rrect-s192__inactive",
+        "checker-p16-000-255--rrect-s192__rest",
+        "checker-p16-000-255--rrect-s192__inactive",
+        "checker-p32-000-255--rrect-s192__rest",
+        "checker-p32-000-255--rrect-s192__inactive",
+        "checker-p64-000-255--rrect-s192__rest",
+        "checker-p64-000-255--rrect-s192__inactive",
+        "impulse-positive-4--rrect-s192__rest",
+        "impulse-positive-4--rrect-s192__inactive",
+        "impulse-negative-4--rrect-s192__rest",
+        "impulse-negative-4--rrect-s192__inactive",
+        "photo-fit--rrect-s192__rest",
+        "photo-fit--rrect-s192__inactive",
+        "grey-0--rrect-s192__rest",
+        "grey-0--rrect-s192__inactive",
+        "grey-128--rrect-s192__rest",
+        "grey-128--rrect-s192__inactive",
+        "grey-255--rrect-s192__rest",
+        "grey-255--rrect-s192__inactive",
+        "checker-p4-000-255--rrect-s224__rest",
+        "checker-p4-000-255--rrect-s224__inactive",
+        "checker-p8-000-255--rrect-s224__rest",
+        "checker-p8-000-255--rrect-s224__inactive",
+        "checker-p16-000-255--rrect-s224__rest",
+        "checker-p16-000-255--rrect-s224__inactive",
+        "checker-p32-000-255--rrect-s224__rest",
+        "checker-p32-000-255--rrect-s224__inactive",
+        "checker-p64-000-255--rrect-s224__rest",
+        "checker-p64-000-255--rrect-s224__inactive",
+        "impulse-positive-4--rrect-s224__rest",
+        "impulse-positive-4--rrect-s224__inactive",
+        "impulse-negative-4--rrect-s224__rest",
+        "impulse-negative-4--rrect-s224__inactive",
+        "photo-fit--rrect-s224__rest",
+        "photo-fit--rrect-s224__inactive",
+        "grey-0--rrect-s224__rest",
+        "grey-0--rrect-s224__inactive",
+        "grey-128--rrect-s224__rest",
+        "grey-128--rrect-s224__inactive",
+        "grey-255--rrect-s224__rest",
+        "grey-255--rrect-s224__inactive",
+        "checker-p16-m64-c32--rrect-s96__rest",
+        "checker-p16-m64-c32--rrect-s96__inactive",
+        "checker-p16-m64-c32--rrect-s160__rest",
+        "checker-p16-m64-c32--rrect-s160__inactive",
+        "checker-p64-m64-c32--rrect-s96__rest",
+        "checker-p64-m64-c32--rrect-s96__inactive",
+        "checker-p64-m64-c32--rrect-s160__rest",
+        "checker-p64-m64-c32--rrect-s160__inactive",
+        "checker-p16-m64-c96--rrect-s96__rest",
+        "checker-p16-m64-c96--rrect-s96__inactive",
+        "checker-p16-m64-c96--rrect-s160__rest",
+        "checker-p16-m64-c96--rrect-s160__inactive",
+        "checker-p64-m64-c96--rrect-s96__rest",
+        "checker-p64-m64-c96--rrect-s96__inactive",
+        "checker-p64-m64-c96--rrect-s160__rest",
+        "checker-p64-m64-c96--rrect-s160__inactive",
+        "checker-p16-m128-c32--rrect-s96__rest",
+        "checker-p16-m128-c32--rrect-s96__inactive",
+        "checker-p16-m128-c32--rrect-s160__rest",
+        "checker-p16-m128-c32--rrect-s160__inactive",
+        "checker-p64-m128-c32--rrect-s96__rest",
+        "checker-p64-m128-c32--rrect-s96__inactive",
+        "checker-p64-m128-c32--rrect-s160__rest",
+        "checker-p64-m128-c32--rrect-s160__inactive",
+        "checker-p16-m128-c96--rrect-s96__rest",
+        "checker-p16-m128-c96--rrect-s96__inactive",
+        "checker-p16-m128-c96--rrect-s160__rest",
+        "checker-p16-m128-c96--rrect-s160__inactive",
+        "checker-p64-m128-c96--rrect-s96__rest",
+        "checker-p64-m128-c96--rrect-s96__inactive",
+        "checker-p64-m128-c96--rrect-s160__rest",
+        "checker-p64-m128-c96--rrect-s160__inactive",
+        "checker-p16-m192-c32--rrect-s96__rest",
+        "checker-p16-m192-c32--rrect-s96__inactive",
+        "checker-p16-m192-c32--rrect-s160__rest",
+        "checker-p16-m192-c32--rrect-s160__inactive",
+        "checker-p64-m192-c32--rrect-s96__rest",
+        "checker-p64-m192-c32--rrect-s96__inactive",
+        "checker-p64-m192-c32--rrect-s160__rest",
+        "checker-p64-m192-c32--rrect-s160__inactive",
+        "checker-p16-m192-c96--rrect-s96__rest",
+        "checker-p16-m192-c96--rrect-s96__inactive",
+        "checker-p16-m192-c96--rrect-s160__rest",
+        "checker-p16-m192-c96--rrect-s160__inactive",
+        "checker-p64-m192-c96--rrect-s96__rest",
+        "checker-p64-m192-c96--rrect-s96__inactive",
+        "checker-p64-m192-c96--rrect-s160__rest",
+        "checker-p64-m192-c96--rrect-s160__inactive",
+        "checker-p16-m128-c254--rrect-s96__rest",
+        "checker-p16-m128-c254--rrect-s96__inactive",
+        "checker-p16-m128-c254--rrect-s160__rest",
+        "checker-p16-m128-c254--rrect-s160__inactive",
+        "checker-p64-m128-c254--rrect-s96__rest",
+        "checker-p64-m128-c254--rrect-s96__inactive",
+        "checker-p64-m128-c254--rrect-s160__rest",
+        "checker-p64-m128-c254--rrect-s160__inactive",
+        "grey-64--rrect-s96__rest",
+        "grey-64--rrect-s96__inactive",
+        "grey-64--rrect-s160__rest",
+        "grey-64--rrect-s160__inactive",
+        "grey-192--rrect-s96__rest",
+        "grey-192--rrect-s96__inactive",
+        "grey-192--rrect-s160__rest",
+        "grey-192--rrect-s160__inactive",
+        "checker-p24-m96-c64--rrect-s144__rest",
+        "checker-p24-m96-c64--rrect-s144__inactive",
+        "checker-p24-m96-c64--rrect-s224__rest",
+        "checker-p24-m96-c64--rrect-s224__inactive",
+        "checker-p24-m160-c64--rrect-s144__rest",
+        "checker-p24-m160-c64--rrect-s144__inactive",
+        "checker-p24-m160-c64--rrect-s224__rest",
+        "checker-p24-m160-c64--rrect-s224__inactive",
+        "impulse-positive-4--rrect-s128-shift-x__rest",
+        "impulse-positive-4--rrect-s128-shift-x__inactive",
+        "checker-p4-000-255--rrect-s128-shift-x__rest",
+        "checker-p4-000-255--rrect-s128-shift-x__inactive",
+        "grey-128--rrect-s128-shift-x__rest",
+        "grey-128--rrect-s128-shift-x__inactive",
+        "impulse-positive-4--rrect-s128-shift-y__rest",
+        "impulse-positive-4--rrect-s128-shift-y__inactive",
+        "checker-p4-000-255--rrect-s128-shift-y__rest",
+        "checker-p4-000-255--rrect-s128-shift-y__inactive",
+        "grey-128--rrect-s128-shift-y__rest",
+        "grey-128--rrect-s128-shift-y__inactive",
+        "impulse-positive-4--rrect-s160-shift-x__rest",
+        "impulse-positive-4--rrect-s160-shift-x__inactive",
+        "checker-p4-000-255--rrect-s160-shift-x__rest",
+        "checker-p4-000-255--rrect-s160-shift-x__inactive",
+        "grey-128--rrect-s160-shift-x__rest",
+        "grey-128--rrect-s160-shift-x__inactive",
+        "impulse-positive-4--rrect-s160-shift-y__rest",
+        "impulse-positive-4--rrect-s160-shift-y__inactive",
+        "checker-p4-000-255--rrect-s160-shift-y__rest",
+        "checker-p4-000-255--rrect-s160-shift-y__inactive",
+        "grey-128--rrect-s160-shift-y__rest",
+        "grey-128--rrect-s160-shift-y__inactive",
+        "impulse-positive-4--rrect-s192-shift-x__rest",
+        "impulse-positive-4--rrect-s192-shift-x__inactive",
+        "checker-p4-000-255--rrect-s192-shift-x__rest",
+        "checker-p4-000-255--rrect-s192-shift-x__inactive",
+        "grey-128--rrect-s192-shift-x__rest",
+        "grey-128--rrect-s192-shift-x__inactive",
+        "impulse-positive-4--rrect-s192-shift-y__rest",
+        "impulse-positive-4--rrect-s192-shift-y__inactive",
+        "checker-p4-000-255--rrect-s192-shift-y__rest",
+        "checker-p4-000-255--rrect-s192-shift-y__inactive",
+        "grey-128--rrect-s192-shift-y__rest",
+        "grey-128--rrect-s192-shift-y__inactive",
+        "impulse-positive-1--rrect-s128__rest",
+        "impulse-positive-1--rrect-s128__inactive",
+        "impulse-positive-1--rrect-s160__rest",
+        "impulse-positive-1--rrect-s160__inactive",
+        "impulse-positive-1--rrect-s192__rest",
+        "impulse-positive-1--rrect-s192__inactive",
+        "impulse-positive-2--rrect-s128__rest",
+        "impulse-positive-2--rrect-s128__inactive",
+        "impulse-positive-2--rrect-s160__rest",
+        "impulse-positive-2--rrect-s160__inactive",
+        "impulse-positive-2--rrect-s192__rest",
+        "impulse-positive-2--rrect-s192__inactive",
+        "impulse-positive-4--rrect-s128-wide__rest",
+        "impulse-positive-4--rrect-s128-wide__inactive",
+        "checker-p32-000-255--rrect-s128-wide__rest",
+        "checker-p32-000-255--rrect-s128-wide__inactive",
+        "grey-128--rrect-s128-wide__rest",
+        "grey-128--rrect-s128-wide__inactive",
+        "impulse-positive-4--rrect-s160-wide__rest",
+        "impulse-positive-4--rrect-s160-wide__inactive",
+        "checker-p32-000-255--rrect-s160-wide__rest",
+        "checker-p32-000-255--rrect-s160-wide__inactive",
+        "grey-128--rrect-s160-wide__rest",
+        "grey-128--rrect-s160-wide__inactive",
+        "impulse-positive-4--rrect-s192-wide__rest",
+        "impulse-positive-4--rrect-s192-wide__inactive",
+        "checker-p32-000-255--rrect-s192-wide__rest",
+        "checker-p32-000-255--rrect-s192-wide__inactive",
+        "grey-128--rrect-s192-wide__rest",
+        "grey-128--rrect-s192-wide__inactive",
+        "checker-p12-000-255--rrect-s96__rest",
+        "checker-p12-000-255--rrect-s96__inactive",
+        "checker-p12-000-255--rrect-s160__rest",
+        "checker-p12-000-255--rrect-s160__inactive",
+        "checker-p12-000-255--rrect-s192__rest",
+        "checker-p12-000-255--rrect-s192__inactive",
+        "checker-p24-000-255--rrect-s96__rest",
+        "checker-p24-000-255--rrect-s96__inactive",
+        "checker-p24-000-255--rrect-s160__rest",
+        "checker-p24-000-255--rrect-s160__inactive",
+        "checker-p24-000-255--rrect-s192__rest",
+        "checker-p24-000-255--rrect-s192__inactive",
+        "checker-p48-000-255--rrect-s96__rest",
+        "checker-p48-000-255--rrect-s96__inactive",
+        "checker-p48-000-255--rrect-s160__rest",
+        "checker-p48-000-255--rrect-s160__inactive",
+        "checker-p48-000-255--rrect-s192__rest",
+        "checker-p48-000-255--rrect-s192__inactive",
+        "photo-blind--rrect-s96__rest",
+        "photo-blind--rrect-s96__inactive",
+        "photo-blind--rrect-s160__rest",
+        "photo-blind--rrect-s160__inactive",
+        "photo-blind--rrect-s192__rest",
+        "photo-blind--rrect-s192__inactive",
+        "ref-checker-p4-000-255__rest",
+        "ref-checker-p4-000-255__inactive",
+        "ref-checker-p8-000-255__rest",
+        "ref-checker-p8-000-255__inactive",
+        "ref-checker-p16-000-255__rest",
+        "ref-checker-p16-000-255__inactive",
+        "ref-checker-p32-000-255__rest",
+        "ref-checker-p32-000-255__inactive",
+        "ref-checker-p64-000-255__rest",
+        "ref-checker-p64-000-255__inactive",
+        "ref-impulse-positive-4__rest",
+        "ref-impulse-positive-4__inactive",
+        "ref-impulse-negative-4__rest",
+        "ref-impulse-negative-4__inactive",
+        "ref-photo-fit__rest",
+        "ref-photo-fit__inactive",
+        "ref-grey-0__rest",
+        "ref-grey-0__inactive",
+        "ref-grey-128__rest",
+        "ref-grey-128__inactive",
+        "ref-grey-255__rest",
+        "ref-grey-255__inactive",
+        "ref-checker-p16-m64-c32__rest",
+        "ref-checker-p16-m64-c32__inactive",
+        "ref-checker-p64-m64-c32__rest",
+        "ref-checker-p64-m64-c32__inactive",
+        "ref-checker-p16-m64-c96__rest",
+        "ref-checker-p16-m64-c96__inactive",
+        "ref-checker-p64-m64-c96__rest",
+        "ref-checker-p64-m64-c96__inactive",
+        "ref-checker-p16-m128-c32__rest",
+        "ref-checker-p16-m128-c32__inactive",
+        "ref-checker-p64-m128-c32__rest",
+        "ref-checker-p64-m128-c32__inactive",
+        "ref-checker-p16-m128-c96__rest",
+        "ref-checker-p16-m128-c96__inactive",
+        "ref-checker-p64-m128-c96__rest",
+        "ref-checker-p64-m128-c96__inactive",
+        "ref-checker-p16-m192-c32__rest",
+        "ref-checker-p16-m192-c32__inactive",
+        "ref-checker-p64-m192-c32__rest",
+        "ref-checker-p64-m192-c32__inactive",
+        "ref-checker-p16-m192-c96__rest",
+        "ref-checker-p16-m192-c96__inactive",
+        "ref-checker-p64-m192-c96__rest",
+        "ref-checker-p64-m192-c96__inactive",
+        "ref-checker-p16-m128-c254__rest",
+        "ref-checker-p16-m128-c254__inactive",
+        "ref-checker-p64-m128-c254__rest",
+        "ref-checker-p64-m128-c254__inactive",
+        "ref-grey-64__rest",
+        "ref-grey-64__inactive",
+        "ref-grey-192__rest",
+        "ref-grey-192__inactive",
+        "ref-checker-p24-m96-c64__rest",
+        "ref-checker-p24-m96-c64__inactive",
+        "ref-checker-p24-m160-c64__rest",
+        "ref-checker-p24-m160-c64__inactive",
+        "ref-impulse-positive-1__rest",
+        "ref-impulse-positive-1__inactive",
+        "ref-impulse-positive-2__rest",
+        "ref-impulse-positive-2__inactive",
+        "ref-checker-p12-000-255__rest",
+        "ref-checker-p12-000-255__inactive",
+        "ref-checker-p24-000-255__rest",
+        "ref-checker-p24-000-255__inactive",
+        "ref-checker-p48-000-255__rest",
+        "ref-checker-p48-000-255__inactive",
+        "ref-photo-blind__rest",
+        "ref-photo-blind__inactive"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "checker-p4-000-255--rrect-s44__rest",
+        "checker-p4-000-255--rrect-s44__inactive",
+        "checker-p8-000-255--rrect-s44__rest",
+        "checker-p8-000-255--rrect-s44__inactive",
+        "checker-p16-000-255--rrect-s44__rest",
+        "checker-p16-000-255--rrect-s44__inactive",
+        "checker-p32-000-255--rrect-s44__rest",
+        "checker-p32-000-255--rrect-s44__inactive",
+        "checker-p64-000-255--rrect-s44__rest",
+        "checker-p64-000-255--rrect-s44__inactive",
+        "impulse-positive-4--rrect-s44__rest",
+        "impulse-positive-4--rrect-s44__inactive",
+        "impulse-negative-4--rrect-s44__rest",
+        "impulse-negative-4--rrect-s44__inactive",
+        "photo-fit--rrect-s44__rest",
+        "photo-fit--rrect-s44__inactive",
+        "grey-0--rrect-s44__rest",
+        "grey-0--rrect-s44__inactive",
+        "grey-128--rrect-s44__rest",
+        "grey-128--rrect-s44__inactive",
+        "grey-255--rrect-s44__rest",
+        "grey-255--rrect-s44__inactive",
+        "checker-p4-000-255--rrect-s64__rest",
+        "checker-p4-000-255--rrect-s64__inactive",
+        "checker-p8-000-255--rrect-s64__rest",
+        "checker-p8-000-255--rrect-s64__inactive",
+        "checker-p16-000-255--rrect-s64__rest",
+        "checker-p16-000-255--rrect-s64__inactive",
+        "checker-p32-000-255--rrect-s64__rest",
+        "checker-p32-000-255--rrect-s64__inactive",
+        "checker-p64-000-255--rrect-s64__rest",
+        "checker-p64-000-255--rrect-s64__inactive",
+        "impulse-positive-4--rrect-s64__rest",
+        "impulse-positive-4--rrect-s64__inactive",
+        "impulse-negative-4--rrect-s64__rest",
+        "impulse-negative-4--rrect-s64__inactive",
+        "photo-fit--rrect-s64__rest",
+        "photo-fit--rrect-s64__inactive",
+        "grey-0--rrect-s64__rest",
+        "grey-0--rrect-s64__inactive",
+        "grey-128--rrect-s64__rest",
+        "grey-128--rrect-s64__inactive",
+        "grey-255--rrect-s64__rest",
+        "grey-255--rrect-s64__inactive",
+        "checker-p4-000-255--rrect-s96__rest",
+        "checker-p4-000-255--rrect-s96__inactive",
+        "checker-p8-000-255--rrect-s96__rest",
+        "checker-p8-000-255--rrect-s96__inactive",
+        "checker-p16-000-255--rrect-s96__rest",
+        "checker-p16-000-255--rrect-s96__inactive",
+        "checker-p32-000-255--rrect-s96__rest",
+        "checker-p32-000-255--rrect-s96__inactive",
+        "checker-p64-000-255--rrect-s96__rest",
+        "checker-p64-000-255--rrect-s96__inactive",
+        "impulse-positive-4--rrect-s96__rest",
+        "impulse-positive-4--rrect-s96__inactive",
+        "impulse-negative-4--rrect-s96__rest",
+        "impulse-negative-4--rrect-s96__inactive",
+        "photo-fit--rrect-s96__rest",
+        "photo-fit--rrect-s96__inactive",
+        "grey-0--rrect-s96__rest",
+        "grey-0--rrect-s96__inactive",
+        "grey-128--rrect-s96__rest",
+        "grey-128--rrect-s96__inactive",
+        "grey-255--rrect-s96__rest",
+        "grey-255--rrect-s96__inactive",
+        "checker-p4-000-255--rrect-s112__rest",
+        "checker-p4-000-255--rrect-s112__inactive",
+        "checker-p8-000-255--rrect-s112__rest",
+        "checker-p8-000-255--rrect-s112__inactive",
+        "checker-p16-000-255--rrect-s112__rest",
+        "checker-p16-000-255--rrect-s112__inactive",
+        "checker-p32-000-255--rrect-s112__rest",
+        "checker-p32-000-255--rrect-s112__inactive",
+        "checker-p64-000-255--rrect-s112__rest",
+        "checker-p64-000-255--rrect-s112__inactive",
+        "impulse-positive-4--rrect-s112__rest",
+        "impulse-positive-4--rrect-s112__inactive",
+        "impulse-negative-4--rrect-s112__rest",
+        "impulse-negative-4--rrect-s112__inactive",
+        "photo-fit--rrect-s112__rest",
+        "photo-fit--rrect-s112__inactive",
+        "grey-0--rrect-s112__rest",
+        "grey-0--rrect-s112__inactive",
+        "grey-128--rrect-s112__rest",
+        "grey-128--rrect-s112__inactive",
+        "grey-255--rrect-s112__rest",
+        "grey-255--rrect-s112__inactive",
+        "checker-p4-000-255--rrect-s128__rest",
+        "checker-p4-000-255--rrect-s128__inactive",
+        "checker-p8-000-255--rrect-s128__rest",
+        "checker-p8-000-255--rrect-s128__inactive",
+        "checker-p16-000-255--rrect-s128__rest",
+        "checker-p16-000-255--rrect-s128__inactive",
+        "checker-p32-000-255--rrect-s128__rest",
+        "checker-p32-000-255--rrect-s128__inactive",
+        "checker-p64-000-255--rrect-s128__rest",
+        "checker-p64-000-255--rrect-s128__inactive",
+        "impulse-positive-4--rrect-s128__rest",
+        "impulse-positive-4--rrect-s128__inactive",
+        "impulse-negative-4--rrect-s128__rest",
+        "impulse-negative-4--rrect-s128__inactive",
+        "photo-fit--rrect-s128__rest",
+        "photo-fit--rrect-s128__inactive",
+        "grey-0--rrect-s128__rest",
+        "grey-0--rrect-s128__inactive",
+        "grey-128--rrect-s128__rest",
+        "grey-128--rrect-s128__inactive",
+        "grey-255--rrect-s128__rest",
+        "grey-255--rrect-s128__inactive",
+        "checker-p4-000-255--rrect-s144__rest",
+        "checker-p4-000-255--rrect-s144__inactive",
+        "checker-p8-000-255--rrect-s144__rest",
+        "checker-p8-000-255--rrect-s144__inactive",
+        "checker-p16-000-255--rrect-s144__rest",
+        "checker-p16-000-255--rrect-s144__inactive",
+        "checker-p32-000-255--rrect-s144__rest",
+        "checker-p32-000-255--rrect-s144__inactive",
+        "checker-p64-000-255--rrect-s144__rest",
+        "checker-p64-000-255--rrect-s144__inactive",
+        "impulse-positive-4--rrect-s144__rest",
+        "impulse-positive-4--rrect-s144__inactive",
+        "impulse-negative-4--rrect-s144__rest",
+        "impulse-negative-4--rrect-s144__inactive",
+        "photo-fit--rrect-s144__rest",
+        "photo-fit--rrect-s144__inactive",
+        "grey-0--rrect-s144__rest",
+        "grey-0--rrect-s144__inactive",
+        "grey-128--rrect-s144__rest",
+        "grey-128--rrect-s144__inactive",
+        "grey-255--rrect-s144__rest",
+        "grey-255--rrect-s144__inactive",
+        "checker-p4-000-255--rrect-s160__rest",
+        "checker-p4-000-255--rrect-s160__inactive",
+        "checker-p8-000-255--rrect-s160__rest",
+        "checker-p8-000-255--rrect-s160__inactive",
+        "checker-p16-000-255--rrect-s160__rest",
+        "checker-p16-000-255--rrect-s160__inactive",
+        "checker-p32-000-255--rrect-s160__rest",
+        "checker-p32-000-255--rrect-s160__inactive",
+        "checker-p64-000-255--rrect-s160__rest",
+        "checker-p64-000-255--rrect-s160__inactive",
+        "impulse-positive-4--rrect-s160__rest",
+        "impulse-positive-4--rrect-s160__inactive",
+        "impulse-negative-4--rrect-s160__rest",
+        "impulse-negative-4--rrect-s160__inactive",
+        "photo-fit--rrect-s160__rest",
+        "photo-fit--rrect-s160__inactive",
+        "grey-0--rrect-s160__rest",
+        "grey-0--rrect-s160__inactive",
+        "grey-128--rrect-s160__rest",
+        "grey-128--rrect-s160__inactive",
+        "grey-255--rrect-s160__rest",
+        "grey-255--rrect-s160__inactive",
+        "checker-p4-000-255--rrect-s192__rest",
+        "checker-p4-000-255--rrect-s192__inactive",
+        "checker-p8-000-255--rrect-s192__rest",
+        "checker-p8-000-255--rrect-s192__inactive",
+        "checker-p16-000-255--rrect-s192__rest",
+        "checker-p16-000-255--rrect-s192__inactive",
+        "checker-p32-000-255--rrect-s192__rest",
+        "checker-p32-000-255--rrect-s192__inactive",
+        "checker-p64-000-255--rrect-s192__rest",
+        "checker-p64-000-255--rrect-s192__inactive",
+        "impulse-positive-4--rrect-s192__rest",
+        "impulse-positive-4--rrect-s192__inactive",
+        "impulse-negative-4--rrect-s192__rest",
+        "impulse-negative-4--rrect-s192__inactive",
+        "photo-fit--rrect-s192__rest",
+        "photo-fit--rrect-s192__inactive",
+        "grey-0--rrect-s192__rest",
+        "grey-0--rrect-s192__inactive",
+        "grey-128--rrect-s192__rest",
+        "grey-128--rrect-s192__inactive",
+        "grey-255--rrect-s192__rest",
+        "grey-255--rrect-s192__inactive",
+        "checker-p4-000-255--rrect-s224__rest",
+        "checker-p4-000-255--rrect-s224__inactive",
+        "checker-p8-000-255--rrect-s224__rest",
+        "checker-p8-000-255--rrect-s224__inactive",
+        "checker-p16-000-255--rrect-s224__rest",
+        "checker-p16-000-255--rrect-s224__inactive",
+        "checker-p32-000-255--rrect-s224__rest",
+        "checker-p32-000-255--rrect-s224__inactive",
+        "checker-p64-000-255--rrect-s224__rest",
+        "checker-p64-000-255--rrect-s224__inactive",
+        "impulse-positive-4--rrect-s224__rest",
+        "impulse-positive-4--rrect-s224__inactive",
+        "impulse-negative-4--rrect-s224__rest",
+        "impulse-negative-4--rrect-s224__inactive",
+        "photo-fit--rrect-s224__rest",
+        "photo-fit--rrect-s224__inactive",
+        "grey-0--rrect-s224__rest",
+        "grey-0--rrect-s224__inactive",
+        "grey-128--rrect-s224__rest",
+        "grey-128--rrect-s224__inactive",
+        "grey-255--rrect-s224__rest",
+        "grey-255--rrect-s224__inactive",
+        "checker-p16-m64-c32--rrect-s96__rest",
+        "checker-p16-m64-c32--rrect-s96__inactive",
+        "checker-p16-m64-c32--rrect-s160__rest",
+        "checker-p16-m64-c32--rrect-s160__inactive",
+        "checker-p64-m64-c32--rrect-s96__rest",
+        "checker-p64-m64-c32--rrect-s96__inactive",
+        "checker-p64-m64-c32--rrect-s160__rest",
+        "checker-p64-m64-c32--rrect-s160__inactive",
+        "checker-p16-m64-c96--rrect-s96__rest",
+        "checker-p16-m64-c96--rrect-s96__inactive",
+        "checker-p16-m64-c96--rrect-s160__rest",
+        "checker-p16-m64-c96--rrect-s160__inactive",
+        "checker-p64-m64-c96--rrect-s96__rest",
+        "checker-p64-m64-c96--rrect-s96__inactive",
+        "checker-p64-m64-c96--rrect-s160__rest",
+        "checker-p64-m64-c96--rrect-s160__inactive",
+        "checker-p16-m128-c32--rrect-s96__rest",
+        "checker-p16-m128-c32--rrect-s96__inactive",
+        "checker-p16-m128-c32--rrect-s160__rest",
+        "checker-p16-m128-c32--rrect-s160__inactive",
+        "checker-p64-m128-c32--rrect-s96__rest",
+        "checker-p64-m128-c32--rrect-s96__inactive",
+        "checker-p64-m128-c32--rrect-s160__rest",
+        "checker-p64-m128-c32--rrect-s160__inactive",
+        "checker-p16-m128-c96--rrect-s96__rest",
+        "checker-p16-m128-c96--rrect-s96__inactive",
+        "checker-p16-m128-c96--rrect-s160__rest",
+        "checker-p16-m128-c96--rrect-s160__inactive",
+        "checker-p64-m128-c96--rrect-s96__rest",
+        "checker-p64-m128-c96--rrect-s96__inactive",
+        "checker-p64-m128-c96--rrect-s160__rest",
+        "checker-p64-m128-c96--rrect-s160__inactive",
+        "checker-p16-m192-c32--rrect-s96__rest",
+        "checker-p16-m192-c32--rrect-s96__inactive",
+        "checker-p16-m192-c32--rrect-s160__rest",
+        "checker-p16-m192-c32--rrect-s160__inactive",
+        "checker-p64-m192-c32--rrect-s96__rest",
+        "checker-p64-m192-c32--rrect-s96__inactive",
+        "checker-p64-m192-c32--rrect-s160__rest",
+        "checker-p64-m192-c32--rrect-s160__inactive",
+        "checker-p16-m192-c96--rrect-s96__rest",
+        "checker-p16-m192-c96--rrect-s96__inactive",
+        "checker-p16-m192-c96--rrect-s160__rest",
+        "checker-p16-m192-c96--rrect-s160__inactive",
+        "checker-p64-m192-c96--rrect-s96__rest",
+        "checker-p64-m192-c96--rrect-s96__inactive",
+        "checker-p64-m192-c96--rrect-s160__rest",
+        "checker-p64-m192-c96--rrect-s160__inactive",
+        "checker-p16-m128-c254--rrect-s96__rest",
+        "checker-p16-m128-c254--rrect-s96__inactive",
+        "checker-p16-m128-c254--rrect-s160__rest",
+        "checker-p16-m128-c254--rrect-s160__inactive",
+        "checker-p64-m128-c254--rrect-s96__rest",
+        "checker-p64-m128-c254--rrect-s96__inactive",
+        "checker-p64-m128-c254--rrect-s160__rest",
+        "checker-p64-m128-c254--rrect-s160__inactive",
+        "grey-64--rrect-s96__rest",
+        "grey-64--rrect-s96__inactive",
+        "grey-64--rrect-s160__rest",
+        "grey-64--rrect-s160__inactive",
+        "grey-192--rrect-s96__rest",
+        "grey-192--rrect-s96__inactive",
+        "grey-192--rrect-s160__rest",
+        "grey-192--rrect-s160__inactive",
+        "checker-p24-m96-c64--rrect-s144__rest",
+        "checker-p24-m96-c64--rrect-s144__inactive",
+        "checker-p24-m96-c64--rrect-s224__rest",
+        "checker-p24-m96-c64--rrect-s224__inactive",
+        "checker-p24-m160-c64--rrect-s144__rest",
+        "checker-p24-m160-c64--rrect-s144__inactive",
+        "checker-p24-m160-c64--rrect-s224__rest",
+        "checker-p24-m160-c64--rrect-s224__inactive",
+        "impulse-positive-4--rrect-s128-shift-x__rest",
+        "impulse-positive-4--rrect-s128-shift-x__inactive",
+        "checker-p4-000-255--rrect-s128-shift-x__rest",
+        "checker-p4-000-255--rrect-s128-shift-x__inactive",
+        "grey-128--rrect-s128-shift-x__rest",
+        "grey-128--rrect-s128-shift-x__inactive",
+        "impulse-positive-4--rrect-s128-shift-y__rest",
+        "impulse-positive-4--rrect-s128-shift-y__inactive",
+        "checker-p4-000-255--rrect-s128-shift-y__rest",
+        "checker-p4-000-255--rrect-s128-shift-y__inactive",
+        "grey-128--rrect-s128-shift-y__rest",
+        "grey-128--rrect-s128-shift-y__inactive",
+        "impulse-positive-4--rrect-s160-shift-x__rest",
+        "impulse-positive-4--rrect-s160-shift-x__inactive",
+        "checker-p4-000-255--rrect-s160-shift-x__rest",
+        "checker-p4-000-255--rrect-s160-shift-x__inactive",
+        "grey-128--rrect-s160-shift-x__rest",
+        "grey-128--rrect-s160-shift-x__inactive",
+        "impulse-positive-4--rrect-s160-shift-y__rest",
+        "impulse-positive-4--rrect-s160-shift-y__inactive",
+        "checker-p4-000-255--rrect-s160-shift-y__rest",
+        "checker-p4-000-255--rrect-s160-shift-y__inactive",
+        "grey-128--rrect-s160-shift-y__rest",
+        "grey-128--rrect-s160-shift-y__inactive",
+        "impulse-positive-4--rrect-s192-shift-x__rest",
+        "impulse-positive-4--rrect-s192-shift-x__inactive",
+        "checker-p4-000-255--rrect-s192-shift-x__rest",
+        "checker-p4-000-255--rrect-s192-shift-x__inactive",
+        "grey-128--rrect-s192-shift-x__rest",
+        "grey-128--rrect-s192-shift-x__inactive",
+        "impulse-positive-4--rrect-s192-shift-y__rest",
+        "impulse-positive-4--rrect-s192-shift-y__inactive",
+        "checker-p4-000-255--rrect-s192-shift-y__rest",
+        "checker-p4-000-255--rrect-s192-shift-y__inactive",
+        "grey-128--rrect-s192-shift-y__rest",
+        "grey-128--rrect-s192-shift-y__inactive",
+        "impulse-positive-1--rrect-s128__rest",
+        "impulse-positive-1--rrect-s128__inactive",
+        "impulse-positive-1--rrect-s160__rest",
+        "impulse-positive-1--rrect-s160__inactive",
+        "impulse-positive-1--rrect-s192__rest",
+        "impulse-positive-1--rrect-s192__inactive",
+        "impulse-positive-2--rrect-s128__rest",
+        "impulse-positive-2--rrect-s128__inactive",
+        "impulse-positive-2--rrect-s160__rest",
+        "impulse-positive-2--rrect-s160__inactive",
+        "impulse-positive-2--rrect-s192__rest",
+        "impulse-positive-2--rrect-s192__inactive",
+        "impulse-positive-4--rrect-s128-wide__rest",
+        "impulse-positive-4--rrect-s128-wide__inactive",
+        "checker-p32-000-255--rrect-s128-wide__rest",
+        "checker-p32-000-255--rrect-s128-wide__inactive",
+        "grey-128--rrect-s128-wide__rest",
+        "grey-128--rrect-s128-wide__inactive",
+        "impulse-positive-4--rrect-s160-wide__rest",
+        "impulse-positive-4--rrect-s160-wide__inactive",
+        "checker-p32-000-255--rrect-s160-wide__rest",
+        "checker-p32-000-255--rrect-s160-wide__inactive",
+        "grey-128--rrect-s160-wide__rest",
+        "grey-128--rrect-s160-wide__inactive",
+        "impulse-positive-4--rrect-s192-wide__rest",
+        "impulse-positive-4--rrect-s192-wide__inactive",
+        "checker-p32-000-255--rrect-s192-wide__rest",
+        "checker-p32-000-255--rrect-s192-wide__inactive",
+        "grey-128--rrect-s192-wide__rest",
+        "grey-128--rrect-s192-wide__inactive",
+        "checker-p12-000-255--rrect-s96__rest",
+        "checker-p12-000-255--rrect-s96__inactive",
+        "checker-p12-000-255--rrect-s160__rest",
+        "checker-p12-000-255--rrect-s160__inactive",
+        "checker-p12-000-255--rrect-s192__rest",
+        "checker-p12-000-255--rrect-s192__inactive",
+        "checker-p24-000-255--rrect-s96__rest",
+        "checker-p24-000-255--rrect-s96__inactive",
+        "checker-p24-000-255--rrect-s160__rest",
+        "checker-p24-000-255--rrect-s160__inactive",
+        "checker-p24-000-255--rrect-s192__rest",
+        "checker-p24-000-255--rrect-s192__inactive",
+        "checker-p48-000-255--rrect-s96__rest",
+        "checker-p48-000-255--rrect-s96__inactive",
+        "checker-p48-000-255--rrect-s160__rest",
+        "checker-p48-000-255--rrect-s160__inactive",
+        "checker-p48-000-255--rrect-s192__rest",
+        "checker-p48-000-255--rrect-s192__inactive",
+        "photo-blind--rrect-s96__rest",
+        "photo-blind--rrect-s96__inactive",
+        "photo-blind--rrect-s160__rest",
+        "photo-blind--rrect-s160__inactive",
+        "photo-blind--rrect-s192__rest",
+        "photo-blind--rrect-s192__inactive",
+        "ref-checker-p4-000-255__rest",
+        "ref-checker-p4-000-255__inactive",
+        "ref-checker-p8-000-255__rest",
+        "ref-checker-p8-000-255__inactive",
+        "ref-checker-p16-000-255__rest",
+        "ref-checker-p16-000-255__inactive",
+        "ref-checker-p32-000-255__rest",
+        "ref-checker-p32-000-255__inactive",
+        "ref-checker-p64-000-255__rest",
+        "ref-checker-p64-000-255__inactive",
+        "ref-impulse-positive-4__rest",
+        "ref-impulse-positive-4__inactive",
+        "ref-impulse-negative-4__rest",
+        "ref-impulse-negative-4__inactive",
+        "ref-photo-fit__rest",
+        "ref-photo-fit__inactive",
+        "ref-grey-0__rest",
+        "ref-grey-0__inactive",
+        "ref-grey-128__rest",
+        "ref-grey-128__inactive",
+        "ref-grey-255__rest",
+        "ref-grey-255__inactive",
+        "ref-checker-p16-m64-c32__rest",
+        "ref-checker-p16-m64-c32__inactive",
+        "ref-checker-p64-m64-c32__rest",
+        "ref-checker-p64-m64-c32__inactive",
+        "ref-checker-p16-m64-c96__rest",
+        "ref-checker-p16-m64-c96__inactive",
+        "ref-checker-p64-m64-c96__rest",
+        "ref-checker-p64-m64-c96__inactive",
+        "ref-checker-p16-m128-c32__rest",
+        "ref-checker-p16-m128-c32__inactive",
+        "ref-checker-p64-m128-c32__rest",
+        "ref-checker-p64-m128-c32__inactive",
+        "ref-checker-p16-m128-c96__rest",
+        "ref-checker-p16-m128-c96__inactive",
+        "ref-checker-p64-m128-c96__rest",
+        "ref-checker-p64-m128-c96__inactive",
+        "ref-checker-p16-m192-c32__rest",
+        "ref-checker-p16-m192-c32__inactive",
+        "ref-checker-p64-m192-c32__rest",
+        "ref-checker-p64-m192-c32__inactive",
+        "ref-checker-p16-m192-c96__rest",
+        "ref-checker-p16-m192-c96__inactive",
+        "ref-checker-p64-m192-c96__rest",
+        "ref-checker-p64-m192-c96__inactive",
+        "ref-checker-p16-m128-c254__rest",
+        "ref-checker-p16-m128-c254__inactive",
+        "ref-checker-p64-m128-c254__rest",
+        "ref-checker-p64-m128-c254__inactive",
+        "ref-grey-64__rest",
+        "ref-grey-64__inactive",
+        "ref-grey-192__rest",
+        "ref-grey-192__inactive",
+        "ref-checker-p24-m96-c64__rest",
+        "ref-checker-p24-m96-c64__inactive",
+        "ref-checker-p24-m160-c64__rest",
+        "ref-checker-p24-m160-c64__inactive",
+        "ref-impulse-positive-1__rest",
+        "ref-impulse-positive-1__inactive",
+        "ref-impulse-positive-2__rest",
+        "ref-impulse-positive-2__inactive",
+        "ref-checker-p12-000-255__rest",
+        "ref-checker-p12-000-255__inactive",
+        "ref-checker-p24-000-255__rest",
+        "ref-checker-p24-000-255__inactive",
+        "ref-checker-p48-000-255__rest",
+        "ref-checker-p48-000-255__inactive",
+        "ref-photo-blind__rest",
+        "ref-photo-blind__inactive"
+      ]
+    }
+  ],
+  "split": {
+    "calibration": [
+      "checker-p4-000-255--rrect-s44__rest",
+      "checker-p4-000-255--rrect-s44__inactive",
+      "checker-p8-000-255--rrect-s44__rest",
+      "checker-p8-000-255--rrect-s44__inactive",
+      "checker-p16-000-255--rrect-s44__rest",
+      "checker-p16-000-255--rrect-s44__inactive",
+      "checker-p32-000-255--rrect-s44__rest",
+      "checker-p32-000-255--rrect-s44__inactive",
+      "checker-p64-000-255--rrect-s44__rest",
+      "checker-p64-000-255--rrect-s44__inactive",
+      "impulse-positive-4--rrect-s44__rest",
+      "impulse-positive-4--rrect-s44__inactive",
+      "impulse-negative-4--rrect-s44__rest",
+      "impulse-negative-4--rrect-s44__inactive",
+      "photo-fit--rrect-s44__rest",
+      "photo-fit--rrect-s44__inactive",
+      "grey-0--rrect-s44__rest",
+      "grey-0--rrect-s44__inactive",
+      "grey-128--rrect-s44__rest",
+      "grey-128--rrect-s44__inactive",
+      "grey-255--rrect-s44__rest",
+      "grey-255--rrect-s44__inactive",
+      "checker-p4-000-255--rrect-s64__rest",
+      "checker-p4-000-255--rrect-s64__inactive",
+      "checker-p8-000-255--rrect-s64__rest",
+      "checker-p8-000-255--rrect-s64__inactive",
+      "checker-p16-000-255--rrect-s64__rest",
+      "checker-p16-000-255--rrect-s64__inactive",
+      "checker-p32-000-255--rrect-s64__rest",
+      "checker-p32-000-255--rrect-s64__inactive",
+      "checker-p64-000-255--rrect-s64__rest",
+      "checker-p64-000-255--rrect-s64__inactive",
+      "impulse-positive-4--rrect-s64__rest",
+      "impulse-positive-4--rrect-s64__inactive",
+      "impulse-negative-4--rrect-s64__rest",
+      "impulse-negative-4--rrect-s64__inactive",
+      "photo-fit--rrect-s64__rest",
+      "photo-fit--rrect-s64__inactive",
+      "grey-0--rrect-s64__rest",
+      "grey-0--rrect-s64__inactive",
+      "grey-128--rrect-s64__rest",
+      "grey-128--rrect-s64__inactive",
+      "grey-255--rrect-s64__rest",
+      "grey-255--rrect-s64__inactive",
+      "checker-p4-000-255--rrect-s96__rest",
+      "checker-p4-000-255--rrect-s96__inactive",
+      "checker-p8-000-255--rrect-s96__rest",
+      "checker-p8-000-255--rrect-s96__inactive",
+      "checker-p16-000-255--rrect-s96__rest",
+      "checker-p16-000-255--rrect-s96__inactive",
+      "checker-p32-000-255--rrect-s96__rest",
+      "checker-p32-000-255--rrect-s96__inactive",
+      "checker-p64-000-255--rrect-s96__rest",
+      "checker-p64-000-255--rrect-s96__inactive",
+      "impulse-positive-4--rrect-s96__rest",
+      "impulse-positive-4--rrect-s96__inactive",
+      "impulse-negative-4--rrect-s96__rest",
+      "impulse-negative-4--rrect-s96__inactive",
+      "photo-fit--rrect-s96__rest",
+      "photo-fit--rrect-s96__inactive",
+      "grey-0--rrect-s96__rest",
+      "grey-0--rrect-s96__inactive",
+      "grey-128--rrect-s96__rest",
+      "grey-128--rrect-s96__inactive",
+      "grey-255--rrect-s96__rest",
+      "grey-255--rrect-s96__inactive",
+      "checker-p4-000-255--rrect-s128__rest",
+      "checker-p4-000-255--rrect-s128__inactive",
+      "checker-p8-000-255--rrect-s128__rest",
+      "checker-p8-000-255--rrect-s128__inactive",
+      "checker-p16-000-255--rrect-s128__rest",
+      "checker-p16-000-255--rrect-s128__inactive",
+      "checker-p32-000-255--rrect-s128__rest",
+      "checker-p32-000-255--rrect-s128__inactive",
+      "checker-p64-000-255--rrect-s128__rest",
+      "checker-p64-000-255--rrect-s128__inactive",
+      "impulse-positive-4--rrect-s128__rest",
+      "impulse-positive-4--rrect-s128__inactive",
+      "impulse-negative-4--rrect-s128__rest",
+      "impulse-negative-4--rrect-s128__inactive",
+      "photo-fit--rrect-s128__rest",
+      "photo-fit--rrect-s128__inactive",
+      "grey-0--rrect-s128__rest",
+      "grey-0--rrect-s128__inactive",
+      "grey-128--rrect-s128__rest",
+      "grey-128--rrect-s128__inactive",
+      "grey-255--rrect-s128__rest",
+      "grey-255--rrect-s128__inactive",
+      "checker-p4-000-255--rrect-s160__rest",
+      "checker-p4-000-255--rrect-s160__inactive",
+      "checker-p8-000-255--rrect-s160__rest",
+      "checker-p8-000-255--rrect-s160__inactive",
+      "checker-p16-000-255--rrect-s160__rest",
+      "checker-p16-000-255--rrect-s160__inactive",
+      "checker-p32-000-255--rrect-s160__rest",
+      "checker-p32-000-255--rrect-s160__inactive",
+      "checker-p64-000-255--rrect-s160__rest",
+      "checker-p64-000-255--rrect-s160__inactive",
+      "impulse-positive-4--rrect-s160__rest",
+      "impulse-positive-4--rrect-s160__inactive",
+      "impulse-negative-4--rrect-s160__rest",
+      "impulse-negative-4--rrect-s160__inactive",
+      "photo-fit--rrect-s160__rest",
+      "photo-fit--rrect-s160__inactive",
+      "grey-0--rrect-s160__rest",
+      "grey-0--rrect-s160__inactive",
+      "grey-128--rrect-s160__rest",
+      "grey-128--rrect-s160__inactive",
+      "grey-255--rrect-s160__rest",
+      "grey-255--rrect-s160__inactive",
+      "checker-p4-000-255--rrect-s192__rest",
+      "checker-p4-000-255--rrect-s192__inactive",
+      "checker-p8-000-255--rrect-s192__rest",
+      "checker-p8-000-255--rrect-s192__inactive",
+      "checker-p16-000-255--rrect-s192__rest",
+      "checker-p16-000-255--rrect-s192__inactive",
+      "checker-p32-000-255--rrect-s192__rest",
+      "checker-p32-000-255--rrect-s192__inactive",
+      "checker-p64-000-255--rrect-s192__rest",
+      "checker-p64-000-255--rrect-s192__inactive",
+      "impulse-positive-4--rrect-s192__rest",
+      "impulse-positive-4--rrect-s192__inactive",
+      "impulse-negative-4--rrect-s192__rest",
+      "impulse-negative-4--rrect-s192__inactive",
+      "photo-fit--rrect-s192__rest",
+      "photo-fit--rrect-s192__inactive",
+      "grey-0--rrect-s192__rest",
+      "grey-0--rrect-s192__inactive",
+      "grey-128--rrect-s192__rest",
+      "grey-128--rrect-s192__inactive",
+      "grey-255--rrect-s192__rest",
+      "grey-255--rrect-s192__inactive",
+      "checker-p16-m64-c32--rrect-s96__rest",
+      "checker-p16-m64-c32--rrect-s96__inactive",
+      "checker-p16-m64-c32--rrect-s160__rest",
+      "checker-p16-m64-c32--rrect-s160__inactive",
+      "checker-p64-m64-c32--rrect-s96__rest",
+      "checker-p64-m64-c32--rrect-s96__inactive",
+      "checker-p64-m64-c32--rrect-s160__rest",
+      "checker-p64-m64-c32--rrect-s160__inactive",
+      "checker-p16-m64-c96--rrect-s96__rest",
+      "checker-p16-m64-c96--rrect-s96__inactive",
+      "checker-p16-m64-c96--rrect-s160__rest",
+      "checker-p16-m64-c96--rrect-s160__inactive",
+      "checker-p64-m64-c96--rrect-s96__rest",
+      "checker-p64-m64-c96--rrect-s96__inactive",
+      "checker-p64-m64-c96--rrect-s160__rest",
+      "checker-p64-m64-c96--rrect-s160__inactive",
+      "checker-p16-m128-c32--rrect-s96__rest",
+      "checker-p16-m128-c32--rrect-s96__inactive",
+      "checker-p16-m128-c32--rrect-s160__rest",
+      "checker-p16-m128-c32--rrect-s160__inactive",
+      "checker-p64-m128-c32--rrect-s96__rest",
+      "checker-p64-m128-c32--rrect-s96__inactive",
+      "checker-p64-m128-c32--rrect-s160__rest",
+      "checker-p64-m128-c32--rrect-s160__inactive",
+      "checker-p16-m128-c96--rrect-s96__rest",
+      "checker-p16-m128-c96--rrect-s96__inactive",
+      "checker-p16-m128-c96--rrect-s160__rest",
+      "checker-p16-m128-c96--rrect-s160__inactive",
+      "checker-p64-m128-c96--rrect-s96__rest",
+      "checker-p64-m128-c96--rrect-s96__inactive",
+      "checker-p64-m128-c96--rrect-s160__rest",
+      "checker-p64-m128-c96--rrect-s160__inactive",
+      "checker-p16-m192-c32--rrect-s96__rest",
+      "checker-p16-m192-c32--rrect-s96__inactive",
+      "checker-p16-m192-c32--rrect-s160__rest",
+      "checker-p16-m192-c32--rrect-s160__inactive",
+      "checker-p64-m192-c32--rrect-s96__rest",
+      "checker-p64-m192-c32--rrect-s96__inactive",
+      "checker-p64-m192-c32--rrect-s160__rest",
+      "checker-p64-m192-c32--rrect-s160__inactive",
+      "checker-p16-m192-c96--rrect-s96__rest",
+      "checker-p16-m192-c96--rrect-s96__inactive",
+      "checker-p16-m192-c96--rrect-s160__rest",
+      "checker-p16-m192-c96--rrect-s160__inactive",
+      "checker-p64-m192-c96--rrect-s96__rest",
+      "checker-p64-m192-c96--rrect-s96__inactive",
+      "checker-p64-m192-c96--rrect-s160__rest",
+      "checker-p64-m192-c96--rrect-s160__inactive",
+      "checker-p16-m128-c254--rrect-s96__rest",
+      "checker-p16-m128-c254--rrect-s96__inactive",
+      "checker-p16-m128-c254--rrect-s160__rest",
+      "checker-p16-m128-c254--rrect-s160__inactive",
+      "checker-p64-m128-c254--rrect-s96__rest",
+      "checker-p64-m128-c254--rrect-s96__inactive",
+      "checker-p64-m128-c254--rrect-s160__rest",
+      "checker-p64-m128-c254--rrect-s160__inactive",
+      "grey-64--rrect-s96__rest",
+      "grey-64--rrect-s96__inactive",
+      "grey-64--rrect-s160__rest",
+      "grey-64--rrect-s160__inactive",
+      "grey-192--rrect-s96__rest",
+      "grey-192--rrect-s96__inactive",
+      "grey-192--rrect-s160__rest",
+      "grey-192--rrect-s160__inactive",
+      "impulse-positive-4--rrect-s128-shift-x__rest",
+      "impulse-positive-4--rrect-s128-shift-x__inactive",
+      "checker-p4-000-255--rrect-s128-shift-x__rest",
+      "checker-p4-000-255--rrect-s128-shift-x__inactive",
+      "grey-128--rrect-s128-shift-x__rest",
+      "grey-128--rrect-s128-shift-x__inactive",
+      "impulse-positive-4--rrect-s128-shift-y__rest",
+      "impulse-positive-4--rrect-s128-shift-y__inactive",
+      "checker-p4-000-255--rrect-s128-shift-y__rest",
+      "checker-p4-000-255--rrect-s128-shift-y__inactive",
+      "grey-128--rrect-s128-shift-y__rest",
+      "grey-128--rrect-s128-shift-y__inactive",
+      "impulse-positive-4--rrect-s160-shift-x__rest",
+      "impulse-positive-4--rrect-s160-shift-x__inactive",
+      "checker-p4-000-255--rrect-s160-shift-x__rest",
+      "checker-p4-000-255--rrect-s160-shift-x__inactive",
+      "grey-128--rrect-s160-shift-x__rest",
+      "grey-128--rrect-s160-shift-x__inactive",
+      "impulse-positive-4--rrect-s160-shift-y__rest",
+      "impulse-positive-4--rrect-s160-shift-y__inactive",
+      "checker-p4-000-255--rrect-s160-shift-y__rest",
+      "checker-p4-000-255--rrect-s160-shift-y__inactive",
+      "grey-128--rrect-s160-shift-y__rest",
+      "grey-128--rrect-s160-shift-y__inactive",
+      "impulse-positive-4--rrect-s192-shift-x__rest",
+      "impulse-positive-4--rrect-s192-shift-x__inactive",
+      "checker-p4-000-255--rrect-s192-shift-x__rest",
+      "checker-p4-000-255--rrect-s192-shift-x__inactive",
+      "grey-128--rrect-s192-shift-x__rest",
+      "grey-128--rrect-s192-shift-x__inactive",
+      "impulse-positive-4--rrect-s192-shift-y__rest",
+      "impulse-positive-4--rrect-s192-shift-y__inactive",
+      "checker-p4-000-255--rrect-s192-shift-y__rest",
+      "checker-p4-000-255--rrect-s192-shift-y__inactive",
+      "grey-128--rrect-s192-shift-y__rest",
+      "grey-128--rrect-s192-shift-y__inactive",
+      "impulse-positive-1--rrect-s128__rest",
+      "impulse-positive-1--rrect-s128__inactive",
+      "impulse-positive-1--rrect-s160__rest",
+      "impulse-positive-1--rrect-s160__inactive",
+      "impulse-positive-1--rrect-s192__rest",
+      "impulse-positive-1--rrect-s192__inactive",
+      "impulse-positive-2--rrect-s128__rest",
+      "impulse-positive-2--rrect-s128__inactive",
+      "impulse-positive-2--rrect-s160__rest",
+      "impulse-positive-2--rrect-s160__inactive",
+      "impulse-positive-2--rrect-s192__rest",
+      "impulse-positive-2--rrect-s192__inactive",
+      "impulse-positive-4--rrect-s128-wide__rest",
+      "impulse-positive-4--rrect-s128-wide__inactive",
+      "checker-p32-000-255--rrect-s128-wide__rest",
+      "checker-p32-000-255--rrect-s128-wide__inactive",
+      "grey-128--rrect-s128-wide__rest",
+      "grey-128--rrect-s128-wide__inactive",
+      "impulse-positive-4--rrect-s160-wide__rest",
+      "impulse-positive-4--rrect-s160-wide__inactive",
+      "checker-p32-000-255--rrect-s160-wide__rest",
+      "checker-p32-000-255--rrect-s160-wide__inactive",
+      "grey-128--rrect-s160-wide__rest",
+      "grey-128--rrect-s160-wide__inactive",
+      "impulse-positive-4--rrect-s192-wide__rest",
+      "impulse-positive-4--rrect-s192-wide__inactive",
+      "checker-p32-000-255--rrect-s192-wide__rest",
+      "checker-p32-000-255--rrect-s192-wide__inactive",
+      "grey-128--rrect-s192-wide__rest",
+      "grey-128--rrect-s192-wide__inactive"
+    ],
+    "validation": [],
+    "holdout": [
+      "checker-p4-000-255--rrect-s112__rest",
+      "checker-p4-000-255--rrect-s112__inactive",
+      "checker-p8-000-255--rrect-s112__rest",
+      "checker-p8-000-255--rrect-s112__inactive",
+      "checker-p16-000-255--rrect-s112__rest",
+      "checker-p16-000-255--rrect-s112__inactive",
+      "checker-p32-000-255--rrect-s112__rest",
+      "checker-p32-000-255--rrect-s112__inactive",
+      "checker-p64-000-255--rrect-s112__rest",
+      "checker-p64-000-255--rrect-s112__inactive",
+      "impulse-positive-4--rrect-s112__rest",
+      "impulse-positive-4--rrect-s112__inactive",
+      "impulse-negative-4--rrect-s112__rest",
+      "impulse-negative-4--rrect-s112__inactive",
+      "photo-fit--rrect-s112__rest",
+      "photo-fit--rrect-s112__inactive",
+      "grey-0--rrect-s112__rest",
+      "grey-0--rrect-s112__inactive",
+      "grey-128--rrect-s112__rest",
+      "grey-128--rrect-s112__inactive",
+      "grey-255--rrect-s112__rest",
+      "grey-255--rrect-s112__inactive",
+      "checker-p4-000-255--rrect-s144__rest",
+      "checker-p4-000-255--rrect-s144__inactive",
+      "checker-p8-000-255--rrect-s144__rest",
+      "checker-p8-000-255--rrect-s144__inactive",
+      "checker-p16-000-255--rrect-s144__rest",
+      "checker-p16-000-255--rrect-s144__inactive",
+      "checker-p32-000-255--rrect-s144__rest",
+      "checker-p32-000-255--rrect-s144__inactive",
+      "checker-p64-000-255--rrect-s144__rest",
+      "checker-p64-000-255--rrect-s144__inactive",
+      "impulse-positive-4--rrect-s144__rest",
+      "impulse-positive-4--rrect-s144__inactive",
+      "impulse-negative-4--rrect-s144__rest",
+      "impulse-negative-4--rrect-s144__inactive",
+      "photo-fit--rrect-s144__rest",
+      "photo-fit--rrect-s144__inactive",
+      "grey-0--rrect-s144__rest",
+      "grey-0--rrect-s144__inactive",
+      "grey-128--rrect-s144__rest",
+      "grey-128--rrect-s144__inactive",
+      "grey-255--rrect-s144__rest",
+      "grey-255--rrect-s144__inactive",
+      "checker-p4-000-255--rrect-s224__rest",
+      "checker-p4-000-255--rrect-s224__inactive",
+      "checker-p8-000-255--rrect-s224__rest",
+      "checker-p8-000-255--rrect-s224__inactive",
+      "checker-p16-000-255--rrect-s224__rest",
+      "checker-p16-000-255--rrect-s224__inactive",
+      "checker-p32-000-255--rrect-s224__rest",
+      "checker-p32-000-255--rrect-s224__inactive",
+      "checker-p64-000-255--rrect-s224__rest",
+      "checker-p64-000-255--rrect-s224__inactive",
+      "impulse-positive-4--rrect-s224__rest",
+      "impulse-positive-4--rrect-s224__inactive",
+      "impulse-negative-4--rrect-s224__rest",
+      "impulse-negative-4--rrect-s224__inactive",
+      "photo-fit--rrect-s224__rest",
+      "photo-fit--rrect-s224__inactive",
+      "grey-0--rrect-s224__rest",
+      "grey-0--rrect-s224__inactive",
+      "grey-128--rrect-s224__rest",
+      "grey-128--rrect-s224__inactive",
+      "grey-255--rrect-s224__rest",
+      "grey-255--rrect-s224__inactive",
+      "checker-p24-m96-c64--rrect-s144__rest",
+      "checker-p24-m96-c64--rrect-s144__inactive",
+      "checker-p24-m96-c64--rrect-s224__rest",
+      "checker-p24-m96-c64--rrect-s224__inactive",
+      "checker-p24-m160-c64--rrect-s144__rest",
+      "checker-p24-m160-c64--rrect-s144__inactive",
+      "checker-p24-m160-c64--rrect-s224__rest",
+      "checker-p24-m160-c64--rrect-s224__inactive",
+      "checker-p12-000-255--rrect-s96__rest",
+      "checker-p12-000-255--rrect-s96__inactive",
+      "checker-p12-000-255--rrect-s160__rest",
+      "checker-p12-000-255--rrect-s160__inactive",
+      "checker-p12-000-255--rrect-s192__rest",
+      "checker-p12-000-255--rrect-s192__inactive",
+      "checker-p24-000-255--rrect-s96__rest",
+      "checker-p24-000-255--rrect-s96__inactive",
+      "checker-p24-000-255--rrect-s160__rest",
+      "checker-p24-000-255--rrect-s160__inactive",
+      "checker-p24-000-255--rrect-s192__rest",
+      "checker-p24-000-255--rrect-s192__inactive",
+      "checker-p48-000-255--rrect-s96__rest",
+      "checker-p48-000-255--rrect-s96__inactive",
+      "checker-p48-000-255--rrect-s160__rest",
+      "checker-p48-000-255--rrect-s160__inactive",
+      "checker-p48-000-255--rrect-s192__rest",
+      "checker-p48-000-255--rrect-s192__inactive",
+      "photo-blind--rrect-s96__rest",
+      "photo-blind--rrect-s96__inactive",
+      "photo-blind--rrect-s160__rest",
+      "photo-blind--rrect-s160__inactive",
+      "photo-blind--rrect-s192__rest",
+      "photo-blind--rrect-s192__inactive",
+      "ref-checker-p24-m96-c64__rest",
+      "ref-checker-p24-m96-c64__inactive",
+      "ref-checker-p24-m160-c64__rest",
+      "ref-checker-p24-m160-c64__inactive",
+      "ref-checker-p12-000-255__rest",
+      "ref-checker-p12-000-255__inactive",
+      "ref-checker-p24-000-255__rest",
+      "ref-checker-p24-000-255__inactive",
+      "ref-checker-p48-000-255__rest",
+      "ref-checker-p48-000-255__inactive",
+      "ref-photo-blind__rest",
+      "ref-photo-blind__inactive"
+    ],
+    "recorded": [
+      "ref-checker-p4-000-255__rest",
+      "ref-checker-p4-000-255__inactive",
+      "ref-checker-p8-000-255__rest",
+      "ref-checker-p8-000-255__inactive",
+      "ref-checker-p16-000-255__rest",
+      "ref-checker-p16-000-255__inactive",
+      "ref-checker-p32-000-255__rest",
+      "ref-checker-p32-000-255__inactive",
+      "ref-checker-p64-000-255__rest",
+      "ref-checker-p64-000-255__inactive",
+      "ref-impulse-positive-4__rest",
+      "ref-impulse-positive-4__inactive",
+      "ref-impulse-negative-4__rest",
+      "ref-impulse-negative-4__inactive",
+      "ref-photo-fit__rest",
+      "ref-photo-fit__inactive",
+      "ref-grey-0__rest",
+      "ref-grey-0__inactive",
+      "ref-grey-128__rest",
+      "ref-grey-128__inactive",
+      "ref-grey-255__rest",
+      "ref-grey-255__inactive",
+      "ref-checker-p16-m64-c32__rest",
+      "ref-checker-p16-m64-c32__inactive",
+      "ref-checker-p64-m64-c32__rest",
+      "ref-checker-p64-m64-c32__inactive",
+      "ref-checker-p16-m64-c96__rest",
+      "ref-checker-p16-m64-c96__inactive",
+      "ref-checker-p64-m64-c96__rest",
+      "ref-checker-p64-m64-c96__inactive",
+      "ref-checker-p16-m128-c32__rest",
+      "ref-checker-p16-m128-c32__inactive",
+      "ref-checker-p64-m128-c32__rest",
+      "ref-checker-p64-m128-c32__inactive",
+      "ref-checker-p16-m128-c96__rest",
+      "ref-checker-p16-m128-c96__inactive",
+      "ref-checker-p64-m128-c96__rest",
+      "ref-checker-p64-m128-c96__inactive",
+      "ref-checker-p16-m192-c32__rest",
+      "ref-checker-p16-m192-c32__inactive",
+      "ref-checker-p64-m192-c32__rest",
+      "ref-checker-p64-m192-c32__inactive",
+      "ref-checker-p16-m192-c96__rest",
+      "ref-checker-p16-m192-c96__inactive",
+      "ref-checker-p64-m192-c96__rest",
+      "ref-checker-p64-m192-c96__inactive",
+      "ref-checker-p16-m128-c254__rest",
+      "ref-checker-p16-m128-c254__inactive",
+      "ref-checker-p64-m128-c254__rest",
+      "ref-checker-p64-m128-c254__inactive",
+      "ref-grey-64__rest",
+      "ref-grey-64__inactive",
+      "ref-grey-192__rest",
+      "ref-grey-192__inactive",
+      "ref-impulse-positive-1__rest",
+      "ref-impulse-positive-1__inactive",
+      "ref-impulse-positive-2__rest",
+      "ref-impulse-positive-2__inactive"
+    ],
+    "probe": []
+  }
+}

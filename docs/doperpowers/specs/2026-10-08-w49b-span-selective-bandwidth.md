@@ -302,9 +302,12 @@ The per-cell constraints are intersections, not a reference chosen after seeing 
 Part 1 emits `references.json`: (profile, renderer, scene, statistic) -> current generation plus
 any historical constraint, with document-pair hashes and capture-tree locations. Missing cells are
 UNMEASURED, not passes. Unreachable cells are reproduced, not removed from final acceptance (X74).
-The historical constraints survive removal of authorisations: G2 must derive an independent
-standing cell/reference constraint registry from this map, covering at least the fifteen targets
-and five prior W49a repairs. An empty exception list cannot empty the registry or stop its witnesses.
+The historical references survive removal of authorisations: G2 must derive an independent
+standing cell/reference registry from this map, covering all fifteen targets and five prior W49a
+repairs. Under DL1, fifteen historical <=B constraints are enforced: the binding ten plus five prior
+repairs. The other five historical targets remain discoverable with their existing authorisations;
+W49b protects them by zero error growth against current, not by requiring their historical repair.
+An empty exception list cannot empty the registry or stop its witnesses.
 
 Among points passing every gate clause at both scales, propose minimum median per-cell absolute
 log error over all 154 dark T1 cells, using T1-fine on T and one-code epsilon; at the gate use only
@@ -373,16 +376,19 @@ On a passing landing, execute X59's five-part order: old/new band fixtures; hist
 remove repaired authorisations (no replacement costs); re-derive missed cells; move the reference
 last. Before clearing the last exception, replace the owner test's exception-derived reference
 iteration with an independent standing **cell/reference constraint registry from `references.json`**.
-It must retain all fifteen targets and five prior W49a repairs with their own statistic, historical
-generation/document pair and <=B constraint, even when the authorisation list is empty. Do not
-advance those references when moving the current regression reference.
+It must retain all twenty entries with their own statistic and historical generation/document
+pair. Enforce historical <=B for the binding ten and prior five repairs; retain the five protected
+targets' authorisations and enforce their zero-current-error-growth limit. Their historical <=B
+readings are reported, not additional W49b acceptance requirements. Do not advance those references
+when moving the current regression reference, or derive their membership from the exception list.
 
 The current owner requires a nonempty exception list and derives the witness's reference set from
-that list (`adopted-thresholds.test.ts`, lines 7816 and 7833–7836). G2 must allow the repaired list
-to become empty without weakening or bypassing the standing historical witnesses. Prove the
-empty-exception case executes all twenty cell constraints across both historical reference groups;
-a controlled >B historical regression in either group must still fail with no exceptions. This is
-an owner migration required for landing, not an owner edit authorised by this draft.
+that list (`adopted-thresholds.test.ts`, lines 7816 and 7833–7836). G2 must support a future fully
+repaired list becoming empty without weakening the standing historical witnesses. Prove this with a
+synthetic fully repaired, empty-exception case: all twenty entries remain discoverable and execute
+historical <=B witnesses across both reference groups; a controlled >B historical regression in
+either group still fails. That synthetic future case does not require W49b to remove the protected
+five. This is an owner migration required for landing, not an owner edit authorised by this draft.
 
 Keep M2/L1/E2's stated references. Update generated material, ledger, sheets, demo projection and
 release chain. On a finding, record it without a material changeset or canonical publication.
@@ -481,3 +487,9 @@ The five unresolved thin/mid repairs are explicitly deferred to W49c under DL1 a
 
 - 2026-10-08 parent follow-up: S first tests uniform 0.5 against current full-resolution import;
   other documents' capture-scale facts and the live-backdrop cost are explicit above.
+
+- 2026-10-08 G0 verified registry review fix: acceptance prose now distinguishes the fifteen
+  enforced historical repairs (binding ten plus prior five) from the five protected historical
+  targets, whose existing authorisations remain and whose current error may not grow. All twenty
+  entries stay independent of the exception list. The empty-exception mutation proof is a
+  synthetic future fully repaired case, not a requirement to repair W49c's five within W49b.

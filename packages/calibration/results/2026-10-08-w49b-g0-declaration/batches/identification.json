@@ -1,0 +1,537 @@
+{
+  "schema": "w49b-g0-batch-1",
+  "base": "b2d074d2df24-940384c06f73",
+  "reading": "All affected dark WebGPU gate cells, no referee/holdout render; T uses low-band regression and fine-band fidelity.",
+  "points": [
+    {
+      "label": "identity",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "both",
+      "overrides": {},
+      "prediction": "Byte-identical to W49a current at every rendered cell; all ten digests and all 34 goldens unchanged."
+    },
+    {
+      "label": "s-0p5",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "both",
+      "overrides": {
+        "active.dark": {
+          "backdropCaptureScale": 0.5
+        },
+        "receded.dark": {
+          "backdropCaptureScale": 0.5
+        }
+      },
+      "prediction": "Attested-mechanism first rung at 0.5; smaller scales are mechanism controls, not attested 0.25 settings. Reduced-resolution import should broaden or quantise the inactive impulse footprint and may raise its deep mean; neither outcome is presumed. Read ml/lg inactive T1, radial/halo support and body level against native and current. Uniform S can move every gate cell: no below-knee identity claim. Read binding-ten reachable cells, five protected and every gate prior repair. Separation requires the same historical/current intersections as W, not halo resemblance alone."
+    },
+    {
+      "label": "s-0p25",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "both",
+      "overrides": {
+        "active.dark": {
+          "backdropCaptureScale": 0.25
+        },
+        "receded.dark": {
+          "backdropCaptureScale": 0.25
+        }
+      },
+      "prediction": "Attested-mechanism first rung at 0.5; smaller scales are mechanism controls, not attested 0.25 settings. Reduced-resolution import should broaden or quantise the inactive impulse footprint and may raise its deep mean; neither outcome is presumed. Read ml/lg inactive T1, radial/halo support and body level against native and current. Uniform S can move every gate cell: no below-knee identity claim. Read binding-ten reachable cells, five protected and every gate prior repair. Separation requires the same historical/current intersections as W, not halo resemblance alone."
+    },
+    {
+      "label": "s-0p125",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "both",
+      "overrides": {
+        "active.dark": {
+          "backdropCaptureScale": 0.125
+        },
+        "receded.dark": {
+          "backdropCaptureScale": 0.125
+        }
+      },
+      "prediction": "Attested-mechanism first rung at 0.5; smaller scales are mechanism controls, not attested 0.25 settings. Reduced-resolution import should broaden or quantise the inactive impulse footprint and may raise its deep mean; neither outcome is presumed. Read ml/lg inactive T1, radial/halo support and body level against native and current. Uniform S can move every gate cell: no below-knee identity claim. Read binding-ten reachable cells, five protected and every gate prior repair. Separation requires the same historical/current intersections as W, not halo resemblance alone."
+    },
+    {
+      "label": "d-only-192",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "rest",
+      "overrides": {
+        "active.dark": {
+          "tintAlphaSpanMax": 192,
+          "tintAlphaSpanMax2x": 192
+        },
+        "receded.dark": {
+          "tintAlphaSpanMax": 0,
+          "tintAlphaSpanMax2x": 0,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "D-only control: exactly unchanged at spans <=96 because alpha far term is zero there. Larger alpha top delays opacity above the knee, opening the thick body; scatter curve held. Read all rest gate cells, no implied repair."
+    },
+    {
+      "label": "d-only-256",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "rest",
+      "overrides": {
+        "active.dark": {
+          "tintAlphaSpanMax": 256,
+          "tintAlphaSpanMax2x": 256
+        },
+        "receded.dark": {
+          "tintAlphaSpanMax": 0,
+          "tintAlphaSpanMax2x": 0,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "D-only control: exactly unchanged at spans <=96 because alpha far term is zero there. Larger alpha top delays opacity above the knee, opening the thick body; scatter curve held. Read all rest gate cells, no implied repair."
+    },
+    {
+      "label": "d-scatter-192",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "rest",
+      "overrides": {
+        "active.dark": {
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 192,
+          "sizeScatterSpanMax2x": 192
+        },
+        "receded.dark": {
+          "tintAlphaSpanMax": 0,
+          "tintAlphaSpanMax2x": 0,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "D holds alpha curve at current T160 while scatter top moves. At top256 first-order unrendered estimates for checker32/checker64/text28 lg T1 are .0267/.0332/.0303 at1x and .0320/.0391/.0314 at2x; not an additive guarantee. Target six historical repairs; all gate cells including <=96 are affected and protected."
+    },
+    {
+      "label": "d-scatter-256",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "rest",
+      "overrides": {
+        "active.dark": {
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 256,
+          "sizeScatterSpanMax2x": 256
+        },
+        "receded.dark": {
+          "tintAlphaSpanMax": 0,
+          "tintAlphaSpanMax2x": 0,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "D holds alpha curve at current T160 while scatter top moves. At top256 first-order unrendered estimates for checker32/checker64/text28 lg T1 are .0267/.0332/.0303 at1x and .0320/.0391/.0314 at2x; not an additive guarantee. Target six historical repairs; all gate cells including <=96 are affected and protected."
+    },
+    {
+      "label": "w-only-3",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 3,
+          "sizeHeavySecondSigmaFar2x": 3
+        }
+      },
+      "prediction": "W-only: old tap at spans <=96 is byte-identical; far spans suppress narrow impulse energy by broadening the secondary sample. Coarse checker throughput can fall, so read every gate cell and historical prior-repair constraint."
+    },
+    {
+      "label": "w-only-4",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 4,
+          "sizeHeavySecondSigmaFar2x": 4
+        }
+      },
+      "prediction": "W-only: old tap at spans <=96 is byte-identical; far spans suppress narrow impulse energy by broadening the secondary sample. Coarse checker throughput can fall, so read every gate cell and historical prior-repair constraint."
+    },
+    {
+      "label": "w-only-5",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 5,
+          "sizeHeavySecondSigmaFar2x": 5
+        }
+      },
+      "prediction": "W-only: old tap at spans <=96 is byte-identical; far spans suppress narrow impulse energy by broadening the secondary sample. Coarse checker throughput can fall, so read every gate cell and historical prior-repair constraint."
+    },
+    {
+      "label": "w-joint-d0-a09-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 0,
+          "sizeHeavySecondSigmaFar2x": 0,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d0-a09-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 0,
+          "sizeHeavySecondSigmaFar2x": 0,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d0-a10-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 0,
+          "sizeHeavySecondSigmaFar2x": 0,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d0-a10-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 0,
+          "sizeHeavySecondSigmaFar2x": 0,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d3-a09-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 3,
+          "sizeHeavySecondSigmaFar2x": 3,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d3-a09-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 3,
+          "sizeHeavySecondSigmaFar2x": 3,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d3-a10-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 3,
+          "sizeHeavySecondSigmaFar2x": 3,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d3-a10-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 3,
+          "sizeHeavySecondSigmaFar2x": 3,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d4-a09-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 4,
+          "sizeHeavySecondSigmaFar2x": 4,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d4-a09-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 4,
+          "sizeHeavySecondSigmaFar2x": 4,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d4-a10-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 4,
+          "sizeHeavySecondSigmaFar2x": 4,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d4-a10-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 4,
+          "sizeHeavySecondSigmaFar2x": 4,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d5-a09-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 5,
+          "sizeHeavySecondSigmaFar2x": 5,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d5-a09-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 5,
+          "sizeHeavySecondSigmaFar2x": 5,
+          "tintAlphaFar1x": 0.09,
+          "tintAlphaFar2x": 0.09,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d5-a10-t128",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 5,
+          "sizeHeavySecondSigmaFar2x": 5,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 128,
+          "sizeScatterSpanMax2x": 128
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    },
+    {
+      "label": "w-joint-d5-a10-t160",
+      "scales": [
+        1,
+        2
+      ],
+      "pose": "inactive",
+      "overrides": {
+        "receded.dark": {
+          "sizeHeavySecondSigmaFar1x": 5,
+          "sizeHeavySecondSigmaFar2x": 5,
+          "tintAlphaFar1x": 0.1,
+          "tintAlphaFar2x": 0.1,
+          "tintAlphaSpanMax": 160,
+          "tintAlphaSpanMax2x": 160,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160
+        }
+      },
+      "prediction": "Finite joint width/alpha/scatter grid declared before any rung. At delta4/top128/alpha.09 the fully widened ml/lg endpoint is hypothesised to reproduce the grounding direction: impulse ml <=.003191/.003043, impulse lg2x <=.002208, checker64 lg2x >=.035028. Moving scatter top can affect thin/mid output; no below-knee invariant is claimed for joint rungs. Read all gate protections; withheld checker32 lg2x and photo lg remain UNMEASURED until a frozen prediction exposure."
+    }
+  ]
+}
