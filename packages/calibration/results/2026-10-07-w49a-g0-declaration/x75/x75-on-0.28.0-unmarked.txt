@@ -1,0 +1,41 @@
+# X75 on 0.28.0 with the KNOWN_DEFECT entry removed (git 4559dc41b + the uncommitted X75 files),
+# npx vitest run test/x75-no-opaque-glass.test.ts from packages/calibration, 2026-10-07
+
+ RUN  v4.1.11 /Users/new/vitrea-w49/g0/packages/calibration
+
+ ❯ test/x75-no-opaque-glass.test.ts (14 tests | 1 failed) 27ms
+     × apple-macos-27.0-glass0.25 dark receded 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/x75-no-opaque-glass.test.ts > X75: no shipped endpoint resolves alphaBase above 0.95 (W49 Decision Log 3) > apple-macos-27.0-glass0.25 dark receded
+AssertionError: apple-macos-27.0-glass0.25 dark receded: expected [ …(4) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "webgpu regular dpr 1: 885 spans from 140 CSS px, max alphaBase 1.0000",
++   "css regular dpr 1: 885 spans from 140 CSS px, max alphaBase 1.0000",
++   "webgpu regular dpr 2: 885 spans from 140 CSS px, max alphaBase 1.0000",
++   "css regular dpr 2: 885 spans from 140 CSS px, max alphaBase 1.0000",
++ ]
+
+ ❯ test/x75-no-opaque-glass.test.ts:59:10
+     57|     (defect === undefined ? it : it.fails)(name, () => {
+     58|       expect(summariseOpaqueGlass(opaqueGlassViolations(patch as Mater…
+     59|         .toEqual([]);
+       |          ^
+     60|     });
+     61|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 13 passed (14)
+   Start at  18:10:22
+   Duration  563ms (transform 392ms, setup 0ms, import 462ms, tests 27ms, environment 0ms)
+
+exit 1
