@@ -918,12 +918,15 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       }
       pendingRelease.push(provider);
 
-      // S reduces the imported source BEFORE analysis and every blur, not the already-blurred
-      // result. At identity this is the original plan; all widths retain the same CSS units.
-      const resolution = request.captureScale === 1 ? request.resolution : {
-        ...request.resolution, scale: request.resolution.scale * request.captureScale,
-      };
-      const plan = planPyramid(frame.width, frame.height, resolution);
+      // S reduces the imported source BEFORE analysis and every blur, relative to the
+      // policy's already-rounded, capped extent. Multiplying the policy scale instead
+      // would let maxDimension swallow S on large sources. Identity uses the old plan
+      // exactly; the final extent below still converts all widths from their CSS units.
+      const policyPlan = planPyramid(frame.width, frame.height, request.resolution);
+      const plan = request.captureScale === 1 ? policyPlan : planPyramid(
+        policyPlan.width, policyPlan.height,
+        { scale: request.captureScale, maxDimension: request.resolution.maxDimension },
+      );
       // Source texels per CSS px — the placed density where the host measured a
       // placement, the cover ratio the optics pass samples with where it did not
       // (`backdrop-fit.ts`) — times the downscale the plan actually applied
