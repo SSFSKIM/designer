@@ -1,0 +1,29 @@
+W49a G0 probe report (rule.py; part 1's probes read under part 2's rules)
+
+P1: d0219cd684bf with only the active span tops at 160 (F2 by render; within B of the prediction)
+  1x checkerboard-32__rrect-lg__rest      read 0.0228 predicted 0.0228 (B 0.0030; d0219 0.0292, native 0.0584) holds
+  1x checkerboard-64__rrect-lg__rest      read 0.0297 predicted 0.0297 (B 0.0030; d0219 0.0338, native 0.0856) holds
+  1x hc-text-28__rrect-lg__rest           read 0.0270 predicted 0.0270 (B 0.0036; d0219 0.0311, native 0.0460) holds
+  2x checkerboard-32__rrect-lg__rest      read 0.0283 predicted 0.0283 (B 0.0030; d0219 0.0343, native 0.0556) holds
+  2x checkerboard-64__rrect-lg__rest      read 0.0347 predicted 0.0347 (B 0.0030; d0219 0.0395, native 0.0846) holds
+  2x hc-text-28__rrect-lg__rest           read 0.0287 predicted 0.0287 (B 0.0036; d0219 0.0325, native 0.0419) holds
+
+P2: b2d074d2df24 with the receded far delta (family R); X74, then DL2 per point, then DL4
+  1x: X74 reach 7 cells ['checkerboard-64__rrect-lg__inactive', 'checkerboard-8__rrect-lg__inactive', 'checkerboard__rrect-ml__inactive', 'hc-text__rrect-lg__inactive', 'impulse__rrect-lg__inactive', 'impulse__rrect-ml__inactive', 'photo__rrect-ml__inactive']; outside 14 (14 predicted); control: control holds
+    far -0.10: fails; objective 0.7369; (b) hc-text__rrect-lg__inactive +5.52 B against d0219; (b) impulse__rrect-lg__inactive +11.66 B against d0219; (c) impulse__rrect-ml__inactive +7.35 B against b2d074 (past 3 B); (c) checkerboard__rrect-ml__inactive +2.53 B against b2d074
+    far +0.00: fails; objective 0.6443; (b) hc-text__rrect-lg__inactive +1.99 B against d0219; (b) impulse__rrect-lg__inactive +5.90 B against d0219; (c) impulse__rrect-ml__inactive +4.90 B against b2d074 (past 3 B); (c) checkerboard__rrect-ml__inactive +1.58 B against b2d074
+    far +0.05: fails; objective 0.6055; (b) impulse__rrect-lg__inactive +3.07 B against d0219; (c) impulse__rrect-ml__inactive +3.75 B against b2d074 (past 3 B); (c) checkerboard__rrect-ml__inactive +1.13 B against b2d074
+    far +0.09: fails; objective 0.8233; (c) impulse__rrect-ml__inactive +2.76 B against b2d074
+    far +0.10: fails; objective 0.9103; (c) impulse__rrect-ml__inactive +2.37 B against b2d074
+    far +0.15: fails; objective 0.6721; (a) checkerboard-64__rrect-lg__inactive +4.92 B against d0219; (c) impulse__rrect-ml__inactive +1.41 B against b2d074
+    selected: None (no point meets DL2 at this scale)
+  2x: X74 reach 7 cells ['checkerboard-64__rrect-lg__inactive', 'checkerboard-8__rrect-lg__inactive', 'checkerboard__rrect-ml__inactive', 'hc-text__rrect-lg__inactive', 'impulse__rrect-lg__inactive', 'impulse__rrect-ml__inactive', 'photo__rrect-ml__inactive']; outside 14 (14 predicted); control: control holds
+    far -0.10: fails; objective 0.6734; (b) hc-text__rrect-lg__inactive +5.94 B against d0219; (b) impulse__rrect-lg__inactive +8.89 B against d0219; (c) impulse__rrect-ml__inactive +7.36 B against b2d074 (past 3 B); (c) checkerboard__rrect-ml__inactive +2.76 B against b2d074
+    far +0.00: fails; objective 0.6668; (b) hc-text__rrect-lg__inactive +2.34 B against d0219; (b) impulse__rrect-lg__inactive +5.01 B against d0219; (c) impulse__rrect-ml__inactive +4.93 B against b2d074 (past 3 B); (c) checkerboard__rrect-ml__inactive +1.70 B against b2d074
+    far +0.05: fails; objective 0.6645; (b) impulse__rrect-lg__inactive +3.01 B against d0219; (c) impulse__rrect-ml__inactive +3.48 B against b2d074 (past 3 B); (c) checkerboard__rrect-ml__inactive +1.22 B against b2d074
+    far +0.09: fails; objective 0.6626; (b) impulse__rrect-lg__inactive +1.47 B against d0219; (c) impulse__rrect-ml__inactive +2.79 B against b2d074
+    far +0.10: fails; objective 0.7030; (b) impulse__rrect-lg__inactive +1.09 B against d0219; (c) impulse__rrect-ml__inactive +2.63 B against b2d074
+    far +0.15: fails; objective 0.6613; (a) checkerboard-64__rrect-lg__inactive +7.00 B against d0219; (c) impulse__rrect-ml__inactive +1.49 B against b2d074
+    selected: None (no point meets DL2 at this scale)
+
+VERDICT: NEITHER: W49a closes at the finding and the parent asks the user (DL4)
