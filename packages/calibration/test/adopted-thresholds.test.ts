@@ -228,6 +228,12 @@
  *     > reference moved last. P at both scales and F inactive at 2x are named target misses. Neither
  *     > ground moved: the bar is the same, and the move (dark C rest 0.39 → 0.19 and 0.51 → 0.20 over
  *     > all 77 cells, §5.213 §7) is what the rows identify.
+ *     > **W49a (DL9/DL10; §5.215): the receded far delta repairs the opaque body.** Its active
+ *     > document stays b2d074d2df24; the receded document becomes 940384c06f73. X59 adds that pair's
+ *     > bands, witnesses both historical references with an explicit per-cell selection, removes
+ *     > five repaired authorisations and retains twelve W48 caps, adds three DL9 impulse costs,
+ *     > re-derives 120 of 154 misses, then moves the reference last. The retained 2x checkerboard-32
+ *     > inactive miss improves from 6.04 to 1.0819 B but is not repaired; its original cap stays.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -3650,6 +3656,8 @@ const T1_BANDS_FILES = [
  *   dark publication is what the clause can stop. W49a witnesses both old references before
  *   changing its list: five repairs leave, twelve W48 entries retain their original caps (DL10),
  *   and three new DL9 entries name their own reference. The standing case selects it per cell.
+ *   After the misses and their census agree, its clause (b) reference moves LAST to the sealed
+ *   pair b2d074d2df24 / 940384c06f73. The next material change is therefore compared to this repair.
  * - **The referee manifest** is W46's (`w46-referees-1`, six scenes per dark scale). It labels a
  *   cell's partition and never selects.
  * - **The band fixtures**, ONE PER GENERATION as on the light side (W48 G2, charter clause 10 part (i);
@@ -3668,7 +3676,7 @@ const T1_DARK_GATED_PROFILES = [
   "apple-macos-27.0-1x-dark-standard-glass0.25",
   "apple-macos-27.0-2x-dark-standard-glass0.25",
 ] as const;
-const T1_DARK_REFERENCE = { active: "b2d074d2df24", receded: "29da6a888a23" } as const;
+const T1_DARK_REFERENCE = { active: "b2d074d2df24", receded: "940384c06f73" } as const;
 const T1_DARK_REFEREES_FILE = {
   path: "results/2026-10-05-w46-g0-declaration/referees/referees.json",
   sha256: "0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf",
