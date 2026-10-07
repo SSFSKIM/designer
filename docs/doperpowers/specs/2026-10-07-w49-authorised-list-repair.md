@@ -1,6 +1,6 @@
 # W49a — the opaque receded body repaired with the receded far delta: no shipped glass draws opaque, and a landing that cannot trade new cells for old (2026-10-07)
 
-**Status: G0 DECLARED (2026-10-07).** Decision Log RULED by the parent (DL1–DL8, verbatim below). W49
+**Status: G0 READ — the gate reads NEITHER; STOPPED for the parent (2026-10-07).** Decision Log RULED by the parent (DL1–DL8, verbatim below). W49
 splits (DL1): **W49a**, this charter, repairs the opaque receded dark `-glass0.25` body with one existing
 leaf pair and ships as patch 0.28.1; **W49b**, the pitch-selective thick body, is chartered after W49a
 lands and nothing of it is declared here. Branch `w49-g0-grounding`; evidence
@@ -243,6 +243,8 @@ freeze 1,818 and X41 911 at every merge.
   the user's).
 - The dark photo body (P), S1 dark, the dark 0.5 pair (X41), the light scheme (X60), the CSS tier's fine
   pitch, accessibility at 0.25.
+- The two review findings on W49a's pinned tools (G0 outcome): any later copy of `rule.py` reads clause (c)
+  growth-only, and any later seal applies X76 to every named receded leaf, not only the extension keys.
 - X76's reach beyond W49a's seal: the light 0.25 receded document's four unrecorded active fits and the
   pre-form 0.5 documents (`x76/audit.txt`) are recorded, not re-sealed; a future seal of either meets the
   rule.
@@ -252,7 +254,7 @@ freeze 1,818 and X41 911 at every merge.
 | child | status | ledger |
 | --- | --- | --- |
 | grounding | DONE on `w49-g0-grounding` `4559dc41b` | (§5.215) |
-| G0 | declared; renders per Revision Notes | §5.215 |
+| G0 | declared (part 1 `a7403d3e…`, part 2 `bffb524b…`), P1 and P2 rendered and read: NEITHER at both scales | §5.215 |
 | G1 | not started | §5.216 |
 | G2 | not started | §5.217 |
 
@@ -322,6 +324,40 @@ it). The parent asks the user; until then do every non-render step.
 permission (no zoom or caphost process remains, verified by the parent); re-run the classifying census
 at the render step and, if it passes, render P1 and P2 as declared.
 
+## G0 outcome (the gate, read under the hashed part 2)
+
+`probes/report.txt`, from the cuts in `probes/readings/` (P1 and P2, both scales, 66 + 21 cells per
+scale, every launch census-passed, `census.jsonl`, `runs.jsonl`).
+
+- **X74.** At each scale family R reaches exactly the seven predicted cells (the four `rrect-lg` and three
+  `rrect-ml` inactive gate cells); the other fourteen read one value across the six points, all predicted
+  (farS = 0), and every one reproduces its `b2d074d2df24` value (the control holds).
+- **DL2, per point** (growth in B; (b) and the repair against `d0219cd684bf`, (c) against `b2d074d2df24`):
+
+  | far | 1x | 2x |
+  | --- | --- | --- |
+  | −0.10 | (b) hc-text +5.52, impulse lg +11.66; (c) impulse ml +7.35, checkerboard ml +2.53 | (b) +5.94, +8.89; (c) +7.36, +2.76 |
+  | 0 | (b) +1.99, +5.90; (c) +4.90, +1.58 | (b) +2.34, +5.01; (c) +4.93, +1.70 |
+  | 0.05 | (b) impulse lg +3.07; (c) +3.75, +1.13 | (b) +3.01; (c) +3.48, +1.22 |
+  | 0.09 | (c) impulse ml +2.76 | (b) impulse lg +1.47; (c) impulse ml +2.79 |
+  | 0.10 | (c) impulse ml +2.37 | (b) +1.09; (c) +2.63 |
+  | 0.15 | (a) checkerboard-64 lg +4.92; (c) impulse ml +1.41 | (a) +7.00; (c) +1.49 |
+
+  The repair cell reads within B of `d0219cd684bf` at every far ≤ 0.10 (at 0.09: −0.61 / −0.17 B); what
+  no point clears is `impulse__rrect-ml__inactive` against `b2d074d2df24`, at every far, as part 1
+  predicted, and at 2x the lg impulse cell too. **No point meets DL2 at either scale: NEITHER (DL4). W49a
+  closes at the finding and the parent asks the user.**
+- **P1** reads the three thick rest cells exactly at the predicted values at both scales (F2 confirmed by
+  render, for W49b).
+- **The review** (`doperpowers:reviewer-medium`, after the hash, before the renders finished) found two
+  real defects in pinned tools, neither changing this verdict: (1) `rule.py` counts only cells labelled
+  `away` in clause (c), so a crossing (`overshoot`) regression with growth beyond B would escape it, where
+  W46's partition is growth-only; read beside the hashed rule (`probes/review-corrected-c.txt`) it adds no
+  failure to any point, and a stricter (c) can only remove passing points. (2) `seal.ts` applies X76 only
+  to the X64/X67 extension keys, so a 0.5-twin leaf stated at its active's value with no record (e.g.
+  `backdropToneAnchorX`, `backdropToneBlackStrength`) seals silently. Both are pinned in the hashed parts,
+  and the renders had begun, so neither is amended (DL4); any later wave's copies carry the fixes.
+
 ## Surprises & Discoveries
 
 - **W48's deferral named the wrong cause** (F1): the thick inactive cells are opaque, not under-scattered,
@@ -335,7 +371,8 @@ at the render step and, if it passes, render P1 and P2 as declared.
   (`web-captures-superseded/d0219cd684bf/`) explicitly.
 - **A candidate-mode render reproduces a published row exactly** (the tooling smoke: 0.0337913274553524 on
   both), which is why X74's control can be tight.
-- **The predicted coupling at `rrect-ml`** (Risks): DL2 may be unattainable with family R alone.
+- **The predicted coupling at `rrect-ml` is confirmed by render:** the receded far delta cannot repair
+  the `rrect-lg` cell without moving `impulse__rrect-ml__inactive` beyond B from `b2d074d2df24` (G0 outcome).
 
 ## Revision Notes
 
@@ -343,3 +380,6 @@ at the render step and, if it passes, render P1 and P2 as declared.
 - 2026-10-07 (v1, G0): rewritten for W49a under the parent's rulings DL1–DL8 (folded verbatim); W49b named
   as the follow-on; family R, the probes, X74–X76, DL2 and DL4 as Design; the first-order predictions and
   the `rrect-ml` risk recorded before any render.
+- 2026-10-07 (v2, G0 read): both parts hashed (`a7403d3e…`, `bffb524b…`) at `034da9318`; the census passed
+  after Zoom was quit; P1 and P2 rendered and read; the gate reads NEITHER at both scales; the review's two
+  findings recorded and read beside the hashed rule. STOPPED for the parent (DL4).
