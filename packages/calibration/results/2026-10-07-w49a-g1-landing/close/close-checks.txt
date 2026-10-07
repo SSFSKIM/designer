@@ -1,0 +1,30 @@
+pnpm -r build exit 0
+freeze verify exit 0
+X41 verify exit 0
+declare.py check exit 1 (recorded: live pinned seal and X75 test may differ from G0 declaration; no rehash)
+declare.py check-fit exit 2 (W49a has no check-fit verb; both parts checked by check)
+sealed material tests exit 1
+sealed material tests after provenance update exit 0
+pnpm -r lint exit 0
+gpu-operator1-before: ['pnpm', '--filter', '@vitrea/renderer-webgpu', '--fail-if-no-match', 'exec', 'playwright', 'test', 'e2e/gpu/w47-alpha-far.spec.ts', '--workers=1']; exit 1; load { 9.60 7.33 6.34 }
+matrix publish exit 0
+check-capture-tree exit 0
+build-final: ['pnpm', '-r', 'build']; exit 0; load { 6.41 7.89 7.00 }
+goldens: ['pnpm', '--filter', '@vitrea/renderer-webgpu', '--fail-if-no-match', 'test:golden', '--workers=1']; exit 0; load { 6.53 7.89 7.00 }
+gpu: ['pnpm', '--filter', '@vitrea/renderer-webgpu', '--fail-if-no-match', 'test:gpu', '--workers=1']; exit 0; load { 6.55 7.83 6.99 }
+platform-web: ['pnpm', '--filter', '@vitreajs/vitrea-web', '--fail-if-no-match', 'exec', 'playwright', 'test', '--workers=1']; exit 0; load { 5.80 7.41 6.90 }
+react-e2e: ['pnpm', '--filter', '@vitreajs/vitrea-react', '--fail-if-no-match', 'test:e2e', '--workers=1']; exit 0; load { 5.07 6.70 6.70 }
+lint-final: ['pnpm', '-r', 'lint']; exit 0; load { 2.76 5.22 6.09 }
+eslint-root: ['pnpm', 'exec', 'eslint', '.']; exit 0; load { 5.28 5.58 6.19 }
+units: ['pnpm', '-r', 'test']; exit 1; load { 5.28 5.58 6.19 }
+demo-oracle-fixed: ['pnpm', '--filter', 'demo', '--fail-if-no-match', 'test']; exit 0; load { 7.85 11.62 9.38 }
+freeze-final: ['python3', 'packages/calibration/results/2026-09-16-w29-freeze/freeze.py', 'verify']; exit 0; load { 23.92 14.73 10.62 }
+x41-final: ['pnpm', '--filter', '@vitrea/calibration', '--fail-if-no-match', 'exec', 'tsx', 'results/2026-10-01-w43-g0-declaration/x41/x41.ts', 'verify']; exit 0; load { 23.92 14.73 10.62 }
+capture-tree-final: ['pnpm', '--filter', '@vitrea/calibration', '--fail-if-no-match', 'run', 'check-capture-tree']; exit 0; load { 26.57 15.43 10.89 }
+declare-check-final: ['python3', '-B', 'packages/calibration/results/2026-10-07-w49a-g0-declaration/declare.py', 'check']; exit 1; load { 26.57 15.43 10.89 }
+declare-check-fit-final: ['python3', '-B', 'packages/calibration/results/2026-10-07-w49a-g0-declaration/declare.py', 'check-fit']; exit 2; load { 26.84 15.68 11.00 }
+units-final: ['pnpm', '-r', 'test']; exit 0; load { 7.39 11.40 9.33 }
+demo-lint-final: ['pnpm', '--filter', 'demo', '--fail-if-no-match', 'lint']; exit 0; load { 11.95 14.79 11.31 }
+demo-e2e: ['pnpm', '--filter', 'demo', '--fail-if-no-match', 'test:e2e', '--workers=1']; exit 0; load { 6.08 6.39 6.56 }
+
+FINAL SUMMARY: build/lint/root ESLint and final pnpm -r test exit 0 (3248 tests); owner+X75 179 pass with canonical pixels/no skips; goldens34, GPU55, platform411, React174+3skip, demo89, freeze1818, X41 911 and capture-tree all exit0. Expected recorded exceptions: declare.py check exit1 on three deliberately changed live pins (original declaration bytes/pins intact); check-fit exit2 unsupported. Initial stale test failures are retained above, resolved by documented provenance/anchor/demo-oracle updates. No release/version/merge/push.

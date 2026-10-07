@@ -49732,3 +49732,235 @@ GitHub release `w48-fit-summaries-archive`: one asset, `g1-candidate-summaries.t
 repository-relative, SHA-256 `bd610da5c9ca44a54b0ad363254e6a75a1e361d7e691d08c2fdf86a93d413f9d`,
 30,288,631 bytes. Extract it at the repository root to replay those readers; the local copy is
 `~/vitrea-w48/w48-worktree-leftovers/` on the capture machine.
+
+## 5.215 W49a: the dark 0.25 unfocused body repaired, the gate NEITHER, and the user's post-gate far-0.10 selection (2026-10-07)
+
+Charter `2026-10-07-w49-authorised-list-repair.md`, Decision Logs 1–9. Evidence roots
+`packages/calibration/results/2026-10-07-w49-grounding/`,
+`results/2026-10-07-w49a-g0-declaration/` (G0) and
+`results/2026-10-07-w49a-g1-landing/` (the seal, read 9 and landing).
+
+### 1. The defect and the scope
+
+W48's dark receded document held `tintAlpha` 0.8 and silently materialised the active's
+`tintAlphaFar1x` / `…2x` 0.2 / 0.2. Its nominal alpha exceeded 0.95 from integer span 140 and
+reached 1 at 160, on both tiers. A nominal glass body could therefore remove all backdrop
+structure. The thick coarse inactive checker gap in §5.213–§5.214 was not evidence identifying
+a scatter defect: no scatter can transmit through alpha 1. W49a repairs this with the existing
+receded leaf pair alone; W49b owns the remaining pitch-selective body and transmission span law.
+
+X75 now refuses nominal alpha above 0.95 across every shipped endpoint, both tiers, variants,
+dpr 1 and 2, integer spans 0..1024; accessibility opacity lifts are deliberately outside this
+nominal-policy law. It failed the shipped 0.28.0 endpoint as recorded in G0's `x75/` and now has
+no expected-failure exemption. X76 requires a fitted or explicit held record for an inherited
+receded leaf, rather than silently naming the active's value.
+
+### 2. G0: declared probes, findings, and a tool defect
+
+The two parts were hashed before the renders. P1 put only the active span tops at 160 on
+`d0219cd684bf` and reproduced all six first-order predictions. P2 rendered receded far deltas
+−0.10, 0, 0.05, 0.09, 0.10 and 0.15 on 21 inactive gate cells per scale. X74 found seven cells
+within this family's reach and fourteen controls outside it, all reproducing the held material.
+Neither scale had a point meeting DL2; DL4 correctly stopped selection and asked the user.
+G0's `probes/report.txt` is the reading, not a successful-fit claim.
+
+G0 `rule.py` clause (c) admitted only the direction class `away` into its growth veto, omitting
+an `overshoot` with error growth beyond B. `probes/review-corrected-c.txt` recomputed the veto
+from growth alone; every result was unchanged. The hashed historical tool and declaration
+remain untouched; the defect is recorded, not repaired by rewriting a post-gate rule.
+
+### 3. DL9 and the corrected seal
+
+The user selected far **0.10 / 0.10 after the gate**, not under a rule that retrospectively
+passed. It dominates 0.09 on the three named costs while repairing the opaque targets and
+puts the receded thick body at alpha 0.9. All other leaves remain unchanged. DL9 authorises
+only `impulse__rrect-ml__inactive` at 1x and 2x against `b2d074d2df24`, and
+`impulse__rrect-lg__inactive` at 2x against `d0219cd684bf`; DL9 predicted six repaired entries would leave the
+list. Read 9 corrects that count to five under DL10: the 2x checkerboard-32 lg inactive
+entry keeps its existing W48 authorisation, alongside the eleven other retained entries.
+
+Before sealing, G0's X76 gap was reproduced with a test: its `MAY_ADD` filter let five
+0.5-twin leaves equal the active without any record. The corrected seal drops that filter;
+sixteen inherited leaves now have explicit holds, and the two moved far leaves have fitted
+methods citing DL9. All five seal tests pass, including refusal without the twin holds and
+one-file-only write. Test setup replays the W48 receded snapshot rather than depending on
+which generation the live profile currently holds.
+
+The seal (`seal/manifest.json`) changes only dark receded digest `be472bc8e42b618d` →
+`10202f6be6faaa7f`, file SHA `940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735`.
+Active remains `791cde91d97acbc7`, document `b2d074d2df24`. The other nine document digests are
+unchanged (`seal/digests-after.json`). The generated runtime module is derived from the sealed
+four 0.25 documents, and the export test follows the selected G0 candidate's patch and hashes.
+
+### 4. The strict-mode stage and read 9
+
+The stage is `~/vitrea-w49/w49a-stage-dark`, both dark 0.25 profiles, both tiers, every declared
+set. The classifying census and Playwright/Chromium pin run before each launch, no competing
+browser is killed, and every launch's own exit code is recorded in `stage/runs.jsonl`.
+The 104 non-withheld scenes per profile/tier were read first. All 42 far-0.10 G0 probe rows
+reproduce **exactly on every measured axis** in strict mode (`stage/probe-reproduction.json`).
+Read 9 was registered and committed as `53c07ba3c` before exposure, with the selected pair and
+W46 referee manifest: a **prediction check, not blind**, under DL6. Each of the thirteen
+holdout/referee scenes per profile/tier is read once into that same stage.
+
+The exposure is complete: **468 declared, 468 present, 0 missing**, all eight compare launches
+exit 0, 234 rows per profile. The repairs against `d0219cd684bf`, growth in B:
+
+| inactive rrect-lg cell | 1x | 2x |
+| --- | ---: | ---: |
+| checkerboard-64 | +0.3263 | +0.9155 |
+| checkerboard-32 (referee) | +0.8468 | **+1.0819** |
+| photo (holdout) | +0.2101 | +0.2919 |
+
+The 2x checkerboard-32 referee **missed the prediction**. Its T1 is 0.030508 against native
+0.041221; W48's authorised growth was 6.04 B, now 1.08192296 B. Publication stopped for the
+parent, who ruled DL10: keep this existing W48 entry, with its original recorded growth and
+reference unchanged, record the new value beside it, and remove **five**, not six. This is not
+a re-authorisation: the entry never leaves the list. The user's far-0.10 selection stands;
+there is no re-selection or second exposure. The remaining repair miss is W49b's.
+
+DL9's three new costs read +2.37189448 / +2.62812149 B for impulse rrect-ml inactive against
+`b2d074d2df24`, and +1.09257731 B for impulse rrect-lg inactive at 2x against d0219. All remain
+below 3 B. W48's required halvings remain exactly as recorded: C rest 0.193431 / 0.200687
+against 0.390008 / 0.506540, and F inactive 1x 0.384615 against 0.868437. P remains not halved
+(0.764383 / 0.718780 against 1.100486 / 1.119496), as does F inactive 2x (0.535025 against
+0.942286). S1 dark's descriptive medians now read 0.351562 / 0.321427; they are not gated.
+
+### 5. Publication and the capture tree
+
+`matrix publish` installed `results/generations/b2d074d2df24-940384c06f73.json`, **468 rows**,
+17,477,609 bytes, SHA-256 `d68eec6d609f062ff60e35ebbb927e329273049dabae6781db9428dadd30490f`.
+The index retires `b2d074d2df24.json` unchanged and selects the new pair for both dark 0.25
+profiles. This is a receded-only reseal: `loadGeneration` must qualify the active with the
+receded hash, since the active alias now has two owners. The current union remains 3,017 rows.
+
+The only writes to the main checkout are the authorised capture-tree landing. For each of
+`apple-macos-27.0-{1x,2x}-dark-standard-glass0.25`, **1,170 files** moved from canonical
+`packages/calibration/web-captures/<profile>/` into
+`packages/calibration/web-captures-superseded/b2d074d2df24/<profile>/`; **1,170 selected-stage
+files** copied into the vacated canonical directory. The archive names the retiring active
+hash, per the capture-tree contract; it did not exist and a collision would have refused.
+Every source, retired and installed byte is inventoried in `tree/copy-manifest.json`.
+`check-capture-tree` from this worktree against that canonical tree exits 0: 3,024 captures,
+3,017 match, 0 mismatch, 0 misfiled, 0 superseded, 0 unreadable, seven historical no-row.
+
+### 6. X59 and the owner test
+
+The new eight-cell dark band fixture is keyed by the **pair**, not just the unchanged active
+alias. Its SHA is `8009e9ebf9dae4d0ed2d9dffa20e9d1714352beb1f83ac9d46d525da2bbc06e5`.
+The regenerated dark landing cut, `cuts/cut-025-dark-w49a-landing.json`, is SHA
+`f769ca417c4d2b18799f2488853a78215cc9cdcbdf650f7d6a6f30fb34913dbb`. M2, L1 and E2 continue
+reading d0219; no unrelated reference is moved.
+
+`t1/witness-iii.txt` reports **both** historical comparisons before authorisation, with no
+exception suppressing a failure, and then the explicit per-cell DL2/DL9 reference selection.
+The repair/flattered cells use d0219; the retained W48 list uses its original d0219 reference;
+the other cells use b2d074. That partition is necessary: evaluating every cell against every
+reference would turn the 1x flattered impulse-lg into a new b2d074 regression even though DL2
+expressly reads it against d0219. The standing witness checks error growth regardless of
+`away` or `overshoot`, so G0's clause-(c) defect does not survive into the owner test.
+
+Five repaired entries are removed, twelve W48 entries remain (their original numbers intact),
+and three DL9 entries are added: **15 entries**, 6 at 1x and 9 at 2x. The dark fidelity census is
+re-derived rather than re-pinned by hand: **120 of 154 miss**, 58/77 at 1x and 62/77 at 2x.
+The stratum counts are 1x F 11/15, T 2/4, C 33/46, P 12/12; 2x F 12/15, T 2/4, C 36/46, P 12/12.
+The rise from W48's 117 is not hidden by the repair. `T1_DARK_REFERENCE` moves last to the
+new pair, after fixtures, witness, authorisations and the missed-row census.
+
+### 7. What the eye sees and what remains
+
+`stage/eye-check.txt` records hashes of the actual viewed native, W48, selected WebGPU and
+selected CSS images for 1x checkerboard-64 lg inactive. W48 is visually flat. The selected
+material restores a visible blurred checker on both tiers, weaker on CSS. Native retains much
+stronger modulation and a narrower blur. The 2x checkerboard-32 referee was also viewed
+after exposure: no longer flat, still smoother/lower-contrast than native, with the native
+boundary contour absent. Restoring transparency does not close that gap, the contour gap, the photo body, or the twelve remaining W48 regressions. The 2x checkerboard-32
+prediction miss and three new impulse costs are named W49b work, not accepted invisibly.
+
+The demo build projects 587 cells (205 at 26.5, 206 at 0.5, 176 at 0.25) from the 3,017-row union.
+Its generated module's SHA changes to `5ae71cf3033d3233d009707d14fd632763309f2048410c82a0c5b1766d2ff0f4`
+(`demo/reduction.json`); row counts do not change. The committed reference pair remains light/1x,
+so it is not a new native comparison of the demo's dark 0.25 drawing.
+
+### 8. Runtime verification and the record after exposure
+
+The generated module is the sealed document's patch and digest. The export and coherence
+specs now name the selected G0 candidate and the receded 0.1 anchors; the original stale
+expectations failed first and are retained in `close/` logs. X75 has no known-defect branch.
+W47's GPU spec likewise failed on its stale assumption that both poses use 0.2; it now
+recomposes each pose from its identity base with **that pose's own document anchors**.
+
+After exposure, three runtime-source **comments only** were corrected (`material.ts`, WGSL
+`optics.ts`, platform-web `optics.ts`): they had described both poses as 0.2. The exact
+added/removed lines are all comments (`close/comment-only-witness.json`). As at §5.214 this
+moves the cross-gate ledger's source digest after the recorded read without moving a fitted
+or rendered byte; `close/configuration-after-comments.txt` records it, and there is no second
+holdout read. The final build, 34 goldens and 55 GPU cases all pass after these edits.
+
+
+### 9. The close checks and independent review
+
+`close/run.py` records each command's own exit code; browser launches additionally check the
+suite's port, hold the W49 adapter lock, pass the classifying census and record load. Browser
+suites run serially at **one worker**; no competing browser is terminated. The full unit run
+uses `VITREA_WEB_CAPTURES` at the canonical tree.
+
+All build, lint, unit and browser checks below are verified on the landed branch bytes;
+publication/evidence command exceptions are stated with their actual exits:
+
+| step | exit | reading |
+| --- | ---: | --- |
+| final `pnpm -r build` | 0 | after source-comment corrections |
+| `pnpm -r lint`, root `eslint .` | 0, 0 | |
+| final `pnpm -r test` | 0 | 3,248 passed: policy 23, motion 164, geometry 170, renderer 673, core 304, platform-web 656, React 180, calibration 955, demo 123 |
+| owner + X75 with current/superseded pixels | 0 | **179 passed**, no skips; `PREDICATE_EXCLUDES` matches the machine unchanged, every other adopted row passes |
+| goldens, real adapter | 0 | **34 passed**, after comment edits |
+| renderer GPU suite | 0 | **55 passed**, operator 1 included, after comment edits |
+| platform-web Playwright | 0 | **411 passed**, one worker |
+| React Playwright | 0 | **174 passed, 3 skipped**, one worker |
+| demo Playwright | 0 | **89 passed**, one worker, 11.5 minutes; starting load 6.08 / 6.39 / 6.56 |
+| freeze, final | 0 | **1,818 intact** |
+| X41, final | 0 | **911 intact** |
+| capture-tree, final | 0 | 3,017 match, 0 mismatch; seven historical no-row |
+| `declare.py check`, final | 1 | three intentionally changed live pins; both declarations and original pins intact |
+| `declare.py check-fit` | 2 | unsupported verb in W49a; it performs no fit read |
+
+The full unit chain first failed in the demo oracle, whose expectation that every generation
+filename was the active hash alone predated a receded-only reseal. The corrected oracle admits
+the two store filename forms while retaining its independent document-pair and exact
+per-profile projection checks; demo 123/123 and the full chain then pass. Original red logs
+are kept, as are the stale provenance/coherence/GPU-spec expectations corrected earlier.
+
+`declare.py check` reassembles **both** hashed parts from current pinned files. The corrected
+seal, its regression tests and removal of X75's expected failure are the only actual changed
+pins. Its diagnostic also prints `probes` because it compares integer-keyed fresh profiles with
+JSON string keys; the serialised probe body is unchanged. `declaration-byte-witness.json`
+verifies both recorded hashes and all **36 + 4** pins against the original G0 head `c4dec6d66`:
+zero mismatches. No post-gate hash is rewritten. W49a's CLI has no `check-fit` entrypoint;
+that invocation's exit 2 is reported, not converted to a pass.
+
+Independent `doperpowers:reviewer-medium` reviews (`close/review.txt`):
+- `c4dec6d66..53c07ba3c`, seal/runtime/stage protocol: **correct, no material findings**; five seal
+  tests passed independently.
+- `c4dec6d66..caa287aa3`, final owner, pair-aware fixtures and pose-specific runtime witnesses:
+  **correct, no material findings**. The reviewer verified unchanged twelve W48 caps, exactly
+  three DL9 additions and reference-last order, four Python identity tests, and current/historical
+  band capture hashes. Its unit run had four absent-tree skips; the landing's 179-case canonical
+  run above has none.
+- `caa287aa3..43a392158`, the bounded new demo-oracle delta: **correct, no material findings**;
+  all thirteen matrix-reduction tests pass, and retired-pair selection remains detectable.
+
+X59's phase heads are `3b59dfa42` (cut/bands/witness), `b1228200e` (authorisations and pair
+readers), `be1a370fc` / `542087ad0` (miss table and its stratum census), and `f59cbfbff`
+(reference last, with canonical-pixel pass). No review finding required a fix wave.
+
+### 10. Scope at hand-off
+
+The changeset is `@vitreajs/vitrea-web` **patch**, targeting 0.28.1; no version or release
+command has run. The defect wording distinguishes excess opacity from span 140 and fully
+absent transmission from 160, on both tiers, and names the remaining 2x checkerboard-32 miss.
+The generated runtime, current READMEs, CLAUDE.md, charter and tracker are reconciled to the
+new digest and DL10. The old W48 measurements remain historical evidence, not rewritten.
+The parent merges this branch and checks the canonical capture tree against the landed index;
+then the normal user-controlled version/release path applies. W49b is the next charter, not
+another selection or exposure in W49a.

@@ -7791,6 +7791,13 @@ publication must clear or re-rule them. Two shapes:
   of the fix: a knot between the knee and the top, or the occlusion gain's own grade, declared
   against these cells; the mid-span cells need a lever that the far curve (0 at 96) cannot supply.
 
+**W49a correction (§5.215).** The three thick inactive pairs above are the opacity defect, not
+a demonstrated scatter cost. DL9 selects far 0.10; the exposure confirms five repairs. DL10 retains the sixth,
+2x checkerboard-32 lg inactive, at +1.0819 B under its original W48 authorisation (6.04 B
+recorded there), without re-authorisation. It names three new impulse costs: rrect-ml inactive at both
+scales against `b2d074d2df24`, and rrect-lg inactive at 2x against `d0219cd684bf`. The eleven other
+W48 entries keep their original numbers and reference; no W49a ruling re-authorises them.
+
 ## The thick coarse inactive checkers draw flat at W48 (W48 G1 exposure and G2 sheets, 2026-10-07)
 
 *Seen on the exposure's and the landing's whole-bed sheets (`results/2026-10-06-w48-g2-landing/sheets/`,
@@ -7801,6 +7808,15 @@ body where Apple's and `d0219cd684bf`'s keep the blurred checker. It is the eye'
 largest authorised regressions (T1 0.0006–0.0159 against Apple's 0.038–0.074), and nothing in the
 gated rows bounds it beyond those two list entries. The shape of the fix is the deferred span-graded
 receded scatter above; the next sheet must show the checker back.
+
+**Cause corrected at W49a (§5.215, 2026-10-07).** This was not identified as a scatter defect:
+W48's receded 0.8 tint alpha inherited the active's far delta 0.2, reaching alpha 1 at span 160
+on both tiers. W49a seals the far deltas at 0.10 / 0.10, holding every other leaf, under the
+user's post-gate DL9 selection. X75 bars nominal alpha above 0.95 and X76 bars silent inherited
+leaves. The 1x checker-64 side-by-side now visibly carries the blurred checker where W48 was
+flat; native still has much stronger modulation and a narrower blur. Repairing opacity is not
+closing that fidelity gap. W49b must separate pitch response and the transmission span law;
+it does not inherit the old unverified scatter diagnosis.
 
 ## S1 on the dark 0.25 profiles falls under W48 (W48 G1, 2026-10-07)
 
@@ -7825,3 +7841,25 @@ on exactly those; with their part-1 bytes put back in a scratch worktree it read
 `check-fit` reads consistent on the live tree. The shape of the fix is W45's: a starting point read by
 its generation's file hash, and a check that separates "the declaration's inputs are intact" from
 "the live tree still equals them".
+
+## W49a's G0 seal omitted inherited 0.5-twin leaves; the gate omitted overshoots (2026-10-07)
+
+**Seal fixed before publication (§5.215).** X76's `atActive` filter considered only `MAY_ADD`, so
+five leaves already present on the 0.5 twin could match the active material without a method
+record. Removing that leaf-set filter makes all sixteen inherited holds explicit. The regression
+first demonstrated a successful silent seal, then failed closed; the complete seal suite passes.
+
+**Gate defect recorded, not rehashed.** G0 `probes/rule.py` clause (c) treated only `away` as a
+regression and missed an `overshoot` whose error grew beyond B. The growth-only reread in
+`probes/review-corrected-c.txt` changed no outcome. Those hashed historical tool bytes remain
+untouched; future gates must compare error growth regardless of direction class.
+
+**Declaration replay scope.** G0 `declare.py check` reassembles both hashed parts against the
+live pinned tools; the corrected seal and later removal of X75's expected failure necessarily
+move those pins. No declaration is rewritten after the gate. W49a has no `check-fit` verb: the
+requested invocation exits 2 and is recorded as unsupported, not called a successful check.
+
+The check's diagnostic also names `probes` although its serialised value is unchanged: fresh
+`PROFILES` uses integer keys and the recorded JSON has string keys. Normalising both through
+JSON leaves only the three changed pins (`close/declaration-probe-diagnostic.txt`). This is a
+minor reporting defect in the frozen tool, not permission to rehash its declaration.

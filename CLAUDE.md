@@ -338,7 +338,8 @@ conditioning contracts remain. No rim, contour, middle or chroma leaf moved in t
 **The dark 0.25 body's transmission is graded by span** (W47 operator 1, fitted at W48, §5.213):
 `alphaBase = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dpr) · farS, 0, 1)` per
 pixel, before the occlusion term the W9 solve reads, and per surface on the CSS tier
-(`spanGradedTintAlpha`). Identity 0; only the dark `-glass0.25` pair names it (0.2 / 0.2).
+(`spanGradedTintAlpha`). Identity 0; only the dark `-glass0.25` pair names it: active 0.2 / 0.2
+(W48), receded 0.1 / 0.1 (W49a, §5.215).
 
 **Two of the material's operators are functions of the surface rather than constants** (W30, claims
 §5.159). The outer shadow's blur is graded by the CASTING SPAN —
@@ -741,11 +742,27 @@ shipped the dark refit as an improvement landing with every exception named** (c
   dark 0.25 blocks read `cut-025-dark-w48-landing.json` through `GLASS025_VIEW`; the light ones keep
   W45's cut. M2, L1 and E2 read `d0219cd684bf` by hash.
 - **Gaps** (claims §5.213–§5.214; tracker): S1 dark falls to 0.304 / 0.300 from 0.314 / 0.311;
-  the thick coarse inactive checkers draw flat where Apple and `d0219cd684bf` keep the blurred checker
-  (seen on the sheets); the span law's own cost on the thick and mid-span coarse rest cells; the
-  dark photo body; `declare.py check` reads the live documents after the freeze. **Deferred:** a
-  span-graded receded scatter for the thick coarse inactive cells, the shape W45's span-graded share
-  answered on the light scheme. The dark 0.25 holdout and W46's referees are spent for these bytes.
+  the thick coarse inactive checker gap was traced to an opaque receded body, not the scatter
+  (W49a, §5.215, below); the span law's own cost on the thick and mid-span coarse rest cells; the
+  dark photo body; `declare.py check` reads the live documents after the freeze. The dark 0.25
+  holdout and W46's referees are spent for these bytes. W49b owns the remaining pitch-selective
+  body and the transmission law's independent span top, not an implicit receded-scatter fix.
+
+**W49a (§5.215, 2026-10-07) repairs the dark 0.25 receded transmission** (charter
+`2026-10-07-w49-authorised-list-repair.md`, Decision Log 9; patch changeset for 0.28.1).
+W48's receded document silently inherited the active's far delta 0.2 above its own `tintAlpha`
+0.8: nominal alpha exceeded 0.95 from span 140 and reached 1 at 160, suppressing the backdrop
+on both tiers. The gate read NEITHER; the user selected 0.10 / 0.10 **after the gate**, with
+three named impulse regressions. Every other leaf is held. Only the receded digest moves, to
+`10202f6be6faaa7f`; active `791cde91d97acbc7` and the other eight are unchanged. **X75** refuses
+nominal alpha above 0.95 on every shipped endpoint, both tiers/scales, spans 0..1024. **X76**
+requires fitted or explicit held records for active inheritance, including the 0.5-twin leaves
+that G0's seal incorrectly omitted. Read 9 is a **prediction check, not blind** (DL6). Five repair entries leave; the 2x
+checkerboard-32 lg inactive referee reads +1.0819 B against d0219 and keeps its original W48
+authorisation (DL10), beside the eleven others and DL9’s three new impulse costs. W49b owns
+that remaining repair miss and the pitch-selective body; no new operator or native capture
+is authorised here. The receded-only generation is `b2d074d2df24-940384c06f73.json` (468 rows);
+the union stays 3,017 rows and T1 names 120 of 154 dark cells as fidelity misses.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

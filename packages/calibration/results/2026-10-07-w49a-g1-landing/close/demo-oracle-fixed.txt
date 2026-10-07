@@ -1,0 +1,34 @@
+command: ['pnpm', '--filter', 'demo', '--fail-if-no-match', 'test']
+load before: { 7.85 11.62 9.38 }
+$ vitest run
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./profile" without a file extension (../../packages/calibration/src/material-selection.ts:30:33). Add the file extension
+  - import "./report" without a file extension (../../packages/calibration/src/matrix-store.ts:10:57). Add the file extension
+  - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/matrix-store.ts:11:36). Add the file extension
+  - import "./generation-stage" without a file extension (../../packages/calibration/src/matrix-write-guard.ts:9:35). Add the file extension
+  - import "./errors" without a file extension (../../packages/calibration/src/report.ts:23:34). Add the file extension
+  - import "./metrics/chroma" without a file extension (../../packages/calibration/src/report.ts:24:44). Add the file extension
+  - import "./metrics/shape" without a file extension (../../packages/calibration/src/report.ts:25:67). Add the file extension
+  - import "./metrics/material" without a file extension (../../packages/calibration/src/report.ts:33:8). Add the file extension
+  - import "./metrics/motion" without a file extension (../../packages/calibration/src/report.ts:34:54). Add the file extension
+  - import "./metrics/shadow" without a file extension (../../packages/calibration/src/report.ts:35:60). Add the file extension
+  - import "./metrics/perceptual" without a file extension (../../packages/calibration/src/report.ts:41:8). Add the file extension
+  - import "./profile" without a file extension (../../packages/calibration/src/report.ts:42:69). Add the file extension
+  - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/generation-stage.ts:6:57). Add the file extension
+  - import "./matrix-store" without a file extension (../../packages/calibration/src/generation-stage.ts:8:58). Add the file extension
+  - import "./report" without a file extension (../../packages/calibration/src/generation-stage.ts:9:57). Add the file extension
+  - import "./material-selection" without a file extension (../../packages/calibration/src/generation-stage.ts:10:68). Add the file extension
+  - import "./document-position" without a file extension (../../packages/calibration/src/generation-stage.ts:11:59). Add the file extension
+  - import "./material-selection" without a file extension (../../packages/calibration/src/document-position.ts:26:8). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /Users/new/vitrea-w49/g0/apps/demo
+
+
+ Test Files  8 passed (8)
+      Tests  123 passed (123)
+   Start at  19:44:32
+   Duration  5.30s (transform 7.70s, setup 0ms, import 9.11s, tests 3.35s, environment 0ms)
+
+
+exit code: 0

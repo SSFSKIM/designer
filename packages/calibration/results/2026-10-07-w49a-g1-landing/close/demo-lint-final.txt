@@ -1,0 +1,5 @@
+command: ['pnpm', '--filter', 'demo', '--fail-if-no-match', 'lint']
+load before: { 11.95 14.79 11.31 }
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+
+exit code: 0

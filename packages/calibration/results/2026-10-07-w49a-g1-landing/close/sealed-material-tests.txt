@@ -1,0 +1,33 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w49/g0/packages/calibration
+
+ ❯ test/macos27-profile-export.test.ts (31 tests | 1 failed) 60ms
+     × apple-macos-27.0-1x-dark-standard-glass0.25-receded is its frozen candidate's patch, leaf for leaf 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/macos27-profile-export.test.ts > the four sealed -glass0.25 documents (W43 G3 (ii); the light pair re-sealed by W45 G1) > apple-macos-27.0-1x-dark-standard-glass0.25-receded is its frozen candidate's patch, leaf for leaf
+AssertionError: expected 'packages/calibration/results/2026-10-…' to be 'packages/calibration/results/2026-10-…' // Object.is equality
+
+Expected: "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json"
+Received: "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/candidates/p2-far0.1/candidate.json"
+
+ ❯ test/macos27-profile-export.test.ts:294:32
+    292|       const document = sealed(key);
+    293|       const from = document.derivedFromCandidate;
+    294|       expect(from.declaration).toBe(FROZEN_CANDIDATE[key]);
+       |                                ^
+    295|       expect(from.declarationSha256).toBe(sha(from.declaration));
+    296|       expect(from.endpointSha256).toBe(sha(from.endpoint));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 123 passed (124)
+   Start at  19:19:10
+   Duration  1.57s (transform 1.27s, setup 0ms, import 2.33s, tests 274ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w49/g0/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/tier-coherence.test.ts test/macos27-profile-export.test.ts test/x75-no-opaque-glass.test.ts

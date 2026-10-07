@@ -1,8 +1,9 @@
 # W49a — the opaque receded body repaired with the receded far delta, selected by the user after a NEITHER gate with three new exceptions named (2026-10-07)
 
-**Status: LANDING IN PROGRESS — G0 reads NEITHER; the user selected far 0.10 after the gate
-(2026-10-07, DL9); read 9 is complete and DL10 retains its one missed repair.** The parent's
-DL1–DL8/DL10 and the user's DL9 are verbatim below. W49 splits (DL1):
+**Status: LANDING COMPLETE ON BRANCH — awaiting parent merge and release (2026-10-07).**
+G0 reads NEITHER; the user selected far 0.10 after the gate (DL9); read 9's one missed repair
+keeps its original authorisation under DL10. The parent's DL1–DL8/DL10 and the user's DL9 are
+verbatim below. W49 splits (DL1):
 **W49a**, this charter, repairs the opaque receded dark `-glass0.25` body with one existing leaf pair
 and ships as patch 0.28.1; **W49b**, the pitch-selective thick body, is chartered after W49a lands and
 nothing of it is declared here. Branch `w49-g0-grounding`; evidence
@@ -299,8 +300,8 @@ freeze 1,818 and X41 911 at every merge.
 | --- | --- | --- |
 | grounding | DONE on `w49-g0-grounding` `4559dc41b` | (§5.215) |
 | G0 | declared (part 1 `a7403d3e…`, part 2 `bffb524b…`), P1 and P2 rendered and read: NEITHER at both scales | §5.215 |
-| G1 | landing in progress under DL9's post-gate far 0.10 selection; seal, read 9 and publication evidence pending here | §5.215 |
-| G2 | landing in progress under DL9/DL10; five repair entries out, three new exceptions, twelve retained | §5.215 |
+| G1 | DONE: seal 940384c06f73 / digest 10202f6be6faaa7f; read 9 once, DL10 prediction miss named; published b2d074d2df24-940384c06f73, 468 rows, capture tree copied and checked | §5.215 |
+| G2 | DONE: five entries out, three new, twelve retained; 120/154 dark misses; reference last; owner/X75 179 pass with pixels; c9d checks and medium reviews recorded | §5.215 |
 
 ## Decision Log
 
@@ -473,3 +474,28 @@ scale, every launch census-passed, `census.jsonl`, `runs.jsonl`).
   G0's clause (c) overshoot defect and its growth-only re-read recorded: all twelve readings add no
   failures, NEITHER unchanged. G1 and G2's planned claims consolidated into §5.215. The patch changeset
   names both tiers and distinguishes structure suppressed from 140 CSS px from absent at 160 CSS px.
+
+
+## Landing record (2026-10-07)
+
+- The immutable dark generation is `b2d074d2df24-940384c06f73.json`, 468 rows; old
+  `b2d074d2df24.json` is retired unchanged. The union remains 3,017 rows.
+- Read 9 is a prediction check, not blind. Five repairs pass; the 2x checkerboard-32 lg inactive
+  referee reads +1.08192296 B against d0219 and remains on W48's original authorisation (DL10).
+  No material was reselected and no holdout was rendered twice.
+- X59: evidence `3b59dfa42`, authorisations `b1228200e`, missed census
+  `be1a370fc`/`542087ad0`, reference-last `f59cbfbff`. Fifteen authorisations remain;
+  120 of 154 dark T1 cells miss. `PREDICATE_EXCLUDES` matches the machine without change.
+- The two canonical dark capture directories now contain the selected stage's files. Their old
+  files are preserved under `web-captures-superseded/b2d074d2df24/`; 1,170 moved and 1,170
+  copied per scale, all bytes checked. Generation check exits 0: 3,017 match, no mismatch.
+- Build, lint, root ESLint, 3,248 unit tests, owner/X75 179, goldens 34, GPU 55,
+  platform-web 411, React 174 (3 skipped), demo 89, freeze 1,818 and X41 911 pass.
+  `declare.py check` exits 1 on the corrected seal/test and removed X75 expected failure;
+  `check-fit` is absent (exit 2). Both original declaration hashes and all original pins verify.
+- Medium reviews of seal and owner/runtime, plus the bounded demo-oracle follow-up, report no
+  material findings. The full chain's active-only demo filename assumption was corrected to
+  admit pair-qualified names without relaxing its independent document-pair/row oracle.
+- W49b owns the retained prediction miss, twelve original W48 entries, the three DL9 costs,
+  remaining pitch response and the transmission span law. No W49b operator or native capture
+  is declared here. The patch changeset is prepared; no version, release, merge or push ran.

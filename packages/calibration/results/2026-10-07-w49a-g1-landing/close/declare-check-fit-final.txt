@@ -1,0 +1,6 @@
+command: ['python3', '-B', 'packages/calibration/results/2026-10-07-w49a-g0-declaration/declare.py', 'check-fit']
+load before: { 26.84 15.68 11.00 }
+usage: declare.py [-h] {check,hash,amend} ...
+declare.py: error: argument verb: invalid choice: 'check-fit' (choose from 'check', 'hash', 'amend')
+
+exit code: 2

@@ -363,18 +363,24 @@ mean linear level error ≤ 0.055 and growth ≤ 0.005 against W33 on 140 standa
 calibration/validation rows: 136 measured, four UNMEASURED, two named 0.066 misses.
 That is not a deep-body or an all-cell-pass claim (claims §5.180).
 
-**0.28.0 refits the clearer glass's dark body** (claims §5.211–§5.214). The two dark
+**0.28.0 refits the clearer glass's dark body; W49a repairs its unfocused transmission**
+(claims §5.211–§5.215). The two dark
 `-glass0.25` documents now read `791cde91d97acbc7` (active, from `b074fc6913a91c66`) and
-`be472bc8e42b618d` (receded, from `280f0fddf014e0f6`); the light 0.25 pair, the four 0.5 digests and
-both macOS 26.5 digests are unchanged. Both tiers now grade the dark body's transmission by the
-surface's span (`tintAlphaFar1x` / `tintAlphaFar2x`, 0 in every other document): `tintAlpha` 0.7 on
+`10202f6be6faaa7f` (receded after W49a, from `be472bc8e42b618d` at 0.28.0
+and `280f0fddf014e0f6` before it); the light 0.25 pair, the four 0.5 digests and
+both macOS 26.5 digests are unchanged. W49a reduces only the receded far deltas to 0.10 / 0.10
+above its held 0.8 alpha, keeping the thick unfocused body at 0.9 instead of opaque
+(claims §5.215, patch changeset for 0.28.1). Both tiers now grade the dark body's transmission by the
+surface's span (`tintAlphaFar1x` / `tintAlphaFar2x`, 0 in every other document): active `tintAlpha` 0.7 on
 thin surfaces, rising by 0.2 to the span top at 160, with the active rest scatter's scale gain at
 −0.5. The receded document takes a refitted scatter and the second heavy tap at share 0.25, which
 the CSS tier declines as it does on the light receded document. Against Apple's dark 0.25 render
 the coarse rest checkers' texture error halves at both scales (0.39 → 0.19, 0.51 → 0.20 over the
 77 cells per scale), the receded fine checkers' halves at 1x. The photo body's does not halve, and
-seventeen cells whose error grew (the thick coarse inactive checkers worst) ship named rather than
-gated; the thick coarse inactive checkers read flatter than Apple's by eye.
+fifteen regressions remain explicitly named after W49a: twelve original W48 entries (including
+the much-improved 2x thick inactive checkerboard-32, still +1.0819 B against its reference) and
+three new impulse costs. Five opacity-related entries are repaired and removed; restoring
+visible backdrop structure does not close the remaining contrast and blur gap to Apple.
 
 **0.27.0 refits the clearer glass's light body at Retina scale** (claims §5.205–§5.207). The two
 light `-glass0.25` documents now read `3741b22934f17f4d` (active, from `50430fa62c1120bd`) and
