@@ -1,0 +1,26 @@
+{
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w49b-grounding-thin-receded",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "695bf135ff90b0aa17d1bfb6ff3899c21e42ae3266a41e39cba652f64cc1447f"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "a0105d29f2953058de97f7dee99055cdbd7c596e3b85679abd5883431b4ddd5f"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "c4ff71e325db184fdf7fe8a2d0a5079c4306fe3ee8811cf4cc974fbdf9df19c5"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "507122ba216aaa87bf0466dc60adf1a1f3f64941cc1160f5c2e827e166329dd1"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

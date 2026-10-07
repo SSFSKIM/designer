@@ -1,0 +1,9 @@
+{
+  "status": "Third exploratory grounding round, after failed thin-ramp probes, before these renders",
+  "base": "b2d074d2df24-940384c06f73",
+  "question": "An edge-ramp change moves coarse structure and impulse together. Does W47's already-landed BODY fine-tap operator separate them spectrally, either alone or paired with the receded thin ramp? This is not W48's original receded fine objective and does not inherit its verdict.",
+  "points": [
+    {"label":"active-fine3", "scales":[1], "pose":"rest", "overrides":{"active.dark":{"sizeFineTapShare":0.5,"sizeFineTapSigma":3}}, "prediction":"A 3-CSS-px preblur at half share should attenuate the narrow impulse more than coarse checker32/64. It may still harm canonical checker16 and fine cells; every rest gate cell is measured. Repair ceiling for impulse capsule is 0.023624."},
+    {"label":"receded-thin-fine4", "scales":[2], "pose":"inactive", "overrides":{"receded.dark":{"sizeScatterRampStartThin2x":0.7,"sizeFineTapShare":1,"sizeFineTapSigma2x":4}}, "prediction":"The larger ramp restores capsule coarse texture; the body preblur should remove the impulse spike. This combination must keep both checker capsules at historical growth <=B and every other gate cell within B of W49a. Large-span deep interior is outside the body tap's direct authority, but edges are not assumed unchanged."}
+  ]
+}

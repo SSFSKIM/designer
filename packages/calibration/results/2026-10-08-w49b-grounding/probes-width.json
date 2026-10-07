@@ -1,0 +1,9 @@
+{
+  "status": "Exploratory second grounding round, declared after reading probes.json and before these renders; not a blind fit",
+  "base": "b2d074d2df24-940384c06f73",
+  "question": "Can wider bandwidth and increased share repair the three thick impulses while restoring the coarse throughput lost by width alone? These global probes are only surrogates for a >96 span-gated two-bandwidth operator; their thin costs are measured, not waived.",
+  "points": [
+    {"label":"wide8-share05", "scales":[1,2], "pose":"inactive", "overrides":{"receded.dark":{"sizeHeavySecondSigma":8,"sizeHeavySecondSigma2x":8,"sizeHeavySecondShare":0.5}}, "prediction":"Relative to width8/share0.25, coarse checker64 rises, but impulse rises too. Width filters impulse harder than coarse structure. The target ml T1 ceilings are 0.003191 (1x) and 0.003043 (2x), lg 2x 0.002208. Current coarse64 must not grow beyond B and must retain its repaired status against d0219."},
+    {"label":"wide10-share05", "scales":[1,2], "pose":"inactive", "overrides":{"receded.dark":{"sizeHeavySecondSigma":10,"sizeHeavySecondSigma2x":10,"sizeHeavySecondShare":0.5}}, "prediction":"Relative to width8/share0.5 the impulse drops more strongly than coarse checker64. No claim of passing all fifteen; <=96 damage determines support requirements for a future span-gated width family."}
+  ]
+}
