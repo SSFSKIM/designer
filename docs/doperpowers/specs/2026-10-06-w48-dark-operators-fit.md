@@ -1,5 +1,16 @@
 # W48 — the fit of W47's two dark operators under a corrected declaration: no new ladder, W47's renders as the hashed evidence, the body width and the tap both fittable (2026-10-06)
 
+**Status: CLOSED 2026-10-07, after the release. Everything chartered landed: G0 `3bfdaaf0c`
+(§5.212), G1 and G2 merged together as `f0be11215` (§5.213, §5.214), and the release `975d66675`,
+published to npm as 0.28.0 of the fixed group (tag `v0.28.0`; dist-tag `latest` reads 0.28.0 for
+the three packages, `vitrea-web`'s tarball carrying the dark 0.25 digests `791cde91d97acbc7` /
+`be472bc8e42b618d` and depending on `@vitreajs/vitrea` `^0.28.0`; CI green on the merge and the
+release commit). The landing is an improvement landing under Decision Logs 9 and 10, every
+exception named (§5.214). The dark 0.25 holdout and W46's referees are spent for these document
+bytes (read 8). Carried forward (§5.214 §12): the span-graded receded scatter, the span law's cost
+on the coarse rest cells, the dark photo body and S1, F inactive at 2x with operator 2 named, and
+the tools' live-document starting point.** The earlier status lines follow unchanged.
+
 **Status: G2 DONE (2026-10-07) on `w48-g2-landing`, the landing (§5.214); G1 published the dark 0.25
 generation `b2d074d2df24` (§5.213). An improvement landing under Decision Logs 9 and 10: operator 1
 live on the dark 0.25 pair, operator 2 inert and named, seventeen T1 regressions authorised against
@@ -778,3 +789,5 @@ tier's recorded residual. G1 publishes (step 8), writes §5.213 and hands back; 
     tree and hashed per file. The live tree is denied beside the raw ladder root, the identity
     reader is redirected to the subset with the ladder's own control as the other operand, and the
     wrapper redirects outputs so nothing is written into W47's directory.
+- 2026-10-07 (close, after the release `975d66675` / `v0.28.0`): the CLOSED status line and this
+  note. No design text, Decision Log or contract changed.

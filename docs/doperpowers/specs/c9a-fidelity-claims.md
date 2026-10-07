@@ -49711,3 +49711,13 @@ model failed on a provider limit before it started and was re-run on Opus.)
 - **W48's close carries forward** (charter Deferred at close): the span-graded receded scatter; the span law's
   cost on the coarse rest cells; the dark photo body and S1; F inactive at 2x with operator 2 named; the tools'
   live-document starting point. The dark 0.25 holdout and W46's referees are spent for these document bytes.
+
+### 13. Released (recorded 2026-10-07, beside §12)
+
+The merge of G1 and G2 landed on main as `f0be11215` (CI green: build, lint and test, platform-web
+integration on three engines, Pages). The user ran `pnpm changeset version` and `pnpm release` as
+`975d66675` ("Release 0.28.0", tag `v0.28.0`, CI green). The registry reads 0.28.0 for
+`@vitreajs/vitrea`, `@vitreajs/vitrea-web` and `@vitreajs/vitrea-react` (dist-tag `latest`), and
+`vitrea-web`'s tarball names the dark 0.25 digests `791cde91d97acbc7` / `be472bc8e42b618d`, with
+its dependency on the core rewritten from the workspace range to `^0.28.0`. W48 is CLOSED in its
+charter.
