@@ -1,12 +1,13 @@
-# W49a — the opaque receded body repaired with the receded far delta: no shipped glass draws opaque, and a landing that cannot trade new cells for old (2026-10-07)
+# W49a — the opaque receded body repaired with the receded far delta, selected by the user after a NEITHER gate with three new exceptions named (2026-10-07)
 
-**Status: G0 READ — the gate reads NEITHER; STOPPED for the parent (2026-10-07).** Decision Log RULED by the parent (DL1–DL8, verbatim below). W49
-splits (DL1): **W49a**, this charter, repairs the opaque receded dark `-glass0.25` body with one existing
-leaf pair and ships as patch 0.28.1; **W49b**, the pitch-selective thick body, is chartered after W49a
-lands and nothing of it is declared here. Branch `w49-g0-grounding`; evidence
+**Status: LANDING IN PROGRESS — G0 reads NEITHER; the user selected far 0.10 after the gate
+(2026-10-07, DL9).** The parent's DL1–DL8 and the user's DL9 are verbatim below. W49 splits (DL1):
+**W49a**, this charter, repairs the opaque receded dark `-glass0.25` body with one existing leaf pair
+and ships as patch 0.28.1; **W49b**, the pitch-selective thick body, is chartered after W49a lands and
+nothing of it is declared here. Branch `w49-g0-grounding`; evidence
 `packages/calibration/results/2026-10-07-w49-grounding/` (the grounding) and
-`packages/calibration/results/2026-10-07-w49a-g0-declaration/` (G0). Ledger §5.215 (G0), §5.216 (G1),
-§5.217 (G2).
+`packages/calibration/results/2026-10-07-w49a-g0-declaration/` (G0). Ledger §5.215 consolidates the
+W49a grounding, gate, seal, publication and landing.
 
 ## Decisions
 
@@ -20,6 +21,7 @@ lands and nothing of it is declared here. Branch `w49-g0-grounding`; evidence
 | 6 | referees | the dark 0.25 holdout and W46 referees are spent; read once as read 9, a prediction check |
 | 7 | release | `@vitreajs/vitrea-web` patch 0.28.1 naming the defect |
 | 8 | renders | not before the census passes (Zoom quit with the user's permission at G0; the census then passed) |
+| 9 | post-gate selection, the user's | far 0.10 at both scales, receded `tintAlpha` 0.8 held, every other leaf unchanged; three new authorised entries, the six repaired entries removed; patch 0.28.1; G0's NEITHER remains |
 
 ## Purpose
 
@@ -34,10 +36,14 @@ are this defect (grounding F1). W49a repairs it with the one leaf pair that caus
 delta, and makes the class of defect impossible to ship again (X75, X76).
 
 **What a good outcome is.** An unfocused dark 0.25 window draws transmissive glass at every size; the
-three repair cells leave `T1_DARK_AUTHORISED_REGRESSIONS`; no other cell is bought away from Apple to pay
-for it; W48's halvings stand; and the runtime refuses, by test and in the tools, any document that
-would draw opaque glass again. If the existing leaf cannot do all of that, the wave says so at its
-gate and the parent asks the user (DL4), rather than trading or re-authorising (DL5).
+three repair cells' six entries leave `T1_DARK_AUTHORISED_REGRESSIONS`; W48's halvings stand; and the
+runtime refuses, by test and in the tools, any document that would draw opaque glass again. The
+original rule also forbade buying any other cell away from Apple to pay for the repair. G0 found no
+point that meets it, so the parent asked the user as DL4 requires. **The user chose far 0.10 after
+the gate (DL9)**, with the three new costs named: `impulse__rrect-ml__inactive` at both scales against
+`b2d074d2df24`, and `impulse__rrect-lg__inactive` at 2x against `d0219cd684bf`. These are new
+exceptions, not re-authorisations of the eleven retained W48 entries (DL5). This is a user-directed
+improvement landing, not a DL2 pass or a selection by the pre-gate DL4 rule.
 
 **What the wave does not do.** No active-document change, no light change, no 0.5 change (X60, X41). No
 change to T1's statistic, bar or arithmetic. No new operator, leaf or shader line (family R is an
@@ -98,6 +104,15 @@ anchors are scale-separable: at dpr exactly 1 a cell reads only `tintAlphaFar1x`
 The receded far delta reaches every receded surface whose span exceeds 96 CSS px: `rrect-lg` at full
 weight, `rrect-ml` and glass-over-glass's base at about half. It cannot reach a cell at or below 96.
 
+**The user's selected landing (DL9).** Only the receded dark 0.25 document changes:
+`tintAlphaFar1x = tintAlphaFar2x = 0.10` (from 0.20 / 0.20), with `tintAlpha` held at 0.8 and every
+other leaf unchanged. Thus the thick receded body resolves `alphaBase` 0.9 on both tiers and scales,
+the active document's own thick value and inside X75. This choice was made after the gate read
+NEITHER, not by the hashed selection rule. Its cost reads dominate 0.09's: the ml impulse's growth
+against `b2d074d2df24` is +2.37 / +2.63 B instead of +2.76 / +2.79 B, and the 2x lg impulse's growth
+against `d0219cd684bf` is +1.09 B instead of +1.47 B. The six repair entries leave the list; the
+three new impulse entries cite DL9, and the other eleven stay unchanged.
+
 ### The probes (part 1; the ladder)
 
 - **P1** — `d0219cd684bf` with only the active span tops `sizeScatterSpanMax` / `…2x` at 160 (the receded
@@ -154,24 +169,35 @@ Per dark 0.25 profile, WebGPU tier, T1 by W44 G1's `classify` (`B = max(code, 2�
   them, over every partition. At the gate a withheld cell R cannot move enters at its read-8 value, which
   it reads by construction; read 9 re-reads it.
 
-**The selection** (`probes/rule.py`, hashed in part 2): per scale, among P2's points meeting DL2, the
-minimum of the median |log((k + ε)/(n + ε))| over X74's reachable gate cells (ε the cell's code); points
-within τ (the median log(1 + bar/(n + ε)) over the same cells) are tied; among tied points the largest far
-(the smallest departure from the shipped bytes). The landing is (far1x, far2x). A scale with no passing
-point: NEITHER, W49a closes at the finding and the parent asks the user. Part 2 admits no amendment after
-any probe render.
+Clause (c) reads error growth, including a crossing labelled `overshoot`, not only a partition label
+of `away`. G0's pinned `rule.py` wrongly restricts it to that label; the growth-only re-read beside
+the hashed rule adds no failures on any of the twelve point × scale readings, so NEITHER is unchanged
+(`probes/review-corrected-c.txt`, G0 outcome below).
+
+**The pre-gate selection** (`probes/rule.py`, hashed in part 2): per scale, among P2's points meeting DL2,
+the minimum of the median |log((k + ε)/(n + ε))| over X74's reachable gate cells (ε the cell's code);
+points within τ (the median log(1 + bar/(n + ε)) over the same cells) are tied; among tied points the
+largest far (the smallest departure from the shipped bytes). The landing is (far1x, far2x). A scale
+with no passing point: NEITHER, W49a closes at the finding and the parent asks the user. Part 2 admits
+no amendment after any probe render.
+
+**The post-gate selection (DL9).** Both scales read NEITHER; the parent then asked the user, who chose
+far 0.10 at both scales with the three new exceptions named above. This supersedes the stop for that
+specific landing only. Neither the hashed part 2 nor its NEITHER verdict is rewritten, and no
+post-gate rule is presented as a predeclared selection.
 
 ### The reads
 
 1. **The gate** (G0's renders, under part 2): P2's 21 inactive gate cells per scale, rest cells by
-   construction, the selection. STOP for the parent.
-2. **Read 9** (G1, once, on the selected and sealed point only, in strict mode): every DL2 clause over all
-   partitions, the two withheld repair cells binding; the other withheld cells (the glass-over-glass
-   inactive pair, which R reaches, and the cells it cannot) recorded as a prediction check against part
-   1's numbers (DL6). A clause failing there means the point does not meet DL2: W49a closes at the
-   finding and the parent asks the user; no other point is read.
-3. **Every other adopted row** (the owner test's M2, L1, E2 and T1 blocks) at G2: a failure stops for the
-   parent.
+   construction, the selection. It read NEITHER; the stop and question were fulfilled by DL9.
+2. **Read 9** (G1, once, on DL9's selected and sealed far 0.10 point only, in strict mode): every DL2
+   clause over all partitions, with DL9's three exceptions recorded, the two withheld repair cells
+   binding; the other withheld cells (the glass-over-glass inactive pair, which R reaches, and the
+   cells it cannot) recorded as a prediction check against part 1's numbers (DL6). DL9 does not turn
+   this into a DL2 pass. Any failure beyond its named exceptions stops for the parent; no other point
+   is read.
+3. **Every other adopted row** (the owner test's M2, L1, E2 and T1 blocks) at G2: a failure not covered by
+   DL9 stops for the parent.
 
 ### The CSS tier
 
@@ -191,18 +217,27 @@ opaque today and draw the repaired alpha with the document. X75 holds on both ti
 - (e) **The renders** after both hashes and a passing census: P1 and P2 into scratch, read, and the report
   (X74, DL2 per point, DL4). STOP for the parent.
 
-### G1: the seal, the strict-mode stage, read 9, the publication (ledger §5.216)
+### G1: the seal, the strict-mode stage, read 9, the publication (ledger §5.215)
 
-On the parent's go and a landing selection: the seal of the receded dark document (X75, X76 holds), the
-strict-mode stage of the dark pair, read 9 (once) and STOP; publication superseding `b2d074d2df24`.
+DL9 authorises the receded dark document's seal at `tintAlphaFar1x = tintAlphaFar2x = 0.10`,
+`tintAlpha` 0.8 held, every other leaf unchanged (X75, X76 hold). Read the strict-mode stage of the
+dark pair, read 9 once with DL9's exceptions named, and STOP for the parent on any unruled failure;
+publish the new active/receded pair superseding `b2d074d2df24`. Record the seal, read and publication
+in the consolidated §5.215, without rewriting G0's NEITHER verdict.
 
-### G2: the landing (ledger §5.217)
+### G2: the landing (ledger §5.215)
 
 T1's dark row re-baselined in the five-part order (X59) with the six repair entries removed from
-`T1_DARK_AUTHORISED_REGRESSIONS` (the eleven others stay, W49b's), `MISSED_27_ROWS` re-derived,
-`T1_DARK_REFERENCE` moved last; X75's `KNOWN_DEFECT` entry removed; the generated 0.25 module, the c9d
-chain, the sheets; CLAUDE.md's W48 paragraph corrected (its deferral named the wrong cause); the changeset
-`@vitreajs/vitrea-web` patch 0.28.1 naming the defect (DL7).
+`T1_DARK_AUTHORISED_REGRESSIONS` (the eleven others stay, W49b's), and DL9's three new entries added:
+`impulse__rrect-ml__inactive` at 1x and 2x against `b2d074d2df24`, and
+`impulse__rrect-lg__inactive` at 2x against `d0219cd684bf`, each with a standing witness citing DL9.
+Re-derive `MISSED_27_ROWS` and move `T1_DARK_REFERENCE` last; remove X75's `KNOWN_DEFECT` entry;
+update the generated 0.25 module, the c9d chain and the sheets. Correct CLAUDE.md's W48 paragraph
+(its deferral named the wrong cause). Add `.changeset/w49a-receded-transmission.md`,
+`@vitreajs/vitrea-web` patch 0.28.1, naming the dark 0.25 unfocused-body defect on both tiers:
+backdrop structure suppressed from 140 CSS px (`alphaBase` > 0.95), absent from 160 CSS px
+(`alphaBase` = 1.0), repaired by the receded far deltas 0.10 / 0.10. The landing claims and their
+record remain in §5.215.
 
 ## Referees and the holdout (DL6)
 
@@ -255,12 +290,13 @@ freeze 1,818 and X41 911 at every merge.
 | --- | --- | --- |
 | grounding | DONE on `w49-g0-grounding` `4559dc41b` | (§5.215) |
 | G0 | declared (part 1 `a7403d3e…`, part 2 `bffb524b…`), P1 and P2 rendered and read: NEITHER at both scales | §5.215 |
-| G1 | not started | §5.216 |
-| G2 | not started | §5.217 |
+| G1 | landing in progress under DL9's post-gate far 0.10 selection; seal, read 9 and publication evidence pending here | §5.215 |
+| G2 | landing in progress under DL9; six repair entries out, three new exceptions planned, eleven retained | §5.215 |
 
 ## Decision Log
 
-The parent's rulings on the grounding (2026-10-07), over branch `w49-g0-grounding` `4559dc41b`, verbatim.
+The parent's rulings DL1–DL8 on the grounding (2026-10-07), over branch `w49-g0-grounding`
+`4559dc41b`, and the user's post-gate DL9, verbatim from `w49-rulings.md`.
 The parent verified: the shipped dark 0.25 receded document names `tintAlpha` 0.8 with
 `tintAlphaFar1x/2x` 0.2 and span tops 160/160, so alphaBase = 1.0 at span >= 160; the grounding sheet
 shows b2d074 drawing checkerboard-64/-32 rrect-lg inactive flat at both scales.
@@ -324,6 +360,21 @@ it). The parent asks the user; until then do every non-render step.
 permission (no zoom or caphost process remains, verified by the parent); re-run the classifying census
 at the render step and, if it passes, render P1 and P2 as declared.
 
+### DL9
+
+DL9 (the user's ruling, 2026-10-07, after G0 read NEITHER under DL2/DL4). Asked as DL4 requires,
+the user chose "far 0.10으로 패치 (권장)": seal the dark 0.25 receded document with
+tintAlphaFar1x = tintAlphaFar2x = 0.10 (tintAlpha 0.8 held; every other leaf unchanged) and ship it
+as patch 0.28.1. This is a selection among measured points made after the gate, by the user, and
+the record says so. 0.10 was the parent's recommendation because it dominates 0.09 on every cost
+read (1x impulse__rrect-ml__inactive +2.37 B vs +2.76; 2x +2.63 vs +2.79 and
+impulse__rrect-lg__inactive +1.09 vs +1.47 against d0219) while repairing all three opaque cells
+at both scales, and puts the thick receded body at alphaBase 0.9, the active document's own thick
+value, inside X75. New authorised entries (not re-authorisations, so DL5 holds):
+impulse__rrect-ml__inactive at 1x and 2x against b2d074d2df24, impulse__rrect-lg__inactive at 2x
+against d0219cd684bf, each citing this DL. The six entries of the three repaired cells leave
+T1_DARK_AUTHORISED_REGRESSIONS; the KNOWN_DEFECT entry of X75 is removed.
+
 ## G0 outcome (the gate, read under the hashed part 2)
 
 `probes/report.txt`, from the cuts in `probes/readings/` (P1 and P2, both scales, 66 + 21 cells per
@@ -345,25 +396,34 @@ scale, every launch census-passed, `census.jsonl`, `runs.jsonl`).
 
   The repair cell reads within B of `d0219cd684bf` at every far ≤ 0.10 (at 0.09: −0.61 / −0.17 B); what
   no point clears is `impulse__rrect-ml__inactive` against `b2d074d2df24`, at every far, as part 1
-  predicted, and at 2x the lg impulse cell too. **No point meets DL2 at either scale: NEITHER (DL4). W49a
-  closes at the finding and the parent asks the user.**
+  predicted, and at 2x the lg impulse cell too. **No point meets DL2 at either scale: NEITHER (DL4).**
+  The gate stopped at the finding and the parent asked the user. DL9 then selected far 0.10 at both
+  scales with the three new costs authorised; the gate's verdict is unchanged.
 - **P1** reads the three thick rest cells exactly at the predicted values at both scales (F2 confirmed by
   render, for W49b).
 - **The review** (`doperpowers:reviewer-medium`, after the hash, before the renders finished) found two
-  real defects in pinned tools, neither changing this verdict: (1) `rule.py` counts only cells labelled
-  `away` in clause (c), so a crossing (`overshoot`) regression with growth beyond B would escape it, where
-  W46's partition is growth-only; read beside the hashed rule (`probes/review-corrected-c.txt`) it adds no
-  failure to any point, and a stricter (c) can only remove passing points. (2) `seal.ts` applies X76 only
-  to the X64/X67 extension keys, so a 0.5-twin leaf stated at its active's value with no record (e.g.
-  `backdropToneAnchorX`, `backdropToneBlackStrength`) seals silently. Both are pinned in the hashed parts,
-  and the renders had begun, so neither is amended (DL4); any later wave's copies carry the fixes.
+  real defects in G0's pinned tools, neither changing its verdict:
+  1. **Clause (c)'s overshoot defect.** `probes/rule.py` requires `awayChange == "away"` as well as
+     `awayGrowthInB > 1`. A crossing labelled `overshoot` with error growth beyond B therefore escapes
+     clause (c), contrary to W46's growth-only reading. `probes/review-corrected-c.txt` re-reads the
+     same saved cuts beside, not in place of, the hashed rule, counting every non-(a)/(b) cell with
+     growth > B against `b2d074d2df24`, including overshoots. **All twelve point × scale readings add
+     no failures.** At far 0.10, (c) still has one failure at each scale; a stricter clause can only
+     remove passing points. The corrected re-read leaves the NEITHER verdict unchanged; it does not
+     justify or select DL9's landing, which is the user's separate post-gate choice.
+  2. **X76's incomplete seal coverage.** G0's `seal.ts` applies X76 only to the X64/X67 extension keys,
+     so a 0.5-twin leaf stated at its active's value with no record (e.g. `backdropToneAnchorX`,
+     `backdropToneBlackStrength`) seals silently. Both defects were in the hashed parts after the
+     renders had begun; neither G0 declaration nor verdict is retrospectively amended (DL4).
+     Subsequent rule/seal copies carry the fixes.
 
 ## Surprises & Discoveries
 
 - **W48's deferral named the wrong cause** (F1): the thick inactive cells are opaque, not under-scattered,
   and W48's stage 2 could not have seen it because no stage-2 leaf reached them.
-- **X75 reaches 0.95 at span 140**, not 160: the smoothstep is 0.77 there, so the defect starts below the
-  bed's largest span.
+- **X75 exceeds 0.95 from span 140**, not 160: the smoothstep is about 0.77 there, so backdrop structure
+  is suppressed below the bed's largest span on both tiers. Transmission becomes exactly zero at
+  span 160 (`alphaBase` 1.0); the changeset distinguishes the two thresholds.
 - **X76's audit found thirteen silent leaves** on the dark 0.25 receded document, the two far deltas
   among them, and four unrecorded active fits on the light 0.25 receded document.
 - **The reference's captures moved.** W48's cut tools default to the canonical capture tree, which now
@@ -383,3 +443,9 @@ scale, every launch census-passed, `census.jsonl`, `runs.jsonl`).
 - 2026-10-07 (v2, G0 read): both parts hashed (`a7403d3e…`, `bffb524b…`) at `034da9318`; the census passed
   after Zoom was quit; P1 and P2 rendered and read; the gate reads NEITHER at both scales; the review's two
   findings recorded and read beside the hashed rule. STOPPED for the parent (DL4).
+- 2026-10-07 (v3, landing in progress): DL9 incorporated verbatim. After the NEITHER gate the user chose
+  far 0.10 / 0.10, `tintAlpha` 0.8 held, with three new impulse exceptions and the six repair entries
+  removed; 0.09 was rejected for its larger measured costs, not by a new predeclared selection rule.
+  G0's clause (c) overshoot defect and its growth-only re-read recorded: all twelve readings add no
+  failures, NEITHER unchanged. G1 and G2's planned claims consolidated into §5.215. The patch changeset
+  names both tiers and distinguishes structure suppressed from 140 CSS px from absent at 160 CSS px.

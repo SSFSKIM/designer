@@ -28,7 +28,10 @@ MATERIALISED = ["optics.regular.blurSigma", "sizeFineTapShare", "sizeFineTapSigm
                 "sizeScatterRampStartFar1x", "sizeScatterSpanMax", "sizeScatterSpanMax2x"]
 FAR_METHOD = {"tintAlphaFar1x": ["test: the receded far delta, family R"],
               "tintAlphaFar2x": ["test: the receded far delta, family R"]}
-HOLDS = {leaf: {"held": [f"test: {leaf} held at the active's value"]} for leaf in MATERIALISED}
+TWIN_HOLDS = ["backdropToneAnchorX", "backdropToneBlackStrength", "optics.clear.rimLevelGain",
+              "outerShadow.liftAmplitude", "outerShadow.thinOcclusionDark"]
+HOLDS = {leaf: {"held": [f"test: {leaf} held at the active's value"]}
+         for leaf in MATERIALISED + TWIN_HOLDS}
 TSX = ["pnpm", "exec", "tsx"]
 
 
@@ -47,6 +50,8 @@ class Seal(unittest.TestCase):
         self.candidates = self.tmp / "candidates"
         self.profiles = self.tmp / "profiles"
         shutil.copytree(CAL / "profiles", self.profiles)
+        # The seal replaces W48's bytes, even after W49a has landed in the live profiles.
+        shutil.copyfile(G0 / "documents" / "29da6a888a23.json", self.profiles / RECEDED)
 
     def build(self, v, label):
         spec = self.tmp / f"{label}.json"
@@ -65,7 +70,7 @@ class Seal(unittest.TestCase):
         self.build(0.09, "t-seal-009")
         code, out = self.seal("t-seal-009", FAR_METHOD)
         self.assertNotEqual(code, 0)
-        self.assertIn("11 leaf/leaves would be inherited from the active silently", out)
+        self.assertIn("16 leaf/leaves would be inherited from the active silently", out)
         self.assertIn("(X76)", out)
         for leaf in MATERIALISED:
             self.assertIn(leaf, out)
@@ -87,6 +92,16 @@ class Seal(unittest.TestCase):
         code, out = self.seal("t-seal-009", {**FAR_METHOD, **HOLDS}, manifest="again.json")
         self.assertNotEqual(code, 0)
         self.assertIn("the seal runs once", out)
+
+    def test_x76_refuses_unrecorded_twin_leaves_at_active_values(self):
+        self.build(0.1, "t-twin-holds")
+        code, out = self.seal("t-twin-holds", {**FAR_METHOD,
+            **{k: v for k, v in HOLDS.items() if k not in TWIN_HOLDS}})
+        self.assertNotEqual(code, 0, out)
+        self.assertIn("backdropToneAnchorX", out)
+        self.assertIn("backdropToneBlackStrength", out)
+        self.assertIn("outerShadow.liftAmplitude", out)
+        self.assertIn("(X76)", out)
 
     def test_a_moved_leaf_needs_its_method(self):
         self.build(0.1, "t-seal-01")
@@ -125,7 +140,7 @@ writeFileSync(dir + "/spec.json", JSON.stringify(s));
         code, out = self.seal("t-seal-opaque", {**FAR_METHOD, **HOLDS})
         self.assertNotEqual(code, 0)
         self.assertIn("receded.dark: draws opaque glass, alphaBase above 0.95 (X75)", out)
-        self.assertEqual(sha(self.profiles / RECEDED), sha(CAL / "profiles" / RECEDED))
+        self.assertEqual(sha(self.profiles / RECEDED), sha(G0 / "documents" / "29da6a888a23.json"))
 
     def test_other_waves_paths_refuse(self):
         code, out = run([*TSX, str(SEAL), "x", "m.json", "--candidates",

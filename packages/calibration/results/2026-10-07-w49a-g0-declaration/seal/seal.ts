@@ -200,8 +200,8 @@ const inheritedValue = (leaf: string): unknown => pathValue(activeResolved, leaf
 const recordOf = (leaf: string): string | undefined =>
   ((before0["entries"] ?? {}) as Record<string, { status?: string }>)[leaf]?.status;
 // A leaf the snapshot MEASURED keeps its record even where its value happens to equal the active's.
-const atActive = Object.keys(mine).filter((k) => MAY_ADD.includes(k)
-  && JSON.stringify(inheritedValue(k)) === JSON.stringify(mine[k])
+const atActive = Object.keys(mine).filter((k) =>
+  JSON.stringify(inheritedValue(k)) === JSON.stringify(mine[k])
   && (recordOf(k) !== "measured" || movedFromSnapshot.includes(k))).sort();
 const activeEntries = (active0["entries"] ?? {}) as Record<string, { status?: string }>;
 const activeFitted = Object.keys(leaves(activePatch)).filter((k) => activeEntries[k]?.status === "measured"
@@ -265,7 +265,7 @@ const document: Record<string, Json> = {
   resolvedMaterialSha256: digest,
   resolvedMaterialSha256Rule: MATERIAL_DIGEST_RULE_VERSION,
   measurement: {
-    gate: `W49a G1; charter ${CHARTER}; Decision Logs 2 and 4 (part 2's landing and selection rules)`,
+    gate: `W49a G1; charter ${CHARTER}; Decision Log 9 (the user's post-gate selection after DL2/DL4 read NEITHER)`,
     candidate: rel(CANDIDATE),
   },
   entries,
