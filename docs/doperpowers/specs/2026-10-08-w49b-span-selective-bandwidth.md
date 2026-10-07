@@ -37,9 +37,13 @@ there is no present claim that D+W alone can repair all fifteen.
 Evidence root: `packages/calibration/results/2026-10-08-w49b-grounding/`.
 `attribution.json` names every authorised cell's native/current/reference readings, B and source
 hashes; `sheet-1.png` through `sheet-9.png` cover all fifteen plus every named photo and 2x inactive
-fine cell. `probe-readings.json` reads the exploratory renders, using T1-low for the T regression
-clause, never an `away` label in place of error growth. `probes*.json` records each batch's question
-and predictions before its renders. These are adaptive **grounding**, not a predeclared fit.
+fine cell. `probe-readings-corrected.json` reads the exploratory renders, using T1-low for both
+current and historical T regression; the raw full-silhouette historical calculation is labelled
+separately. The original `probe-readings.json` is retained unchanged: it incorrectly used raw T1
+for historical T growth. `verify.py --recompute` checks all 342 cells and matches the corrected
+output to a fresh reading of the existing scratch matrices/pixels, without rendering or rewriting
+inputs. `probes*.json` records each batch's question and predictions before its renders. These are
+adaptive **grounding**, not a predeclared fit.
 
 T1 is the interior standard deviation of linear luminance over the native silhouette. B is the
 existing cell's `max(one code, twice the repeat bar)`. A listed regression is repaired when
@@ -58,7 +62,7 @@ thirteen use W46's `d0219cd684bf`. None uses W49a merely because W49a is current
 | 1x | hc-text-28 lg rest | .046004 | .026157 | +1.393 / d0219 | same |
 | 2x | hc-text-28 lg rest | .041917 | .027650 | +1.343 / d0219 | same |
 | 1x | checkerboard-lc16 md rest | .021654 | .034761 | +2.662 / d0219 | mid-span transmitted contrast AND a separate level error |
-| 2x | checkerboard-lc16 md rest | .023019 | .036595 | +2.914 / d0219 | same; every far-span law has zero authority here |
+| 2x | checkerboard-lc16 md rest | .023019 | .036595 | +2.914 / d0219 | same; D/W direct terms zero; scatter-top companion can still reach it |
 | 1x | impulse capsule rest | .019766 | .025321 | +2.261 / d0219 | opened thin transmission and body/edge sampling |
 | 2x | checkerboard capsule inactive | .050076 | .038284 | +2.786 / d0219 | receded thin ramp suppresses canonical-pitch structure |
 | 2x | checkerboard capsule inactive-tint-orange | .065004 | .053912 | +1.927 / d0219 | same; crossing Apple is not automatically repair |
@@ -152,12 +156,22 @@ identity drops. The zero case executes the old expression exactly; digest and GP
 all ten endpoints. CSS mirrors the same per-surface law and X75 reads the new resolved top on both
 tiers. D is not a new free opacity budget: X75 remains <=.95 over spans 0..1024 at both scales.
 
-The active ladder holds transmission T=160 and tries scatter tops 160, 192, 256, holding other
-leaves first. W49a's P1 proved the shared-top attribution by render. As a first-order, **unrendered**
-additive estimate, restoring scatter top 256 at held current scale gain predicts the three active
-lg cells near .0267/.0332/.0303 (1x) and .0320/.0391/.0314 (2x), sufficient to remove their six
-entries. The additivity is not established: the actual D ladder must meet the historical ceilings
-and current-cell protections, including ml and photo. It must leave span <=96 unchanged.
+Separate the **D-only control** from the combined ladder. With the scatter top and every other
+leaf held, D has zero below-knee authority at spans <=96; its identity-0 control preserves the
+old output at every span. Those controls prove D's own reach, not the reach of an accompanying
+scatter-top change.
+
+The active combined ladder holds transmission T=160 and tries scatter tops 160, 192, 256, holding
+other leaves first. The scatter top controls `deepT`/`kDeep` from `sizeSpanMin`, not just the far
+curve above 96: at active 1x span 96, `kDeep` is .670000 at top 160 and .470845 at top 256. Thus
+spans <=96 can change in this ladder and are **affected, protected cells**, not unchanged controls.
+Read the entire affected gate population at both scales; require its historical constraints and
+current error-growth protection <=B, including thin/mid, ml and photo cells.
+
+W49a's P1 proved the shared-top attribution by render. As a first-order, **unrendered** additive
+estimate, restoring scatter top 256 at held current scale gain predicts the three active lg cells
+near .0267/.0332/.0303 (1x) and .0320/.0391/.0314 (2x), sufficient to remove their six entries.
+The additivity is not established; these predictions do not waive any combined-ladder protection.
 
 ### W — a span-selective second-tap bandwidth, not a renamed share
 
@@ -176,15 +190,19 @@ from the current width 5. A nonzero width delta with zero secondary share need n
 
 Use D to hold the receded transmission top at 160 while testing the scatter top at 128 and 160.
 At scatter top 128, H=1 at ml and lg, giving the global width diagnostic's bandwidth there while
-holding spans <=96 at the old width. The scatter's other consumers still move: the ladder must
-read their full output, not claim exact reproduction of the global probe. This minimal form uses
+W's secondary sample keeps the old width at spans <=96. That is a width-only identity: the
+accompanying scatter-top change can still move `deepT`/`kDeep` below the knee. The combined
+ladder must read and protect those cells' full output, not claim they are unchanged or claim
+exact reproduction of the global probe. This minimal form uses
 the existing scatter knot deliberately; **if its other consumers veto the separation, stop and
 re-declare an independent width knot rather than smuggling one in during fitting.**
 
 The dark ladder crosses delta {0,3,4,5}, receded far alpha {.09,.10}, scatter top {128,160}, with D
 holding transmission top 160 and share .25. First compare identity and single-axis controls, then
 the finite joint grid. Predictions at the fully widened ml/lg endpoint are the F3 table, with
-measurement tolerance B; protected <=96 cells should reproduce within .1 bar when only W moves.
+measurement tolerance B. The W-only control holds scatter top, far alpha and all other leaves
+fixed: spans <=96 should reproduce within .1 bar. The joint grid instead treats these as affected
+cells subject to error-growth protection <=B, as in D's combined ladder.
 The success bar is stronger than a slope: all three impulse costs repaired, all five W49a removals
 still repaired, the remaining checker32 lg prediction checked at the frozen exposure, and no
 protected gate-cell error growth >B. The width controls must improve impulse without losing
@@ -202,10 +220,12 @@ normally. An eventual dark document's existing leaf changes still require a CSS 
 ### N/L — thin bandwidth and backdrop-conditioned response, not yet identified
 
 The finite thin-ramp/body-prefilter failures in F2 are controls for G0, not admitted repair points.
-D and W have zero direct authority over the lc16-md cells. A fresh level/contrast crossed native
-bed is needed before claiming a backdrop-conditioned transmission law: current lc16 changes both
-mean and contrast, and tone-ordinate refitting alone does not change the group-level solve's
-transmitted spatial contrast. Do not branch on a scene name, low-contrast label or sampled pitch.
+D and W's direct far terms have zero authority over the lc16-md cells at a held scatter top;
+the combined ladder's scatter-top change can affect them through `deepT`/`kDeep` and must read
+them as protected cells. That reach alone does not identify a separating repair. A fresh
+level/contrast crossed native bed is needed before claiming a backdrop-conditioned transmission
+law: current lc16 changes both mean and contrast, and tone-ordinate refitting alone does not change
+the group-level solve's transmitted spatial contrast. Do not branch on a scene name, low-contrast label or sampled pitch.
 A measured source statistic may condition a declared law only if the crossed bed identifies it.
 
 G0 may close with **no full-list family identified**. To enter G1 it must produce, for every target,
@@ -240,6 +260,9 @@ The per-cell constraints are intersections, not a reference chosen after seeing 
 Part 1 emits `references.json`: (profile, renderer, scene, statistic) -> current generation plus
 any historical constraint, with document-pair hashes and capture-tree locations. Missing cells are
 UNMEASURED, not passes. Unreachable cells are reproduced, not removed from final acceptance (X74).
+The historical constraints survive removal of authorisations: G2 must derive an independent
+standing cell/reference constraint registry from this map, covering at least the fifteen targets
+and five prior W49a repairs. An empty exception list cannot empty the registry or stop its witnesses.
 
 Among points passing every gate clause at both scales, propose minimum median per-cell absolute
 log error over all 154 dark T1 cells, using T1-fine on T and one-code epsilon; at the gate use only
@@ -276,7 +299,8 @@ to prove D's software decoupling, but is needed for the proposed new blind-gener
 ### G0 — declaration and identification
 
 Produce the immutable current/historical document snapshots, reference map, all-cell mechanism and
-authority table; declare the native bed if authorised. Before any new operator's ladder, prove D/W
+authority table, distinguishing D/W-only identity controls from combined-ladder affected/protected
+cells; declare the native bed if authorised. Before any new operator's ladder, prove D/W
 identity over ten digests, 34 goldens, fractional-dpr cases and the dark bed, with X75/X76 and the
 CSS mirror/decline explicit. Declare the numeric ladder and its separation bar before each new
 reading. Deliver actual D/W renders, the thin/level identification result, named counterexamples,
@@ -284,8 +308,8 @@ and a **PASS-to-fit or STOP-at-finding** outcome. No document is fitted or publi
 
 Code ownership: `packages/renderer-webgpu/src/material.ts` (profile, patch, scale helpers, identity
 entries), `renderer.ts` / `passes.ts` (resolved uniform and binding data), `wgsl/optics.ts` (separate
-alpha curve and the secondary sample), `pyramid.ts` and the heavy-tap planner (extra source blur,
-identity allocation), `packages/platform-web/src/optics.ts` (D mirror/W decline), and
+alpha curve and the secondary sample), `pyramid-plan.ts` (`heavyTapPlan`) and `pyramid.ts`
+(extra source blur, identity allocation), `packages/platform-web/src/optics.ts` (D mirror/W decline), and
 `packages/calibration/scripts/no-opaque-glass.ts`. Inspect every reader, not only the shader.
 The identity table's old entries remain unchanged. Test auxiliary tap lifetime, multiple surfaces
 of different spans sharing a source, live-backdrop invalidation and measured frame cost: W adds a
@@ -305,8 +329,21 @@ and archive the superseded pair without losing the W49a capture provenance.
 
 On a passing landing, execute X59's five-part order: old/new band fixtures; historical witnesses;
 remove repaired authorisations (no replacement costs); re-derive missed cells; move the reference
-last. Keep M2/L1/E2's stated references. Update generated material, ledger, sheets, demo projection
-and release chain. On a finding, record it without a material changeset or canonical publication.
+last. Before clearing the last exception, replace the owner test's exception-derived reference
+iteration with an independent standing **cell/reference constraint registry from `references.json`**.
+It must retain all fifteen targets and five prior W49a repairs with their own statistic, historical
+generation/document pair and <=B constraint, even when the authorisation list is empty. Do not
+advance those references when moving the current regression reference.
+
+The current owner requires a nonempty exception list and derives the witness's reference set from
+that list (`adopted-thresholds.test.ts`, lines 7816 and 7833–7836). G2 must allow the repaired list
+to become empty without weakening or bypassing the standing historical witnesses. Prove the
+empty-exception case executes all twenty cell constraints across both historical reference groups;
+a controlled >B historical regression in either group must still fail with no exceptions. This is
+an owner migration required for landing, not an owner edit authorised by this draft.
+
+Keep M2/L1/E2's stated references. Update generated material, ledger, sheets, demo projection and
+release chain. On a finding, record it without a material changeset or canonical publication.
 The fidelity release size is the parent's decision, not inherited from W49a's opacity-fix patch.
 
 Verification proposed: one independent adversarial spec/buildability review before execution;
@@ -358,3 +395,12 @@ The five unresolved thin/mid repairs are G0 prerequisites, not silently deferred
 
 - 2026-10-08 draft: grounded on W49a's landed pair, prospective scratch controls and inspected pixels.
   The wave is not approved or executed. No complete all-list solution is claimed.
+- 2026-10-08 verified review corrections: separated D/W-only below-knee controls from combined
+  scatter-top ladders, whose <=96 cells remain affected and protected (`kDeep96` .670000 ->
+  .470845 at active 1x). G2 now requires an exception-independent historical constraint registry
+  for all twenty target/prior-repair cells and an empty-exception regression proof. Corrected
+  historical T growth onto T1-low in `probe-readings-corrected.json`, retaining the original
+  evidence and raw historical readings: `hc-text-7__rrect-lg__rest`, thin-active 1x, is +.097119 B,
+  not the original raw -.279561 B. `verify.py --recompute` passed all 342 cells; non-T values,
+  authorisation/thick conclusions, source cut and input matrices are unchanged. No new render,
+  runtime/material/owner/canonical change or parent ruling was made.
