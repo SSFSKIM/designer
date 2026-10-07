@@ -175,7 +175,7 @@ def main():
     (HERE / 'native-inventory.json').write_text(json.dumps(out, indent=2) + '\n')
     (HERE / 'native-low-anchors.json').write_text(json.dumps(readings, indent=2) + '\n')
     with (HERE / 'native-inventory.csv').open('w') as stream:
-        w = csv.writer(stream)
+        w = csv.writer(stream, lineterminator='\n')
         w.writerow(['source', 'glass', 'scale', 'span', 'pose', 'RGB', 'scene', 'role', 'status'])
         for r in rows:
             w.writerow([r[k] for k in ['source', 'glass', 'scale', 'span', 'pose']]

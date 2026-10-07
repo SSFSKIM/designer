@@ -23,6 +23,10 @@ The open rulings at the tail govern continuation. Until ruled, X41 remains fully
   reproduced byte-for-byte on this checkout. The old worktree pathname no longer exists, so the
   replay uses this checkout and compares the path-free table, without rewriting old evidence.
 - [x] The 1,818-entry 26.5 freeze and 911-entry X41 witness pass.
+- [x] Bounded grounding review closure: cumulative monotonicity, the fixed64 join, pair-qualified
+  capture retirement and the prospective X41 delta are explicit. The independent reader found
+  no material reader bug and reproduced 404/44 and the historical diagnostic table exactly.
+  Inventory replay preserves both JSON outputs; the W50 CSV changes only CRLF to LF.
 - [ ] Parent/user rulings: scope/default freeze, the native sitting, law and landing rule.
 - [ ] G0 declaration/instrument/bed, including independent review, completed before any new pixel.
 - [ ] G1 native identification, inert implementation, fit, frozen gate and one exposure.
@@ -39,11 +43,16 @@ user declines the X41 exception, return that scope choice before fitting.
    error is at most `max(1 code, 2*bar)`; bar is half the largest admitted run-to-run separation,
    floored at 0.5 code. Both the analytical deep cut (at least 8 CSS px inside the supplied path)
    and a central 8x8-CSS-px square must pass. Read every channel, never an average that cancels
-   channel errors. Compare against that cell's native captures, not an inferred curve. The dense
-   composed response on neutral uniform inputs 0–64 must have no downward step exceeding 1/255
-   of a code, tested before quantisation at a step of 1/64 code and all integer spans 32–224.
-   This is a *low-end* monotonicity condition, not a false demand that Apple's dark response be
-   monotone through white; W42 measured its high-end decrease.
+   channel errors. Compare against that cell's native captures, not an inferred curve. Sweep the
+   dense composed response on neutral uniform inputs 0–64 at steps of 1/64 input code, all integer
+   spans 32–224, both positions/poses/scales. In the pre-quantised CPU oracle, with outputs `y_i`
+   in encoded output codes, require maximum drawdown from the preceding running maximum
+   `max_i(max(0, max_{j<i}(y_j) - y_i)) <= 1e-4` code (the first sample has zero drawdown).
+   This is numerical tolerance only, not a native-error budget; adjacent tolerances cannot
+   accumulate into a downward drift. Shader/CPU agreement has a separate `<=1e-3` encoded output
+   code precision bound, not a relaxation of the drawdown condition. This is a *low-end*
+   monotonicity condition, not a false demand that Apple's dark response be monotone through
+   white; W42 measured its high-end decrease.
 2. **Close the named structured failure, not just uniform black.** On the existing untinted
    `impulse__rrect-{ml,lg}__{rest,inactive}` cells at both scales and positions, read the supplied
    path's deep8/far24 support from W49b's diagnostic (8 CSS px inward, 24 CSS px from a dot).
@@ -185,22 +194,30 @@ The active source argument is reconstructed from its report; the receded x is GP
 
 **Replace the faulty low-end response, not its final pixels.** Retain the existing group/source
 and silhouette arguments, alpha, scatter, chroma retention and composition. Introduce a zero-gated
-compact response chart: `lowEndStrength=0` is exact old arithmetic. At1, below input40/255, use a
-monotone measured encoded-output curve `T(x,span,endpoint)` and full response authority; solve with
-`R=decode(T)`. The declared candidate family has knots at encoded input0/8/28/40, with span rows44,
-96 and160 and piecewise-linear interpolation in input and span. Inputs1–7,12/20 and span128/224
-are checks, not extra coefficients. Equal rows may collapse if measured; do not add a free
-DPR parameter unless the native controls identify a scale difference. The black ordinate may
-remain32/20 only if the new thick-black measurements support it.
+compact response chart: `lowEndStrength=0` is exact old arithmetic. At1, where the existing tone
+solve is eligible, use a monotone encoded-output curve `T(x,span,endpoint)` and full response
+authority below input64/255; solve with `R=decode(T)`. Through input40/255, the measured family has
+knots at encoded input0/8/28/40, with span rows44,96 and160 and piecewise-linear interpolation in
+input and span, holding the outer span rows beyond them. Inputs1–7,12/20 and span128/224 are checks,
+not extra coefficients. Equal rows may collapse if measured; do not add a free DPR parameter
+unless the native controls identify a scale difference. The black ordinate may remain32/20 only
+if the new thick-black measurements support it.
 
-Between40 and64, join to the **old complete solved response**, not merely its target ordinate:
-blend the two pre-clamp solved-neutral corrections (and the corresponding solved-alpha result)
-with `1-smoothstep(40/255,64/255,x)`. At/beyond64 execute the old path exactly. Test the *composed*
-uniform transfer for monotonicity; two monotone endpoint curves do not guarantee a monotone blend.
-If the declared bridge fails the composed test or the native gate, return NEITHER. Do not change
-the support or add a spline knot after a gate result. G0's numerical rehearsal must include the
-zero-collapse case and each existing collapse/alpha/policy stand-down; the new family cannot
-silently take authority from the fully collapsed or unsampled cases.
+Add a **fixed join knot at input64/255**, with ordinate
+`T64(span,endpoint) = encode(OLD tone_response(64/255,span,endpoint))`; it is not a free fit
+coefficient. Evaluate the old law at the **actual span**, including its nonlinear size/level
+terms, not by interpolating 64 ordinates from the44/96/160 rows. Between40 and64, linearly
+interpolate encoded output from the admitted measured40 ordinate at that span to this fixed64
+ordinate. The target remains `R=decode(T)` with full authority throughout that interval. At and
+above64, execute the old arithmetic exactly; its authority is already1 at the join on these
+endpoints. Do not hold T40 beyond its last knot and cross-fade toward a darker old solve: that can
+introduce a dip. If the fixed64 ordinate lies below the admitted40 ordinate at any tested span,
+endpoint or scale, or the composed uniform transfer fails the drawdown condition or native gate,
+return NEITHER. Do not change the support or add a spline knot after a gate result. G0's numerical
+rehearsal must include zero collapse and every existing no-tone/no-sample, alpha, collapse and
+policy stand-down, preserving their thresholds and strength folds. The new family cannot silently
+take authority from the fully collapsed or unsampled cases. This is a pre-measurement draft
+correction; no new native or candidate reading exists.
 
 At gate0 the new chart is one identity-table gate-group; no default or existing document digest
 moves. With strength>0, chart validation requires finite ordered knots and declared neutral
@@ -228,6 +245,11 @@ measured neutral28 ordinate. They justify testing the family; they are not evide
 - **Raise the first ordinary receded ordinate alone:** can remove the clamp but retains the
   authority trough atml, the active overshoot and the wrong second ordinate; its Hermite slope
   also perturbs the following interval. Compact support gives a stated boundary to the repair.
+- **Re-knot/refit the existing four-anchor curve:** a genuinely simpler implementation than a new
+  branch, but moving its low anchors changes Hermite slopes into the already fitted middle, up to
+  the next unchanged anchor, and loses the exact-above64 boundary. Prefer that route only if it can
+  meet the same protected-domain contract and full gate without broader tone movement. The compact
+  branch is recommended to isolate this repair; no extra experiment or scope is declared here.
 - **Authority limited to avoid negative neutral:** prevents a clamp, but picks an arbitrary old
   neutral mixture instead of Apple's response; ml already demonstrates that accidental rescue.
 - **Blanket positive output floor/offset:** can repair the vanished black body while leaving
@@ -294,9 +316,10 @@ structured low-end case. No held statistic, image thumbnail or dependent no-glas
 leak through an operational report. Shared calibration references may be copied into the blind
 role; exclusive blind references remain guarded. Archive by hash before fitting.
 
-The current proposed curve does not have a224 row: the224 blind case tests holding the160 endpoint,
-not a licence to extrapolate an unbounded slope. If it fails, stop and re-charter a wider span law.
-Do not imply this bed identifies all larger surfaces.
+The measured0–40 curve has no224 row: the224 blind cases through40 test holding the160 measured
+ordinates, not a licence to extrapolate an unbounded slope. Its fixed64 join nevertheless reads the
+old law at the actual224 span, not a held160 join value. If it fails, stop and re-charter a wider
+span law. Do not imply this bed identifies all larger surfaces.
 
 ## Referee status
 
@@ -350,9 +373,14 @@ failures close at NEITHER without a second point. Both tiers are priced before s
 
 On PASS and the X41 ruling, prepare the four dark documents, regenerate shipped profiles, prove
 strict-mode reproduction and publish complete immutable generations through `matrix publish`.
-Preserve every replaced generation and move its capture tree to its exact active-hash archive;
-a receded-qualified generation remains a pair, never conflated with an active-only alias.
-Verify canonical capture provenance at merge. Adopt a durable low-end/path-cut owner row that
+Preserve every replaced generation and bind each retired capture tree and reference by its exact
+document pair. Where an active hash is shared, use
+`packages/calibration/web-captures-superseded/<active>-<receded>/` for each newly retired tree;
+existing historical directories retain their owners and bytes. In particular, retiring W49a's
+dark0.25 tree requires `web-captures-superseded/b2d074d2df24-940384c06f73/`, never
+`web-captures-superseded/b2d074d2df24/`, which already holds W48 and must remain unchanged.
+A receded-qualified generation is never conflated with an active-only alias. Verify canonical
+capture provenance at merge. Adopt a durable low-end/path-cut owner row that
 re-derives from live captures and reports missing trees honestly. Preserve historical T1 registries
 and adopt the new default's declared regression row; follow X59's five-part order where rebasing
 is authorised, never replace an exception with a silently advanced baseline. Record remaining
@@ -392,9 +420,39 @@ No entry below is ruled by this document or by its authoring worker.
 | ID | Decision needed | Recommendation |
 | --- | --- | --- |
 | DL1 | Priority and scope | Put near-black level ahead of another texture wave; all four dark macOS27 endpoints, no light/26.5 change. |
-| DL2 | X41 exception for the default | Authorise a new dark0.5 active/receded generation and its runtime selection **only after this gate passes**, with a new prospective supersession witness. Preserve the original911-entry X41 record, old document bytes under immutable evidence, fixtures and old generation files. Explicitly exempt the two named dark0.5 source documents, generated dark0.5 endpoint bytes and the index's current selection/status; do not edit or reseal the old witness to make it pass. All other X41 entries remain protected. No such change is authorised in grounding/G0. |
+| DL2 | X41 exception for the default | Authorise the enumerated dark0.5 publication delta below **only after this gate passes**, with a new prospective supersession witness. Preserve the original911-entry X41 record as immutable historical evidence. This is an open recommendation, not approval; no such change is authorised in grounding/G0. |
 | DL3 | Native sitting/X5 and grant | Approve building the minimal plan, then separately authorise its timed capture (about5.3h reserved), with a positively checked compatible granted bundle and restoration. Do not inherit W49b's13h texture sitting. |
 | DL4 | Family, referee and rule | Approve compact measured low-end target plus coherent authority, the stated blind split and no-post-gate-amendment landing rule. No same-wave exception landing. |
+
+### DL2 — prospective X41 publication delta (unruled)
+
+The proposed exception must enumerate the complete publication change, not merely new endpoint
+patches. If the user rules it, the new prospective supersession witness must check exactly these
+approved deltas:
+
+1. One new immutable dark0.5 generation file under `packages/calibration/results/generations/`,
+   containing the complete membership of the generation it replaces, and its new `index.files`
+   record with document pair, file hash/size, row counts and current status.
+2. New `index.byDocumentSha256` aliases for the new document hashes; retain every old alias owner,
+   including aliases of the retired pair. Do not repoint an old alias to the new generation.
+3. Retirement of `index.files["0eac5b294cc2.json"].status` and replacement of only the two dark0.5
+   `index.currentByProfile` selections. The old file record's other fields, all unrelated index
+   units and every old generation file remain unchanged.
+4. The two source documents
+   `packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json` and
+   `packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json`.
+   Preserve their pre-change bytes as immutable evidence before replacing the live documents.
+5. Only dark active/receded endpoint changes in the generated
+   `packages/platform-web/src/macos27-profile.ts` and in the default-document projections of
+   **both** `macos27MaterialProfileDocument` and `DEFAULT_MATERIAL_PROFILE_DOCUMENT`. Light
+   endpoints, document identity, CSS mapping, glass position and the default's selection of
+   macOS27 at0.5 remain unchanged.
+
+Preserve all light bytes, fixtures, old generation bytes and all other X41-protected units. The
+original X41 witness and recorded projection remain immutable historical evidence, not edited or
+resealed to make a changed live generation pass. The new witness pins the old evidence before any
+approved mutation and permits only the explicitly ruled deltas above; extra changes are a failure.
+This list grants no approval and does not supersede X41 while DL2 is open.
 
 ## Surprises and discoveries
 
@@ -416,3 +474,19 @@ the proposed capture. A per-pixel body law, low-end chroma model, directional co
 scatter, blend ordering and wide-span behaviour beyond224 are outside this repair. Existing
 mid-dark/chroma/edge gaps remain named. No runtime/material/publication/release change is made
 by this branch, and the main checkout was not edited.
+
+## Revision Notes
+
+- 2026-10-07 — Bounded grounding review closure, before declaration or any new measurement.
+  Replaced an accumulating adjacent-step tolerance with maximum drawdown from the preceding
+  running maximum. Replaced the underspecified40–64 cross-fade with a fixed64 old-law join at the
+  actual span: holding measured40 while blending toward a darker old solve could create a dip.
+  Full low-end authority still respects every old solve stand-down. The alternatives now distinguish
+  a simpler full existing-curve refit from moving one ordinate, and price its broader Hermite reach
+  against the exact-above64 boundary without adding an experiment. W49a capture retirement now
+  names its document pair and leaves W48's already owned directory untouched. DL2 enumerates the
+  complete proposed X41 publication delta, retaining the old witness as historical evidence;
+  DL1–DL4 remain open. The independent reader review found no material reader bugs and reproduced
+  404 inventory rows,44 non-held anchor reads and the historical diagnostic table exactly. The
+  W50 inventory writer now emits LF explicitly; replay leaves both generated JSON files
+  byte-identical and changes the CSV only in newline encoding. No historical evidence was rewritten.
