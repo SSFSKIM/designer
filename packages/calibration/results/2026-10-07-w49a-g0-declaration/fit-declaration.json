@@ -1,0 +1,45 @@
+{
+ "amendmentAfterGate": "none",
+ "charter": {
+  "commit": "c577811c7",
+  "path": "docs/doperpowers/specs/2026-10-07-w49-authorised-list-repair.md"
+ },
+ "landingRule": {
+  "X75": "the builder refuses any point that draws opaque glass",
+  "a": "checkerboard-64__rrect-lg__inactive against d0219cd684bf, growth <= B at the gate; checkerboard-32__rrect-lg__inactive and photo__rrect-lg__inactive the same, at read 9",
+  "b": "hc-text__, impulse__ and checkerboard-8__rrect-lg__inactive against d0219cd684bf, growth <= B",
+  "c": "every other cell against b2d074d2df24: zero cells away with growth > B (none past 3 B)",
+  "d": "C rest at both scales and F inactive at 1x against d0219cd684bf, every partition, A <= A_ref / 2; at the gate a withheld cell R cannot move enters at its read-8 value",
+  "implementation": "probes/rule.py evaluate_profile",
+  "scope": "per dark 0.25 profile (1x, 2x), WebGPU tier, T1 by W44 G1's classify: B = max(code, 2 bar), growth |k - n| - |c - n|; T cells read away on T1-low"
+ },
+ "partOne": "a7403d3eeea2bf94ad31ac9f76c4ee78ee3bf11f9ecf4e810e0e511a289342f0",
+ "pins": {
+  "packages/calibration/results/2026-10-03-w44-g1-refit/cuts/t1.py": "55f0a96e27b03325d4345f0f541b0b5996c7cd580573bd3e7aeb4c35835355fc",
+  "packages/calibration/results/2026-10-06-w48-g1-refit/cuts/cut-025-w48-dl9-exposure.json.gz": "a29f7a7adb192907107075633ba3b26370839c5b6ad4c6fdb6c44c24a5423da4",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/rule.py": "d5e21007bdcffddda9363b643fe350ed0741e243aa10382ce99837fc5e712776",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/test_rule.py": "d666715c675dc3a688723d24566bdff1f61d2aa8fb660cacf88b7dd1e3d4ec8b"
+ },
+ "reads": {
+  "gate": "P2's rendered gate cells, rest cells by construction; the report, then STOP for the parent",
+  "owner": "the owner test's other adopted rows (M2, L1, E2, T1 blocks) at G2; a failure stops for the parent",
+  "read9": "once, on the selected point only, sealed, in a strict-mode stage: every DL2 clause over all partitions, the two withheld repair cells binding; the other withheld cells against part 1's predictions (DL6). A clause failing there: W49a closes at the finding and the parent asks the user; no other point is read"
+ },
+ "rulings": {
+  "DL2": "DL2 (W49a landing rule, binding, hashed in part 2 before any gate read):\n(a) repair: checkerboard-64__rrect-lg__inactive, checkerboard-32__rrect-lg__inactive and\nphoto__rrect-lg__inactive, both dark 0.25 profiles, WebGPU, each read against d0219cd684bf:\ngrowth <= B (i.e. no longer away beyond B). Their six entries leave T1_DARK_AUTHORISED_REGRESSIONS.\n(b) the three opacity-flattered cells (hc-text, impulse, checkerboard-8 __rrect-lg__inactive)\nare read against d0219cd684bf, not b2d074, under the same growth <= B.\n(c) every other cell: zero new cells away beyond B against b2d074d2df24, none past 3 B.\n(d) W48's halvings that held (C rest both scales, F inactive 1x, against d0219) still hold.\nThe other eleven authorised entries are W49b's and stay listed; W49a neither repairs nor\nre-authorises them.",
+  "DL4": "DL4 (selection). The selection rule over rendered points is hashed in part 2 before the gate;\npart 2 admits NO post-gate amendment. If no point passes DL2, W49a closes at the finding and\nthe parent asks the user.",
+  "DL5": "DL5. No ruling re-authorises a cell already on the list.",
+  "DL7": "DL7 (release). W49a's landing ships as @vitreajs/vitrea-web patch 0.28.1 (changeset patch),\nnaming the defect: dark 0.25 unfocused glass drew no backdrop structure at short side >= 160 CSS px."
+ },
+ "schema": "w49a-part2",
+ "selection": {
+  "implementation": "probes/rule.py select",
+  "landing": "(far1x, far2x) of the two scales' selections",
+  "none": "a scale with no point meeting DL2: NEITHER; W49a closes at the finding and the parent asks the user (DL4)",
+  "objective": "per scale, the median |log((k + code)/(n + code))| over X74's reachable gate cells",
+  "tie": "points within tau of the minimum, tau the median log(1 + bar/(n + code)) over the same cells",
+  "tieBreak": "the largest far delta (the smallest departure from the shipped bytes)",
+  "void": "X74's control failing at a scale voids that scale's selection"
+ },
+ "wave": "W49a G0"
+}
