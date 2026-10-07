@@ -49721,3 +49721,14 @@ integration on three engines, Pages). The user ran `pnpm changeset version` and 
 `vitrea-web`'s tarball names the dark 0.25 digests `791cde91d97acbc7` / `be472bc8e42b618d`, with
 its dependency on the core rewritten from the workspace range to `^0.28.0`. W48 is CLOSED in its
 charter.
+
+### 14. The fit summaries archived (recorded 2026-10-07, beside §13)
+
+G1's 663 fit-point `summary.json` files under `results/2026-10-06-w48-g1-refit/fit/candidates/*/`
+were untracked in its worktree and are not on main, yet they are the inputs of the committed
+Decision Log 9 readers (`select_dl9.py`, `budget_reading.py`, `fit_rule_reading.py`,
+`stage2_reading.py`, `budget_composite.py`). Before the worktree was removed they were archived as
+GitHub release `w48-fit-summaries-archive`: one asset, `g1-candidate-summaries.tar.gz`, entries
+repository-relative, SHA-256 `bd610da5c9ca44a54b0ad363254e6a75a1e361d7e691d08c2fdf86a93d413f9d`,
+30,288,631 bytes. Extract it at the repository root to replay those readers; the local copy is
+`~/vitrea-w48/w48-worktree-leftovers/` on the capture machine.
