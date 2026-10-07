@@ -1,0 +1,27 @@
+{
+  "$comment": "W49a scratch candidate p2-far0 (base b2d074): probe P2: b2d074d2df24 with the receded tintAlphaFar1x and tintAlphaFar2x at 0 (family R; the active unmoved)",
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w49a-p2-far0",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "dbc16b2d5fd693c1c78340a46ad6e5ce5cd02060d3590a31a2ead701c3fbae90"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "4ab5fb550f91ad75d8db939b966d97d755a02b8a6c33af6a4033a7e74dbebf95"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "5312b6989f4e91b9dea1ae25f8f408232eea01d4faeff0ec0d1a2f74c5409e6f"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "7ab7485e14e5859bbf18503bb97210d0e9ef350923c8eb81fd589107df847604"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

@@ -1,0 +1,14 @@
+{
+ "what": "W49a G0 tooling smoke, before part 1 was hashed and before any probe render: the PUBLISHED d0219cd684bf pair (builder base d0219, no override; digests b074fc6913a91c66 / 280f0fddf014e0f6) drawn in candidate mode on one rest cell at 1x, read by W48's cut launcher with the reference captures under web-captures-superseded/d0219cd684bf. It reads a published generation and no probe, so it reveals nothing the declaration could be fitted to; it proves the render-and-read chain and that a candidate-mode render reproduces a published row exactly.",
+ "candidate": "probes/smoke/candidates/t-smoke-d0219/candidate.json",
+ "candidateSha256": "0eb5b9c422bea912a811896ce49decabba519578fb501649d66be6f9d2d72557",
+ "cell": {
+  "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "scene": "checkerboard-64__rrect-lg__rest",
+  "partition": "gate"
+ },
+ "read": 0.0337913274553524,
+ "publishedD0219": 0.0337913274553524,
+ "exactlyEqual": true,
+ "matrixSha256": "06797845e880dca5a1c0381ab2bbc778b2f4d611851f6cb933405529b797c84c"
+}
