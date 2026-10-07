@@ -3342,24 +3342,22 @@ const GLASS025_CUT_FILE = {
 const GLASS025_CUT = readJson<Glass025Cut>(resolve(PACKAGE_ROOT, GLASS025_CUT_FILE.path));
 
 /**
- * **The dark landing cut** (W48 G2; charter clause 10; claims §5.214), regenerated at the landing that
- * publishes `b2d074d2df24` by `results/2026-10-06-w48-g2-landing/cuts/landing.py` with W47's cuts
- * (inherited by path under W48's bindings, as G1's gate and exposure cuts were) from the current union's
- * rows: the dark generation in every set, W46's referees and the holdout read once at read 8 and counted
- * as ordinary members here; the light rows W47's bed admits, against their own generation. Its
- * references are selected explicitly by hash, `d0219cd684bf` dark and `ebc3d9105a4a` light, as G1's
- * cuts selected them, and `landing.json` holds it EQUAL to G1's exposure cut on every section but for
- * exactly the dark referee cells on C1, X1 and E2. Its rule's T1 section is W45's rule bound to the
- * dark profiles (W46 Decision Log 3), against `d0219cd684bf`.
+ * **The dark landing cut** (W49a DL9/DL10; §5.215), regenerated from the complete strict-mode
+ * stage by `results/2026-10-07-w49a-g1-landing/cuts/landing.py`. The material's active document is
+ * unchanged: this is the pair b2d074d2df24 / 940384c06f73, not an unqualified active-hash alias.
+ * Dark referee and holdout rows were exposed at read 9 and are ordinary adopted-row members here.
+ * The unchanged light rows exclude their still-withheld members, as W48's landing did.
  *
- * The owner test reads its DARK entries: every dark 0.25 block (tables, M1, M2, C1, X1, L1, E2, S1's
- * dark half, and the dark T1 rule) reads this cut, and every light 0.25 block keeps reading W45's
- * landing cut above, whose light rows and c05 reference are unchanged (charter clause 9). A dark entry
- * read from W45's cut is `d0219cd684bf` against itself, which is history. Pinned by its bytes.
+ * M2, L1 and E2 retain d0219cd684bf / f0b36a71772a as their dark reference. This cut's T1 section
+ * also reads every cell against d0219; the standing T1 witness separately enforces DL2's per-cell
+ * references (repair/flattered and carried W48 entries against d0219, every other cell against
+ * b2d074 / 29da6a888a23). Both comparisons are recorded before the owner list changes.
+ * The owner reads only this cut's dark entries; every light 0.25 block keeps W45's landing cut.
+ * Each gated figure is re-derived from the current union, not trusted because a cut is pinned.
  */
 const GLASS025_DARK_CUT_FILE = {
-  path: "results/2026-10-06-w48-g2-landing/cuts/cut-025-dark-w48-landing.json",
-  sha256: "2533c75355664a6552b885d0424387e28e1d7eb4f26b6dbf80b2a8f9c8ace34c",
+  path: "results/2026-10-07-w49a-g1-landing/cuts/cut-025-dark-w49a-landing.json",
+  sha256: "f769ca417c4d2b18799f2488853a78215cc9cdcbdf650f7d6a6f30fb34913dbb",
 } as const;
 const GLASS025_DARK_CUT = readJson<Glass025Cut>(resolve(PACKAGE_ROOT, GLASS025_DARK_CUT_FILE.path));
 
@@ -3638,8 +3636,9 @@ const T1_BANDS_FILES = [
  *   `b2d074d2df24`, witnessed its regressions against `d0219cd684bf` with both dark band fixtures
  *   present, listed the ruled ones in `T1_DARK_AUTHORISED_REGRESSIONS` and moved the reference LAST
  *   (charter clause 10 part (v); X59), so every dark cell reads `unchanged` against it and the next
- *   dark publication is what the clause can stop. The seventeen stay witnessed against
- *   `d0219cd684bf` by their standing case.
+ *   dark publication is what the clause can stop. W49a witnesses both old references before
+ *   changing its list: five repairs leave, twelve W48 entries retain their original caps (DL10),
+ *   and three new DL9 entries name their own reference. The standing case selects it per cell.
  * - **The referee manifest** is W46's (`w46-referees-1`, six scenes per dark scale). It labels a
  *   cell's partition and never selects.
  * - **The band fixtures**, ONE PER GENERATION as on the light side (W48 G2, charter clause 10 part (i);
@@ -3649,6 +3648,8 @@ const T1_BANDS_FILES = [
  *   what witnesses a regression against that generation; `b2d074d2df24`'s is W48 G2's, read off the
  *   canonical tree G1's stage was copied to and equal on every entry to the bands G1's exposure cut
  *   and the landing cut carry (`results/2026-10-06-w48-g2-landing/t1/bands.py`).
+ *   W49a adds a third fixture beside those two, keyed by its active/receded pair; every dark
+ *   lookup checks both hashes because the active hash is now shared by two generations.
  * - **The gate's cut** of `d0219cd684bf` against itself, by W46's ported cuts
  *   (`results/2026-10-05-w46-g1-refit/references/`), is the Python referee the port agrees with.
  */
@@ -3663,12 +3664,20 @@ const T1_DARK_REFEREES_FILE = {
 } as const;
 const T1_DARK_BANDS_FILES = [
   {
+    generation: "b2d074d2df24-940384c06f73",
+    reference: { active: "b2d074d2df24", receded: "940384c06f73" },
+    path: "results/2026-10-07-w49a-g1-landing/t1/t-bands-b2d074d2df24-940384c06f73.json",
+    sha256: "8009e9ebf9dae4d0ed2d9dffa20e9d1714352beb1f83ac9d46d525da2bbc06e5",
+  },
+  {
     generation: "b2d074d2df24",
+    reference: { active: "b2d074d2df24", receded: "29da6a888a23" },
     path: "results/2026-10-06-w48-g2-landing/t1/t-bands-b2d074d2df24.json",
     sha256: "c21d7aa072a38716747bd707171adfb5b0a3930732599b6d490387dcab8bb8de",
   },
   {
     generation: "d0219cd684bf",
+    reference: { active: "d0219cd684bf", receded: "f0b36a71772a" },
     path: "results/2026-10-05-w46-g2-landing/t1/t-bands-d0219cd684bf.json",
     sha256: "6fb61b6bc3da771e517b86805d1130a8ad6796091992fd106de5904f749c0694",
   },
@@ -3822,23 +3831,24 @@ const T1_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = ([
  * Decision Log 9 §7): the receded scatter's cost on the thick inactive spans (the `checkerboard-32` /
  * `-64` lg inactive cells, the thick photo, the 2x capsule-button checkers), and the span law's own cost
  * on the thick and mid-span coarse rest cells (`checkerboard-32` / `-64` lg, `hc-text-28` lg,
- * `checkerboard-lc16` md, the 1x impulse capsule).
+ * `checkerboard-lc16` md, the 1x impulse capsule). W49a's grounding identified the thick inactive
+ * cause as opacity, not scatter. DL9/DL10 remove five repaired entries, retain twelve under W48's
+ * original caps, and add the three measured impulse costs below. No existing cap is re-authorised.
  */
 const T1_DARK_W46_REFERENCE = { active: "d0219cd684bf", receded: "f0b36a71772a" } as const;
 const T1_DARK_W48_RULING = "W48 Decision Logs 9 and 10, §5.213";
-const T1_DARK_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = ([
-  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__inactive", 8.94],
-  ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__inactive", 3.20],
+const T1_DARK_W48_REFERENCE = { active: "b2d074d2df24", receded: "29da6a888a23" } as const;
+const T1_DARK_W49_RULING = "W49a Decision Log 9, §5.215";
+// DL10: five repaired entries leave. The 2x checkerboard-32 inactive entry stays at W48's 6.04 B;
+// read 9 measures 1.0819 B against d0219. This is improvement under its old ceiling, not a new ruling.
+const T1_DARK_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = [...([
   ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__rest", 2.98],
   ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-lc16__rrect-md__rest", 2.66],
-  ["apple-macos-27.0-1x-dark-standard-glass0.25", "photo__rrect-lg__inactive", 2.64],
   ["apple-macos-27.0-1x-dark-standard-glass0.25", "impulse__capsule-button__rest", 2.26],
   ["apple-macos-27.0-1x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__rest", 1.55],
   ["apple-macos-27.0-1x-dark-standard-glass0.25", "hc-text-28__rrect-lg__rest", 1.39],
-  ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-64__rrect-lg__inactive", 12.53],
   ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__inactive", 6.04],
   ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-lc16__rrect-md__rest", 2.91],
-  ["apple-macos-27.0-2x-dark-standard-glass0.25", "photo__rrect-lg__inactive", 2.90],
   ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard__capsule-button__inactive", 2.79],
   ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard-32__rrect-lg__rest", 2.71],
   ["apple-macos-27.0-2x-dark-standard-glass0.25", "checkerboard__capsule-button__inactive-tint-orange", 1.93],
@@ -3846,7 +3856,28 @@ const T1_DARK_AUTHORISED_REGRESSIONS: readonly T1AuthorisedRegression[] = ([
   ["apple-macos-27.0-2x-dark-standard-glass0.25", "hc-text-28__rrect-lg__rest", 1.34],
 ] as const).map(([profile, scene, growthInB]) => ({
   profile, scene, reference: T1_DARK_W46_REFERENCE, growthInB, ruling: T1_DARK_W48_RULING,
-}));
+})),
+  { profile: "apple-macos-27.0-1x-dark-standard-glass0.25", scene: "impulse__rrect-ml__inactive",
+    reference: T1_DARK_W48_REFERENCE, growthInB: 2.37, ruling: T1_DARK_W49_RULING },
+  { profile: "apple-macos-27.0-2x-dark-standard-glass0.25", scene: "impulse__rrect-ml__inactive",
+    reference: T1_DARK_W48_REFERENCE, growthInB: 2.63, ruling: T1_DARK_W49_RULING },
+  { profile: "apple-macos-27.0-2x-dark-standard-glass0.25", scene: "impulse__rrect-lg__inactive",
+    reference: T1_DARK_W46_REFERENCE, growthInB: 1.09, ruling: T1_DARK_W49_RULING },
+];
+
+/** DL2/DL9/DL10 select references by cell, not by list order. The carried W48 entries retain
+ * their own reference; repair and opacity-flattered cells read d0219, all others read W48. */
+const T1_DARK_D0219_SCENES = new Set([
+  "checkerboard-64__rrect-lg__inactive", "checkerboard-32__rrect-lg__inactive", "photo__rrect-lg__inactive",
+  "hc-text__rrect-lg__inactive", "impulse__rrect-lg__inactive", "checkerboard-8__rrect-lg__inactive",
+  "checkerboard-32__rrect-lg__rest", "checkerboard-lc16__rrect-md__rest",
+  "checkerboard-64__rrect-lg__rest", "hc-text-28__rrect-lg__rest",
+]);
+function t1DarkStandingReference(profile: string, scene: string) {
+  const carried = profile.includes("-1x-") ? scene === "impulse__capsule-button__rest"
+    : scene === "checkerboard__capsule-button__inactive" || scene === "checkerboard__capsule-button__inactive-tint-orange";
+  return T1_DARK_D0219_SCENES.has(scene) || carried ? T1_DARK_W46_REFERENCE : T1_DARK_W48_REFERENCE;
+}
 
 /**
  * **The dark targets the landing names as misses** (W48 Decision Logs 9 §3 and 10; claims §5.213 §7):
@@ -3963,6 +3994,11 @@ interface T1BandEntry {
   readonly webSha256: string;
   readonly bands: T1Bands;
 }
+/** An active hash alone is ambiguous after a receded-only reseal (W49a). */
+const t1CaptureNamesReference = (capture: string, reference: { readonly active: string; readonly receded: string }) =>
+  new RegExp(`materialProfile=\\S+ sha256:${reference.active}(?: |$)`).test(capture)
+  && new RegExp(`recededProfile=\\S+ sha256:${reference.receded}(?: |$)`).test(capture);
+
 const T1_BANDS = (() => {
   const out = new Map<string, T1BandEntry>();
   for (const file of [...T1_BANDS_FILES, ...T1_DARK_BANDS_FILES]) {
@@ -3972,7 +4008,10 @@ const T1_BANDS = (() => {
     for (const entry of body.entries) {
       const key = t1BandKey(entry.profile, entry.renderer, entry.scene, entry.capturePath);
       // A capture path names its generation's documents, so two fixtures can never key one entry.
-      if (out.has(key) || !entry.capturePath.includes(`sha256:${file.generation}`)) {
+      const namesGeneration = "reference" in file
+        ? t1CaptureNamesReference(entry.capturePath, file.reference)
+        : entry.capturePath.includes(`sha256:${file.generation}`);
+      if (out.has(key) || !namesGeneration) {
         throw new Error(`${file.path}: ${entry.scene} is keyed twice or names another generation`);
       }
       out.set(key, { ...entry, generation: file.generation });
@@ -7768,19 +7807,21 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
       .toBe(T1_DARK_AUTHORISED_REGRESSIONS.length);
   });
 
-  it("(b) the dark witness: against its own reference, each listed cell trips at its listed growth, and no other cell does", () => {
-    // X59 as a standing case for the dark list (W48 G2; the light list's case above, on the dark
-    // profiles). Every reference the list names is read on the CURRENT union, both forms: the
-    // growth-only form must trip on exactly the listed cells of that reference, each at its listed
-    // growth to the recorded two decimals, and both forms must pass with the list. The next dark
-    // publication moves these rows, this case fails, and that landing clears the list or re-rules it.
+  it("(b) the dark witness: every cell reads its ruled reference, and listed growth stays below its original ceiling", () => {
+    // W49a DL2/DL9/DL10: an opacity-flattered cell must not be judged against opaque W48.
+    // Each cell has an explicit reference; the retained W48 caps cannot be increased here.
+    // DL10's checkerboard-32 repair miss improves under its existing 6.04 B authorisation.
     const references = [...new Map(T1_DARK_AUTHORISED_REGRESSIONS.map((e) =>
       [`${e.reference.active} ${e.reference.receded}`, e.reference] as const)).values()];
     expect(references.length, "a filled list names its reference").toBeGreaterThan(0);
     for (const reference of references) {
       for (const profile of T1_DARK_GATED_PROFILES) {
-        const { cells, unmeasured } = t1Cut(profile, "webgpu", reference);
-        expect(unmeasured, `${profile} against ${reference.active}`).toEqual([]);
+        const read = t1Cut(profile, "webgpu", reference);
+        expect(read.unmeasured, `${profile} against ${reference.active}`).toEqual([]);
+        const cells = read.cells.filter((cell) => {
+          const selected = t1DarkStandingReference(profile, cell.scene);
+          return selected.active === reference.active && selected.receded === reference.receded;
+        });
         const listed = T1_DARK_AUTHORISED_REGRESSIONS.filter((e) => e.profile === profile
           && e.reference.active === reference.active && e.reference.receded === reference.receded);
         const tripped = cells.filter((cell) => cell.growth === "away" && cell.regression.growth > cell.regression.B);
@@ -7788,8 +7829,8 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
           .toEqual(listed.map((e) => e.scene).sort());
         for (const entry of listed) {
           const cell = tripped.find((c) => c.scene === entry.scene)!;
-          expect(Math.round(100 * cell.regression.growth / cell.regression.B) / 100, `${entry.scene}: g / B`)
-            .toBeCloseTo(entry.growthInB, 10);
+          expect(cell.regression.growth / cell.regression.B, `${entry.scene}: g / B ceiling`)
+            .toBeLessThanOrEqual(entry.growthInB + T1_GROWTH_RECORDED);
         }
         for (const form of ["w44", "growth"] as const) {
           expect(t1ClauseBFailures(cells, reference, T1_DARK_AUTHORISED_REGRESSIONS, form), `${profile} ${form}`)
@@ -7801,8 +7842,8 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
 
   it("(b) the landing cut's dark rule read the same cells over all 77, and the target misses are named", () => {
     // The dark landing cut's rule (W45's, bound to the dark profiles; W47's `cuts/rule.py`, Python),
-    // per profile over every partition, read independently of this file's port: its away-beyond-B list
-    // is the dark authorised list, cell for cell at the recorded growth; no gated aggregate fails; and
+    // per profile over every partition, read independently of this file's port. Its whole-bed
+    // d0219 away-beyond-B list agrees with that port; no gated aggregate fails; and
     // the targets that do not halve are exactly the named ones (W48 Decision Logs 9 §3 and 10).
     const cut = readJson<{ readonly T1: { readonly rule: {
       readonly scope: string;
@@ -7820,9 +7861,13 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     for (const profile of T1_DARK_GATED_PROFILES) {
       const here = rule.profiles[profile];
       expect(here?.read, profile).toBe(77);
+      // This cut reads every cell against d0219. DL2's mixed-reference authorisations are
+      // checked separately above; in particular ml impulse reads W48, not d0219, for that gate.
+      const port = t1Cut(profile, "webgpu", T1_DARK_W46_REFERENCE);
+      expect(port.unmeasured, profile).toEqual([]);
       expect((here?.awayBeyondB ?? []).map((c) => [c.scene, Math.round(100 * c.growthInB) / 100]).sort(), profile)
-        .toEqual(T1_DARK_AUTHORISED_REGRESSIONS.filter((e) => e.profile === profile)
-          .map((e) => [e.scene, e.growthInB]).sort());
+        .toEqual(port.cells.filter((c) => c.growth === "away" && c.regression.growth > c.regression.B)
+          .map((c) => [c.scene, Math.round(100 * c.regression.growth / c.regression.B) / 100]).sort());
       expect(here?.gatedAggregateFailures, profile).toEqual([]);
       const missed = Object.entries(here?.targets ?? {}).filter(([, t]) => !t.halved).map(([name]) => name).sort();
       expect(missed, `${profile}: the targets not halved`).toEqual(
@@ -7878,8 +7923,8 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     expect(compared, "cells the port and the cut both read").toBeGreaterThanOrEqual(2 * 74);
   });
 
-  it("agrees cell for cell with the dark landing cut of b2d074d2df24 (W47's Python cuts, the referee)", () => {
-    // W48 G2: the landing cut read the published dark generation in every partition, against
+  it("agrees cell for cell with the W49a dark landing cut (W47's Python cuts, the referee)", () => {
+    // W49a: the landing cut read the sealed dark pair in every partition, against
     // `d0219cd684bf`. This file's port, run on THAT generation's rows against the same reference,
     // agrees with every T1 cell of the dark WebGPU tier: native, web (the cut's `candidate`) and
     // fidelity to 1e-12 and by state, a T cell on its T1-fine band; and the error growth against
@@ -7891,7 +7936,7 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
       readonly bands?: Readonly<Record<"fine" | "low", { readonly native: number; readonly reference: number;
         readonly candidate: number; readonly fidelity: string }>>;
     }[] } }>(resolve(PACKAGE_ROOT, GLASS025_DARK_CUT_FILE.path));
-    const rows = loadGeneration("b2d074d2df24", "29da6a888a23") as unknown as readonly Cell[];
+    const rows = loadGeneration("b2d074d2df24", "940384c06f73") as unknown as readonly Cell[];
     let compared = 0;
     for (const profile of T1_DARK_GATED_PROFILES) {
       const port = new Map(t1Cut(profile, "webgpu", T1_DARK_W46_REFERENCE, rows).cells
@@ -7920,17 +7965,45 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
     expect(compared, "cells the port and the cut both read").toBe(2 * 77);
   });
 
+  it("agrees with both historical references and the explicit per-cell selection in W49a's witness", () => {
+    const path = "results/2026-10-07-w49a-g1-landing/t1/t1-derivation.json";
+    expect(sha256Of(path)).toBe("9860094ca5a1e6b2674db8a05b70877a3d62da1cf2c988ce754398ba09871ccf");
+    const witness = readJson<{ readonly cells: readonly {
+      readonly profile: string; readonly scene: string; readonly selectedReference: string;
+      readonly comparisons: Readonly<Record<string, {
+        readonly growthInB: number; readonly w44: string; readonly growthOnly: string;
+      }>>;
+    }[] }>(resolve(PACKAGE_ROOT, path));
+    expect(witness.cells).toHaveLength(154);
+    for (const reference of [T1_DARK_W46_REFERENCE, T1_DARK_W48_REFERENCE]) {
+      for (const profile of T1_DARK_GATED_PROFILES) {
+        const port = t1Cut(profile, "webgpu", reference);
+        expect(port.unmeasured).toEqual([]);
+        const theirs = witness.cells.filter((c) => c.profile === profile);
+        expect(theirs.map((c) => c.scene).sort()).toEqual(port.cells.map((c) => c.scene).sort());
+        for (const cell of theirs) {
+          const mine = port.cells.find((c) => c.scene === cell.scene)!;
+          const reading = cell.comparisons[reference.active]!;
+          expect(cell.selectedReference).toBe(t1DarkStandingReference(profile, cell.scene).active);
+          expect(mine.regression.growth / mine.regression.B).toBeCloseTo(reading.growthInB, 10);
+          expect(mine.regression.change).toBe(reading.w44);
+          expect(mine.growth).toBe(reading.growthOnly);
+        }
+      }
+    }
+  });
+
   it("reads a dark T cell's bands off the committed fixtures, which name each generation's captures", ctx => {
     const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
     const tree = existsSync(captures);
     for (const file of T1_DARK_BANDS_FILES) {
-      const rows = (loadGeneration(file.generation) as unknown as readonly Cell[]).filter((cell) =>
+      const rows = (loadGeneration(file.reference.active, file.reference.receded) as unknown as readonly Cell[]).filter((cell) =>
         t1IsDark(cell.key.profileKey) && cell.key.web.renderer === "webgpu" && t1StratumOf(cell.key.sceneId) === "T");
       expect(rows, file.path).toHaveLength(8);
       const named = [...T1_BANDS.values()].filter((entry) => entry.generation === file.generation);
       expect(named.map((entry) => `${entry.profile} ${entry.scene}`).sort(), file.path)
         .toEqual(rows.map((row) => `${row.key.profileKey} ${row.key.sceneId}`).sort());
-      const current = MATRIX_FILE.cells.some((cell) => cell.key.web.capturePath.includes(`sha256:${file.generation}`));
+      const current = MATRIX_FILE.cells.some((cell) => t1CaptureNamesReference(cell.key.web.capturePath, file.reference));
       const root = current ? captures : resolve(captures, "..", "web-captures-superseded", file.generation);
       for (const row of rows) {
         const entry = t1BandOf(row);
