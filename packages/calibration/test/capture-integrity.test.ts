@@ -250,6 +250,20 @@ describe("the material profile document's key admission", () => {
     expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
   });
 
+  it("admits W49b D's independent transmission top, including a mixed zero anchor", () => {
+    const patch = { tintAlphaSpanMax: 160, tintAlphaSpanMax2x: 0,
+      sizeScatterSpanMax: 256, sizeScatterSpanMax2x: 192 };
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+  });
+
+  it("admits W49b W/S live candidate leaves without dropping their declared values", () => {
+    const patch = { sizeHeavySecondShare: 0.25,
+      sizeHeavySecondSigma: 5, sizeHeavySecondSigma2x: 5,
+      sizeHeavySecondSigmaFar1x: 4, sizeHeavySecondSigmaFar2x: 5,
+      backdropCaptureScale: 0.5 };
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+  });
+
   it("admits W47's fine-body tap candidate leaves (G0 (b), X66)", () => {
     const patch = { sizeFineTapShare: 0.5, sizeFineTapSigma: 2, sizeFineTapSigma2x: 6 };
     for (const key of Object.keys(patch)) expect(MATERIAL_PATCH_KEYS.has(key), key).toBe(true);

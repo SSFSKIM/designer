@@ -174,7 +174,7 @@ describe("the pyramid's handles, checked against the pool", () => {
         bodySigmaCss: 8,
         heavySigmaCss: 0,
         heavy2SigmaCss: 0,
-        fineSigmaCss: 0,
+        fineSigmaCss: 0, heavy2FarSigmaCss: 0, captureScale: 1,
         viewportCss: [400, 300],
       },
       provider,
@@ -201,7 +201,7 @@ describe("the pyramid's handles, checked against the pool", () => {
       bodySigmaCss: 8,
       heavySigmaCss: 0,
       heavy2SigmaCss: 0,
-      fineSigmaCss: 0,
+      fineSigmaCss: 0, heavy2FarSigmaCss: 0, captureScale: 1,
       viewportCss: [400, 300] as const,
     };
 
@@ -669,7 +669,7 @@ describe("W47 fine texture lifecycle", () => {
     const store = createPyramidStore(context);
     const provider = gradientOn(gpu, 1);
     const request = { sourceId: "bg", epoch: 1, resolution: { scale: 1, maxDimension: 2048 },
-      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 0, fineSigmaCss: 0,
+      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 0, fineSigmaCss: 0, heavy2FarSigmaCss: 0, captureScale: 1,
       viewportCss: [400, 300] as const };
     const build = (frame: number, fineSigmaCss: number) => {
       store.beginFrame(frame);
@@ -699,7 +699,7 @@ describe("W47 fine texture lifecycle", () => {
     const store = createPyramidStore(context);
     const provider = gradientOn(gpu, 1);
     const request = { sourceId: "bg", epoch: 1, resolution: { scale: 1, maxDimension: 2048 },
-      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 0, fineSigmaCss: 2,
+      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 0, fineSigmaCss: 2, heavy2FarSigmaCss: 0, captureScale: 1,
       viewportCss: [400, 300] as const };
     store.beginFrame(1);
     store.build(request, provider, gpu.device.createCommandEncoder());
@@ -712,6 +712,73 @@ describe("W47 fine texture lifecycle", () => {
     store.forget("bg");
     expect(context.pool.peek(poolKey.backdropFine("bg"))).toBeUndefined();
     expect(context.pool.peek(poolKey.backdropFineScratch("bg"))).toBeUndefined();
+    store.destroy();
+  });
+});
+
+
+describe("W49b bandwidth and capture resources", () => {
+  it("rebuilds and releases the far-width texture without stranding its scratch", () => {
+    const gpu = createFakeGpu();
+    const context = createGpuContext(gpu.device, 1);
+    const store = createPyramidStore(context);
+    const provider = gradientOn(gpu, 1);
+    const request = { sourceId: "bg", epoch: 1, resolution: { scale: 1, maxDimension: 2048 },
+      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 5, fineSigmaCss: 0,
+      captureScale: 1, viewportCss: [400, 300] as const };
+    const build = (frame: number, heavy2FarSigmaCss: number) => {
+      store.beginFrame(frame);
+      const outcome = store.build({ ...request, heavy2FarSigmaCss }, provider,
+        gpu.device.createCommandEncoder());
+      store.releaseAcquired();
+      return outcome;
+    };
+    expect(build(1, 0).status).toBe("built");
+    expect(context.pool.peek("backdrop:bg:heavy2Far")).toBeUndefined();
+    expect(build(2, 9).status).toBe("built");
+    expect(context.pool.peek("backdrop:bg:heavy2Far")).toBeDefined();
+    expect(context.pool.peek("backdrop:bg:heavy2Far-scratch")).toBeDefined();
+    expect(build(3, 9).status).toBe("clean");
+    expect(build(4, 10).status).toBe("built");
+    context.pool.release("backdrop:bg:heavy2Far");
+    expect(store.resources("bg")).toBeUndefined();
+    expect(build(5, 10).status).toBe("built");
+    expect(build(6, 0).status).toBe("built");
+    expect(context.pool.peek("backdrop:bg:heavy2Far")).toBeUndefined();
+    expect(context.pool.peek("backdrop:bg:heavy2Far-scratch")).toBeUndefined();
+    build(7, 9);
+    store.forget("bg");
+    expect(context.pool.peek("backdrop:bg:heavy2Far")).toBeUndefined();
+    expect(context.pool.peek("backdrop:bg:heavy2Far-scratch")).toBeUndefined();
+    store.destroy();
+  });
+
+  it("captures before scatter at half density and invalidates clean sources on scale changes", () => {
+    const gpu = createFakeGpu();
+    const context = createGpuContext(gpu.device, 1);
+    const store = createPyramidStore(context);
+    const provider = gradientOn(gpu, 1);
+    const request = { sourceId: "bg", epoch: 1, resolution: { scale: 1, maxDimension: 2048 },
+      bodySigmaCss: 1.25, heavySigmaCss: 0, heavy2SigmaCss: 5, heavy2FarSigmaCss: 0,
+      fineSigmaCss: 0, viewportCss: [400, 300] as const };
+    const build = (frame: number, captureScale: number) => {
+      store.beginFrame(frame);
+      const outcome = store.build({ ...request, captureScale }, provider,
+        gpu.device.createCommandEncoder());
+      store.releaseAcquired();
+      return outcome;
+    };
+    expect(build(1, 1).status).toBe("built");
+    const full = store.resources("bg")!;
+    expect(build(2, 0.5).status).toBe("built");
+    const half = store.resources("bg")!;
+    expect(half.plan.width).toBe(Math.round(full.plan.width / 2));
+    expect(half.plan.height).toBe(Math.round(full.plan.height / 2));
+    expect(half.bodySigmaTexels).toBe(full.bodySigmaTexels / 2);
+    expect(half.heavy2SigmaCss).toBe(5);
+    expect(build(3, 0.5).status).toBe("clean");
+    expect(build(4, 1).status).toBe("built");
+    expect(store.resources("bg")!.plan).toEqual(full.plan);
     store.destroy();
   });
 });

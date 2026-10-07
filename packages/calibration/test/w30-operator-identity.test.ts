@@ -129,10 +129,15 @@ const W47_OPERATOR_LEAVES = ["tintAlphaFar1x", "tintAlphaFar2x"] as const;
 /** W47 G0 (b): one share-gated pair of fine-body widths, landed inert (X66). */
 const W47_FINE_OPERATOR_LEAVES = ["sizeFineTapShare", "sizeFineTapSigma", "sizeFineTapSigma2x"] as const;
 
+/** W49b D: transmission's own top at each scale, identity 0 follows scatter. */
+const W49B_D_OPERATOR_LEAVES = ["tintAlphaSpanMax", "tintAlphaSpanMax2x"] as const;
+
 /** Every later wave's additions, beside rather than rewriting either original list. */
 const OPERATOR_LEAVES: readonly string[] = [
   ...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES, ...W36_OPERATOR_LEAVES, ...W41_OPERATOR_LEAVES,
   ...W45_OPERATOR_LEAVES, ...W47_OPERATOR_LEAVES, ...W47_FINE_OPERATOR_LEAVES,
+  ...W49B_D_OPERATOR_LEAVES,
+  "sizeHeavySecondSigmaFar1x", "sizeHeavySecondSigmaFar2x", "backdropCaptureScale",
 ];
 
 const HERE = import.meta.dirname;

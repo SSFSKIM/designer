@@ -272,6 +272,9 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// Seven encoded neutral ordinates at 40,56,72,88,104,128,150; last lane padding.
   bodyE3Neutral0 : vec4f,
   bodyE3Neutral1 : vec4f,
+  /// W49b D: independent transmission top in CSS px (x), padding (yzw). Zero takes the old
+  /// scatter farS expression exactly. Nonzero anchors were resolved before DPR interpolation.
+  transmissionSpan : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -308,6 +311,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 /// W47's fine BODY texture, built by the same plan and separable passes as the heavy taps.
 /// Bound at every draw, sampled only where 'bodyChroma.z' records a live texture.
 @group(0) @binding(12) var backdropFine : texture_2d<f32>;
+@group(0) @binding(13) var backdropHeavy2Far : texture_2d<f32>;
 
 /// One encoded sRGB channel from a linear one — the space the backdrop tone
 /// response's anchors live in (W9). Mirrors material.ts's 'linearToSrgbChannel'.
@@ -1117,7 +1121,15 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
      */
     if (ou.scatterHeavy2.y > 0.5) {
       let second = textureSampleLevel(backdropHeavy2, backdropSampler, refractedUv, 0.0);
-      let secondColour = second.rgb / max(second.a, 1e-6);
+      var secondColour = second.rgb / max(second.a, 1e-6);
+      // W49b W is a per-pixel mixture of two kernels, not a Gaussian at a lerped sigma.
+      // The identity takes no extra sample or arithmetic; below the knee the old sample is
+      // preserved even when a far member sharing this source needs the extra texture.
+      if (ou.transmissionSpan.y > 0.5 && farS > 0.0) {
+        let farSecond = textureSampleLevel(backdropHeavy2Far, backdropSampler, refractedUv, 0.0);
+        let farColour = farSecond.rgb / max(farSecond.a, 1e-6);
+        secondColour = secondColour + farS * (farColour - secondColour);
+      }
       /*
        * W45 (claims 5.205; charter Decision Log 1): the share graded on the far curve 'farS'
        * this pass already computed from the pixel's own span for the ramp's far start - one
@@ -1241,7 +1253,14 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * ungraded alpha. The CPU side's readings, and the CSS tier's mirror, are listed with their
    * reasons in results/2026-10-06-w47-g0-operators/operator-1/readers.txt.
    */
-  let alphaBase = clamp(ou.tint.w + ou.scatterHeavy2.w * farS, 0.0, 1.0);
+  // W49b D: preserve the OLD expression at identity, including live W47 far deltas. Only an
+  // independent top replaces its curve; no scatter or downstream W9 arithmetic moves.
+  var alphaBase = clamp(ou.tint.w + ou.scatterHeavy2.w * farS, 0.0, 1.0);
+  if (ou.transmissionSpan.x != 0.0) {
+    let alphaT = clamp((span - ou.scatter.w) / max(ou.transmissionSpan.x - ou.scatter.w, 1e-6), 0.0, 1.0);
+    let alphaFarS = alphaT * alphaT * (3.0 - 2.0 * alphaT);
+    alphaBase = clamp(ou.tint.w + ou.scatterHeavy2.w * alphaFarS, 0.0, 1.0);
+  }
   let sizedAlpha = alphaBase + ou.size.y * sizeK * (1.0 - alphaBase);
 
   /*

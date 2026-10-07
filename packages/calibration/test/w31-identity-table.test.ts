@@ -111,11 +111,10 @@ describe("the material identity table (claims §5.161 §7b, §5.164)", () => {
      * identities are recorded here as literals too, so the pair can only agree
      * with a number a human wrote down.
      *
-     * Append a line when a wave appends an entry; never edit one. Every value
-     * is 0 today and that is not an accident — a post-seal leaf's inert
-     * identity is what its default is sealed at — but the zero is written out
-     * rather than looped over, because a table of zeroes checked by a loop over
-     * zeroes proves nothing about the entry that is not one.
+     * Append a line when a wave appends an entry; never edit one. A post-seal leaf's inert
+     * identity is what its default is sealed at. Each is written as a literal rather than
+     * inferred from the default or a shared zero: W49b's capture scale, for example, has
+     * identity 1, and a blanket zero check would misstate the law.
      */
     const IDENTITIES: Readonly<Record<string, number>> = {
       "outerShadow.sigmaSlopePerSpan": 0,
@@ -134,6 +133,13 @@ describe("the material identity table (claims §5.161 §7b, §5.164)", () => {
       tintAlphaFar2x: 0,
       // W47 G0 (b): the body fine tap is one share-gated pair of widths (X66).
       sizeFineTapShare: 0,
+      // W49b D: independent transmission top, identity 0 follows each scatter anchor.
+      tintAlphaSpanMax: 0,
+      tintAlphaSpanMax2x: 0,
+      // W49b W/S: bandwidth deltas are inert at 0; capture density is unchanged at 1.
+      sizeHeavySecondSigmaFar1x: 0,
+      sizeHeavySecondSigmaFar2x: 0,
+      backdropCaptureScale: 1,
     };
     const gates = MATERIAL_IDENTITY_TABLE.flatMap((entry) => Object.entries(entry.gate));
     for (const [path, identity] of gates) {

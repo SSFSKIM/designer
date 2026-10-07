@@ -1436,6 +1436,26 @@ export interface MaterialProfile {
    * 0.25 pair names it (−0.25 / −0.125; claims §5.206); every other shipped document holds 0.
    */
   readonly sizeHeavySecondShareFar2x: number;
+
+  /**
+   * W49b W: CSS-px deltas for a second bandwidth endpoint. The optics pass crossfades
+   * G(sigma2) to G(sigma2 + delta) on its existing per-pixel far curve BEFORE applying
+   * the signed second-tap share. This is a two-kernel mixture, not G(interpolated sigma).
+   * At delta 0 the original expression executes and no extra texture is allocated.
+   * Both anchors are plain identity drops; a live endpoint must remain strictly positive.
+   */
+  readonly sizeHeavySecondSigmaFar1x: number;
+  readonly sizeHeavySecondSigmaFar2x: number;
+
+  /**
+   * W49b S: source capture density multiplier, uniform over this material document.
+   * Identity 1 takes the old import plan; (0, 1] reduces its dimensions BEFORE analysis
+   * and every blur. Physical blur widths are preserved by the plan-density conversion.
+   * No additional pass is needed. CSS declines this resolution control rather than
+   * substituting a different blur or opacity. Memo F attests 0.5 at dark glass0.25;
+   * it does not identify how Apple's private filter reconstructs those source samples.
+   */
+  readonly backdropCaptureScale: number;
   /**
    * The fine texture's share in the BODY sample (W47 G0 (b), Decision Log 3, X66), before the
    * depth-dependent scatter mix. The texture is the source blurred at `sizeFineTapSigma(dpr)`
@@ -1536,13 +1556,14 @@ export interface MaterialProfile {
    */
   readonly sizeOcclusionGain: number;
   /**
-   * **The transmission, graded on the scatter's far curve** (W47 operator 1; charter Decision
+   * **The transmission's far delta** (W47 operator 1; charter Decision
    * Log 2, clause 1, X65; claims §5.211) — how far the material's base alpha rises between the
-   * thickness knee and the top of the scatter span curve, at dpr 1. An additive fraction of
+   * thickness knee and its span top, at dpr 1. W49b D makes that top independent below; at its
+   * identity it follows the scatter top, which is the curve W47 declared. An additive fraction of
    * opacity, identity 0; `tintAlphaFar2x` is its dpr-2 anchor.
    *
    * ```
-   * farS(span)      = smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span)
+   * farS(span)      = smoothstep(sizeSpanMax, tintAlphaSpanMaxAtScale(dpr), span)
    * alphaBase(px)   = clamp(tintAlpha + tintAlphaFarAtScale(dpr) · farS(span(px)), 0, 1)
    * sizedAlpha(px)  = alphaBase + sizeOcclusionGain · sizeK(px) · (1 − alphaBase)
    * ```
@@ -1587,6 +1608,22 @@ export interface MaterialProfile {
   readonly tintAlphaFar1x: number;
   /** The dpr-2 anchor of `tintAlphaFar1x`'s far delta, on the same law; identity 0 (W47). */
   readonly tintAlphaFar2x: number;
+  /**
+   * **The transmission's own span top** (W49b D, charter §D). Identity 0 follows the scatter's
+   * top at this scale; a nonzero top must be finite and strictly greater than `sizeSpanMax`.
+   * Resolve each zero anchor to ITS scale's scatter top before interpolating across DPR, so a
+   * mixed zero/nonzero pair is a curve between two real tops, never between zero and a top.
+   *
+   * The far delta then rides `smoothstep(sizeSpanMax, tintAlphaSpanMaxAtScale(dpr), span)` before
+   * the unchanged occlusion term and W9 solve. It has no authority at or below the knee. The
+   * scatter's deep and far curves keep their own top, which is the independence this leaf adds.
+   * At identity the optics pass executes the old `farS` expression exactly. CSS mirrors the
+   * law per surface, and X75 still bounds nominal alphaBase at 0.95 over spans 0..1024 at both
+   * scales on both tiers. Each anchor is a plain value identity drop, not a gate-group.
+   */
+  readonly tintAlphaSpanMax: number;
+  /** The dpr-2 anchor of the transmission's own top; identity 0 follows the 2x scatter top. */
+  readonly tintAlphaSpanMax2x: number;
 
   /**
    * The inner shadow's gain — "casts deeper, richer shadows". A multiplier on
@@ -2897,6 +2934,9 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // W45's grading of that share on the far curve (claims §5.205; charter Decision Log 1): 0 is
   // its identity, `share + 0 · farS`, and the table below drops it from every digest at 0.
   sizeHeavySecondShareFar2x: 0,
+  sizeHeavySecondSigmaFar1x: 0,
+  sizeHeavySecondSigmaFar2x: 0,
+  backdropCaptureScale: 1,
   // W47 G0 (b), X66: the body fine tap is landed inert. The share gates both widths; width 0
   // also stands down at its scale, on the second tap's rule. No document names a live share.
   sizeFineTapShare: 0,
@@ -2910,6 +2950,9 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   // digest at 0.
   tintAlphaFar1x: 0,
   tintAlphaFar2x: 0,
+  // W49b D: identity follows each scale's scatter top, preserving the old transmission curve.
+  tintAlphaSpanMax: 0,
+  tintAlphaSpanMax2x: 0,
   sizeShadowGainMax: 1,
 
   /*
@@ -3381,6 +3424,21 @@ const W47_TINT_ALPHA_FAR_ENTRY = {
   claims: "c9a §5.211; W47 Decision Log 2, clause 1, X57, X65",
 } as const satisfies Omit<MaterialIdentityEntry, "wave" | "gate">;
 
+/** W49b D's two plain value drops share a law; the W47 entries above remain unchanged. */
+const W49B_TINT_ALPHA_TOP_ENTRY = {
+  gated: [],
+  law: "T(dpr) = rampAtScale(top1x || scatterTop1x, top2x || scatterTop2x, dpr); " +
+    "alphaBase = clamp(tintAlpha + farAlpha(dpr)·smoothstep(sizeSpanMax, T(dpr), span), 0, 1); " +
+    "at identity execute the old farS expression exactly",
+  inertLawCase: 'packages/renderer-webgpu/test/w49b-transmission-top.test.ts — ' +
+    '"follows the old expression exactly at zero, including unequal scatter anchors" and ' +
+    '"drops both identity tops separately, carrying either nonzero anchor in the digest"; ' +
+    "GPU byte proof is sequenced separately by W49b G0, not claimed by the CPU cases",
+  whyGated: "Not gated — a plain value drop. At 0 each anchor follows its own scatter top, " +
+    "so the transmission executes the old curve; a nonzero top can draw independently.",
+  claims: "W49b charter §D, parent rulings DL2; X75 remains binding",
+} as const satisfies Omit<MaterialIdentityEntry, "wave" | "gate">;
+
 /**
  * **The inert-identity table the material's fingerprint is taken under** — a
  * committed, tested, APPEND-ONLY constant (W31 Decision Log 1 (a); claims
@@ -3612,6 +3670,29 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
       "never samples one, so both widths are unread whatever they hold.",
     claims: "W47 G0 (b), Decision Log 3 v1.1, X66; c9a §5.211",
   },
+  { wave: "W49b", gate: { tintAlphaSpanMax: 0 }, ...W49B_TINT_ALPHA_TOP_ENTRY },
+  { wave: "W49b", gate: { tintAlphaSpanMax2x: 0 }, ...W49B_TINT_ALPHA_TOP_ENTRY },
+  {
+    wave: "W49b", gate: { sizeHeavySecondSigmaFar1x: 0 }, gated: [],
+    law: "secondary = G(sigma2) + farS*(G(sigma2+delta)-G(sigma2)); delta0 takes the old path",
+    inertLawCase: "packages/renderer-webgpu/test/w49b-bandwidth.test.ts; frame-composition.test.ts",
+    whyGated: "Plain value drop: the identity executes the original path without an added sample or pass.",
+    claims: "c9a §5.216; W49b DL2",
+  },
+  {
+    wave: "W49b", gate: { sizeHeavySecondSigmaFar2x: 0 }, gated: [],
+    law: "secondary = G(sigma2) + farS*(G(sigma2+delta)-G(sigma2)); delta0 takes the old path",
+    inertLawCase: "packages/renderer-webgpu/test/w49b-bandwidth.test.ts; frame-composition.test.ts",
+    whyGated: "Plain value drop: the identity executes the original path without an added sample or pass.",
+    claims: "c9a §5.216; W49b DL2",
+  },
+  {
+    wave: "W49b", gate: { backdropCaptureScale: 1 }, gated: [],
+    law: "capture extent = old planned source extent scaled before analysis and scatter; scale1 is the old plan",
+    inertLawCase: "packages/renderer-webgpu/test/w49b-bandwidth.test.ts; frame-composition.test.ts",
+    whyGated: "Plain value drop: the identity executes the original path without an added sample or pass.",
+    claims: "c9a §5.216; W49b DL2",
+  },
 ];
 
 /**
@@ -3771,6 +3852,9 @@ export interface MaterialProfilePatch {
   readonly sizeHeavySecondSigma2x?: number;
   readonly sizeHeavySecondShare?: number;
   readonly sizeHeavySecondShareFar2x?: number;
+  readonly sizeHeavySecondSigmaFar1x?: number;
+  readonly sizeHeavySecondSigmaFar2x?: number;
+  readonly backdropCaptureScale?: number;
   readonly sizeFineTapShare?: number;
   readonly sizeFineTapSigma?: number;
   readonly sizeFineTapSigma2x?: number;
@@ -3780,6 +3864,8 @@ export interface MaterialProfilePatch {
   readonly sizeOcclusionGain?: number;
   readonly tintAlphaFar1x?: number;
   readonly tintAlphaFar2x?: number;
+  readonly tintAlphaSpanMax?: number;
+  readonly tintAlphaSpanMax2x?: number;
   readonly sizeShadowGainMax?: number;
   readonly lensRefractionGain?: number;
   readonly lensHeightPerSpan?: number;
@@ -3959,6 +4045,33 @@ export function withMaterialOverrides(
   }
 
 
+  // W49b: validate the resolved operator domain, including inherited anchors.
+  const sizeSpanMax = patch.sizeSpanMax ?? base.sizeSpanMax;
+  const backdropCaptureScale = patch.backdropCaptureScale ?? base.backdropCaptureScale;
+  if (!Number.isFinite(backdropCaptureScale) || backdropCaptureScale <= 0 || backdropCaptureScale > 1) {
+    throw new Error("backdropCaptureScale must be finite and in (0, 1]");
+  }
+  const sizeHeavySecondSigmaFar1x = patch.sizeHeavySecondSigmaFar1x ?? base.sizeHeavySecondSigmaFar1x;
+  const sizeHeavySecondSigmaFar2x = patch.sizeHeavySecondSigmaFar2x ?? base.sizeHeavySecondSigmaFar2x;
+  for (const [delta, sigma] of [
+    [sizeHeavySecondSigmaFar1x, patch.sizeHeavySecondSigma ?? base.sizeHeavySecondSigma],
+    [sizeHeavySecondSigmaFar2x, patch.sizeHeavySecondSigma2x ?? base.sizeHeavySecondSigma2x],
+  ] as const) {
+    if (!Number.isFinite(delta) ||
+        ((patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare) !== 0 && delta !== 0 &&
+          (!Number.isFinite(sigma + delta) || sigma + delta <= 0))) {
+      throw new Error("a live second-tap far bandwidth must have finite positive width");
+    }
+  }
+  const tintAlphaSpanMax = patch.tintAlphaSpanMax ?? base.tintAlphaSpanMax;
+  const tintAlphaSpanMax2x = patch.tintAlphaSpanMax2x ?? base.tintAlphaSpanMax2x;
+  for (const [leaf, top] of [["tintAlphaSpanMax", tintAlphaSpanMax],
+    ["tintAlphaSpanMax2x", tintAlphaSpanMax2x]] as const) {
+    if (top !== 0 && (!Number.isFinite(top) || !(top > sizeSpanMax))) {
+      throw new RangeError(`${leaf} must be 0 (follow scatter) or finite and greater than sizeSpanMax`);
+    }
+  }
+
   const optics = {} as Record<MaterialVariant, MaterialOptics>;
   for (const variant of MATERIAL_VARIANTS) {
     optics[variant] = { ...base.optics[variant], ...patch.optics?.[variant] };
@@ -3989,7 +4102,7 @@ export function withMaterialOverrides(
     adaptiveLuminanceHigh: patch.adaptiveLuminanceHigh ?? base.adaptiveLuminanceHigh,
     refractionScale,
     sizeSpanMin: patch.sizeSpanMin ?? base.sizeSpanMin,
-    sizeSpanMax: patch.sizeSpanMax ?? base.sizeSpanMax,
+    sizeSpanMax,
     lensSizeGainMax: patch.lensSizeGainMax ?? base.lensSizeGainMax,
     sizeScatterGainMax: patch.sizeScatterGainMax ?? base.sizeScatterGainMax,
     sizeScatterFloor: patch.sizeScatterFloor ?? base.sizeScatterFloor,
@@ -4025,6 +4138,9 @@ export function withMaterialOverrides(
     sizeHeavySecondShare: patch.sizeHeavySecondShare ?? base.sizeHeavySecondShare,
     // W45 (claims §5.205): the share's far-curve grading, on the same one-line-per-leaf rule.
     sizeHeavySecondShareFar2x: patch.sizeHeavySecondShareFar2x ?? base.sizeHeavySecondShareFar2x,
+    sizeHeavySecondSigmaFar1x,
+    sizeHeavySecondSigmaFar2x,
+    backdropCaptureScale,
     sizeFineTapShare: patch.sizeFineTapShare ?? base.sizeFineTapShare,
     sizeFineTapSigma: patch.sizeFineTapSigma ?? base.sizeFineTapSigma,
     sizeFineTapSigma2x: patch.sizeFineTapSigma2x ?? base.sizeFineTapSigma2x,
@@ -4035,6 +4151,8 @@ export function withMaterialOverrides(
     // W47 (claims §5.211): the transmission's far-curve delta, one line per anchor.
     tintAlphaFar1x: patch.tintAlphaFar1x ?? base.tintAlphaFar1x,
     tintAlphaFar2x: patch.tintAlphaFar2x ?? base.tintAlphaFar2x,
+    tintAlphaSpanMax,
+    tintAlphaSpanMax2x,
     sizeShadowGainMax: patch.sizeShadowGainMax ?? base.sizeShadowGainMax,
     lensRefractionGain: patch.lensRefractionGain ?? base.lensRefractionGain,
     lensHeightPerSpan: patch.lensHeightPerSpan ?? base.lensHeightPerSpan,
@@ -5149,6 +5267,18 @@ export function heavySecondTapSigmaAtScale(
   );
 }
 
+/** The extra bandwidth endpoint in CSS px; zero means no texture, not a zero-width blur. */
+export function heavySecondFarTapSigmaAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  if (profile.sizeHeavySecondShare === 0) return 0;
+  const delta = rampAtScale(profile.sizeHeavySecondSigmaFar1x,
+    profile.sizeHeavySecondSigmaFar2x, devicePixelRatio);
+  if (delta === 0) return 0;
+  return heavySecondTapSigmaAtScale(profile, devicePixelRatio) + delta;
+}
+
 /**
  * The fine body's Gaussian σ in CSS px at this group's scale (W47 G0 (b), X66).
  * The share is checked before either width is read, so the whole gate-group is unread at 0.
@@ -5196,11 +5326,28 @@ export function tintAlphaFarAtScale(
 }
 
 /**
+ * The transmission's top at this device scale (W49b D). Zero means follow the scatter at THAT
+ * anchor, resolved before interpolation. In particular, a mixed zero/nonzero pair never grades
+ * a top toward zero at intermediate DPR. Nonzero anchors are checked by `withMaterialOverrides`.
+ */
+export function tintAlphaSpanMaxAtScale(
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    profile.tintAlphaSpanMax === 0 ? profile.sizeScatterSpanMax : profile.tintAlphaSpanMax,
+    profile.tintAlphaSpanMax2x === 0 ? profile.sizeScatterSpanMax2x : profile.tintAlphaSpanMax2x,
+    devicePixelRatio,
+  );
+}
+
+/**
  * **The base alpha a pixel of this span carries** (W47 operator 1; claims §5.211), before the size
  * law's occlusion term — the CPU statement of the optics pass's `alphaBase`, for the tier-coherence
  * pin and for any CPU reading that needs the graded transmission:
- * `clamp(alpha + tintAlphaFarAtScale(dpr) · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span),
- * 0, 1)`. `alpha` is the material's `tintAlpha` after the accessibility fold, as the shader reads
+ * `clamp(alpha + tintAlphaFarAtScale(dpr) · smoothstep(sizeSpanMax, tintAlphaSpanMaxAtScale(dpr), span),
+ * 0, 1)`. W49b D resolves its zero tops to the old scatter curve, so at identity the arithmetic
+ * below is unchanged. `alpha` is the material's `tintAlpha` after the accessibility fold, as the shader reads
  * it. The smoothstep is written out with the shader's own guarded denominator, so a profile that
  * collapses the band degrades to a step there as here.
  */
@@ -5212,7 +5359,7 @@ export function spanGradedTintAlpha(
 ): number {
   const t = clampUnit(
     (spanPx - profile.sizeSpanMax)
-      / Math.max(scatterSpanMaxAtScale(profile, devicePixelRatio) - profile.sizeSpanMax, 1e-6),
+      / Math.max(tintAlphaSpanMaxAtScale(profile, devicePixelRatio) - profile.sizeSpanMax, 1e-6),
   );
   return clampUnit(alpha + tintAlphaFarAtScale(profile, devicePixelRatio) * (t * t * (3 - 2 * t)));
 }
