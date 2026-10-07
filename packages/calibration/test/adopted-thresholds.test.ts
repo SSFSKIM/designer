@@ -7730,8 +7730,8 @@ describe("T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.2
    * `b2d074d2df24` (§5.214).
    */
   const NAMED_DARK: Readonly<Record<string, Readonly<Record<T1Stratum, readonly [number, number]>>>> = {
-    "apple-macos-27.0-1x-dark-standard-glass0.25": { F: [11, 15], T: [2, 4], C: [31, 46], P: [12, 12] },
-    "apple-macos-27.0-2x-dark-standard-glass0.25": { F: [12, 15], T: [2, 4], C: [35, 46], P: [12, 12] },
+    "apple-macos-27.0-1x-dark-standard-glass0.25": { F: [11, 15], T: [2, 4], C: [33, 46], P: [12, 12] },
+    "apple-macos-27.0-2x-dark-standard-glass0.25": { F: [12, 15], T: [2, 4], C: [36, 46], P: [12, 12] },
   };
 
   it("reads its pinned inputs: the bar, W46's referee manifest, the band fixtures and the two cuts", () => {
