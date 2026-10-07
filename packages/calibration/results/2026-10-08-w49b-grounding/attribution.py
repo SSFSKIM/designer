@@ -88,7 +88,10 @@ named=sorted(k for k,c in cells.items() if c['stratum']=='P'
 for k in named:
     cells[k]['groundingMechanism'] = ('Pressed highlight hotspot (highlight.ts radial press glow), opposite sign from ordinary photo; its separate contribution is not isolated here'
         if 'pressed' in k[1] else 'Fine-band leakage including rim/edge contribution; not a scalar-alpha repair'
-        if cells[k]['stratum']=='F' else 'Insufficient transmitted spatial/chromatic contrast; group-level tone and blur composite, not opacity at the current endpoint')
+        if cells[k]['stratum']=='F' else 'Author tint dominates the active image; residual T1 mixes body and boundary, so a transmission-only mechanism is not identified'
+        if 'rest-tint-orange' in k[1] else 'Receded tinted-pose composition and suppressed photo structure; the separate tint contribution is not isolated'
+        if 'inactive-tint-orange' in k[1] else 'Nested sampling/composition loses foreground structure over an already muted base; not a single-surface blur identification'
+        if 'glass-over-glass' in k[1] else 'Insufficient transmitted spatial/chromatic contrast; group-level tone and blur composite, not opacity at the current endpoint')
 allkeys=keys+named
 for start in range(0,len(allkeys),5): sheet(allkeys[start:start+5],1+start//5)
 (HERE/'attribution.json').write_text(json.dumps(dict(base=CURRENT,sourceCutSha256=hashlib.sha256(cut_path.read_bytes()).hexdigest(),
