@@ -9,10 +9,11 @@ the ten thick entries in DL1 repaired against their own historical references, w
 traded for them.** The five thin/mid entries stay listed and protected for W49c identification.
 A smaller list is not by itself success, and a better aggregate cannot overrule a cell's protection.
 
-**Status: G0 AUTHORISED, IN PROGRESS.** Based on `98a4fdbbf`, current dark generation
+**Status: G0 CLOSED — STOP-at-finding.** Based on `98a4fdbbf`, current dark generation
 `b2d074d2df24-940384c06f73`. DL1–DL4 below authorise inert operators, identifying ladders and a
-native-bed declaration, not native capture, fitting, publication or release. G0 ends in PASS-to-fit
-with a named family/domain, or STOP-at-finding.
+native-bed declaration, not native capture, fitting, publication or release. All 27 rungs and 1,686 gate cells were read.
+D and W separate at 2x only; no family
+meets the binding two-scale rule. No fit domain is admitted.
 
 The work is **one identification wave with separate ladders and one joint landing rule**. D separates
 the transmission knot from the scatter knot. W tests span-selective second-tap bandwidth. S tests
@@ -27,9 +28,92 @@ identification targets for W49c, not G1 prerequisites.
 - [x] Four prospectively recorded exploratory batches: ten candidates, fourteen scale-runs,
   342 gate-cell renders, classifying census passed before each launch. No referee/holdout render.
 - [x] Parent ruled scope, families, native experiment and landing contract (DL1–DL4).
-- [ ] G0: prospective declaration, identity proof, separating ladders and identifying native bed.
-- [ ] G1: fit, frozen gate, one prediction/blind exposure if admitted, seal and publication.
-- [ ] G2: owner-test landing, evidence tree and release chain, or close at the finding.
+- [x] G0: sealed declaration, identity proof, all ladders and the prospective native bed. STOP-at-finding.
+- G1/G2 landing was not admitted: no fit, exposure, material seal, publication, owner repin or release.
+
+## G0 outcome — stop at the identified limits
+
+The actual-record audit PASS was committed at `dec63b3db` **before this verdict**. The complete
+reading is `2026-10-08-w49b-g0-declaration/evidence/readings.json`; its machine verdict names both
+unchanged declaration hashes and the audit. No post-reading point, statistic or acceptance rule
+was substituted.
+
+| family | 1x separation | 2x separation on the measured gate | two-scale result |
+| --- | --- | --- | --- |
+| D | none | `d-scatter-256` | does not separate |
+| W | none | delta 4 or 5, far alpha .09, scatter top 128, alpha top 160 | does not separate |
+| S | none | none | does not separate |
+
+These are finite-ladder findings, not global infeasibility. The four withheld historical constraints
+remain UNMEASURED. Software identity, per-pixel reach and lifecycle pass; a missing level response
+is not evidence that the implemented spatial laws malfunction.
+
+**D.** The held-alpha/scatter-top-256 rung repairs five of six active entries. Checker32 lg at 1x
+remains +1.076 B historically; protected lc16 md and impulse capsule grow +.537 / +.011 B, and two
+other 1x cells grow beyond B. The independent-alpha-top-256 control repairs all six, but creates six
+new >B costs, four >3B, principally text. The images show the stronger checker alongside text that
+is too dark/contrasty. The source knot is decoupled, but the declared moves do not separate those
+frequencies at both scales.
+
+**W.** The predicted delta-4/.09/top-128 point reads historical growth +1.370 B for impulse ml at 1x,
++.898 B for ml at 2x, and +.429 B for lg at 2x. It retains both measured checker64 prior repairs
+(−.039 / +.487 B historically), changes none of the protected five adversely, and creates no >B
+current cost. That is a useful 2x separation, not a full repair. Even the smallest 1x ml historical
+growth in the entire W ladder is +1.200 B; that rung also revives the 2x checker64 prior regression
+at +1.711 B while growing only +.795 B against current. The intersecting historical registry catches
+what a current-only budget would miss. The original global-width grounding's 1x ml prediction does
+not transfer to the span-selective joint rung; no independent width knot is added after reading.
+
+**S.** The attested uniform .5 rung repairs none of the nine measured binding entries, worsens two
+protected entries, and creates twenty >B costs. The .25/.125 controls create 21/32 such costs. None
+reproduces Apple's broad ring-quantised impulse halos. On the existing analytical deep cut, lg
+inactive native/current/S.5 means are 21.283/1.185/1.178 codes at 1x and 21.231/1.324/1.325 at 2x.
+S.125's 1x analytical-deep mean becomes 20 codes while its 2x body falls to .370; neither that one-scale
+plateau nor T1 improvement identifies the native capture mechanism. The S preference never fires.
+
+### The level question, outside sealed acceptance
+
+The parent's existing-capture diagnostic is under `diagnostics/black-level/`, with all inputs and
+support counts. It identifies a shared **near-black ordinate/authority/clamp problem**, not a
+measured defect in the thick-black anchor. `dark-solid` is RGB [28,28,30], not zero; no thick uniform
+RGB-zero comparison exists. L1's absent means are empty detected masks despite available images.
+Path-defined cuts expose the level without changing L1 or T1.
+
+On black areas at least 24 CSS px from an impulse, dark .25 lg inactive reads native/web
+20.528/.076 codes at 1x and 20.495/.000 at 2x. At .5 it reads 20.980/.449 and 20.979/.000. The
+recorded GPU tone input is about .005478, outside the black branch's support ending at .003.
+The ordinary curve's first receded ordinate is zero at .004; at full solve authority its very small
+positive target is below the transmitted backdrop floor, so the requested negative neutral clamps
+to zero. Ml has incomplete authority (~.798), retaining a 22–24-code body instead. Active .25
+impulse bodies err in the other direction: roughly 49–50 codes against native 32. Dark-solid lg
+inactive reads 48.144/33.072 in both settings and scales, another level gap around the next knot.
+A blanket dark offset is not identified: the mid-dark residual has a different sign.
+
+This is the important limit behind the impulse work. Reducing texture variation cannot certify
+repair of a body whose level is wrong by about twenty codes. The next declaration should identify
+the low-end level response and its authority/clamp behavior, with genuine uniform-black and
+near-black controls, before another bandwidth refit. It must not simply assume that changing the
+thick-black ordinate will reach the recorded input. The .5 gap remains named under its freeze.
+
+### Verification and cost
+
+All ten digests are unchanged; 43 pre/post raw renderer rasters and all 132 dark gate identity
+captures are byte-identical. All 34 golden tests and 57 GPU tests pass. Workspace build/lint pass;
+units report 3,268 passed and four absent-tree skips. A read-only canonical-tree rerun of the owner
+suite passes all 165 cases, closing those four pixel checks. The 1,818-entry freeze and 911-entry
+X41 witness pass. High operator review and the additive protocol review both close without a
+remaining material finding.
+
+On the corrected live 2048²-source, span-160 benchmark (GPU medians in ms): mobile current/control
+16.534/19.367, S.5 9.266, S.25 7.634, W 19.027; desktop current/control 20.549/18.764, S.5 11.171,
+S.25 8.168, W 18.874. S.5 saves roughly 44–52% / 40–46% against those controls. W's incremental
+cost is not resolved above their spread. One corrected run failed the ordering control and is
+retained, not averaged into the passing repeat. Every row rebuilt the source on all 80 frames.
+
+The native bed is declared and dry-validated, not captured: 4,200 stored frames, both dark .25
+poses/scales, spans through 224 and a blind split; approximately 13 hours including stop loss and
+setup/restore. X5 and a compatible bundle grant remain user decisions. Given the newly identified
+level question, re-ground its low-end controls before asking the user to spend that sitting.
 
 ## Grounding and evidence
 
@@ -328,18 +412,16 @@ referees/holdout remain outside this dark work; the earlier W42 archive's unspen
 setting/model and is not a fresh 0.25 thick-span referee. **A blind identifying thick-span capture
 is recommended and requires the user's lift of X5.** Nothing in this charter grants it.
 
-Proposed native experiment: cross spans 44/64/96/112/128/144/160/192 with coarse/fine periodic inputs,
-isolated impulses and a structured photograph; cross level and contrast independently at the same
-pitch, including matched-mean full/low-contrast controls. Both dark poses and scales, colour-managed
-no-glass controls, repeat bar, matched clearance on a canvas large enough for the thick surface.
-Match a canonical bridge before transferring a new canvas's reading. Declare calibration versus
-blind spans/pitches/structured scenes before capture; reserve interior spans 112/144 and new pitches
-12/24/48 as candidate blind axes, not just another named size on the fit grid. The final manifest,
-repeat count, capture mechanism and split are G0's pre-capture declaration, reviewed before X5.
-A failed native bridge or unmeasured repeat bar stops identification. Native capture is not needed
-to prove D's software decoupling, but is needed for the proposed new blind-generalisation claim.
+The assembled declaration is `2026-10-08-w49b-g0-declaration/native-bed/`: spans
+44/64/96/112/128/144/160/192/224, both dark poses/scales, crossed levels/contrasts, periodic inputs,
+signed isolated impulses, area/grid controls, no-glass references, repeats and canonical/canvas
+bridges. Blind membership and exclusive no-glass controls are withheld by its exporter. There are
+4,200 stored frames across 100 capture launches and 32 passes; the timing estimate is 11.39 hours,
+12.53 with 10% stop loss. The runbook names the X5 and compatible-bundle grant prerequisites.
+No native capture occurred. Its low-end controls should be reconsidered in the next declaration
+against the level finding above, rather than treating the original texture question as settled.
 
-## Children and interfaces (proposed, not dispatched)
+## Execution boundaries (G0 complete; later stages not admitted)
 
 ### G0 — declaration and identification
 
@@ -455,6 +537,31 @@ DL4 (rule). The draft's intersecting historical and current protections, the exc
 registry of all twenty constraints, and "part 2 admits no post-gate amendment" are adopted. At
 NEITHER, W49b closes at the finding with no seal, no publication and no re-selection.
 
+### DL5 — additive audit, not declaration amendment (parent ruling)
+
+“Parent: approved. Build a separately versioned audit/guard, not a new declaration. It is additive,
+it changes no rung, statistic or verdict, and the gaps are recorded. Two conditions:
+(1) Run the audit over the completed run's ACTUAL request and candidate records and over the
+imported W44 band-reader bytes. Commit its PASS/FAIL BEFORE any ladder verdict is written into
+the charter.
+(2) Carry the tool gap into the next declaration template: seal transitive imports and bind the
+batch inside render.py. This is so the next wave does not need an after-the-fact guard.”
+
+Executed: `audit/actual-record.json` PASS, SHA-256
+`004e17c0205ce76688cec28b866d1d143880fde2658d800fa6c21d201ec17b9b`, committed at `dec63b3db`
+before this outcome. It reconstructs candidate endpoints and binds all actual requests, rows and
+capture witnesses to the registered batch. Nine executed repository measurement dependencies
+match seal commit `fb74ebc1e`. The frozen admission/import gaps remain in their original tools;
+`audit/renderer_template.py` and `audit/next_wave.py` enforce the rules prospectively for the next
+wave. Both original declaration hashes remain unchanged.
+
+### DL6 — existing-capture level diagnosis (parent-directed, nongating)
+
+The parent requested solid-black/thick-span comparisons at both slider settings without new
+renders. The diagnostic distinguishes the nonzero dark-solid input, black areas in a structured
+impulse field, and the absent thick uniform-zero-black comparison. It reads 48 paired cells,
+24 native-only cases and 24 absent cases; it changes no adopted mask, bound, point or verdict.
+
 ## Surprises and discoveries
 
 The fine named miss is not excess deep checker contrast. The thin-start orange cell is a crossing
@@ -493,3 +600,7 @@ The five unresolved thin/mid repairs are explicitly deferred to W49c under DL1 a
   targets, whose existing authorisations remain and whose current error may not grow. All twenty
   entries stay independent of the exception list. The empty-exception mutation proof is a
   synthetic future fully repaired case, not a requirement to repair W49c's five within W49b.
+
+- 2026-10-08 G0 closed at STOP-at-finding after the committed actual-record audit. D/W have measured
+  2x-only separations; S has none. The near-black level diagnosis is separate from sealed acceptance.
+  No fit, holdout/referee render, native capture, document seal, publication or release occurred.

@@ -49969,7 +49969,7 @@ another selection or exposure in W49a.
 ## §5.216 — W49b G0: independent transmission, bandwidth and capture density (2026-10-08)
 
 **G0 identification, not a material landing.** Charter `2026-10-08-w49b-span-selective-bandwidth.md`,
-parent DL1–DL4. Current dark0.25 remains `b2d074d2df24-940384c06f73`; no document is fitted,
+parent DL1–DL4. Current dark 0.25 remains `b2d074d2df24-940384c06f73`; no material profile document is fitted,
 resealed or published. The binding success set is ten thick entries, with the other five protected
 at zero current-error growth and retained as W49c targets. The five W49a repairs remain historical
 constraints. All twenty stay independently discoverable: fifteen enforced historical repairs and
@@ -49977,26 +49977,26 @@ five authorised historical targets, not a requirement to erase the protected fiv
 
 ### 1. The three inert laws and their actual scope
 
-D supplies `tintAlphaSpanMax` / `…2x`, identity0. A zero anchor follows its own scale's scatter top
+D supplies `tintAlphaSpanMax` / `…2x`, identity 0. A zero anchor follows its own scale's scatter top
 BEFORE DPR interpolation; a nonzero top must be finite and above the knee. Only alpha's far curve
 moves. CSS mirrors it per surface, and the X75 reader uses that resolved top rather than assuming
 scatter's top. When the resolved tops agree the GPU executes the old expression exactly.
 
-W supplies `sizeHeavySecondSigmaFar1x` / `…2x`, identity0. Its second sample is
+W supplies `sizeHeavySecondSigmaFar1x` / `…2x`, identity 0. Its second sample is
 `G(sigma2) + H(span) × (G(sigma2 + delta) − G(sigma2))`, then the existing signed secondary share
 mixes it into the deep sample. It is a **two-bandwidth mixture**, not a Gaussian at interpolated
 sigma. The extra texture and separable pair exist only at a live delta and share. A shared-source
 thin surface keeps the old bandwidth while a far surface samples the extra texture. CSS declines
 W with the second tap it already lacks.
 
-S supplies `backdropCaptureScale`, identity1. It scales the policy-rounded/capped import extent
+S supplies `backdropCaptureScale`, identity 1. It scales the policy-rounded/capped import extent
 BEFORE analysis and every blur, preserving physical blur units; it adds no pass. The initial code
 multiplied the pre-cap scale, so a capped4096×2048 source did not move at0.5. High review caught it;
 a bounded fix wave moved S after the cap and proved capped, odd-aspect and rounded cases. CSS
 explicitly declines capture density because backdrop-filter exposes no such control, without an
 opacity/blur substitute. All five leaves are append-only plain Rule2 drops at their identities.
 
-Memo F attests bd.scale0.5 on EVERY measured dark0.25 shape throughspan160, both poses/scales.
+Memo F attests bd.scale 0.5 on EVERY measured dark 0.25 shape through span 160, both poses/scales.
 Vitrea's calibration PNG currently enters at full source density. Thus S first tests **uniform0.5**;
 0.25/0.125 are identifying controls, not attested settings at this slider position. There is no
 identified span-dependent capture law here. The charter tabulates the other eight documents:
@@ -50006,8 +50006,8 @@ light0.25's uniform scale and the0.5 endpoints' lg step are separate follow-ups,
 
 All ten recorded material digests are unchanged. The identical raw recorder on pre-operator
 `fee4e8f3b` and the assembled tree yields **43 identical raster hashes**: all ten shipped endpoints
-at1x/1.5x/2x plus the thirteen golden scene rasters. The golden suite has34tests, not34image files;
-all34 pass and no golden is regenerated. All57GPU specs pass, including mixed-span shared-source
+at1x/1.5x/2x plus the thirteen golden scene rasters. The golden suite has 34 tests, not 34 image files;
+all 34 pass and no golden is regenerated. All 57 GPU specs pass, including mixed-span shared-source
 D/W reach and identity, fractional DPR and the recorder. Resource tests prove allocation, clean-source
 invalidation and release. Workspace build, lint and units pass; the four calibration skips are the
 absent canonical-capture-tree X1/T1 pixel assertions, NOT Python-availability skips. Numerical
@@ -50016,8 +50016,8 @@ reads use the pinned arm64 venv described in the tracker.
 
 Independent high review found the capture-cap defect and a cost-bench coverage defect (the standard
 bench tops out at96, so W's extra texture was built but never sampled). A bounded fix wave addressed
-both; the reviewer verified closure with31targeted tests and no remaining material finding. The
-corrected bench has a resolvedspan160, seven thin controls and a live2048² source; it records one
+both; the reviewer verified closure with 31 targeted tests and no remaining material finding. The
+corrected bench has a resolved span 160, seven thin controls and a live 2048² source; it records one
 rebuild per frame. Its first corrected run failed the ordering control and is retained as invalid
 for cost attribution; the repeat passes. Timings are recorded with the final G0 readings below.
 
@@ -50026,33 +50026,33 @@ for cost attribution; the repeat passes. Timings are recorded with the final G0 
 Evidence root `packages/calibration/results/2026-10-08-w49b-g0-declaration/`.
 Part1 `f8cf52f6846977e32afa322b1890aa7180acd2ca1d39f1bbe2bf584d59311b2e`;
 part2 `0bbad26c0fd1bec4b196424c4a04e53faeb81e04f38c37eb358a1ce7c097a715`.
-Each has71assembled source pins; `declare.py check` validates both, with no amendment verb.
-The27prospective candidate points request54scale-runs /1,686gate cells. The builder checks X75
+Each has 71 assembled source pins; `declare.py check` validates both, with no amendment verb.
+The 27 prospective candidate points request 54 scale-runs / 1,686 gate cells. The builder checks X75
 and all four candidate endpoints before launch; the renderer checks classifying census, browser
 pin and requested/planned/measured equality, without killing any foreign process.
 
 Four standing constraints are withheld: checker32-lg-inactive at both scales and photo-lg-inactive
 at both scales. They remain **UNMEASURED in G0**, not repaired by analogy. The frozen G1 point would
-face them once as a non-blind prediction check (read10) unless a newly captured blind native bed is
+face them once as a non-blind prediction check (read 10) unless a newly captured blind native bed is
 available. T cells use T1-low for regression and T1-fine for fidelity. Direction/overshoot labels
 never replace absolute-error growth. S wins only when it clears the same separation/protection
 clauses as W; halo resemblance alone is not separation. NEITHER means no seal/publication/re-selection.
 
 ### 4. Prospective native bed, not captured
 
-The new bed declares dark0.25, both poses/scales; spans44/64/96/112/128/144/160/192/224; crossed
+The new bed declares dark 0.25, both poses/scales; spans 44/64/96/112/128/144/160/192/224; crossed
 encoded level/contrast, periodic inputs, signed isolated impulses and footprint controls, held-span
 area controls, reachable integer shifts, no-glass references and canonical/canvas bridges. It has
-180shape units,35no-glass inputs, five independent glass repeats and three no-glass/bridge repeats:
-**4,200stored fixture frames,100capture launches,84dumped scenes,32passes**. Blind membership includes
+180 shape units, 35 no-glass inputs, five independent glass repeats and three no-glass/bridge repeats:
+**4,200stored fixture frames, 100 capture launches,84 dumped scenes, 32 passes**. Blind membership includes
 spans112/144/224, new pitches12/24/48, a new structured-photo seed and crossed level/contrast cells;
 exclusive no-glass controls stay blind too. The exporter excludes blind passes and rejects a blind
 scene misfiled as calibration. Truncated/empty populations are UNMEASURED; integral displacement is
 not presumed to actuate the private capture grid.
 
-W43's timing estimator over88admitted W42runs estimates11.39hours,12.53with10%stoploss; reserve
-roughly13including setup/restore. New-canvas cadence is estimated, not measured. Dry generation,
-every derived run document/argv, shell checks and11boundary tests pass. **No native app was launched.**
+W43's timing estimator over 88 admitted W42 runs estimates 11.39 hours, 12.53 with 10% stop loss; reserve
+roughly 13 including setup/restore. New-canvas cadence is estimated, not measured. Dry generation,
+every derived run document/argv, shell checks and 11 boundary tests pass. **No native capture or sitting occurred.**
 The user must lift X5 and decide/positively grant a compatible bundle. The runbook recommends
 re-granting the unchanged W39 side bundle; the presently granted original lacks required window/path
 attestations and is not rebuilt or launched. A new separately authorised side bundle is an explicit
@@ -50060,5 +50060,126 @@ alternative, requiring new pins before capture. No agent message supplies that c
 
 ### 5. G0 ladder outcome
 
-Prospective declaration complete; ladder readings and PASS-to-fit or STOP-at-finding follow here
-when the sealed batch completes. This paragraph is not a claim that any family already separates.
+**STOP-at-finding. No fit domain is admitted.** All 27 points / 54 scale-runs / 1,686 gate cells
+completed, with every requested cell present and no referee or holdout render. Before this verdict,
+`audit/actual-record.json` PASS was committed at `dec63b3db`; the full reading was then recomputed
+from its captures. The outcome and every rung's accounting are in `evidence/ladder-verdict.json`
+and `evidence/readings.json` (SHA-256 `0542bdccd1f4c5799980612872cd45499c8d71c13e448d52f5fb65e1d283c827`).
+
+| family | 1x | 2x measured gate | two-scale outcome |
+| --- | --- | --- | --- |
+| D | no separating rung | scatter top 256, alpha top 160 separates | does not separate |
+| W | no separating rung | delta 4 or 5, alpha far .09, scatter top 128, alpha top 160 separates | does not separate |
+| S | no separating rung | no separating rung | does not separate |
+
+D's scatter-top-256 rung repairs five of six active historical entries. The 1x checker32 lg remains
++1.076 B; protected lc16 md and impulse capsule grow +.537 / +.011 B, while checker8 md and the
+canonical checker md grow +1.236 / +1.845 B. D's independent-alpha-top-256 control repairs all six
+but creates six >B costs, four >3B: at the same span the checker improves while text becomes too
+contrasty. The 2x combined rung clears its measured slice; it is not a two-scale pass.
+
+W's delta-4/.09/top-128 point reads the following intersections. These are an illustrative declared
+rung, not a selected fit, and the four withheld constraints remain UNMEASURED.
+
+| target/control | 1x historical growth in B | 2x historical growth in B |
+| --- | ---: | ---: |
+| impulse ml inactive | **1.369695** | .897609 |
+| impulse lg inactive | not a binding entry | .428886 |
+| checker64 lg inactive, prior repair | −.039419 | .486823 |
+
+It worsens none of the protected five and creates no >B current cost, but the 1x ml target still
+misses. Across every W rung, the smallest 1x ml growth is +1.200313 B. That more aggressive point
+also revives checker64 lg's 2x prior regression at +1.710601 B despite only +.795118 B growth from
+current: a current-only budget would miss this reintroduced historical cost. No independent width
+knot is added after reading. The global-width grounding's 1x ml result does not transfer exactly
+to the span-selective joint point with its other scatter-knot consumers.
+
+S's .5 / .25 / .125 rungs create 20 / 21 / 32 new >B costs and worsen 2 / 1 / 2 protected cells.
+They repair 0 / 1 / 5 of the nine measured binding entries, respectively; none separates. The
+attested .5 rung does not reproduce the broad ring-quantised halos or the missing lg body level.
+On W44's analytical deep cut, lg inactive native/current/S.5 means are 21.283/1.185/1.178 codes
+at 1x and 21.231/1.324/1.325 at 2x. S.125's 1x analytical-deep mean is 20 while its 2x mean is .370.
+That scale-dependent result is not native mechanism identification. S's preference clause never
+fires. The native/current/rung sheets are retained; they were inspected, not replaced by T1.
+
+### 6. A level finding, not a texture-family malfunction
+
+The parent-directed diagnostic `diagnostics/black-level/read.py --check` reproduces 96 requested
+combinations: 48 current/native pairs, 24 native-only cases, 24 absent. It uses existing rows and
+pixels only. It reads path-defined deep regions and, for impulse, areas at least 24 CSS px from
+nonzero backdrop pixels. These supports and their counts are explicit; they never replace adopted
+T1 or L1. `dark-solid` is RGB **[28,28,30]**, linear Y=.0117112160, not uniform black. There is no
+thick uniform RGB-zero comparison, so this does **not** identify a defective thick-black anchor.
+Both materials still hold the extrapolated black targets of 32 active / 20 receded.
+
+Encoded luma means (native/web, codes); impulse rows here are the far-from-dot field:
+
+| glass | scene / pose | 1x | 2x |
+| --- | --- | ---: | ---: |
+| .25 | impulse ml active | 32.000 / 49.000 | 32.000 / 49.000 |
+| .25 | impulse lg active | 31.985 / 49.946 | 31.985 / 49.983 |
+| .25 | impulse ml receded | 20.427 / 22.999 | 20.403 / 22.000 |
+| .25 | impulse lg receded | 20.528 / .076 | 20.495 / .000 |
+| .5 | impulse ml receded | 20.600 / 23.606 | 20.587 / 23.000 |
+| .5 | impulse lg receded | 20.980 / .449 | 20.979 / .000 |
+| .25 and .5 | dark-solid lg receded | 48.144 / 33.072 | 48.144 / 33.072 |
+
+The last gap is 15.0722 codes at both positions and scales; the mid-dark input has smaller residuals
+of a different sign, so no blanket dark offset is identified. Dark-solid ml receded is absent.
+Several .5 active fixtures have no current web counterpart and are native-only, not comparisons.
+L1's four missing dark receded uniform means per setting instead have images but **zero detected
+mask pixels**; the supplied-path diagnostic exposes their level without rewriting their UNMEASURED
+adopted readings.
+
+The recorded GPU `backdropToneAbscissae` input for receded impulse is about .0034227 at ml and
+.00547745 at lg, identical across slider settings. Both are outside black-branch support ending
+at .003. Both receded first ordinates are zero at x=.004. At lg the ordinary curve's small positive
+target (~.0002146 linear) is below the transmitted aggregate floor (.00052036 at .25 / .00057239
+at .5, 1x). With full authority, collapse off and the far-level term zero, the W9 solve requests a
+negative neutral, which clamps to zero: the far-field body vanishes. Ml also lies outside black
+support, but authority is only ~.798, so part of the old composition remains as the 22–24-code floor.
+The active .25 input is separately reconstructed from recorded source level, not called a GPU
+readback; its first ordinates .036/.031 instead produce the over-bright field.
+
+Thus the striking impulse gap is chiefly a **level-response** finding under the held ordinary
+curve, not a missing blur width. D/W/S can change transmission or structure; their T1 movement does
+not identify a repair of this level. The defect is shared with the shipped .5 default, not merely
+created by W49. The next declaration should test near-black ordinates, authority and the clamp with
+uniform-zero and near-zero controls before more bandwidth fitting. The true thick-black endpoint
+remains unidentified; .5 remains frozen. No tone leaf or adoption bound changed here.
+
+### 7. Audit closure and cost evidence
+
+Medium protocol review found that the frozen runner checked the seal but not whether its supplied
+batch belonged to it, and that W44's transitive band-reading imports were omitted from the root
+source pins. The registered run did not exploit either gap. The parent authorised an additive
+guard/audit, **not** a new declaration or changed rule. It independently reconstructs every endpoint
+from pinned snapshots plus registered overrides, checks actual request/argv/candidate/row/capture
+membership and witnesses, and matches nine executed repository measurement files to seal commit
+`fb74ebc1e`. Its actual-record PASS SHA-256 is
+`004e17c0205ce76688cec28b866d1d143880fde2658d800fa6c21d201ec17b9b`; commit `dec63b3db`
+precedes the verdict. Nineteen negative tests and the independent closure review pass. The frozen
+files and both declaration hashes are untouched. `audit/next_wave.py` and `renderer_template.py`
+bind batch and import closure prospectively; their reader subprocess must have its own import gate.
+The audit establishes preserved bytes against the seal, not retrospective process attestation.
+
+The corrected benchmark's GPU medians (ms), on the receded dark .25 document with live 2048² source,
+substantial resolved span-160 coverage and seven thin controls:
+
+| viewport | current | repeated control | S .5 | S .25 | W delta 4 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| mobile 390×844 @3 | 16.534 | 19.367 | 9.266 | 7.634 | 19.027 |
+| desktop 1440×900 @2 | 20.549 | 18.764 | 11.171 | 8.168 | 18.874 |
+
+Every row rebuilds its source on all 80 frames. S .5 saves about 44–52% / 40–46% against the two
+controls; W's added cost is not resolved above their spread. The earlier construction-only bench
+and a corrected run that failed ordering control are retained and explicitly excluded from this
+comparison. The passing repeat is `evidence/w49b-bench-repeat.json`; no noisy negative W difference
+is claimed as a speedup.
+
+Final workspace checks: build and lint pass; **3,268 unit tests pass**, with four absent-tree skips.
+A read-only rerun of the owner suite against the canonical capture tree passes **165/165**, closing
+those pixel checks. All ten digests, 43 cross-tree renderer rasters and 132 dark gate identity
+captures are unchanged; 34 golden tests, 57 GPU tests, the 1,818 frozen entries and X41's 911 pass.
+The native bed remains declared, unspent and user-gated. No document, matrix generation, fixture,
+owner threshold, release version or changeset changed; no merge or push was performed.

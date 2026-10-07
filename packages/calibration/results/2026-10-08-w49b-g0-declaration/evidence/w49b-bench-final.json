@@ -1,0 +1,2975 @@
+{
+  "adapter": {
+    "ok": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "isFallback": false,
+    "timestamps": true
+  },
+  "measurement": {
+    "method": "timestamp-query",
+    "rounds": 60,
+    "results": [
+      {
+        "label": "mobile/current",
+        "scene": {
+          "name": "bench",
+          "widthCss": 390,
+          "heightCss": 844,
+          "devicePixelRatio": 3,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      78,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      156,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      234,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      312,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      97.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      292.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      675.2
+                    ],
+                    "size": [
+                      234,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 9.142324,
+        "gpuP95": 36.855974999999994,
+        "wallMsPerFrame": 7.100000023841858,
+        "wallP95": 10.600000023841858,
+        "passMs": {
+          "backdrop-import": 0.26279598333333326,
+          "blur-chain": 4.002664616666666,
+          "body-blur": 3.8001317999999995,
+          "analysis": 0.12386336666666664,
+          "group-field": 0.9760862999999999,
+          "optics": 3.0786483,
+          "highlight": 3.0444028666666663
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/S-0.5",
+        "scene": {
+          "name": "bench",
+          "widthCss": 390,
+          "heightCss": 844,
+          "devicePixelRatio": 3,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      78,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      156,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      234,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      312,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      97.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      292.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      675.2
+                    ],
+                    "size": [
+                      234,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 6.093202,
+        "gpuP95": 28.119733,
+        "wallMsPerFrame": 6.899999976158142,
+        "wallP95": 10,
+        "passMs": {
+          "backdrop-import": 0.16290649999999998,
+          "blur-chain": 1.2540670333333332,
+          "body-blur": 2.1643452666666665,
+          "analysis": 0.1214308666666667,
+          "group-field": 0.8032211833333331,
+          "optics": 2.6404104166666658,
+          "highlight": 2.6210892166666673
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/S-0.25",
+        "scene": {
+          "name": "bench",
+          "widthCss": 390,
+          "heightCss": 844,
+          "devicePixelRatio": 3,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      78,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      156,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      234,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      312,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      97.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      292.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      675.2
+                    ],
+                    "size": [
+                      234,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 5.21596,
+        "gpuP95": 17.135114,
+        "wallMsPerFrame": 6.799999952316284,
+        "wallP95": 9.899999976158142,
+        "passMs": {
+          "backdrop-import": 0.13443278333333333,
+          "blur-chain": 0.6871210666666668,
+          "body-blur": 0.5190344333333334,
+          "analysis": 0.07879191666666663,
+          "group-field": 0.6263439166666668,
+          "optics": 2.311098733333333,
+          "highlight": 2.2844727833333334
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/W-delta4",
+        "scene": {
+          "name": "bench",
+          "widthCss": 390,
+          "heightCss": 844,
+          "devicePixelRatio": 3,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      78,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      156,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      234,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      312,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      97.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      292.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      675.2
+                    ],
+                    "size": [
+                      234,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 12.592062000000002,
+        "gpuP95": 44.683359,
+        "wallMsPerFrame": 7.100000023841858,
+        "wallP95": 10.799999952316284,
+        "passMs": {
+          "backdrop-import": 0.29526905,
+          "blur-chain": 4.417746883333335,
+          "body-blur": 5.515064416666666,
+          "analysis": 0.09475885,
+          "group-field": 1.0674627833333332,
+          "optics": 3.230054233333332,
+          "highlight": 3.1906998999999994
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/control",
+        "scene": {
+          "name": "bench",
+          "widthCss": 390,
+          "heightCss": 844,
+          "devicePixelRatio": 3,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      78,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      156,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      234,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      312,
+                      151.92
+                    ],
+                    "size": [
+                      65,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      97.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      292.5,
+                      422
+                    ],
+                    "size": [
+                      78,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      195,
+                      675.2
+                    ],
+                    "size": [
+                      234,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 12.121693,
+        "gpuP95": 46.450001,
+        "wallMsPerFrame": 7,
+        "wallP95": 10.799999952316284,
+        "passMs": {
+          "backdrop-import": 0.28647275000000005,
+          "blur-chain": 4.393634400000001,
+          "body-blur": 4.2275229166666675,
+          "analysis": 0.14642293333333337,
+          "group-field": 1.1051644333333333,
+          "optics": 3.425561066666667,
+          "highlight": 3.3790382000000005
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/current",
+        "scene": {
+          "name": "bench",
+          "widthCss": 1440,
+          "heightCss": 900,
+          "devicePixelRatio": 2,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      288,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      576,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      864,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1152,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      360,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1080,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      720
+                    ],
+                    "size": [
+                      864,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 15.70605,
+        "gpuP95": 47.262571,
+        "wallMsPerFrame": 8.299999952316284,
+        "wallP95": 12.899999976158142,
+        "passMs": {
+          "backdrop-import": 0.28902055000000015,
+          "blur-chain": 4.639906933333335,
+          "body-blur": 4.285612583333333,
+          "analysis": 0.09876311666666665,
+          "group-field": 1.1492163999999998,
+          "optics": 4.44977935,
+          "highlight": 4.463677133333333
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/S-0.5",
+        "scene": {
+          "name": "bench",
+          "widthCss": 1440,
+          "heightCss": 900,
+          "devicePixelRatio": 2,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      288,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      576,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      864,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1152,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      360,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1080,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      720
+                    ],
+                    "size": [
+                      864,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 8.363913,
+        "gpuP95": 29.589758000000003,
+        "wallMsPerFrame": 8,
+        "wallP95": 12.200000047683716,
+        "passMs": {
+          "backdrop-import": 0.1509713333333334,
+          "blur-chain": 1.1658851166666666,
+          "body-blur": 1.9072752833333333,
+          "analysis": 0.08553543333333333,
+          "group-field": 0.7670499166666667,
+          "optics": 3.4259415333333343,
+          "highlight": 3.406500066666667
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/S-0.25",
+        "scene": {
+          "name": "bench",
+          "widthCss": 1440,
+          "heightCss": 900,
+          "devicePixelRatio": 2,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      288,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      576,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      864,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1152,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      360,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1080,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      720
+                    ],
+                    "size": [
+                      864,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 7.283180999999999,
+        "gpuP95": 20.455859,
+        "wallMsPerFrame": 7.799999952316284,
+        "wallP95": 11.600000023841858,
+        "passMs": {
+          "backdrop-import": 0.13322846666666668,
+          "blur-chain": 0.6710231666666666,
+          "body-blur": 0.5333308166666666,
+          "analysis": 0.06435241666666666,
+          "group-field": 0.6066058333333332,
+          "optics": 3.051668016666666,
+          "highlight": 3.0575923333333335
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/W-delta4",
+        "scene": {
+          "name": "bench",
+          "widthCss": 1440,
+          "heightCss": 900,
+          "devicePixelRatio": 2,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      288,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      576,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      864,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1152,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      360,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1080,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      720
+                    ],
+                    "size": [
+                      864,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 13.024381000000002,
+        "gpuP95": 36.275988999999996,
+        "wallMsPerFrame": 8,
+        "wallP95": 11.100000023841858,
+        "passMs": {
+          "backdrop-import": 0.23968735000000008,
+          "blur-chain": 3.6172079500000005,
+          "body-blur": 4.702545866666667,
+          "analysis": 0.10690945,
+          "group-field": 0.8575431000000001,
+          "optics": 3.703821983333334,
+          "highlight": 3.717494016666666
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/control",
+        "scene": {
+          "name": "bench",
+          "widthCss": 1440,
+          "heightCss": 900,
+          "devicePixelRatio": 2,
+          "backdrop": {
+            "kind": "checkerboard",
+            "cell": 12,
+            "live": true,
+            "size": 2048
+          },
+          "groups": [
+            {
+              "groupId": "toolbar",
+              "surfaces": [
+                {
+                  "nodeId": "t0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      288,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      576,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      864,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "t3",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1152,
+                      162
+                    ],
+                    "size": [
+                      72,
+                      44
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "segmented",
+              "surfaces": [
+                {
+                  "nodeId": "s0",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      360,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s1",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                },
+                {
+                  "nodeId": "s2",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      1080,
+                      450
+                    ],
+                    "size": [
+                      84,
+                      40
+                    ],
+                    "radii": [
+                      14,
+                      14,
+                      14,
+                      14
+                    ],
+                    "smoothing": 0.5,
+                    "thickness": 10
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0.2,
+                    "glow": 0.4,
+                    "sweep": 0.3,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            },
+            {
+              "groupId": "morph",
+              "surfaces": [
+                {
+                  "nodeId": "m",
+                  "family": "fixed-rounded-rect",
+                  "shape": {
+                    "center": [
+                      720,
+                      720
+                    ],
+                    "size": [
+                      864,
+                      160
+                    ],
+                    "radii": [
+                      30,
+                      30,
+                      30,
+                      30
+                    ],
+                    "smoothing": 0.62,
+                    "thickness": 16
+                  },
+                  "reference": "figma-smoothing",
+                  "channels": {
+                    "press": 0,
+                    "glow": 0.8,
+                    "sweep": 0.6,
+                    "shimmer": 1,
+                    "lensStrength": 1
+                  }
+                }
+              ],
+              "backdropSourceId": "bg",
+              "refraction": "true",
+              "analysisExact": true
+            }
+          ]
+        },
+        "pyramidRebuilds": 80,
+        "gpuMsPerFrame": 15.212690000000002,
+        "gpuP95": 37.010560000000005,
+        "wallMsPerFrame": 8.100000023841858,
+        "wallP95": 12,
+        "passMs": {
+          "backdrop-import": 0.25723215000000005,
+          "blur-chain": 4.148772733333334,
+          "body-blur": 3.9282210666666675,
+          "analysis": 0.09019871666666669,
+          "group-field": 1.00467915,
+          "optics": 4.103924216666666,
+          "highlight": 4.104867216666666
+        },
+        "anomalies": 0
+      }
+    ]
+  }
+}

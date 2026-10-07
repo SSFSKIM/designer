@@ -1,0 +1,185 @@
+{
+  "adapter": {
+    "ok": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "isFallback": false,
+    "timestamps": true
+  },
+  "measurement": {
+    "method": "timestamp-query",
+    "rounds": 60,
+    "results": [
+      {
+        "label": "mobile/current",
+        "gpuMsPerFrame": 4.172231,
+        "gpuP95": 11.270748000000001,
+        "wallMsPerFrame": 3.5999999046325684,
+        "wallP95": 6.199999928474426,
+        "passMs": {
+          "backdrop-import": 0.031020349999999995,
+          "blur-chain": 0.14324476666666666,
+          "body-blur": 0.24007518333333333,
+          "analysis": 0.06070041666666665,
+          "group-field": 0.6225241833333335,
+          "optics": 1.8186741499999999,
+          "highlight": 1.7858482333333336
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/S-0.5",
+        "gpuMsPerFrame": 4.2094380000000005,
+        "gpuP95": 10.832293,
+        "wallMsPerFrame": 3.600000023841858,
+        "wallP95": 5.200000047683716,
+        "passMs": {
+          "backdrop-import": 0.029942633333333336,
+          "blur-chain": 0.12878891666666667,
+          "body-blur": 0.25085175,
+          "analysis": 0.056806699999999995,
+          "group-field": 0.6433054166666666,
+          "optics": 1.7893620499999998,
+          "highlight": 1.77446105
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/S-0.25",
+        "gpuMsPerFrame": 3.7669439999999996,
+        "gpuP95": 9.982264,
+        "wallMsPerFrame": 3.399999976158142,
+        "wallP95": 5.399999976158142,
+        "passMs": {
+          "backdrop-import": 0.030120983333333344,
+          "blur-chain": 0.07436736666666667,
+          "body-blur": 0.18253791666666663,
+          "analysis": 0.04992898333333333,
+          "group-field": 0.6505890333333333,
+          "optics": 1.8780959333333336,
+          "highlight": 1.83885765
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/W-delta4",
+        "gpuMsPerFrame": 4.312226,
+        "gpuP95": 10.614424,
+        "wallMsPerFrame": 3.600000023841858,
+        "wallP95": 5.800000071525574,
+        "passMs": {
+          "backdrop-import": 0.031172333333333337,
+          "blur-chain": 0.14274558333333331,
+          "body-blur": 0.2873820166666666,
+          "analysis": 0.06027685000000002,
+          "group-field": 0.7019523333333331,
+          "optics": 1.8837440666666667,
+          "highlight": 1.8455314833333334
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "mobile/control",
+        "gpuMsPerFrame": 4.279189000000001,
+        "gpuP95": 9.740351,
+        "wallMsPerFrame": 3.5,
+        "wallP95": 5.599999904632568,
+        "passMs": {
+          "backdrop-import": 0.03305924999999999,
+          "blur-chain": 0.13671204999999997,
+          "body-blur": 0.2354673833333333,
+          "analysis": 0.05822816666666666,
+          "group-field": 0.6333703833333334,
+          "optics": 1.7923783500000001,
+          "highlight": 1.773756
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/current",
+        "gpuMsPerFrame": 5.717869,
+        "gpuP95": 11.784779,
+        "wallMsPerFrame": 4.299999952316284,
+        "wallP95": 6.5,
+        "passMs": {
+          "backdrop-import": 0.029941199999999987,
+          "blur-chain": 0.17475205000000002,
+          "body-blur": 0.26881554999999996,
+          "analysis": 0.06221153333333335,
+          "group-field": 0.7096584,
+          "optics": 2.4186975333333334,
+          "highlight": 2.4234046833333336
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/S-0.5",
+        "gpuMsPerFrame": 5.538956000000001,
+        "gpuP95": 11.567908,
+        "wallMsPerFrame": 4.199999928474426,
+        "wallP95": 6.700000047683716,
+        "passMs": {
+          "backdrop-import": 0.02873293333333333,
+          "blur-chain": 0.10475233333333334,
+          "body-blur": 0.16364021666666673,
+          "analysis": 0.0569387,
+          "group-field": 0.6956635166666666,
+          "optics": 2.5046382499999997,
+          "highlight": 2.512610416666667
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/S-0.25",
+        "gpuMsPerFrame": 5.778872,
+        "gpuP95": 11.628244,
+        "wallMsPerFrame": 4.100000023841858,
+        "wallP95": 6.799999952316284,
+        "passMs": {
+          "backdrop-import": 0.030086400000000003,
+          "blur-chain": 0.07473394999999998,
+          "body-blur": 0.21874476666666667,
+          "analysis": 0.05186036666666667,
+          "group-field": 0.7140771166666665,
+          "optics": 2.4644864,
+          "highlight": 2.45339775
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/W-delta4",
+        "gpuMsPerFrame": 5.726916,
+        "gpuP95": 12.424520000000001,
+        "wallMsPerFrame": 4.200000047683716,
+        "wallP95": 7,
+        "passMs": {
+          "backdrop-import": 0.02966135,
+          "blur-chain": 0.13866431666666665,
+          "body-blur": 0.3114878000000001,
+          "analysis": 0.06108373333333333,
+          "group-field": 0.6789177666666667,
+          "optics": 2.4483097499999995,
+          "highlight": 2.4452564500000005
+        },
+        "anomalies": 0
+      },
+      {
+        "label": "desktop/control",
+        "gpuMsPerFrame": 5.93391,
+        "gpuP95": 12.206814000000001,
+        "wallMsPerFrame": 4.299999952316284,
+        "wallP95": 6.700000047683716,
+        "passMs": {
+          "backdrop-import": 0.0311987,
+          "blur-chain": 0.14063906666666667,
+          "body-blur": 0.20041511666666664,
+          "analysis": 0.06220453333333332,
+          "group-field": 0.7170646833333334,
+          "optics": 2.474459033333333,
+          "highlight": 2.4892589666666662
+        },
+        "anomalies": 0
+      }
+    ]
+  }
+}
