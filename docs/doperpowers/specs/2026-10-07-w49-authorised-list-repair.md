@@ -1,7 +1,8 @@
 # W49a — the opaque receded body repaired with the receded far delta, selected by the user after a NEITHER gate with three new exceptions named (2026-10-07)
 
 **Status: LANDING IN PROGRESS — G0 reads NEITHER; the user selected far 0.10 after the gate
-(2026-10-07, DL9).** The parent's DL1–DL8 and the user's DL9 are verbatim below. W49 splits (DL1):
+(2026-10-07, DL9); read 9 is complete and DL10 retains its one missed repair.** The parent's
+DL1–DL8/DL10 and the user's DL9 are verbatim below. W49 splits (DL1):
 **W49a**, this charter, repairs the opaque receded dark `-glass0.25` body with one existing leaf pair
 and ships as patch 0.28.1; **W49b**, the pitch-selective thick body, is chartered after W49a lands and
 nothing of it is declared here. Branch `w49-g0-grounding`; evidence
@@ -21,7 +22,14 @@ W49a grounding, gate, seal, publication and landing.
 | 6 | referees | the dark 0.25 holdout and W46 referees are spent; read once as read 9, a prediction check |
 | 7 | release | `@vitreajs/vitrea-web` patch 0.28.1 naming the defect |
 | 8 | renders | not before the census passes (Zoom quit with the user's permission at G0; the census then passed) |
-| 9 | post-gate selection, the user's | far 0.10 at both scales, receded `tintAlpha` 0.8 held, every other leaf unchanged; three new authorised entries, the six repaired entries removed; patch 0.28.1; G0's NEITHER remains |
+| 9 | post-gate selection, the user's | far 0.10 at both scales, receded `tintAlpha` 0.8 held, every other leaf unchanged; three new authorised entries; removal count corrected by DL10; patch 0.28.1; G0's NEITHER remains |
+| 10 | read-9 prediction miss, the parent's | five repairs leave; 2x checkerboard-32 lg inactive retains its existing W48 authorisation at +1.0819 B now; no re-selection or re-read; proceed |
+
+**Read-9 correction (DL10).** Statements below of the planned six removals describe DL2/DL9's
+prediction, not the exposure result. Five repairs pass; the withheld 2x checkerboard-32 lg inactive
+cell reads +1.0819 B against d0219 and retains its original W48 authorisation. Twelve old entries
+therefore remain, with their recorded numbers unchanged, plus DL9's three new entries. No
+re-selection, re-authorisation or second holdout read occurred.
 
 ## Purpose
 
@@ -227,8 +235,9 @@ in the consolidated §5.215, without rewriting G0's NEITHER verdict.
 
 ### G2: the landing (ledger §5.215)
 
-T1's dark row re-baselined in the five-part order (X59) with the six repair entries removed from
-`T1_DARK_AUTHORISED_REGRESSIONS` (the eleven others stay, W49b's), and DL9's three new entries added:
+T1's dark row re-baselined in the five-part order (X59) with **five** repair entries removed from
+`T1_DARK_AUTHORISED_REGRESSIONS` (DL10: the 2x checkerboard-32 lg inactive entry stays under its
+existing W48 authorisation, beside the eleven others), and DL9's three new entries added:
 `impulse__rrect-ml__inactive` at 1x and 2x against `b2d074d2df24`, and
 `impulse__rrect-lg__inactive` at 2x against `d0219cd684bf`, each with a standing witness citing DL9.
 Re-derive `MISSED_27_ROWS` and move `T1_DARK_REFERENCE` last; remove X75's `KNOWN_DEFECT` entry;
@@ -291,7 +300,7 @@ freeze 1,818 and X41 911 at every merge.
 | grounding | DONE on `w49-g0-grounding` `4559dc41b` | (§5.215) |
 | G0 | declared (part 1 `a7403d3e…`, part 2 `bffb524b…`), P1 and P2 rendered and read: NEITHER at both scales | §5.215 |
 | G1 | landing in progress under DL9's post-gate far 0.10 selection; seal, read 9 and publication evidence pending here | §5.215 |
-| G2 | landing in progress under DL9; six repair entries out, three new exceptions planned, eleven retained | §5.215 |
+| G2 | landing in progress under DL9/DL10; five repair entries out, three new exceptions, twelve retained | §5.215 |
 
 ## Decision Log
 
@@ -374,6 +383,21 @@ value, inside X75. New authorised entries (not re-authorisations, so DL5 holds):
 impulse__rrect-ml__inactive at 1x and 2x against b2d074d2df24, impulse__rrect-lg__inactive at 2x
 against d0219cd684bf, each citing this DL. The six entries of the three repaired cells leave
 T1_DARK_AUTHORISED_REGRESSIONS; the KNOWN_DEFECT entry of X75 is removed.
+
+### DL10
+
+DL10 (parent, 2026-10-07, at read 9's exposure stop). Read 9 shows five of the six repaired
+entries within B of d0219cd684bf. The sixth, 2x checkerboard-32__rrect-lg__inactive (a W46
+referee, withheld from G0's probes), reads +1.0819 B (T1 0.030508, native 0.041221), down from
+W48's authorised 6.04 B. It is not repaired. Ruling:
+- The entry STAYS in T1_DARK_AUTHORISED_REGRESSIONS as W48 authorised it. That is no
+  re-authorisation, because it never leaves the list, so DL5 holds. Its read-9 value is recorded
+  beside it, and the standing witness reads it against d0219 as before.
+- DL9's "six entries leave" is corrected here to five. The user's selection (far 0.10) is
+  unchanged. No point is re-selected, and the holdout is not re-read.
+- §5.215 records the 2x referee cell as read 9's prediction miss: no longer flat, still short of
+  native's texture by about 1 B. It is W49b's to close.
+- Publication, the capture-tree copy and the landing proceed.
 
 ## G0 outcome (the gate, read under the hashed part 2)
 

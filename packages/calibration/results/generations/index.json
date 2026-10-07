@@ -127,6 +127,27 @@
         "apple-macos-27.0-1x-dark-standard-glass0.25": 234,
         "apple-macos-27.0-2x-dark-standard-glass0.25": 234
       },
+      "status": "retired"
+    },
+    "b2d074d2df24-940384c06f73.json": {
+      "activeDocumentSha256": "b2d074d2df24",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+          "sha256": "b2d074d2df24"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+          "sha256": "940384c06f73"
+        }
+      ],
+      "bytes": 17477609,
+      "sha256": "d68eec6d609f062ff60e35ebbb927e329273049dabae6781db9428dadd30490f",
+      "rowCount": 468,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": 234,
+        "apple-macos-27.0-2x-dark-standard-glass0.25": 234
+      },
       "status": "current"
     }
   },
@@ -162,10 +183,14 @@
       "ebc3d9105a4a.json"
     ],
     "b2d074d2df24": [
-      "b2d074d2df24.json"
+      "b2d074d2df24.json",
+      "b2d074d2df24-940384c06f73.json"
     ],
     "29da6a888a23": [
       "b2d074d2df24.json"
+    ],
+    "940384c06f73": [
+      "b2d074d2df24-940384c06f73.json"
     ]
   },
   "currentByProfile": {
@@ -177,7 +202,7 @@
     "apple-macos-27.0-2x-light-standard-glass0.5": "85ad7f7e3e0d.json",
     "apple-macos-27.0-1x-light-standard-glass0.25": "ebc3d9105a4a.json",
     "apple-macos-27.0-2x-light-standard-glass0.25": "ebc3d9105a4a.json",
-    "apple-macos-27.0-1x-dark-standard-glass0.25": "b2d074d2df24.json",
-    "apple-macos-27.0-2x-dark-standard-glass0.25": "b2d074d2df24.json"
+    "apple-macos-27.0-1x-dark-standard-glass0.25": "b2d074d2df24-940384c06f73.json",
+    "apple-macos-27.0-2x-dark-standard-glass0.25": "b2d074d2df24-940384c06f73.json"
   }
 }
