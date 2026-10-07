@@ -1,0 +1,207 @@
+1. THE SEVENTEEN, landed (W48 exposure cut; T1 interiorStdDev, linear light)
+cell                                                    part      native   d0219  b2d074   growth
+1x checkerboard-64__rrect-lg__inactive                  gate      0.0733  0.0287  0.0020   +8.94B
+1x checkerboard-32__rrect-lg__inactive                  referee   0.0382  0.0237  0.0142   +3.20B
+1x checkerboard-32__rrect-lg__rest                      gate      0.0584  0.0292  0.0203   +2.98B
+1x checkerboard-lc16__rrect-md__rest                    gate      0.0217  0.0240  0.0348   +2.66B
+1x photo__rrect-lg__inactive                            holdout   0.0464  0.0109  0.0022   +2.64B
+1x impulse__capsule-button__rest                        gate      0.0198  0.0173  0.0253   +2.26B
+1x checkerboard-64__rrect-lg__rest                      gate      0.0856  0.0338  0.0292   +1.55B
+1x hc-text-28__rrect-lg__rest                           gate      0.0460  0.0311  0.0262   +1.39B
+2x checkerboard-64__rrect-lg__inactive                  gate      0.0742  0.0380  0.0006  +12.53B
+2x checkerboard-32__rrect-lg__inactive                  referee   0.0412  0.0337  0.0159   +6.04B
+2x checkerboard-lc16__rrect-md__rest                    gate      0.0230  0.0213  0.0366   +2.91B
+2x photo__rrect-lg__inactive                            holdout   0.0466  0.0119  0.0023   +2.90B
+2x checkerboard__capsule-button__inactive               gate      0.0501  0.0477  0.0383   +2.79B
+2x checkerboard-32__rrect-lg__rest                      gate      0.0556  0.0343  0.0260   +2.71B
+2x checkerboard__capsule-button__inactive-tint-orange   gate      0.0650  0.0678  0.0539   +1.93B
+2x checkerboard-64__rrect-lg__rest                      gate      0.0846  0.0395  0.0343   +1.71B
+2x hc-text-28__rrect-lg__rest                           gate      0.0419  0.0325  0.0277   +1.34B
+
+2. AUTHORITY: distinct T1 values per cell over every stage-2 summary in the archive (191)
+  1x checkerboard-64__rrect-lg__inactive               n=0.0733 d0219=0.0287 distinct=  1 range 0.0020..0.0020   <- NO RECEDED LEAF REACHES IT
+  1x checkerboard-64__rrect-md__inactive               n=0.0783 d0219=0.0337 distinct= 46 range 0.0285..0.0798
+  1x checkerboard-8__rrect-lg__inactive                n=0.0071 d0219=0.0237 distinct=  1 range 0.0146..0.0146   <- NO RECEDED LEAF REACHES IT
+  1x checkerboard-8__rrect-md__inactive                n=0.0090 d0219=0.0259 distinct= 37 range 0.0134..0.0337
+  1x checkerboard-lc16__capsule-button__inactive       n=0.0260 d0219=0.0261 distinct= 46 range 0.0113..0.0387
+  1x checkerboard-lc16__rrect-md__inactive             n=0.0058 d0219=0.0142 distinct= 44 range 0.0114..0.0242
+  1x checkerboard__capsule-button__inactive            n=0.0595 d0219=0.0451 distinct= 45 range 0.0181..0.0677
+  1x checkerboard__capsule-button__inactive-tint-orange n=0.0777 d0219=0.0631 distinct= 46 range 0.0211..0.0960
+  1x checkerboard__rrect-md__inactive                  n=0.0150 d0219=0.0279 distinct= 45 range 0.0134..0.0456
+  1x checkerboard__rrect-ml__inactive                  n=0.0097 d0219=0.0259 distinct= 33 range 0.0126..0.0255
+  1x hc-text-28__rrect-md__inactive                    n=0.0355 d0219=0.0255 distinct= 46 range 0.0185..0.0630
+  1x hc-text__rrect-lg__inactive                       n=0.0164 d0219=0.0274 distinct=  1 range 0.0189..0.0189   <- NO RECEDED LEAF REACHES IT
+  1x hc-text__rrect-sm__inactive                       n=0.0309 d0219=0.0416 distinct= 45 range 0.0183..0.0667
+  1x impulse__capsule-button__inactive                 n=0.0008 d0219=0.0053 distinct= 28 range 0.0000..0.0103
+  1x impulse__rrect-lg__inactive                       n=0.0006 d0219=0.0032 distinct=  1 range 0.0000..0.0000   <- NO RECEDED LEAF REACHES IT
+  1x impulse__rrect-ml__inactive                       n=0.0006 d0219=0.0040 distinct= 25 range 0.0003..0.0132
+  1x photo__capsule-button__inactive                   n=0.0454 d0219=0.0102 distinct= 47 range 0.0091..0.0165
+  1x photo__capsule-button__inactive-pressed           n=0.0454 d0219=0.0775 distinct= 46 range 0.0746..0.0780
+  1x photo__capsule-button__inactive-tint-orange       n=0.0474 d0219=0.0124 distinct= 47 range 0.0107..0.0213
+  1x photo__rrect-md__inactive                         n=0.0392 d0219=0.0096 distinct= 40 range 0.0093..0.0195
+  1x photo__rrect-ml__inactive                         n=0.0455 d0219=0.0115 distinct= 37 range 0.0037..0.0120
+  2x checkerboard-64__rrect-lg__inactive               n=0.0742 d0219=0.0380 distinct=  1 range 0.0006..0.0006   <- NO RECEDED LEAF REACHES IT
+  2x checkerboard-64__rrect-md__inactive               n=0.0821 d0219=0.0393 distinct= 45 range 0.0386..0.0765
+  2x checkerboard-8__rrect-lg__inactive                n=0.0068 d0219=0.0246 distinct=  1 range 0.0161..0.0161   <- NO RECEDED LEAF REACHES IT
+  2x checkerboard-8__rrect-md__inactive                n=0.0071 d0219=0.0233 distinct= 29 range 0.0136..0.0365
+  2x checkerboard-lc16__capsule-button__inactive       n=0.0214 d0219=0.0253 distinct= 48 range 0.0088..0.0385
+  2x checkerboard-lc16__rrect-md__inactive             n=0.0069 d0219=0.0137 distinct= 43 range 0.0125..0.0240
+  2x checkerboard__capsule-button__inactive            n=0.0501 d0219=0.0477 distinct= 48 range 0.0144..0.0676
+  2x checkerboard__capsule-button__inactive-tint-orange n=0.0650 d0219=0.0678 distinct= 48 range 0.0176..0.0966
+  2x checkerboard__rrect-md__inactive                  n=0.0276 d0219=0.0232 distinct= 44 range 0.0138..0.0458
+  2x checkerboard__rrect-ml__inactive                  n=0.0161 d0219=0.0242 distinct= 35 range 0.0152..0.0265
+  2x hc-text-28__rrect-md__inactive                    n=0.0513 d0219=0.0259 distinct= 45 range 0.0236..0.0587
+  2x hc-text__rrect-lg__inactive                       n=0.0164 d0219=0.0284 distinct=  1 range 0.0212..0.0212   <- NO RECEDED LEAF REACHES IT
+  2x hc-text__rrect-sm__inactive                       n=0.0198 d0219=0.0455 distinct= 46 range 0.0152..0.0697
+  2x impulse__capsule-button__inactive                 n=0.0000 d0219=0.0101 distinct= 45 range 0.0000..0.0201
+  2x impulse__rrect-lg__inactive                       n=0.0006 d0219=0.0016 distinct=  1 range 0.0000..0.0000   <- NO RECEDED LEAF REACHES IT
+  2x impulse__rrect-ml__inactive                       n=0.0008 d0219=0.0022 distinct= 15 range 0.0003..0.0131
+  2x photo__capsule-button__inactive                   n=0.0454 d0219=0.0094 distinct= 48 range 0.0087..0.0161
+  2x photo__capsule-button__inactive-pressed           n=0.0454 d0219=0.0778 distinct= 44 range 0.0751..0.0781
+  2x photo__capsule-button__inactive-tint-orange       n=0.0477 d0219=0.0120 distinct= 47 range 0.0113..0.0213
+  2x photo__rrect-md__inactive                         n=0.0405 d0219=0.0107 distinct= 35 range 0.0107..0.0195
+  2x photo__rrect-ml__inactive                         n=0.0461 d0219=0.0127 distinct= 25 range 0.0046..0.0121
+
+3. W46 POINT A (receded scatter, tintAlpha 0.8, no far delta, d0219 active), inactive cells
+  1x checkerboard-64__rrect-lg__inactive                n=0.0733 d0219=0.0287 ptA=0.0480 (-6.45B toward)  b2d074=0.0020
+  1x checkerboard-64__rrect-md__inactive                n=0.0783 d0219=0.0337 ptA=0.0490 (-5.23B toward)  b2d074=0.0541
+  1x checkerboard-8__rrect-lg__inactive                 n=0.0071 d0219=0.0237 ptA=0.0157 (-2.54B toward)  b2d074=0.0146
+  1x checkerboard-8__rrect-md__inactive                 n=0.0090 d0219=0.0259 ptA=0.0155 (-3.24B toward)  b2d074=0.0148
+  1x checkerboard-lc16__capsule-button__inactive        n=0.0260 d0219=0.0261 ptA=0.0231 (+0.59B away)  b2d074=0.0248
+  1x checkerboard-lc16__rrect-md__inactive              n=0.0058 d0219=0.0142 ptA=0.0126 (-0.42B unchanged)  b2d074=0.0135
+  1x checkerboard__capsule-button__inactive             n=0.0595 d0219=0.0451 ptA=0.0399 (+1.57B away)  b2d074=0.0428
+  1x checkerboard__capsule-button__inactive-tint-orange n=0.0777 d0219=0.0631 ptA=0.0552 (+1.87B away)  b2d074=0.0595
+  1x checkerboard__rrect-md__inactive                   n=0.0150 d0219=0.0279 ptA=0.0174 (-3.32B toward)  b2d074=0.0198
+  1x checkerboard__rrect-ml__inactive                   n=0.0097 d0219=0.0259 ptA=0.0156 (-3.30B toward)  b2d074=0.0147
+  1x hc-text-28__rrect-md__inactive                     n=0.0355 d0219=0.0255 ptA=0.0267 (-0.33B unchanged)  b2d074=0.0306
+  1x hc-text__rrect-lg__inactive                        n=0.0164 d0219=0.0274 ptA=0.0334 (+1.70B away)  b2d074=0.0189
+  1x hc-text__rrect-sm__inactive                        n=0.0309 d0219=0.0416 ptA=0.0387 (-0.78B toward)  b2d074=0.0398
+  1x impulse__capsule-button__inactive                  n=0.0008 d0219=0.0053 ptA=0.0054 (+0.12B unchanged)  b2d074=0.0055
+  1x impulse__rrect-lg__inactive                        n=0.0006 d0219=0.0032 ptA=0.0049 (+2.90B away)  b2d074=0.0000
+  1x impulse__rrect-ml__inactive                        n=0.0006 d0219=0.0040 ptA=0.0048 (+1.44B away)  b2d074=0.0026
+  1x photo__capsule-button__inactive                    n=0.0454 d0219=0.0102 ptA=0.0147 (-1.26B toward)  b2d074=0.0150
+  1x photo__capsule-button__inactive-pressed            n=0.0454 d0219=0.0775 ptA=0.0755 (-0.57B toward)  b2d074=0.0752
+  1x photo__capsule-button__inactive-tint-orange        n=0.0474 d0219=0.0124 ptA=0.0188 (-1.48B toward)  b2d074=0.0193
+  1x photo__rrect-md__inactive                          n=0.0392 d0219=0.0096 ptA=0.0163 (-2.06B toward)  b2d074=0.0169
+  1x photo__rrect-ml__inactive                          n=0.0455 d0219=0.0115 ptA=0.0198 (-2.55B toward)  b2d074=0.0107
+  2x checkerboard-64__rrect-lg__inactive                n=0.0742 d0219=0.0380 ptA=0.0686 (-10.27B toward)  b2d074=0.0006
+  2x checkerboard-64__rrect-md__inactive                n=0.0821 d0219=0.0393 ptA=0.0659 (-9.07B toward)  b2d074=0.0677
+  2x checkerboard-8__rrect-lg__inactive                 n=0.0068 d0219=0.0246 ptA=0.0162 (-2.65B toward)  b2d074=0.0161
+  2x checkerboard-8__rrect-md__inactive                 n=0.0071 d0219=0.0233 ptA=0.0137 (-2.96B toward)  b2d074=0.0138
+  2x checkerboard-lc16__capsule-button__inactive        n=0.0214 d0219=0.0253 ptA=0.0204 (-0.67B toward)  b2d074=0.0218
+  2x checkerboard-lc16__rrect-md__inactive              n=0.0069 d0219=0.0137 ptA=0.0136 (-0.03B unchanged)  b2d074=0.0148
+  2x checkerboard__capsule-button__inactive             n=0.0501 d0219=0.0477 ptA=0.0356 (+3.59B away)  b2d074=0.0383
+  2x checkerboard__capsule-button__inactive-tint-orange n=0.0650 d0219=0.0678 ptA=0.0499 (+2.87B overshoot)  b2d074=0.0539
+  2x checkerboard__rrect-md__inactive                   n=0.0276 d0219=0.0232 ptA=0.0186 (+1.49B away)  b2d074=0.0216
+  2x checkerboard__rrect-ml__inactive                   n=0.0161 d0219=0.0242 ptA=0.0197 (-1.46B toward)  b2d074=0.0173
+  2x hc-text-28__rrect-md__inactive                     n=0.0513 d0219=0.0259 ptA=0.0362 (-3.07B toward)  b2d074=0.0397
+  2x hc-text__rrect-lg__inactive                        n=0.0164 d0219=0.0284 ptA=0.0364 (+2.27B away)  b2d074=0.0212
+  2x hc-text__rrect-sm__inactive                        n=0.0198 d0219=0.0455 ptA=0.0312 (-3.85B toward)  b2d074=0.0319
+  2x impulse__capsule-button__inactive                  n=0.0000 d0219=0.0101 ptA=0.0082 (-2.82B toward)  b2d074=0.0083
+  2x impulse__rrect-lg__inactive                        n=0.0006 d0219=0.0016 ptA=0.0037 (+3.55B away)  b2d074=0.0000
+  2x impulse__rrect-ml__inactive                        n=0.0008 d0219=0.0022 ptA=0.0042 (+3.56B away)  b2d074=0.0025
+  2x photo__capsule-button__inactive                    n=0.0454 d0219=0.0094 ptA=0.0150 (-1.59B toward)  b2d074=0.0152
+  2x photo__capsule-button__inactive-pressed            n=0.0454 d0219=0.0778 ptA=0.0753 (-0.73B toward)  b2d074=0.0752
+  2x photo__capsule-button__inactive-tint-orange        n=0.0477 d0219=0.0120 ptA=0.0200 (-1.83B toward)  b2d074=0.0202
+  2x photo__rrect-md__inactive                          n=0.0405 d0219=0.0107 ptA=0.0186 (-2.44B toward)  b2d074=0.0188
+  2x photo__rrect-ml__inactive                          n=0.0461 d0219=0.0127 ptA=0.0220 (-2.88B toward)  b2d074=0.0118
+
+4. STAGE 1: the active rest cells by leaf (W48 fit renders; same alpha 0.9 at span 160 in
+   d0219 and in every ta0.7/far0.2 point, so a difference there is the scatter's, not the body's)
+  1x cells: checkerboard-32__rrect-lg__rest | checkerboard-64__rrect-lg__rest | hc-text-28__rrect-lg__rest | checkerboard-lc16__rrect-md__rest | impulse__capsule-button__rest
+  1x native [0.0584, 0.0856, 0.046, 0.0217, 0.0198]  d0219 [0.0292, 0.0338, 0.0311, 0.024, 0.0173]
+    1x ta0.7 o0.05 top160 far0.2 floor0.1 thin0.72 gain-2 heavy0                   [0.0228, 0.0297, 0.027, 0.0413, 0.0294]
+    1x ta0.7 o0.05 top160 far0.2 floor0.1 thinNone gainNone heavyNone              [0.0228, 0.0297, 0.027, 0.0413, 0.0294]
+    1x ta0.7 o0.05 top160 far0.2 floor0.2 thin0.72 gain-2 heavy0                   [0.0228, 0.0297, 0.027, 0.0408, 0.0267]
+    1x ta0.7 o0.05 top160 far0.2 floor0.2 thinNone gainNone heavyNone              [0.0228, 0.0297, 0.027, 0.0408, 0.0267]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.6 gain-2 heavy0                   [0.0228, 0.0297, 0.027, 0.0402, 0.0231]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.6 gainNone heavyNone              [0.0228, 0.0297, 0.027, 0.0402, 0.0231]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-0.5 heavy0                [0.0203, 0.0292, 0.0262, 0.0348, 0.0253]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-1 heavy0                  [0.0211, 0.0293, 0.0264, 0.0366, 0.0248]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-1.5 heavy0                [0.0219, 0.0295, 0.0267, 0.0384, 0.0246]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-2 heavy0                  [0.0228, 0.0297, 0.027, 0.0402, 0.0242]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-2 heavy13                 [0.0235, 0.0307, 0.0274, 0.0402, 0.0244]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-2 heavy4                  [0.0401, 0.0435, 0.039, 0.0493, 0.0274]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain-2 heavy8                  [0.0308, 0.0377, 0.0304, 0.0412, 0.0251]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gain0 heavy0                   [0.0196, 0.029, 0.0259, 0.0331, 0.0256]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gainNone heavy0                [0.0228, 0.0297, 0.027, 0.0402, 0.0242]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gainNone heavy13               [0.0235, 0.0307, 0.0274, 0.0402, 0.0244]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gainNone heavy4                [0.0401, 0.0435, 0.039, 0.0493, 0.0274]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gainNone heavy8                [0.0308, 0.0377, 0.0304, 0.0412, 0.0251]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.72 gainNone heavyNone             [0.0228, 0.0297, 0.027, 0.0402, 0.0242]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.85 gain-2 heavy0                  [0.0228, 0.0297, 0.027, 0.0402, 0.027]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin0.85 gainNone heavyNone             [0.0228, 0.0297, 0.027, 0.0402, 0.027]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin1.0 gain-2 heavy0                   [0.0228, 0.0297, 0.027, 0.0402, 0.0303]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thin1.0 gainNone heavyNone              [0.0228, 0.0297, 0.027, 0.0402, 0.0303]
+    1x ta0.7 o0.05 top160 far0.2 floor0.34 thinNone gainNone heavyNone             [0.0228, 0.0297, 0.027, 0.0402, 0.0242]
+    1x ta0.7 o0.05 top160 far0.2 floor0.5 thin0.72 gain-2 heavy0                   [0.0228, 0.0297, 0.027, 0.0393, 0.0236]
+    1x ta0.7 o0.05 top160 far0.2 floor0.5 thinNone gainNone heavyNone              [0.0228, 0.0297, 0.027, 0.0393, 0.0236]
+    1x ta0.7 o0.05 top160 far0.2 floor0.7 thin0.72 gain-2 heavy0                   [0.0228, 0.0297, 0.027, 0.0383, 0.0229]
+    1x ta0.7 o0.05 top160 far0.2 floor0.7 thinNone gainNone heavyNone              [0.0228, 0.0297, 0.027, 0.0383, 0.0229]
+    1x ta0.7 o0.05 top160 far0.2 floorNone thinNone gainNone heavyNone             [0.0228, 0.0297, 0.027, 0.0402, 0.0242]
+    1x ta0.9 o0.05 top160 far0.2 floorNone thinNone gainNone heavyNone             [0.0165, 0.0096, 0.02, 0.0235, 0.0173]
+  2x cells: checkerboard-32__rrect-lg__rest | checkerboard-64__rrect-lg__rest | hc-text-28__rrect-lg__rest | checkerboard-lc16__rrect-md__rest | impulse__capsule-button__rest
+  2x native [0.0556, 0.0846, 0.0419, 0.023, 0.0241]  d0219 [0.0343, 0.0395, 0.0325, 0.0213, 0.0186]
+    2x ta0.7 o0.05 top160 far0.2 floor0.5 thin0.46 gain-2 heavyNone                [0.0283, 0.0347, 0.0287, 0.0438, 0.0306]
+    2x ta0.7 o0.05 top160 far0.2 floor0.5 thinNone gainNone heavyNone              [0.0283, 0.0347, 0.0287, 0.0438, 0.0306]
+    2x ta0.7 o0.05 top160 far0.2 floor0.7 thin0.46 gain-2 heavyNone                [0.0283, 0.0347, 0.0287, 0.0417, 0.0278]
+    2x ta0.7 o0.05 top160 far0.2 floor0.7 thinNone gainNone heavyNone              [0.0283, 0.0347, 0.0287, 0.0417, 0.0278]
+    2x ta0.7 o0.05 top160 far0.2 floor0.85 thin0.46 gain-2 heavyNone               [0.0283, 0.0347, 0.0287, 0.0409, 0.0267]
+    2x ta0.7 o0.05 top160 far0.2 floor0.85 thinNone gainNone heavyNone             [0.0283, 0.0347, 0.0287, 0.0409, 0.0267]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.46 gain-0.5 heavyNone                [0.026, 0.0343, 0.0277, 0.0366, 0.0269]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.46 gain-1 heavyNone                  [0.0267, 0.0344, 0.028, 0.0377, 0.0266]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.46 gain-1.5 heavyNone                [0.0275, 0.0346, 0.0284, 0.0389, 0.0262]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.46 gain-2 heavyNone                  [0.0283, 0.0347, 0.0287, 0.0401, 0.0258]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.46 gain0 heavyNone                   [0.0253, 0.0342, 0.0273, 0.0355, 0.0273]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.46 gainNone heavyNone                [0.0283, 0.0347, 0.0287, 0.0401, 0.0258]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.6 gain-2 heavyNone                   [0.0283, 0.0347, 0.0287, 0.0401, 0.0287]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.6 gainNone heavyNone                 [0.0283, 0.0347, 0.0287, 0.0401, 0.0287]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.75 gain-2 heavyNone                  [0.0283, 0.0347, 0.0287, 0.0401, 0.032]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.75 gainNone heavyNone                [0.0283, 0.0347, 0.0287, 0.0401, 0.032]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.9 gain-2 heavyNone                   [0.0283, 0.0347, 0.0287, 0.0401, 0.0356]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thin0.9 gainNone heavyNone                 [0.0283, 0.0347, 0.0287, 0.0401, 0.0356]
+    2x ta0.7 o0.05 top160 far0.2 floor1 thinNone gainNone heavyNone                [0.0283, 0.0347, 0.0287, 0.0401, 0.0258]
+    2x ta0.7 o0.05 top160 far0.2 floorNone thinNone gainNone heavyNone             [0.0283, 0.0347, 0.0287, 0.0401, 0.0258]
+    2x ta0.9 o0.05 top160 far0.2 floorNone thinNone gainNone heavyNone             [0.0158, 0.0077, 0.019, 0.0213, 0.0186]
+
+5. THE LAW ON THE BED'S SPANS (optics.ts arithmetic; edgeSharpStart is the ramp start at u=0)
+  d0219 active    1x capsule-button  {'farS': 0.0, 'kDeep': 0.3455, 'edgeSharpStart': 0.7015, 'alphaBase': 0.9, 'sizedAlpha': 0.9005}
+  d0219 active    1x rrect-sm        {'farS': 0.0, 'kDeep': 0.3766, 'edgeSharpStart': 0.62, 'alphaBase': 0.9, 'sizedAlpha': 0.9025}
+  d0219 active    1x rrect-md        {'farS': 0.0, 'kDeep': 0.4708, 'edgeSharpStart': 0.52, 'alphaBase': 0.9, 'sizedAlpha': 0.905}
+  d0219 active    1x rrect-ml        {'farS': 0.104, 'kDeep': 0.5998, 'edgeSharpStart': 0.4867, 'alphaBase': 0.9, 'sizedAlpha': 0.905}
+  d0219 active    1x rrect-lg        {'farS': 0.352, 'kDeep': 0.7402, 'edgeSharpStart': 0.4074, 'alphaBase': 0.9, 'sizedAlpha': 0.905}
+  d0219 active    2x capsule-button  {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.4369, 'alphaBase': 0.9, 'sizedAlpha': 0.9005, 'heavyGain2x': 4.8}
+  d0219 active    2x rrect-sm        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.335, 'alphaBase': 0.9, 'sizedAlpha': 0.9025, 'heavyGain2x': 4.8}
+  d0219 active    2x rrect-md        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.21, 'alphaBase': 0.9, 'sizedAlpha': 0.905, 'heavyGain2x': 4.8}
+  d0219 active    2x rrect-ml        {'farS': 0.104, 'kDeep': 1.0, 'edgeSharpStart': 0.21, 'alphaBase': 0.9, 'sizedAlpha': 0.905, 'heavyGain2x': 5.33}
+  d0219 active    2x rrect-lg        {'farS': 0.352, 'kDeep': 1.0, 'edgeSharpStart': 0.21, 'alphaBase': 0.9, 'sizedAlpha': 0.905, 'heavyGain2x': 6.595}
+  b2d074 active   1x capsule-button  {'farS': 0.0, 'kDeep': 0.3563, 'edgeSharpStart': 0.7015, 'alphaBase': 0.7, 'sizedAlpha': 0.7014}
+  b2d074 active   1x rrect-sm        {'farS': 0.0, 'kDeep': 0.4431, 'edgeSharpStart': 0.62, 'alphaBase': 0.7, 'sizedAlpha': 0.7075}
+  b2d074 active   1x rrect-md        {'farS': 0.0, 'kDeep': 0.67, 'edgeSharpStart': 0.52, 'alphaBase': 0.7, 'sizedAlpha': 0.715}
+  b2d074 active   1x rrect-ml        {'farS': 0.5, 'kDeep': 0.8969, 'edgeSharpStart': 0.36, 'alphaBase': 0.8, 'sizedAlpha': 0.81}
+  b2d074 active   1x rrect-lg        {'farS': 1.0, 'kDeep': 1.0, 'edgeSharpStart': 0.2, 'alphaBase': 0.9, 'sizedAlpha': 0.905}
+  b2d074 active   2x capsule-button  {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.4369, 'alphaBase': 0.7, 'sizedAlpha': 0.7014, 'heavyGain2x': 4.8}
+  b2d074 active   2x rrect-sm        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.335, 'alphaBase': 0.7, 'sizedAlpha': 0.7075, 'heavyGain2x': 4.8}
+  b2d074 active   2x rrect-md        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.21, 'alphaBase': 0.7, 'sizedAlpha': 0.715, 'heavyGain2x': 4.8}
+  b2d074 active   2x rrect-ml        {'farS': 0.5, 'kDeep': 1.0, 'edgeSharpStart': 0.21, 'alphaBase': 0.8, 'sizedAlpha': 0.81, 'heavyGain2x': 7.35}
+  b2d074 active   2x rrect-lg        {'farS': 1.0, 'kDeep': 1.0, 'edgeSharpStart': 0.21, 'alphaBase': 0.9, 'sizedAlpha': 0.905, 'heavyGain2x': 9.9}
+  d0219 receded   1x capsule-button  {'farS': 0.0, 'kDeep': 0.3686, 'edgeSharpStart': 0.9354, 'alphaBase': 0.89, 'sizedAlpha': 0.8905}
+  d0219 receded   1x rrect-sm        {'farS': 0.0, 'kDeep': 0.5016, 'edgeSharpStart': 0.65, 'alphaBase': 0.89, 'sizedAlpha': 0.8928}
+  d0219 receded   1x rrect-md        {'farS': 0.0, 'kDeep': 0.7208, 'edgeSharpStart': 0.3, 'alphaBase': 0.89, 'sizedAlpha': 0.8955}
+  d0219 receded   1x rrect-ml        {'farS': 0.104, 'kDeep': 0.8498, 'edgeSharpStart': 0.2896, 'alphaBase': 0.89, 'sizedAlpha': 0.8955}
+  d0219 receded   1x rrect-lg        {'farS': 0.352, 'kDeep': 0.9902, 'edgeSharpStart': 0.2648, 'alphaBase': 0.89, 'sizedAlpha': 0.8955}
+  d0219 receded   2x capsule-button  {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.9114, 'alphaBase': 0.89, 'sizedAlpha': 0.8905}
+  d0219 receded   2x rrect-sm        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.52, 'alphaBase': 0.89, 'sizedAlpha': 0.8928}
+  d0219 receded   2x rrect-md        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.04, 'alphaBase': 0.89, 'sizedAlpha': 0.8955}
+  d0219 receded   2x rrect-ml        {'farS': 0.104, 'kDeep': 1.0, 'edgeSharpStart': 0.04, 'alphaBase': 0.89, 'sizedAlpha': 0.8955}
+  d0219 receded   2x rrect-lg        {'farS': 0.352, 'kDeep': 1.0, 'edgeSharpStart': 0.04, 'alphaBase': 0.89, 'sizedAlpha': 0.8955}
+  b2d074 receded  1x capsule-button  {'farS': 0.0, 'kDeep': 0.5354, 'edgeSharpStart': 0.3769, 'alphaBase': 0.8, 'sizedAlpha': 0.8009}
+  b2d074 receded  1x rrect-sm        {'farS': 0.0, 'kDeep': 0.7031, 'edgeSharpStart': 0.275, 'alphaBase': 0.8, 'sizedAlpha': 0.805}
+  b2d074 receded  1x rrect-md        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.15, 'alphaBase': 0.8, 'sizedAlpha': 0.81}
+  b2d074 receded  1x rrect-ml        {'farS': 0.5, 'kDeep': 1.0, 'edgeSharpStart': 0.175, 'alphaBase': 0.9, 'sizedAlpha': 0.905}
+  b2d074 receded  1x rrect-lg        {'farS': 1.0, 'kDeep': 1.0, 'edgeSharpStart': 0.2, 'alphaBase': 1.0, 'sizedAlpha': 1.0}
+  b2d074 receded  2x capsule-button  {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.3668, 'alphaBase': 0.8, 'sizedAlpha': 0.8009}
+  b2d074 receded  2x rrect-sm        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.22, 'alphaBase': 0.8, 'sizedAlpha': 0.805}
+  b2d074 receded  2x rrect-md        {'farS': 0.0, 'kDeep': 1.0, 'edgeSharpStart': 0.04, 'alphaBase': 0.8, 'sizedAlpha': 0.81}
+  b2d074 receded  2x rrect-ml        {'farS': 0.5, 'kDeep': 1.0, 'edgeSharpStart': 0.04, 'alphaBase': 0.9, 'sizedAlpha': 0.905}
+  b2d074 receded  2x rrect-lg        {'farS': 1.0, 'kDeep': 1.0, 'edgeSharpStart': 0.04, 'alphaBase': 1.0, 'sizedAlpha': 1.0}
