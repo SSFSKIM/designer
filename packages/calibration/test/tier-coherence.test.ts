@@ -3614,7 +3614,7 @@ describe("the CSS tier declines the floor and span top at the light 0.25 positio
  * term. The renderer's `spanGradedTintAlpha` is the CPU statement of the shader's line, and the
  * CSS tier's is the mirror `materialAtBackdrop` applies; these cases hold the two to each other
  * on the ten shipped documents (the identity on eight, so none of their CSS outputs moves; live on
- * the dark 0.25 pair since W48 G1 sealed far 0.2) AND on synthetic documents naming non-zero deltas, either side of the
+ * the dark 0.25 pair: W48 active far 0.2, W49a receded far 0.1) AND on synthetic documents naming non-zero deltas, either side of the
  * knee and at both scales, so a later document that names the leaves inherits the mirror or fails
  * here. The full chain is pinned too: what `materialAtBackdrop` hands the tone solve, against the
  * renderer's occlusion lifting from the renderer's graded alpha, nominal and under the two
@@ -3684,19 +3684,20 @@ describe("W47 operator 1 is one law on both tiers (X65)", () => {
     }
   });
 
-  // W48 G1 sealed the dark 0.25 pair with operator 1 live (claims §5.213: far 0.2 at both scales, the
-  // span tops 160, the receded document inheriting both), so the identity is the other eight
-  // documents' and the dark 0.25 pair is pinned to its sealed anchors; the case above holds the two
-  // tiers to each other on it at every span and scale.
+  // W48 activated operator 1 on the dark 0.25 pair; W49a separates the receded anchors from the
+  // active's (claims §5.215, DL9), preventing the receded 0.8 alpha from reaching 1 at span 160.
+  // The other eight documents keep the identity. The case above holds the two tiers to each
+  // other at every span and scale; this case holds the two poses to their declared anchors.
   const LIVE = new Set(["0.25 dark", "0.25 dark receded"]);
 
-  it("is live on the dark 0.25 pair at its sealed anchors (W48 G1)", () => {
+  it("is live on the dark 0.25 pair at its sealed anchors (W49a DL9)", () => {
     for (const { name, patch } of SHIPPED.filter((d) => LIVE.has(d.name))) {
       const profile = profileOf(patch);
-      expect(profile.tintAlphaFar1x, name).toBe(0.2);
-      expect(profile.tintAlphaFar2x, name).toBe(0.2);
-      expect(sourceSize(patch as never).tintAlphaFar1x, name).toBe(0.2);
-      expect(sourceSize(patch as never).tintAlphaFar2x, name).toBe(0.2);
+      const far = name === "0.25 dark receded" ? 0.1 : 0.2;
+      expect(profile.tintAlphaFar1x, name).toBe(far);
+      expect(profile.tintAlphaFar2x, name).toBe(far);
+      expect(sourceSize(patch as never).tintAlphaFar1x, name).toBe(far);
+      expect(sourceSize(patch as never).tintAlphaFar2x, name).toBe(far);
     }
   });
 

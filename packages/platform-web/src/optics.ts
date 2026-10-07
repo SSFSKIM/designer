@@ -1384,7 +1384,7 @@ export interface MaterialSourceSize {
    * `MaterialProfile.tintAlphaFar1x` / `tintAlphaFar2x`, where the reasons are. Applied per
    * surface by `spanGradedTintAlpha` before the occlusion term above, on the same far curve the
    * shader evaluates per pixel. 0 on both anchors on every shipped material but the dark 0.25
-   * pair, which names 0.2 / 0.2 since W48 (claims §5.213).
+   * pair: active 0.2 / 0.2 since W48, receded 0.1 / 0.1 since W49a (claims §5.215).
    */
   readonly tintAlphaFar1x: number;
   readonly tintAlphaFar2x: number;
@@ -2969,7 +2969,8 @@ export function sizeOcclusionAlphaAt(
  * to this tier's scatter, so a light 0.25 document that ever names the delta grades the alpha on
  * the WebGPU tier's own curve. At 0 the sum is `alpha` exactly and the clamp is the identity on
  * an alpha in [0, 1], so a document at the identity moves no CSS output; the dark 0.25 pair names
- * 0.2 / 0.2 since W48, and its CSS rows draw the graded alpha (claims §5.213).
+ * active 0.2 / 0.2 since W48 and receded 0.1 / 0.1 since W49a. Its CSS rows draw each
+ * pose’s own graded alpha (claims §5.215).
  */
 export function spanGradedTintAlpha(
   alpha: number,

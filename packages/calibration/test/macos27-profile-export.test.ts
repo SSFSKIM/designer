@@ -256,7 +256,7 @@ const FROZEN_CANDIDATE: Readonly<Record<string, string>> = {
   "apple-macos-27.0-1x-dark-standard-glass0.25":
     "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
   "apple-macos-27.0-1x-dark-standard-glass0.25-receded":
-    "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+    "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/candidates/p2-far0.1/candidate.json",
 };
 describe("the four sealed -glass0.25 documents (W43 G3 (ii); the light pair re-sealed by W45 G1)", () => {
   const sealed = (key: string): ProfileDocument & {

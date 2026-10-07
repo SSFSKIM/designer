@@ -1580,8 +1580,9 @@ export interface MaterialProfile {
    * shipped digest, every golden and every shipped endpoint's raster byte-identical, proved by
    * render in `e2e/gpu/w47-alpha-far.spec.ts`. Two plain value drops in
    * `MATERIAL_IDENTITY_TABLE`, not a gate-group: the expression is read at every alpha. **Since
-   * W48 the dark 0.25 pair names 0.2 / 0.2** (with `tintAlpha` 0.7 and the span tops at 160;
-   * claims §5.213); every other shipped document holds the identity.
+   * W48 the dark 0.25 active names 0.2 / 0.2** above `tintAlpha` 0.7; W49a separates the
+   * receded anchors to 0.1 / 0.1 above its own 0.8 alpha (claims §5.215). Both span tops stay
+   * at 160, and every other shipped document holds the identity.
    */
   readonly tintAlphaFar1x: number;
   /** The dpr-2 anchor of `tintAlphaFar1x`'s far delta, on the same law; identity 0 (W47). */

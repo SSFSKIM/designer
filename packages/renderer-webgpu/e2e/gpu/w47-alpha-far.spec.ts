@@ -33,7 +33,8 @@
  * **Since W48 the dark 0.25 document names the operator** (0.2 / 0.2; claims §5.213), so the
  * assertions' base is that document with its two leaves taken out (`DARK025_IDENTITY`), the
  * material at the identity, and each shipped dark document (active and receded) is held to its base
- * with 0.2 / 0.2 added: the shipped endpoint IS the law at its own values. The recorder still renders every shipped
+ * with its own anchors added (W48 active 0.2, W49a receded 0.1, at both scales): the shipped
+ * endpoint IS the law at its own values. The recorder still renders every shipped
  * endpoint as it is, and its delta cases now sit on the identity base (W48 G2, claims §5.214); its
  * W47 record (`claims §5.211`) was taken when the two coincided.
  */
@@ -83,6 +84,10 @@ const atIdentity = (patch: Patch): Patch => Object.fromEntries(Object.entries(pa
   .filter(([key]) => key !== "tintAlphaFar1x" && key !== "tintAlphaFar2x"));
 const DARK025_IDENTITY: Patch = atIdentity(ACTIVE(DARK025));
 const DARK025_RECEDED_IDENTITY: Patch = atIdentity(RECEDED(DARK025));
+/** Recompose each pose with its own document's anchors; inherited active values are not a pose. */
+const farAnchors = (patch: Patch): Patch => ({
+  tintAlphaFar1x: patch["tintAlphaFar1x"], tintAlphaFar2x: patch["tintAlphaFar2x"],
+});
 
 /**
  * Every shipped endpoint the identity is shown on. The renderer default is the macOS 26.5 light
@@ -120,7 +125,7 @@ const SCALES = [
 const DARK_DELTAS: Readonly<Record<string, Patch>> = {
   "identity": {},
   "far0": { tintAlphaFar1x: 0, tintAlphaFar2x: 0 },
-  "shipped": { tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2 },
+  "shipped": farAnchors(ACTIVE(DARK025)),
   "far2x+0.2": { tintAlphaFar2x: 0.2 },
   "far2x+0.45": { tintAlphaFar2x: 0.45 },
   "far2x+1": { tintAlphaFar2x: 1 },
@@ -136,7 +141,7 @@ const CASES: readonly Case[] = SCALES.flatMap(({ tag, plain, toned }) =>
     ...Object.entries(DARK_DELTAS).map(([name, delta]) => ({
       label: `${tag}/${form}/dark025/${name}`, scene: scene!, patch: { ...DARK025_IDENTITY, ...delta },
     })),
-    ...Object.entries({ "identity": {}, "shipped": { tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2 },
+    ...Object.entries({ "identity": {}, "shipped": farAnchors(RECEDED(DARK025)),
       "far2x+0.45": { tintAlphaFar2x: 0.45 } }).map(([name, delta]) => ({
       label: `${tag}/${form}/dark025-receded/${name}`, scene: scene!,
       patch: { ...DARK025_RECEDED_IDENTITY, ...delta },
@@ -270,9 +275,9 @@ test.describe("@gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims 
           expect(outsideDelta(base, moved, dpr), `${at(name)}: outside the members`).toBe(0);
         }
 
-        // The receded endpoint grades the same way, from its own identity base. (Since W48 its
-        // shipped base alpha is 0.8 and the delta 0.2, so a span-160 pixel already reads 1 and a
-        // larger delta clamps there; the base without the leaves is where a delta can be seen.)
+        // The receded endpoint grades from its own identity base and its own sealed anchors.
+        // W49a's 0.1 delta above alpha 0.8 repairs W48's opaque span-160 body; neither this
+        // reconstruction nor the grading assertion may silently borrow the active's 0.2.
         expect(hash(`${tag}/${form}/dark025-receded`), `${tag}/${form}/dark025-receded: the shipped document`)
           .toBe(hash(`${tag}/${form}/dark025-receded/shipped`));
         if (dpr === 2) {
