@@ -1,0 +1,37 @@
+command: ['pnpm', '--filter', '@vitrea/renderer-webgpu', '--fail-if-no-match', 'exec', 'playwright', 'test', 'e2e/gpu/w47-alpha-far.spec.ts', '--workers=1']
+load before: { 9.60 7.33 6.34 }
+
+Running 2 tests using 1 worker
+
+  ✓  1 [chromium-gpu] › e2e/gpu/w47-alpha-far.spec.ts:204:3 › @gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims §5.211) › records every case's bytes (5.5s)
+  ✘  2 [chromium-gpu] › e2e/gpu/w47-alpha-far.spec.ts:231:3 › @gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims §5.211) › is the identity at 0, held to its own scale, and per pixel above the knee (5.1s)
+
+
+  1) [chromium-gpu] › e2e/gpu/w47-alpha-far.spec.ts:231:3 › @gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims §5.211) › is the identity at 0, held to its own scale, and per pixel above the knee 
+
+    Error: 2x/plain/dark025-receded: the shipped document
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "6b981f1a347c212db38430dcdd65eadf62c1af0a84bf445ffbcdc045400c4314"
+    Received: "5d36a7db0c95651e681252d17799fb70c071c1704633eb180f68f317902b64a1"
+
+      275 |         // larger delta clamps there; the base without the leaves is where a delta can be seen.)
+      276 |         expect(hash(`${tag}/${form}/dark025-receded`), `${tag}/${form}/dark025-receded: the shipped document`)
+    > 277 |           .toBe(hash(`${tag}/${form}/dark025-receded/shipped`));
+          |            ^
+      278 |         if (dpr === 2) {
+      279 |           const receded = bytes.get(`${tag}/${form}/dark025-receded/identity`)!;
+      280 |           const graded = bytes.get(`${tag}/${form}/dark025-receded/far2x+0.45`)!;
+        at /Users/new/vitrea-w49/g0/packages/renderer-webgpu/e2e/gpu/w47-alpha-far.spec.ts:277:12
+
+    Error Context: test-results/gpu-w47-alpha-far--gpu-W47-62a00-nd-per-pixel-above-the-knee-chromium-gpu/error-context.md
+
+  1 failed
+    [chromium-gpu] › e2e/gpu/w47-alpha-far.spec.ts:231:3 › @gpu W47 operator 1, tintAlphaFar1x/2x (charter clause 1; claims §5.211) › is the identity at 0, held to its own scale, and per pixel above the knee 
+  1 passed (18.0s)
+undefined
+/Users/new/vitrea-w49/g0/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test e2e/gpu/w47-alpha-far.spec.ts '--workers=1'
+
+exit code: 1

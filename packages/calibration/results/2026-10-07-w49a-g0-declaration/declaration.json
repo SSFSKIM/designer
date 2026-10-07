@@ -1,0 +1,444 @@
+{
+ "charter": {
+  "commit": "c577811c7",
+  "path": "docs/doperpowers/specs/2026-10-07-w49-authorised-list-repair.md"
+ },
+ "family": {
+  "activeUnmoved": "b2d074d2df24 (791cde91d97acbc7); the builder refuses any other override on base b2d074",
+  "domain": [
+   -0.3,
+   0.2
+  ],
+  "members": {
+   "receded.dark": [
+    "tintAlphaFar1x",
+    "tintAlphaFar2x"
+   ]
+  },
+  "name": "R",
+  "reach": "receded surfaces of span > 96 CSS px: rrect-lg (farS 1), rrect-ml (0.5), the glass-over-glass base (about 0.55); farS = 0 at or below 96",
+  "scaleSeparable": "at dpr exactly 1 a cell reads only tintAlphaFar1x, at 2 only tintAlphaFar2x (rampAtScale); a landing composes the two scales' selections"
+ },
+ "invariants": {
+  "X74": {
+   "control": "each outside-reach cell reads its b2d074d2df24 value within 0.1 bar, else VOID",
+   "report": "probes/rule.py authority(): over a probe's points, a cell with one distinct reading is outside reach and named, its reason predicted where farS = 0; the objective excludes it"
+  },
+  "X75": {
+   "bound": 0.95,
+   "dpr": [
+    1,
+    2
+   ],
+   "floatAllowance": 1e-09,
+   "on028": "fails exactly apple-macos-27.0-glass0.25 dark receded, from span 140, both tiers and scales (x75/x75-on-0.28.0-unmarked.txt); an expected failure naming W49a, removed at G2",
+   "policy": "nominal",
+   "refusals": [
+    "fit/build-candidate.ts",
+    "seal/seal.ts"
+   ],
+   "spans": "0..1024 CSS px, integer",
+   "statement": "packages/calibration/scripts/no-opaque-glass.ts",
+   "test": "packages/calibration/test/x75-no-opaque-glass.test.ts",
+   "tiers": [
+    "webgpu",
+    "css"
+   ],
+   "variants": [
+    "regular",
+    "clear"
+   ]
+  },
+  "X76": {
+   "audit": "x76/audit.txt",
+   "rule": "seal/seal.ts: a receded leaf stated at its active's resolved value, or an active-fitted leaf the receded does not name, needs { held: [reading] } in the method record"
+  }
+ },
+ "order": "no probe render before both parts are hashed; each part amended at most once and only before the first probe render",
+ "pins": {
+  "packages/calibration/cli/compare.ts": "129cc172f8493394356b7cc0691f03954bf1636f66bbd061568c643c4b69e3f1",
+  "packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py": "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a",
+  "packages/calibration/results/2026-10-05-w46-g1-refit/gate/d-s2-rta0.8-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0/cut.json.gz": "7f1d3b5fb84c2f4ccbdaec2114c839763fc3a494d0a4740bb8a566758485aa0a",
+  "packages/calibration/results/2026-10-06-w47-g0-operators/cuts/cuts.py": "7ea1fd1ae039cc86bddc43f41539c7c0675725f0d1c9b2406c75ecaf09c86577",
+  "packages/calibration/results/2026-10-06-w48-g0-declaration/cuts/cuts.py": "a0e1ddf424db22b834866d42cd0ec73df01f3e3fe80c36ec48f7662de35238ed",
+  "packages/calibration/results/2026-10-06-w48-g1-refit/cuts/cut-025-w48-dl9-exposure.json.gz": "a29f7a7adb192907107075633ba3b26370839c5b6ad4c6fdb6c44c24a5423da4",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/declare.py": "3d5646ed84a0e37c34edf45c3bff836ef8ea9369b25e385dfd0b1ac7bb2172a9",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/documents/12712d534b78.json": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/documents/29da6a888a23.json": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/documents/b2d074d2df24.json": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/documents/d0219cd684bf.json": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/documents/ebc3d9105a4a.json": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/documents/f0b36a71772a.json": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/fit/build-candidate.ts": "58e78534c051b12ec47bf54ce16b2b1b0fdb297d5bce043544e4ebd57a2abaf0",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/fit/labels.json": "9331f6a10661e3662c22ce8d36d62da29c5ce4f18abe56f96b6eaec0fbf003da",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/fit/test_build_candidate.py": "2596c22174c01d4cf5f4876ad8161998e6dd74d2b847cbc7d2e3513e195931be",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/predict.json": "5050c635a3e74cff6aa8d293a029e051177b695626d267fb68ca55153417aeb0",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/predict.py": "d4e56b926cd5ff359d51b86adfb7b6646ea38bf1b07171ec2c904d1a1c986c6e",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/probe.py": "be31d8134ad943a5061086af32d683e7f7b1045c2db903ca303abea17a049fb9",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/smoke/smoke.json": "0b4f03d1911e05a4e0b0cbca5f9452a4db07b32c781b4134dd0f58c80977eec5",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p1-d0219-top160.json": "95f46b6c3f81a531ed775fdd65c70bcad49d581e5c2014a6cfe442717367663b",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p2-far-0.1.json": "f20437e0f57a9da3eaa26b185173a31f97c6c484eae2992cc19677e13d2f7dd6",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p2-far0.05.json": "c66331532f341ecc25ea09563231a014161602547d1ec35f608dde4ce6da308c",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p2-far0.09.json": "172d80e8676ff79df4463b6e3d37ac731c306addfa9aa131b908ebb909cbb547",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p2-far0.1.json": "d1f6bd9e6cf922dba673f6c608b3054accd85190e155851f2dab0f64532f799a",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p2-far0.15.json": "a94ae30300e8bd381b22977a2aa150d6612c699e0db67c0116f639cec566875c",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/specs/p2-far0.json": "19d667456657a73fd58faf5e983eac4702be1b9dd7a80d2de36c443321ea59b8",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/seal/seal.ts": "1eee30e5debef00bbcc701d8fb72460aa9bb398305b5a8666df0afe4a573af45",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/seal/test_seal.py": "3c04f18c00318dc66902b50eade952696d89dd748e56b18b2249f62571ae20de",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/test_declare.py": "2f47ca0f10e3ce09c629da8ad840592717b667861ea683e7a2ce46abfcecc95b",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/x75/x75-on-0.28.0-unmarked.txt": "44acbc258922c77f7f23607879d34944b187d1ca45e40b534a7b80aa4d583b5c",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/x76/audit.json": "8487c93ec9a0c157c0db2466a558dc1d7d05812734fd77d48e432e7b6f1d7256",
+  "packages/calibration/results/2026-10-07-w49a-g0-declaration/x76/audit.py": "fc98d41c54a6012a512cd8893ec227d179cc9745730fc96b5c9b7a8c8c63e41b",
+  "packages/calibration/scripts/candidate-document.ts": "4fa446e827ee4ecd69b53dd06099b486ac0effa803242b9a6d0c237f5b659c8b",
+  "packages/calibration/scripts/no-opaque-glass.ts": "1f027bc2afd26c82a2a2f53d967d372c7626bbf548f9ca84ba7f1d59e68e5c53",
+  "packages/calibration/test/x75-no-opaque-glass.test.ts": "0c751add3d04631f6e7b636bd9e11a3cdb665e1234e99e08fc2094393777644b"
+ },
+ "predictions": {
+  "expected": "no P2 point meets DL2 at either scale: every far that repairs checkerboard-64__rrect-lg__inactive moves impulse__rrect-ml__inactive away from b2d074d2df24 beyond B",
+  "file": "probes/predict.json",
+  "method": "probes/predict.py: a line in alphaBase through b2d074d2df24 and W46's point A (gate cells), through b2d074 and d0219 (withheld rrect-lg), proportional to 1 - alphaBase (withheld glass-over-glass); first order, stated before any render",
+  "withheld": [
+   {
+    "partition": "referee",
+    "predicted": {
+     "-0.1": 0.04011,
+     "0.0": 0.03147,
+     "0.05": 0.02715,
+     "0.09": 0.02369,
+     "0.1": 0.02283,
+     "0.15": 0.01851
+    },
+    "role": "repair",
+    "scale": 1,
+    "scene": "checkerboard-32__rrect-lg__inactive"
+   },
+   {
+    "partition": "holdout",
+    "predicted": {
+     "-0.1": 0.03706,
+     "0.0": 0.02911,
+     "0.05": 0.02513,
+     "0.09": 0.02194,
+     "0.1": 0.02115,
+     "0.15": 0.01717
+    },
+    "role": "other",
+    "scale": 1,
+    "scene": "checkerboard__glass-over-glass__inactive"
+   },
+   {
+    "partition": "holdout",
+    "predicted": {
+     "-0.1": 0.02736,
+     "0.0": 0.02148,
+     "0.05": 0.01855,
+     "0.09": 0.0162,
+     "0.1": 0.01561,
+     "0.15": 0.01267
+    },
+    "role": "other",
+    "scale": 1,
+    "scene": "photo__glass-over-glass__inactive"
+   },
+   {
+    "partition": "holdout",
+    "predicted": {
+     "-0.1": 0.02588,
+     "0.0": 0.01799,
+     "0.05": 0.01404,
+     "0.09": 0.01089,
+     "0.1": 0.0101,
+     "0.15": 0.00615
+    },
+    "role": "repair",
+    "scale": 1,
+    "scene": "photo__rrect-lg__inactive"
+   },
+   {
+    "partition": "referee",
+    "predicted": {
+     "-0.1": 0.06436,
+     "0.0": 0.04822,
+     "0.05": 0.04015,
+     "0.09": 0.03369,
+     "0.1": 0.03208,
+     "0.15": 0.02401
+    },
+    "role": "repair",
+    "scale": 2,
+    "scene": "checkerboard-32__rrect-lg__inactive"
+   },
+   {
+    "partition": "holdout",
+    "predicted": {
+     "-0.1": 0.0425,
+     "0.0": 0.03338,
+     "0.05": 0.02882,
+     "0.09": 0.02517,
+     "0.1": 0.02425,
+     "0.15": 0.01969
+    },
+    "role": "other",
+    "scale": 2,
+    "scene": "checkerboard__glass-over-glass__inactive"
+   },
+   {
+    "partition": "holdout",
+    "predicted": {
+     "-0.1": 0.02955,
+     "0.0": 0.02321,
+     "0.05": 0.02003,
+     "0.09": 0.0175,
+     "0.1": 0.01686,
+     "0.15": 0.01369
+    },
+    "role": "other",
+    "scale": 2,
+    "scene": "photo__glass-over-glass__inactive"
+   },
+   {
+    "partition": "holdout",
+    "predicted": {
+     "-0.1": 0.02836,
+     "0.0": 0.01968,
+     "0.05": 0.01534,
+     "0.09": 0.01186,
+     "0.1": 0.01099,
+     "0.15": 0.00665
+    },
+    "role": "repair",
+    "scale": 2,
+    "scene": "photo__rrect-lg__inactive"
+   }
+  ]
+ },
+ "probes": {
+  "P1": {
+   "bar": "each within its cell's B of the prediction",
+   "base": "d0219",
+   "cells": {
+    "1x": [
+     "checkerboard-32__capsule-button__rest",
+     "checkerboard-32__capsule-button__rest-tint-orange",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard-4__capsule-button__rest",
+     "checkerboard-4__capsule-button__rest-tint-orange",
+     "checkerboard-4__rrect-lg__rest",
+     "checkerboard-4__rrect-md__rest",
+     "checkerboard-4__rrect-ml__rest",
+     "checkerboard-4__rrect-sm__rest",
+     "checkerboard-64__capsule-button__rest",
+     "checkerboard-64__capsule-button__rest-tint-orange",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-8__capsule-button__rest",
+     "checkerboard-8__capsule-button__rest-tint-orange",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-lc16__capsule-button__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-lc16__rrect-sm__rest",
+     "checkerboard__capsule-button__rest",
+     "checkerboard__capsule-button__rest-tint-orange",
+     "checkerboard__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest",
+     "hc-text-28__rrect-md__rest",
+     "hc-text-28__rrect-sm__rest",
+     "hc-text-7__rrect-lg__rest",
+     "hc-text-7__rrect-md__rest",
+     "hc-text-7__rrect-sm__rest",
+     "hc-text__rrect-lg__rest",
+     "hc-text__rrect-sm__rest",
+     "impulse__capsule-button__rest",
+     "impulse__rrect-lg__rest",
+     "impulse__rrect-ml__rest",
+     "impulse__rrect-sm__rest",
+     "photo__capsule-button__pressed",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-tint-orange",
+     "photo__rrect-md__rest"
+    ],
+    "2x": [
+     "checkerboard-32__capsule-button__rest",
+     "checkerboard-32__capsule-button__rest-tint-orange",
+     "checkerboard-32__rrect-lg__rest",
+     "checkerboard-32__rrect-md__rest",
+     "checkerboard-32__rrect-sm__rest",
+     "checkerboard-4__capsule-button__rest",
+     "checkerboard-4__capsule-button__rest-tint-orange",
+     "checkerboard-4__rrect-lg__rest",
+     "checkerboard-4__rrect-md__rest",
+     "checkerboard-4__rrect-ml__rest",
+     "checkerboard-4__rrect-sm__rest",
+     "checkerboard-64__capsule-button__rest",
+     "checkerboard-64__capsule-button__rest-tint-orange",
+     "checkerboard-64__rrect-lg__rest",
+     "checkerboard-64__rrect-md__rest",
+     "checkerboard-64__rrect-ml__rest",
+     "checkerboard-64__rrect-sm__rest",
+     "checkerboard-8__capsule-button__rest",
+     "checkerboard-8__capsule-button__rest-tint-orange",
+     "checkerboard-8__rrect-lg__rest",
+     "checkerboard-8__rrect-md__rest",
+     "checkerboard-lc16__capsule-button__rest",
+     "checkerboard-lc16__rrect-lg__rest",
+     "checkerboard-lc16__rrect-md__rest",
+     "checkerboard-lc16__rrect-ml__rest",
+     "checkerboard-lc16__rrect-sm__rest",
+     "checkerboard__capsule-button__rest",
+     "checkerboard__capsule-button__rest-tint-orange",
+     "checkerboard__rrect-md__rest",
+     "hc-text-28__rrect-lg__rest",
+     "hc-text-28__rrect-md__rest",
+     "hc-text-28__rrect-sm__rest",
+     "hc-text-7__rrect-lg__rest",
+     "hc-text-7__rrect-md__rest",
+     "hc-text-7__rrect-sm__rest",
+     "hc-text__rrect-lg__rest",
+     "hc-text__rrect-sm__rest",
+     "impulse__capsule-button__rest",
+     "impulse__rrect-lg__rest",
+     "impulse__rrect-ml__rest",
+     "impulse__rrect-sm__rest",
+     "photo__capsule-button__pressed",
+     "photo__capsule-button__rest",
+     "photo__capsule-button__rest-tint-orange",
+     "photo__rrect-md__rest"
+    ]
+   },
+   "overrides": {
+    "active.dark": {
+     "sizeScatterSpanMax": 160,
+     "sizeScatterSpanMax2x": 160
+    }
+   },
+   "prediction": {
+    "1x": {
+     "checkerboard-32__rrect-lg__rest": 0.0228,
+     "checkerboard-64__rrect-lg__rest": 0.0297,
+     "hc-text-28__rrect-lg__rest": 0.027
+    },
+    "2x": {
+     "checkerboard-32__rrect-lg__rest": 0.0283,
+     "checkerboard-64__rrect-lg__rest": 0.0347,
+     "hc-text-28__rrect-lg__rest": 0.0287
+    }
+   },
+   "purpose": "F2 by render, recorded for W49b; selects nothing in W49a",
+   "spec": "probes/specs/p1-d0219-top160.json"
+  },
+  "P2": {
+   "base": "b2d074",
+   "cells": {
+    "1x": [
+     "checkerboard-64__rrect-lg__inactive",
+     "checkerboard-64__rrect-md__inactive",
+     "checkerboard-8__rrect-lg__inactive",
+     "checkerboard-8__rrect-md__inactive",
+     "checkerboard-lc16__capsule-button__inactive",
+     "checkerboard-lc16__rrect-md__inactive",
+     "checkerboard__capsule-button__inactive",
+     "checkerboard__capsule-button__inactive-tint-orange",
+     "checkerboard__rrect-md__inactive",
+     "checkerboard__rrect-ml__inactive",
+     "hc-text-28__rrect-md__inactive",
+     "hc-text__rrect-lg__inactive",
+     "hc-text__rrect-sm__inactive",
+     "impulse__capsule-button__inactive",
+     "impulse__rrect-lg__inactive",
+     "impulse__rrect-ml__inactive",
+     "photo__capsule-button__inactive",
+     "photo__capsule-button__inactive-pressed",
+     "photo__capsule-button__inactive-tint-orange",
+     "photo__rrect-md__inactive",
+     "photo__rrect-ml__inactive"
+    ],
+    "2x": [
+     "checkerboard-64__rrect-lg__inactive",
+     "checkerboard-64__rrect-md__inactive",
+     "checkerboard-8__rrect-lg__inactive",
+     "checkerboard-8__rrect-md__inactive",
+     "checkerboard-lc16__capsule-button__inactive",
+     "checkerboard-lc16__rrect-md__inactive",
+     "checkerboard__capsule-button__inactive",
+     "checkerboard__capsule-button__inactive-tint-orange",
+     "checkerboard__rrect-md__inactive",
+     "checkerboard__rrect-ml__inactive",
+     "hc-text-28__rrect-md__inactive",
+     "hc-text__rrect-lg__inactive",
+     "hc-text__rrect-sm__inactive",
+     "impulse__capsule-button__inactive",
+     "impulse__rrect-lg__inactive",
+     "impulse__rrect-ml__inactive",
+     "photo__capsule-button__inactive",
+     "photo__capsule-button__inactive-pressed",
+     "photo__capsule-button__inactive-tint-orange",
+     "photo__rrect-md__inactive",
+     "photo__rrect-ml__inactive"
+    ]
+   },
+   "far": [
+    -0.1,
+    0,
+    0.05,
+    0.09,
+    0.1,
+    0.15
+   ],
+   "purpose": "the rendered points part 2's selection reads",
+   "rest": "read b2d074d2df24 by construction (the receded document is not drawn in the rest pose)",
+   "specs": {
+    "p2-far-0.1": "probes/specs/p2-far-0.1.json",
+    "p2-far0": "probes/specs/p2-far0.json",
+    "p2-far0.05": "probes/specs/p2-far0.05.json",
+    "p2-far0.09": "probes/specs/p2-far0.09.json",
+    "p2-far0.1": "probes/specs/p2-far0.1.json",
+    "p2-far0.15": "probes/specs/p2-far0.15.json"
+   }
+  },
+  "candidates": {
+   "p1-d0219-top160": "b034318839c92fb098ed36a37a956fbbba219e52e9dbf9f913a09f70b4825f8f",
+   "p2-far-0.1": "b2e3fcdce58372a1399840d0792482bed2bd869bbbf757e973caf042ce1442c0",
+   "p2-far0": "e8fb4d99582c5ebc46f504c24e8ba4440f91335e7922806b819478a3b0155c62",
+   "p2-far0.05": "626d44343b790b3cbe702b2a07455475dd4ecef50033740d6223910664f758ef",
+   "p2-far0.09": "0b04fbac546128457474147d5ad0d9f9987e2cb68063ce617d551712af99a883",
+   "p2-far0.1": "8b252935154c30aa3b8f892ce4186c4a034b5f7088b1b492afb4d55473b96507",
+   "p2-far0.15": "85901ecdfc839eb4df1c2b700586a9a31f0cb1b32d035f3b3795cc89582c5677"
+  },
+  "protocol": {
+   "candidatesIn": "probes/candidates (repository)",
+   "census": "W43 G3 (ii) stage/census.py and the pin Playwright 1.62.1 / Chromium 1234 (151.0.7922.34); a refusal launches nothing",
+   "lock": "/tmp/w49-gpu.lock",
+   "mode": "candidate (compare --candidate-document), scratch --out-matrix and capture tree",
+   "profiles": {
+    "1": "apple-macos-27.0-1x-dark-standard-glass0.25",
+    "2": "apple-macos-27.0-2x-dark-standard-glass0.25"
+   },
+   "reading": "W48's cut launcher, --kind candidate, reference d0219cd684bf, reference captures web-captures-superseded/d0219cd684bf",
+   "renderer": "webgpu",
+   "scratch": "/Users/new/vitrea-w49/w49a-g0-probes",
+   "sets": "calibration,validation,recorded,probe",
+   "withheld": "no referee or holdout cell is rendered (DL6)"
+  }
+ },
+ "rulings": {
+  "DL1": "DL1 (scope). W49 splits. **W49a** repairs the opaque receded body with the existing leaf alone\n(family R: receded tintAlphaFar1x/2x, signed domain [-0.3, 0.2]) and ships as patch 0.28.1.\n**W49b** (pitch-selective body via sizeHeavySecondShareFar1x; operator 1's own span top D) is\nchartered after W49a lands; nothing of it is declared in W49a.",
+  "DL3": "DL3 (no opaque glass, X75, adopted). No shipped document may resolve alphaBase above 0.95 at any\nspan 0..1024 CSS px at dpr 1 and 2, on either tier: a runtime test over every shipped endpoint and\na refusal in the seal/builder. It must fail on the shipped 0.28.0 dark receded document.\nX74 (authority check: a stage reports cells it cannot move, and a selection excludes them by\ndeclaration) and X76 (a receded leaf inherited from the active is fitted or explicitly held in\nthe document's method record, never silently materialised) adopted.",
+  "DL6": "DL6 (referees). The dark 0.25 holdout and W46 referees are spent and not blind for W49; they are\nread once as read 9, recorded as a prediction check, not a blind referee. A blind thick-span\nnative referee is W49b's question (needs the user's X5 lift).",
+  "DL8": "DL8 (renders). The classifying census currently refuses on Zoom's caphost (user's app; never kill\nit). The parent asks the user; until then do every non-render step.\n\n*Later the same day (the parent, in the G0 worker's session):* Zoom has been quit with the user's\npermission (no zoom or caphost process remains, verified by the parent); re-run the classifying census\nat the render step and, if it passes, render P1 and P2 as declared."
+ },
+ "schema": "w49a-part1",
+ "smoke": {
+  "exactlyEqual": true,
+  "file": "probes/smoke/smoke.json",
+  "published": 0.0337913274553524,
+  "read": 0.0337913274553524
+ },
+ "wave": "W49a G0"
+}

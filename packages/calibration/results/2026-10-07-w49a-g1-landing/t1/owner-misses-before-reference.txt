@@ -1,0 +1,118 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w49/g0/packages/calibration
+
+T1 change partitions against ebc3d9105a4a (W44 / growth-only):
+  apple-macos-27.0-1x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+  apple-macos-27.0-2x-light-standard-glass0.25: W44 unchanged 116; growth-only unchanged 116
+T1 readings (not gated; W44 G2, claims §5.204):
+  apple-macos-27.0-1x-light-standard-glass0.25 css F: 0 of 15 within, median |log| 1.5069
+  apple-macos-27.0-1x-light-standard-glass0.25 css T: 0 of 4 within, median |log| 0.3973
+  apple-macos-27.0-1x-light-standard-glass0.25 css C: 14 of 69 within, median |log| 0.3522
+  apple-macos-27.0-1x-light-standard-glass0.25 css P: 2 of 28 within, median |log| 0.5377
+  apple-macos-27.0-2x-light-standard-glass0.25 css F: 2 of 15 within, median |log| 0.9216
+  apple-macos-27.0-2x-light-standard-glass0.25 css T: 1 of 4 within, median |log| 0.3314
+  apple-macos-27.0-2x-light-standard-glass0.25 css C: 11 of 69 within, median |log| 0.3953
+  apple-macos-27.0-2x-light-standard-glass0.25 css P: 4 of 28 within, median |log| 0.4196
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu F: 5 of 15 within, median |log| 0.1815
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1267
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2494
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu P: 1 of 24 within, median |log| 0.3468
+  apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 css F: 0 of 15 within, median |log| 1.2147
+  apple-macos-27.0-1x-light-standard-glass0.5 css T: 0 of 4 within, median |log| 0.4455
+  apple-macos-27.0-1x-light-standard-glass0.5 css C: 12 of 59 within, median |log| 0.2830
+  apple-macos-27.0-1x-light-standard-glass0.5 css P: 1 of 24 within, median |log| 0.7047
+  apple-macos-27.0-1x-light-standard-glass0.5 css: 14 UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu F: 8 of 15 within, median |log| 0.1427
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu T: 0 of 4 within, median |log| 0.3259
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu C: 14 of 59 within, median |log| 0.2525
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu P: 3 of 24 within, median |log| 0.3307
+  apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 14 UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 css C: 3 of 29 within, median |log| 0.7233
+  apple-macos-27.0-2x-light-standard-glass0.5 css P: 3 of 23 within, median |log| 0.6099
+  apple-macos-27.0-2x-light-standard-glass0.5 css: 64 UNMEASURED
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4075
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu T: 2 of 4 within, median |log| 0.1575
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu C: 7 of 40 within, median |log| 0.3566
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 1.0533
+  apple-macos-27.0-1x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+  apple-macos-27.0-1x-dark-standard-glass0.5 css F: 2 of 15 within, median |log| 1.0690
+  apple-macos-27.0-1x-dark-standard-glass0.5 css T: 1 of 4 within, median |log| 0.5555
+  apple-macos-27.0-1x-dark-standard-glass0.5 css C: 7 of 40 within, median |log| 0.8928
+  apple-macos-27.0-1x-dark-standard-glass0.5 css P: 0 of 10 within, median |log| 1.2375
+  apple-macos-27.0-1x-dark-standard-glass0.5 css: 8 UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu F: 4 of 15 within, median |log| 0.4703
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu T: 1 of 4 within, median |log| 0.1833
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu C: 5 of 40 within, median |log| 0.4340
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu P: 0 of 10 within, median |log| 0.9904
+  apple-macos-27.0-2x-dark-standard-glass0.5 webgpu: 8 UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5 css C: 3 of 10 within, median |log| 1.0015
+  apple-macos-27.0-2x-dark-standard-glass0.5 css P: 0 of 9 within, median |log| 1.1279
+  apple-macos-27.0-2x-dark-standard-glass0.5 css: 58 UNMEASURED
+T1 dark CSS readings (not gated; W46 G2, claims §5.210):
+  apple-macos-27.0-1x-dark-standard-glass0.25 css F: 3 of 15 within, median |log| 1.1472
+  apple-macos-27.0-1x-dark-standard-glass0.25 css T: 1 of 4 within, median |log| 0.3846
+  apple-macos-27.0-1x-dark-standard-glass0.25 css C: 5 of 46 within, median |log| 0.6010
+  apple-macos-27.0-1x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 0.9818
+  apple-macos-27.0-2x-dark-standard-glass0.25 css F: 3 of 15 within, median |log| 0.8201
+  apple-macos-27.0-2x-dark-standard-glass0.25 css T: 2 of 4 within, median |log| 0.2281
+  apple-macos-27.0-2x-dark-standard-glass0.25 css C: 4 of 46 within, median |log| 0.6046
+  apple-macos-27.0-2x-dark-standard-glass0.25 css P: 0 of 12 within, median |log| 0.9232
+ ❯ test/adopted-thresholds.test.ts (165 tests | 2 failed | 4 skipped) 2432ms
+     × (a) fidelity: every dark cell is within, or named in MISSED_27_ROWS; none UNMEASURED 11ms
+     × (b) regression: no dark cell moves away from Apple by more than B against the dark reference, both forms 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.210) > (a) fidelity: every dark cell is within, or named in MISSED_27_ROWS; none UNMEASURED
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.25 C: named misses of members: expected [ 33, 46 ] to deeply equal [ 31, 46 ]
+
+- Expected
++ Received
+
+  [
+-   31,
++   33,
+    46,
+  ]
+
+ ❯ test/adopted-thresholds.test.ts:7782:61
+    7780|         const group = cells.filter((cell) => cell.stratum === stratum);
+    7781|         expect([group.filter((cell) => cell.fidelity.fidelity === "mis…
+    7782|           `${profile} ${stratum}: named misses of members`).toEqual(NA…
+       |                                                             ^
+    7783|       }
+    7784|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > T1 — the texture row on the dark 0.25 profiles (W46 G2; claims §5.210) > (b) regression: no dark cell moves away from Apple by more than B against the dark reference, both forms
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.25: T1 cells away from Apple beyond B against b2d074d2df24 (w44): expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "hc-text__rrect-lg__inactive: g 0.00499 > B 0.00352 (1.42 B)",
++ ]
+
+ ❯ test/adopted-thresholds.test.ts:7799:106
+    7797|       for (const form of ["w44", "growth"] as const) {
+    7798|         expect(t1ClauseBFailures(cells, T1_DARK_REFERENCE, T1_DARK_AUT…
+    7799|           `${profile}: T1 cells away from Apple beyond B against ${T1_…
+       |                                                                                                          ^
+    7800|       }
+    7801|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 159 passed | 4 skipped (165)
+   Start at  19:35:11
+   Duration  3.72s (transform 199ms, setup 0ms, import 1.18s, tests 2.43s, environment 0ms)
+
+undefined
+/Users/new/vitrea-w49/g0/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/adopted-thresholds.test.ts

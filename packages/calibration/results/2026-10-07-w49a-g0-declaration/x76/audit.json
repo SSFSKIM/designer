@@ -1,0 +1,929 @@
+{
+ "rule": "X76 (W49 charter Decision Log 3)",
+ "documents": [
+  {
+   "document": "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+   "sha256": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389",
+   "active": "apple-macos-27.0-1x-dark-standard-glass0.25.json",
+   "recordedBy": "W48 G1",
+   "silentUnderX76": 13,
+   "measured": [
+    "backdropToneResponseThick",
+    "optics.regular.tintAlpha",
+    "sizeHeavySecondShare",
+    "sizeHeavySecondSigma",
+    "sizeHeavySecondSigma2x",
+    "sizeScatterFloor",
+    "sizeScatterRampStartThick1x",
+    "sizeScatterRampStartThin1x",
+    "sizeScatterRampStartThin2x",
+    "sizeScatterScaleGain"
+   ],
+   "held": [
+    "bodyChromaRetention"
+   ],
+   "materialised": [
+    {
+     "leaf": "optics.regular.blurSigma",
+     "value": 1.25,
+     "activeValue": null
+    },
+    {
+     "leaf": "sizeFineTapShare",
+     "value": 0,
+     "activeValue": null
+    },
+    {
+     "leaf": "sizeFineTapSigma",
+     "value": 0,
+     "activeValue": null
+    },
+    {
+     "leaf": "sizeFineTapSigma2x",
+     "value": 0,
+     "activeValue": null
+    },
+    {
+     "leaf": "sizeHeavySecondShareFar2x",
+     "value": 0,
+     "activeValue": null
+    },
+    {
+     "leaf": "sizeHeavyTapSigma",
+     "value": 0,
+     "activeValue": 0
+    },
+    {
+     "leaf": "sizeOcclusionGain",
+     "value": 0.05,
+     "activeValue": 0.05
+    },
+    {
+     "leaf": "sizeScatterFloor2x",
+     "value": 1,
+     "activeValue": 1
+    },
+    {
+     "leaf": "sizeScatterRampStartFar1x",
+     "value": 0.2,
+     "activeValue": null
+    },
+    {
+     "leaf": "sizeScatterSpanMax",
+     "value": 160,
+     "activeValue": 160
+    },
+    {
+     "leaf": "sizeScatterSpanMax2x",
+     "value": 160,
+     "activeValue": 160
+    },
+    {
+     "leaf": "tintAlphaFar1x",
+     "value": 0.2,
+     "activeValue": 0.2
+    },
+    {
+     "leaf": "tintAlphaFar2x",
+     "value": 0.2,
+     "activeValue": 0.2
+    }
+   ],
+   "inherited": [],
+   "unrecorded": [
+    {
+     "leaf": "backdropToneAbscissa.kind",
+     "value": "silhouette",
+     "record": null
+    },
+    {
+     "leaf": "backdropToneAnchorX",
+     "value": [
+      0.004,
+      0.11,
+      0.47,
+      0.95
+     ],
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackStrength",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackThick",
+     "value": 0.006995410187265387,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackThin",
+     "value": 0.006995410187265387,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneResponseThin",
+     "value": [
+      0,
+      0.0187,
+      0.192,
+      0.448
+     ],
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.liftAmplitude",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.reducedTransparencyOcclusion",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt128",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt160",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt96",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionBright",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionDark",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionMid",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsed",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsedTinted",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "sizeHeavyTapSigma2x",
+     "value": 14,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterHeavyShareThick1x",
+     "value": 0.25,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartFar2x",
+     "value": 0.04,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThick2x",
+     "value": 0.04,
+     "record": null
+    },
+    {
+     "leaf": "tintChromaScale",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeCollapseRetention",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeDark",
+     "value": 0.0202,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeLight",
+     "value": 1.46,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeStrength",
+     "value": 1,
+     "record": null
+    }
+   ]
+  },
+  {
+   "document": "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+   "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+   "active": "apple-macos-27.0-1x-dark-standard-glass0.5.json",
+   "recordedBy": "W29 G3b",
+   "silentUnderX76": 0,
+   "measured": [
+    "bodyChromaRetention"
+   ],
+   "held": [],
+   "materialised": [],
+   "inherited": [],
+   "unrecorded": [
+    {
+     "leaf": "backdropToneAbscissa.kind",
+     "value": "silhouette",
+     "record": null
+    },
+    {
+     "leaf": "backdropToneAnchorX",
+     "value": [
+      0.004,
+      0.11,
+      0.47,
+      0.95
+     ],
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackStrength",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackThick",
+     "value": 0.006995410187265387,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackThin",
+     "value": 0.006995410187265387,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneResponseThick",
+     "value": [
+      0,
+      0.0155,
+      0.164,
+      0.186
+     ],
+     "record": null
+    },
+    {
+     "leaf": "backdropToneResponseThin",
+     "value": [
+      0,
+      0.0187,
+      0.192,
+      0.448
+     ],
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.tintAlpha",
+     "value": 0.89,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.liftAmplitude",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.reducedTransparencyOcclusion",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt128",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt160",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt96",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionBright",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionDark",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionMid",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "rimCollapsed",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsedTinted",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "sizeHeavyTapSigma2x",
+     "value": 14,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterHeavyShareThick1x",
+     "value": 0.25,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartFar2x",
+     "value": 0.04,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThick1x",
+     "value": 0.3,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThick2x",
+     "value": 0.04,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThin1x",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThin2x",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintChromaScale",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeCollapseRetention",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeDark",
+     "value": 0.0202,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeLight",
+     "value": 1.46,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeStrength",
+     "value": 1,
+     "record": null
+    }
+   ]
+  },
+  {
+   "document": "apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+   "sha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203",
+   "active": "apple-macos-27.0-1x-light-standard-glass0.25.json",
+   "recordedBy": "W45 G1",
+   "silentUnderX76": 4,
+   "measured": [
+    "backdropToneBlackThick",
+    "backdropToneBlackThin",
+    "backdropToneResponseThick",
+    "backdropToneResponseThin",
+    "sizeHeavySecondShare",
+    "sizeHeavySecondShareFar2x",
+    "sizeHeavyTapSigma2x",
+    "sizeScatterFloor",
+    "sizeScatterRampStartFar2x",
+    "sizeScatterRampStartThick2x",
+    "sizeScatterRampStartThin2x"
+   ],
+   "held": [
+    "bodyChromaRetention"
+   ],
+   "materialised": [],
+   "inherited": [
+    {
+     "leaf": "optics.regular.tintAlpha",
+     "activeValue": 0.3
+    },
+    {
+     "leaf": "sizeHeavySecondSigma2x",
+     "activeValue": 2
+    },
+    {
+     "leaf": "sizeScatterFloor2x",
+     "activeValue": 1
+    },
+    {
+     "leaf": "sizeScatterSpanMax2x",
+     "activeValue": 128
+    }
+   ],
+   "unrecorded": [
+    {
+     "leaf": "backdropToneAbscissa.kind",
+     "value": "silhouette",
+     "record": null
+    },
+    {
+     "leaf": "backdropToneAnchorX",
+     "value": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+     ],
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackStrength",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "increasedOcclusionLift",
+     "value": 0.96,
+     "record": null
+    },
+    {
+     "leaf": "increasedOcclusionLiftByPolicy.increaseContrast",
+     "value": 0.98,
+     "record": null
+    },
+    {
+     "leaf": "increasedOcclusionLiftByPolicy.reduceTransparency",
+     "value": 0.88,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.liftAmplitude",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.reducedTransparencyOcclusion",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt128",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt160",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt96",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionBright",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionDark",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionMid",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "reducedTintAdaptation",
+     "value": 0.88,
+     "record": null
+    },
+    {
+     "leaf": "refractionScale.approximate",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsed",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsedTinted",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThick1x",
+     "value": 0.3,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThin1x",
+     "value": 0.55,
+     "record": null
+    },
+    {
+     "leaf": "strongBorderRim.rimAlpha",
+     "value": -3.5,
+     "record": null
+    },
+    {
+     "leaf": "strongBorderRim.rimWidth",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintChromaScale",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeCollapseRetention",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeDark",
+     "value": 0.0288,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeLight",
+     "value": 0.76,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeStrength",
+     "value": 1,
+     "record": null
+    }
+   ]
+  },
+  {
+   "document": "apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+   "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+   "active": "apple-macos-27.0-1x-light-standard-glass0.5.json",
+   "recordedBy": "W29 G3b",
+   "silentUnderX76": 0,
+   "measured": [
+    "bodyChromaRetention"
+   ],
+   "held": [],
+   "materialised": [],
+   "inherited": [],
+   "unrecorded": [
+    {
+     "leaf": "backdropToneAbscissa.kind",
+     "value": "silhouette",
+     "record": null
+    },
+    {
+     "leaf": "backdropToneAnchorX",
+     "value": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+     ],
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackStrength",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackThick",
+     "value": 0.23455058216100522,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneBlackThin",
+     "value": 0.23455058216100522,
+     "record": null
+    },
+    {
+     "leaf": "backdropToneResponseThick",
+     "value": [
+      0.1442,
+      0.2823,
+      0.4695,
+      0.832
+     ],
+     "record": null
+    },
+    {
+     "leaf": "backdropToneResponseThin",
+     "value": [
+      0.1647,
+      0.2809,
+      0.4775,
+      0.8293
+     ],
+     "record": null
+    },
+    {
+     "leaf": "increasedOcclusionLift",
+     "value": 0.96,
+     "record": null
+    },
+    {
+     "leaf": "increasedOcclusionLiftByPolicy.increaseContrast",
+     "value": 0.98,
+     "record": null
+    },
+    {
+     "leaf": "increasedOcclusionLiftByPolicy.reduceTransparency",
+     "value": 0.88,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.clear.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.rimLevelGain",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "optics.regular.shadowAlpha",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "outerShadow.liftAmplitude",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.reducedTransparencyOcclusion",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt128",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt160",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thickOcclusionAt96",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionBright",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionDark",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "outerShadow.thinOcclusionMid",
+     "value": 0,
+     "record": "measured \u2014 the recede no longer removes the shadow"
+    },
+    {
+     "leaf": "reducedTintAdaptation",
+     "value": 0.88,
+     "record": null
+    },
+    {
+     "leaf": "refractionScale.approximate",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsed",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "rimCollapsedTinted",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "sizeHeavyTapSigma2x",
+     "value": 14,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterFloor",
+     "value": 0.7,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartFar2x",
+     "value": 0.04,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThick1x",
+     "value": 0.3,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThick2x",
+     "value": 0.04,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThin1x",
+     "value": 0.55,
+     "record": null
+    },
+    {
+     "leaf": "sizeScatterRampStartThin2x",
+     "value": 0.7,
+     "record": null
+    },
+    {
+     "leaf": "strongBorderRim.rimAlpha",
+     "value": -3.5,
+     "record": null
+    },
+    {
+     "leaf": "strongBorderRim.rimWidth",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintChromaScale",
+     "value": 0,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeCollapseRetention",
+     "value": 1,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeDark",
+     "value": 0.0288,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeLight",
+     "value": 0.76,
+     "record": null
+    },
+    {
+     "leaf": "tintShadeStrength",
+     "value": 1,
+     "record": null
+    }
+   ]
+  }
+ ],
+ "outsideTheForm": [
+  "macOS 26.5 receded light and dark: receded-profile.ts, no document (frozen)"
+ ]
+}

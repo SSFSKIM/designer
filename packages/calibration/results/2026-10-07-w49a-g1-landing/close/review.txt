@@ -1,0 +1,9 @@
+W49a independent correctness reviews (doperpowers:reviewer-medium)
+
+1. c4dec6d66..53c07ba3c: corrected X76 seal, X75 refusal, selected leaves, generated runtime, stage partitions and read-9 witness. Verdict correct; no material findings. Reviewer ran all five seal tests successfully.
+
+2. c4dec6d66..caa287aa3160448a4490bd2fe3add5db4d4547bb, focused final owner/runtime/test scope: pair identity, twelve retained W48 caps, three DL9 entries, reference-last order. Verdict correct; no material findings. Reviewer ran 285 unit cases (four capture-tree absent skips), four Python identity tests, and current/historical band capture-hash checks. Landing worker separately ran owner/X75 with canonical pixels: 179 passed, no skips.
+
+3. caa287aa3..43a392158, bounded demo oracle follow-up after full-unit failure: pair-qualified storage names admitted without weakening independent document-pair and per-profile row checks. Verdict correct; no material findings. Reviewer ran all 13 matrix-reduction tests successfully.
+
+No review finding required a fix wave. The demo oracle follow-up was a new test-only change prompted by the chain, not an unbounded review loop. GPU rendering was run by the landing worker (34 goldens, 55 GPU cases); the second reviewer inspected that spec but did not rerun the adapter.

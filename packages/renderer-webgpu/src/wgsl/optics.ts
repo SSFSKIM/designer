@@ -253,8 +253,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// (operator 1, claims 5.211), not on this tap: the lane was the last free one in this vec4.
   /// Already resolved at the group's device ratio by rampAtScale(far1x, far2x, dpr); the base
   /// alpha at a pixel is clamp(tint.w + w * farS, 0, 1), read before the size law's occlusion
-  /// term. 0 on every shipped material but the dark 0.25 pair, which names 0.2 / 0.2 since W48
-  /// (claims 5.213).
+  /// term. 0 on every shipped material but dark 0.25: active 0.2 / 0.2 (W48), receded
+  /// 0.1 / 0.1 (W49a, claims 5.215), so the receded body does not inherit the active opacity.
   scatterHeavy2 : vec4f,
   /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
   /// the blurred backdrop's CHROMATICITY the body restores, at the luma the

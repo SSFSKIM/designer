@@ -1,0 +1,6 @@
+command: ['python3', '-B', 'packages/calibration/results/2026-10-07-w49a-g0-declaration/declare.py', 'check']
+load before: { 26.57 15.43 10.89 }
+REFUSES:
+  part 1 does not reassemble from the tree: ['probes', 'pins']; pins moved ['packages/calibration/test/x75-no-opaque-glass.test.ts', 'packages/calibration/results/2026-10-07-w49a-g0-declaration/seal/seal.ts', 'packages/calibration/results/2026-10-07-w49a-g0-declaration/seal/test_seal.py']
+
+exit code: 1

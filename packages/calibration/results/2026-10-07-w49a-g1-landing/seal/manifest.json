@@ -1,0 +1,40 @@
+{
+  "what": "W49a G1: candidate p2-far0.1 sealed as the dark -glass0.25 receded document; the active and light untouched",
+  "charter": "docs/doperpowers/specs/2026-10-07-w49-authorised-list-repair.md",
+  "candidate": {
+    "declaration": "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/candidates/p2-far0.1/candidate.json",
+    "sha256": "8b252935154c30aa3b8f892ce4186c4a034b5f7088b1b492afb4d55473b96507"
+  },
+  "profiles": "packages/calibration/profiles",
+  "digestRule": 2,
+  "document": {
+    "file": "apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+    "fileSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735",
+    "resolvedMaterialSha256": "10202f6be6faaa7f",
+    "previousResolvedMaterialSha256": "be472bc8e42b618d",
+    "movedFromSnapshot": [
+      "tintAlphaFar1x",
+      "tintAlphaFar2x"
+    ],
+    "heldUnderX76": [
+      "backdropToneAnchorX",
+      "backdropToneBlackStrength",
+      "optics.clear.rimLevelGain",
+      "optics.regular.blurSigma",
+      "outerShadow.liftAmplitude",
+      "outerShadow.thinOcclusionDark",
+      "sizeFineTapShare",
+      "sizeFineTapSigma",
+      "sizeFineTapSigma2x",
+      "sizeHeavySecondShareFar2x",
+      "sizeHeavyTapSigma",
+      "sizeOcclusionGain",
+      "sizeScatterFloor2x",
+      "sizeScatterRampStartFar1x",
+      "sizeScatterSpanMax",
+      "sizeScatterSpanMax2x"
+    ],
+    "supersedes": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389",
+    "candidateEndpointSha256": "44b2596e4f225a4af1f7edb14f37952ba06b8ddad8ce934b022d91bc431dd14c"
+  }
+}

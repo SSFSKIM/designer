@@ -1,21 +1,17 @@
 {
   "$comment": [
-    "The macOS 27 dark RECEDED material at the Glass",
-    "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a difference over",
-    "apple-macos-27.0-1x-dark-standard-glass0.25.json, its own scheme's 0.25 active document (W43 Decision Log 7 item 8).",
+    "The macOS 27 dark RECEDED material at the Glass appearance slider's 0.25 position",
+    "(`NSGlassTintAmount` 0.25), as a difference over apple-macos-27.0-1x-dark-standard-glass0.25.json, its own scheme's 0.25 active document.",
     "",
-    "W48 G1, claims §5.213: the span-graded dark transmission and the receded fine term over",
-    "d0219cd684bf (two operators, the tone ordinates held), fitted in two stages in scratch under the hashed part 2 on the dark",
-    "WebGPU fit cells at both scales, T1 read against Apple's texture. The light 0.25 pair, the 0.5",
-    "generations and the 26.5 rows did not move (X60). It supersedes the document named in",
-    "`supersedes`; `entries` keeps the snapshot's record for every leaf W48 left where it was and",
-    "records each leaf W48 moved with its previous and 0.5 values. By X64 and X67 it may name",
-    "sizeScatterRampStartFar1x, sizeScatterFloor, sizeScatterFloor2x, sizeHeavyTapSigma, sizeHeavySecondShare, sizeHeavySecondShareFar2x, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, optics.regular.blurSigma, sizeScatterSpanMax, sizeScatterSpanMax2x, sizeOcclusionGain, tintAlphaFar1x, tintAlphaFar2x, sizeFineTapShare, sizeFineTapSigma and sizeFineTapSigma2x beside its 0.5 twin's leaves (X44 narrowed)."
+    "W49a G1: the receded far delta (family R) refitted so the unfocused body never draws opaque (X75),",
+    "over b2d074d2df24 unmoved. It supersedes the document named in `supersedes`; `entries` keeps the",
+    "snapshot's record for every leaf left where it was, records each moved leaf with its method, and",
+    "records every leaf the receded inherits from the active as an explicit hold with its reading (X76)."
   ],
   "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25-receded",
   "schemaVersion": 1,
-  "recordedAt": "2026-10-06",
-  "recordedBy": "W48 G1",
+  "recordedAt": "2026-10-07",
+  "recordedBy": "W49a G1",
   "colorSpace": "srgb",
   "kind": "receded-endpoint",
   "appliesOver": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
@@ -26,26 +22,22 @@
     "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
   },
   "derivedFromCandidate": {
-    "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
-    "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
-    "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/receded.dark.json",
-    "endpointSha256": "279939299213b748297411cbc2777578424dfa35575256b9f4df2f8ca9fa8464"
+    "declaration": "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/candidates/p2-far0.1/candidate.json",
+    "declarationSha256": "8b252935154c30aa3b8f892ce4186c4a034b5f7088b1b492afb4d55473b96507",
+    "endpoint": "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/candidates/p2-far0.1/receded.dark.json",
+    "endpointSha256": "44b2596e4f225a4af1f7edb14f37952ba06b8ddad8ce934b022d91bc431dd14c"
   },
   "supersedes": {
     "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
-    "sha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86",
-    "resolvedMaterialSha256": "280f0fddf014e0f6",
-    "generation": "packages/calibration/results/generations/d0219cd684bf.json"
+    "sha256": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389",
+    "resolvedMaterialSha256": "be472bc8e42b618d",
+    "generation": "packages/calibration/results/generations/b2d074d2df24.json"
   },
-  "resolvedMaterialSha256": "be472bc8e42b618d",
+  "resolvedMaterialSha256": "10202f6be6faaa7f",
   "resolvedMaterialSha256Rule": 2,
   "measurement": {
-    "gate": "W48 G1, claims §5.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
-    "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (§5.199); T1's bar from those runs (§5.202 §2)",
-    "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
-    "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
-    "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
-    "cuts": null
+    "gate": "W49a G1; charter docs/doperpowers/specs/2026-10-07-w49-authorised-list-repair.md; Decision Log 9 (the user's post-gate selection after DL2/DL4 read NEITHER)",
+    "candidate": "packages/calibration/results/2026-10-07-w49a-g0-declaration/probes/candidates/p2-far0.1/candidate.json"
   },
   "entries": {
     "backdropToneResponseThick": {
@@ -67,71 +59,6 @@
         "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
         "(Decision Log 7 item 3: only the thick row moves in dark)."
       ]
-    },
-    "optics.regular.blurSigma": {
-      "status": "materialised",
-      "value": 1.25,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeFineTapShare": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeFineTapSigma": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeFineTapSigma2x": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeHeavySecondShareFar2x": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeHeavyTapSigma": {
-      "status": "materialised",
-      "value": 0,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeOcclusionGain": {
-      "status": "materialised",
-      "value": 0.05,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeScatterFloor2x": {
-      "status": "materialised",
-      "value": 1,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeScatterRampStartFar1x": {
-      "status": "materialised",
-      "value": 0.2,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeScatterSpanMax": {
-      "status": "materialised",
-      "value": 160,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "sizeScatterSpanMax2x": {
-      "status": "materialised",
-      "value": 160,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "tintAlphaFar1x": {
-      "status": "materialised",
-      "value": 0.2,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
-    },
-    "tintAlphaFar2x": {
-      "status": "materialised",
-      "value": 0.2,
-      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)"
     },
     "optics.regular.tintAlpha": {
       "status": "measured",
@@ -228,6 +155,175 @@
         "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
       ]
     },
+    "backdropToneAnchorX": {
+      "status": "held",
+      "value": [
+        0.004,
+        0.11,
+        0.47,
+        0.95
+      ],
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: backdropToneAnchorX explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "backdropToneBlackStrength": {
+      "status": "held",
+      "value": 1,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: backdropToneBlackStrength explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "optics.clear.rimLevelGain": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: optics.clear.rimLevelGain explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "optics.regular.blurSigma": {
+      "status": "held",
+      "value": 1.25,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: optics.regular.blurSigma explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "outerShadow.liftAmplitude": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: outerShadow.liftAmplitude explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "outerShadow.thinOcclusionDark": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: outerShadow.thinOcclusionDark explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeFineTapShare": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeFineTapShare explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeFineTapSigma": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeFineTapSigma explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeFineTapSigma2x": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeFineTapSigma2x explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeHeavySecondShareFar2x": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeHeavySecondShareFar2x explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeHeavyTapSigma": {
+      "status": "held",
+      "value": 0,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeHeavyTapSigma explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeOcclusionGain": {
+      "status": "held",
+      "value": 0.05,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeOcclusionGain explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeScatterFloor2x": {
+      "status": "held",
+      "value": 1,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeScatterFloor2x explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeScatterRampStartFar1x": {
+      "status": "held",
+      "value": 0.2,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeScatterRampStartFar1x explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeScatterSpanMax": {
+      "status": "held",
+      "value": 160,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeScatterSpanMax explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "sizeScatterSpanMax2x": {
+      "status": "held",
+      "value": 160,
+      "inheritedFrom": "apple-macos-27.0-1x-dark-standard-glass0.25.json (resolved)",
+      "named": true,
+      "reading": [
+        "W49a Decision Log 9: sizeScatterSpanMax2x explicitly held at its inherited active value; the user selected only the receded far deltas, every other leaf unchanged."
+      ]
+    },
+    "tintAlphaFar1x": {
+      "status": "measured",
+      "value": 0.1,
+      "previous": 0.2,
+      "previousAt05": null,
+      "method": [
+        "W49a Decision Log 9: fitted at 0.10 by the user’s post-gate selection among G0 measured points after DL2/DL4 read NEITHER; tintAlpha 0.8 and every other leaf held.",
+        "G0 probes/report.txt: all three opaque repair cells predicted repaired; the three impulse costs explicitly authorised under DL9."
+      ]
+    },
+    "tintAlphaFar2x": {
+      "status": "measured",
+      "value": 0.1,
+      "previous": 0.2,
+      "previousAt05": null,
+      "method": [
+        "W49a Decision Log 9: fitted at 0.10 by the user’s post-gate selection among G0 measured points after DL2/DL4 read NEITHER; tintAlpha 0.8 and every other leaf held.",
+        "G0 probes/report.txt: all three opaque repair cells predicted repaired; the three impulse costs explicitly authorised under DL9."
+      ]
+    },
     "held": {
       "status": "held",
       "families": {
@@ -317,8 +413,8 @@
     "sizeScatterSpanMax": 160,
     "sizeScatterSpanMax2x": 160,
     "sizeOcclusionGain": 0.05,
-    "tintAlphaFar1x": 0.2,
-    "tintAlphaFar2x": 0.2,
+    "tintAlphaFar1x": 0.1,
+    "tintAlphaFar2x": 0.1,
     "sizeFineTapShare": 0,
     "sizeFineTapSigma": 0,
     "sizeFineTapSigma2x": 0

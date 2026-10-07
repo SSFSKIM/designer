@@ -254,11 +254,19 @@ describe("the glass 0.25 cells against this file's own oracle", () => {
   const reduced = reduceMatrix().cells.filter(atClearer);
 
   it("is read from the two generations the index names for the 0.25 profiles", () => {
-    // Each generation file is named by its active document's own hash, taken here.
+    // A receded-only reseal shares its active hash with retired rows and names the pair
+    // (W49a, claims §5.215). Both filename forms must still name the shipped document bytes;
+    // the row oracle below independently checks the complete pair, not just the active alias.
     const files = Object.keys(CLEARER_ROWS_BY_PROFILE).map((key) => INDEX.currentByProfile[key]);
-    expect(new Set(files)).toEqual(
-      new Set([`${onDisk[documentOf("light")]}.json`, `${onDisk[documentOf("dark")]}.json`]),
-    );
+    expect(new Set(files).size).toBe(2);
+    for (const scheme of ["light", "dark"] as const) {
+      const active = onDisk[documentOf(scheme)];
+      const receded = onDisk[documentOf(scheme, true)];
+      for (const scale of [1, 2]) {
+        const file = INDEX.currentByProfile[`apple-macos-27.0-${scale}x-${scheme}-standard-glass0.25`];
+        expect([`${active}.json`, `${active}-${receded}.json`]).toContain(file);
+      }
+    }
     expect(UNION.filter(atClearer).length).toBe(656 + 468);
   });
 

@@ -1,0 +1,11 @@
+{
+ "label": "p1-d0219-top160",
+ "base": "d0219",
+ "note": "probe P1: d0219cd684bf with only the active span tops sizeScatterSpanMax / 2x at 160 (W49 grounding F2 by render); the receded inherits them",
+ "overrides": {
+  "active.dark": {
+   "sizeScatterSpanMax": 160,
+   "sizeScatterSpanMax2x": 160
+  }
+ }
+}

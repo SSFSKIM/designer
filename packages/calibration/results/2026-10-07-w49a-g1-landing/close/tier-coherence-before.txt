@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w49/g0/packages/calibration
+
+ ❯ test/tier-coherence.test.ts (79 tests | 1 failed | 78 skipped) 9ms
+     × is live on the dark 0.25 pair at its sealed anchors (W48 G1) 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/tier-coherence.test.ts > W47 operator 1 is one law on both tiers (X65) > is live on the dark 0.25 pair at its sealed anchors (W48 G1)
+AssertionError: 0.25 dark receded: expected 0.1 to be 0.2 // Object.is equality
+
+- Expected
++ Received
+
+- 0.2
++ 0.1
+
+ ❯ test/tier-coherence.test.ts:3696:44
+    3694|     for (const { name, patch } of SHIPPED.filter((d) => LIVE.has(d.nam…
+    3695|       const profile = profileOf(patch);
+    3696|       expect(profile.tintAlphaFar1x, name).toBe(0.2);
+       |                                            ^
+    3697|       expect(profile.tintAlphaFar2x, name).toBe(0.2);
+    3698|       expect(sourceSize(patch as never).tintAlphaFar1x, name).toBe(0.2…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 78 skipped (79)
+   Start at  19:18:13
+   Duration  1.49s (transform 566ms, setup 0ms, import 1.38s, tests 9ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w49/g0/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/tier-coherence.test.ts -t 'is live on the dark 0.25 pair at its sealed anchors'

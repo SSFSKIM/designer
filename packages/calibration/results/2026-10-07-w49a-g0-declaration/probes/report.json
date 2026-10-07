@@ -1,0 +1,682 @@
+{
+ "P1": [
+  {
+   "scale": 1,
+   "scene": "checkerboard-32__rrect-lg__rest",
+   "read": 0.022809395391258785,
+   "predicted": 0.0228,
+   "B": 0.003011092320407159,
+   "d0219": 0.02923686111798437,
+   "native": 0.05840748658912891,
+   "holds": true
+  },
+  {
+   "scale": 1,
+   "scene": "checkerboard-64__rrect-lg__rest",
+   "read": 0.02970041704043702,
+   "predicted": 0.0297,
+   "B": 0.0029887634942280367,
+   "d0219": 0.0337913274553524,
+   "native": 0.08564789961732189,
+   "holds": true
+  },
+  {
+   "scale": 1,
+   "scene": "hc-text-28__rrect-lg__rest",
+   "read": 0.027048140323907968,
+   "predicted": 0.027,
+   "B": 0.00356383443528052,
+   "d0219": 0.031121977219956857,
+   "native": 0.046004272462960565,
+   "holds": true
+  },
+  {
+   "scale": 2,
+   "scene": "checkerboard-32__rrect-lg__rest",
+   "read": 0.02826352731827896,
+   "predicted": 0.0283,
+   "B": 0.003035846711247354,
+   "d0219": 0.034269014896672084,
+   "native": 0.05558957166395381,
+   "holds": true
+  },
+  {
+   "scale": 2,
+   "scene": "checkerboard-64__rrect-lg__rest",
+   "read": 0.034687368530066806,
+   "predicted": 0.0347,
+   "B": 0.0030027616798924974,
+   "d0219": 0.039455715359964866,
+   "native": 0.0846051801675408,
+   "holds": true
+  },
+  {
+   "scale": 2,
+   "scene": "hc-text-28__rrect-lg__rest",
+   "read": 0.0287382395069203,
+   "predicted": 0.0287,
+   "B": 0.0035924253991651144,
+   "d0219": 0.032474240316668276,
+   "native": 0.0419167345351378,
+   "holds": true
+  }
+ ],
+ "P2": {
+  "scales": {
+   "1x": {
+    "authority": {
+     "scale": 1,
+     "reach": [
+      "checkerboard-64__rrect-lg__inactive",
+      "checkerboard-8__rrect-lg__inactive",
+      "checkerboard__rrect-ml__inactive",
+      "hc-text__rrect-lg__inactive",
+      "impulse__rrect-lg__inactive",
+      "impulse__rrect-ml__inactive",
+      "photo__rrect-ml__inactive"
+     ],
+     "outside": [
+      {
+       "scene": "checkerboard-64__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard-8__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard-lc16__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive-tint-orange",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "hc-text-28__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "hc-text__rrect-sm__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "impulse__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__capsule-button__inactive-pressed",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__capsule-button__inactive-tint-orange",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      }
+     ],
+     "control": [
+      {
+       "scene": "checkerboard-64__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0014638274146142262,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard-8__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0016084573131457578,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard-lc16__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0022661162812558254,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0019296395654629069,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0016491413150363336,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive-tint-orange",
+       "delta": 0.0,
+       "bar": 0.0020998395018581506,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0015820592438979958,
+       "holds": true
+      },
+      {
+       "scene": "hc-text-28__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0017506685878430637,
+       "holds": true
+      },
+      {
+       "scene": "hc-text__rrect-sm__inactive",
+       "delta": 0.0,
+       "bar": 0.0018785489524516666,
+       "holds": true
+      },
+      {
+       "scene": "impulse__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0003682372381287589,
+       "holds": true
+      },
+      {
+       "scene": "photo__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0017611789850491297,
+       "holds": true
+      },
+      {
+       "scene": "photo__capsule-button__inactive-pressed",
+       "delta": 0.0,
+       "bar": 0.0017611789850491297,
+       "holds": true
+      },
+      {
+       "scene": "photo__capsule-button__inactive-tint-orange",
+       "delta": 0.0,
+       "bar": 0.002161307126460766,
+       "holds": true
+      },
+      {
+       "scene": "photo__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0016297591570372705,
+       "holds": true
+      }
+     ],
+     "verdict": "control holds",
+     "voidCells": []
+    },
+    "points": [
+     {
+      "label": "p2-far-0.1",
+      "far": -0.1,
+      "meets": false,
+      "objective": 0.7369246253465557,
+      "tau": 0.11402121901982637,
+      "failures": [
+       "(b) hc-text__rrect-lg__inactive +5.52 B against d0219",
+       "(b) impulse__rrect-lg__inactive +11.66 B against d0219",
+       "(c) impulse__rrect-ml__inactive +7.35 B against b2d074 (past 3 B)",
+       "(c) checkerboard__rrect-ml__inactive +2.53 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.193431038958631,
+        "referenceA": 0.39000789236583844,
+        "halved": true
+       },
+       "F inactive": {
+        "cells": 3,
+        "A": 0.384614531539583,
+        "referenceA": 0.8684365165499868,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0",
+      "far": 0,
+      "meets": false,
+      "objective": 0.6443197044859931,
+      "tau": 0.11402121901982637,
+      "failures": [
+       "(b) hc-text__rrect-lg__inactive +1.99 B against d0219",
+       "(b) impulse__rrect-lg__inactive +5.90 B against d0219",
+       "(c) impulse__rrect-ml__inactive +4.90 B against b2d074 (past 3 B)",
+       "(c) checkerboard__rrect-ml__inactive +1.58 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.193431038958631,
+        "referenceA": 0.39000789236583844,
+        "halved": true
+       },
+       "F inactive": {
+        "cells": 3,
+        "A": 0.384614531539583,
+        "referenceA": 0.8684365165499868,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.05",
+      "far": 0.05,
+      "meets": false,
+      "objective": 0.6055091177650157,
+      "tau": 0.11402121901982637,
+      "failures": [
+       "(b) impulse__rrect-lg__inactive +3.07 B against d0219",
+       "(c) impulse__rrect-ml__inactive +3.75 B against b2d074 (past 3 B)",
+       "(c) checkerboard__rrect-ml__inactive +1.13 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.193431038958631,
+        "referenceA": 0.39000789236583844,
+        "halved": true
+       },
+       "F inactive": {
+        "cells": 3,
+        "A": 0.384614531539583,
+        "referenceA": 0.8684365165499868,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.09",
+      "far": 0.09,
+      "meets": false,
+      "objective": 0.8233225496461957,
+      "tau": 0.11402121901982637,
+      "failures": [
+       "(c) impulse__rrect-ml__inactive +2.76 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.193431038958631,
+        "referenceA": 0.39000789236583844,
+        "halved": true
+       },
+       "F inactive": {
+        "cells": 3,
+        "A": 0.384614531539583,
+        "referenceA": 0.8684365165499868,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.1",
+      "far": 0.1,
+      "meets": false,
+      "objective": 0.9102594670042222,
+      "tau": 0.11402121901982637,
+      "failures": [
+       "(c) impulse__rrect-ml__inactive +2.37 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.193431038958631,
+        "referenceA": 0.39000789236583844,
+        "halved": true
+       },
+       "F inactive": {
+        "cells": 3,
+        "A": 0.384614531539583,
+        "referenceA": 0.8684365165499868,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.15",
+      "far": 0.15,
+      "meets": false,
+      "objective": 0.6720649938027994,
+      "tau": 0.11402121901982637,
+      "failures": [
+       "(a) checkerboard-64__rrect-lg__inactive +4.92 B against d0219",
+       "(c) impulse__rrect-ml__inactive +1.41 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.193431038958631,
+        "referenceA": 0.39000789236583844,
+        "halved": true
+       },
+       "F inactive": {
+        "cells": 3,
+        "A": 0.384614531539583,
+        "referenceA": 0.8684365165499868,
+        "halved": true
+       }
+      }
+     }
+    ],
+    "selected": null,
+    "why": "no point meets DL2 at this scale"
+   },
+   "2x": {
+    "authority": {
+     "scale": 2,
+     "reach": [
+      "checkerboard-64__rrect-lg__inactive",
+      "checkerboard-8__rrect-lg__inactive",
+      "checkerboard__rrect-ml__inactive",
+      "hc-text__rrect-lg__inactive",
+      "impulse__rrect-lg__inactive",
+      "impulse__rrect-ml__inactive",
+      "photo__rrect-ml__inactive"
+     ],
+     "outside": [
+      {
+       "scene": "checkerboard-64__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard-8__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard-lc16__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive-tint-orange",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "checkerboard__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "hc-text-28__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "hc-text__rrect-sm__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "impulse__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__capsule-button__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__capsule-button__inactive-pressed",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__capsule-button__inactive-tint-orange",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      },
+      {
+       "scene": "photo__rrect-md__inactive",
+       "reason": "farS = 0 at span <= 96 (predicted)"
+      }
+     ],
+     "control": [
+      {
+       "scene": "checkerboard-64__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.001470476854490478,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard-8__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0016117381978718894,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard-lc16__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0022805376245715893,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard-lc16__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.001926970989919517,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0016850235426620996,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard__capsule-button__inactive-tint-orange",
+       "delta": 0.0,
+       "bar": 0.002142961960268753,
+       "holds": true
+      },
+      {
+       "scene": "checkerboard__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0015425059008356372,
+       "holds": true
+      },
+      {
+       "scene": "hc-text-28__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0016736863562168787,
+       "holds": true
+      },
+      {
+       "scene": "hc-text__rrect-sm__inactive",
+       "delta": 0.0,
+       "bar": 0.001857722907202308,
+       "holds": true
+      },
+      {
+       "scene": "impulse__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0003315810640260002,
+       "holds": true
+      },
+      {
+       "scene": "photo__capsule-button__inactive",
+       "delta": 0.0,
+       "bar": 0.0017661346307971922,
+       "holds": true
+      },
+      {
+       "scene": "photo__capsule-button__inactive-pressed",
+       "delta": 0.0,
+       "bar": 0.0017661346307971922,
+       "holds": true
+      },
+      {
+       "scene": "photo__capsule-button__inactive-tint-orange",
+       "delta": 0.0,
+       "bar": 0.002166571709563458,
+       "holds": true
+      },
+      {
+       "scene": "photo__rrect-md__inactive",
+       "delta": 0.0,
+       "bar": 0.0016333970209323828,
+       "holds": true
+      }
+     ],
+     "verdict": "control holds",
+     "voidCells": []
+    },
+    "points": [
+     {
+      "label": "p2-far-0.1",
+      "far": -0.1,
+      "meets": false,
+      "objective": 0.6734061574846203,
+      "tau": 0.0848328050034273,
+      "failures": [
+       "(b) hc-text__rrect-lg__inactive +5.94 B against d0219",
+       "(b) impulse__rrect-lg__inactive +8.89 B against d0219",
+       "(c) impulse__rrect-ml__inactive +7.36 B against b2d074 (past 3 B)",
+       "(c) checkerboard__rrect-ml__inactive +2.76 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.20068735837956803,
+        "referenceA": 0.5065403915781401,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0",
+      "far": 0,
+      "meets": false,
+      "objective": 0.6668091483545152,
+      "tau": 0.0848328050034273,
+      "failures": [
+       "(b) hc-text__rrect-lg__inactive +2.34 B against d0219",
+       "(b) impulse__rrect-lg__inactive +5.01 B against d0219",
+       "(c) impulse__rrect-ml__inactive +4.93 B against b2d074 (past 3 B)",
+       "(c) checkerboard__rrect-ml__inactive +1.70 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.20068735837956803,
+        "referenceA": 0.5065403915781401,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.05",
+      "far": 0.05,
+      "meets": false,
+      "objective": 0.6644753528002633,
+      "tau": 0.0848328050034273,
+      "failures": [
+       "(b) impulse__rrect-lg__inactive +3.01 B against d0219",
+       "(c) impulse__rrect-ml__inactive +3.48 B against b2d074 (past 3 B)",
+       "(c) checkerboard__rrect-ml__inactive +1.22 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.20068735837956803,
+        "referenceA": 0.5065403915781401,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.09",
+      "far": 0.09,
+      "meets": false,
+      "objective": 0.6625533123270587,
+      "tau": 0.0848328050034273,
+      "failures": [
+       "(b) impulse__rrect-lg__inactive +1.47 B against d0219",
+       "(c) impulse__rrect-ml__inactive +2.79 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.20068735837956803,
+        "referenceA": 0.5065403915781401,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.1",
+      "far": 0.1,
+      "meets": false,
+      "objective": 0.7029613738850594,
+      "tau": 0.0848328050034273,
+      "failures": [
+       "(b) impulse__rrect-lg__inactive +1.09 B against d0219",
+       "(c) impulse__rrect-ml__inactive +2.63 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.20068735837956803,
+        "referenceA": 0.5065403915781401,
+        "halved": true
+       }
+      }
+     },
+     {
+      "label": "p2-far0.15",
+      "far": 0.15,
+      "meets": false,
+      "objective": 0.661315939908744,
+      "tau": 0.0848328050034273,
+      "failures": [
+       "(a) checkerboard-64__rrect-lg__inactive +7.00 B against d0219",
+       "(c) impulse__rrect-ml__inactive +1.49 B against b2d074"
+      ],
+      "unread": [],
+      "halvings": {
+       "C rest": {
+        "cells": 30,
+        "A": 0.20068735837956803,
+        "referenceA": 0.5065403915781401,
+        "halved": true
+       }
+      }
+     }
+    ],
+    "selected": null,
+    "why": "no point meets DL2 at this scale"
+   }
+  },
+  "verdict": "NEITHER: W49a closes at the finding and the parent asks the user (DL4)",
+  "landing": null
+ }
+}

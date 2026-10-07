@@ -1,0 +1,38 @@
+P2 predictions (first order; growth in B: vs d0219 for repair/flattered cells, vs b2d074 otherwise)
+cell                                                 part     role         -0.1     0.0    0.05    0.09     0.1    0.15
+1x checkerboard-32__rrect-lg__inactive               referee  repair      -4.23   -2.62   -1.16   +0.00   +0.29   +1.75   (d0219)
+1x checkerboard-64__rrect-lg__inactive               gate     repair     -14.15   -6.45   -2.60   +0.47   +1.24   +5.09   (point A)
+1x checkerboard-8__rrect-lg__inactive                gate     flattered   -2.37   -2.54   -2.63   -2.70   -2.72   -2.80   (point A)
+1x checkerboard__glass-over-glass__inactive          holdout  other       +7.35   +4.81   +3.53   +2.52   +2.26   +0.99   (proportional to 1 - alphaBase)
+1x checkerboard__rrect-ml__inactive                  gate     other       +0.43   +0.29   +0.22   +0.16   +0.14   +0.07   (point A)
+1x hc-text__rrect-lg__inactive                       gate     flattered   +3.77   +1.70   +0.67   -0.16   -0.36   -1.40   (point A)
+1x impulse__rrect-lg__inactive                       gate     flattered   +7.12   +2.90   +0.79   -0.90   -1.32   -3.43   (point A)
+1x impulse__rrect-ml__inactive                       gate     other       +5.84   +3.90   +2.92   +2.14   +1.95   +0.97   (point A)
+1x photo__glass-over-glass__inactive                 holdout  other       -5.41   -3.61   -2.71   -1.98   -1.80   -0.90   (proportional to 1 - alphaBase)
+1x photo__rrect-lg__inactive                         holdout  repair      -4.56   -2.16   -0.96   +0.00   +0.24   +1.44   (d0219)
+1x photo__rrect-ml__inactive                         gate     other       -4.20   -2.80   -2.10   -1.54   -1.40   -0.70   (point A)
+2x checkerboard-32__rrect-lg__inactive               referee  repair      +5.31   -0.18   -2.19   +0.00   +0.55   +3.29   (d0219)
+2x checkerboard-64__rrect-lg__inactive               gate     repair      -2.65  -10.27   -4.57   -0.01   +1.13   +6.83   (point A)
+2x checkerboard-8__rrect-lg__inactive                gate     flattered   -2.63   -2.65   -2.65   -2.66   -2.66   -2.67   (point A)
+2x checkerboard__glass-over-glass__inactive          holdout  other       +8.13   +5.18   +3.70   +2.52   +2.22   +0.74   (proportional to 1 - alphaBase)
+2x checkerboard__rrect-ml__inactive                  gate     other       +1.16   +0.78   +0.58   +0.43   +0.39   +0.19   (point A)
+2x hc-text__rrect-lg__inactive                       gate     flattered   +4.42   +2.27   +1.19   +0.33   +0.12   -0.96   (point A)
+2x impulse__rrect-lg__inactive                       gate     flattered   +6.74   +3.55   +1.95   +0.68   +0.36   -1.24   (point A)
+2x impulse__rrect-ml__inactive                       gate     other       +4.64   +3.09   +2.32   +1.70   +1.55   +0.77   (point A)
+2x photo__glass-over-glass__inactive                 holdout  other       -5.83   -3.89   -2.91   -2.14   -1.94   -0.97   (proportional to 1 - alphaBase)
+2x photo__rrect-lg__inactive                         holdout  repair      -5.01   -2.37   -1.06   +0.00   +0.26   +1.58   (d0219)
+2x photo__rrect-ml__inactive                         gate     other       -4.74   -3.16   -2.37   -1.74   -1.58   -0.79   (point A)
+
+DL2 per value and scale (predicted): repair (gate cell) <= B, flattered <= B, others <= B vs b2d074
+  1x far -0.10: fails: hc-text__rrect-lg__inactive +3.77B; impulse__rrect-lg__inactive +7.12B; impulse__rrect-ml__inactive +5.84B
+  1x far +0.00: fails: hc-text__rrect-lg__inactive +1.70B; impulse__rrect-lg__inactive +2.90B; impulse__rrect-ml__inactive +3.90B
+  1x far +0.05: fails: impulse__rrect-ml__inactive +2.92B
+  1x far +0.09: fails: impulse__rrect-ml__inactive +2.14B
+  1x far +0.10: fails: checkerboard-64__rrect-lg__inactive +1.24B; impulse__rrect-ml__inactive +1.95B
+  1x far +0.15: fails: checkerboard-64__rrect-lg__inactive +5.09B
+  2x far -0.10: fails: checkerboard__rrect-ml__inactive +1.16B; hc-text__rrect-lg__inactive +4.42B; impulse__rrect-lg__inactive +6.74B; impulse__rrect-ml__inactive +4.64B
+  2x far +0.00: fails: hc-text__rrect-lg__inactive +2.27B; impulse__rrect-lg__inactive +3.55B; impulse__rrect-ml__inactive +3.09B
+  2x far +0.05: fails: hc-text__rrect-lg__inactive +1.19B; impulse__rrect-lg__inactive +1.95B; impulse__rrect-ml__inactive +2.32B
+  2x far +0.09: fails: impulse__rrect-ml__inactive +1.70B
+  2x far +0.10: fails: checkerboard-64__rrect-lg__inactive +1.13B; impulse__rrect-ml__inactive +1.55B
+  2x far +0.15: fails: checkerboard-64__rrect-lg__inactive +6.83B

@@ -315,8 +315,8 @@ export const macos27Glass025RecededMaterialProfile: Readonly<
     sizeScatterSpanMax: 160,
     sizeScatterSpanMax2x: 160,
     sizeOcclusionGain: 0.05,
-    tintAlphaFar1x: 0.2,
-    tintAlphaFar2x: 0.2,
+    tintAlphaFar1x: 0.1,
+    tintAlphaFar2x: 0.1,
     sizeFineTapShare: 0,
     sizeFineTapSigma: 0,
     sizeFineTapSigma2x: 0,
@@ -342,5 +342,5 @@ export const MACOS_27_GLASS025_RESOLVED_MATERIAL_SHA256 = {
   light: "3741b22934f17f4d",
   dark: "791cde91d97acbc7",
   recededLight: "c4ca0e1cd6791bde",
-  recededDark: "be472bc8e42b618d",
+  recededDark: "10202f6be6faaa7f",
 } as const;

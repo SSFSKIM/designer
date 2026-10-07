@@ -166,9 +166,10 @@ alphaBase(px) = clamp(tintAlpha + rampAtScale(tintAlphaFar1x, tintAlphaFar2x, dp
 
 Identity 0 on both anchors, two plain value drops in the identity table. One uniform transmission
 could not open Apple's dark 0.25 thin body without over-opening the thick one (claims §5.209); the
-dark 0.25 pair now names `tintAlpha` 0.7 with far 0.2 / 0.2 and span tops 160 / 160, so the thin
-body is clearer and the thick one rejoins 0.9 (claims §5.213). The CSS tier mirrors the law per
-surface (`spanGradedTintAlpha`).
+dark 0.25 active names `tintAlpha` 0.7 with far 0.2 / 0.2 and span tops 160 / 160. W49a
+holds the receded 0.8 alpha and separates its far anchors to 0.1 / 0.1. Both poses therefore
+rejoin 0.9 at the thick end rather than making the receded body opaque (claims §5.215).
+The CSS tier mirrors the law per surface (`spanGradedTintAlpha`).
 
 **The span-graded tap (W45, 0.27.0).** `sizeHeavySecondShareFar2x` makes the
 second tap's share a function of the surface's span. The optics pass grades it
@@ -201,7 +202,10 @@ The light 0.25 pair also moves the deep composition the tap mixes into: the 2x f
 new leaf to 0, which rule 2 drops before hashing, so no other fingerprint moved. The dark
 0.25 pair (0.28.0) moves its span tops 256 → 160 at both scales, its active `tintAlpha` 0.9 →
 0.7 and receded 0.89 → 0.8, and its receded scatter; its digests are `791cde91d97acbc7` (active)
-and `be472bc8e42b618d` (receded), from `b074fc6913a91c66` / `280f0fddf014e0f6` (claims §5.213).
+and `10202f6be6faaa7f` (receded after W49a, from `be472bc8e42b618d` at 0.28.0).
+W49a holds every other leaf and reduces only the receded far deltas to 0.10 / 0.10, so its
+0.8 thin alpha rejoins 0.9 rather than 1.0 at span 160 on both tiers (claims §5.215).
+Before 0.28.0 the pair was `b074fc6913a91c66` / `280f0fddf014e0f6` (claims §5.213).
 
 `packages/renderer-webgpu/test/w30-inert-laws.test.ts` states each identity over
 a span sweep and both scales, and `e2e/gpu/w30-heavy-second-tap.spec.ts` opens
