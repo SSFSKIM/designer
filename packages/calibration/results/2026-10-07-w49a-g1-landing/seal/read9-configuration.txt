@@ -1,0 +1,26 @@
+== the frozen configuration (W31 Decision Log 1 (b)) ==
+  head                76e99eb5b
+  apple-macos-27.0-1x-light-standard-glass0.25.json    ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44
+  apple-macos-27.0-1x-dark-standard-glass0.25.json     b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186
+  apple-macos-27.0-1x-light-standard-glass0.25-receded.json 12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203
+  apple-macos-27.0-1x-dark-standard-glass0.25-receded.json 940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735
+  source list         14 files
+    packages/platform-web/src/css-tier.ts
+    packages/platform-web/src/optics.ts
+    packages/renderer-webgpu/src/material.ts
+    packages/renderer-webgpu/src/passes.ts
+    packages/renderer-webgpu/src/renderer.ts
+    packages/renderer-webgpu/src/wgsl/analysis.ts
+    packages/renderer-webgpu/src/wgsl/backdrop.ts
+    packages/renderer-webgpu/src/wgsl/cross-check.ts
+    packages/renderer-webgpu/src/wgsl/field.ts
+    packages/renderer-webgpu/src/wgsl/highlight.ts
+    packages/renderer-webgpu/src/wgsl/index.ts
+    packages/renderer-webgpu/src/wgsl/optics.ts
+    packages/renderer-webgpu/src/wgsl/prelude.ts
+    packages/renderer-webgpu/src/wgsl/silhouette-tone.ts
+  SOURCE SHA-256      df69367a8af50475831d7f3cde01a879ddf8b1f9574d9a9b2a40d4ddd5fff28c
+  source LIST SHA-256 c16d6294a00c8ac770781701b2154d636c7b287490526d49f3782aa1d2102a9d   (the enumeration, not the bytes)
+  referee manifest    0eb8ef7712adc0f7de53290190ab1b5d903d61806cc2039de0e99fb78de4c2cf   packages/calibration/results/2026-10-05-w46-g0-declaration/referees/referees.json (witness only)
+
+RECORDED — holdout read 9 at this configuration. configuration-log.json updated.
