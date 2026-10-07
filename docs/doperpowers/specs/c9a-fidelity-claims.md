@@ -49964,3 +49964,12 @@ new digest and DL10. The old W48 measurements remain historical evidence, not re
 The parent merges this branch and checks the canonical capture tree against the landed index;
 then the normal user-controlled version/release path applies. W49b is the next charter, not
 another selection or exposure in W49a.
+
+### 11. Released (recorded 2026-10-07, beside §10)
+
+W49a landed on main as `98a4fdbbf`, followed by `1300fee41` ("Release 0.28.1"). The registry
+reads 0.28.1 for `@vitreajs/vitrea`, `@vitreajs/vitrea-web` and `@vitreajs/vitrea-react`
+(dist-tag `latest`). `vitrea-web`'s 0.28.1 tarball names the dark 0.25 active digest
+`791cde91d97acbc7` and the new receded digest `10202f6be6faaa7f` (in four files), with its
+dependency on `@vitreajs/vitrea` at `^0.28.1`. W49a is CLOSED in its charter; tag correction
+pending with the user.

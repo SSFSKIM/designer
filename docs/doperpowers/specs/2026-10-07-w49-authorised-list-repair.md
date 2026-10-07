@@ -1,5 +1,11 @@
 # W49a — the opaque receded body repaired with the receded far delta, selected by the user after a NEITHER gate with three new exceptions named (2026-10-07)
 
+**Status: CLOSED 2026-10-07, after the release. W49a merged as `98a4fdbbf` (§5.215), followed
+by `1300fee41` ("Release 0.28.1"). npm's `latest` reads 0.28.1 for all three published packages;
+`vitrea-web`'s tarball carries dark 0.25 active digest `791cde91d97acbc7` and receded digest
+`10202f6be6faaa7f`, and depends on `@vitreajs/vitrea` `^0.28.1`; tag correction pending with the user.**
+The earlier status follows unchanged.
+
 **Status: LANDING COMPLETE ON BRANCH — awaiting parent merge and release (2026-10-07).**
 G0 reads NEITHER; the user selected far 0.10 after the gate (DL9); read 9's one missed repair
 keeps its original authorisation under DL10. The parent's DL1–DL8/DL10 and the user's DL9 are
