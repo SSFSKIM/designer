@@ -132,12 +132,18 @@ const W47_FINE_OPERATOR_LEAVES = ["sizeFineTapShare", "sizeFineTapSigma", "sizeF
 /** W49b D: transmission's own top at each scale, identity 0 follows scatter. */
 const W49B_D_OPERATOR_LEAVES = ["tintAlphaSpanMax", "tintAlphaSpanMax2x"] as const;
 
+/** W50 G0: the compact low-end chart is one strength-gated group, inert on every shipped endpoint.
+ * Its four additions change no pre-existing value in either frozen macOS 26.5 material.
+ */
+const W50_OPERATOR_LEAVES = ["lowEndStrength", "lowEnd44", "lowEnd96", "lowEnd160"] as const;
+
 /** Every later wave's additions, beside rather than rewriting either original list. */
 const OPERATOR_LEAVES: readonly string[] = [
   ...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES, ...W36_OPERATOR_LEAVES, ...W41_OPERATOR_LEAVES,
   ...W45_OPERATOR_LEAVES, ...W47_OPERATOR_LEAVES, ...W47_FINE_OPERATOR_LEAVES,
   ...W49B_D_OPERATOR_LEAVES,
   "sizeHeavySecondSigmaFar1x", "sizeHeavySecondSigmaFar2x", "backdropCaptureScale",
+  ...W50_OPERATOR_LEAVES,
 ];
 
 const HERE = import.meta.dirname;
@@ -216,7 +222,7 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
       expect(
         without(resolved, OPERATOR_LEAVES),
         `${key}: the resolved material differs from the pre-wave evidence outside ` +
-          `the named W30/W31/W36/W41/W45/W47 operator leaves — an operator wave may add its own ` +
+          `the named operator leaves appended through W50 — an operator wave may add its own ` +
           `leaves and nothing else`,
       ).toStrictEqual(without(preWave, OPERATOR_LEAVES));
     });

@@ -8,11 +8,12 @@ W49b's impulse diagnosis found a roughly twenty-code loss on the large receded b
 fifteen-code loss on dark-solid; active impulse bodies fail in the opposite direction. A texture
 fit cannot certify repair of the wrong body level.
 
-This is a **grounding draft, not an approved capture or material change**. The recommendation is
-one compact, measured low-end response with coherent solve authority, on the four dark macOS 27
-endpoints. First capture the missing near-black controls. Do not change the black anchor alone,
-reuse W42's extrapolated low-end rows as observations, or spend W49b's thirteen-hour texture bed.
-The open rulings at the tail govern continuation. Until ruled, X41 remains fully in force.
+DL1–DL4 approve one compact, measured low-end response with coherent solve authority on the four
+dark macOS 27 endpoints. G0 lands its instrument at identity and prepares the compact native bed;
+no fitted material is approved without the fixed gate. First capture the missing near-black
+controls. Do not change the black anchor alone, reuse W42's extrapolated low-end rows as
+observations, or spend W49b's thirteen-hour texture bed. DL2 permits only its enumerated conditional
+X41 publication delta after PASS; the original X41 witness remains fully intact in G0.
 
 ## Progress
 
@@ -27,7 +28,7 @@ The open rulings at the tail govern continuation. Until ruled, X41 remains fully
   capture retirement and the prospective X41 delta are explicit. The independent reader found
   no material reader bug and reproduced 404/44 and the historical diagnostic table exactly.
   Inventory replay preserves both JSON outputs; the W50 CSV changes only CRLF to LF.
-- [ ] Parent/user rulings: scope/default freeze, the native sitting, law and landing rule.
+- [x] Parent/user rulings DL1–DL4: scope/default freeze, native sitting, family and fixed rule.
 - [ ] G0 declaration/instrument/bed, including independent review, completed before any new pixel.
 - [ ] G1 native identification, inert implementation, fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
@@ -216,8 +217,7 @@ endpoint or scale, or the composed uniform transfer fails the drawdown condition
 return NEITHER. Do not change the support or add a spline knot after a gate result. G0's numerical
 rehearsal must include zero collapse and every existing no-tone/no-sample, alpha, collapse and
 policy stand-down, preserving their thresholds and strength folds. The new family cannot silently
-take authority from the fully collapsed or unsampled cases. This is a pre-measurement draft
-correction; no new native or candidate reading exists.
+take authority from the fully collapsed or unsampled cases. This is the approved pre-measurement family; no fitted coefficient or new native reading exists.
 
 At gate0 the new chart is one identity-table gate-group; no default or existing document digest
 moves. With strength>0, chart validation requires finite ordered knots and declared neutral
@@ -269,15 +269,14 @@ and boundary projection are measured, not assumed equivalent to GPU silhouette r
 Implementation sites also include `renderer-webgpu/src/material.ts` (material/patch types,
 validation, identity table and CPU response), `renderer-webgpu/src/renderer.ts` (uniform inputs),
 `renderer-webgpu/src/wgsl/optics.ts`, `platform-web/src/renderer-bridge.ts` (public renderer patch
-surface), generators for both macOS27 document pairs, and the owner test. This draft changes none
-of them.
+surface), generators for both macOS27 document pairs, and the owner test. G0 changes these seams behind an identity gate and changes no shipped document.
 
 Only the **four dark macOS27 documents** are eligible: active/receded at0.25 and0.5. Light and26.5
 remain at gate0. A receded patch must be resealed over its new active document even if a leaf did
 not numerically move. No light/a11y profile document is silently rewritten to accommodate a dark
 change. The new standard-dark generations must declare the full membership each replaces.
 
-## Minimal identifying native sitting — proposed, not authorised
+## Minimal identifying native sitting — DL3 authorised, positive grant still required
 
 Both dark poses, both glass positions0.25/0.5, both1x/2x: eight configurations. Use a wave-local
 512x384 canvas to fit a392x224 rounded rectangle with meaningful clearance; all smaller controls
@@ -299,14 +298,14 @@ canvas bridge scenes (dark-solid lg and impulse lg), opening/closing, add32. **1
 24 main capture launches plus16 bridge launches. No layer-tree sweep is required to answer this
 level question; record the native state needed for admission, not W42's entire dump experiment.
 
-The estimate uses W42's observed cadence, not human-hours:9.5333s/frame at1x,9.5322s at2x;
-launch overhead10.878/11.427s. The envelope is about4.36h capture/launch time,4.80h with10% stop
-loss, plus a30-minute setup/slider/scale restore allowance: **about5.3h reserved**. G0 must run
-W43's estimator on the actual pass plan and replace this labelled estimate before seeking X5.
-Three repeats are proposed instead of seven because this is a uniform-level instrument, with
-an explicit stop: if the native spread exceeds1 code in a required population, do not fit or
-quietly add runs; return the repeat/noise decision before a new declaration. The irreversible
-permissions are native capture and any bundle/grant change; nothing in this draft grants them.
+G0 prices the actual40-launch pass plan with W43's estimator: **4.27h capture and boundaries,
+4.70h with10% stop loss,5.20h including30minutes for setup/slider/scale restore**. Its exact inputs
+and outputs live under `results/2026-10-08-w50-g0-declaration/bed/`. Three repetitions replace seven
+because this is a uniform-level instrument, with an explicit stop: if the native spread exceeds
+1 code in a required population, do not fit or quietly add runs; return the repeat/noise decision
+before a new declaration. DL3 authorises this sitting only after a positive noninteractive grant
+check. The unchanged W39 side bundle is the sole allowed capture bundle; no original build or
+permission mutation is part of G0.
 
 **Split declared before capture, including dependencies.** Core levels0/2/4/8/28/40/64 are
 calibration;1/3/5/6/12 validation;7/20 blind. Span128 controls are validation and224 blind. The
@@ -334,7 +333,7 @@ is the prospective blind referee; no capture exists and no pixel has been spent 
 
 ### G0 — declaration and instrument, before new pixels
 
-Finish this draft only after DL1–DL4 are ruled. Build the wave-local bed/split, actual timed pass
+DL1–DL4 are ruled; finish the instrument before any new pixel. Build the wave-local bed/split, actual timed pass
 plan, role-isolated exporter and verified archive reader; rehearse supplied-path cuts on synthetic
 uniforms and existing admitted controls. Material/source dimensions and all probe identities must
 be fixed before capture. Emit part1 with the law family, inputs, bands, bar, scope and complete
@@ -413,22 +412,36 @@ Expected:404 inventory rows/44 non-held anchor reads; W49b table byte-identical;
 X41911 intact. `attribute.py` reads the main checkout's canonical capture tree **read-only**.
 Its absence is an environmental blocker for replay, not permission to regenerate canonical data.
 
-## Open Decision Log
+## Decision Log
 
-No entry below is ruled by this document or by its authoring worker.
+The following four rulings are recorded verbatim (2026-10-08).
 
-| ID | Decision needed | Recommendation |
-| --- | --- | --- |
-| DL1 | Priority and scope | Put near-black level ahead of another texture wave; all four dark macOS27 endpoints, no light/26.5 change. |
-| DL2 | X41 exception for the default | Authorise the enumerated dark0.5 publication delta below **only after this gate passes**, with a new prospective supersession witness. Preserve the original911-entry X41 record as immutable historical evidence. This is an open recommendation, not approval; no such change is authorised in grounding/G0. |
-| DL3 | Native sitting/X5 and grant | Approve building the minimal plan, then separately authorise its timed capture (about5.3h reserved), with a positively checked compatible granted bundle and restoration. Do not inherit W49b's13h texture sitting. |
-| DL4 | Family, referee and rule | Approve compact measured low-end target plus coherent authority, the stated blind split and no-post-gate-amendment landing rule. No same-wave exception landing. |
+DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
+scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
 
-### DL2 — prospective X41 publication delta (unruled)
+DL2 (USER, AskUserQuestion answer "허용 (권장)"). The complete conditional X41 exception the
+grounding enumerated is authorised: a new default dark 0.5 generation (two source documents,
+dark-only generated/default projections, new generation file, index record and aliases,
+retirement and current selection), ONLY if the hashed gate passes. Old aliases, files,
+fixtures, light bytes and the original X41 witness are preserved, and a new prospective
+supersession witness is added. A NEITHER changes nothing.
 
-The proposed exception must enumerate the complete publication change, not merely new endpoint
-patches. If the user rules it, the new prospective supersession witness must check exactly these
-approved deltas:
+DL3 (USER, "X5 해제, .w39 재허용 (권장)"). X5 is lifted for W50's compact native low-end bed.
+The capture bundle is the unchanged W39 side bundle /Users/new/vitrea-w39/side/VitreaReference.app,
+which the user re-grants in System Settings > Privacy & Security > Screen Recording. Nothing
+launches it until a positive grant check passes (a non-interactive check that cannot raise a
+prompt). The original bundle is never rebuilt. G0 prices the actual pass plan; the sitting runs
+under the classifying census and the W43 sitting tooling's protections.
+
+DL4 (parent). The family, the blind split and the fixed per-cell landing rule are approved as
+drafted. There is no post-gate amendment and no exception landing; failure is NEITHER. The
+W49b templates (the batch bound inside the renderer, transitive-import sealing) are required.
+
+### DL2 — conditional X41 publication delta (ruled)
+
+The authorised conditional exception enumerates the complete publication change, not merely new
+endpoint patches. Only after the hashed gate passes may the prospective supersession witness admit
+exactly these deltas:
 
 1. One new immutable dark0.5 generation file under `packages/calibration/results/generations/`,
    containing the complete membership of the generation it replaces, and its new `index.files`
@@ -452,7 +465,7 @@ Preserve all light bytes, fixtures, old generation bytes and all other X41-prote
 original X41 witness and recorded projection remain immutable historical evidence, not edited or
 resealed to make a changed live generation pass. The new witness pins the old evidence before any
 approved mutation and permits only the explicitly ruled deltas above; extra changes are a failure.
-This list grants no approval and does not supersede X41 while DL2 is open.
+This list permits no G0 mutation: the original X41 witness stays intact until a PASS publication.
 
 ## Surprises and discoveries
 

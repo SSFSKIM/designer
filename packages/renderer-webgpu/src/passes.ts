@@ -284,6 +284,10 @@ export interface OpticsPassArgs {
   readonly backdropToneBlackStrength: number;
   readonly backdropToneBlackThin: number;
   readonly backdropToneBlackThick: number;
+  readonly lowEndStrength: number;
+  readonly lowEnd44: readonly [number, number, number, number];
+  readonly lowEnd96: readonly [number, number, number, number];
+  readonly lowEnd160: readonly [number, number, number, number];
   /** DOM-layer mode: 0 is off, 1 is unknown tone, and 2 has a measured tone. */
   readonly domMaterial?: {
     readonly mode: number;
@@ -810,7 +814,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 156);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 172);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -1050,6 +1054,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[153] = args.heavySecondFarEnabled ? 1 : 0;
       d[154] = 0;
       d[155] = 0;
+      // W50 appends its own gate and three rows; no prior uniform lane moves.
+      d[156] = args.lowEndStrength;
+      d[157] = 0; d[158] = 0; d[159] = 0;
+      d.set(args.lowEnd44, 160);
+      d.set(args.lowEnd96, 164);
+      d.set(args.lowEnd160, 168);
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

@@ -2112,6 +2112,16 @@ export interface MaterialProfile {
   readonly backdropToneBlackThin: number;
   readonly backdropToneBlackThick: number;
 
+  /** W50 DL4: encoded output ordinates at input codes 0/8/28/40, on physical spans
+   * 44/96/160. Linear in input and span, holding outer span rows. Gate zero takes
+   * the old arithmetic exactly; the fixed 64 join reads the old law at the actual
+   * span rather than interpolating row endpoints. All four leaves drop together.
+   */
+  readonly lowEndStrength: number;
+  readonly lowEnd44: readonly [number, number, number, number];
+  readonly lowEnd96: readonly [number, number, number, number];
+  readonly lowEnd160: readonly [number, number, number, number];
+
   /** The outer shadow (W8) — see `MaterialOuterShadow`. */
   readonly outerShadow: MaterialOuterShadow;
 
@@ -3237,6 +3247,10 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneBlackStrength: 0,
   backdropToneBlackThin: 0,
   backdropToneBlackThick: 0,
+  lowEndStrength: 0,
+  lowEnd44: [0, 0, 0, 0],
+  lowEnd96: [0, 0, 0, 0],
+  lowEnd160: [0, 0, 0, 0],
 
   /*
    * FITTED (recalibration cascade, 2026-08-31). W8's geometry SURVIVES the fit
@@ -3693,6 +3707,14 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
     whyGated: "Plain value drop: the identity executes the original path without an added sample or pass.",
     claims: "c9a §5.216; W49b DL2",
   },
+  {
+    wave: "W50", gate: { lowEndStrength: 0 },
+    gated: ["lowEnd44", "lowEnd96", "lowEnd160"],
+    law: "A compact encoded low-end chart replaces target and authority below code 64; gate0 takes the old path.",
+    inertLawCase: "packages/renderer-webgpu/test/w50-low-end.test.ts",
+    whyGated: "The chart rows are unread when the strength gate is zero.",
+    claims: "c9a §5.217; W50 DL4",
+  },
 ];
 
 /**
@@ -3909,6 +3931,10 @@ export interface MaterialProfilePatch {
   readonly backdropToneBlackStrength?: number;
   readonly backdropToneBlackThin?: number;
   readonly backdropToneBlackThick?: number;
+  readonly lowEndStrength?: number;
+  readonly lowEnd44?: readonly [number, number, number, number];
+  readonly lowEnd96?: readonly [number, number, number, number];
+  readonly lowEnd160?: readonly [number, number, number, number];
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
   readonly rimLitAxis?: readonly [number, number];
@@ -4072,6 +4098,22 @@ export function withMaterialOverrides(
     }
   }
 
+  const lowEndStrength = patch.lowEndStrength === undefined ? base.lowEndStrength : patch.lowEndStrength;
+  if (!Number.isFinite(lowEndStrength) || lowEndStrength < 0 || lowEndStrength > 1) {
+    throw new RangeError("lowEndStrength must be finite in [0, 1]");
+  }
+  const lowEnd44 = patch.lowEnd44 === undefined ? base.lowEnd44 : patch.lowEnd44;
+  const lowEnd96 = patch.lowEnd96 === undefined ? base.lowEnd96 : patch.lowEnd96;
+  const lowEnd160 = patch.lowEnd160 === undefined ? base.lowEnd160 : patch.lowEnd160;
+  if (lowEndStrength > 0) {
+    for (const row of [lowEnd44, lowEnd96, lowEnd160]) {
+      if (!Array.isArray(row) || row.length !== 4 || row.some((v, i) =>
+        !Number.isFinite(v) || v < 0 || v > 1 || (i > 0 && v < row[i - 1]!))) {
+        throw new RangeError("W50 low-end rows require four ordered finite encoded levels in [0, 1]");
+      }
+    }
+  }
+
   const optics = {} as Record<MaterialVariant, MaterialOptics>;
   for (const variant of MATERIAL_VARIANTS) {
     optics[variant] = { ...base.optics[variant], ...patch.optics?.[variant] };
@@ -4207,6 +4249,7 @@ export function withMaterialOverrides(
     backdropToneBlackStrength: patch.backdropToneBlackStrength ?? base.backdropToneBlackStrength,
     backdropToneBlackThin: patch.backdropToneBlackThin ?? base.backdropToneBlackThin,
     backdropToneBlackThick: patch.backdropToneBlackThick ?? base.backdropToneBlackThick,
+    lowEndStrength, lowEnd44, lowEnd96, lowEnd160,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },
     lightDirection: patch.lightDirection ?? base.lightDirection,
     rimLitAxis: patch.rimLitAxis ?? base.rimLitAxis,
@@ -4620,6 +4663,34 @@ export function backdropToneResponse(
   thickness: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
   levelFar = 0,
+  span = 44,
+): number {
+  if (profile.lowEndStrength > 0 && encodedInput < 64 / 255) {
+    const rowA = span < 96 ? profile.lowEnd44 : profile.lowEnd96;
+    const rowB = span < 96 ? profile.lowEnd96 : profile.lowEnd160;
+    const spanT = Math.min(1, Math.max(0, span < 96 ? (span - 44) / 52 : (span - 96) / 64));
+    const row = rowA.map((v, i) => v + (rowB[i]! - v) * spanT);
+    const code = Math.max(0, encodedInput * 255);
+    let target: number;
+    if (code <= 40) {
+      const xs = [0, 8, 28, 40];
+      const i = code <= 8 ? 0 : code <= 28 ? 1 : 2;
+      target = row[i]! + (row[i + 1]! - row[i]!) * (code - xs[i]!) / (xs[i + 1]! - xs[i]!);
+    } else {
+      const join = linearToSrgbChannel(oldBackdropToneResponse(64 / 255, thickness, profile, levelFar));
+      target = row[3]! + (join - row[3]!) * (code - 40) / 24;
+    }
+    const linear = srgbToLinearChannel(target);
+    if (profile.lowEndStrength === 1) return linear;
+    const old = oldBackdropToneResponse(encodedInput, thickness, profile, levelFar);
+    return old + (linear - old) * profile.lowEndStrength;
+  }
+  return oldBackdropToneResponse(encodedInput, thickness, profile, levelFar);
+}
+
+/** Kept separate so the live branch's fixed join cannot call itself recursively. */
+function oldBackdropToneResponse(
+  encodedInput: number, thickness: number, profile: MaterialProfile, levelFar: number,
 ): number {
   const xs = profile.backdropToneAnchorX;
   const f = smoothstep(0, 1, thickness);
@@ -4716,7 +4787,11 @@ export function backdropToneSolveWeight(
   const anchor = profile.backdropToneAnchorX[0];
   const authority = smoothstep(anchor * 0.5, anchor, encodedInput);
   const black = backdropToneBlackWeight(encodedInput, profile);
-  return black === 0 ? authority : authority + (1 - authority) * black;
+  const old = black === 0 ? authority : authority + (1 - authority) * black;
+  if (profile.lowEndStrength > 0 && encodedInput < 64 / 255) {
+    return old + (1 - old) * profile.lowEndStrength;
+  }
+  return old;
 }
 
 /**

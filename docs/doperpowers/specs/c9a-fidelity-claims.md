@@ -50191,3 +50191,102 @@ those pixel checks. All ten digests, 43 cross-tree renderer rasters and 132 dark
 captures are unchanged; 34 golden tests, 57 GPU tests, the 1,818 frozen entries and X41's 911 pass.
 The native bed remains declared, unspent and user-gated. No document, matrix generation, fixture,
 owner threshold, release version or changeset changed; no merge or push was performed.
+
+## 5.217 W50 G0 — the dark low-end chart landed inert; the compact sitting awaits its grant
+
+W50's charter is `2026-10-08-w50-dark-low-end-response.md`; DL1–DL4 are recorded there verbatim.
+DL1 places all four dark macOS27 endpoints in scope. The user's DL2 permits the complete named
+X41 dark0.5 publication delta **only after the fixed gate passes**; old aliases, files, light
+bytes, fixtures and the original X41 witness remain evidence. DL3 lifts X5 for the compact sitting
+on the unchanged W39 side bundle, behind a positive noninteractive grant check. DL4 fixes the
+family, blind split and per-cell landing intersection: no post-gate amendment or exception landing.
+G0 does not fit a coefficient, change a document or publish a generation.
+
+### 1. One compact target and its authority, on both tiers
+
+`lowEndStrength:0` gates three four-ordinate rows (`lowEnd44`, `lowEnd96`, `lowEnd160`) as one
+identity-table group. The ordinates are encoded normalized output levels at input codes0/8/28/40;
+interpolation is linear in input and physical span, holding the outer span rows. The fixed64
+join reads the **old law at the actual span's thickness and far-level term**, not an interpolated
+join from the three row spans. Between40 and64 output interpolates in encoded space to that join;
+the response target is decoded to linear light. Target and authority move together, with full
+eligible authority at strength1. At gate0 and at/above input64 the old arithmetic executes exactly.
+
+The renderer appends four vec4s after all existing optics uniform lanes. CSS mirrors the chart
+per surface and passes the actual member span through `materialAtBackdrop`. The bridge already
+derives its patch type through the renderer interface; no separate field list required changing.
+Both macOS27 generators already print arbitrary tuple patch leaves through `print-patch.mjs`;
+a new round-trip case proves the complete chart, without regenerating any endpoint module.
+Enabled rows must be four finite ordered encoded levels in[0,1], and the gate must be finite in[0,1].
+Neither a valid row ordering nor a successful clamp certifies a fitted candidate.
+
+`lowEndNeutralRequest` returns the actual unclamped neutral-channel requests from the same CSS
+solve state used by the material, or no request outside the active law/old eligibility. Its
+structured fixture preserves the independent linear mean instead of replacing it with the decoded
+encoded argument; it detects the negative request that the normal gamut clamp would conceal.
+The dense synthetic rehearsal uses a running maximum, so sub-tolerance adjacent decreases cannot
+accumulate into drift. It covers0–64 at1/64-code steps, spans32–224 at every integer, both scales
+and all four dark endpoint bases. These are **synthetic on-state proofs, not fitted/native results**.
+Existing alpha, no-tone/no-sample, collapse and policy stand-downs keep their thresholds and folds.
+A real-adapter read of the production chart functions agrees with the CPU within0.001 encoded code;
+a separate pixel test proves the new uniform block reaches the body and respects old solve gates.
+
+### 2. Identity is recorded by bytes, not inferred from the zero default
+
+Evidence is under `results/2026-10-08-w50-g0-declaration/evidence/`. All ten resolved material
+fingerprints still equal their documents' recorded digests. The 43 raw renderer rasters (30
+endpoint/DPR readings and13 golden scenes) match the existing W49b post-operator witness exactly,
+whose ten current documents are unchanged. All34 golden tests pass. The new gate's identity-table
+entry is literal-pinned, and the frozen26.5 material comparison excludes only the four newly
+introduced leaves, never an older difference or a changed historical hash.
+
+A strict unchanged-document scratch read contains28 dark controls over both positions and scales.
+The24 cells with prior canonical captures are raw-RGBA byte-identical. Four default-active
+impulse ml/lg cells had no current canonical image; G0 now has their current scratch captures,
+not an invented identity comparison. Their native targets already existed. These captures live
+under `/Users/new/vitrea-w50/identity-controls-complete/`; they are not canonical publication and
+must remain available for the sealed reference map. The earlier20-cell scratch read is retained
+separately. Every pass records the classifying census, actual argv, exit status and capture metadata.
+
+The workspace build and lint pass; **3,286 unit tests pass**, with four absent-tree skips. A
+read-only owner-suite run against the canonical tree closes those checks at165/165. Renderer GPU
+checks pass58 with the optional cross-tree recorder skipped in that aggregate; the recorder was
+run separately and supplied the43 exact witnesses above. Freeze1,818 and X41911 remain intact.
+No material/fixture/generation/threshold/release bytes changed. The operator's independent high
+review found no material findings and ran111 targeted checks; it did not claim native identification.
+
+### 3. The actual compact pass plan and permission boundary
+
+The512×384 bed contains448 identifying glass cells (176 calibration,160 validation,112 blind),
+three repetitions each. Its1,344 glass frames,128 no-glass references,96 operational sentinels and
+32 original320×200 bridge frames total **1,600 stored frames over40 launches**. Seven inter-pass
+slider writes and three display switches are explicit. W43's estimator applied to that actual
+plan reads15,382.41 seconds /4.27h capture and boundaries,4.70h with10% stop loss, and **5.20h
+reserved** including30minutes setup/restoration. This replaces the grounding's labelled5.3h estimate.
+Original-canvas bridge references remain tied to their own position, pose and scale. Opening and
+closing sentinels bracket the harness's real lexical capture order, not only the planner's array.
+
+The read-only TCC query found **no positive ScreenCapture grant for
+`dev.vitrea.reference-apple.w39`**. The unchanged executable hashes to
+`02052b175dd14bfbe2713d8e566c9b650011000f8f72de87a965f070c38b6498`, with CDHash
+`be258cbfc53e5cec6b49ecdec01f126872400b29`. G0 launched no native app, requested no TCC permission,
+modified no TCC state and rebuilt no original bundle. The user must re-grant the unchanged
+`/Users/new/vitrea-w39/side/VitreaReference.app`; the noninteractive positive check must then pass
+again before any launch. There is no `w50-archive` release or native capture hash yet.
+
+### 4. Operational seals are not a claim that fitting is ready
+
+The two-part declaration fixes the family, split, predictions and exact conditional X41 scope,
+with no amendment verb. Its pre-native reference inventory declares3,525 keyed statistics/tier
+entries;154 inherited dark0.25 T1 readings retain their own historical caps, and unavailable
+readings say UNMEASURED. The four current dark source-document bytes are preserved by full hash.
+An additive pre-fit evidence seal must bind the admitted archive and complete exposed references
+without changing their identities, roles, supports, historical caps or already-known values.
+Blind identities/dependencies remain sealed without reading their statistics merely to complete
+that bookkeeping. The numerical and measured gates remain an intersection, not a pass-by-omission.
+
+The custom new-bed512×384 web adapter and new native measurements remain G1 work and explicit
+pre-fit blockers. A missing numerical candidate proof also refuses a render; runtime synthetic
+proofs are not a substitute for the fitted cohort or its independent structured arguments.
+No prospective native blind pixel or statistic has been opened. The next authorised action is the
+sitting after the user grant, not a texture refit, an exception landing or a silent changed floor.

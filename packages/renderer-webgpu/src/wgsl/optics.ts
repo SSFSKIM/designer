@@ -275,6 +275,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// W49b D: independent transmission top in CSS px (x), padding (yzw). Zero takes the old
   /// scatter farS expression exactly. Nonzero anchors were resolved before DPR interpolation.
   transmissionSpan : vec4f,
+  // W50: gate and encoded ordinates at input codes 0/8/28/40, by physical span.
+  lowEnd : vec4f,
+  lowEnd44 : vec4f,
+  lowEnd96 : vec4f,
+  lowEnd160 : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -318,6 +323,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 fn srgb_encode(c : f32) -> f32 {
   let x = clamp(c, 0.0, 1.0);
   return select(1.055 * pow(x, 1.0 / 2.4) - 0.055, x * 12.92, x <= 0.0031308);
+}
+
+fn srgb_decode(c : f32) -> f32 {
+  let x = clamp(c, 0.0, 1.0);
+  return select(pow((x + 0.055) / 1.055, 2.4), x / 12.92, x <= 0.04045);
 }
 
 fn body_e3_neutral(level : f32) -> f32 {
@@ -424,6 +434,28 @@ fn tone_response(x : f32, sizeK : f32, levelFar : f32) -> f32 {
        + y1 * t * t * (3.0 - 2.0 * t)
        + s1 * h * t * t * (t - 1.0)
        + levelFar;
+}
+
+// Compact chart, called only below input 64 and inside the existing solve gate.
+// The join reads the old law at this pixel's thickness and far-level offset.
+fn low_end_response(x : f32, span : f32, sizeK : f32, levelFar : f32) -> f32 {
+  var row = mix(ou.lowEnd44, ou.lowEnd96, vec4f(clamp((span - 44.0) / 52.0, 0.0, 1.0)));
+  if (span >= 96.0) {
+    row = mix(ou.lowEnd96, ou.lowEnd160, vec4f(clamp((span - 96.0) / 64.0, 0.0, 1.0)));
+  }
+  let code = max(0.0, x * 255.0);
+  var ordinate : f32;
+  if (code <= 8.0) {
+    ordinate = mix(row.x, row.y, code / 8.0);
+  } else if (code <= 28.0) {
+    ordinate = mix(row.y, row.z, (code - 8.0) / 20.0);
+  } else if (code <= 40.0) {
+    ordinate = mix(row.z, row.w, (code - 28.0) / 12.0);
+  } else {
+    let join = srgb_encode(tone_response(64.0 / 255.0, sizeK, levelFar));
+    ordinate = mix(row.w, join, (code - 40.0) / 24.0);
+  }
+  return srgb_decode(ordinate);
 }
 
 /// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
@@ -1302,11 +1334,18 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
         (1.0 - smoothstep(0.0, 0.003, encodedInput));
       authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), blackWeight);
     }
+    let lowEndOn = ou.lowEnd.x > 0.0 && encodedInput < 64.0 / 255.0;
+    if (lowEndOn) {
+      authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), ou.lowEnd.x);
+    }
     if (authority > 0.0) {
       var response = tone_response(encodedInput, sizeK, toneLevelFar);
       if (blackWeight > 0.0) {
         let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
         response = mix(response, mix(ou.toneBlack.y, ou.toneBlack.z, f), blackWeight);
+      }
+      if (lowEndOn) {
+        response = mix(response, low_end_response(encodedInput, span, sizeK, toneLevelFar), ou.lowEnd.x);
       }
       // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
       // mean, which toneAnchor.w carries — not toward the encoded level.
