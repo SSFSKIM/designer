@@ -911,11 +911,8 @@ const api = {
    * hiccup should not move a summary of sixty frames.
    */
   async bench(input: {
-    readonly configs: readonly {
+    readonly configs: readonly (BenchSceneConfig & {
       readonly label: string;
-      readonly widthCss: number;
-      readonly heightCss: number;
-      readonly devicePixelRatio: number;
       readonly family?: "rsupn" | "rsup";
       /**
        * Optical constants for this row — the same seam the isolation proof uses.
@@ -928,7 +925,7 @@ const api = {
        * state at least as much as it measures the renderer.
        */
       readonly materialProfile?: MaterialProfilePatch;
-    }[];
+    })[];
     readonly rounds: number;
     readonly warmup: number;
   }): Promise<{
@@ -936,6 +933,10 @@ const api = {
     readonly rounds: number;
     readonly results: readonly {
       readonly label: string;
+      /** Exact declared geometry and source passed to the renderer for this row. */
+      readonly scene: Scene;
+      /** Includes warmup; a live source must rebuild once per frame, not just once per run. */
+      readonly pyramidRebuilds: number;
       readonly gpuMsPerFrame: number | undefined;
       readonly gpuP95: number | undefined;
       readonly wallMsPerFrame: number;
@@ -949,10 +950,12 @@ const api = {
 
     const runs = await Promise.all(
       input.configs.map(async (config) => {
-        const run = await setUpScene(benchScene(config), config.materialProfile);
+        const scene = benchScene(config);
+        const run = await setUpScene(scene, config.materialProfile);
         if (config.family !== undefined) run.renderer.governor.set({ fieldFamily: config.family });
         return {
           config,
+          scene,
           run,
           wall: [] as number[],
           gpuFrames: [] as number[],
@@ -1027,6 +1030,8 @@ const api = {
           for (const label of Object.values(PASS_LABEL)) passMs[label] ??= 0;
           return {
             label: entry.config.label,
+            scene: entry.scene,
+            pyramidRebuilds: entry.run.renderer.instrumentation.pyramid.rebuilds,
             gpuMsPerFrame: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.5),
             gpuP95: entry.timedFrames === 0 ? undefined : quantile(entry.gpuFrames, 0.95),
             wallMsPerFrame: quantile(entry.wall, 0.5),
@@ -1046,6 +1051,18 @@ const api = {
 
 };
 
+export interface BenchSceneConfig {
+  readonly widthCss: number;
+  readonly heightCss: number;
+  readonly devicePixelRatio: number;
+  /** Morph height in CSS px; absent preserves the original span-96 benchmark. */
+  readonly morphSpanCss?: number;
+  /** Press channel; set 0 to retain the declared span rather than compressing it. Default 0.35. */
+  readonly morphPress?: number;
+  /** Square live source extent in texels; absent preserves the original 256 × 256 source. */
+  readonly backdropSize?: number;
+}
+
 /**
  * §Performance envelope's benchmark scene: 8 surfaces, 3 groups, one video-like
  * (always-dirty) backdrop, one active morph.
@@ -1054,11 +1071,7 @@ const api = {
  * is what a morph costs the renderer: the corner is re-derived and the instance
  * repacked every frame, and there is no cheaper state than that.
  */
-function benchScene(config: {
-  readonly widthCss: number;
-  readonly heightCss: number;
-  readonly devicePixelRatio: number;
-}): Scene {
+export function benchScene(config: BenchSceneConfig): Scene {
   const { widthCss, heightCss } = config;
   const surfaces = (prefix: string, count: number, y: number, size: [number, number]) =>
     Array.from({ length: count }, (_, i) => ({
@@ -1085,7 +1098,8 @@ function benchScene(config: {
     devicePixelRatio: config.devicePixelRatio,
     // One video-like backdrop: dirty every frame, so the pyramid is rebuilt
     // every frame — which is most of what the budget is spent on.
-    backdrop: { kind: "checkerboard", cell: 12, live: true },
+    backdrop: { kind: "checkerboard", cell: 12, live: true,
+      ...(config.backdropSize === undefined ? {} : { size: config.backdropSize }) },
     groups: [
       {
         groupId: "toolbar",
@@ -1109,13 +1123,14 @@ function benchScene(config: {
             family: "fixed-rounded-rect",
             shape: {
               center: [widthCss / 2, heightCss * 0.8],
-              size: [widthCss * 0.6, 96],
+              size: [widthCss * 0.6, config.morphSpanCss ?? 96],
               radii: [30, 30, 30, 30],
               smoothing: 0.62,
               thickness: 16,
             },
             reference: "figma-smoothing",
-            channels: { press: 0.35, glow: 0.8, sweep: 0.6, shimmer: 1, lensStrength: 1 },
+            channels: { press: config.morphPress ?? 0.35,
+              glow: 0.8, sweep: 0.6, shimmer: 1, lensStrength: 1 },
           },
         ],
         backdropSourceId: "bg",

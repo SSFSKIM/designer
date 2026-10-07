@@ -1,0 +1,276 @@
+{
+  "$comment": [
+    "The macOS 27 light RECEDED material at the Glass",
+    "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a difference over",
+    "apple-macos-27.0-1x-light-standard-glass0.25.json, its own scheme's 0.25 active document (W43 Decision Log 7 item 8).",
+    "",
+    "W45 G1, claims §5.206: the refit of W43's c05 at 2x through the span-graded tap (the second",
+    "heavy tap's share graded on the scatter's far curve, sizeHeavySecondShareFar2x), fitted in two",
+    "stages from two starting points in scratch under the hashed part 2, on the 2x light WebGPU fit",
+    "cells, T1 read against Apple's texture with its bar from the seven-run archive. Only",
+    "2x-anchored leaves moved, so the 1x light rows are W43's byte for byte (X48). It supersedes the",
+    "c05 document named in `supersedes`; `entries` keeps W43's record for every leaf W45 left where",
+    "c05 put it and records each leaf W45 moved with its c05 and 0.5 values. By Decision Log 2 it",
+    "may name sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x and sizeHeavySecondShareFar2x beside its 0.5 twin's leaves (X44 narrowed)."
+  ],
+  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-03",
+  "recordedBy": "W49b exploratory grounding wide10-share05; not a sealed document",
+  "colorSpace": "srgb",
+  "kind": "receded-endpoint",
+  "appliesOver": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+  "resolvedOverActiveDocument": "active.light.json",
+  "glassTintAmount": 0.25,
+  "twin": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd"
+  },
+  "derivedFromCandidate": {
+    "declaration": "packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/candidate.json",
+    "declarationSha256": "44fda03afb995f58c3975d9b38a9f9ae1db721ba71c9925fe9b42857bfb116fe",
+    "endpoint": "packages/calibration/results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/receded.light.json",
+    "endpointSha256": "83e5c3b3342172dc8fa6e47fd36a0034bda78436f49e9701c93c6d589cff68cc"
+  },
+  "supersedes": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+    "sha256": "4d5f23d9d312ed0c9c473060e8485088ab0f40d746be90ee073d72e878b85db7",
+    "resolvedMaterialSha256": "5d8680980b7aeb55",
+    "generation": "packages/calibration/results/generations/6d18c059eb42.json"
+  },
+  "resolvedMaterialSha256": "c4ca0e1cd6791bde",
+  "resolvedMaterialSha256Rule": 2,
+  "measurement": {
+    "gate": "W45 G1, claims §5.206; charter docs/doperpowers/specs/2026-10-03-w45-span-selective-texture.md clauses 5-8; Decision Logs 1-4",
+    "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-light-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (§5.199); T1's bar from those runs (§5.202 §2)",
+    "fixtureSets": "the fit cells (2x light T1 cells less the canonical holdout and the referee manifest) fitted; no holdout or referee read to fit",
+    "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
+    "objective": "part 2's stage objectives (T1's selection metric over each stage's cells) under its search procedure and selection rule, from c05 and W44's joint point (results/2026-10-03-w45-g1-refit/fit/path/)",
+    "cuts": "results/2026-10-03-w45-g1-refit/fit/candidates/c-s2x-t0.65-rcq0.25-rcd-0.125-rcs18-rcf0-rck0-rct0.1/cuts.json.gz"
+  },
+  "entries": {
+    "backdropToneBlackThick": {
+      "status": "measured",
+      "value": 0.180351,
+      "previous": 0.23455058216100522,
+      "method": [
+        "Equal to backdropToneBlackThin, as W36 declared them."
+      ]
+    },
+    "backdropToneBlackThin": {
+      "status": "measured",
+      "value": 0.180351,
+      "previous": 0.23455058216100522,
+      "method": [
+        "Not identified on the calibration set (its untinted impulse cells are validation cells):",
+        "Apple's own measured change at the impulse knot (light active -0.0527, receded -0.0542), thin",
+        "equal to thick as W36 declared them. Validation reads the light impulse within L1."
+      ]
+    },
+    "backdropToneResponseThick": {
+      "status": "measured",
+      "value": [
+        0.0894,
+        0.231,
+        0.4288,
+        0.8086
+      ],
+      "previous": [
+        0.1442,
+        0.2823,
+        0.4695,
+        0.832
+      ],
+      "method": [
+        "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
+        "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
+        "(Decision Log 7 item 3: only the thick row moves in dark)."
+      ]
+    },
+    "backdropToneResponseThin": {
+      "status": "measured",
+      "value": [
+        0.1105,
+        0.2045,
+        0.4217,
+        0.8117
+      ],
+      "previous": [
+        0.1647,
+        0.2809,
+        0.4775,
+        0.8293
+      ],
+      "method": [
+        "The light thin row, solved on the calibration set under L1's clauses (|err| <= 0.055 and",
+        "growth <= 0.005 against the pre-fit render, 0.003 margin) over a MEASURED Jacobian: one +0.02",
+        "probe per ordinate (fit/specs/j-*.json, fit/solve_tone.py). The impulse anchor is not identified",
+        "on calibration and carries Apple's own 0.25-0.5 change at that knot (G2's delta)."
+      ]
+    },
+    "sizeScatterFloor": {
+      "status": "measured",
+      "value": 1,
+      "previous": 0.7,
+      "method": [
+        "The light receded deep share at 1x, 0.7 -> 1.0, against the receded checkerboards the active",
+        "transmission step would otherwise over-structure further (the receded document names no",
+        "transmission leaf of its own, X44)."
+      ]
+    },
+    "sizeHeavySecondShare": {
+      "status": "measured",
+      "value": 0.25,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W45 G1 (claims §5.206 §11): stage 1 as part 2's permitted full factorial of the deep family on its declared grids from both starting points (the parent's ruling of 2026-10-04), then stage 2 (the thin start, then the receded component) under part 2 e6874e02's search procedure; both paths converged on this point; the stage objective is T1's selection metric over the stage's 2x light WebGPU fit cells (no referee or holdout)",
+        "active: stage 1 factorial share {0.25, 0.5, 0.75}, landed 0.5; receded: stage 2's receded share as a fraction of the active {0, 0.25, 0.5, 0.75, 1}, landed x0.5 = 0.25 (W44 Decision Log 7 item 1)"
+      ]
+    },
+    "sizeHeavySecondShareFar2x": {
+      "status": "measured",
+      "value": -0.125,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W45 G1 (claims §5.206 §11): stage 1 as part 2's permitted full factorial of the deep family on its declared grids from both starting points (the parent's ruling of 2026-10-04), then stage 2 (the thin start, then the receded component) under part 2 e6874e02's search procedure; both paths converged on this point; the stage objective is T1's selection metric over the stage's 2x light WebGPU fit cells (no referee or holdout)",
+        "the operator (W45 Decision Log 1), domain [-share, 0] (Decision Log 7 item 2): active landed -0.25 (-0.5 x share) on the absolute grid; receded as a fraction of the active {0, 0.5, 1}, landed x0.5 = -0.125"
+      ]
+    },
+    "sizeHeavyTapSigma2x": {
+      "status": "measured",
+      "value": 18,
+      "previous": 14,
+      "previousAt05": 14,
+      "method": [
+        "W45 G1 (claims §5.206 §11): stage 1 as part 2's permitted full factorial of the deep family on its declared grids from both starting points (the parent's ruling of 2026-10-04), then stage 2 (the thin start, then the receded component) under part 2 e6874e02's search procedure; both paths converged on this point; the stage objective is T1's selection metric over the stage's 2x light WebGPU fit cells (no referee or holdout)",
+        "receded: stage 2's heavy tap width {14 ... 24} device px, landed 18"
+      ]
+    },
+    "sizeScatterRampStartFar2x": {
+      "status": "measured",
+      "value": 0,
+      "previous": 0.04,
+      "previousAt05": 0.04,
+      "method": [
+        "W45 G1 (claims §5.206 §11): stage 1 as part 2's permitted full factorial of the deep family on its declared grids from both starting points (the parent's ruling of 2026-10-04), then stage 2 (the thin start, then the receded component) under part 2 e6874e02's search procedure; both paths converged on this point; the stage objective is T1's selection metric over the stage's 2x light WebGPU fit cells (no referee or holdout)",
+        "receded: stage 2's tied thick/far starts {0 ... 0.04}, landed 0"
+      ]
+    },
+    "sizeScatterRampStartThick2x": {
+      "status": "measured",
+      "value": 0,
+      "previous": 0.04,
+      "previousAt05": 0.04,
+      "method": [
+        "W45 G1 (claims §5.206 §11): stage 1 as part 2's permitted full factorial of the deep family on its declared grids from both starting points (the parent's ruling of 2026-10-04), then stage 2 (the thin start, then the receded component) under part 2 e6874e02's search procedure; both paths converged on this point; the stage objective is T1's selection metric over the stage's 2x light WebGPU fit cells (no referee or holdout)",
+        "receded: stage 2's tied thick/far starts {0 ... 0.04}, landed 0"
+      ]
+    },
+    "sizeScatterRampStartThin2x": {
+      "status": "measured",
+      "value": 0.1,
+      "previous": 0.7,
+      "previousAt05": 0.7,
+      "method": [
+        "W45 G1 (claims §5.206 §11): stage 1 as part 2's permitted full factorial of the deep family on its declared grids from both starting points (the parent's ruling of 2026-10-04), then stage 2 (the thin start, then the receded component) under part 2 e6874e02's search procedure; both paths converged on this point; the stage objective is T1's selection metric over the stage's 2x light WebGPU fit cells (no referee or holdout)",
+        "active: stage 2's thin start {0.46 ... 0.95}, landed 0.65; receded: stage 2's receded thin start {0.1 ... 0.7}, landed 0.1"
+      ]
+    },
+    "held": {
+      "status": "held",
+      "families": {
+        "rimAndHighlight": "every rim and highlight leaf holds its 0.5 value (Decision Log 7 item 6)",
+        "outerShadow": "every outerShadow leaf holds, the receded zeros included (item 7); C1 reads identically to the pre-fit render on every cell",
+        "lens": "every lens leaf holds (the geometry did not move, §5.200 §4)",
+        "bodyChromaRetention": "held (item 4): M1 passes on the candidate, so the retention does not move",
+        "tintShade": "held (item 5): no tint cell misses a gate; the light receded tint reads +0.023 OKLab L light on average, a named gap",
+        "darkScatter": "held at the 0.5 values (item 2): the dark probes c01d / c01g and c02's step found no net gain on the calibration set",
+        "accessibility": "the accessibility leaves carry the 0.5 values, unmeasured at 0.25 (Decision Log 2 (b))"
+      }
+    }
+  },
+  "patch": {
+    "backdropToneAbscissa": {
+      "kind": "silhouette"
+    },
+    "tintChromaScale": 0,
+    "tintShadeCollapseRetention": 1,
+    "tintShadeStrength": 1,
+    "optics": {
+      "regular": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      },
+      "clear": {
+        "rimAlpha": 0,
+        "rimLevelGain": 0,
+        "shadowAlpha": 0
+      }
+    },
+    "rimCollapsed": 0,
+    "rimCollapsedTinted": 0,
+    "outerShadow": {
+      "thinOcclusionDark": 0,
+      "thinOcclusionMid": 0,
+      "thinOcclusionBright": 0,
+      "thickOcclusionAt96": 0,
+      "thickOcclusionAt128": 0,
+      "thickOcclusionAt160": 0,
+      "liftAmplitude": 0,
+      "reducedTransparencyOcclusion": 0
+    },
+    "sizeScatterRampStartThick1x": 0.3,
+    "sizeScatterRampStartThick2x": 0,
+    "sizeScatterRampStartFar2x": 0,
+    "sizeHeavyTapSigma2x": 18,
+    "tintShadeDark": 0.0288,
+    "tintShadeLight": 0.76,
+    "reducedTintAdaptation": 0.88,
+    "sizeScatterFloor": 1,
+    "sizeScatterRampStartThin1x": 0.55,
+    "sizeScatterRampStartThin2x": 0.1,
+    "backdropToneAnchorX": [
+      0.004,
+      0.11,
+      0.425,
+      0.95
+    ],
+    "backdropToneResponseThin": [
+      0.1105,
+      0.2045,
+      0.4217,
+      0.8117
+    ],
+    "backdropToneResponseThick": [
+      0.0894,
+      0.231,
+      0.4288,
+      0.8086
+    ],
+    "refractionScale": {
+      "approximate": 0
+    },
+    "increasedOcclusionLift": 0.96,
+    "increasedOcclusionLiftByPolicy": {
+      "reduceTransparency": 0.88,
+      "increaseContrast": 0.98
+    },
+    "strongBorderRim": {
+      "rimWidth": 1,
+      "rimAlpha": -3.5
+    },
+    "bodyChromaRetention": 0.349,
+    "backdropToneBlackStrength": 1,
+    "backdropToneBlackThin": 0.180351,
+    "backdropToneBlackThick": 0.180351,
+    "sizeHeavySecondShare": 0.25,
+    "sizeHeavySecondShareFar2x": -0.125
+  },
+  "derivedFrom": {
+    "path": "/Users/new/vitrea-w49/b-g0/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+    "sha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203"
+  }
+}

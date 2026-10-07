@@ -94,9 +94,11 @@ import {
   scatterGainAtScale,
   scatterGainFarAtScale,
   heavySecondTapSigmaAtScale,
+  heavySecondFarTapSigmaAtScale,
   fineTapSigmaAtScale,
   heavySecondShareFarAtScale,
   tintAlphaFarAtScale,
+  tintAlphaSpanMaxAtScale,
   heavyTapSigmaAtScale,
   scatterHeavyShareThickAtScale,
   scatterRampReachDevicePx,
@@ -575,7 +577,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         existing.heavy2SigmaCss,
       );
       const sameFine = sameHeavySigma(fineSigmaCssFor(sourceId), existing.fineSigmaCss);
-      if (sameDensity && sameSigma && sameHeavy && sameHeavy2 && sameFine) continue;
+      const sameHeavy2Far = sameHeavySigma(
+        heavySecondFarSigmaCssFor(sourceId), existing.heavy2FarSigmaCss);
+      const sameCapture = material.backdropCaptureScale === existing.captureScale;
+      if (sameDensity && sameSigma && sameHeavy && sameHeavy2 && sameFine &&
+          sameHeavy2Far && sameCapture) continue;
       requests.push({
         sourceId,
         epoch: existing.builtEpoch,
@@ -690,6 +696,11 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
    * on the heavy taps' rule; otherwise the resolver owns the share gate and scale interpolation.
    * There is no DPR division here: unlike the first heavy tap, these anchors are already CSS px.
    */
+  const heavySecondFarSigmaCssFor = (sourceId: string): number => {
+    if (bodySigmaCssFor(sourceId) <= 0) return 0;
+    return heavySecondFarTapSigmaAtScale(material, viewport.devicePixelRatio);
+  };
+
   const fineSigmaCssFor = (sourceId: string): number => {
     if (bodySigmaCssFor(sourceId) <= 0) return 0;
     return fineTapSigmaAtScale(material, viewport.devicePixelRatio);
@@ -807,6 +818,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           // the first one.
           heavy2SigmaCss: heavySecondSigmaCssFor(request.sourceId),
           fineSigmaCss: fineSigmaCssFor(request.sourceId),
+          heavy2FarSigmaCss: heavySecondFarSigmaCssFor(request.sourceId),
+          captureScale: material.backdropCaptureScale,
           viewportCss: [viewport.widthCss, viewport.heightCss],
           ...(isUsablePlacement(placement) ? { placement } : {}),
         },
@@ -1154,6 +1167,8 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         state.refraction,
       );
       const refractionScale = material.refractionScale[refraction];
+      const transmissionTop = tintAlphaSpanMaxAtScale(material, dpr);
+      const scatterTop = scatterSpanMaxAtScale(material, dpr);
 
       passes.opticsPass(encoder, {
         resourceId: resourceOf(input.groupId),
@@ -1296,6 +1311,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // W47's body tap has no pose inside it: the receded document alone names a live share.
         // Presence, not width or share independently, is the shader's allocation gate.
         fineTapShare: material.sizeFineTapShare,
+        heavySecondFarEnabled: pyramid?.heavy2Far !== undefined,
         fineTapEnabled: pyramid?.fine !== undefined,
         // W45's grading of that share on the far curve (claims §5.205): resolved at this group's
         // ratio here, beside the share, and multiplied by the shader's own per-pixel `farS` —
@@ -1305,6 +1321,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // group's ratio and multiplied by the shader's own per-pixel `farS` — never by a
         // per-group span, for the same reason as the share's above.
         tintAlphaFar: tintAlphaFarAtScale(material, dpr),
+        // W49b D: 0 selects the old shader expression when the resolved tops agree, including
+        // a zero anchor at a pure scale in a mixed pair. Otherwise pack the independent top.
+        tintAlphaSpanMax: transmissionTop === scatterTop ? 0 : transmissionTop,
         // W31's body chroma retention (claims §5.164): a material constant, per
         // group, with no source-side half — the chromaticity it restores toward
         // is the blurred backdrop the optics pass already sampled per pixel.
@@ -1365,7 +1384,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // `kDeep` and for the fold; only the value is resolved from the
         // viewport now, as the ramp's anchors already were.
         sizeScatterFloor: scatterFloorAtScale(material, dpr),
-        sizeScatterSpanMax: scatterSpanMaxAtScale(material, dpr),
+        sizeScatterSpanMax: scatterTop,
         // The body's depth ramp (W13 G1, claims §5.61 §2, §5.64 §5), resolved
         // from the viewport's own ratio: the profile anchors the start's thin
         // and thick ends and the reach at dpr 1 and dpr 2, and the CPU
@@ -1471,6 +1490,7 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
                 heavy: pyramid.heavy?.createView(),
                 heavy2: pyramid.heavy2?.createView(),
                 fine: pyramid.fine?.createView(),
+                heavy2Far: pyramid.heavy2Far?.createView(),
               },
       });
 

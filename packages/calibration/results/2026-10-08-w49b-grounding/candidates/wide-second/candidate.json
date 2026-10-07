@@ -1,0 +1,26 @@
+{
+  "kind": "vitrea-candidate-material-document",
+  "schemaVersion": 1,
+  "name": "apple-macos-27.0-glass0.25-w49b-grounding-wide-second",
+  "platform": "macOS 27.0",
+  "glassTintAmount": 0.25,
+  "endpoints": {
+    "active.light": {
+      "path": "active.light.json",
+      "sha256": "fc1a1681fe570f11bc72cad43958d45f44fc11d526c821771defea8d7bf9394a"
+    },
+    "active.dark": {
+      "path": "active.dark.json",
+      "sha256": "e7b298651cbe1efa824e889fa5171446f1551961108a546516b7bc5d31128a38"
+    },
+    "receded.light": {
+      "path": "receded.light.json",
+      "sha256": "f17a4a1f32904f52ce5808d240e7743bbfec3b7a31ab604a7259309e41fdf92c"
+    },
+    "receded.dark": {
+      "path": "receded.dark.json",
+      "sha256": "8c070071d2f6670271d4858fd46dc52e231a3691cfa1759e316cf9e99d51ed9b"
+    }
+  },
+  "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+}

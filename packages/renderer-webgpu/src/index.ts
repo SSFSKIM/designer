@@ -279,11 +279,13 @@ export {
   heavyTapSigmaAtScale,
   // W30 G2's second heavy width, gated on its own share (claims §5.158).
   heavySecondTapSigmaAtScale,
+  heavySecondFarTapSigmaAtScale,
   fineTapSigmaAtScale,
   // W45's far-curve delta on that tap's share, 2x-anchored (claims §5.205).
   heavySecondShareFarAtScale,
   // W47's far-curve delta on the transmission, and the base alpha it grades (claims §5.211).
   tintAlphaFarAtScale,
+  tintAlphaSpanMaxAtScale,
   spanGradedTintAlpha,
   scatterRampAreaMean,
   scatterRampReachDevicePx,

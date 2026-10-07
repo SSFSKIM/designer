@@ -1331,6 +1331,8 @@ describe("the size law reaches the CSS tier", () => {
     // W47 operator 1, inert here for the same reason: the transmission's far-curve delta.
     tintAlphaFar1x: 0,
     tintAlphaFar2x: 0,
+    tintAlphaSpanMax: 0,
+    tintAlphaSpanMax2x: 0,
     refractionScale: MATERIAL_SOURCE_SIZE.refractionScale,
   } as const;
   // The size law's occlusion facet lands on the SOURCE alpha since W17 G1

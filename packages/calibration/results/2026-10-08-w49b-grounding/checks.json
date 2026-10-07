@@ -1,0 +1,31 @@
+{
+  "scope": "Grounding only. No runtime/material/owner-test/canonical publication changes.",
+  "baseCommit": "98a4fdbbf",
+  "checks": [
+    {"command":"pnpm install --frozen-lockfile && pnpm -r build", "exitCode":0},
+    {"command":"python3.12 -I results/2026-09-16-w29-freeze/freeze.py verify", "exitCode":0, "result":"26.5 freeze intact: 1818 entries"},
+    {"command":"pnpm exec tsx results/2026-10-01-w43-g0-declaration/x41/x41.ts verify", "exitCode":0, "result":"X41 0.5 generation intact: 911 entries"},
+    {"command":"build.ts replay of all four probes manifests, then diff -qr against original candidates", "exitCode":0, "result":"All ten candidate document sets byte-identical after switching source reads to pinned snapshots"},
+    {"command":"python3.12 -I results/2026-10-08-w49b-grounding/verify.py", "exitCode":0, "result":"15 authorisations, 27 named-miss cells, 10 candidate sets, 14 scale-runs, 342 gate cells; no referee/holdout render"},
+    {"command":"isolated scientific Python -I results/2026-10-08-w49b-grounding/verify.py --recompute", "exitCode":0, "result":"All 342 corrected cell readings match full scratch/pixel recomputation; original evidence unchanged; historical T-low sign witness passes"},
+    {"command":"git diff --check", "exitCode":0}
+  ],
+  "independentReviews": {
+    "spec":"Adversarial reviewer found two substantive issues: combined scatter-top ladders affect below-knee cells, and historical witnesses must survive an empty exception list.",
+    "evidence":"Medium reviewer verified candidate digests, historical references, gate membership and thick separation; found historical T growth used raw T1 rather than T1-low.",
+    "closure":"One bounded fix wave addressed all three. Parent verified the diff and recomputed all readings. Original numerical evidence retained; corrected output is probe-readings-corrected.json. No new render or parent ruling."
+  },
+  "notClaimed": ["ESLint invocation exits zero but ignores results scripts; not lint validation", "No full unit/e2e/golden rerun after this evidence-only change", "No new operator implemented or tested at identity", "No complete all-fifteen feasible fit identified"],
+  "environment": {
+    "renderInterpreter":"python3.12 (standard library only)",
+    "imageInterpreter":"/Users/new/vitrea-w49/b-grounding-scratch/venv/bin/python",
+    "imagePackages":{"numpy":"2.5.3","pillow":"12.3.0","scipy":"1.18.1"},
+    "note":"The system python3.12 NumPy extension was x86_64 and could not load in its ARM interpreter; its Rosetta launch also failed. Image analysis used a new isolated Homebrew Python venv, not changes to the system packages.",
+    "browser":"Chromium 151.0.7922.34, verified in all measured rows",
+    "census":"Passed before every launch, saved beside each matrix",
+    "firstRunToolError":"The first run rendered thin-active completely, then the runner used the wrong matrix envelope key. Corrected reader to cells, verified exact membership afterward, and ran only the remaining labels. That candidate was not rendered twice."
+  },
+  "scratchCaptureRoot":"/Users/new/vitrea-w49/b-grounding-scratch/renders",
+  "canonicalPixels":"Read only from /Users/new/Developer/GitHub/designer/packages/calibration/web-captures and its superseded siblings",
+  "safety":"No foreign process killed or quit; no native capture, permission change, merge or push."
+}

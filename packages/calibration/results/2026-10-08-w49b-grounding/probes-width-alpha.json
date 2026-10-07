@@ -1,0 +1,8 @@
+{
+  "status": "Fourth and final exploratory round; declared after width/share readings, before this render. Not selection for a landing.",
+  "base": "b2d074d2df24-940384c06f73",
+  "question": "Width changed pitch response while the 2x share companion could not restore coarse throughput. Pair width 9 with a small transmitted-amplitude increase, far alpha 0.09; this is a two-parameter separator diagnostic, not an optimisation search.",
+  "points": [
+    {"label":"wide9-far009", "scales":[1,2], "pose":"inactive", "overrides":{"receded.dark":{"sizeHeavySecondSigma":9,"sizeHeavySecondSigma2x":9,"tintAlphaFar1x":0.09,"tintAlphaFar2x":0.09}}, "prediction":"First-order: width9 suppresses ml impulses below width8's 0.003116/0.002960; alpha opens ml by ~3.3% and lg by ~10%. Expect ml T1 <=0.003191/0.003043 and lg 2x <=0.002208; coarse64 2x must be >=0.035028 to retain the W49a repair. The 2x checker32-lg referee is not rendered; its direction is predicted toward Apple but its repair is unverified. Thin/mid costs remain, motivating span restriction only if the thick separator holds."}
+  ]
+}

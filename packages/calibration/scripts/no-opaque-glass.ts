@@ -12,7 +12,10 @@
  * W49 grounding F1). The bound is the parent's margin, 0.95, at every integer span 0..1024 CSS px,
  * at dpr 1 and 2, on both variants and both tiers: the WebGPU tier's alpha is what the renderer packs
  * (`opticsUnderPolicy` at the nominal policy, then the CPU statement of the shader's `alphaBase`
- * line), the CSS tier's what `materialAtBackdrop` hands its occlusion term. Nominal policy only:
+ * line), the CSS tier's what `materialAtBackdrop` hands its occlusion term. Since W49b D both
+ * readers resolve the transmission's independent top (zero anchors follow their own scatter
+ * top before DPR interpolation), so an earlier or later alpha top cannot evade this checker.
+ * Nominal policy only:
  * Reduce Transparency's occlusion lift and forced colours raise the body toward opaque by design,
  * and they are the accessibility fold's to bound.
  */

@@ -247,6 +247,8 @@ export interface OpticsPassArgs {
   /** W47's body fine tap: a share, and whether this source actually carries its texture. */
   readonly fineTapShare: number;
   readonly fineTapEnabled: boolean;
+  /** W49b: the source actually carries W's independently gated far bandwidth. */
+  readonly heavySecondFarEnabled: boolean;
   /**
    * W45's grading of that share on the scatter's far curve (claims §5.205; charter Decision Log
    * 1): `MaterialProfile.sizeHeavySecondShareFar2x` already resolved at this group's device ratio
@@ -265,6 +267,8 @@ export interface OpticsPassArgs {
    * grade them. 0 on every shipped material.
    */
   readonly tintAlphaFar: number;
+  /** W49b D: independent resolved top; 0 asks the shader to use its old scatter farS exactly. */
+  readonly tintAlphaSpanMax: number;
   /**
    * W31's body chroma retention (claims §5.161 §5, §5.164) — how much of the
    * blurred backdrop's chromaticity the body restores, at the luma the tone
@@ -452,6 +456,7 @@ export interface OpticsPassArgs {
          */
         readonly heavy2: GPUTextureView | undefined;
         readonly fine: GPUTextureView | undefined;
+        readonly heavy2Far: GPUTextureView | undefined;
       }
     | undefined;
 }
@@ -805,7 +810,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 152);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 156);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -1039,6 +1044,12 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d.set(args.bodyE3Gains, 141);
       d.set(args.bodyE3Neutral, 144);
       d[151] = 0;
+      // W49b owns a new vec4: D top sentinel, W texture gate, two spare lanes.
+      // No old lane changes owner; at identity all four are zero.
+      d[152] = args.tintAlphaSpanMax;
+      d[153] = args.heavySecondFarEnabled ? 1 : 0;
+      d[154] = 0;
+      d[155] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;
@@ -1052,6 +1063,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       // reading the placeholder.
       const heavy2 = args.backdrop?.heavy2 ?? placeholderView;
       const fine = args.backdrop?.fine ?? placeholderView;
+      const heavy2Far = args.backdrop?.heavy2Far ?? placeholderView;
 
       const pipeline = opticsPipeline(args.targetFormat);
       const pass = encoder.beginRenderPass({
@@ -1081,6 +1093,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
             { binding: 10, resource: args.localTone ?? placeholderView },
             { binding: 11, resource: heavy2 },
             { binding: 12, resource: fine },
+            { binding: 13, resource: heavy2Far },
           ],
         }),
       );

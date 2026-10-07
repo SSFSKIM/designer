@@ -1,0 +1,2711 @@
+{
+  "schema": "w49b-native-bed-1",
+  "captureReady": false,
+  "captureAuthorised": false,
+  "authority": "Parent DL2/DL3 in w49b-rulings.md; DL1 thick-subset scope overrides the draft.",
+  "axes": {
+    "scheme": "dark",
+    "glassTintAmount": 0.25,
+    "poses": [
+      "active",
+      "receded"
+    ],
+    "scales": [
+      1,
+      2
+    ],
+    "spans": [
+      44,
+      64,
+      96,
+      112,
+      128,
+      144,
+      160,
+      192,
+      224
+    ],
+    "calibrationSpans": [
+      44,
+      64,
+      96,
+      128,
+      160,
+      192
+    ],
+    "blindSpans": [
+      112,
+      144,
+      224
+    ],
+    "blindPitches": [
+      12,
+      24,
+      48
+    ]
+  },
+  "canvas": {
+    "width": 576,
+    "height": 456
+  },
+  "units": [
+    {
+      "id": "checker-p4-000-255--rrect-s44",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s44",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s44",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s44",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s44",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s44",
+      "background": "impulse-positive-4",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s44",
+      "background": "impulse-negative-4",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s44",
+      "background": "photo-fit",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s44",
+      "background": "grey-0",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s44",
+      "background": "grey-128",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s44",
+      "background": "grey-255",
+      "component": "rrect-s44",
+      "span": 44,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s64",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s64",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s64",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s64",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s64",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s64",
+      "background": "impulse-positive-4",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s64",
+      "background": "impulse-negative-4",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s64",
+      "background": "photo-fit",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s64",
+      "background": "grey-0",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s64",
+      "background": "grey-128",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s64",
+      "background": "grey-255",
+      "component": "rrect-s64",
+      "span": 64,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s96",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s96",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s96",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s96",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s96",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s96",
+      "background": "impulse-positive-4",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s96",
+      "background": "impulse-negative-4",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s96",
+      "background": "photo-fit",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s96",
+      "background": "grey-0",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s96",
+      "background": "grey-128",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s96",
+      "background": "grey-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s112",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s112",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s112",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s112",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s112",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s112",
+      "background": "impulse-positive-4",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s112",
+      "background": "impulse-negative-4",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s112",
+      "background": "photo-fit",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s112",
+      "background": "grey-0",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s112",
+      "background": "grey-128",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s112",
+      "background": "grey-255",
+      "component": "rrect-s112",
+      "span": 112,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s128",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s128",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s128",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s128",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s128",
+      "background": "impulse-negative-4",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s128",
+      "background": "photo-fit",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s128",
+      "background": "grey-0",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s128",
+      "background": "grey-128",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s128",
+      "background": "grey-255",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s144",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s144",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s144",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s144",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s144",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s144",
+      "background": "impulse-positive-4",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s144",
+      "background": "impulse-negative-4",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s144",
+      "background": "photo-fit",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s144",
+      "background": "grey-0",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s144",
+      "background": "grey-128",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s144",
+      "background": "grey-255",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s160",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s160",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s160",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s160",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s160",
+      "background": "impulse-negative-4",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s160",
+      "background": "photo-fit",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s160",
+      "background": "grey-0",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s160",
+      "background": "grey-128",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s160",
+      "background": "grey-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s192",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s192",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s192",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s192",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s192",
+      "background": "impulse-negative-4",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s192",
+      "background": "photo-fit",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s192",
+      "background": "grey-0",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s192",
+      "background": "grey-128",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s192",
+      "background": "grey-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s224",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 4,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p8-000-255--rrect-s224",
+      "background": "checker-p8-000-255",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 8,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p16-000-255--rrect-s224",
+      "background": "checker-p16-000-255",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 16,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s224",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 32,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p64-000-255--rrect-s224",
+      "background": "checker-p64-000-255",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "periodic",
+      "pitch": 64,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "impulse-positive-4--rrect-s224",
+      "background": "impulse-positive-4",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": 255
+    },
+    {
+      "id": "impulse-negative-4--rrect-s224",
+      "background": "impulse-negative-4",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "isolated-impulse",
+      "impulseSize": 4,
+      "polarity": -255
+    },
+    {
+      "id": "photo-fit--rrect-s224",
+      "background": "photo-fit",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "photo",
+      "seed": 20260825
+    },
+    {
+      "id": "grey-0--rrect-s224",
+      "background": "grey-0",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 0
+    },
+    {
+      "id": "grey-128--rrect-s224",
+      "background": "grey-128",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 128
+    },
+    {
+      "id": "grey-255--rrect-s224",
+      "background": "grey-255",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "uniform",
+      "encodedMean": 255
+    },
+    {
+      "id": "checker-p16-m64-c32--rrect-s96",
+      "background": "checker-p16-m64-c32",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 64,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p16-m64-c32--rrect-s160",
+      "background": "checker-p16-m64-c32",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 64,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p64-m64-c32--rrect-s96",
+      "background": "checker-p64-m64-c32",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 64,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p64-m64-c32--rrect-s160",
+      "background": "checker-p64-m64-c32",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 64,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p16-m64-c96--rrect-s96",
+      "background": "checker-p16-m64-c96",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 64,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p16-m64-c96--rrect-s160",
+      "background": "checker-p16-m64-c96",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 64,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p64-m64-c96--rrect-s96",
+      "background": "checker-p64-m64-c96",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 64,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p64-m64-c96--rrect-s160",
+      "background": "checker-p64-m64-c96",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 64,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p16-m128-c32--rrect-s96",
+      "background": "checker-p16-m128-c32",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 128,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p16-m128-c32--rrect-s160",
+      "background": "checker-p16-m128-c32",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 128,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p64-m128-c32--rrect-s96",
+      "background": "checker-p64-m128-c32",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 128,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p64-m128-c32--rrect-s160",
+      "background": "checker-p64-m128-c32",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 128,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p16-m128-c96--rrect-s96",
+      "background": "checker-p16-m128-c96",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 128,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p16-m128-c96--rrect-s160",
+      "background": "checker-p16-m128-c96",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 128,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p64-m128-c96--rrect-s96",
+      "background": "checker-p64-m128-c96",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 128,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p64-m128-c96--rrect-s160",
+      "background": "checker-p64-m128-c96",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 128,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p16-m192-c32--rrect-s96",
+      "background": "checker-p16-m192-c32",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 192,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p16-m192-c32--rrect-s160",
+      "background": "checker-p16-m192-c32",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 192,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p64-m192-c32--rrect-s96",
+      "background": "checker-p64-m192-c32",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 192,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p64-m192-c32--rrect-s160",
+      "background": "checker-p64-m192-c32",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 192,
+      "encodedContrast": 32
+    },
+    {
+      "id": "checker-p16-m192-c96--rrect-s96",
+      "background": "checker-p16-m192-c96",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 192,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p16-m192-c96--rrect-s160",
+      "background": "checker-p16-m192-c96",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 16,
+      "encodedMean": 192,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p64-m192-c96--rrect-s96",
+      "background": "checker-p64-m192-c96",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 192,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p64-m192-c96--rrect-s160",
+      "background": "checker-p64-m192-c96",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "level-contrast",
+      "pitch": 64,
+      "encodedMean": 192,
+      "encodedContrast": 96
+    },
+    {
+      "id": "checker-p16-m128-c254--rrect-s96",
+      "background": "checker-p16-m128-c254",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "matched-mean-full-contrast",
+      "pitch": 16,
+      "encodedMean": 128,
+      "encodedContrast": 254
+    },
+    {
+      "id": "checker-p16-m128-c254--rrect-s160",
+      "background": "checker-p16-m128-c254",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "matched-mean-full-contrast",
+      "pitch": 16,
+      "encodedMean": 128,
+      "encodedContrast": 254
+    },
+    {
+      "id": "checker-p64-m128-c254--rrect-s96",
+      "background": "checker-p64-m128-c254",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "matched-mean-full-contrast",
+      "pitch": 64,
+      "encodedMean": 128,
+      "encodedContrast": 254
+    },
+    {
+      "id": "checker-p64-m128-c254--rrect-s160",
+      "background": "checker-p64-m128-c254",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "matched-mean-full-contrast",
+      "pitch": 64,
+      "encodedMean": 128,
+      "encodedContrast": 254
+    },
+    {
+      "id": "grey-64--rrect-s96",
+      "background": "grey-64",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 64
+    },
+    {
+      "id": "grey-64--rrect-s160",
+      "background": "grey-64",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 64
+    },
+    {
+      "id": "grey-192--rrect-s96",
+      "background": "grey-192",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 192
+    },
+    {
+      "id": "grey-192--rrect-s160",
+      "background": "grey-192",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "uniform",
+      "encodedMean": 192
+    },
+    {
+      "id": "checker-p24-m96-c64--rrect-s144",
+      "background": "checker-p24-m96-c64",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "blind-level-contrast",
+      "pitch": 24,
+      "encodedMean": 96,
+      "encodedContrast": 64
+    },
+    {
+      "id": "checker-p24-m96-c64--rrect-s224",
+      "background": "checker-p24-m96-c64",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "blind-level-contrast",
+      "pitch": 24,
+      "encodedMean": 96,
+      "encodedContrast": 64
+    },
+    {
+      "id": "checker-p24-m160-c64--rrect-s144",
+      "background": "checker-p24-m160-c64",
+      "component": "rrect-s144",
+      "span": 144,
+      "split": "holdout",
+      "family": "blind-level-contrast",
+      "pitch": 24,
+      "encodedMean": 160,
+      "encodedContrast": 64
+    },
+    {
+      "id": "checker-p24-m160-c64--rrect-s224",
+      "background": "checker-p24-m160-c64",
+      "component": "rrect-s224",
+      "span": 224,
+      "split": "holdout",
+      "family": "blind-level-contrast",
+      "pitch": 24,
+      "encodedMean": 160,
+      "encodedContrast": 64
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-shift-x",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-shift-x",
+      "span": 128,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128-shift-x",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128-shift-x",
+      "span": 128,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "grey-128--rrect-s128-shift-x",
+      "background": "grey-128",
+      "component": "rrect-s128-shift-x",
+      "span": 128,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-shift-y",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-shift-y",
+      "span": 128,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s128-shift-y",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s128-shift-y",
+      "span": 128,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "grey-128--rrect-s128-shift-y",
+      "background": "grey-128",
+      "component": "rrect-s128-shift-y",
+      "span": 128,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-shift-x",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-shift-x",
+      "span": 160,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160-shift-x",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160-shift-x",
+      "span": 160,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "grey-128--rrect-s160-shift-x",
+      "background": "grey-128",
+      "component": "rrect-s160-shift-x",
+      "span": 160,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-shift-y",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-shift-y",
+      "span": 160,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s160-shift-y",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s160-shift-y",
+      "span": 160,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "grey-128--rrect-s160-shift-y",
+      "background": "grey-128",
+      "component": "rrect-s160-shift-y",
+      "span": 160,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-shift-x",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-shift-x",
+      "span": 192,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192-shift-x",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192-shift-x",
+      "span": 192,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "grey-128--rrect-s192-shift-x",
+      "background": "grey-128",
+      "component": "rrect-s192-shift-x",
+      "span": 192,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-shift-y",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-shift-y",
+      "span": 192,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "checker-p4-000-255--rrect-s192-shift-y",
+      "background": "checker-p4-000-255",
+      "component": "rrect-s192-shift-y",
+      "span": 192,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "grey-128--rrect-s192-shift-y",
+      "background": "grey-128",
+      "component": "rrect-s192-shift-y",
+      "span": 192,
+      "split": "calibration",
+      "family": "integer-grid-phase",
+      "offset": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "impulse-positive-1--rrect-s128",
+      "background": "impulse-positive-1",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "impulse-footprint",
+      "impulseSize": 1
+    },
+    {
+      "id": "impulse-positive-1--rrect-s160",
+      "background": "impulse-positive-1",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "impulse-footprint",
+      "impulseSize": 1
+    },
+    {
+      "id": "impulse-positive-1--rrect-s192",
+      "background": "impulse-positive-1",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "impulse-footprint",
+      "impulseSize": 1
+    },
+    {
+      "id": "impulse-positive-2--rrect-s128",
+      "background": "impulse-positive-2",
+      "component": "rrect-s128",
+      "span": 128,
+      "split": "calibration",
+      "family": "impulse-footprint",
+      "impulseSize": 2
+    },
+    {
+      "id": "impulse-positive-2--rrect-s160",
+      "background": "impulse-positive-2",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "calibration",
+      "family": "impulse-footprint",
+      "impulseSize": 2
+    },
+    {
+      "id": "impulse-positive-2--rrect-s192",
+      "background": "impulse-positive-2",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "calibration",
+      "family": "impulse-footprint",
+      "impulseSize": 2
+    },
+    {
+      "id": "impulse-positive-4--rrect-s128-wide",
+      "background": "impulse-positive-4",
+      "component": "rrect-s128-wide",
+      "span": 128,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s128-wide",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s128-wide",
+      "span": 128,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "grey-128--rrect-s128-wide",
+      "background": "grey-128",
+      "component": "rrect-s128-wide",
+      "span": 128,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "impulse-positive-4--rrect-s160-wide",
+      "background": "impulse-positive-4",
+      "component": "rrect-s160-wide",
+      "span": 160,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s160-wide",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s160-wide",
+      "span": 160,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "grey-128--rrect-s160-wide",
+      "background": "grey-128",
+      "component": "rrect-s160-wide",
+      "span": 160,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "impulse-positive-4--rrect-s192-wide",
+      "background": "impulse-positive-4",
+      "component": "rrect-s192-wide",
+      "span": 192,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "checker-p32-000-255--rrect-s192-wide",
+      "background": "checker-p32-000-255",
+      "component": "rrect-s192-wide",
+      "span": 192,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "grey-128--rrect-s192-wide",
+      "background": "grey-128",
+      "component": "rrect-s192-wide",
+      "span": 192,
+      "split": "calibration",
+      "family": "fixed-span-area",
+      "aspect": 2
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s96",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 12,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s160",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 12,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p12-000-255--rrect-s192",
+      "background": "checker-p12-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 12,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s96",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 24,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s160",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 24,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p24-000-255--rrect-s192",
+      "background": "checker-p24-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 24,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s96",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 48,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s160",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 48,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "checker-p48-000-255--rrect-s192",
+      "background": "checker-p48-000-255",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "holdout",
+      "family": "blind-pitch",
+      "pitch": 48,
+      "encodedMean": 127.5,
+      "encodedContrast": 255
+    },
+    {
+      "id": "photo-blind--rrect-s96",
+      "background": "photo-blind",
+      "component": "rrect-s96",
+      "span": 96,
+      "split": "holdout",
+      "family": "blind-photo",
+      "seed": 20261008
+    },
+    {
+      "id": "photo-blind--rrect-s160",
+      "background": "photo-blind",
+      "component": "rrect-s160",
+      "span": 160,
+      "split": "holdout",
+      "family": "blind-photo",
+      "seed": 20261008
+    },
+    {
+      "id": "photo-blind--rrect-s192",
+      "background": "photo-blind",
+      "component": "rrect-s192",
+      "span": 192,
+      "split": "holdout",
+      "family": "blind-photo",
+      "seed": 20261008
+    }
+  ],
+  "repeats": {
+    "glassRuns": 5,
+    "noGlassRuns": 3,
+    "bridgeRuns": 3,
+    "independentFreshLaunches": true,
+    "minimumScreenCaptureReadsPerFixture": 2,
+    "maximumScreenCaptureReadsPerFixture": 8,
+    "settle": "1.75 s initial dwell, then 1 s-spaced reads until consecutive frames agree",
+    "floorCodes": 0.5,
+    "bar": "For encoded-code means, standard deviations and RGB/profile-bin medians: max(0.5, (max(repeat statistic)-min(repeat statistic))/2). Linear-luma statistics carry their repeat spread in linear units separately; do not compare it directly to the one-code stop.",
+    "stop": "Any calibration repeat bar above 1 code, failed bridge, missing run, or missing no-glass control stops identification. No fit to blind pixels."
+  },
+  "bridge": {
+    "smallCanvas": {
+      "width": 320,
+      "height": 200
+    },
+    "largeCanvas": {
+      "width": 576,
+      "height": 456
+    },
+    "cropCss": [
+      128,
+      128,
+      320,
+      200
+    ],
+    "scenes": [
+      "checkerboard-32__rrect-lg",
+      "impulse__rrect-ml",
+      "impulse__rrect-lg",
+      "dark-solid__rrect-md",
+      "dark-solid__rrect-lg"
+    ],
+    "rule": "Every opening and transfer run: byte/pixel identity after crop, or every W42 region median within max(1 code, measured bar); no empty-statistic opening cell. Closing bridge disagreements are recorded, not silently voided.",
+    "inputPhase": "Both crop offsets are exact multiples of 64; uniform, checker32 and impulse64 backgrounds preserve their source phase. No photo bridge is claimed."
+  },
+  "measurement": {
+    "primary": "Keep the canonical full-silhouette T1 acceptance unchanged. On this new bed report encoded RGB and linear-luma means/stddev over a fixed analytic supplied-path mask, with disjoint 0..24 CSS px inward edge and >=24 CSS px deep cuts.",
+    "grid": "For positive/negative impulse controls subtract the same-span uniform response, report signed x/y and radial median profiles, ring-bin means at 1 CSS px, halo energy and second moment within radius48 intersected with the supplied-path mask, and body mean. Every bin names its support count and edge/deep coverage; an empty or truncated population is UNMEASURED, not a complete annulus by extrapolation. Read no-glass impulse area/energy rather than assume a 1-point impulse has equal energy at both scales.",
+    "frequency": "Read fixed-pitch gain in the >=24 CSS px deep cut, normalised by each no-glass contrast. Report coded and linear level separately. Compare checker4/8, impulse footprints 1/2/4 and integral x/y translations to expose alias/grid effects.",
+    "conditioning": "Three encoded midpoints x two contrasts x two pitches at spans 96/160. The c254/c32/c96 midpoint-128 controls share EXACT mean in encoded sRGB. Encoded midpoint is not a fixed linear mean; no-glass references quantify both.",
+    "tree": "Reuse dump-layers at glass0.25 for calibration spans/aspects/offsets and ordinary-span128/160/192 impulse/checker4 controls in all four endpoints. Read bd.scale, capture margin, face cap, blur radii and opacities beside observed pixels. Memo F records bd.scale=.5 through s160 here; >160 and area dependence are unknown. No blind shape or blind background is dumped before G1.",
+    "interpretation": "A grid-quantised, phase-dependent impulse/fine response at the tree-named sampling density distinguishes downsampling from a width-only Gaussian. A larger smooth halo alone does not. Crossed aspect at held min-span distinguishes an area choice from a span choice. If controls cannot distinguish the families, state UNIDENTIFIED; do not prefer downsampling merely because the tree names it."
+  },
+  "blindness": {
+    "calibration": "All six calibration spans on core inputs, crossed level/contrast, area and grid controls.",
+    "holdout": "All core-input cells at spans112/144/224; new pitches12/24/48 at spans96/160/192; new photo phase seed20261008 at those spans; midpoint96/160, contrast64, pitch24 at spans144/224. Both poses/scales, with their exclusive no-glass references.",
+    "custody": "Capture raw root is curator-only (umask077). release.py exports calibration passes only and never opens a blind frame. Do not use W43 archive produce: it has no blind redaction. Keep raw blind pass directories sealed until G1 freezes one point.",
+    "exposure": "G1 hashes numerical predictions and the frozen software point before ONE blind read. That read includes native repeat qualification; an unstable blind set is UNMEASURED and stops the claim, never a reason to choose another point. Numbers/plots/pixels from blind passes are never used in G0 fitting. Without this capture, read10 is non-blind."
+  },
+  "counts": {
+    "captureLaunches": 100,
+    "captures": 4200,
+    "dumpLaunches": 4,
+    "dumpScenes": 84,
+    "sliderWrites": 0,
+    "modeSwitches": 4,
+    "publishedCells": 0
+  },
+  "shapeUnits": 180,
+  "backgroundControls": 35,
+  "timing": {
+    "source": "packages/calibration/results/2026-09-30-w42-g1-sitting/attest",
+    "rates": {
+      "source": "packages/calibration/results/2026-09-30-w42-g1-sitting/attest",
+      "admittedRuns": 88,
+      "captureRates": {
+        "normal-1x": {
+          "runs": 28,
+          "captures": 458,
+          "cells": [
+            14,
+            16,
+            23,
+            26
+          ],
+          "overheadSeconds": 10.878,
+          "intervalSeconds": 9.5333,
+          "crossCheckFit": {
+            "perRunSeconds": 2.14,
+            "perCaptureSeconds": 9.4674
+          },
+          "wallSeconds": 4395.9
+        },
+        "normal-2x": {
+          "runs": 28,
+          "captures": 2935,
+          "cells": [
+            87,
+            92,
+            101,
+            107,
+            133,
+            148,
+            157,
+            175
+          ],
+          "overheadSeconds": 11.427,
+          "intervalSeconds": 9.5322,
+          "crossCheckFit": {
+            "perRunSeconds": 7.15,
+            "perCaptureSeconds": 9.4906
+          },
+          "wallSeconds": 28054.9
+        },
+        "long-1x": {
+          "runs": 12,
+          "captures": 24,
+          "cells": [
+            2
+          ],
+          "overheadSeconds": 16.75,
+          "intervalSeconds": 16.0,
+          "crossCheckFit": null,
+          "wallSeconds": 394.4
+        },
+        "long-2x": {
+          "runs": 12,
+          "captures": 24,
+          "cells": [
+            2
+          ],
+          "overheadSeconds": 17.079,
+          "intervalSeconds": 16.0,
+          "crossCheckFit": null,
+          "wallSeconds": 399.9
+        }
+      },
+      "dump": {
+        "launches": 8,
+        "scenes": [
+          87,
+          92,
+          101,
+          107,
+          14,
+          16,
+          14,
+          16
+        ],
+        "perLaunchSeconds": 0.77,
+        "perSceneSeconds": 8.3311,
+        "elapsedFit": {
+          "perLaunchSeconds": 0.19,
+          "perSceneSeconds": 8.3306
+        }
+      },
+      "gapWithinPassSeconds": 0.75,
+      "gapWithinPassCount": 62,
+      "gapBetweenPassesSeconds": 1.15,
+      "gapBetweenPassesCount": 20,
+      "modeSwitchSeconds": 7.74,
+      "modeSwitches": [
+        7.8,
+        7.7,
+        7.6
+      ],
+      "excludedStopGaps": [
+        {
+          "after": "2x-light-receded/run-3",
+          "before": "2x-light-receded/run-4",
+          "seconds": 1137.2
+        },
+        {
+          "after": "2x-light-receded/run-6",
+          "before": "2x-light-receded/run-7",
+          "seconds": 277.5
+        }
+      ],
+      "sliderWriteSeconds": 1.0,
+      "sliderWriteNote": "ASSUMED, not measured: W42 never wrote the slider inside a sitting"
+    },
+    "estimate": {
+      "passes": [
+        {
+          "name": "open-canonical-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 150.2,
+          "exactSeconds": 150.1674
+        },
+        {
+          "name": "open-canonical-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 150.2,
+          "exactSeconds": 150.1674
+        },
+        {
+          "name": "open-canonical-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 148.5,
+          "exactSeconds": 148.5336
+        },
+        {
+          "name": "open-canonical-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 148.5,
+          "exactSeconds": 148.5336
+        },
+        {
+          "name": "dump-native-2x-active",
+          "kind": "dump",
+          "glass": 0.25,
+          "mode": "68",
+          "scenes": 21,
+          "seconds": 175.7,
+          "exactSeconds": 175.7231
+        },
+        {
+          "name": "transfer-transfer-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 150.2,
+          "exactSeconds": 150.1674
+        },
+        {
+          "name": "native-refs-cal-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 87,
+          "seconds": 836.5,
+          "exactSeconds": 836.4857999999999
+        },
+        {
+          "name": "native-cal-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 655,
+          "seconds": 6256.1,
+          "exactSeconds": 6256.064999999999
+        },
+        {
+          "name": "native-refs-blind-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 18,
+          "seconds": 178.8,
+          "exactSeconds": 178.764
+        },
+        {
+          "name": "native-blind-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 245,
+          "seconds": 2347.9,
+          "exactSeconds": 2347.863
+        },
+        {
+          "name": "dump-native-2x-receded",
+          "kind": "dump",
+          "glass": 0.25,
+          "mode": "68",
+          "scenes": 21,
+          "seconds": 175.7,
+          "exactSeconds": 175.7231
+        },
+        {
+          "name": "transfer-transfer-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 150.2,
+          "exactSeconds": 150.1674
+        },
+        {
+          "name": "native-refs-cal-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 87,
+          "seconds": 836.5,
+          "exactSeconds": 836.4857999999999
+        },
+        {
+          "name": "native-cal-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 655,
+          "seconds": 6256.1,
+          "exactSeconds": 6256.064999999999
+        },
+        {
+          "name": "native-refs-blind-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 18,
+          "seconds": 178.8,
+          "exactSeconds": 178.764
+        },
+        {
+          "name": "native-blind-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 245,
+          "seconds": 2347.9,
+          "exactSeconds": 2347.863
+        },
+        {
+          "name": "dump-native-1x-active",
+          "kind": "dump",
+          "glass": 0.25,
+          "mode": "69",
+          "scenes": 21,
+          "seconds": 175.7,
+          "exactSeconds": 175.7231
+        },
+        {
+          "name": "transfer-transfer-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 148.5,
+          "exactSeconds": 148.5336
+        },
+        {
+          "name": "native-refs-cal-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 87,
+          "seconds": 834.9,
+          "exactSeconds": 834.9312
+        },
+        {
+          "name": "native-cal-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 655,
+          "seconds": 6254.0,
+          "exactSeconds": 6254.035000000001
+        },
+        {
+          "name": "native-refs-blind-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 18,
+          "seconds": 177.1,
+          "exactSeconds": 177.1335
+        },
+        {
+          "name": "native-blind-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 245,
+          "seconds": 2345.4,
+          "exactSeconds": 2345.382
+        },
+        {
+          "name": "dump-native-1x-receded",
+          "kind": "dump",
+          "glass": 0.25,
+          "mode": "69",
+          "scenes": 21,
+          "seconds": 175.7,
+          "exactSeconds": 175.7231
+        },
+        {
+          "name": "transfer-transfer-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 148.5,
+          "exactSeconds": 148.5336
+        },
+        {
+          "name": "native-refs-cal-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 87,
+          "seconds": 834.9,
+          "exactSeconds": 834.9312
+        },
+        {
+          "name": "native-cal-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 655,
+          "seconds": 6254.0,
+          "exactSeconds": 6254.035000000001
+        },
+        {
+          "name": "native-refs-blind-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 18,
+          "seconds": 177.1,
+          "exactSeconds": 177.1335
+        },
+        {
+          "name": "native-blind-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 5,
+          "protocol": "normal",
+          "captures": 245,
+          "seconds": 2345.4,
+          "exactSeconds": 2345.382
+        },
+        {
+          "name": "close-canonical-1x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 148.5,
+          "exactSeconds": 148.5336
+        },
+        {
+          "name": "close-canonical-1x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "69",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 148.5,
+          "exactSeconds": 148.5336
+        },
+        {
+          "name": "close-canonical-2x-active",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 150.2,
+          "exactSeconds": 150.1674
+        },
+        {
+          "name": "close-canonical-2x-receded",
+          "kind": "capture",
+          "glass": 0.25,
+          "mode": "68",
+          "runs": 3,
+          "protocol": "normal",
+          "captures": 15,
+          "seconds": 150.2,
+          "exactSeconds": 150.1674
+        }
+      ],
+      "boundaries": [
+        {
+          "after": "open-canonical-2x-active",
+          "before": "open-canonical-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "open-canonical-2x-receded",
+          "before": "open-canonical-1x-active",
+          "modeSwitch": true,
+          "sliderWrite": false,
+          "exactSeconds": 7.74
+        },
+        {
+          "after": "open-canonical-1x-active",
+          "before": "open-canonical-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "open-canonical-1x-receded",
+          "before": "dump-native-2x-active",
+          "modeSwitch": true,
+          "sliderWrite": false,
+          "exactSeconds": 7.74
+        },
+        {
+          "after": "dump-native-2x-active",
+          "before": "transfer-transfer-2x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "transfer-transfer-2x-active",
+          "before": "native-refs-cal-2x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-cal-2x-active",
+          "before": "native-cal-2x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-cal-2x-active",
+          "before": "native-refs-blind-2x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-blind-2x-active",
+          "before": "native-blind-2x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-blind-2x-active",
+          "before": "dump-native-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "dump-native-2x-receded",
+          "before": "transfer-transfer-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "transfer-transfer-2x-receded",
+          "before": "native-refs-cal-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-cal-2x-receded",
+          "before": "native-cal-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-cal-2x-receded",
+          "before": "native-refs-blind-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-blind-2x-receded",
+          "before": "native-blind-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-blind-2x-receded",
+          "before": "dump-native-1x-active",
+          "modeSwitch": true,
+          "sliderWrite": false,
+          "exactSeconds": 7.74
+        },
+        {
+          "after": "dump-native-1x-active",
+          "before": "transfer-transfer-1x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "transfer-transfer-1x-active",
+          "before": "native-refs-cal-1x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-cal-1x-active",
+          "before": "native-cal-1x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-cal-1x-active",
+          "before": "native-refs-blind-1x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-blind-1x-active",
+          "before": "native-blind-1x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-blind-1x-active",
+          "before": "dump-native-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "dump-native-1x-receded",
+          "before": "transfer-transfer-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "transfer-transfer-1x-receded",
+          "before": "native-refs-cal-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-cal-1x-receded",
+          "before": "native-cal-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-cal-1x-receded",
+          "before": "native-refs-blind-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-refs-blind-1x-receded",
+          "before": "native-blind-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "native-blind-1x-receded",
+          "before": "close-canonical-1x-active",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "close-canonical-1x-active",
+          "before": "close-canonical-1x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        },
+        {
+          "after": "close-canonical-1x-receded",
+          "before": "close-canonical-2x-active",
+          "modeSwitch": true,
+          "sliderWrite": false,
+          "exactSeconds": 7.74
+        },
+        {
+          "after": "close-canonical-2x-active",
+          "before": "close-canonical-2x-receded",
+          "modeSwitch": false,
+          "sliderWrite": false,
+          "exactSeconds": 1.15
+        }
+      ],
+      "totals": {
+        "captureLaunches": 100,
+        "captures": 4200,
+        "dumpLaunches": 4,
+        "dumpScenes": 84,
+        "sliderWrites": 0,
+        "modeSwitches": 4,
+        "publishedCells": 0
+      },
+      "captureSeconds": 40253.5,
+      "dumpSeconds": 702.9,
+      "boundarySeconds": 62.0,
+      "totalSeconds": 41018.4,
+      "totalHours": 11.39,
+      "withStopLossHours": 12.53,
+      "exactTotalSeconds": 41018.4274
+    },
+    "canvasAreaRatioToMeasuredBed": 4.104,
+    "largerCanvasCadenceMeasured": false,
+    "cadenceAssumption": "W42 measured almost equal 1x/2x intervals despite four times the pixels; the settle/reset dwell dominates. Still, the new canvas cadence is estimated, not observed.",
+    "stopLossFraction": 0.1,
+    "exclusions": "Extra HID idle, user setup, initial pin/grant checks, initial display switch and trap restoration are not in the empirical model. Reserve another 20 minutes for start/end and user setup. Five repeats, not W43 seven, are prospective here; require all five and use the declared repeat stop."
+  },
+  "prerequisites": {
+    "runtime": {
+      "python": "/Users/new/vitrea-w49/py/bin/python",
+      "version": "3.14.6",
+      "requirements": "packages/calibration/results/2026-10-08-w49b-g0-declaration/native-bed/requirements.txt",
+      "defaultPython312": "Normal user-site arm64 numpy2.3.5 imports successfully. Under -I, user-site is disabled and framework x86_64 numpy2.2.2 fails dlopen; x86_64 execution unavailable. The pinned arm64 venv is explicit."
+    },
+    "userX5Lift": "Required, not granted by the charter, parent message, or this declaration.",
+    "bundle": "A compatible, positively granted, pinned bundle. The original currently granted bd3092e8 bundle lacks windowFrame/suppliedPaths; do NOT rebuild apps/reference-apple/build or weaken admission to make it fit. The W39 side bundle is now ungranted.",
+    "atMac": "User quits browsers and holds all browser automation/test suites; Universal Control off, other device away/asleep. Accessibility lifts off. Native all-names census, 75 s HID idle per fresh launch, 60 s per fixture, pose/window/path/colour attestations and 5 s watchdog remain W43 exactly.",
+    "sealing": "Assemble and commit this declaration and all pinned tools before live pin-check. Dry validation does not prove a bundle currently has a grant."
+  },
+  "bundleRoutes": [
+    {
+      "id": "regrant-w39",
+      "recommended": true,
+      "bundlePath": "/Users/new/vitrea-w39/side/VitreaReference.app",
+      "bundleIdentifier": "dev.vitrea.reference-apple.w39",
+      "userActions": "At the Mac: System Settings > Privacy & Security > Screen & System Audio Recording (Screen Recording on releases using that title). Press +; use the file picker Go to Folder for /Users/new/vitrea-w39/side/VitreaReference.app; add the application and enable its toggle. Complete any macOS authentication or Quit & Reopen request yourself. Leave the app closed until the approved sitting. The operator verifies the exact .w39 grant and pinned identity before first launch, and the original dev.vitrea.reference-apple grant again at close.",
+      "cost": "One user grant action plus identity/grant verification and opening bridges; no build or rendering change. Reuses W43 proven path attestation, cadence and memo F. Temporary side-bundle permission must be explicitly restored/retired by the user if macOS displaced the original grant.",
+      "reason": "Lowest change and strongest existing bridge/cadence provenance. All declared scene generators and centred/integer-offset shapes are supported by that binary."
+    },
+    {
+      "id": "new-current-side",
+      "recommended": false,
+      "bundlePath": "/Users/new/vitrea-w49/native-side/VitreaReference.app",
+      "bundleIdentifier": "dev.vitrea.reference-apple.w49b",
+      "userActions": "After a separately authorised build into /Users/new/vitrea-w49/native-side (never apps/reference-apple/build), use the same macOS settings pane + button to add /Users/new/vitrea-w49/native-side/VitreaReference.app and enable its toggle. Complete authentication/Quit & Reopen yourself. No launch before this grant is positively verified for the exact new bundle.",
+      "cost": "Build, sign, pin new binary/cdhash/build inputs, replace bundle-pin before pixels and reseal this declaration; user grant; run the opening canonical and canvas bridges on the new binary. W43 capture cadence is an estimate, not measured on this new binary. A failed bridge needs a revised declaration, not silent adoption.",
+      "reason": "Use if .w39 cannot be re-granted or a required modern harness feature is absent. It is more work, with no necessary feature gained by this declared bed."
+    }
+  ]
+}

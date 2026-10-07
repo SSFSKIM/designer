@@ -1,0 +1,153 @@
+{
+  "scope": "W49b G0 only; no material fit/publication/native capture",
+  "renderCommit": "fb74ebc1e",
+  "operatorFixCommit": "651c25221",
+  "auditCommit": "dec63b3db",
+  "checks": [
+    {
+      "command": "pnpm -r build",
+      "exitCode": 0,
+      "log": "/tmp/w49b-build-final.log"
+    },
+    {
+      "command": "pnpm -r lint",
+      "exitCode": 0,
+      "log": "/tmp/w49b-lint-final.log"
+    },
+    {
+      "command": "pnpm -r test",
+      "exitCode": 0,
+      "passed": 3268,
+      "skipped": 4,
+      "skipReason": "Canonical capture tree absent in worktree; X1 twice and T1 band bytes twice",
+      "log": "/tmp/w49b-test-final.log"
+    },
+    {
+      "command": "VITREA_WEB_CAPTURES=<canonical tree> vitest run test/adopted-thresholds.test.ts",
+      "exitCode": 0,
+      "passed": 165,
+      "skipped": 0,
+      "readOnly": true
+    },
+    {
+      "command": "renderer test:golden under classifying census",
+      "exitCode": 0,
+      "passed": 34,
+      "regenerated": false
+    },
+    {
+      "command": "renderer test:gpu with W49B_IDENTITY_OUT under classifying census",
+      "exitCode": 0,
+      "passed": 57
+    },
+    {
+      "command": "checks/digests.ts",
+      "exitCode": 0,
+      "unchangedShippedDigests": 10
+    },
+    {
+      "command": "checks/compare-identity.py, same recorder on fee4e8f3b and assembled tree",
+      "exitCode": 0,
+      "identicalRawRasters": 43,
+      "goldenSceneRasters": 13,
+      "endpointDprs": [
+        1,
+        1.5,
+        2
+      ]
+    },
+    {
+      "command": "evidence/verify-bed-identity.py",
+      "exitCode": 0,
+      "identicalCurrentDarkGateRasters": 132
+    },
+    {
+      "command": "native-bed/declare.py check + dry-run; native-bed/test_bed.py",
+      "exitCode": 0,
+      "tests": 11,
+      "nativeLaunches": 0
+    },
+    {
+      "command": "tools CPU tests and typecheck",
+      "exitCode": 0,
+      "tests": 18
+    },
+    {
+      "command": "test_declare.py",
+      "exitCode": 0,
+      "tests": 7
+    },
+    {
+      "command": "audit/test_audit.py; independent closure verification",
+      "exitCode": 0,
+      "tests": 19
+    },
+    {
+      "command": "audit/audit.py over actual complete records",
+      "exitCode": 0,
+      "status": "PASS",
+      "points": 27,
+      "runs": 54,
+      "gateCells": 1686,
+      "importedRepositoryFiles": 9
+    },
+    {
+      "command": "tools/read.py, full recomputation after committed audit",
+      "exitCode": 0,
+      "points": 27,
+      "measuredCells": 1686
+    },
+    {
+      "command": "diagnostics/black-level/read.py --check",
+      "exitCode": 0,
+      "requested": 96,
+      "paired": 48,
+      "nativeOnly": 24,
+      "absent": 24,
+      "newRenders": 0
+    },
+    {
+      "command": "freeze.py verify at close",
+      "exitCode": 0,
+      "entries": 1818
+    },
+    {
+      "command": "x41.ts verify at close",
+      "exitCode": 0,
+      "entries": 911
+    },
+    {
+      "command": "declare.py check at close",
+      "exitCode": 0,
+      "sourcePinsPerPart": 71,
+      "originalHashesUnchanged": true
+    },
+    {
+      "command": "native-bed/declare.py check at close",
+      "exitCode": 0,
+      "captures": 0,
+      "plannedStoredFrames": 4200
+    }
+  ],
+  "bench": {
+    "initial": "Excluded: construction-only W workload, no above-knee sample",
+    "firstCorrected": "FAILED ordering control; retained",
+    "correctedRepeat": "PASS; compare only its interleaved same-geometry rows",
+    "incrementalWCost": "Unresolved above current/control spread",
+    "sourceRebuildsPerRow": 80
+  },
+  "reviews": {
+    "operator": "High review, two verified findings fixed by worker and independently closed; no remaining material finding",
+    "protocol": "Medium review, two sealed-tool gaps addressed by additive audited guard without rehashing; independent closure clean",
+    "spec": "Registry contradiction corrected by a fix worker; five protected historical targets remain authorised rather than newly required repaired"
+  },
+  "constraints": {
+    "holdoutOrRefereeRenders": 0,
+    "nativeCaptures": 0,
+    "shippedDocumentChanges": 0,
+    "canonicalPublication": false,
+    "changesetOrRelease": false,
+    "mergeOrPush": false
+  },
+  "environment": "Pinned arm64 /Users/new/vitrea-w49/py; normal python3.12 user-site works, -I exposes framework architecture mismatch; tracker corrected"
+}

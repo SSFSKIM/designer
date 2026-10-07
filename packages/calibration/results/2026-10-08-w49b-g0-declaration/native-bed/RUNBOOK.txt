@@ -1,0 +1,222 @@
+W49b native identification instrument (DL2/DL3). No capture is authorised here.
+
+Purpose and geometry
+--------------------
+Identify thick-span spatial response at dark glass0.25, in both window poses at
+1x/2x. Main spans are 44,64,96,112,128,144,160,192,224. Interior spans112/144 and
+extrapolating span224 are blind. The ordinary aspect is 1.75; aspect2.0 controls
+at fixed spans128/160/192 test the area-versus-span resolution choice memo F could
+not identify. No rounded size name is treated as a sampling-scale measurement.
+
+The new canvas is 576x456 CSS px. Main shapes are centred on (256,256), using
+integer offset(-32,+28). An isolated impulse generator with spacing512 places
+exactly one dot there, including at span44. At the largest shape the minimum
+clearance is 60 CSS px; every <=48-px halo read has at least 12-px spare clearance.
+Offsets are integral because fractional placement was unreachable in W34/W39.
+Integer x/y shifts are relative source/surface controls, not a claim that Apple's
+capture-grid phase follows the supplied path. Dump and pixels must decide that.
+No 24-px-deep population exists at span44: report it UNMEASURED, retain its whole-
+silhouette and edge readings, and never use it to assert thick deep-body fidelity.
+
+The canonical-to-new-canvas bridge uses centred md/ml/lg, on uniform dark-solid,
+checker32 and the canonical 4px impulse TRAIN, not the isolated impulse. The
+centre crop is [128,128,320,200], preserving source phase (both offsets divisible
+by64). Opening small-canvas and transfer captures each reproduce committed 0.25
+fixtures on W43's region rule. Main shapes use another integer position; the
+bridge certifies the canvas/renderer transfer, not an unmeasured invariance to
+all window positions. Fixed-position uniform, phase and area controls report
+that remaining influence rather than explaining it away. No photo phase bridge
+is claimed. Every opening bridge cell must carry a nonempty W42 region statistic.
+
+Five fresh-launch repeats per glass cell and three per no-glass/bridge cell are
+prospective, not inherited seven-run evidence. The normal protocol still carries
+interstitial reset6s and initial settle1.75s, then 1s-spaced ScreenCaptureKit reads
+until consecutive frames agree (minimum2, maximum8 reads; one stored fixture).
+Frame counts and cadence price stored fixture frames, not every settling read. A repeat
+bar is max(0.5 code, half the range of each encoded-code scalar/profile-bin statistic).
+Linear-luma repeat spreads are reported in their own units, never compared directly
+to a one-code stop. Masked impulse bins carry their support and edge/deep coverage;
+truncated/empty bins are UNMEASURED, not extrapolated into complete annuli.
+Identification stops if a calibration repeat bar exceeds1 code, a run is missing,
+a control is missing, or an opening/transfer bridge disagrees. Closing bridge
+failures are recorded. No retry or recapture is implicit; retain quarantines.
+
+Independent encoded level/contrast crossing
+------------------------------------------
+Midpoints64/128/192 x contrast32/96 x checker cells16/64 at spans96/160. The
+midpoint128 controls also include contrast254 (endpoints1 and255), so a full versus
+low-contrast comparison is EXACTLY matched in encoded mean, unlike 0/255 against
+128. Record the no-glass linear mean as well: fixed encoded midpoint does not
+hold linear luminance when contrast changes. Uniform64/128/192 controls are
+available at the crossed spans. There is no tone-function fit authorised here.
+
+DL2 capture-scale controls
+--------------------------
+Core checker cells4/8/16/32/64, signed isolated impulses, the original synthetic
+photo phase, and uniform0/128/255 cross every main span. The uniform0/255 cells
+are the matched native body baselines for positive/negative impulse subtraction. Dot footprints1/2/4, reachable
+integer x/y shifts and aspect controls separate smooth bandwidth from aliasing,
+quantised rings, anisotropy and grid phase. Reuse dump-layers on calibration
+uniform128 shapes, plus ordinary-span128/160/192 impulse and checker4 controls,
+in all four endpoints: read bd.scale, margins, blur radii,
+opacities and face cap beside pixels. Memo F's dark0.25 bd.scale is0.5 up to160;
+above160 is unknown. Dumps do not manipulate any private input or capture scale.
+
+Neither a broad halo alone nor a bd.scale property identifies a downsample law.
+The candidate family must account for the phase/footprint/frequency controls,
+with DC/level and nonlinear transmission treated as nuisance axes. Prefer the
+capture-scale family to W only if it separates as well under DL2; otherwise
+report UNIDENTIFIED, not a mechanism inferred from one resemblance. Numeric
+software ladders and G1 candidate selection remain the parent's separate work.
+
+Blindness
+---------
+In addition to all core cells at spans112/144/224, the blind set includes new
+checker cells12/24/48 and a new photo seed20261008 at spans96/160/192, and new
+midpoints96/160, contrast64, pitch24 at spans144/224. Exclusive no-glass controls
+for blind inputs are blind too. Every native-blind/no-glass-blind pass is separate.
+No blind shape/input is dumped in G0. Known input parameters are public; their
+native numbers, plots, frame hashes and pixels are not fit inputs.
+
+A trusted capture curator retains the raw root under umask077. Give the fitting
+worker only release.py's calibration export. Never use W43 w43_archive.py produce:
+it deliberately removed blind redaction. The curator must retain the full raw
+root and later create a declared blind-preserving archive of record; release.py
+is a working export, NOT that archive. Do not delete the raw tree after export.
+G1 hashes one frozen point and numerical predictions before ONE blind exposure,
+including the blind repeat-bar qualification. Unstable blind data is UNMEASURED
+and stops the claim; it is not an adaptive invitation to pick another point.
+If no new native capture is authorised, read10 remains a non-blind prediction
+check on the spent canonical cells, as DL3 says.
+
+Offline preparation (safe without X5)
+-------------------------------------
+Use absolute paths; B is this directory. None of these launches the harness,
+reads or changes TCC, writes the slider, switches the display or ends a process.
+
+Normal python3.12 imports the working arm64 numpy2.3.5 in the user's site-packages.
+Under -I, user-site loading is disabled and the framework's x86_64 numpy2.2.2
+_multiarray_umath is selected instead: dlopen fails in the arm64 interpreter;
+x86_64 execution is unavailable. No global interpreter or package was repaired.
+W49b's dedicated arm64 runtime is explicit, not a fallback. It was created from
+Homebrew Python3.14.6 with exact numpy2.5.3, Pillow12.3.0 and scipy1.18.1
+(requirements.txt).
+Recreate only if the dedicated path is absent; do not overwrite an environment:
+
+  /opt/homebrew/opt/python@3.14/bin/python3.14 -I -B -c \
+    'import sys; assert sys.version_info[:3] == (3,14,6), sys.version'
+  /opt/homebrew/opt/python@3.14/bin/python3.14 -I -B -m venv "$HOME/vitrea-w49/py"
+  "$HOME/vitrea-w49/py/bin/python" -I -B -m pip install -r "$B/requirements.txt"
+  export W49B_PYTHON="$HOME/vitrea-w49/py/bin/python"
+  "$W49B_PYTHON" -I -B -c \
+    'import sys,numpy,PIL,scipy; print(sys.version,numpy.__version__,PIL.__version__,scipy.__version__)'
+
+W49b rebinds W43's hardcoded python3.12 child calls to W49B_PYTHON without changing
+the original instrument. Live readiness checks exact package versions and binds
+the chosen interpreter in the external receipt. Global Python3.12 repair remains
+environment debt for the parent's tracker, outside this instrument's ownership.
+
+  "$W49B_PYTHON" -I -B "$B/declare.py" check
+  "$W49B_PYTHON" -I -B "$B/declare.py" dry-run
+  "$W49B_PYTHON" -I -B "$B/test_bed.py"
+  "$W49B_PYTHON" -I -B "$B/orchestrate.py" --check-shell
+  W43_SITTING=native "$W49B_PYTHON" -I -B "$B/sitting.py" plan --out /tmp/w49b-native-dry-UNIQUE
+  "$W49B_PYTHON" -I -B "$B/release.py"                         # export membership only
+
+The generator writes only within this native-bed directory. `write` seals these
+files prospectively; it gives no permission to capture. After the parent assembles
+and commits, `pin-check` refuses any changed/uncommitted source, fixture, local
+adapter or reused tool. declaration.sha256 names bed-declaration.json, whose
+sitting-native item binds the exact plan. W43's machine and frame admission remain
+unchanged. Closure pins cover imported W42 instrument Python files as well.
+
+The bundle prerequisite: a user choice, not an agent workaround
+---------------------------------------------------------------
+The currently granted original bundle is
+  /Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app
+  dev.vitrea.reference-apple, binary bd3092e8..., cdhash88cbbb5b...
+W43 G1b positively restored it. Its restore manifest lacks windowFrame and
+suppliedPaths; it cannot pass W43 sitting admission. Never rebuild this directory
+or weaken admission. The following two routes require user action, and neither
+is carried out by this worker.
+
+RECOMMENDED: re-add the unchanged W39 side bundle
+  /Users/new/vitrea-w39/side/VitreaReference.app
+  dev.vitrea.reference-apple.w39
+  binary02052b17..., cdhashbe258cbc... (bundle-pin.json is the full pin).
+At the Mac the user opens System Settings > Privacy & Security > Screen & System
+Audio Recording (Screen Recording on releases with that title), presses +, uses
+Go to Folder in the picker for that exact bundle path, adds it and enables its
+toggle. The user completes any authentication or Quit & Reopen request. Leave
+the app closed until the approved sitting. The operator must positively verify
+that this exact pinned identity has the grant before its first launch. Cost:
+one user grant action, identity/grant verification, opening/transfer bridges;
+no build and no changed native drawing. This has the best existing provenance
+for the scene features, memo F and measured cadence. If macOS displaces the
+original grant, the user restores the original at close and the operator checks
+it positively; no side-bundle retirement or grant change is automatic here.
+
+ALTERNATIVE: a new side bundle built from current sources
+  /Users/new/vitrea-w49/native-side/VitreaReference.app
+  proposed identifier dev.vitrea.reference-apple.w49b.
+A separately authorised worker builds/signs/pins at that NEW path, never in
+apps/reference-apple/build. The user performs the same settings + / enable
+procedure for this exact new bundle and handles macOS authentication/reopen.
+Cost: build/sign, new binary/cdhash/build-input pin; retarget declare.py/reseal
+BEFORE pixels; user grant; all opening/transfer bridges on the new binary.
+Cadence remains an estimate until measured on it. Prefer this if .w39 cannot be
+re-granted or lacks a required feature; this bed currently requires none that
+it lacks. A failed bridge needs a new decision, not silently substituted native
+fixtures. Do not launch an ungranted side to provoke a permission dialog.
+
+Live entry point (only after user's X5 lift and chosen bundle grant)
+------------------------------------------------------------------
+The parent obtains both explicit user decisions and verifies the exact grant and
+pin. Only then may it create an OUTSIDE-checkout W49B_CAPTURE_APPROVAL receipt:
+  x5UserDecision: the actual user decision reference/text
+  bundleGrantUserDecision: the actual user choice/decision reference/text
+  screenRecordingGrantVerified: true, only after positive verification
+  bundlePinSha256: sha256 of bundle-pin.json
+  declarationSha256: sha256 of bed-declaration.json
+  pythonExecutable: /Users/new/vitrea-w49/py/bin/python (the W49B_PYTHON value)
+This receipt is an operational interlock, not user consent of its own. It is
+never generated by declare.py. Missing or mismatched receipts refuse even
+end-native/slider actions before anything changes. Live rehearsals and
+W43_PREDECLARATION are refused. Do not invent decisions or grant verification.
+
+Before the go the user quits all Chrome/browser processes, pauses all automation
+and whole-package tests, disables Universal Control, and keeps the other device
+away/asleep. Accessibility toggles are off. Leave the Mac idle. Capture uses
+the strict native all-names census, not the headless-web classifying exception.
+
+  W49B_CAPTURE_APPROVAL=<verified outside-checkout receipt> \
+    VITREA_SITTING_DIR=<new curator-only raw root outside every checkout> \
+    bash "$B/sitting-orchestrate.sh"
+
+The W43 orchestrator detaches, records its launcher chain, waits for HID idle,
+switches display/slider per pass, and restores both on exit while masking signals.
+The rebound shell uses the local adapters; no huge instrument is copied into
+this repository. W43_EVIDENCE/W43_EVIDENCE_REPO are refused, so no automatic
+commit occurs. STOP_AFTER cuts still run every closing bridge. Any continuation
+is explicit START_AT/FIRST_RUN against the same root, preserving quarantines.
+No materialize/publication pass is declared; no canonical fixture is written.
+
+Sitting length is derived in timing.json from W42 G1's 88 admitted runs, through
+W43's unchanged timing estimator, not a human productivity guess. Stored fixture
+frames take approximately9.533s each, plus per-launch/gap/dump/display overhead.
+The native canvas has4.104 times the old area. The measured 1x/2x capture intervals
+were almost equal despite four times the pixels, consistent with settle/reset
+being dominant; this does NOT measure the new canvas's cadence. Reserve the
+computed10% stop loss and another20 minutes for setup/restore. Final counts and
+hours are manifest.json's counts/timing and timing.json, not a stale number here.
+
+After admitted capture, the curator checks every repeat, opening/transfer bridge
+and closing bridge. It then exports only calibration evidence into a new disjoint
+outside-checkout directory:
+
+  "$W49B_PYTHON" -I -B "$B/release.py" --raw <raw-root> --out <cal-export> --apply
+
+Retain both raw and export trees. Export receipts hash each copied file and say
+blindExposed=false; they do not claim a blind archive exists. Native fit analysis,
+repeat qualification and archive sealing are downstream G0/G1 work, not performed
+by this no-capture declaration task.

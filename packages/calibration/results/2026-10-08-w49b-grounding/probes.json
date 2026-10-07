@@ -1,0 +1,13 @@
+{
+  "status": "Exploratory grounding, declared before renders; not a fit or publication declaration",
+  "base": "b2d074d2df24-940384c06f73",
+  "scope": "Dark 0.25 WebGPU gate cells only. No native capture, holdout or W46 referee render. Current runtime only; no new operator implemented.",
+  "control": "Every cell outside a changed leaf's scale/pose/span authority must reproduce the current row to 0.1 bar. Read all affected gate cells, not only repair targets. Report growth including overshoots, never selection by label.",
+  "points": [
+    {"label":"thin-active", "scales":[1], "pose":"rest", "overrides":{"active.dark":{"sizeScatterRampStartThin1x":0.6}}, "prediction":"1x impulse capsule T1 decreases toward native 0.019766 from 0.025321. Span >=96 is unchanged. Other thin rest cells are protected; expected costs must be read, not presumed absent."},
+    {"label":"thin-receded", "scales":[2], "pose":"inactive", "overrides":{"receded.dark":{"sizeScatterRampStartThin2x":0.7}}, "prediction":"2x capsule checker and orange twin T1 rise from 0.038276/0.053883 toward 0.050074/0.0650. Span >=96 unchanged. Thin photo and impulse are the separating controls."},
+    {"label":"far-share-minus", "scales":[2], "pose":"inactive", "overrides":{"receded.dark":{"sizeHeavySecondShareFar2x":-0.125}}, "prediction":"Thick impulse T1 decreases as the narrow 5-CSS-px tap loses share; span <=96 unchanged. Coarse thick texture also decreases: this is a predicted failed separator for the still under-structured checker32 referee (not rendered here)."},
+    {"label":"far-share-plus", "scales":[2], "pose":"inactive", "overrides":{"receded.dark":{"sizeHeavySecondShareFar2x":0.125}}, "prediction":"Thick coarse checker and photo T1 increase, but thick impulse increases too. A share-only family is predicted not to jointly repair these opposite-sign errors."},
+    {"label":"wide-second", "scales":[1,2], "pose":"inactive", "overrides":{"receded.dark":{"sizeHeavySecondSigma":8,"sizeHeavySecondSigma2x":8}}, "prediction":"Widening the second tap from 5 to 8 CSS px should suppress the impulse and text more strongly than coarse checker64, unlike scalar alpha. It also reaches <=96: the thin checker controls decide whether span-selective width, not merely share, is needed."}
+  ]
+}

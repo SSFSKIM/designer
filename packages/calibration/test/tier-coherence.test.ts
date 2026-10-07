@@ -783,6 +783,8 @@ describe("tier coherence (K5)", () => {
     // W47 operator 1 (claims §5.211): both anchors 0 on both tiers, inert together.
     expect(MATERIAL_SOURCE_SIZE.tintAlphaFar1x).toBe(DEFAULT_MATERIAL_PROFILE.tintAlphaFar1x);
     expect(MATERIAL_SOURCE_SIZE.tintAlphaFar2x).toBe(DEFAULT_MATERIAL_PROFILE.tintAlphaFar2x);
+    expect(MATERIAL_SOURCE_SIZE.tintAlphaSpanMax).toBe(DEFAULT_MATERIAL_PROFILE.tintAlphaSpanMax);
+    expect(MATERIAL_SOURCE_SIZE.tintAlphaSpanMax2x).toBe(DEFAULT_MATERIAL_PROFILE.tintAlphaSpanMax2x);
 
     const patch = {
       sizeSpanMin: 40,
@@ -3117,6 +3119,9 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   // `spanGradedTintAlpha` pinned by "W47 operator 1 is one law on both tiers" below.
   tintAlphaFar1x: "MATERIAL_SOURCE_SIZE",
   tintAlphaFar2x: "MATERIAL_SOURCE_SIZE",
+  // W49b D: each transmission top follows its own scatter anchor at identity, per surface.
+  tintAlphaSpanMax: "MATERIAL_SOURCE_SIZE",
+  tintAlphaSpanMax2x: "MATERIAL_SOURCE_SIZE",
   // The outer shadow, name for name including W30's three σ leaves.
   outerShadow: "MATERIAL_SOURCE_OUTER_SHADOW",
   // The optics, per variant, under the CSS tier's own field names.
@@ -3129,6 +3134,12 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   sizeHeavySecondSigma2x: "cssTierHeavyStepSigmaCssPx",
   sizeHeavySecondShare: "cssTierHeavyShareAt",
   // W45's grading of that share on the far curve (claims §5.205): declined with the tap.
+  sizeHeavySecondSigmaFar1x:
+    "none: CSS has no second tap or independent far bandwidth; declined with that tap (W49b DL2).",
+  sizeHeavySecondSigmaFar2x:
+    "none: CSS has no second tap or independent far bandwidth; declined with that tap (W49b DL2).",
+  backdropCaptureScale:
+    "none: backdrop-filter exposes no source capture-density control; no opacity/blur surrogate (W49b DL2).",
   sizeHeavySecondShareFar2x:
     "none: the CSS tier draws no second heavy tap, so it has no share to grade on the far curve; " +
     "declined with the tap in `platform-web/src/optics.ts` (W45 charter Decision Log 1), and the " +
@@ -3659,6 +3670,19 @@ describe("W47 operator 1 is one law on both tiers (X65)", () => {
     { name: "dark 0.25 + far1x 0.6 alone", patch: { ...DARK025, tintAlphaFar1x: 0.6 } },
     { name: "light 0.25 + far 0.2/0.6", patch: { ...read(M27("light", "0.25")), tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.6 } },
     { name: "default + far −1/+5 (the clamp)", patch: { tintAlphaFar1x: -1, tintAlphaFar2x: 5 } },
+    // W49b D: the alpha's independent top must not inherit the CSS scatter's light-0.25 hold.
+    { name: "dark 0.25 + transmission top 160, scatter top 256", patch: {
+      ...DARK025, sizeScatterSpanMax: 256, sizeScatterSpanMax2x: 256,
+      tintAlphaSpanMax: 160, tintAlphaSpanMax2x: 160,
+    } },
+    { name: "dark 0.25 + mixed zero transmission anchor", patch: {
+      ...DARK025, sizeScatterSpanMax: 256, sizeScatterSpanMax2x: 192,
+      tintAlphaSpanMax: 160, tintAlphaSpanMax2x: 0,
+    } },
+    { name: "light 0.25 + independent transmission top", patch: {
+      ...read(M27("light", "0.25")), tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2,
+      tintAlphaSpanMax: 160, tintAlphaSpanMax2x: 192,
+    } },
   ];
   const SPANS = [24, 32, 44, 56, 95.999, 96, 96.001, 100, 128, 144, 160, 192, 256, 300] as const;
   const RATIOS = [0.5, 1, 1.25, 1.5, 2, 3] as const;
@@ -3666,12 +3690,36 @@ describe("W47 operator 1 is one law on both tiers (X65)", () => {
   const profileOf = (patch: Patch): MaterialProfile =>
     withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch as never);
 
+  it("resolves D's independent anchors before interpolation, without below-knee authority (W49b)", () => {
+    const patch = { tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2,
+      sizeScatterSpanMax: 256, sizeScatterSpanMax2x: 192,
+      tintAlphaSpanMax: 160, tintAlphaSpanMax2x: 0 };
+    const profile = profileOf(patch);
+    const mirrored = sourceSize(patch);
+    expect(mirrored.tintAlphaSpanMax).toBe(160);
+    expect(mirrored.tintAlphaSpanMax2x).toBe(0);
+    expect(cssSpanGradedTintAlpha(0.7, 136, mirrored, 1.5)).toBeCloseTo(0.8, 14);
+    expect(rendererSpanGradedTintAlpha(0.7, 136, profile, 1.5)).toBeCloseTo(0.8, 14);
+    for (const dpr of RATIOS) {
+      for (const span of [0, 44, 56, 96]) {
+        expect(cssSpanGradedTintAlpha(0.7, span, mirrored, dpr)).toBe(0.7);
+      }
+    }
+    for (const leaf of ["tintAlphaSpanMax", "tintAlphaSpanMax2x"] as const) {
+      for (const top of [-1, 96, Number.NaN, Number.POSITIVE_INFINITY]) {
+        expect(() => sourceSize({ [leaf]: top })).toThrow(/tintAlphaSpanMax/);
+      }
+    }
+  });
+
   it("evaluates one base alpha on both tiers, shipped and synthetic, at every span and scale", () => {
     for (const { name, patch } of [...SHIPPED, ...SYNTHETIC]) {
       const profile = profileOf(patch);
       const mirrored = sourceSize(patch as never);
       expect(mirrored.tintAlphaFar1x, name).toBe(profile.tintAlphaFar1x);
       expect(mirrored.tintAlphaFar2x, name).toBe(profile.tintAlphaFar2x);
+      expect(mirrored.tintAlphaSpanMax, name).toBe(profile.tintAlphaSpanMax);
+      expect(mirrored.tintAlphaSpanMax2x, name).toBe(profile.tintAlphaSpanMax2x);
       for (const dpr of RATIOS) {
         for (const span of SPANS) {
           for (const alpha of ALPHAS) {
@@ -3753,6 +3801,45 @@ describe("W47 operator 1 is one law on both tiers (X65)", () => {
             );
             expect(css.responded.tintAlpha, label).toBeCloseTo(gpu, 12);
           }
+        }
+      }
+    }
+  });
+});
+
+describe("W49b W/S CSS declines", () => {
+  it("keeps CSS source laws and computed declarations unchanged under live W/S patches", () => {
+    const base = { sizeScatterSpanMax: 160, tintAlphaFar1x: 0.1, tintAlphaFar2x: 0.1,
+      sizeHeavySecondShare: 0.25, sizeHeavySecondSigma: 5, sizeHeavySecondSigma2x: 5 };
+    const changes = [
+      { sizeHeavySecondSigmaFar1x: 4 },
+      { sizeHeavySecondSigmaFar2x: 5 },
+      ...[0.5, 0.25, 0.125].flatMap(backdropCaptureScale => [
+        { backdropCaptureScale },
+        { sizeHeavySecondSigmaFar1x: 4, sizeHeavySecondSigmaFar2x: 5, backdropCaptureScale },
+      ]),
+    ];
+    const tone = { rgb: [0.2, 0.2, 0.2] as const, luminance: 0.2, linearLuminance: 0.2 };
+    for (const change of changes) {
+      const patch = { ...base, ...change };
+      expect(sourceSize(patch)).toEqual(sourceSize(base));
+      expect(sourceOptics(patch)).toEqual(sourceOptics(base));
+      expect(cssTierOptics(patch)).toEqual(cssTierOptics(base));
+      for (const dpr of [1, 1.5, 2]) {
+        for (const span of [44, 96, 128, 160, 256]) {
+          expect(materialAtBackdrop(patch, "regular", tone, span,
+            NOMINAL_ACCESSIBILITY_POLICY.material, dpr)).toEqual(
+            materialAtBackdrop(base, "regular", tone, span,
+              NOMINAL_ACCESSIBILITY_POLICY.material, dpr),
+          );
+          const surface = { radii: [22, 22, 22, 22] as const,
+            policy: NOMINAL_ACCESSIBILITY_POLICY, spanPx: span,
+            extentsCssPx: [span, span] as const, devicePixelRatio: dpr };
+          expect(cssTierDeclarations({ ...surface, optics: cssTierOptics(patch).regular,
+            size: sourceSize(patch) })).toEqual(
+            cssTierDeclarations({ ...surface, optics: cssTierOptics(base).regular,
+              size: sourceSize(base) }),
+          );
         }
       }
     }

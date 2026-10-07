@@ -7028,12 +7028,39 @@ Metal (§5.196 §11). Grey output codes on rrect-md, by input code:
 active documents, or the silhouette tone for the receded ones, not a per-pixel sample. So a group
 or surface whose measured level falls in the first code and a half draws these values: a uniform
 #010101 or #020202 backdrop, or a nearly black one whose mean is that low. The canonical
-backgrounds' darkest solid is `dark-solid` (28, 28, 30), and W36's black cells sit at exactly 0,
-so no gated row reads it. Not rendered on the shipped path.
+backgrounds' darkest solid is `dark-solid` (28, 28, 30), and W36's black cells sit at exactly 0.
+W42 therefore recorded “no gated row reads it” and “Not rendered on the shipped path.” The W49b
+existing-capture qualification below supersedes that coverage claim without rewriting W42's numbers.
 
 W42 bridged the interval for its own candidate only, behind a zero gate on its branch. The parent
 named the dip above the join "the existing named black-level miss" (`implementation-design-rulings.md`),
 but until this entry nothing in the ledger or the tracker stated it.
+
+**W49b G0 existing-capture qualification (2026-10-08, §5.216 §6).** The shipped receded impulse
+cells DO reach the seam. Captured GPU silhouette-tone inputs are about .0034227 at ml and .00547745
+at lg, at both glass settings. Both are outside black-branch support. Ml has only ~.798 authority;
+lg has full authority, and the ordinary curve's small positive target is below the transmitted
+backdrop floor. The W9 solve requests a negative neutral and clamps it to zero. On path-defined
+black areas at least 24 CSS px from the dots, dark .25 lg reads native/web 20.528/.076 codes at 1x
+and 20.495/.000 at 2x; the shipped .5 default reads 20.980/.449 and 20.979/.000. Active .25 errs
+upward instead, roughly 49–50 against native 32. This is not merely a W49 texture defect.
+
+The same diagnostic exposes a second low-end ordinate gap: dark-solid lg receded is 48.144 native
+against 33.072 web, a 15.0722-code deficit at BOTH positions and scales. Its input is not black:
+RGB [28,28,30], linear Y=.0117112160, around the next ordinary-curve knot. Mid-dark residuals have
+another sign, so a blanket offset is not identified. The four dark receded uniform L1 means per
+setting have zero detected-mask pixels despite available captures; the path-defined reading does
+not replace that adopted statistic. There is no thick uniform RGB-zero comparison in this bed,
+so a defective `backdropToneBlackThick` is **not** identified. Evidence and full availability table:
+`results/2026-10-08-w49b-g0-declaration/diagnostics/black-level/`. No new render or coefficient change.
+
+D/W/S's finite ladders do not supply this missing level response under the held tone law. D and W
+separate on their measured 2x slices only; neither clears the binding two-scale contract. W can
+reduce the impulse's T1 without restoring its body level. S's attested uniform .5 changes neither
+the missing lg body nor its halo; the .125 control's one-scale near-20 plateau is not mechanism
+identification. The next level declaration should use the near-zero controls below before another
+bandwidth refit. W49b's broad native bed is declared but unspent; re-ground its low-end membership
+rather than automatically spend a 13-hour sitting on the former texture question.
 
 Shape of the fix: this changes measured territory, so a native reading comes first: near-black
 uniform greys (codes 1–8) at each span, in all four endpoints. Then a declared low-end form, refereed
@@ -7863,3 +7890,53 @@ The check's diagnostic also names `probes` although its serialised value is unch
 `PROFILES` uses integer keys and the recorded JSON has string keys. Normalising both through
 JSON leaves only the three changed pins (`close/declaration-probe-diagnostic.txt`). This is a
 minor reporting defect in the frozen tool, not permission to rehash its declaration.
+
+
+## Isolated Python 3.12 exposes an architecture-mismatched framework NumPy (W49b G0, 2026-10-08)
+
+The framework Python at `/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12`
+runs arm64. In the **normal user environment**, `site.ENABLE_USER_SITE` is true and the arm64
+NumPy **2.3.5** in `~/Library/Python/3.12/lib/python/site-packages` imports successfully, shadowing
+the framework's x86_64 NumPy 2.2.2. W49b reproduced the failure specifically with **`python3.12 -I`**:
+user-site loading is disabled, the framework `_multiarray_umath` is selected, and `dlopen` rejects
+its x86_64 architecture. Executing that framework interpreter as x86_64 also fails (`Bad CPU type`).
+The same hidden framework defect is relevant when `PYTHONNOUSERSITE` or another environment
+removes the working user installation; it is not a blanket inability to run `python3.12`.
+
+W49b uses the dedicated pinned arm64 venv `~/vitrea-w49/py` (Python 3.14.6, NumPy 2.5.3,
+Pillow 12.3.0, SciPy 1.18.1; requirements under
+`packages/calibration/results/2026-10-08-w49b-g0-declaration/native-bed/requirements.txt`).
+Earlier waves' tools hard-coding `python3.12` work in the normal user environment but cannot
+import NumPy under isolation until the framework installation is repaired. Standard-library-only
+Python tools are unaffected. Repair that architecture-matched install rather than replacing a
+versioned executable name with another Python version or rewriting frozen historical tools.
+
+**Verification-path audit.** `.github/workflows/ci.yml` provisions Python 3.12, installs NumPy/Pillow
+into that interpreter, checks imports, and runs `pnpm -r test`. Calibration evidence tests W34,
+W35, W37, W38, W39, W41 and the generation store invoke `python3.12`; these normal invocations
+retain the working user site locally. The initial W49b calibration run reported **956 passed / four
+skipped**. A targeted JSON-reporter rerun confirmed the four are the adopted-thresholds capture-tree
+assertions (X1 at 0.5 and 0.25, light/dark T1-band bytes), **not** Python-availability skips:
+the canonical gitignored capture tree is absent in this worktree. W34/W39/W41 numerical cases
+ran and passed. CI's separately provisioned installation is not shown broken by this local finding.
+
+
+## W49b frozen runner/domain and measurement-import seal gaps (G0, 2026-10-08)
+
+*Independent protocol review and additive closure, §5.216 §7; original two declaration hashes
+remain unchanged.* The original `tools/render.py` checks the declaration but does not itself bind
+an arbitrary supplied batch to the registered one. The original root seal also omits W44's imported
+band-reader dependency closure. Neither gap was exercised by the completed registered run.
+
+Under the parent's ruling, a separately versioned `audit/` reconstructs candidate endpoints from
+the pinned snapshots and registered overrides, audits all ACTUAL requests, argv, rows, captures and
+membership, and checks nine executed repository Python dependencies against seal commit `fb74ebc1e`.
+Its actual-record PASS was committed at `dec63b3db` BEFORE the ladder verdict. Nineteen negative
+tests and an independent closure review pass. This verifies preserved evidence/source bytes, not a
+retroactive process attestation; the frozen original CLI remains unsafe for arbitrary new batches.
+
+**Carry-forward fix is executable**, not a note to remember: `audit/renderer_template.py` binds the
+registered batch even on direct invocation, and `audit/next_wave.py` seals and enforces exercised
+imports. A next declaration must pin those contract/guard sources and give any reader subprocess
+its own import gate. Use the additive registered-batch guard for this frozen G0 tool; do not amend
+its old seal or infer permission for a new fit from its generic argument parser.

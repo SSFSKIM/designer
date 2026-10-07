@@ -47,6 +47,22 @@ describe("X75: no shipped endpoint resolves alphaBase above 0.95 (W49 Decision L
     });
   }
 
+  it("reads D's independent top on both tiers, rather than the scatter top (W49b)", () => {
+    const patch = {
+      optics: { regular: { tintAlpha: 0.8 } }, tintAlphaFar1x: 0.2, tintAlphaFar2x: 0.2,
+      sizeScatterSpanMax: 256, sizeScatterSpanMax2x: 256,
+      tintAlphaSpanMax: 160, tintAlphaSpanMax2x: 192,
+    };
+    const found = opaqueGlassViolations(patch);
+    for (const tier of ["webgpu", "css"] as const) {
+      expect(found.find(v => v.tier === tier && v.dpr === 1)?.span).toBe(140);
+      expect(found.find(v => v.tier === tier && v.dpr === 2)?.span).toBe(161);
+    }
+    // A top beyond X75's declared span range must not be replaced by the scatter's early top.
+    expect(opaqueGlassViolations({ ...patch,
+      tintAlphaSpanMax: 4096, tintAlphaSpanMax2x: 4096 })).toEqual([]);
+  });
+
   it("is not vacuous: a synthetic endpoint past the bound fails on both tiers, and only where it is", () => {
     const found = opaqueGlassViolations({ optics: { regular: { tintAlpha: 0.8 } }, tintAlphaFar1x: 0.2 });
     expect(new Set(found.map((v) => v.tier))).toEqual(new Set(["webgpu", "css"]));

@@ -1388,6 +1388,9 @@ export interface MaterialSourceSize {
    */
   readonly tintAlphaFar1x: number;
   readonly tintAlphaFar2x: number;
+  /** W49b D's independent transmission top; zero follows each scale's scatter top. */
+  readonly tintAlphaSpanMax: number;
+  readonly tintAlphaSpanMax2x: number;
   /**
    * The refraction ladder's scales, carried here because the size law folds under
    * the accessibility regime through them — see `sizeThicknessUnderPolicy`.
@@ -1395,6 +1398,13 @@ export interface MaterialSourceSize {
   readonly refractionScale: RefractionScale;
 }
 
+/**
+ * W49b DL2: CSS declines `sizeHeavySecondSigmaFar1x` / `sizeHeavySecondSigmaFar2x` with its
+ * absent second tap. It also declines `backdropCaptureScale`: `backdrop-filter` exposes no
+ * source capture-resolution control. A blur or alpha substitute would change a different law,
+ * so neither is used. The coherence registry and a live-patch declaration test pin these
+ * deliberate omissions; D's independent transmission top is mirrored instead.
+ */
 export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   // MEASURED (W2; the scatter facet W11c). The band is where the settled
   // reference's own size-dependence happens. The scatter facet's gain, floor
@@ -1427,6 +1437,9 @@ export const MATERIAL_SOURCE_SIZE: MaterialSourceSize = {
   // W47 operator 1, INERT at the default on both tiers (claims §5.211).
   tintAlphaFar1x: 0,
   tintAlphaFar2x: 0,
+  // W49b D, INERT: resolve each scale's zero to that scale's scatter top.
+  tintAlphaSpanMax: 0,
+  tintAlphaSpanMax2x: 0,
   refractionScale: DEFAULT_REFRACTION_SCALE,
 };
 
@@ -2007,9 +2020,20 @@ function flatOuterShadow(
 
 /** The size-law constants under a profile patch, by the renderer's merge rule. */
 export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize {
+  // W49b D: the same boundary check as the renderer's merge; a nonzero top must sit above
+  // the resolved knee. Zero remains a sentinel here, resolved per anchor at the DPR seam.
+  const sizeSpanMax = patch?.sizeSpanMax ?? MATERIAL_SOURCE_SIZE.sizeSpanMax;
+  const tintAlphaSpanMax = patch?.tintAlphaSpanMax ?? MATERIAL_SOURCE_SIZE.tintAlphaSpanMax;
+  const tintAlphaSpanMax2x = patch?.tintAlphaSpanMax2x ?? MATERIAL_SOURCE_SIZE.tintAlphaSpanMax2x;
+  for (const [leaf, top] of [["tintAlphaSpanMax", tintAlphaSpanMax],
+    ["tintAlphaSpanMax2x", tintAlphaSpanMax2x]] as const) {
+    if (top !== 0 && (!Number.isFinite(top) || !(top > sizeSpanMax))) {
+      throw new RangeError(`${leaf} must be 0 (follow scatter) or finite and greater than sizeSpanMax`);
+    }
+  }
   return {
     sizeSpanMin: patch?.sizeSpanMin ?? MATERIAL_SOURCE_SIZE.sizeSpanMin,
-    sizeSpanMax: patch?.sizeSpanMax ?? MATERIAL_SOURCE_SIZE.sizeSpanMax,
+    sizeSpanMax,
     sizeScatterGainMax: patch?.sizeScatterGainMax ?? MATERIAL_SOURCE_SIZE.sizeScatterGainMax,
     sizeScatterFloor: patch?.sizeScatterFloor ?? MATERIAL_SOURCE_SIZE.sizeScatterFloor,
     sizeScatterSpanMax: patch?.sizeScatterSpanMax ?? MATERIAL_SOURCE_SIZE.sizeScatterSpanMax,
@@ -2044,6 +2068,8 @@ export function sourceSize(patch?: RendererMaterialProfile): MaterialSourceSize 
     sizeOcclusionGain: patch?.sizeOcclusionGain ?? MATERIAL_SOURCE_SIZE.sizeOcclusionGain,
     tintAlphaFar1x: patch?.tintAlphaFar1x ?? MATERIAL_SOURCE_SIZE.tintAlphaFar1x,
     tintAlphaFar2x: patch?.tintAlphaFar2x ?? MATERIAL_SOURCE_SIZE.tintAlphaFar2x,
+    tintAlphaSpanMax,
+    tintAlphaSpanMax2x,
     refractionScale: sourceRefractionScale(patch),
   };
 }
@@ -2949,13 +2975,25 @@ export function sizeOcclusionAlphaAt(
   return clamp01(alpha + size.sizeOcclusionGain * thickness * (1 - alpha));
 }
 
+/** W49b D: mirror the transmission top, resolving zero anchors BEFORE DPR interpolation. */
+export function tintAlphaSpanMaxAtScale(
+  size: MaterialSourceSize = MATERIAL_SOURCE_SIZE,
+  devicePixelRatio = 1,
+): number {
+  return rampAtScale(
+    size.tintAlphaSpanMax === 0 ? size.sizeScatterSpanMax : size.tintAlphaSpanMax,
+    size.tintAlphaSpanMax2x === 0 ? size.sizeScatterSpanMax2x : size.tintAlphaSpanMax2x,
+    devicePixelRatio,
+  );
+}
+
 /**
  * **The base alpha a surface of this span carries, graded on the far curve** (W47 operator 1;
  * claims §5.211; W47 charter Decision Log 2, X65) — the CSS tier's MIRROR of the optics pass's
  * per-pixel `alphaBase`, evaluated once per surface:
  *
  * ```
- * clamp(alpha + rampAtScale(far1x, far2x, dpr) · smoothstep(sizeSpanMax, sizeScatterSpanMax(dpr), span), 0, 1)
+ * clamp(alpha + rampAtScale(far1x, far2x, dpr) · smoothstep(sizeSpanMax, tintAlphaSpanMaxAtScale(dpr), span), 0, 1)
  * ```
  *
  * applied before `sizeOcclusionAlphaAt`, which then lifts from it exactly as the shader's size
@@ -2964,8 +3002,9 @@ export function sizeOcclusionAlphaAt(
  * scalar per surface — the `rgba()` layer's alpha — and the surface's span is one number, so the
  * per-pixel law has an exact per-surface reading here, where the second tap's share (W45) had no
  * layer to grade. `alpha` is the source alpha after the accessibility lift, as the shader's
- * `tint.w` is; the far curve is unfolded on both tiers. Read off the DOCUMENT's span top (the
- * `size` `materialAtBackdrop` resolves), not off the light 0.25 hold `cssTierSourceSize` applies
+ * `tint.w` is; the far curve is unfolded on both tiers. W49b D uses its independent top when
+ * named, otherwise the DOCUMENT's scatter top (the `size` `materialAtBackdrop` resolves), not
+ * off the light 0.25 hold `cssTierSourceSize` applies
  * to this tier's scatter, so a light 0.25 document that ever names the delta grades the alpha on
  * the WebGPU tier's own curve. At 0 the sum is `alpha` exactly and the clamp is the identity on
  * an alpha in [0, 1], so a document at the identity moves no CSS output; the dark 0.25 pair names
@@ -2980,7 +3019,7 @@ export function spanGradedTintAlpha(
 ): number {
   const t = clamp01(
     (spanPx - size.sizeSpanMax)
-      / Math.max(scatterSpanMaxAtScale(size, devicePixelRatio) - size.sizeSpanMax, 1e-6),
+      / Math.max(tintAlphaSpanMaxAtScale(size, devicePixelRatio) - size.sizeSpanMax, 1e-6),
   );
   const far = rampAtScale(size.tintAlphaFar1x, size.tintAlphaFar2x, devicePixelRatio);
   return clamp01(alpha + far * (t * t * (3 - 2 * t)));

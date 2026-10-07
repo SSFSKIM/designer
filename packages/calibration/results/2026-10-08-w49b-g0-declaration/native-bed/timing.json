@@ -1,0 +1,699 @@
+{
+  "rates": {
+    "source": "packages/calibration/results/2026-09-30-w42-g1-sitting/attest",
+    "admittedRuns": 88,
+    "captureRates": {
+      "normal-1x": {
+        "runs": 28,
+        "captures": 458,
+        "cells": [
+          14,
+          16,
+          23,
+          26
+        ],
+        "overheadSeconds": 10.878,
+        "intervalSeconds": 9.5333,
+        "crossCheckFit": {
+          "perRunSeconds": 2.14,
+          "perCaptureSeconds": 9.4674
+        },
+        "wallSeconds": 4395.9
+      },
+      "normal-2x": {
+        "runs": 28,
+        "captures": 2935,
+        "cells": [
+          87,
+          92,
+          101,
+          107,
+          133,
+          148,
+          157,
+          175
+        ],
+        "overheadSeconds": 11.427,
+        "intervalSeconds": 9.5322,
+        "crossCheckFit": {
+          "perRunSeconds": 7.15,
+          "perCaptureSeconds": 9.4906
+        },
+        "wallSeconds": 28054.9
+      },
+      "long-1x": {
+        "runs": 12,
+        "captures": 24,
+        "cells": [
+          2
+        ],
+        "overheadSeconds": 16.75,
+        "intervalSeconds": 16.0,
+        "crossCheckFit": null,
+        "wallSeconds": 394.4
+      },
+      "long-2x": {
+        "runs": 12,
+        "captures": 24,
+        "cells": [
+          2
+        ],
+        "overheadSeconds": 17.079,
+        "intervalSeconds": 16.0,
+        "crossCheckFit": null,
+        "wallSeconds": 399.9
+      }
+    },
+    "dump": {
+      "launches": 8,
+      "scenes": [
+        87,
+        92,
+        101,
+        107,
+        14,
+        16,
+        14,
+        16
+      ],
+      "perLaunchSeconds": 0.77,
+      "perSceneSeconds": 8.3311,
+      "elapsedFit": {
+        "perLaunchSeconds": 0.19,
+        "perSceneSeconds": 8.3306
+      }
+    },
+    "gapWithinPassSeconds": 0.75,
+    "gapWithinPassCount": 62,
+    "gapBetweenPassesSeconds": 1.15,
+    "gapBetweenPassesCount": 20,
+    "modeSwitchSeconds": 7.74,
+    "modeSwitches": [
+      7.8,
+      7.7,
+      7.6
+    ],
+    "excludedStopGaps": [
+      {
+        "after": "2x-light-receded/run-3",
+        "before": "2x-light-receded/run-4",
+        "seconds": 1137.2
+      },
+      {
+        "after": "2x-light-receded/run-6",
+        "before": "2x-light-receded/run-7",
+        "seconds": 277.5
+      }
+    ],
+    "sliderWriteSeconds": 1.0,
+    "sliderWriteNote": "ASSUMED, not measured: W42 never wrote the slider inside a sitting"
+  },
+  "estimate": {
+    "passes": [
+      {
+        "name": "open-canonical-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 150.2,
+        "exactSeconds": 150.1674
+      },
+      {
+        "name": "open-canonical-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 150.2,
+        "exactSeconds": 150.1674
+      },
+      {
+        "name": "open-canonical-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 148.5,
+        "exactSeconds": 148.5336
+      },
+      {
+        "name": "open-canonical-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 148.5,
+        "exactSeconds": 148.5336
+      },
+      {
+        "name": "dump-native-2x-active",
+        "kind": "dump",
+        "glass": 0.25,
+        "mode": "68",
+        "scenes": 21,
+        "seconds": 175.7,
+        "exactSeconds": 175.7231
+      },
+      {
+        "name": "transfer-transfer-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 150.2,
+        "exactSeconds": 150.1674
+      },
+      {
+        "name": "native-refs-cal-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 87,
+        "seconds": 836.5,
+        "exactSeconds": 836.4857999999999
+      },
+      {
+        "name": "native-cal-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 655,
+        "seconds": 6256.1,
+        "exactSeconds": 6256.064999999999
+      },
+      {
+        "name": "native-refs-blind-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 18,
+        "seconds": 178.8,
+        "exactSeconds": 178.764
+      },
+      {
+        "name": "native-blind-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 245,
+        "seconds": 2347.9,
+        "exactSeconds": 2347.863
+      },
+      {
+        "name": "dump-native-2x-receded",
+        "kind": "dump",
+        "glass": 0.25,
+        "mode": "68",
+        "scenes": 21,
+        "seconds": 175.7,
+        "exactSeconds": 175.7231
+      },
+      {
+        "name": "transfer-transfer-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 150.2,
+        "exactSeconds": 150.1674
+      },
+      {
+        "name": "native-refs-cal-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 87,
+        "seconds": 836.5,
+        "exactSeconds": 836.4857999999999
+      },
+      {
+        "name": "native-cal-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 655,
+        "seconds": 6256.1,
+        "exactSeconds": 6256.064999999999
+      },
+      {
+        "name": "native-refs-blind-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 18,
+        "seconds": 178.8,
+        "exactSeconds": 178.764
+      },
+      {
+        "name": "native-blind-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 245,
+        "seconds": 2347.9,
+        "exactSeconds": 2347.863
+      },
+      {
+        "name": "dump-native-1x-active",
+        "kind": "dump",
+        "glass": 0.25,
+        "mode": "69",
+        "scenes": 21,
+        "seconds": 175.7,
+        "exactSeconds": 175.7231
+      },
+      {
+        "name": "transfer-transfer-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 148.5,
+        "exactSeconds": 148.5336
+      },
+      {
+        "name": "native-refs-cal-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 87,
+        "seconds": 834.9,
+        "exactSeconds": 834.9312
+      },
+      {
+        "name": "native-cal-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 655,
+        "seconds": 6254.0,
+        "exactSeconds": 6254.035000000001
+      },
+      {
+        "name": "native-refs-blind-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 18,
+        "seconds": 177.1,
+        "exactSeconds": 177.1335
+      },
+      {
+        "name": "native-blind-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 245,
+        "seconds": 2345.4,
+        "exactSeconds": 2345.382
+      },
+      {
+        "name": "dump-native-1x-receded",
+        "kind": "dump",
+        "glass": 0.25,
+        "mode": "69",
+        "scenes": 21,
+        "seconds": 175.7,
+        "exactSeconds": 175.7231
+      },
+      {
+        "name": "transfer-transfer-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 148.5,
+        "exactSeconds": 148.5336
+      },
+      {
+        "name": "native-refs-cal-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 87,
+        "seconds": 834.9,
+        "exactSeconds": 834.9312
+      },
+      {
+        "name": "native-cal-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 655,
+        "seconds": 6254.0,
+        "exactSeconds": 6254.035000000001
+      },
+      {
+        "name": "native-refs-blind-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 18,
+        "seconds": 177.1,
+        "exactSeconds": 177.1335
+      },
+      {
+        "name": "native-blind-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 5,
+        "protocol": "normal",
+        "captures": 245,
+        "seconds": 2345.4,
+        "exactSeconds": 2345.382
+      },
+      {
+        "name": "close-canonical-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 148.5,
+        "exactSeconds": 148.5336
+      },
+      {
+        "name": "close-canonical-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 148.5,
+        "exactSeconds": 148.5336
+      },
+      {
+        "name": "close-canonical-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 150.2,
+        "exactSeconds": 150.1674
+      },
+      {
+        "name": "close-canonical-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 15,
+        "seconds": 150.2,
+        "exactSeconds": 150.1674
+      }
+    ],
+    "boundaries": [
+      {
+        "after": "open-canonical-2x-active",
+        "before": "open-canonical-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "open-canonical-2x-receded",
+        "before": "open-canonical-1x-active",
+        "modeSwitch": true,
+        "sliderWrite": false,
+        "exactSeconds": 7.74
+      },
+      {
+        "after": "open-canonical-1x-active",
+        "before": "open-canonical-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "open-canonical-1x-receded",
+        "before": "dump-native-2x-active",
+        "modeSwitch": true,
+        "sliderWrite": false,
+        "exactSeconds": 7.74
+      },
+      {
+        "after": "dump-native-2x-active",
+        "before": "transfer-transfer-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "transfer-transfer-2x-active",
+        "before": "native-refs-cal-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-cal-2x-active",
+        "before": "native-cal-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-cal-2x-active",
+        "before": "native-refs-blind-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-blind-2x-active",
+        "before": "native-blind-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-blind-2x-active",
+        "before": "dump-native-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "dump-native-2x-receded",
+        "before": "transfer-transfer-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "transfer-transfer-2x-receded",
+        "before": "native-refs-cal-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-cal-2x-receded",
+        "before": "native-cal-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-cal-2x-receded",
+        "before": "native-refs-blind-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-blind-2x-receded",
+        "before": "native-blind-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-blind-2x-receded",
+        "before": "dump-native-1x-active",
+        "modeSwitch": true,
+        "sliderWrite": false,
+        "exactSeconds": 7.74
+      },
+      {
+        "after": "dump-native-1x-active",
+        "before": "transfer-transfer-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "transfer-transfer-1x-active",
+        "before": "native-refs-cal-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-cal-1x-active",
+        "before": "native-cal-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-cal-1x-active",
+        "before": "native-refs-blind-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-blind-1x-active",
+        "before": "native-blind-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-blind-1x-active",
+        "before": "dump-native-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "dump-native-1x-receded",
+        "before": "transfer-transfer-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "transfer-transfer-1x-receded",
+        "before": "native-refs-cal-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-cal-1x-receded",
+        "before": "native-cal-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-cal-1x-receded",
+        "before": "native-refs-blind-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-refs-blind-1x-receded",
+        "before": "native-blind-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "native-blind-1x-receded",
+        "before": "close-canonical-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "close-canonical-1x-active",
+        "before": "close-canonical-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "close-canonical-1x-receded",
+        "before": "close-canonical-2x-active",
+        "modeSwitch": true,
+        "sliderWrite": false,
+        "exactSeconds": 7.74
+      },
+      {
+        "after": "close-canonical-2x-active",
+        "before": "close-canonical-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      }
+    ],
+    "totals": {
+      "captureLaunches": 100,
+      "captures": 4200,
+      "dumpLaunches": 4,
+      "dumpScenes": 84,
+      "sliderWrites": 0,
+      "modeSwitches": 4,
+      "publishedCells": 0
+    },
+    "captureSeconds": 40253.5,
+    "dumpSeconds": 702.9,
+    "boundarySeconds": 62.0,
+    "totalSeconds": 41018.4,
+    "totalHours": 11.39,
+    "withStopLossHours": 12.53,
+    "exactTotalSeconds": 41018.4274
+  },
+  "modelSelfCheck": {
+    "measuredSeconds": 37070.8,
+    "modelledSeconds": 37046.8,
+    "differenceSeconds": -24.0
+  }
+}

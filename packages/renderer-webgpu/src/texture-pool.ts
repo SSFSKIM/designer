@@ -173,6 +173,9 @@ export const poolKey = {
    * width along, acquired only where `sizeHeavySecondShare` is non-zero. */
   backdropHeavy2: (sourceId: string): string => `backdrop:${sourceId}:heavy2`,
   backdropHeavy2Scratch: (sourceId: string): string => `backdrop:${sourceId}:heavy2-scratch`,
+  /** W49b: independent far bandwidth and separable scratch, absent at identity. */
+  backdropHeavy2Far: (sourceId: string): string => `backdrop:${sourceId}:heavy2Far`,
+  backdropHeavy2FarScratch: (sourceId: string): string => `backdrop:${sourceId}:heavy2Far-scratch`,
   /** W47's fine-body texture and its separable scratch, only while the tap is live. */
   backdropFine: (sourceId: string): string => `backdrop:${sourceId}:fine`,
   backdropFineScratch: (sourceId: string): string => `backdrop:${sourceId}:fine-scratch`,

@@ -48,6 +48,13 @@ export const MATERIAL_PATCH_KEYS = new Set([
   // them, and this set refusing them would refuse the very rung that reads the operator.
   "tintAlphaFar1x",
   "tintAlphaFar2x",
+  // W49b D: independent transmission top, identity 0 follows that scale's scatter top.
+  "tintAlphaSpanMax",
+  "tintAlphaSpanMax2x",
+  // W49b W/S: the second tap's far bandwidth and the source capture-resolution multiplier.
+  "sizeHeavySecondSigmaFar1x",
+  "sizeHeavySecondSigmaFar2x",
+  "backdropCaptureScale",
   "sizeShadowGainMax",
   // The scatter facet's frost and span curve (W11c) and the body's depth ramp
   // (W13 G1, claims 5.61): the span curve supplies the ramp's deep value and the

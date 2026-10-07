@@ -93,6 +93,8 @@ export interface PyramidResources {
    * material that names it and by nothing else.
    */
   readonly heavy2: GPUTexture | undefined;
+  /** W49b W: the far endpoint of the second-tap bandwidth crossfade. */
+  readonly heavy2Far: GPUTexture | undefined;
   /**
    * W47's fine BODY blur (G0 (b), X66), through `heavyTapPlan` and the existing separable pair.
    * Undefined at share 0 or width 0 at this scale. Like the second heavy tap, its presence is
@@ -149,6 +151,10 @@ export interface PyramidResources {
    * on `heavySigmaCss`'s own rule and for the same staleness reason.
    */
   readonly heavy2SigmaCss: number;
+  /** W49b: 0 has no allocation; otherwise the far width in CSS px. */
+  readonly heavy2FarSigmaCss: number;
+  /** W49b S: capture density relative to the source resolution policy; identity 1. */
+  readonly captureScale: number;
   /** W47's fine width in CSS px, already gated by the share; 0 allocates and draws nothing. */
   readonly fineSigmaCss: number;
 }
@@ -196,6 +202,10 @@ export interface PyramidBuildRequest {
    * rather than being re-decided here.
    */
   readonly heavy2SigmaCss: number;
+  /** W49b: 0 has no allocation; otherwise the far width in CSS px. */
+  readonly heavy2FarSigmaCss: number;
+  /** W49b S: capture density relative to the source resolution policy; identity 1. */
+  readonly captureScale: number;
   /** W47's fine width in CSS px, already gated by the share; 0 allocates and draws nothing. */
   readonly fineSigmaCss: number;
   readonly viewportCss: readonly [number, number];
@@ -327,7 +337,9 @@ const sameBody = (existing: PyramidResources, request: PyramidBuildRequest): boo
   // kind and not in degree.
   && sameHeavySigma(request.heavy2SigmaCss, existing.heavy2SigmaCss)
   // W47's fine tap has the same on/off distinction and density/width staleness law.
-  && sameHeavySigma(request.fineSigmaCss, existing.fineSigmaCss);
+  && sameHeavySigma(request.fineSigmaCss, existing.fineSigmaCss)
+  && sameHeavySigma(request.heavy2FarSigmaCss, existing.heavy2FarSigmaCss)
+  && request.captureScale === existing.captureScale;
 
 export function createPyramidStore(context: GpuContext): PyramidStore {
   const { device, pool, cache } = context;
@@ -434,6 +446,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     if (target.fine !== undefined && pool.peek(poolKey.backdropFine(sourceId)) !== target.fine) {
       return undefined;
     }
+    if (target.heavy2Far !== undefined &&
+        pool.peek(poolKey.backdropHeavy2Far(sourceId)) !== target.heavy2Far) return undefined;
     return target;
   };
 
@@ -455,6 +469,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
     heavy2SigmaCss: number,
     fineLevel: number | undefined,
     fineSigmaCss: number,
+    heavy2FarLevel: number | undefined,
+    heavy2FarSigmaCss: number,
+    captureScale: number,
   ): PyramidResources {
     const existing = resources.get(sourceId);
     const levelSize = (level: number): { width: number; height: number } =>
@@ -539,6 +556,22 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       });
     }
 
+    // The second width is separate from the old tap: pixels at the knee still sample the old
+    // bandwidth while far pixels sample this one, even when they share a backdrop source.
+    let heavy2Far: GPUTexture | undefined;
+    if (heavy2FarLevel === undefined) {
+      pool.release(poolKey.backdropHeavy2Far(sourceId));
+      pool.release(poolKey.backdropHeavy2FarScratch(sourceId));
+    } else {
+      heavy2Far = pool.acquire(poolKey.backdropHeavy2Far(sourceId), {
+        width: levelSize(heavy2FarLevel).width,
+        height: levelSize(heavy2FarLevel).height,
+        format: WORKING_TEXTURE_FORMAT,
+        usage: chainUsage(),
+        label: `vitrea:pyramid:${sourceId}:heavy2Far`,
+      });
+    }
+
     let stats = existing?.stats;
     if (stats === undefined) {
       stats = device.createBuffer({
@@ -554,7 +587,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       existing.body !== body ||
       existing.heavy !== heavy ||
       existing.heavy2 !== heavy2 ||
-      existing.fine !== fine
+      existing.fine !== fine ||
+      existing.heavy2Far !== heavy2Far
     ) {
       reallocations += 1;
     }
@@ -567,6 +601,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       heavy,
       heavy2,
       fine,
+      heavy2Far,
       stats,
       sizeEpoch,
       builtEpoch,
@@ -578,6 +613,8 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       heavySigmaCss,
       heavy2SigmaCss,
       fineSigmaCss,
+      heavy2FarSigmaCss,
+      captureScale,
     };
     resources.set(sourceId, next);
     return next;
@@ -695,7 +732,7 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
   function runSeparableBlur(
     encoder: GPUCommandEncoder,
     sourceId: string,
-    kind: "body" | "heavy" | "heavy2" | "fine",
+    kind: "body" | "heavy" | "heavy2" | "fine" | "heavy2Far",
     plan: PyramidPlan,
     chain: GPUTexture,
     target: GPUTexture,
@@ -711,7 +748,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
           ? poolKey.backdropHeavyScratch(sourceId)
           : kind === "heavy2"
             ? poolKey.backdropHeavy2Scratch(sourceId)
-            : poolKey.backdropFineScratch(sourceId);
+            : kind === "fine"
+              ? poolKey.backdropFineScratch(sourceId)
+              : poolKey.backdropHeavy2FarScratch(sourceId);
     const scratch = pool.acquire(scratchKey, {
       width: size.width,
       height: size.height,
@@ -879,7 +918,15 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       }
       pendingRelease.push(provider);
 
-      const plan = planPyramid(frame.width, frame.height, request.resolution);
+      // S reduces the imported source BEFORE analysis and every blur, relative to the
+      // policy's already-rounded, capped extent. Multiplying the policy scale instead
+      // would let maxDimension swallow S on large sources. Identity uses the old plan
+      // exactly; the final extent below still converts all widths from their CSS units.
+      const policyPlan = planPyramid(frame.width, frame.height, request.resolution);
+      const plan = request.captureScale === 1 ? policyPlan : planPyramid(
+        policyPlan.width, policyPlan.height,
+        { scale: request.captureScale, maxDimension: request.resolution.maxDimension },
+      );
       // Source texels per CSS px — the placed density where the host measured a
       // placement, the cover ratio the optics pass samples with where it did not
       // (`backdrop-fit.ts`) — times the downscale the plan actually applied
@@ -908,6 +955,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       const finePlan = request.fineSigmaCss > 0
         ? heavyTapPlan(request.fineSigmaCss * texelsPerCss * planScale, plan)
         : undefined;
+      const heavy2FarPlan = request.heavy2FarSigmaCss > 0
+        ? heavyTapPlan(request.heavy2FarSigmaCss * texelsPerCss * planScale, plan)
+        : undefined;
       const target = allocate(
         request.sourceId,
         plan,
@@ -923,6 +973,9 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
         request.heavy2SigmaCss,
         finePlan?.level,
         request.fineSigmaCss,
+        heavy2FarPlan?.level,
+        request.heavy2FarSigmaCss,
+        request.captureScale,
       );
 
       runImport(encoder, request.sourceId, frame, target.chain);
@@ -972,6 +1025,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
           finePlan.level,
           finePlan.residualSigmaTexels,
         );
+      }
+      if (heavy2FarPlan !== undefined && target.heavy2Far !== undefined) {
+        runSeparableBlur(encoder, request.sourceId, "heavy2Far", plan, target.chain,
+          target.heavy2Far, heavy2FarPlan.level, heavy2FarPlan.residualSigmaTexels);
       }
       runAnalysis(encoder, request.sourceId, plan, target.chain, target.stats);
 
@@ -1080,6 +1137,10 @@ export function createPyramidStore(context: GpuContext): PyramidStore {
       pool.release(poolKey.backdropHeavyScratch(sourceId));
       pool.release(poolKey.backdropFine(sourceId));
       pool.release(poolKey.backdropFineScratch(sourceId));
+      pool.release(poolKey.backdropHeavy2(sourceId));
+      pool.release(poolKey.backdropHeavy2Scratch(sourceId));
+      pool.release(poolKey.backdropHeavy2Far(sourceId));
+      pool.release(poolKey.backdropHeavy2FarScratch(sourceId));
       resources.get(sourceId)?.stats.destroy();
       resources.delete(sourceId);
       readbacks.get(sourceId)?.staging.destroy();

@@ -1,0 +1,6107 @@
+{
+  "outcome": "STOP-at-finding",
+  "scope": "The sealed finite identification ladders, not global infeasibility; no fit domain admitted.",
+  "auditCommit": "dec63b3db",
+  "auditSha256": "004e17c0205ce76688cec28b866d1d143880fde2658d800fa6c21d201ec17b9b",
+  "partOne": "f8cf52f6846977e32afa322b1890aa7180acd2ca1d39f1bbe2bf584d59311b2e",
+  "partTwo": "0bbad26c0fd1bec4b196424c4a04e53faeb81e04f38c37eb358a1ce7c097a715",
+  "readingsSha256": "0542bdccd1f4c5799980612872cd45499c8d71c13e448d52f5fb65e1d283c827",
+  "points": 27,
+  "runs": 54,
+  "cells": 1686,
+  "families": {
+    "D": {
+      "bothScales": "DOES_NOT_SEPARATE",
+      "eligibleRungs": [],
+      "perScale": {
+        "1": {
+          "separatesOnMeasuredGate": false,
+          "rungs": [],
+          "withheld": "UNMEASURED"
+        },
+        "2": {
+          "separatesOnMeasuredGate": true,
+          "rungs": [
+            "d-scatter-256"
+          ],
+          "withheld": "UNMEASURED"
+        }
+      }
+    },
+    "W": {
+      "bothScales": "DOES_NOT_SEPARATE",
+      "eligibleRungs": [],
+      "perScale": {
+        "1": {
+          "separatesOnMeasuredGate": false,
+          "rungs": [],
+          "withheld": "UNMEASURED"
+        },
+        "2": {
+          "separatesOnMeasuredGate": true,
+          "rungs": [
+            "w-joint-d4-a09-t128",
+            "w-joint-d5-a09-t128"
+          ],
+          "withheld": "UNMEASURED"
+        }
+      }
+    },
+    "S": {
+      "bothScales": "DOES_NOT_SEPARATE",
+      "eligibleRungs": [],
+      "perScale": {
+        "1": {
+          "separatesOnMeasuredGate": false,
+          "rungs": [],
+          "withheld": "UNMEASURED"
+        },
+        "2": {
+          "separatesOnMeasuredGate": false,
+          "rungs": [],
+          "withheld": "UNMEASURED"
+        }
+      }
+    }
+  },
+  "bindingTargets": [
+    {
+      "scale": 1,
+      "scene": "checkerboard-32__rrect-lg__rest",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "FAIL",
+          "growthHistoricalInB": 1.0761515195299414,
+          "measured": 0.025996469541933267
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 2.931173784587365,
+          "measured": 0.020410826245434572
+        }
+      }
+    },
+    {
+      "scale": 1,
+      "scene": "checkerboard-64__rrect-lg__rest",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "PASS",
+          "growthHistoricalInB": 0.21244977690236966,
+          "measured": 0.033156365317789704
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 1.5152093563951372,
+          "measured": 0.029262725044845853
+        }
+      }
+    },
+    {
+      "scale": 1,
+      "scene": "hc-text-28__rrect-lg__rest",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "PASS",
+          "growthHistoricalInB": 0.4427817446810025,
+          "measured": 0.029543976390949113
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 1.3791414044110453,
+          "measured": 0.026206945591795636
+        }
+      }
+    },
+    {
+      "scale": 1,
+      "scene": "impulse__rrect-ml__inactive",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "FAIL",
+          "growthHistoricalInB": 1.3696947049451687,
+          "measured": 0.0033963718286790785
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 3.2165230282779746,
+          "measured": 0.004422824198670308
+        }
+      }
+    },
+    {
+      "scale": 2,
+      "scene": "checkerboard-32__rrect-lg__inactive",
+      "partition": "referee",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        }
+      }
+    },
+    {
+      "scale": 2,
+      "scene": "checkerboard-32__rrect-lg__rest",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "PASS",
+          "growthHistoricalInB": 0.5107605871604863,
+          "measured": 0.032718424047906154
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 4.455419294638308,
+          "measured": 0.02074304488381637
+        }
+      }
+    },
+    {
+      "scale": 2,
+      "scene": "checkerboard-64__rrect-lg__rest",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "PASS",
+          "growthHistoricalInB": 0.07550512782476966,
+          "measured": 0.03922899145549726
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 3.2865735262561007,
+          "measured": 0.02958691831717389
+        }
+      }
+    },
+    {
+      "scale": 2,
+      "scene": "hc-text-28__rrect-lg__rest",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "PASS",
+          "growthHistoricalInB": 0.2933773784910319,
+          "measured": 0.031420303970636616
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 1.9056458985854285,
+          "measured": 0.025628349588775155
+        }
+      }
+    },
+    {
+      "scale": 2,
+      "scene": "impulse__rrect-lg__inactive",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "PASS",
+          "growthHistoricalInB": 0.428886333638518,
+          "measured": 0.0018791611449448238
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 1.1602966624226594,
+          "measured": 0.0023003223746559595
+        }
+      }
+    },
+    {
+      "scale": 2,
+      "scene": "impulse__rrect-ml__inactive",
+      "partition": "gate",
+      "families": {
+        "D": {
+          "rung": "d-scatter-256",
+          "status": "UNMEASURED",
+          "growthHistoricalInB": null,
+          "measured": null
+        },
+        "W": {
+          "rung": "w-joint-d4-a09-t128",
+          "status": "PASS",
+          "growthHistoricalInB": 0.8976092880711213,
+          "measured": 0.0029844045468526287
+        },
+        "S": {
+          "rung": "s-0p5",
+          "status": "FAIL",
+          "growthHistoricalInB": 2.628121485925761,
+          "measured": 0.003965275074739257
+        }
+      }
+    }
+  ],
+  "rungs": [
+    {
+      "label": "identity",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 132,
+        "unmeasured": 22,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 1,
+          "currentFailures": 0,
+          "historicalFailures": 9,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 0,
+          "currentFailures": 0,
+          "historicalFailures": 5,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.2000936488535573,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48069774424428063,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.2184419685139838,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.17240057147639837,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33606301583184073,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4109240816064244,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.27872584181103366,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5804509654186054,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.3321543570976863,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.20068735837956803,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3208372843279187,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4607227620484586,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "s-0p5",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 132,
+        "unmeasured": 22,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "impulse__capsule-button__inactive"
+          },
+          {
+            "scale": 1,
+            "scene": "impulse__capsule-button__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "impulse__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-8__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-sm__rest"
+          }
+        ],
+        "growthPast3B": [
+          {
+            "scale": 1,
+            "scene": "impulse__capsule-button__inactive"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-sm__rest"
+          }
+        ],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 1,
+          "currentFailures": 2,
+          "historicalFailures": 9,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 0,
+          "currentFailures": 2,
+          "historicalFailures": 4,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.17747611288036258,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4896440643059483,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.24289485540496883,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.140196464075446,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33463741724827345,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.41083419173422453,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7836846856926072,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.31886594889022574,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.580871879452282,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.3002965183595454,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.2450277485673381,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": false,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.31605989554585234,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.47793277133933926,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7517815615572961,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "s-0p25",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 132,
+        "unmeasured": 22,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-lc16__capsule-button__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-lc16__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-lc16__rrect-sm__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-sm__rest"
+          }
+        ],
+        "growthPast3B": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-sm__rest"
+          }
+        ],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 1,
+          "currentFailures": 2,
+          "historicalFailures": 8,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 0,
+          "currentFailures": 1,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.18178271717208477,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4963692099895317,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.22443966629837045,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.14348316912963607,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.2647402399799976,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.41065665153477937,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7834810211272326,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.41687510785601933,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5809899075059974,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.36302136024338216,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": false,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.40559958459495127,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3104836054343202,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.5294020858726749,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7506120990950363,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "s-0p125",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 132,
+        "unmeasured": 22,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-32__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-4__capsule-button__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-4__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-4__rrect-sm__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-64__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__capsule-button__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard__capsule-button__inactive"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard__capsule-button__inactive-tint-orange"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-lg__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-sm__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-8__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "impulse__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "impulse__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "photo__rrect-md__rest"
+          }
+        ],
+        "growthPast3B": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__capsule-button__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-32__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-4__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-64__rrect-ml__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-lc16__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__capsule-button__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-md__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-28__rrect-sm__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-sm__rest"
+          }
+        ],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 1,
+          "currentFailures": 2,
+          "historicalFailures": 4,
+          "repaired": 5,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 0,
+          "currentFailures": 2,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.29370946070478227,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.45212711243055537,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.20494188792607704,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.1445331212975257,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3878348658369689,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.40980806108514833,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7892786799939915,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.3122949988181439,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5794605667341941,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.523456259822988,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.44074004010900236,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.1920375696630326,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.5548686720919467,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7529174100271268,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "d-only-192",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 90,
+        "unmeasured": 64,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-lg__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-lg__rest"
+          }
+        ],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 4,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 5,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 2,
+          "currentFailures": 0,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 5,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.20790963059250683,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.23042553654711098,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.178592862604453,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": false,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4109240816064244,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.3031536603184659,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.41704506464030083,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.1960972822781571,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4607227620484586,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          }
+        ]
+      }
+    },
+    {
+      "label": "d-only-256",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 90,
+        "unmeasured": 64,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__rrect-lg__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-lg__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "checkerboard-8__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-7__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-lg__rest"
+          }
+        ],
+        "growthPast3B": [
+          {
+            "scale": 1,
+            "scene": "hc-text-7__rrect-lg__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "hc-text__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text-7__rrect-lg__rest"
+          },
+          {
+            "scale": 2,
+            "scene": "hc-text__rrect-lg__rest"
+          }
+        ],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 4,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 6,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 2,
+          "currentFailures": 0,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 5,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.2695426209092926,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.25859099499869304,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.17240057147639837,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4109240816064244,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.38020810519799164,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.6285808851890231,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.1736524489762058,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4607227620484586,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          }
+        ]
+      }
+    },
+    {
+      "label": "d-scatter-192",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 90,
+        "unmeasured": 64,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 4,
+          "currentFailures": 0,
+          "historicalFailures": 6,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 2,
+          "currentFailures": 2,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 5,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.2088522735613903,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.2306055033564125,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.16936960877207885,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.41092105682545577,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.27872584181103366,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.3321543570976863,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.20263647796947132,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": false,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4607227620484586,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          }
+        ]
+      }
+    },
+    {
+      "label": "d-scatter-256",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 90,
+        "unmeasured": 64,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [
+          {
+            "scale": 1,
+            "scene": "checkerboard-8__rrect-md__rest"
+          },
+          {
+            "scale": 1,
+            "scene": "checkerboard__rrect-md__rest"
+          }
+        ],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 4,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 5,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 2,
+          "currentFailures": 2,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 5,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.2738742620684843,
+            "currentMedianLogError": 0.2000936488535573,
+            "historicalMedianLogError": 0.3579867250475921,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.26720168211801565,
+            "currentMedianLogError": 0.2184419685139838,
+            "historicalMedianLogError": 0.34907264703527935,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.18533684611381032,
+            "currentMedianLogError": 0.17240057147639837,
+            "historicalMedianLogError": 0.39000789236583844,
+            "aggregateNoWorse": false,
+            "historicalHalved": true
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4108421976250791,
+            "currentMedianLogError": 0.4109240816064244,
+            "historicalMedianLogError": 0.6020762017017587,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "MEASURED",
+            "medianLogError": 0.27872584181103366,
+            "currentMedianLogError": 0.27872584181103366,
+            "historicalMedianLogError": 0.43227205835173965,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "MEASURED",
+            "medianLogError": 0.3321543570976863,
+            "currentMedianLogError": 0.3321543570976863,
+            "historicalMedianLogError": 0.7896598257025865,
+            "aggregateNoWorse": true,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "MEASURED",
+            "medianLogError": 0.2137088270631991,
+            "currentMedianLogError": 0.20068735837956803,
+            "historicalMedianLogError": 0.5377208764861756,
+            "aggregateNoWorse": false,
+            "historicalHalved": true
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "MEASURED",
+            "medianLogError": 0.4607227620484586,
+            "currentMedianLogError": 0.4607227620484586,
+            "historicalMedianLogError": 0.7996916517732098,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "UNMEASURED"
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-only-3",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3330968888562555,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803689019194501,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3201224190506279,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-only-4",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33248947691522446,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803689019194501,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3196002111958869,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-only-5",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3321550208786178,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803688162208671,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3191776034129574,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d0-a09-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48365426564630215,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.35272952071587504,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5805254299200354,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d0-a09-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48365426564630215,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.35272952071587504,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5805254299200354,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d0-a10-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48069774424428063,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33805012253421984,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5804509654186054,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3208372843279187,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d0-a10-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 3,
+          "repaired": 0,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48069774424428063,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33606301583184073,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5804509654186054,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3208372843279187,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d3-a09-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48244845847881224,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3493384678577222,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803874072831228,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d3-a09-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48244845847881224,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3493384678577222,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803874072831228,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d3-a10-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33805012253421984,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803689019194501,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3201224190506279,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d3-a10-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3330968888562555,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803689019194501,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3201224190506279,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d4-a09-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48244845847881224,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3487093869439385,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803874072831228,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d4-a09-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48244845847881224,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3487093869439385,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803874072831228,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d4-a10-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33617354731796645,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803689019194501,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3196002111958869,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d4-a10-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33248947691522446,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803689019194501,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3196002111958869,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d5-a09-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48244845847881224,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3470012876870374,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803873870321552,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d5-a09-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 0,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.48244845847881224,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.34822874239107154,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803873870321552,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3318657824666943,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d5-a10-t128",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 2,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.33254637099705386,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7860003271284404,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": false,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803688162208671,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3191776034129574,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "w-joint-d5-a10-t160",
+      "summary": {
+        "standingConstraints": 20,
+        "measured": 42,
+        "unmeasured": 112,
+        "measuredGateStatus": "FAIL",
+        "acceptance": "UNMEASURED",
+        "landingVerdict": "NOT_A_FULL_GATE",
+        "newGrowthBeyondB": [],
+        "growthPast3B": [],
+        "otherOwnerRows": {
+          "M2": "NOT_READ",
+          "L1": "NOT_READ",
+          "E2": "NOT_READ",
+          "coherence": "NOT_READ",
+          "X76": "NOT_READ"
+        },
+        "binding": {
+          "total": 10,
+          "unmeasured": 7,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "protected": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 2,
+          "repaired": 0,
+          "historicalEnforced": false
+        },
+        "prior-repair": {
+          "total": 5,
+          "unmeasured": 3,
+          "currentFailures": 0,
+          "historicalFailures": 1,
+          "repaired": 1,
+          "historicalEnforced": true
+        },
+        "strata": [
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.4799097158050681,
+            "currentMedianLogError": 0.48069774424428063,
+            "historicalMedianLogError": 0.9168898193476456,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3321550208786178,
+            "currentMedianLogError": 0.33606301583184073,
+            "historicalMedianLogError": 0.5848612180013124,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 1,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7843222190308256,
+            "currentMedianLogError": 0.7843222190308256,
+            "historicalMedianLogError": 1.1925608060409847,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 10,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "F",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 2,
+            "status": "MEASURED",
+            "medianLogError": 0.5803688162208671,
+            "currentMedianLogError": 0.5804509654186054,
+            "historicalMedianLogError": 0.9824372032291502,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "T",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 3,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 28,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "C",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 14,
+            "status": "MEASURED",
+            "medianLogError": 0.3191776034129574,
+            "currentMedianLogError": 0.3208372843279187,
+            "historicalMedianLogError": 0.5572785918269356,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "rest",
+            "partition": "gate",
+            "cells": 4,
+            "status": "UNMEASURED"
+          },
+          {
+            "scale": 2,
+            "stratum": "P",
+            "pose": "inactive",
+            "partition": "gate",
+            "cells": 5,
+            "status": "MEASURED",
+            "medianLogError": 0.7524916249397379,
+            "currentMedianLogError": 0.7524916249397379,
+            "historicalMedianLogError": 1.1443246876015263,
+            "aggregateNoWorse": true,
+            "historicalHalved": false
+          }
+        ]
+      }
+    }
+  ],
+  "notClaimed": [
+    "No withheld target or prior repair verified for new bytes",
+    "No M2/L1/E2/coherence/X76 candidate gate",
+    "No native capture",
+    "No tone ordinate fit",
+    "No material seal or publication"
+  ],
+  "interpretation": "The measured body-level gap is separate from a reduction in T1. D/W/S spatial changes do not identify a repair of the held near-black level response; black-level diagnostic is outside sealed acceptance."
+}
