@@ -8,7 +8,8 @@
 # session's server. The chain HALTS at the first non-zero gated step; re-invoking skips every step
 # whose log exists. The two declaration checks are recorded with their exit codes and never halt:
 # `check` is expected to fail on the pins and tool tests the freeze, the publication, read 8 and G2's
-# comment edit moved (the tracker's W48 entry); the witness (declaration-witness.sh, a scratch
+# comment edit moved (the tracker's W48 entry); the e2e steps record the load average beside them,
+# and react-e2e and demo-e2e run at one worker; the witness (declaration-witness.sh, a scratch
 # worktree with those part-1 bytes put back) says which check reads what.
 set -eu
 here=$(cd "$(dirname "$0")" && pwd)
@@ -58,10 +59,12 @@ browser() {
     echo "$name: port $port is held; refusing to reuse another server" | tee -a "$here/chain-status.txt"
     exit 4
   fi
+  echo "$name load average before: $(sysctl -n vm.loadavg)" >> "$here/chain-status.txt"
   set +e
   "$gpu" "w48-g2-chain-$name" "$@" > "$here/chain-$name.txt" 2>&1
   status=$?
   set -e
+  echo "$name load average after: $(sysctl -n vm.loadavg)" >> "$here/chain-status.txt"
   record "$name" "$status"
 }
 
@@ -80,8 +83,11 @@ step units pnpm -r test
 browser goldens 5189 pnpm --filter @vitrea/renderer-webgpu --fail-if-no-match test:golden
 browser gpu 5189 pnpm --filter @vitrea/renderer-webgpu --fail-if-no-match test:gpu
 browser platform-web 5188 pnpm --filter @vitreajs/vitrea-web --fail-if-no-match exec playwright test
-browser react-e2e 5176 pnpm --filter @vitreajs/vitrea-react --fail-if-no-match test:e2e
-browser demo-e2e 5177 pnpm --filter demo --fail-if-no-match test:e2e
+# Reduced parallelism from here (the parent's ruling, 2026-10-07): the machine's load was Spotlight
+# indexing and Photos media analysis (load average about 54), which the press/morph intermittent class
+# samples; one worker, the configs' default retries.
+browser react-e2e 5176 pnpm --filter @vitreajs/vitrea-react --fail-if-no-match test:e2e --workers=1
+browser demo-e2e 5177 pnpm --filter demo --fail-if-no-match test:e2e --workers=1
 cd "$package"
 recorded declare-check python3.12 -B results/2026-10-06-w48-g0-declaration/declare.py check
 recorded declare-check-fit python3.12 -B results/2026-10-06-w48-g0-declaration/declare.py check-fit
