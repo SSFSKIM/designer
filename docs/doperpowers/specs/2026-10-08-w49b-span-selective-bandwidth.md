@@ -1,25 +1,24 @@
-# W49b — separate transmission, bandwidth and the remaining dark texture regressions (draft, 2026-10-08)
+# W49b — separate transmission, bandwidth and the remaining dark texture regressions (G0 identification, 2026-10-08)
 
 ## Purpose
 
 The dark glass at Apple's 0.25 setting should transmit the structure Apple transmits without paying
 for it with new mistakes elsewhere. W49a removed the opaque thick body; it did not identify a
-material that repairs the remaining fifteen authorised regressions. **W49b's proposed success is
-all fifteen repaired against their own historical references, with no new cell traded for them.**
+material that repairs the remaining fifteen authorised regressions. **W49b's binding success is
+the ten thick entries in DL1 repaired against their own historical references, with no new cell
+traded for them.** The five thin/mid entries stay listed and protected for W49c identification.
 A smaller list is not by itself success, and a better aggregate cannot overrule a cell's protection.
 
-**Status: GROUNDING ONLY; DRAFT FOR THE PARENT.** Based on `98a4fdbbf`, current dark generation
-`b2d074d2df24-940384c06f73`. No runtime source, shipped material, canonical matrix, native fixture,
-or adopted bound changed. The Decision Log remains open. Neither this draft nor its diagnostic
-renders authorises implementation, native capture, fitting, publication or a release.
+**Status: G0 AUTHORISED, IN PROGRESS.** Based on `98a4fdbbf`, current dark generation
+`b2d074d2df24-940384c06f73`. DL1–DL4 below authorise inert operators, identifying ladders and a
+native-bed declaration, not native capture, fitting, publication or release. G0 ends in PASS-to-fit
+with a named family/domain, or STOP-at-finding.
 
-The recommendation is **one identification wave with separate ladders and one joint landing rule**,
-not a supposedly easy thin-cell sub-wave. The existing thin levers fail separation on the measured
-controls. The strongest thick-body family is **D plus span-selective second-tap bandwidth W**, not
-a share-only P. D separates the transmission knot from the scatter knot; W changes spatial
-bandwidth rather than scaling every transmitted frequency together. The thin and low-contrast
-mechanisms remain unresolved. G1 is conditional on G0 finding a separating route for them too;
-there is no present claim that D+W alone can repair all fifteen.
+The work is **one identification wave with separate ladders and one joint landing rule**. D separates
+the transmission knot from the scatter knot. W tests span-selective second-tap bandwidth. S tests
+reduced-resolution capture before scatter, the mechanism named in Apple's tree, and wins an equal
+separation under DL2. None is claimed to repair the five thin/mid entries; those are protected
+identification targets for W49c, not G1 prerequisites.
 
 ## Progress
 
@@ -27,7 +26,7 @@ there is no present claim that D+W alone can repair all fifteen.
 - [x] All fifteen entries and all 24 photo / three 2x inactive fine cells attributed; pixels inspected.
 - [x] Four prospectively recorded exploratory batches: ten candidates, fourteen scale-runs,
   342 gate-cell renders, classifying census passed before each launch. No referee/holdout render.
-- [ ] Parent rules scope, families, native experiment and the proposed landing contract below.
+- [x] Parent ruled scope, families, native experiment and landing contract (DL1–DL4).
 - [ ] G0: prospective declaration, identity proof, separating ladders and identifying native bed.
 - [ ] G1: fit, frozen gate, one prediction/blind exposure if admitted, seal and publication.
 - [ ] G2: owner-test landing, evidence tree and release chain, or close at the finding.
@@ -141,7 +140,7 @@ remaining excess is outside the deep body, in the edge/rim region the sheets sho
 justification to blur the already-smoother deep checker further. G0 keeps the full-silhouette gate
 and reports a disjoint edge/deep decomposition; it does not replace the adopted statistic.
 
-## Proposed design: two independent axes, with the unresolved cells explicit
+## Design: D, W and S, with the five protected entries explicit
 
 ### D — the transmission's own top
 
@@ -228,12 +227,54 @@ law: current lc16 changes both mean and contrast, and tone-ordinate refitting al
 the group-level solve's transmitted spatial contrast. Do not branch on a scene name, low-contrast label or sampled pitch.
 A measured source statistic may condition a declared law only if the crossed bed identifies it.
 
-G0 may close with **no full-list family identified**. To enter G1 it must produce, for every target,
-a declared mechanism and separating ladder, including the five thin/mid entries. A parent wishing
-to ship only a thick subset must rule a new success set explicitly before part 2; the present draft
-neither disguises that subset as all-list repair nor presumes the decision.
+The five thin/mid entries are W49c's identification targets. G0 reads them as protected cells: their
+error may not grow against current, a stricter protection than the general B allowance. They stay
+listed; a thick-subset success does not silently retire them.
 
-## Proposed landing rule and references
+### S — reduced-resolution capture before scatter
+
+DL2 admits S beside W and prefers it on equal separation. Memo F (`memo-f/MEMO.md` §§1–2) records
+`bd.scale = 0.5` on **every** measured shape at glass0.25 in both dark poses and scales; the ml/lg
+steps occur at other slider settings. S tests the capture-resolution mechanism, not an already
+identified span-dependent scale at 0.25. The new native bed separates these hypotheses. The complete
+software law, identity and ladder are declared before any S render; no pixel or statistic is read
+as proving a private filter's implementation.
+
+The first rung is **uniform 0.5**, not a fitted span law. Calibration imports its scale-matched
+320×200 / 640×400 PNG with core's default source scale 1 (cap 2048), so its current level zero
+has full device-pixel density. `backdropCaptureScale`, identity **1**, multiplies that source
+resolution before import, analysis and all scatter blurs. The first rung halves each dimension;
+the remaining declared controls are 0.25 and 0.125. Blur widths retain their existing physical
+units via the plan's source-density conversion. The existing import pass performs resampling:
+S adds no pass and no second source chain. It is uniform over a document, so shared-source mixed
+spans cannot disagree about which source was captured. CSS explicitly declines S: its single
+backdrop-filter exposes no capture-resolution control, and changing blur or alpha is not a mirror.
+The first-rung reading includes impulse ml/lg halo footprint and deep-body mean against Apple and
+current, including whether the broad quantised halos appear; a T1 repair alone cannot answer that.
+Live-backdrop bench cost is measured beside W's extra-tap cost.
+
+Memo F's attestation at the shipped slider settings is below. These are private-tree declarations,
+not an inference about sample reconstruction, and do not authorise a change outside dark 0.25.
+
+| document position | scheme | pose | s ≤ 96 | s = 128 (ml) | s = 160 (lg) |
+| --- | --- | --- | --- | --- | --- |
+| macOS 26.5, no slider | light | active | unmeasured by memo F | unmeasured | unmeasured |
+| macOS 26.5, no slider | dark | active | unmeasured by memo F | unmeasured | unmeasured |
+| macOS 27, 0.5 | light | active | 0.5 | 0.5 | 0.25 |
+| macOS 27, 0.5 | light | receded | 0.5 | 0.5 | 0.25 |
+| macOS 27, 0.5 | dark | active | 0.5 | 0.5 | 0.25 |
+| macOS 27, 0.5 | dark | receded | 0.5 | 0.5 | 0.25 |
+| macOS 27, 0.25 | light | active | 0.5 | 0.5 | 0.5 |
+| macOS 27, 0.25 | light | receded | 0.5 | 0.5 | 0.5 |
+| macOS 27, 0.25 | dark | active | 0.5 | 0.5 | 0.5 |
+| macOS 27, 0.25 | dark | receded | 0.5 | 0.5 | 0.5 |
+
+A dark 0.25 S result says nothing about the other eight documents. Light 0.25's uniform capture
+and all four 0.5 endpoints' thick-span step are separate follow-ups, with their own declarations;
+macOS 26.5 stays frozen. The memo does not attest scales above span 160.
+
+
+## Landing rule and references (DL1, DL4)
 
 **Part 2 admits NO post-gate amendment.** It is hashed before the fit's first gate read and contains
 the complete candidate domain, selection arithmetic and every reference. If no point passes at both
@@ -241,8 +282,9 @@ scales, the verdict is **NEITHER**: no seal, no publication, no re-authorisation
 Close at the finding and hand the decision to the parent. A later user-directed exception is a new
 explicit decision, not a rewritten pass; this draft proposes not to plan for that escape hatch.
 
-1. **Repair all fifteen:** each against its F1 historical reference, growth <=B. References never
-   advance merely because the current generation already carries a regression.
+1. **Repair the binding ten:** each against its F1 historical reference, growth <=B. References
+   never advance merely because the current generation already carries a regression. The five
+   other entries stay listed and may not grow in error against current (DL1).
 2. **No new trade:** every dark 0.25 WebGPU T1 cell against W49a current, growth <=B, including
    listed cells (so a historically allowable but presently worse result cannot slip through).
    For T cells, use T1-low for regression and T1-fine for fidelity. Count overshoots by growth.
@@ -315,7 +357,7 @@ The identity table's old entries remain unchanged. Test auxiliary tap lifetime, 
 of different spans sharing a source, live-backdrop invalidation and measured frame cost: W adds a
 source blur, not just an arithmetic instruction.
 
-### G1 — fit and referee only after G0 closes the mechanisms
+### G1 — fit and referee only after G0 identifies the binding-ten mechanisms
 
 Hash the complete fit/selection in part 2, fit in candidate mode with the reference map and X70's
 requested/planned/measured membership equality, freeze one point, then read spent referees as the
@@ -367,16 +409,45 @@ membership and browser version, and preserve the exact scratch matrices, census 
   already found no declared landing and it carries a larger frame cost. A crossed native bed should
   decide whether that complexity is required; no revived LT fit is implicit here.
 - A 342-cell exploratory programme identifies local separations, not a globally feasible material.
-  The all-list rule is deliberately capable of stopping the wave before a refit.
+  The binding-ten rule is deliberately capable of stopping the wave before a refit.
 
 ## Decision Log
 
-Open for the parent. No ruling is recorded by this grounding worker.
+DL1 (scope and success). Declaring an unidentified success guarantees NEITHER and spends a
+referee for nothing, so W49b's BINDING success set is the thick subset that D and W can reach:
+- the three active lg rest cells (checkerboard-32, checkerboard-64 and hc-text-28
+  __rrect-lg__rest) at 1x and 2x;
+- impulse__rrect-ml__inactive at 1x and 2x;
+- impulse__rrect-lg__inactive at 2x;
+- checkerboard-32__rrect-lg__inactive at 2x (read 9's prediction miss).
+That is ten entries, each repaired to growth <= B against its listed reference. In addition,
+W49a's five repairs are retained, and zero new cells go away beyond B or past 3 B.
+The other five entries (checkerboard-lc16__rrect-md__rest at 1x and 2x,
+impulse__capsule-button__rest at 1x, and checkerboard__capsule-button__inactive and its orange
+twin at 2x) are PROTECTED: they may not grow against their current reading. They are named as
+W49c's identification targets and stay listed. The user's standing intent (repair the list,
+trade no new cells) is kept: nothing is re-authorised and nothing new is traded.
 
-Decisions requested: (1) retain all fifteen as success or explicitly charter a thick subset;
-(2) authorise D/W identification with thin/level work as a G1 prerequisite; (3) request the user's
-X5 lift for the crossed native bed, or accept an evidence-only/non-blind scope; (4) adopt the
-reference intersections, no-new-trade rule and no post-gate amendment/NEITHER stop above.
+DL2 (families). D and W are authorised for identification under the draft's ladders. G0 must ALSO
+test whether W is a proxy for the mechanism in Apple's own layer tree. W43 G0's memo F records
+that Apple's backdrop capture scale steps on rrect-ml and rrect-lg by glass position, scheme and
+pose, and is 0.125 on every shape at x = 1. The grounding's probe-width sheet shows Apple's
+inactive impulse on ml and lg at gain 8 as broad, ring-quantised halos that lift the body mean
+(an upsampled low-resolution sample looks like that), where vitrea draws concentrated dots on a
+near-black body. So G0 declares a capture-scale or downsample family beside W: a per-shape
+reduced-resolution backdrop sample before the scatter. When it separates as well as W, it is
+preferred, because it is the mechanism Apple's tree names. Both stay inert at identity
+(digests and goldens byte-identical).
+
+DL3 (referees). The dark 0.25 holdout and W46's referees are spent. The parent asks the user to
+lift X5 for a native bed (crossed thick spans including above 160, levels and contrasts, and the
+capture-scale controls DL2 needs). G0 declares that bed and its split before any capture. If it is
+captured, its holdout is G1's blind exposure. If not, G1's exposure is read 10, a non-blind
+prediction check, recorded as such.
+
+DL4 (rule). The draft's intersecting historical and current protections, the exception-independent
+registry of all twenty constraints, and "part 2 admits no post-gate amendment" are adopted. At
+NEITHER, W49b closes at the finding with no seal, no publication and no re-selection.
 
 ## Surprises and discoveries
 
@@ -389,7 +460,7 @@ only the current-generation budget; the old historical constraint remains live e
 
 Light fitting, dark 0.5, accessibility at 0.25, contour/pressed-response fitting, and the photo's full
 colour law remain separate declarations. Their measured gaps are recorded above, not excused.
-The five unresolved thin/mid repairs are G0 prerequisites, not silently deferred out of success.
+The five unresolved thin/mid repairs are explicitly deferred to W49c under DL1 and remain protected.
 
 ## Outcomes and revision notes
 
@@ -404,3 +475,9 @@ The five unresolved thin/mid repairs are G0 prerequisites, not silently deferred
   not the original raw -.279561 B. `verify.py --recompute` passed all 342 cells; non-T values,
   authorisation/thick conclusions, source cut and input matrices are unchanged. No new render,
   runtime/material/owner/canonical change or parent ruling was made.
+
+- 2026-10-08 G0 opened: parent DL1–DL4 folded verbatim above; binding ten separated from five
+  protected W49c targets. S admitted as a competing mechanism, native capture still requires X5.
+
+- 2026-10-08 parent follow-up: S first tests uniform 0.5 against current full-resolution import;
+  other documents' capture-scale facts and the live-backdrop cost are explicit above.
