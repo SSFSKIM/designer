@@ -46,8 +46,12 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   (W2a `44fe213cb`; W2b `bd099ae2c`..`b29074c33`; W1 `7e621f344`..`da0fc4cee`). `live-inputs/`
   (gitignored) must hold `completed-current.json` `10381e74…` and `completed-references-r2.json`
   `44476315…`; restore with `gunzip -c` from the archives `draft_root.py` records.
-  Running: W3 (measurement side of DL5n and DL5m item 4, repin `measurement-config.json` to the r2
-  inventory). Next: W2b's NEITHER end-to-end test; re-run `live-roles/draft_root.py`; all suites;
+  Also landed: W3 measurement DL5n/DL5m-4 (`3d8a76b52`, `b75972fe9`), W2b NEITHER end-to-end
+  (`34882e9db`) and checkpointed repeat helper (`4ffa48746`). Two re-reviews of
+  `a2d1bfbb9..4ffa48746` found two P1s (owner intrinsic-record content first checked after the
+  analysis marker; an L1 named growth miss grading PASS) and two P2s (stale-lock release race;
+  pre-fit evidence not bound to the rebuilt proofs). Running: FW-A (LIVE/roles/owner-candidate)
+  and FW-B (judge, witness, readiness, native empty-cut stop). Next: re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
   executionClosure and independentReview proofs and `pre-fit-evidence.json` pinning the root;
   fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind every step.
