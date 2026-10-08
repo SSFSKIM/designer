@@ -76,6 +76,24 @@ def uniform():
     return cell, masks
 
 
+FAR24 = ('deep8-far24-luma-mean', 'deep8-far24-luma-median')
+
+
+def empty_far24():
+    """test_capture's impulse cell as the native role reads it when the dependency's dots leave no
+    deep8 pixel 24 CSS px clear: the cut's support empty in every run, its statistics carrying
+    that support's status and no value (live-roles/native.py _empty_cut_frame)."""
+    cell, masks, _ = TC.native_cell()
+    empty = np.zeros_like(masks['deep8_far24'])
+    record = TC.R.S.read_support(np.zeros((384, 512, 3), np.uint8), empty)
+    for run in cell['runs']:
+        run['readings']['supports']['deep8_far24'] = dict(record)
+        for name in FAR24:
+            run['readings']['statistics'][name].update(status=record['status'], value=None)
+    cell['statistics'] = TC.R.aggregate_runs(cell['runs'])
+    return cell, dict(masks, deep8_far24=empty)
+
+
 def web():
     image = np.full((384, 512, 3), [10, 20, 30], dtype=np.uint8)
     image[188:196, 252:260] = [30, 40, 50]
@@ -121,6 +139,46 @@ class EvaluatorTests(unittest.TestCase):
         self.assertTrue(all('deep8' not in r['readings']['supports'] for r in result['runs']))
         self.assertTrue(all('deep8-channel-median' not in r['readings']['statistics'] for r in result['runs']))
         self.assertNotIn(CANARY_TEXT, json.dumps(result))
+
+    def test_a_stop_on_one_field_of_a_shared_support_takes_no_value_and_reads_the_support_once(self):
+        """The second pre-seal review (P3): a stop on deep8-far24-luma-mean alone leaves its support
+        read for the median. The support is read once per run and its reading is the sealed
+        reader's whole summary; the stopped statistic takes no value from it."""
+        cell, masks, _ = TC.native_cell()
+        sealed = SEALED.evaluate_native_supports(web(), cell, masks, renderer='webgpu')
+        read = []
+        original = RD.M.R.S.read_support
+        def counted(rgb, mask, **kwargs):
+            read.append(int(mask.sum())); return original(rgb, mask, **kwargs)
+        with patch.object(RD.M.R.S, 'read_support', counted):
+            result = RD.evaluate_supports(web(), cell, masks, renderer='webgpu', stopped={'deep8-far24-luma-mean'})
+        mean = result['statistics']['deep8-far24-luma-mean']
+        self.assertEqual((mean['measurementStatus'], mean['reason'], mean['value'], mean['runValues'], mean['nativeValue']),
+                         ('UNMEASURED', 'NATIVE_NOT_READY', None, None, None))
+        for name, item in result['statistics'].items():
+            if name != 'deep8-far24-luma-mean': self.assertEqual(item, sealed['statistics'][name])
+        self.assertEqual(len(read), 3*len(sealed['runs'][0]['readings']['supports']))
+        self.assertEqual([r['readings']['supports'] for r in result['runs']],
+                         [r['readings']['supports'] for r in sealed['runs']])
+        self.assertTrue(all('deep8-far24-luma-mean' not in r['readings']['statistics'] for r in result['runs']))
+
+    def test_an_empty_cut_stop_takes_no_value_and_its_cut_is_never_read(self):
+        """DL5n: the native role reads an empty analytical cut as its statistics unmeasured, and a
+        required one is a checkpointed stop (live-roles/native.py). Unstopped, the evaluator still
+        refuses it as the sealed one does; stopped, it takes no value and its cut is not read."""
+        cell, masks = empty_far24()
+        for evaluate in (SEALED.evaluate_native_supports, RD.evaluate_supports):
+            with self.subTest(evaluate.__module__), self.assertRaisesRegex(ValueError, 'empty required native support'):
+                evaluate(web(), cell, masks, renderer='webgpu')
+        result = RD.evaluate_supports(web(), cell, masks, renderer='css', stopped=set(FAR24))
+        for name in FAR24:
+            item = result['statistics'][name]
+            self.assertEqual((item['measurementStatus'], item['reason'], item['value']), ('UNMEASURED', 'NATIVE_NOT_READY', None))
+            self.assertEqual([w['pixels'] for w in item['nativeSupportWitnesses']], [0]*3)
+        self.assertTrue(all('deep8_far24' not in r['readings']['supports'] for r in result['runs']))
+        self.assertEqual({n: s['measurementStatus'] for n, s in result['statistics'].items() if n not in FAR24},
+                         {'T1-full-silhouette': 'MEASURED', 'central8-channel-median': 'MEASURED',
+                          'deep8-channel-median': 'MEASURED'})
 
     def test_a_stopped_required_t1_with_no_native_silhouette_does_not_raise(self):
         cell, masks = structured([True]*3, reported=False)
@@ -185,6 +243,17 @@ class ProjectionTests(unittest.TestCase):
         result = self.reading(self.statistic([True]*3, reported=False, stopped={'T1-full-silhouette'}), reported=False)
         self.assert_unread(result, 'NATIVE_NOT_READY')
         self.assertFalse(result['reported'])
+
+    def test_an_empty_cut_stop_reads_unmeasured_native_not_ready_on_every_side(self):
+        cell, masks = empty_far24()
+        result = RD.evaluate_supports(web(), cell, masks, renderer='webgpu', stopped=set(FAR24))
+        for name in FAR24:
+            with self.subTest(name):
+                statistic = result['statistics'][name]
+                statistic['nativeRuns'] = [{'run': n, 'sha256': str(n)*64} for n in (1, 2, 3)]
+                read = self.reading(statistic, reported=False)
+                self.assert_unread(read, 'NATIVE_NOT_READY')
+                self.assertFalse(read['reported'])
 
     def test_an_incomplete_reported_key_reads_unmeasured_incomplete_reading(self):
         partial = self.reading(self.statistic([True, True, False], reported=True), reported=True, eligible=True)

@@ -580,6 +580,84 @@ class NativeRole(unittest.TestCase):
         self.assertTrue(report['stops'][0]['repeat']['spreadCodes'])
         self.assertTrue(all(set(s) == {'cell', 'statistic', 'reason'} for s in payload['stops']))
 
+    # An empty analytical cut: a property of the declared geometry or the dependency's dots ----
+    @contextlib.contextmanager
+    def empty_cuts(self, cuts):
+        """`cuts` maps a cell identity to the analytical cuts its three frames read as empty, at
+        the sealed analytical_masks both read_frame and the role's reading call."""
+        R = self.role.P.R; last = {}; verified, masks = R.read_verified_frame, R.S.analytical_masks
+        def tracked(root, row, canvas, scale):
+            last['cell'] = row['cell']; return verified(root, row, canvas, scale)
+        def emptied(*args, **kwargs):
+            out = masks(*args, **kwargs)
+            for name in cuts.get(last.get('cell'), ()): out[name] = np.zeros_like(out[name])
+            return out
+        with patch.object(R, 'read_verified_frame', tracked), patch.object(R.S, 'analytical_masks', emptied):
+            yield
+
+    def test_the_empty_cut_reading_is_read_frame_wherever_every_cut_is_populated(self):
+        S = self.role.P.R.S; canvas = self.scenes['canvas']
+        rng = np.random.default_rng(50)
+        for component, impulse, structured in (('span-44', False, False), ('span-224', False, True),
+                                               ('span-224', True, True)):
+            for scale in (1, 2):
+                with self.subTest(component=component, impulse=impulse, scale=scale):
+                    shape = (canvas['height']*scale, canvas['width']*scale, 3)
+                    rgb = rng.integers(0, 256, shape, dtype=np.uint8)
+                    bg = np.zeros(shape, np.uint8) if impulse else np.full(shape, 28, np.uint8)
+                    if impulse: bg[:2*scale, :2*scale] = 255
+                    args = (rgb, bg, self.scenes['components'][component], canvas, scale)
+                    self.assertEqual(self.role._empty_cut_frame(*args, impulse=impulse, include_structured=structured),
+                                     S.read_frame(*args, impulse=impulse, include_structured=structured))
+
+    EMPTY_CUT_STOPS = [
+        (fixture.PROFILE+'/cell-grey-007-s044__rest', 'central8-channel-median', 'UNMEASURED_UNAUTHORISED_POPULATION'),
+        (fixture.PROFILE+'/cell-grey-028-s224__rest', 'deep8-channel-median', 'UNMEASURED_UNAUTHORISED_POPULATION'),
+        (fixture.PROFILE+'/cell-impulse-sparse-s224__rest', 'deep8-far24-luma-mean', 'UNMEASURED_UNAUTHORISED_POPULATION'),
+        (fixture.PROFILE+'/cell-impulse-sparse-s224__rest', 'deep8-far24-luma-median', 'UNMEASURED_UNAUTHORISED_POPULATION')]
+
+    def test_an_empty_cut_completes_the_read_not_ready_never_a_raise(self):
+        """DL5n, second pre-seal review: read_frame refuses a frame with an empty required cut,
+        which after the native marker burned the one exposure. The role completes the read: a
+        required statistic on the cut stops readiness, a DL5a reported one is recorded
+        UNMEASURED_REPORTED, and every other statistic of the cell reads as before."""
+        uniform, reported, impulse = (s[0] for s in self.EMPTY_CUT_STOPS[:3])
+        cuts = {uniform: ('center8',), reported: ('deep8', 'deep8_far24'), impulse: ('deep8_far24',)}
+        with self.native_stage() as context, self.empty_cuts(cuts):
+            payload = self.role.prepare(context, self.config)
+            self.role.verify(context, payload, self.config)
+            with self.assertRaisesRegex(ValueError, 'Required analytical cut is empty'):
+                self.sealed_policy(context, payload['nativeExposure'])
+        self.assertEqual((payload['ready'], payload['complete']), (False, True))
+        self.assertEqual([(s['cell'], s['statistic'], s['reason']) for s in payload['stops']], self.EMPTY_CUT_STOPS)
+        report = json.loads(Path(payload['nativeExposure']['nativeRead']['path']).read_text())
+        self.assertEqual([s['repeat'] for s in report['stops']], [None]*4)
+        cells = {c['id']: c for c in report['cells']}
+        for identity, emptied in cuts.items():
+            for run in cells[identity]['runs']:
+                for name in emptied:
+                    self.assertEqual((run['readings']['supports'][name]['status'], run['readings']['supports'][name]['pixels']),
+                                     ('UNMEASURED_EMPTY_SUPPORT', 0))
+        stopped = {(s[0], s[1]) for s in self.EMPTY_CUT_STOPS}
+        for name in ('deep8-far24-luma-mean', 'deep8-far24-luma-median'):
+            far = cells[reported]['statistics'][name]
+            self.assertEqual((far['status'], far['value'], far['B'], far['required']), ('UNMEASURED_REPORTED', None, None, False))
+            self.assertEqual(far['cause'], {'kind': 'INCOMPLETE_READING', 'side': 'native', 'unmeasuredRuns': [1, 2, 3],
+                                            'eligibleEmptySupport': False})
+        for identity in cuts:
+            for name, statistic in cells[identity]['statistics'].items():
+                if (identity, name) in stopped:
+                    self.assertEqual((statistic['measurementStatus'], statistic['value']), ('UNMEASURED_EMPTY_SUPPORT', None))
+                elif statistic['status'] != 'UNMEASURED_REPORTED':
+                    self.assertIn(statistic['status'], ('MEASURED', 'REPORTED'))
+
+    def test_any_other_read_frame_refusal_still_raises(self):
+        R = self.role.P.R
+        def refuse(*args, **kwargs): raise ValueError('Frame and no-glass dependency dimensions differ')
+        with self.native_stage() as context, patch.object(R.S, 'read_frame', refuse):
+            with self.assertRaisesRegex(ValueError, 'dimensions differ'):
+                self.role.prepare(context, self.config)
+
     def test_a_not_ready_read_is_checkpointed_once_and_later_verified_without_public_values(self):
         """Through LIVE: the not-ready payload is the native checkpoint (DL5n), never a stop, and a
         later attempt verifies it at qualification; stdout, events and status carry no value."""

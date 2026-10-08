@@ -26,8 +26,10 @@ burned exposure (DL5m item 4, DL5n). A DL5a/b/c REPORTED statistic never stops: 
 one is UNMEASURED_REPORTED with a metadata-only cause, and a DL5c-eligible key becomes
 UNMEASURED_EMPTY_SUPPORT only with three genuine zero-support witnesses. A REQUIRED statistic
 that is unmeasurable or whose native spread passes the sealed one-code stop is a stop exactly
-as before; the read still completes, ready false, and its stops travel as metadata (cell,
-statistic, reason; no repeat values) so the affected required rows reach the judge UNMEASURED.
+as before, and an empty analytical cut, which prepare's read_frame refused outright, is read as
+the unmeasured statistics on that cut; the read still completes, ready false, and its stops
+travel as metadata (cell, statistic, reason; no repeat values) so the affected required rows
+reach the judge UNMEASURED.
 Where no such case arises the artifacts are byte-identical to prepare_native_exposure's.
 
 The payload is {ready, complete, stops, nativeExposure, artifacts}: metadata and content pins
@@ -212,6 +214,53 @@ def _all_empty(runs, name):
                and r['readings']['statistics'][name]['value'] is None for r in runs)
 
 
+EMPTY_CUT = 'Required analytical cut is empty; cannot certify readiness'
+
+
+def _read_frame(rgb, background, component, canvas, scale, *, impulse, include_structured):
+    """The sealed read_frame; on exactly its empty-analytical-cut refusal, _empty_cut_frame.
+
+    An empty cut is a deterministic property of the declared geometry and, on an impulse cell,
+    of the no-glass dependency's dots, so it must reach a verdict rather than burn the started
+    read (DL5n). Every other refusal still raises."""
+    try:
+        return P.R.S.read_frame(rgb, background, component, canvas, scale, impulse=impulse,
+                                include_structured=include_structured)
+    except ValueError as error:
+        if str(error) != EMPTY_CUT:
+            raise
+    return _empty_cut_frame(rgb, background, component, canvas, scale, impulse=impulse,
+                            include_structured=include_structured)
+
+
+def _empty_cut_frame(rgb, background, component, canvas, scale, *, impulse, include_structured):
+    """read_frame's reading, support for support and field for field, without its refusal: a
+    statistic on an empty cut carries that support's own status (UNMEASURED_EMPTY_SUPPORT) and
+    no value, as read_frame already reads an empty detected silhouette. The three-run
+    aggregation then reads it as unmeasured; test_native holds this equal to read_frame on a
+    frame whose cuts are all populated."""
+    S = P.R.S
+    rgb, bg = S.checked_rgb(rgb), S.checked_rgb(background)
+    if rgb.shape != bg.shape:
+        raise ValueError('Frame and no-glass dependency dimensions differ')
+    masks = S.analytical_masks(component, canvas, scale, rgb.shape[:2], background=bg, impulse=impulse)
+    names = ('deep8', 'center8', 'deep8_far24') if include_structured else ('deep8', 'center8')
+    supports = {name: S.read_support(rgb, masks[name]) for name in names}
+    cut = lambda support, units, field: {'status': supports[support]['status'], 'support': support,
+                                         'units': units, 'value': supports[support].get(field)}
+    statistics = {'deep8-channel-median': cut('deep8', 'encoded-RGB-codes', 'rgbMedianCodes'),
+                  'central8-channel-median': cut('center8', 'encoded-RGB-codes', 'rgbMedianCodes')}
+    if include_structured:
+        for name, field in (('mean', 'encodedLumaMeanCodes'), ('median', 'encodedLumaMedianCodes')):
+            statistics['deep8-far24-luma-'+name] = cut('deep8_far24', 'encoded-luma-codes', field)
+        supports['full-silhouette'] = S.read_support(rgb, S.native_supports(rgb, bg, component, canvas, scale),
+                                                     retain_mask=True)
+        t1 = supports['full-silhouette']
+        statistics['T1-full-silhouette'] = {'status': t1['status'], 'support': 'full-silhouette',
+                                            'units': 'linear-luma', 'value': t1.get('linearLumaStdDev')}
+    return {'supports': supports, 'statistics': statistics}
+
+
 def _measure_blind(context, run, export_root, index_hash, found, manifest, scenes, declaration_sha256):
     """prepare._measure_blind, reading for reading and field for field, with the DL5m item 4 /
     DL5n stop policy (module docstring): only a REQUIRED statistic stops the read's readiness.
@@ -224,7 +273,9 @@ def _measure_blind(context, run, export_root, index_hash, found, manifest, scene
     silhouette and an eligible key empty in only some runs; both were stops (or a raise) in
     prepare. A required statistic that is unmeasurable (UNMEASURED_UNAUTHORISED_POPULATION) or
     whose native spread passes one code (NATIVE_SPREAD_EXCEEDS_ONE_CODE) stops readiness exactly
-    as prepare does. Integrity faults (a frame that does not verify, a nonfinite reading, a
+    as prepare does. That includes a statistic whose analytical cut is empty, where prepare's
+    read_frame refused the whole read (_read_frame): a required one stops, a reported one is
+    UNMEASURED_REPORTED. Integrity faults (a frame that does not verify, a nonfinite reading, a
     corrupt mask) still raise: they are DL5k stops, not properties of the blind data."""
     P._require_preparation(context, run)
     cells, deps = P.blind_membership(manifest, scenes)
@@ -245,7 +296,7 @@ def _measure_blind(context, run, export_root, index_hash, found, manifest, scene
         for number in (1, 2, 3):
             row = found[(identity, number)]
             rgb = P.R.read_verified_frame(export_root, row, scenes['canvas'], cell['scale'])
-            readings = P.R.S.read_frame(rgb, backgrounds[cell['reference']], component, scenes['canvas'],
+            readings = _read_frame(rgb, backgrounds[cell['reference']], component, scenes['canvas'],
                 cell['scale'], impulse=impulse, include_structured=cell['family'] != 'uniform')
             runs.append({'run': number, 'evidence': copy.deepcopy(row),
                          'dependency': cell['reference'], 'readings': readings})

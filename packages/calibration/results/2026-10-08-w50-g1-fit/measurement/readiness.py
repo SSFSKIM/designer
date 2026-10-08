@@ -20,7 +20,7 @@ None of those files changes. This module is their LIVE counterpart:
 * blind_cell is current3's, check for check, reading through that view. checkpointed_blind_cell
   is the same function under the sealed signature, for the DL5h repeat helper's own instance.
 * evaluate_supports is capture.evaluate_native_supports, check for check, except that a stopped
-  statistic is not computed (UNMEASURED, NATIVE_NOT_READY) and a reported statistic whose reading
+  statistic takes no value (UNMEASURED, NATIVE_NOT_READY) and a reported statistic whose reading
   is incomplete is recorded (UNMEASURED, INCOMPLETE_READING) instead of raising.
 
 Nothing here prints or formats a value; errors name fields and kinds only (DL5k).
@@ -206,10 +206,13 @@ def evaluate_supports(rgb, native_cell, analytical_masks, *, renderer, stopped=f
     """capture.evaluate_native_supports, check for check, with the DL5n and DL5m (4) policy.
 
     `stopped` names the cell's statistics the native checkpoint stops (DL5n); each must be one of
-    the cell's REQUIRED statistics. A stopped statistic is not computed: its support witnesses are
-    still checked against the original masks, a support no other statistic reads is not read, and
-    its value, run values, native value and native repeat are null, status UNMEASURED, reason
-    NATIVE_NOT_READY. A REPORTED statistic (DL5a/b/c, required false) whose three-run reading is
+    the cell's REQUIRED statistics. A stopped statistic takes no value: its support witnesses are
+    still checked against the original masks, and its value, run values, native value and native
+    repeat are null, status UNMEASURED, reason NATIVE_NOT_READY. Its support is read only when an
+    unstopped statistic reads it too. The sealed reader summarises a support whole, so that
+    support's per-run reading (runs[].readings.supports) then still carries the stopped field's
+    web figure beside the others; no statistic takes its value from it. A stop on an empty
+    analytical cut is the same case, its witness zero pixels on both sides. A REPORTED statistic (DL5a/b/c, required false) whose three-run reading is
     incomplete is recorded with value null, status UNMEASURED_REPORTED, reason INCOMPLETE_READING,
     unless it is a full-silhouette T1 empty in all three runs, which stays the sealed
     UNMEASURED_EMPTY_SUPPORT reading for the projection's exact DL5c eligibility. Everything else,
