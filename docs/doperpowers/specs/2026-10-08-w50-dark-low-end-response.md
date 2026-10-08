@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5f are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5g are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -513,6 +513,19 @@ relaxed. The burned attempt and its 43 artefacts are retained as failed evidence
 current-only instrument is sealed as attempt 2 naming attempt 1 and this ruling, and must prove
 the 42 GPU cells already captured re-render byte-identical under the new host before its CSS cells
 count. Canonical draws keep canonical semantics. Candidate and current read the same new-bed host.
+
+DL5g (parent, pre-fit; prefit.py is outside the sealed current2 closure). Grouped reference-schema
+correction to the not-yet-live additive pre-fit reader:
+(1) the 832 blind reference rows keep their ORIGINAL null native/current evidence and metadata at
+pre-fit (identity and dependency provenance only, SEALED_BLIND, no values); the exposure contract
+must bind real content pins for every one of them, and a blind row without them at exposure blocks;
+(2) the 154 existing 0.25 T1 fidelity objects are validated against their typed original schema
+({statistic: string, native, current, reference}), not a generic numeric shape;
+(3) TIGHTENING: every T1-low row, including the 8 new 0.5 rows, requires its own T1-fine fidelity
+reading;
+(4) the new-bed native three-run evidence goes into a typed, content-pinned envelope that keeps the
+original support text.
+Every field, budget, role and non-blind capture pin is preserved; no landing rule changes.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
@@ -686,3 +699,21 @@ or release changed, and the main checkout was not edited.
   promoted to completed reference evidence. DL5f authorises an additive new-bed-only host and a
   separately named attempt2, with the42 GPU byte identities as a prerequisite before CSS.
   All112 new blind native cells remain closed; no coefficient fit or candidate render occurred.
+
+
+- G1 current-only attempt2 — Root `b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0`
+  was committed at `6bcb02cd6` before launch, after both scoped high reviews. Its mandatory replay
+  reproduced all42 previous WebGPU PNGs byte-for-byte; the sealed proof
+  `538019838b5ec05ef8bf0671d6780915b79a18ace0eab0b98b7cc9abf6292f40` records both byte pins per
+  cell. The coordinator independently rechecked every pair. Only then did CSS begin; its first
+  capsule reports the declared120×44 at(196,170). The fixed full batch is still running, not a
+  completed current reference or pre-fit PASS. Canonical semantics and all old seals are held.
+
+- G1 owner references — The registered owner-contract snapshot and current reference read
+  completed on the original pinned generations, retaining745 cells of aggregate context and
+  five measured aggregates. Named L1 absences and optional coherence gaps remain explicit; no
+  baseline miss is relabelled within. The original640-key projection is separate. These inputs
+  are reference evidence only, never coefficient data or a candidate verdict. DL5g then corrected
+  pre-fit schema contradictions exposed by integration: blind evidence must stay null until its
+  exposure, typed T1 fidelity labels are not numeric readings, and low-band regression rows need
+  their own fine-band fidelity. No bound, historical cap, role or known value changes.
