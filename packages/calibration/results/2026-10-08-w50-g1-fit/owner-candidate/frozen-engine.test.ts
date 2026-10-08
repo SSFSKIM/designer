@@ -16,7 +16,7 @@ const prefix='packages/calibration/results/2026-10-08-w50-g1-fit/owner/';
 const hashes={
   'api.ts':'a80a4caea17002b88b5de44b5ac9abf7a88f9d90328041a2e8afde304b6b7a1a',
   'referee.ts':'67a81a735d662f02092401b3c7954e392ea37f2e6ed5b79a40b81385d6a9eefb',
-  'intrinsic.ts':'052a18daa895311275196dfb72d109bc8b7fe3776a1b15b8953235e649ce13e7',
+  'intrinsic.ts':'c617c142a9a94ffd634afea50b469055319279e53dc418354d43134566a84468',
   'source.ts':'1aea30da0199b81d1c05e5c80ea377cfb257f8bd99774c5272d35612d5b2f51e',
 };
 const sourcePins=Object.fromEntries(Object.entries(hashes).map(([name,sha256])=>

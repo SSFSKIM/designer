@@ -79,9 +79,10 @@ export function candidateIntrinsics(input:IntrinsicInputs,rows:Row[],currentRows
     const applicability=checkRecordApplicability({activeSha256:activeEndpoint.sha256,
       recededSha256:recededEndpoint.sha256,activeResolved,
       beforeResolved:withMaterialOverrides(DEFAULT_MATERIAL_PROFILE,beforeActive.patch),
+      beforePatch:beforeActive.patch,activePatch:active.patch,
       beforeEntries:beforeActive.entries??{},activeRecords,recededRecords});
     if(applicability.state!=='MEASURED') {X76[position]=applicability;continue;}
-    X76[position]={...checkInheritance({
+    X76[position]={...checkFamilyInheritance({
       activeResolved,activePatch:active.patch,
       activeEntries:applicability.activeEntries,beforePatch:beforeReceded.patch,beforeEntries:beforeReceded.entries??{},
       candidatePatch:receded.patch,methods:applicability.methods,
@@ -119,9 +120,52 @@ export function assertEndpointIdentity(document:any,position:number,pose:'active
     throw new Error('Endpoint identity does not match dark position/pose');
   }
 }
+/** DL5o (a). A document sealed before X76 (the shipped 0.5 dark pair, `0eac5b294cc2` /
+ * `5cec8c961201`) keys its provenance entries by FAMILY rather than by leaf. An entry is
+ * family-keyed when it records a measurement (status `measured…`) and cannot be a leaf record:
+ * its key names no flattened material leaf, or its value is a plain object, which a flattened
+ * leaf never is. Every other entry keeps X76's original leaf-keyed reading. */
+const isPlainObject=(value:unknown):value is Record<string,unknown>=>
+  value!==null&&typeof value==='object'&&!Array.isArray(value);
+export function partitionEntries(entries:Record<string,any>,leaves:readonly string[]) {
+  const leafEntries:Record<string,any>={},familyEntries:Record<string,any>={};
+  for(const [key,entry] of Object.entries(entries)) {
+    const family=typeof entry?.status==='string'&&entry.status.startsWith('measured')
+      &&(!leaves.includes(key)||isPlainObject(entry.value));
+    (family?familyEntries:leafEntries)[key]=entry;
+  }
+  return {leafEntries,familyEntries};
+}
+/** A leaf falls under a family when one of the family's names (its own key, and every key of
+ * its `value` and `previous` objects) is the leaf, a material node above it, or its trailing
+ * path. Deliberately inclusive: it decides whether a moved leaf refuses the family's hold. */
+export function fallsUnder(leaf:string,key:string,entry:any) {
+  const names=[key,...[entry.value,entry.previous].filter(isPlainObject).flatMap(o=>Object.keys(o))];
+  return names.some(name=>leaf===name||leaf.startsWith(name+'.')||leaf.endsWith('.'+name));
+}
+/** DL5o (a): a historical family entry is admitted VERBATIM, from the pinned before document,
+ * as that family's hold when no leaf the candidate moves falls under it and it carries a
+ * reading. Otherwise it is refused, and every member leaf of the document's patch needs its own
+ * per-leaf record (a family containing a moved leaf needs per-leaf fitted records). */
+export function admitFamilies(familyEntries:Record<string,any>,moved:readonly string[],
+  patchLeaves:readonly string[]) {
+  // Historical methods are prose, blank separator lines included; a reading is any nonblank text.
+  const reading=(m:unknown)=>(typeof m==='string'&&m.trim()!=='')||(Array.isArray(m)
+    &&m.every(line=>typeof line==='string')&&m.some(line=>line.trim()!==''));
+  const admitted:Record<string,{members:string[]}>={};
+  const refused:Record<string,{members:string[];moved:string[];reason:string}>={};
+  for(const [key,entry] of Object.entries(familyEntries)) {
+    const members=patchLeaves.filter(leaf=>fallsUnder(leaf,key,entry)).sort();
+    const under=moved.filter(leaf=>fallsUnder(leaf,key,entry)).sort();
+    if(under.length||!reading(entry.method)) refused[key]={members:[...new Set([...members,...under])].sort(),
+      moved:under,reason:under.length?'A moved leaf falls under the family':'The family entry carries no reading'};
+    else admitted[key]={members};
+  }
+  return {admitted,refused};
+}
 /** Applicability, not a fit verdict. Byte-pinning a record alone does not bind what it measured. */
 export function checkRecordApplicability(input:{activeSha256:string;recededSha256:string;
-  beforeResolved:any;activeResolved:any;beforeEntries:Record<string,any>;
+  beforeResolved:any;activeResolved:any;beforePatch:any;activePatch:any;beforeEntries:Record<string,any>;
   activeRecords:ActiveFittingRecords;recededRecords:RecededMethodRecords}) {
   for(const [envelope,digest] of [[input.activeRecords,input.activeSha256],
     [input.recededRecords,input.recededSha256]] as const) {
@@ -131,10 +175,16 @@ export function checkRecordApplicability(input:{activeSha256:string;recededSha25
   }
   const before=flatten(input.beforeResolved),resolved=flatten(input.activeResolved);
   const moved=Object.keys({...before,...resolved}).filter(k=>!isDeepStrictEqual(before[k],resolved[k]));
+  const {leafEntries,familyEntries}=partitionEntries(input.beforeEntries,Object.keys({...before,...resolved}));
+  const families=admitFamilies(familyEntries,moved,
+    Object.keys({...flatten(input.beforePatch),...flatten(input.activePatch)}));
   const retained=input.activeRecords.retainedMeasuredEntries, fitted=input.activeRecords.fittedEntries;
   if(!retained||!fitted||!input.recededRecords.methods) throw new Error('Incomplete fitting record envelope');
   for(const [leaf,entry] of Object.entries(retained)) {
-    if(entry.status!=='measured'||!isDeepStrictEqual(entry,input.beforeEntries[leaf])||moved.includes(leaf)) {
+    if(Object.hasOwn(familyEntries,leaf)) {
+      throw new Error(`Family-keyed historical entry is admitted from the before document, not retained: ${leaf}`);
+    }
+    if(entry.status!=='measured'||!isDeepStrictEqual(entry,leafEntries[leaf])||moved.includes(leaf)) {
       throw new Error(`Retained historical active record changed: ${leaf}`);
     }
   }
@@ -145,8 +195,9 @@ export function checkRecordApplicability(input:{activeSha256:string;recededSha25
       throw new Error(`Active fitting record value differs from resolved candidate: ${leaf}`);
     }
   }
-  const required=new Set([...moved,...Object.entries(input.beforeEntries)
-    .filter(([,entry])=>entry.status==='measured').map(([leaf])=>leaf)]);
+  const required=new Set([...moved,...Object.entries(leafEntries)
+    .filter(([,entry])=>entry.status==='measured').map(([leaf])=>leaf),
+    ...Object.values(families.refused).flatMap(family=>family.members)]);
   const {isMethod}=inheritanceMethods();
   const invalidFitted=Object.keys(fitted).filter(leaf=>fitted[leaf]!.status!=='measured'
     ||!isMethod(fitted[leaf]!.method));
@@ -155,5 +206,37 @@ export function checkRecordApplicability(input:{activeSha256:string;recededSha25
   return {state:missingActive.length?'UNMEASURED' as const:'MEASURED' as const,
     ...(missingActive.length?{reason:'Candidate active fitted-leaf records incomplete'}:{}),
     missingActive,activeEntries,methods:input.recededRecords.methods,
-    retainedHistoricalLeaves:Object.keys(retained).sort(),newlyFittedLeaves:Object.keys(fitted).sort()};
+    retainedHistoricalLeaves:Object.keys(retained).sort(),newlyFittedLeaves:Object.keys(fitted).sort(),
+    familyHolds:families};
+}
+/** X76's receded check, DL5o (a) on top of the original. The original algorithm (referee.ts
+ * checkInheritance, W49a seal.ts 197-230) reads the leaf-keyed records alone. A leaf it would
+ * report missing because it is stated at the active's value with no leaf record is then held by
+ * an ADMITTED family of the before receded document, when the before document states it at the
+ * same value. Every member of a REFUSED family must carry its own per-leaf record: a fitted
+ * method, an explicit hold, or an unmoved leaf-keyed historical measurement. */
+export function checkFamilyInheritance(input:{activeResolved:any;activePatch:any;
+  activeEntries:Record<string,any>;beforePatch:any;beforeEntries:Record<string,any>;
+  candidatePatch:any;methods:Record<string,any>}) {
+  const mine=flatten(input.candidatePatch),before=flatten(input.beforePatch);
+  const {leafEntries,familyEntries}=partitionEntries(input.beforeEntries,
+    Object.keys({...flatten(input.activeResolved),...before,...mine}));
+  const original=checkInheritance({...input,beforeEntries:leafEntries});
+  // The original reads movement on the candidate's own keys; a family is also refused when the
+  // candidate DROPS a member it stated, since that leaf then silently takes the active's value.
+  const dropped=Object.keys(before).filter(leaf=>!Object.hasOwn(mine,leaf));
+  const families=admitFamilies(familyEntries,[...original.moved,...dropped],Object.keys({...before,...mine}));
+  const heldByFamily:Record<string,string>={};
+  for(const [family,{members}] of Object.entries(families.admitted)) for(const leaf of members) {
+    if(original.inherited.includes(leaf)&&Object.hasOwn(before,leaf)&&Object.hasOwn(mine,leaf)
+      &&isDeepStrictEqual(before[leaf],mine[leaf])) heldByFamily[leaf]??=family;
+  }
+  const {isMethod,isHold}=inheritanceMethods();
+  const perLeaf=(leaf:string)=>isMethod(input.methods[leaf])||isHold(input.methods[leaf])
+    ||(leafEntries[leaf]?.status==='measured'&&!original.moved.includes(leaf));
+  const missing=[...new Set([...original.missing.filter(leaf=>!Object.hasOwn(heldByFamily,leaf)),
+    ...Object.values(families.refused).flatMap(family=>family.members).filter(leaf=>!perLeaf(leaf))])].sort();
+  return {...original,verdict:missing.length?'failure' as const:'within' as const,missing,
+    familyHolds:{...families,heldByFamily},
+    port:'DL5o (a): historical family-keyed entries admitted verbatim as holds; refused families need per-leaf records'};
 }

@@ -96,8 +96,11 @@ export function createCandidateEngine(input:CandidateEngineInputs) {
     OWNER_SOURCE_SHA256:base.OWNER_SOURCE_SHA256,X1_SCOPE:base.X1_SCOPE,
     unread:base.unread,measured:base.measured,cellKey:base.cellKey,value:base.value,
   });
-  const records=bind('intrinsic.ts',['unread','flatten','assertEndpointIdentity','checkRecordApplicability'],{
-    isDeepStrictEqual,inheritanceMethods:base.inheritanceMethods,
+  // DL5o (a): the family-keyed history admission is intrinsic.ts's own; the original leaf-keyed
+  // receded algorithm stays referee.ts checkInheritance, bound in unchanged.
+  const records=bind('intrinsic.ts',['unread','flatten','assertEndpointIdentity','isPlainObject',
+    'partitionEntries','fallsUnder','admitFamilies','checkRecordApplicability','checkFamilyInheritance'],{
+    isDeepStrictEqual,inheritanceMethods:base.inheritanceMethods,checkInheritance:base.checkInheritance,
   });
   const assertEndpointIdentity=(document:any,position:number,pose:'active'|'receded')=>
     identityResolver.assertEndpointIdentity(document,position,pose,records.assertEndpointIdentity);
@@ -108,7 +111,7 @@ export function createCandidateEngine(input:CandidateEngineInputs) {
     SHIPPED_MATERIAL_PROFILE_DOCUMENTS,mergeMaterialProfiles,
     assertEndpointIdentity,withMaterialOverrides,DEFAULT_MATERIAL_PROFILE,
     checkRecordApplicability:records.checkRecordApplicability,
-    checkInheritance:base.checkInheritance,checkOpacity:base.checkOpacity,
+    checkFamilyInheritance:records.checkFamilyInheritance,checkOpacity:base.checkOpacity,
   });
   const api=bind('api.ts',[
     'C1_SCOPE','unread','notApplicable','pos','standard','documentsOf','rowsOf','referenceFor',

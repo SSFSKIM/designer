@@ -8,7 +8,7 @@ const KEY=['profile','renderer','scene','statistic'];
 const keyOf=(row:any)=>KEY.map(field=>row[field]);
 const sorted=(values:any[])=>values.map(value=>JSON.stringify(value)).sort();
 const equalSet=(a:any[],b:any[])=>isDeepStrictEqual(sorted(a),sorted(b));
-export const FROZEN_CLOSURE_SHA256='84465e599c9b8f9c4b2355028085311c990c637f0a9849fc38d703bc6d8dd6d2';
+export const FROZEN_CLOSURE_SHA256='0ec83188db5e7fd3a46a241ec5e37e15fa1d25967a613775130a83fc88470e39';
 
 /** Pure authenticated-document consistency checks; live.py establishes the nonserializable
  * dispatcher capability before a snapshot can be written or this child invoked. */
@@ -107,6 +107,24 @@ export function checkIntrinsicRecords(request:{config:Pin;root:Pin;batch:Pin}) {
   const records=intrinsicRecords(readJson(absolutePin(batch.ownerIntrinsicRecords,repo)),declarations,repo);
   engine.candidateIntrinsics(records,[],engine.rowsOf(readJson(config.ownerInputs).current));
   return {intrinsic:'ADMITTED'};
+}
+
+/** DL5o: before the successor LIVE root seals, the owner self-check grades X75 and X76 at both
+ * positions on a hypothetical identity candidate (the current documents plus the records the
+ * ruling requires). Same frozen engine, record admission and frozen current rows as
+ * checkIntrinsicRecords; no root or batch exists, so this is no live admission. The records'
+ * declarations are the cohort. Returns the intrinsic report for the judge's grader. */
+export function selfcheckIntrinsics(configPin:Pin,recordsPin:Pin,repo:string) {
+  const config=readJson(configPin);
+  if(config.schema!=='w50-owner-candidate-config-1') throw Error('Unknown candidate owner config');
+  const records=readJson(recordsPin);
+  if(!Array.isArray(records?.candidateDeclarations)||!records.candidateDeclarations.length) {
+    throw Error('Intrinsic records name no candidate declarations');
+  }
+  const declarations=records.candidateDeclarations.map((pin:Pin)=>absolutePin(pin,repo));
+  const engine=frozenEngine(config,repo,declarations);
+  return jsonNative(engine.candidateIntrinsics(intrinsicRecords(records,declarations,repo),[],
+    engine.rowsOf(readJson(config.ownerInputs).current)));
 }
 
 /** Called only by live-node.mjs after the genuine Python context writer and Node source

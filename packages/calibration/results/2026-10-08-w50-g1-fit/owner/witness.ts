@@ -171,10 +171,13 @@ export function ownerContracts(python:string):OwnerContracts {
       applicability:'All runtime endpoints with production candidate substitution; no native/current scalar budget',
       exclusions:{accessibility:'Nominal-policy invariant, not accessibility occlusion'},
       referenceReading:'NOT_APPLICABLE',candidateCheckRequired:true},
-    X76:{sourceSelectors:['isHold','isMethod','checkInheritance','checkRecordApplicability','candidateIntrinsics'],
+    X76:{sourceSelectors:['isHold','isMethod','checkInheritance','partitionEntries','fallsUnder','admitFamilies',
+      'checkRecordApplicability','checkFamilyInheritance','candidateIntrinsics'],
       source:readerSources.seal,limits:{policy:'Fitted or explicit held record for active inheritance; moved leaves need methods'},
       applicability:'Candidate receded endpoints, role-bound before documents and candidate-specific record envelopes',
-      exclusions:{retainedMeasured:'Only exact original measured entries at unchanged resolved values'},
+      exclusions:{retainedMeasured:'Only exact original measured entries at unchanged resolved values',
+        familyKeyedHistory:'DL5o (a): a historical family-keyed entry of a pinned before document is that family\'s '
+          +'hold, verbatim, when no moved leaf falls under it; a family containing a moved leaf needs per-leaf records'},
       recordEnvelopes:{activeEntries:['endpointSha256','retainedMeasuredEntries','fittedEntries'],
         methods:['endpointSha256','methods']},referenceReading:'NOT_APPLICABLE',candidateCheckRequired:true},
   }};

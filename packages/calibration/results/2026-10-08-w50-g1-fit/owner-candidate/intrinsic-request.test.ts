@@ -5,7 +5,7 @@ import { dirname,join,resolve,relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DEFAULT_MATERIAL_PROFILE } from '@vitrea/renderer-webgpu';
 import { candidateFixture,put,hash } from './identity.test.ts';
-import { checkIntrinsicRecords } from './bridge.ts';
+import { checkIntrinsicRecords, selfcheckIntrinsics } from './bridge.ts';
 const home=dirname(fileURLToPath(import.meta.url));
 const repo=resolve(home,'../../../../..');
 const prefix='packages/calibration/results/2026-10-08-w50-g1-fit/owner/';
@@ -27,7 +27,7 @@ function world(dir:string,change:(parts:any)=>void=()=>{}) {
     capturePath:`viewport=4x4, deviceScaleFactor=1, materialProfile=a sha256:${stamp[0]!.slice(0,12)} recededProfile=r sha256:${stamp[1]!.slice(0,12)}`}},
     tier:'texture',fixtureSet:'calibration',state:'rest',material:{interiorMeanWeb:{value:.2}}};
   const current={matrix:put(dir,'current.json',{schemaVersion:5,cells:[row]}),documents:{a:stamp[0],r:stamp[1]}};
-  const closurePath=resolve(repo,prefix+'r2/source-closure.json'),closure=JSON.parse(readFileSync(closurePath,'utf8'));
+  const closurePath=resolve(repo,prefix+'r3/source-closure.json'),closure=JSON.parse(readFileSync(closurePath,'utf8'));
   const sourcePins=Object.fromEntries(closure.sources.filter((p:any)=>
     ['api.ts','referee.ts','intrinsic.ts','source.ts'].some(n=>p.path===prefix+n))
     .map((p:any)=>[p.path,{path:resolve(repo,p.path),sha256:p.sha256}]));
@@ -79,4 +79,20 @@ test('every content refusal the frozen engine throws after the marker throws bef
   const dir=mkdtempSync(join(home,'.synthetic-'));
   try {assert.throws(()=>admitted(dir,undefined,{W50_OWNER_LIVE_BATCH_SHA256:'0'.repeat(64)}),/admission/);}
   finally {rmSync(dir,{recursive:true});}
+});
+
+test('the DL5o self-check reads the same frozen engine on records alone and grades nothing itself',()=>{
+  const dir=mkdtempSync(join(home,'.synthetic-'));
+  try {
+    const w=world(dir),records=JSON.parse(readFileSync(w.batch.path,'utf8')).ownerIntrinsicRecords;
+    const pinned={path:resolve(repo,records.path),sha256:records.sha256};
+    const report=selfcheckIntrinsics(w.config,pinned,repo);
+    assert.equal(Object.keys(report.X75).length,12);
+    assert.equal(report.X76['0.25'].state,'MEASURED');
+    assert.equal(report.X76['0.5'].state,'UNMEASURED');
+    const config=put(dir,'other-config.json',{...JSON.parse(readFileSync(w.config.path,'utf8')),schema:'other'});
+    assert.throws(()=>selfcheckIntrinsics(config,pinned,repo),/config/);
+    const none=put(dir,'none.json',{candidateDeclarations:[],recededRecords:{}});
+    assert.throws(()=>selfcheckIntrinsics(w.config,none,repo),/declarations/);
+  } finally {rmSync(dir,{recursive:true});}
 });
