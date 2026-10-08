@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5h are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5i are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -547,6 +547,14 @@ declared statistic (e.g. owner-only, B null) keeps byte-identity admission, no n
 invented; (iii) attempt 2's 501 draws stand as legacy byte-identical pairs: one preserved PNG plus
 production's original equality attestation, never a manufactured second image; every new draw keeps
 both PNGs and reports.
+
+DL5i (parent, before the judge is implemented, no candidate read). Tier mapping of the landing rule,
+read from charter clauses 1-4 and the project's tier doctrine (WebGPU is the fidelity target; CSS
+derives and a CSS-only residual is recorded): clauses 1-2's absolute closure max(1, 2 bar) gates
+WebGPU; CSS must carry the same law, with level-error growth <= 1 code on the priced low-end cells
+against its own current and its coherence contract passing (clause 4); CSS absolute errors are
+reported. Canonical T1 regression stays WebGPU-only per the inventory; new-bed structured T1 growth
+<= B applies to both tiers as declared.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
