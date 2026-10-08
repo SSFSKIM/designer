@@ -21,6 +21,7 @@ def instrument_shape(roles):
 
 def instrument_interface(role,module):
     names={'capture':('capture','verify','recover'),'native':('admit','prepare','verify'),
+        'owner':('admit','evaluate'),'fit':('evaluate','fit_record'),
         'initializer':('initialize','assemble','bind_arguments')}.get(role,('evaluate',))
     if any(not callable(getattr(module,name,None)) for name in names):
         raise ValueError('Registered component lacks its actual role interface')

@@ -14,28 +14,32 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 H=Path(__file__).resolve().parent
 
 def module(name):
     s=importlib.util.spec_from_file_location('unit_'+name,H/(name+'.py'));m=importlib.util.module_from_spec(s);sys.modules[s.name]=m;s.loader.exec_module(m);return m
 
-class Execution(unittest.TestCase):
+class Fixture(unittest.TestCase):
     def setUp(self):
         t=tempfile.TemporaryDirectory();self.addCleanup(t.cleanup);self.repo=Path(t.name).resolve();self.output=self.repo/'outside'
         self.D=module('dispatch');self.C=module('common');self.L=module('lifecycle');self.Q=module('quarantine')
         self.D._CORE={'C':self.C,'L':self.L,'Q':self.Q}
         self.oldlock=self.C.D.GPU_LOCK;self.C.D.GPU_LOCK=self.repo/'lease';self.addCleanup(setattr,self.C.D,'GPU_LOCK',self.oldlock)
-        candidate={'path':'candidate','sha256':'a'*64};current={'path':'baseline','sha256':'b'*64}
-        self.batch={'phase':'exposure','cohort':[candidate],'runs':[{'id':'r','profile':'apple-macos-27.0-1x-dark-standard-glass0.25',
-            'renderer':'css','sceneSource':'canonical','candidate':candidate,'baselineCandidate':current,'scenes':['one','two'],
-            'sets':['holdout'],'captureRoot':'unused','matrixPath':'unused'}]}
         def put(name,value):
             p=self.repo/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value));return p
+        self.put=put;pin=lambda p:self.C.D.pin(self.repo,p)
+        candidate=pin(put('candidate',{'synthetic':'candidate'}));current=pin(put('baseline',{'synthetic':'baseline'}))
+        self.candidate,self.current=candidate,current
+        records={name:pin(put(f'intrinsic/{name}.json',{'synthetic':name})) for name in ('beforeActive','beforeReceded','methods','activeEntries')}
+        self.intrinsic=pin(put('intrinsic.json',{'candidateDeclarations':[candidate],'recededRecords':{'0.25':records,'0.5':records}}))
+        self.batch={'phase':'exposure','cohort':[candidate],'ownerIntrinsicRecords':self.intrinsic,'runs':[{'id':'r','profile':'apple-macos-27.0-1x-dark-standard-glass0.25',
+            'renderer':'css','sceneSource':'canonical','candidate':candidate,'baselineCandidate':current,'scenes':['one','two'],
+            'sets':['holdout'],'captureRoot':'unused','matrixPath':'unused'}]}
         self.root=put('root.json',{});self.batch_path=put('batch.json',self.batch)
         self.contract=self.repo/'phase.json'
         put('phase.json',{'outputMarker':self.L.claim_output(self.output,self.contract)})
-        self.put=put
         refs=put('references.json',{'cells':[{'profile':self.batch['runs'][0]['profile'],'renderer':'css','scene':s,'statistic':'x'} for s in ('one','two')]})
         gate=put('gate.json',{});gate_result=put('gate.result.json',{})
         self.doc={'repo':str(self.repo),'inputs':[],'baselineDocuments':[current],'repeatAdmission':{},
@@ -54,6 +58,8 @@ class Execution(unittest.TestCase):
 calls=0
 admits=[]
 refuse=[]
+stops=[]
+verified=[]
 def admit(context,config):
  sys.modules['w50_g1_dispatch'].require_native_admission(context)
  admits.append(context['stage'])
@@ -63,9 +69,32 @@ def prepare(context,config):
  calls+=1
  sys.modules['w50_g1_dispatch'].require_native_preparation(context)
  print('NATIVE_SECRET_12345.875')
- return {'ready':True,'native':'NATIVE_SECRET_12345.875','artifacts':[]}
+ return {'ready':not stops,'complete':True,'stops':list(stops),'native':'NATIVE_SECRET_12345.875','artifacts':[]}
 def verify(context,payload,config):
  assert payload['native']=='NATIVE_SECRET_12345.875'
+ verified.append((context['stage'],payload['ready']))
+''')
+        owner=self.repo/'owner.py';owner.write_text('''import sys
+admits=[]
+refuse=[]
+hooks=[]
+def admit(context,config):
+ sys.modules['w50_g1_dispatch'].require_owner_admission(context)
+ admits.append((context['stage'],context['contract'] is not None,context['executionClaim'] is not None))
+ print('NATIVE_SECRET_12345.875')
+ for hook in hooks:hook(context)
+ if refuse:raise ValueError(refuse.pop())
+ return {'admitted':True}
+def evaluate(context,captures,config):
+ return {'report':{'owner':'synthetic'},'snapshot':None}
+''')
+        judge=self.repo/'judge.py';judge.write_text('''def evaluate(context,evidence,config):
+ return {'status':'NEITHER','synthetic':'judge'}
+''')
+        fit=self.repo/'fit.py';fit.write_text('''derived=[]
+def fit_record(root,completed):
+ if len(completed)!=1:raise ValueError('one point')
+ return dict(derived[0],completed=completed)
 ''')
         capture=self.repo/'capture.py';capture.write_text('''from pathlib import Path
 import hashlib,json,sys
@@ -93,17 +122,10 @@ def verify(context,member,record,config):
  assert record['secret']=='NATIVE_SECRET_12345.875'
 ''')
         measurement=self.repo/'measurement.py';measurement.write_text("def evaluate(context,captures,config):\n print('NATIVE_SECRET_12345.875')\n raise ValueError('synthetic analysis stop')\n")
-        self.native=self.D.source(native,'unit_native')
-        self.components={'native':self.native,'capture':self.D.source(capture,'unit_capture'),'measurement':self.D.source(measurement,'unit_measurement')}
+        self.native=self.D.source(native,'unit_native');self.owner=self.D.source(owner,'unit_owner');self.fit=self.D.source(fit,'unit_fit')
+        self.components={'native':self.native,'owner':self.owner,'fit':self.fit,'capture':self.D.source(capture,'unit_capture'),
+            'measurement':self.D.source(measurement,'unit_measurement'),'judge':self.D.source(judge,'unit_judge')}
         self.D._component=lambda doc,role:(self.components[role],{})
-    def test_status_suppresses_source_diagnostics_and_exception_values(self):
-        def noisy(*args):
-            print('NATIVE_SECRET_12345.875');raise ValueError('NATIVE_SECRET_12345.875')
-        self.D._phase=noisy
-        out=io.StringIO()
-        with contextlib.redirect_stdout(out),contextlib.redirect_stderr(out):
-            status=self.D.public_status(self.root,self.contract)
-        self.assertEqual(status['code'],'REFUSED');self.assertNotIn('NATIVE_SECRET',out.getvalue()+str(status))
     def orphan(self):
         capture=self.components['capture'];original=capture.capture
         def crash(*args):
@@ -113,6 +135,42 @@ def verify(context,member,record,config):
         capture.capture=original
         self.assertEqual(self.store.status()['retained'],0)
         return a
+    def failure(self,ordinal=1):
+        return json.loads((self.store.attempts/f'{ordinal:06d}'/'failure.json').read_text())
+    def killed(self):
+        """A claim left by a process that died holding its lease (SIGKILL: no failure record)."""
+        dead=subprocess.Popen([sys.executable,'-c','pass']);dead.wait()
+        a=self.store.plan();token=self.token(dead.pid)
+        folder=self.store.attempts/'000001'
+        self.L.write_once(folder/'started.json',{'attempt':self.L.pin(folder/'contract.json'),
+            'logicalContract':self.L.pin(self.contract),'pid':dead.pid,'gpuLease':token,'output':str(self.store.output)})
+        self.L.write_once(Path(str(self.contract)+'.started.json'),{'contractSha256':self.D.sha(self.contract),
+            'batchSha256':self.D.sha(self.batch_path),'phase':'exposure','pid':dead.pid,'gpuLease':token,
+            'output':str(self.store.output),'numericalAdmission':self.C.D.pin(self.repo,self.numerical)})
+        return a,token,dead.pid
+    def create(self,batch,output,gate_batch=None,fit_record=None):
+        """create_phase with the root/pre-fit/gate admissions as explicit fixture boundaries."""
+        path=self.put(batch['phase']+'-batch.json',batch);D=self.C.D;gate=self.repo/'gate.json'
+        self.put('gate.json.result.json',{'synthetic':'gate result'})
+        gate_batch=self.put('sealed-gate-batch.json',gate_batch or {**self.batch,'phase':'gate'})
+        self.D.root_doc=lambda root:self.doc;self.D.verify_prefit=lambda root,doc:{'synthetic':'prefit'}
+        D.validate_batch=lambda doc,p,phase:(json.loads(Path(p).read_text()),[])
+        D.validate_fit_record=lambda *args:None
+        self.C.checked_gate_result=lambda root,doc:(gate,{})
+        D.sealed=lambda p:{'cohort':batch['cohort'],'batch':D.pin(self.repo,gate_batch)}
+        return self.D.create_phase(self.root,path,output,fit_record)
+    def token(self,pid):return f'W50 pid={pid} owner={os.urandom(16).hex()}\n'
+
+
+class Execution(Fixture):
+    def test_status_suppresses_source_diagnostics_and_exception_values(self):
+        def noisy(*args):
+            print('NATIVE_SECRET_12345.875');raise ValueError('NATIVE_SECRET_12345.875')
+        self.D._phase=noisy
+        out=io.StringIO()
+        with contextlib.redirect_stdout(out),contextlib.redirect_stderr(out):
+            status=self.D.public_status(self.root,self.contract)
+        self.assertEqual(status['code'],'REFUSED');self.assertNotIn('NATIVE_SECRET',out.getvalue()+str(status))
     def test_durable_source_receipt_is_adopted_without_second_capture(self):
         a=self.orphan();b=self.D.prepare_attempt(self.root,self.contract)
         self.assertEqual(len(b['members']),3)
@@ -179,9 +237,6 @@ def verify(context,member,record,config):
                 self.store.start_native(a)
                 with self.assertRaisesRegex(ValueError,'before the one-shot native marker'):self.D.require_native_admission(ctx)
             finally:self.D._ACTIVE=None;self.D._LEASE=None
-    def failure(self,ordinal=1):
-        return json.loads((self.store.attempts/f'{ordinal:06d}'/'failure.json').read_text())
-
     # An interrupted or killed attempt stays recoverable (DL5k).
     def test_interrupt_outside_worker_preserves_the_claimed_attempt_as_a_stop(self):
         original=self.Q.run_private
@@ -193,17 +248,6 @@ def verify(context,member,record,config):
         self.assertEqual(self.failure()['code'],'INSTRUMENT_FAULT')
         b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(b['ordinal'],2)
         self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
-    def killed(self):
-        """A claim left by a process that died holding its lease (SIGKILL: no failure record)."""
-        dead=subprocess.Popen([sys.executable,'-c','pass']);dead.wait()
-        a=self.store.plan();token=f'W50 pid={dead.pid} owner=killed\n'
-        folder=self.store.attempts/'000001'
-        self.L.write_once(folder/'started.json',{'attempt':self.L.pin(folder/'contract.json'),
-            'logicalContract':self.L.pin(self.contract),'pid':dead.pid,'gpuLease':token,'output':str(self.store.output)})
-        self.L.write_once(Path(str(self.contract)+'.started.json'),{'contractSha256':self.D.sha(self.contract),
-            'batchSha256':self.D.sha(self.batch_path),'phase':'exposure','pid':dead.pid,'gpuLease':token,
-            'output':str(self.store.output),'numericalAdmission':self.C.D.pin(self.repo,self.numerical)})
-        return a,token,dead.pid
     def test_killed_attempt_is_wedged_until_its_process_and_lease_are_proven_gone(self):
         a,token,pid=self.killed()
         with self.assertRaisesRegex(ValueError,'preserved stop'):self.D.prepare_attempt(self.root,self.contract)
@@ -215,14 +259,15 @@ def verify(context,member,record,config):
         event=self.D.stop_stale_attempt(self.root,self.contract,'INSTRUMENT_FAULT')
         self.assertEqual(event,{'schema':'w50-live-public-event-1','code':'INSTRUMENT_FAULT','phase':'exposure','attempt':1})
         self.assertFalse(lock.exists())
-        self.assertEqual(self.failure()['stale'],{'pid':pid,'gpuLease':token,'lock':'removed-same-token'})
+        stale=self.failure()['stale'];self.assertTrue(stale.pop('stopLease').startswith(f'W50 pid={os.getpid()} '))
+        self.assertEqual(stale,{'pid':pid,'gpuLease':token,'lock':'removed-same-token'})
         with self.assertRaises(ValueError):self.D.stop_stale_attempt(self.root,self.contract,'INSTRUMENT_FAULT')
         b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(len(b['members']),4)
         self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
     def test_live_claim_process_is_never_stopped_as_stale(self):
         a=self.store.plan();folder=self.store.attempts/'000001'
         self.L.write_once(folder/'started.json',{'attempt':self.L.pin(folder/'contract.json'),
-            'logicalContract':self.L.pin(self.contract),'pid':os.getpid(),'gpuLease':f'W50 pid={os.getpid()} owner=x\n'})
+            'logicalContract':self.L.pin(self.contract),'pid':os.getpid(),'gpuLease':self.token(os.getpid())})
         with self.assertRaisesRegex(ValueError,'still own'):self.D.stop_stale_attempt(self.root,self.contract,'INSTRUMENT_FAULT')
         self.assertFalse((folder/'failure.json').exists())
     def test_census_refusal_and_lease_loss_are_distinct_stops(self):
@@ -238,7 +283,6 @@ def verify(context,member,record,config):
         b=self.D.prepare_attempt(self.root,self.contract)
         self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'LEASE_LOST')
         self.assertEqual(self.failure(2)['code'],'LEASE_LOST')
-
     def legacy(self,strip):
         capture=self.components['capture'];original=capture.capture
         def legacy(*args):
@@ -251,7 +295,6 @@ def verify(context,member,record,config):
         self.assertEqual(self.store.status()['retained'],0)
     def test_live_member_with_legacy_origin_cannot_skip_its_repeat_pins(self):self.legacy(True)
     def test_live_member_admits_no_legacy_origin_even_with_pins(self):self.legacy(False)
-
     def test_stopped_reconciliation_is_preserved_and_a_successor_names_it(self):
         self.orphan();capture=self.components['capture'];original=capture.recover
         def transient(*args):raise ValueError('transient NATIVE_SECRET_12345.875')
@@ -276,10 +319,9 @@ def verify(context,member,record,config):
         self.L.write_once(home/'started.json',{'pid':dead.pid})
         b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(len(b['members']),3)
         self.assertTrue(json.loads((home/'failure.json').read_text())['stale'])
-
     def test_render_admission_rechecks_endpoints_and_numerical_admission(self):
         a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
-        self.assertEqual(self.endpoint_calls,[('a'*64,False),('b'*64,True)])
+        self.assertEqual(self.endpoint_calls,[(self.candidate['sha256'],False),(self.current['sha256'],True)])
         capture=self.components['capture'];original=capture.capture
         def changed(*args):
             self.numerical.write_text('{"changed":true}');return original(*args)
@@ -287,14 +329,6 @@ def verify(context,member,record,config):
         b=self.D.prepare_attempt(self.root,self.contract)
         self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'INSTRUMENT_FAULT')
         self.assertEqual(self.store.status()['retained'],1)
-    def create(self,batch,output):
-        """create_phase with the root/pre-fit/gate admissions as explicit fixture boundaries."""
-        path=self.put('exposure-batch.json',batch);D=self.C.D;gate=self.repo/'gate.json'
-        self.put('gate.json.result.json',{'synthetic':'gate result'})
-        self.D.root_doc=lambda root:self.doc;self.D.verify_prefit=lambda root,doc:{'synthetic':'prefit'}
-        D.validate_batch=lambda doc,p,phase:(json.loads(Path(p).read_text()),[])
-        self.C.checked_gate_result=lambda root,doc:(gate,{});D.sealed=lambda p:{'cohort':batch['cohort']}
-        return self.D.create_phase(self.root,path,output)
     def test_malformed_exposure_contract_refuses_before_its_one_shot_slot_is_sealed(self):
         slot=self.repo/self.C.D.SLOTS['exposure'];output=self.repo.parent/(self.repo.name+'-exposure')
         self.addCleanup(lambda:__import__('shutil').rmtree(output,ignore_errors=True))
@@ -318,5 +352,307 @@ def verify(context,member,record,config):
         capture.capture=changed
         a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
         self.assertEqual(self.store.status()['retained'],0)
+
+
+STOP={'cell':'apple-macos-27.0-1x-dark-standard-glass0.25/one','statistic':'deep8','reason':'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}
+
+
+class PreSeal(Fixture):
+    """The pre-seal review's findings (W50 G1, DL4/DL5k), each against the real dispatcher."""
+    def captured(self):
+        """Attempt 1 stops on its current lane by the fixture's design; attempt 2 completes."""
+        a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
+        b=self.D.prepare_attempt(self.root,self.contract)
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+    def analysable(self):
+        calls=[]
+        self.components['measurement'].evaluate=lambda ctx,captures,config:calls.append('measure') or {'m':1}
+        self.C.validate_report=lambda *a,**k:None
+        self.admission.validate_captures=lambda batch,captures,output:{'members':['synthetic'],'artifacts':[]}
+        return calls
+    def exposure_output(self,name='-exposure'):
+        output=self.repo.parent/(self.repo.name+name)
+        self.addCleanup(lambda:__import__('shutil').rmtree(output,ignore_errors=True));return output
+    def dead(self):
+        process=subprocess.Popen([sys.executable,'-c','pass']);process.wait();return process.pid
+
+    # P1: the owner is admitted before every one-shot marker.
+    def test_owner_refusal_at_exposure_creation_seals_nothing(self):
+        slot=self.repo/self.C.D.SLOTS['exposure'];output=self.exposure_output()
+        self.owner.refuse.append('synthetic drifted owner input')
+        with self.assertRaisesRegex(ValueError,'drifted'):self.create(self.batch,output)
+        self.assertFalse(slot.exists());self.assertFalse(output.exists());self.assertFalse(self.C.D.GPU_LOCK.exists())
+        self.create(self.batch,output)
+        self.assertEqual(self.owner.admits,[('owner-admission',False,False)]*2)
+    def test_owner_refusal_before_the_native_marker_is_a_recoverable_stop(self):
+        self.owner.refuse.append('synthetic drifted owner input')
+        a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
+        self.assertFalse((self.store.home/'native.started.json').exists());self.assertEqual(self.native.calls,0)
+        b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(b['ordinal'],2)
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+        self.assertEqual(self.native.calls,1);self.assertEqual(self.owner.admits,[('owner-admission',True,True)]*2)
+    def test_owner_refusal_before_the_analysis_marker_starts_nothing(self):
+        self.captured();self.owner.admits.clear();self.owner.refuse.append('NATIVE_SECRET_12345.875')
+        out=io.StringIO()
+        with contextlib.redirect_stdout(out),contextlib.redirect_stderr(out):
+            refused=self.D.execute_analysis(self.root,self.contract)
+        self.assertEqual(refused,{'schema':'w50-live-public-event-1','code':'REFUSED','phase':'exposure'})
+        self.assertFalse(self.store.analysis_marker.exists());self.assertNotIn('NATIVE_SECRET',out.getvalue()+str(refused))
+        self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_STOPPED')
+        self.assertTrue(self.store.analysis_marker.exists())
+        self.assertEqual(self.owner.admits,[('owner-admission',True,False)]*2)
+    def test_owner_admission_capability_is_payload_free_and_ends_at_the_analysis_marker(self):
+        with self.C.D.owned_gpu_lock():
+            self.D._LEASE=self.C.D._LEASE
+            try:
+                a=self.store.plan();claim=self.store.start(a,self.D._LEASE['token']);data=self.D._phase()
+                self.L.write_once(Path(str(self.contract)+'.started.json'),{'numericalAdmission':None})
+                ctx=self.D._context(self.root,self.contract,data,'owner-admission',claim,a['members'])
+                self.D.require_owner_admission(ctx)
+                for call in (lambda:self.D.qualification_native(ctx),lambda:self.D.require_native_admission(ctx),
+                        lambda:self.D.require_native_preparation(ctx),lambda:self.D.require_render_admission(ctx,a['members'][0]['run']),
+                        lambda:self.D.require_read_admission(ctx,a['members'][0]['run']),
+                        lambda:self.D.require_payload(ctx,{'path':'x','sha256':'0'*64})):
+                    with self.assertRaises(ValueError):call()
+                native=self.D._context(self.root,self.contract,data,'native-admission',claim)
+                with self.assertRaisesRegex(ValueError,'owner admission'):self.D.require_owner_admission(native)
+                ctx=self.D._context(self.root,self.contract,data,'owner-admission',claim)
+                self.L.write_once(self.store.analysis_marker,{'synthetic':'marker'})
+                with self.assertRaisesRegex(ValueError,'before the analysis marker'):self.D.require_owner_admission(ctx)
+                fit=(self.doc,{**self.body,'phase':'fit'},self.batch_path,self.batch,[],self.store)
+                ctx=self.D._context(self.root,self.contract,fit,'owner-admission',claim)
+                with self.assertRaisesRegex(ValueError,'No live owner'):self.D.require_owner_admission(ctx)
+            finally:self.D._ACTIVE=None;self.D._LEASE=None
+
+    # P1: intrinsic records are checked before any slot exists.
+    def test_intrinsic_records_refuse_before_any_slot_or_output(self):
+        D=self.C.D;pin=lambda p:D.pin(self.repo,p)
+        def records(**change):
+            value={'candidateDeclarations':[self.candidate],'recededRecords':json.loads((self.repo/'intrinsic.json').read_text())['recededRecords'],**change}
+            return pin(self.put('intrinsic-variant.json',value))
+        gone={'path':'intrinsic/absent.json','sha256':'0'*64}
+        good=json.loads((self.repo/'intrinsic.json').read_text())['recededRecords']['0.25']
+        cases={'missing':lambda b:b.pop('ownerIntrinsicRecords'),
+               'not a pin':lambda b:b.update(ownerIntrinsicRecords={**self.intrinsic,'extra':1}),
+               'unresolvable':lambda b:b.update(ownerIntrinsicRecords=gone),
+               'declarations':lambda b:b.update(ownerIntrinsicRecords=records(candidateDeclarations=[self.current])),
+               'duplicate declaration':lambda b:b.update(ownerIntrinsicRecords=records(candidateDeclarations=[self.candidate]*2)),
+               'one position':lambda b:b.update(ownerIntrinsicRecords=records(recededRecords={'0.25':good})),
+               'record pin':lambda b:b.update(ownerIntrinsicRecords=records(recededRecords={'0.25':good,'0.5':{**good,'methods':gone}}))}
+        for phase in ('gate','exposure'):
+            for name,mutate in cases.items():
+                batch=json.loads(json.dumps({**self.batch,'phase':phase}));mutate(batch)
+                gate=batch if phase=='gate' else None
+                output=self.exposure_output('-'+phase);slot=self.repo/D.SLOTS[phase]
+                self.fit.derived[:]=[{'schema':'record'}];record=self.put('fit-record.json',{'schema':'record','completed':[]})
+                with self.subTest(phase=phase,case=name),self.assertRaises(ValueError):
+                    self.create(batch,output,gate_batch=gate,fit_record=record if phase=='gate' else None)
+                self.assertFalse(slot.exists());self.assertFalse(output.exists())
+        other=records();other_batch={**self.batch,'ownerIntrinsicRecords':other}
+        with self.assertRaisesRegex(ValueError,'frozen gate batch'):self.create(other_batch,self.exposure_output())
+        self.assertFalse((self.repo/D.SLOTS['exposure']).exists());self.assertEqual(self.owner.admits,[])
+
+    # P2: a lease its dead holder left behind is released by every entry, and only such a lease.
+    def test_lock_left_by_a_killed_reconciliation_is_released_and_its_successor_adopts(self):
+        self.orphan();failure=self.store.attempts/'000001/failure.json';pid=self.dead();token=self.token(pid)
+        home=self.store.home/'reconciliations'/self.D.sha(failure)/'000001'
+        self.L.write_once(home/'started.json',{'pid':pid,'gpuLease':token});self.C.D.GPU_LOCK.write_text(token)
+        b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(len(b['members']),3)
+        self.assertTrue(json.loads((home/'failure.json').read_text())['stale']);self.assertFalse(self.C.D.GPU_LOCK.exists())
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+    def test_lock_left_between_lock_and_claim_is_released_by_every_entry(self):
+        lock=self.C.D.GPU_LOCK
+        a=self.store.plan();lock.write_text(self.token(self.dead()))
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
+        b=self.D.prepare_attempt(self.root,self.contract);lock.write_text(self.token(self.dead()))
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+        lock.write_text(self.token(self.dead()))
+        self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_STOPPED')
+        lock.write_text(self.token(self.dead()))
+        self.create(self.batch,self.exposure_output());self.assertFalse(lock.exists())
+    def test_stale_stop_lease_is_released_and_recorded(self):
+        a,token,pid=self.killed();self.C.D.GPU_LOCK.write_text(self.token(self.dead()))
+        self.D.stop_stale_attempt(self.root,self.contract,'INSTRUMENT_FAULT')
+        stale=self.failure()['stale'];self.assertEqual(stale['lock'],'removed-dead-holder')
+        self.assertTrue(stale['stopLease'].startswith(f'W50 pid={os.getpid()} '));self.assertFalse(self.C.D.GPU_LOCK.exists())
+    def test_a_live_or_foreign_lock_is_never_touched(self):
+        lock=self.C.D.GPU_LOCK;a=self.store.plan()
+        for held in (self.token(os.getpid()),self.token(1),'W50 pid=1 owner=x\n',f'W50 pid={self.dead()} owner=not-hex\n','2026-10-09T01:00:00+00:00\n'):
+            lock.write_text(held)
+            with self.subTest(held=held):
+                self.assertEqual(self.D._release_stale_lock(),'held')
+                with self.assertRaises(FileExistsError):self.D.execute_attempt(self.root,self.contract,a)
+                self.assertEqual(lock.read_text(),held)
+        self.assertFalse((self.store.attempts/'000001/started.json').exists())
+    def test_a_lock_replaced_while_checked_is_not_removed(self):
+        lock=self.C.D.GPU_LOCK;lock.write_text(self.token(self.dead()));successor=self.token(os.getpid())
+        original=self.D._alive
+        def swapped(pid,since):
+            lock.unlink();lock.write_text(successor);return original(pid,since)
+        self.D._alive=swapped
+        self.assertEqual(self.D._release_stale_lock(),'held');self.assertEqual(lock.read_text(),successor)
+
+    # P3: a reused PID is not the claim's writer.
+    def sleeper(self):
+        child=subprocess.Popen([sys.executable,'-c','import time;time.sleep(60)'])
+        self.addCleanup(child.wait);self.addCleanup(child.kill);return child
+    def test_a_reused_pid_is_not_the_claims_writer(self):
+        child=self.sleeper()
+        claim=self.repo/'claim.json';claim.write_text('{}')
+        self.assertTrue(self.D._alive(child.pid,os.stat(claim).st_mtime))
+        os.utime(claim,(time.time()-100,time.time()-100))
+        self.assertFalse(self.D._alive(child.pid,os.stat(claim).st_mtime))
+        self.assertTrue(self.D._alive(os.getpid(),0));self.assertTrue(self.D._alive(1,time.time()))
+        zombie=subprocess.Popen([sys.executable,'-c','pass']);self.addCleanup(zombie.wait)
+        while os.waitid(os.P_PID,zombie.pid,os.WEXITED|os.WNOWAIT) is None:pass
+        self.assertFalse(self.D._alive(zombie.pid,time.time()))
+    def test_reused_pid_claims_are_preserved_as_stale_attempts_and_reconciliations(self):
+        child=self.sleeper();a=self.store.plan();folder=self.store.attempts/'000001'
+        self.L.write_once(folder/'started.json',{'attempt':self.L.pin(folder/'contract.json'),'logicalContract':self.L.pin(self.contract),
+            'pid':child.pid,'gpuLease':self.token(child.pid)})
+        os.utime(folder/'started.json',(time.time()-100,time.time()-100))
+        self.D.stop_stale_attempt(self.root,self.contract,'INSTRUMENT_FAULT');self.assertEqual(self.failure()['stale']['pid'],child.pid)
+        self.setUp();self.orphan();failure=self.store.attempts/'000001/failure.json'  # a fresh phase with an orphan
+        home=self.store.home/'reconciliations'/self.D.sha(failure)/'000001'
+        self.L.write_once(home/'started.json',{'pid':child.pid,'gpuLease':self.token(child.pid)})
+        os.utime(home/'started.json',(time.time()-100,time.time()-100))
+        self.assertEqual(len(self.D.prepare_attempt(self.root,self.contract)['members']),3)
+        self.assertTrue(json.loads((home/'failure.json').read_text())['stale'])
+
+    # P3: a successor adopts after a reconciliation stopped between its two writes.
+    def test_successor_adopts_after_a_reconciliation_stopped_between_its_writes(self):
+        self.orphan();L=self.L;original=L.write_once
+        def stopped(path,value):
+            if Path(path).parent.name=='recovered' and Path(path).is_relative_to(self.store.attempts):raise RuntimeError('killed')
+            return original(path,value)
+        L.write_once=stopped
+        with self.assertRaisesRegex(ValueError,'quarantined'):self.D.prepare_attempt(self.root,self.contract)
+        L.write_once=original
+        self.assertEqual(len(self.D.prepare_attempt(self.root,self.contract)['members']),3)
+        copies=sorted(p.relative_to(self.output) for p in (self.output/'quarantine/recovered').rglob('*.json'))
+        self.assertEqual([p.parts[-2] for p in copies],['000001','000002'])
+        self.assertEqual(Path(self.store.checkpoints()[0]['payload']['path']).parent.name,'000002')
+
+    # P3: everything that can refuse is built before its marker.
+    def test_analysis_context_refusal_burns_no_marker(self):
+        self.captured();refs=self.repo/'references.json';original=refs.read_bytes()
+        refs.write_text('{"changed": true}')
+        with self.assertRaises(ValueError):self.D.execute_analysis(self.root,self.contract)
+        self.assertFalse(self.store.analysis_marker.exists());self.assertFalse(self.C.D.GPU_LOCK.exists())
+        refs.write_bytes(original);self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_STOPPED')
+    def test_native_context_refusal_writes_no_native_marker(self):
+        refs=self.repo/'references.json';original=refs.read_bytes()
+        self.owner.hooks.append(lambda context:refs.write_text('{"changed": true}'))
+        a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
+        self.assertFalse((self.store.home/'native.started.json').exists());self.assertEqual(self.native.calls,0)
+        refs.write_bytes(original);self.owner.hooks.clear()
+        b=self.D.prepare_attempt(self.root,self.contract)
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+
+    # P3: the gate takes only the one fit point (DL4).
+    def test_gate_takes_only_the_fit_record_its_fit_role_derives(self):
+        D=self.C.D;gate={**self.batch,'phase':'gate'};gate['runs']=[{k:v for k,v in self.batch['runs'][0].items() if k!='baselineCandidate'}]
+        result=self.put('fit/one.json.result.json',{'synthetic':'fit result'});second=self.put('fit/two.json.result.json',{'other':1})
+        self.D.result_for=lambda contract:{}
+        one=[D.pin(self.repo,result)];self.fit.derived[:]=[{'schema':'w50-g1-fit-record-1','selected':[self.candidate]}]
+        slot=self.repo/D.SLOTS['gate']
+        for name,record in (('two completed',{**self.fit.derived[0],'completed':one+[D.pin(self.repo,second)]}),
+                            ('not derived',{**self.fit.derived[0],'completed':one,'selection':'chosen elsewhere'}),
+                            ('no completion',{**self.fit.derived[0]})):
+            with self.subTest(name),self.assertRaises(ValueError):
+                self.create(gate,self.exposure_output('-gate'),gate_batch=gate,fit_record=self.put('fit-record.json',record))
+            self.assertFalse(slot.exists())
+        self.create(gate,self.exposure_output('-gate'),gate_batch=gate,fit_record=self.put('fit-record.json',{**self.fit.derived[0],'completed':one}))
+        self.assertTrue(slot.exists())
+
+    # P3: a finished result, native read or contract is completed, never replayed.
+    def test_result_written_before_its_sidecar_is_sealed_not_replayed(self):
+        self.captured();calls=self.analysable();D=self.C.D;original=D.write_sealed
+        def killed(path,value):D.write_once(path,value);raise RuntimeError('killed before sidecar')
+        D.write_sealed=killed
+        self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_STOPPED');D.write_sealed=original
+        result=Path(str(self.contract)+'.result.json');self.assertFalse(Path(str(result)+'.sha256').exists())
+        self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_COMPLETE')
+        self.assertEqual(calls,['measure']);D.sealed(result)
+        self.assertEqual(self.D.prepare_attempt(self.root,self.contract)['schema'],'w50-live-phase-complete-1')
+        with self.assertRaisesRegex(ValueError,'already started'):self.D._seal_interrupted_result(self.root,self.contract,self.D._phase())
+    def test_torn_or_rebound_unsealed_result_is_never_sealed(self):
+        self.captured();self.analysable();D=self.C.D;original=D.write_sealed
+        D.write_sealed=lambda path,value:(D.write_once(path,value),(_ for _ in ()).throw(RuntimeError('killed')))
+        self.D.execute_analysis(self.root,self.contract);D.write_sealed=original
+        result=Path(str(self.contract)+'.result.json');raw=result.read_bytes();value=json.loads(raw)
+        for bad in (raw[:-2],json.dumps(value).encode()+b'\n',
+                    (json.dumps({**value,'claimSha256':'0'*64},indent=2)+'\n').encode(),
+                    (json.dumps({**value,'report':{**value['report'],'status':'PASS'},'captures':{**value['captures'],'captures':[]}},indent=2)+'\n').encode()):
+            result.write_bytes(bad)
+            with self.subTest(bad=bad[:40]):
+                self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_STOPPED')
+                self.assertFalse(Path(str(result)+'.sha256').exists())
+    def test_native_payload_written_before_its_marker_is_finalised_not_replayed(self):
+        L=self.L;original=L.write_once
+        def killed(path,value):
+            if Path(path).name=='native.complete.json':raise RuntimeError('killed')
+            return original(path,value)
+        L.write_once=killed
+        a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
+        L.write_once=original
+        self.assertEqual(self.store.native_state(),'durable')
+        b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(b['ordinal'],2)
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+        self.assertEqual(self.native.calls,1);self.assertIn(('qualification',True),self.native.verified)
+        marker=json.loads((self.store.home/'native.complete.json').read_text())
+        self.assertEqual(marker['recoveredBy'],self.L.pin(self.store.attempts/'000002/started.json'))
+    def test_contract_written_before_its_sidecar_completes_its_seal(self):
+        D=self.C.D;original=D.write_sealed;output=self.exposure_output();slot=self.repo/D.SLOTS['exposure']
+        def killed(path,value):D.write_once(path,value);raise RuntimeError('killed before sidecar')
+        D.write_sealed=killed
+        with self.assertRaisesRegex(RuntimeError,'killed'):self.create(self.batch,output)
+        D.write_sealed=original
+        self.assertTrue(slot.exists());self.assertFalse(Path(str(slot)+'.sha256').exists())
+        with self.assertRaisesRegex(ValueError,'fresh external output|already exists'):self.create(self.batch,self.exposure_output('-other'))
+        self.assertFalse(Path(str(slot)+'.sha256').exists())
+        self.create(self.batch,output);self.assertEqual(json.loads(slot.read_text())['logicalOutput'],str(output))
+        self.assertTrue(Path(str(slot)+'.sha256').exists())
+
+    # P3: a clean completion is a status, not an error.
+    def test_prepare_after_clean_completion_reports_ready_then_complete(self):
+        self.captured();self.analysable()
+        self.assertEqual(self.D.prepare_attempt(self.root,self.contract),
+            {'schema':'w50-live-capture-ready-1','logicalContract':self.L.pin(self.contract)})
+        self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_COMPLETE')
+        self.assertEqual(self.D.prepare_attempt(self.root,self.contract),
+            {'schema':'w50-live-phase-complete-1','logicalContract':self.L.pin(self.contract)})
+
+    # DL5n: a completed not-ready read is a checkpoint; a read that did not complete stops.
+    def test_completed_not_ready_native_read_is_checkpointed_and_reaches_analysis(self):
+        def run():
+            out=io.StringIO()
+            with contextlib.redirect_stdout(out),contextlib.redirect_stderr(out):
+                a=self.store.plan();first=self.D.execute_attempt(self.root,self.contract,a)
+                b=self.D.prepare_attempt(self.root,self.contract);second=self.D.execute_attempt(self.root,self.contract,b)
+                status=self.store.status();ready=self.D.prepare_attempt(self.root,self.contract)
+            return [first,second,status,{**ready,'logicalContract':None}],out.getvalue()
+        ready_public,_=run()
+        self.setUp();self.native.stops.append(STOP)
+        public,text=run()
+        self.assertEqual(public,ready_public);self.assertNotIn('NATIVE_SPREAD',text+str(public))
+        self.assertEqual(json.loads(self.store._native_payload().read_text())['stops'],[STOP])
+        self.assertEqual(self.native.calls,1);self.assertIn(('qualification',False),self.native.verified)
+        calls=self.analysable();self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_COMPLETE')
+        self.assertEqual(calls,['measure'])
+    def test_native_read_that_did_not_complete_stops_and_never_replays(self):
+        bad={'exception':lambda payload:(_ for _ in ()).throw(OSError('disk')),
+             'value-bearing stop':lambda payload:{**payload,'ready':False,'stops':[{**STOP,'repeat':{'spread':0.75}}]},
+             'not complete':lambda payload:{**payload,'complete':False},
+             'ready with stops':lambda payload:{**payload,'stops':[STOP]}}
+        for name,change in bad.items():
+            with self.subTest(name):
+                self.setUp();original=self.native.prepare
+                self.native.prepare=lambda context,config:change(original(context,config))
+                a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
+                self.assertEqual(self.store.native_state(),'incomplete');self.assertFalse((self.store.home/'native.complete.json').exists())
+                with self.assertRaisesRegex(ValueError,'cannot be replayed'):self.D.prepare_attempt(self.root,self.contract)
+                with self.assertRaisesRegex(ValueError,'no replay'):self.store.plan()
+                self.assertEqual(self.native.calls,1)
 
 if __name__=='__main__':unittest.main()

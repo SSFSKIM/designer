@@ -8,6 +8,10 @@ import unittest
 H=Path(__file__).resolve().parent
 s=importlib.util.spec_from_file_location('lifecycle',H/'lifecycle.py');L=importlib.util.module_from_spec(s);s.loader.exec_module(L)
 
+def read(ready=True,**extra):
+    stops=[] if ready else [{'cell':'profile/one','statistic':'deep8','reason':'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}]
+    return {'ready':ready,'complete':True,'stops':stops,'artifacts':[],**extra}
+
 class Lifecycle(unittest.TestCase):
     def setUp(self):
         t=tempfile.TemporaryDirectory();self.addCleanup(t.cleanup);self.home=Path(t.name).resolve()
@@ -22,7 +26,7 @@ class Lifecycle(unittest.TestCase):
     def test_attempt_derives_exact_lanes_and_remaining_with_stable_phase(self):
         a=self.store.plan();self.assertEqual(len(a['members']),4)
         self.assertEqual({m['lane'] for m in a['members']},{'candidate','current'})
-        self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native({'ready':True,'CANARY':1234})
+        self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native(read(CANARY=1234))
         first=a['members'][0];record={'member':first['id'],'CANARY':9876}
         self.store.checkpoint(a,first,record,[])
         self.store.stop(a,'INSTRUMENT_FAULT')
@@ -38,12 +42,48 @@ class Lifecycle(unittest.TestCase):
         self.store.stop(a,'INSTRUMENT_FAULT')
         with self.assertRaises(ValueError):self.store.plan()
     def test_native_checkpoint_requires_a_real_native_start(self):
-        with self.assertRaises(ValueError):self.store.complete_native({'ready':True})
+        with self.assertRaises(ValueError):self.store.complete_native(read())
+    def test_completed_not_ready_read_is_a_checkpoint_with_metadata_only_stops(self):
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a)
+        self.store.complete_native(read(False))
+        self.assertEqual(self.store.native_state(),'complete');self.assertFalse(self.store.native_metadata()['payload'] is None)
+        self.assertEqual(L.read(self.store._native_payload())['stops'][0]['reason'],'NATIVE_SPREAD_EXCEEDS_ONE_CODE')
+    def test_native_payload_admits_only_one_completed_read(self):
+        stop={'cell':'p/s','statistic':'deep8','reason':'UNMEASURED_UNAUTHORISED_POPULATION'}
+        L.native_payload(read());L.native_payload(read(False))
+        for bad in ({'ready':True,'artifacts':[]},read(complete=False),read(complete='true'),read(ready=1),
+                read(stops=[stop]),read(False,stops=[]),read(False,stops=[{**stop,'repeat':{'spread':0.7}}]),
+                read(False,stops=[{**stop,'reason':'TRANSPORT'}]),read(False,stops=[stop,stop]),
+                read(False,stops=[{**stop,'cell':''}]),read(artifacts=None),'ready'):
+            with self.subTest(bad=bad),self.assertRaises(ValueError):L.native_payload(bad)
+    def test_durable_payload_is_finalised_only_from_its_identical_canonical_bytes(self):
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a)
+        self.assertEqual(self.store.native_state(),'incomplete')
+        with self.assertRaises(ValueError):self.store.durable_native()
+        L.write_once(self.store._native_payload(),read(False))
+        self.assertEqual(self.store.native_state(),'durable')
+        with self.assertRaisesRegex(ValueError,'Another native checkpoint'):self.store.complete_native(read(False))
+        with self.assertRaisesRegex(ValueError,'Another native checkpoint'):self.store.complete_native(read(),recovered={'claim':1})
+        payload=self.store.durable_native();marker=self.store.complete_native(payload,recovered={'claim':1})
+        self.assertEqual(L.read(marker['path'])['recoveredBy'],{'claim':1});self.assertEqual(self.store.native_state(),'complete')
+    def test_torn_durable_payload_is_an_incomplete_read(self):
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a)
+        target=self.store._native_payload();target.parent.mkdir(parents=True)
+        for raw in (b'{"ready": true, "comp',L.encode(read()).rstrip(b'\n'),json.dumps(read()).encode()+b'\n'):
+            target.write_bytes(raw)
+            with self.subTest(raw=raw):
+                self.assertEqual(self.store.native_state(),'incomplete')
+                with self.assertRaisesRegex(ValueError,'one complete write'):self.store.durable_native()
+        target.write_bytes(L.encode(read(stops=[{'cell':'p/s','statistic':'x','reason':'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}])))
+        self.assertEqual(self.store.native_state(),'incomplete')
+        self.store.stop(a,'INSTRUMENT_FAULT')
+        with self.assertRaisesRegex(ValueError,'no replay'):self.store.plan()
     def test_recovered_checkpoint_keeps_burned_attempt_and_separate_revalidation_claim(self):
         a=self.store.plan();self.store.start(a,'lease');self.store.stop(a,'INSTRUMENT_FAULT')
         folder=self.store._attempt_dir(a)
         claim=L.write_once(self.store.home/'reconcile.started.json',{'schema':'w50-live-reconciliation-claim-1',
-            'logicalContract':L.pin(self.contract),'failedAttempt':L.pin(folder/'contract.json'),'failure':L.pin(folder/'failure.json')})
+            'logicalContract':L.pin(self.contract),'failedAttempt':L.pin(folder/'contract.json'),'failure':L.pin(folder/'failure.json'),
+            'ordinal':1})
         self.store.adopt(a,a['members'][0],{'durableOriginal':True},[],claim)
         cp=self.store.checkpoints()[0]
         self.assertEqual(cp['attempt'],L.pin(folder/'contract.json'))
@@ -55,7 +95,7 @@ class Lifecycle(unittest.TestCase):
         with self.assertRaises(ValueError):self.store.start_analysis('lease')
         self.assertFalse(self.store.analysis_marker.exists())
     def test_complete_union_preserves_origins_and_marker_burns_recovery(self):
-        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native({'ready':True})
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native(read())
         for m in a['members']:self.store.checkpoint(a,m,{'member':m['id']},[])
         self.store.finish(a)
         union=self.store.complete_union();self.assertEqual(len(union['members']),4)
@@ -98,7 +138,7 @@ class Lifecycle(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'exclusively'):loose.start(b,'lease')
         self.store.start(self.store.plan(),'lease')
     def test_completed_attempt_cannot_be_rewritten_as_a_stop(self):
-        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native({'ready':True})
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native(read())
         for m in a['members']:self.store.checkpoint(a,m,{'member':m['id']},[])
         self.store.finish(a)
         with self.assertRaises(ValueError):self.store.stop(a,'INSTRUMENT_FAULT')

@@ -39,7 +39,8 @@ class Wiring(unittest.TestCase):
     def test_every_live_report_validation_goes_through_the_live_validator(self):
         tree=ast.parse((H/'dispatch.py').read_text())
         uses=[n for n in ast.walk(tree) if isinstance(n,ast.Attribute) and n.attr in ('validate_report','checked_gate_result')]
-        self.assertEqual(len(uses),3)
+        # create_phase and _phase read the gate; analysis and an interrupted result's seal validate.
+        self.assertEqual(len(uses),4)
         for node in uses:
             self.assertEqual(ast.unparse(node.value),"_CORE['C']")
 

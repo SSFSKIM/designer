@@ -17,6 +17,14 @@ class Authority(unittest.TestCase):
         prepared=types.SimpleNamespace(prepare=lambda:None,verify=lambda:None)
         with self.assertRaisesRegex(ValueError,'role interface'):A.instrument_interface('native',prepared)
         A.instrument_interface('native',types.SimpleNamespace(admit=lambda:None,**vars(prepared)))
+    def test_owner_role_must_carry_its_metadata_only_admission(self):
+        evaluated=types.SimpleNamespace(evaluate=lambda:None)
+        with self.assertRaisesRegex(ValueError,'role interface'):A.instrument_interface('owner',evaluated)
+        A.instrument_interface('owner',types.SimpleNamespace(admit=lambda:None,**vars(evaluated)))
+    def test_fit_role_must_export_the_record_the_gate_rederives(self):
+        evaluated=types.SimpleNamespace(evaluate=lambda:None)
+        with self.assertRaisesRegex(ValueError,'role interface'):A.instrument_interface('fit',evaluated)
+        A.instrument_interface('fit',types.SimpleNamespace(fit_record=lambda:None,**vars(evaluated)))
     def test_missing_real_components_cannot_form_live_root(self):
         for roles in ({},{'fit':{}},{r:{} for r in A.ROLES}):
             with self.assertRaises(ValueError):A.instrument_shape(roles)
