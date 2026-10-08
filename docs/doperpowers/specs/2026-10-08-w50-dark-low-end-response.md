@@ -60,9 +60,13 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   self-check `judge/owner-selfcheck-r3.json` PASS incl. X75 12 + X76 both positions); X3 successor
   chain and per-root slots (`bed87a4fb`..`d223c8663`; draft `execution-root-2.draft.json`
   `2e6f4c99…`, validate_body PASS); live-run tooling + candidate records (`adb4774ab`..`68552375b`,
-  `a4ec7ec6d`, `6223e3d76`; operator CLI `live-run/run.py`). Running: two read-only reviews of
-  `dd73ebdc3..d223c8663`. Then: fill `live-run/review-records.json`'s final round, regenerate and
-  seal `execution-root-2.json` (authority.seal_root), then `live-run/run.py prefit`, then
+  `a4ec7ec6d`, `6223e3d76`; operator CLI `live-run/run.py`). The DL5o review of
+  `dd73ebdc3..d223c8663` found no P0/P1 in root-bound code, and the SUCCESSOR ROOT IS SEALED:
+  `live-execution/execution-root-2.json` `2e6f4c99…` (`ef68b07c6`). Running: a live-run fix for
+  three P2s in the unbound tooling (verify pre-fit evidence in memory before sealing it; resumable
+  `initialize`; owner + TS suites in the executionClosure proof) and the review record's final
+  round. Then: `live-run/run.py prefit` (writes `execution-root-2.pre-fit-evidence.json`; after it
+  root 2 cannot be superseded without a ruling), then `initialize`, then
   executionClosure + independentReview proofs and `pre-fit-evidence.json` (verify through LIVE
   `verify_prefit` before sealing it); then (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
