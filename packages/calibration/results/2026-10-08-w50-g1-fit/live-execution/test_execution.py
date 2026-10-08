@@ -52,6 +52,12 @@ class Execution(unittest.TestCase):
         self.D.admission_module=lambda doc:admission
         native=self.repo/'native.py';native.write_text('''import sys
 calls=0
+admits=[]
+refuse=[]
+def admit(context,config):
+ sys.modules['w50_g1_dispatch'].require_native_admission(context)
+ admits.append(context['stage'])
+ if refuse:raise ValueError(refuse.pop())
 def prepare(context,config):
  global calls
  calls+=1
@@ -146,6 +152,33 @@ def verify(context,member,record,config):
         self.assertNotIn('NATIVE_SECRET',out.getvalue())
         self.assertNotIn('NATIVE_SECRET',str(first)+str(second)+str(self.store.status()))
         self.assertTrue(self.store.analysis_marker.exists())
+    def test_native_admission_refusal_is_recoverable_and_writes_no_native_marker(self):
+        self.native.refuse.append('synthetic missing archive asset')
+        a=self.store.plan();first=self.D.execute_attempt(self.root,self.contract,a)
+        self.assertEqual(first['code'],'INSTRUMENT_FAULT');self.assertEqual(self.native.calls,0)
+        self.assertFalse((self.store.home/'native.started.json').exists())
+        self.assertEqual(self.failure()['code'],'INSTRUMENT_FAULT')
+        b=self.D.prepare_attempt(self.root,self.contract);self.assertEqual(b['ordinal'],2)
+        second=self.D.execute_attempt(self.root,self.contract,b)
+        self.assertEqual(second['code'],'ATTEMPT_COMPLETE');self.assertEqual(self.native.calls,1)
+        self.assertEqual(self.native.admits,['native-admission','native-admission'])
+        self.assertTrue(self.store.status()['nativeComplete'])
+    def test_native_admission_capability_is_pre_marker_and_payload_free(self):
+        with self.C.D.owned_gpu_lock():
+            self.D._LEASE=self.C.D._LEASE
+            try:
+                a=self.store.plan();claim=self.store.start(a,self.D._LEASE['token'])
+                data=self.D._phase()
+                self.L.write_once(Path(str(self.contract)+'.started.json'),{'numericalAdmission':None})
+                ctx=self.D._context(self.root,self.contract,data,'native-admission',claim,a['members'])
+                self.D.require_native_admission(ctx)
+                for call in (lambda:self.D.qualification_native(ctx),lambda:self.D.require_native_preparation(ctx),
+                        lambda:self.D.require_render_admission(ctx,a['members'][0]['run']),
+                        lambda:self.D.require_payload(ctx,{'path':'x','sha256':'0'*64})):
+                    with self.assertRaises(ValueError):call()
+                self.store.start_native(a)
+                with self.assertRaisesRegex(ValueError,'before the one-shot native marker'):self.D.require_native_admission(ctx)
+            finally:self.D._ACTIVE=None;self.D._LEASE=None
     def failure(self,ordinal=1):
         return json.loads((self.store.attempts/f'{ordinal:06d}'/'failure.json').read_text())
 

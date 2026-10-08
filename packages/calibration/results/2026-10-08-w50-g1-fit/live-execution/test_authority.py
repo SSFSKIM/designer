@@ -13,6 +13,10 @@ class Authority(unittest.TestCase):
         A.instrument_interface('initializer',initializer)
         with self.assertRaises(ValueError):A.instrument_interface('fit',initializer)
         with self.assertRaises(ValueError):A.instrument_interface('capture',types.SimpleNamespace(capture=lambda:None,verify=lambda:None))
+    def test_native_role_must_carry_its_read_only_pre_start_admission(self):
+        prepared=types.SimpleNamespace(prepare=lambda:None,verify=lambda:None)
+        with self.assertRaisesRegex(ValueError,'role interface'):A.instrument_interface('native',prepared)
+        A.instrument_interface('native',types.SimpleNamespace(admit=lambda:None,**vars(prepared)))
     def test_missing_real_components_cannot_form_live_root(self):
         for roles in ({},{'fit':{}},{r:{} for r in A.ROLES}):
             with self.assertRaises(ValueError):A.instrument_shape(roles)

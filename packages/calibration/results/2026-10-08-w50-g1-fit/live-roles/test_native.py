@@ -353,6 +353,99 @@ class NativeRole(unittest.TestCase):
             kit.D.prepare_attempt(kit.root, kit.contract)
         self.assertEqual(calls['prepare'], 1)
 
+    def log(self, ordinal):
+        return (self.kit.output/f'attempts/{ordinal:06d}/quarantine/worker.log').read_text()
+
+    def test_admission_refusals_burn_nothing_and_a_fixed_environment_then_prepares(self):
+        """DL5k: a refusable environment stops before native.started.json, as an ordinary
+        recoverable stop, however many times; once fixed, the next attempt prepares once."""
+        kit = self.kit; calls = self.execute(); admits = []
+        admit = self.role.admit
+        def counted_admit(context, config):
+            admits.append(context['stage']); return admit(context, config)
+        self.role.admit = counted_admit
+        asset_aside = kit.base/'asset-aside'; index = self.archive/'index.json'; raw = index.read_bytes()
+        native, config = kit.components['native']
+        def missing_asset(): self.asset.rename(asset_aside); return lambda: asset_aside.rename(self.asset)
+        def changed_index(): index.write_bytes(raw+b' '); return lambda: index.write_bytes(raw)
+        def stray_file():
+            stray = self.archive/'stray.txt'; stray.write_text('stray'); return stray.unlink
+        def foreign_config():
+            kit.components['native'] = (native, dict(config, sha256='0'*64))
+            return lambda: kit.components.__setitem__('native', (native, config))
+        cases = [(missing_asset, 'archive asset hash mismatch'), (changed_index, 'Archive root hash differs'),
+                 (stray_file, 'Archive membership mismatch'), (foreign_config, 'not pinned')]
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
+            for ordinal, (break_environment, message) in enumerate(cases, 1):
+                restore = break_environment()
+                attempt = kit.store.plan() if ordinal == 1 else kit.D.prepare_attempt(kit.root, kit.contract)
+                event = kit.D.execute_attempt(kit.root, kit.contract, attempt)
+                restore()
+                with self.subTest(case=break_environment.__name__):
+                    self.assertEqual(event['code'], 'INSTRUMENT_FAULT')
+                    self.assertIn(message, self.log(ordinal))
+                    self.assertFalse((kit.store.home/'native.started.json').exists())
+                    self.assertFalse((kit.output/'native-blind.started.json').exists())
+                    self.assertFalse((kit.output/'native-blind').exists())
+                    self.assertTrue((kit.store.attempts/f'{ordinal:06d}/failure.json').is_file())
+            attempt = kit.D.prepare_attempt(kit.root, kit.contract)
+            event = kit.D.execute_attempt(kit.root, kit.contract, attempt)
+        self.assertEqual((attempt['ordinal'], event['code']), (len(cases)+1, 'ATTEMPT_COMPLETE'))
+        self.assertEqual(admits, ['native-admission']*(len(cases)+1))
+        self.assertEqual(calls, {'prepare': 1, 'verify': ['native']})
+        self.assertTrue(kit.store.status()['nativeComplete']); self.assertEqual(kit.store.status()['remaining'], 0)
+
+    def test_admit_is_metadata_only_opens_no_frame_and_writes_nothing(self):
+        kit = self.kit; opened = []
+        real = io.open
+        def recording(file, *args, **kwargs):
+            if isinstance(file, (str, Path)): opened.append(Path(file).resolve())
+            return real(file, *args, **kwargs)
+        forbidden = AssertionError('frame or payload read')
+        with kit.lease():
+            attempt, claim = kit.attempt_claim()
+            with kit.stage('native-admission', claim) as context:
+                before = self.tree(kit.base)
+                with patch('builtins.open', recording), patch('io.open', recording), \
+                        patch.object(self.role.P.A, 'verify_archive', side_effect=forbidden), \
+                        patch.object(self.role.P, '_copy_fixtures', side_effect=forbidden), \
+                        patch.object(self.role.P, '_measure_blind', side_effect=forbidden):
+                    self.assertEqual(self.role.admit(context, self.config), {'admitted': True})
+                self.assertEqual(self.tree(kit.base), before)
+                archive = self.archive.resolve()
+                self.assertIn(archive/'index.json', opened)
+                self.assertEqual({p for p in opened if p.is_relative_to(archive)},
+                                 {archive/'index.json', archive/'index.sha256'})
+                self.assertIn(self.asset.resolve(), opened)
+                member = attempt['members'][0]
+                for name, call in (('payload', lambda: kit.D.require_payload(context, {'path': str(self.asset)})),
+                                   ('native payload', lambda: kit.D.qualification_native(context)),
+                                   ('render', lambda: kit.D.require_render_admission(context, member['run'])),
+                                   ('read', lambda: kit.D.require_read_admission(context, member['run'])),
+                                   ('preparation', lambda: kit.D.require_native_preparation(context)),
+                                   ('prepare', lambda: self.role.prepare(context, self.config))):
+                    with self.subTest(capability=name), self.assertRaises(ValueError): call()
+        self.assertFalse((kit.store.home/'native.started.json').exists())
+
+    def test_admit_refuses_outside_its_stage_after_the_marker_and_outside_exposure(self):
+        with self.kit.lease():
+            attempt, claim = self.kit.attempt_claim(); self.kit.store.start_native(attempt)
+            with self.kit.stage('native', claim) as context:
+                with self.assertRaisesRegex(ValueError, 'outside its LIVE stage'): self.role.admit(context, self.config)
+            with self.kit.stage('native-admission', claim) as context:
+                with self.assertRaisesRegex(ValueError, 'before the one-shot native marker'):
+                    self.role.admit(context, self.config)
+        run = dict(self.runs[0]); run.pop('baselineCandidate')
+        fit = K.Kit(self, phase='fit', runs=[run], cohort=[self.candidate])
+        role = fit.register('native', HERE/'native.py', self.config)
+        with fit.lease():
+            attempt, claim = fit.attempt_claim()
+            with fit.stage('native-admission', claim) as context:
+                with self.assertRaisesRegex(ValueError, 'native admission capability'):
+                    role.admit(context, self.config)
+        self.assertFalse((fit.output/'native-blind.started.json').exists())
+
     def test_source_probe_is_source_only(self):
         role = K.module(HERE/'native.py', 'w50_native_role_probe')
         self.assertEqual(role.source_probe(), {'status': 'SOURCE_ONLY'})

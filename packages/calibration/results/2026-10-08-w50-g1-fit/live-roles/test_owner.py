@@ -67,6 +67,8 @@ def verify(context,member,record,config):pass
 def recover(context,member,config):return None
 ''' % SECRET
 NATIVE = '''import sys
+def admit(context,config):
+ sys.modules['w50_g1_dispatch'].require_native_admission(context)
 def prepare(context,config):
  sys.modules['w50_g1_dispatch'].require_native_preparation(context)
  return {'ready':True,'native':'%s','artifacts':[]}

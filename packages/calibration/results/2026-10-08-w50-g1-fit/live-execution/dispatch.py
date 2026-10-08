@@ -3,6 +3,7 @@
 Consumer hooks are real prospectively pinned modules, not callbacks supplied at launch.
 Capture: capture(context, member, config) -> {record, artifacts}; verify(context, member,
 record, config) rechecks original reports/repeat admission without scoring. Native:
+admit(context, config) at 'native-admission', read-only and before native.started.json, then
 prepare(context, config) -> {ready: true, ...}, with an artifacts pin list. Measurement:
 evaluate(context, captures, config). Fit/judge/owner: evaluate(context, evidence, config).
 Initializer remains a separate pre-render entrypoint behind verify_prefit.
@@ -186,6 +187,16 @@ def resolve_capture_run(context,receipt):
     key=matches[0]['id']
     if _ACTIVE.get('records',{}).get(key)!=receipt:raise ValueError('Receipt bytes differ from its original checkpoint')
     return copy.deepcopy(matches[0]['run'])
+
+
+def require_native_admission(context):
+    """Exposure-only, metadata-only pre-start admission (DL5k): the native marker burns the one
+    read, so every refusable check runs first, before it exists. Grants no payload, frame or
+    render access; those capabilities each refuse this stage."""
+    require_context(context)
+    if context['stage']!='native-admission' or context['phase']!='exposure':raise ValueError('No live native admission capability')
+    if (_ACTIVE['store'].home/'native.started.json').exists():raise ValueError('Native admission belongs before the one-shot native marker')
+    return context
 
 
 def require_native_preparation(context):
@@ -434,9 +445,14 @@ def execute_attempt(root,contract,attempt):
                             capture.verify(ctx,r['member'],L.read(L.checked(r['payload'])),config)
                             require_context(ctx)
                     if body['phase']=='exposure' and not (store.home/'native.complete.json').exists():
+                        native,nconfig=_component(doc,'native')
+                        # A native read that starts without a checkpoint is never replayed (DL5k),
+                        # so a refusable environment (asset, archive tree, pins) is admitted here,
+                        # read-only: a refusal is this attempt's ordinary recoverable stop.
+                        ctx=_context(root,contract,data,'native-admission',claim);native.admit(ctx,nconfig);require_context(ctx)
                         store.start_native(attempt)
                         ctx=_context(root,contract,data,'native',claim)
-                        native,nconfig=_component(doc,'native');payload=native.prepare(ctx,nconfig);require_context(ctx)
+                        payload=native.prepare(ctx,nconfig);require_context(ctx)
                         native.verify(ctx,payload,nconfig);require_context(ctx)
                         store.complete_native(payload,payload.get('artifacts',[]))
                     for member in attempt['members']:

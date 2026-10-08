@@ -1,7 +1,10 @@
 """LIVE native role: the single exposure's one-shot blind native preparation (DL5k).
 
-LIVE writes native.started.json and then calls prepare(context, config) at stage 'native',
-once per logical exposure; a started preparation is never replayed, whatever stops it. Later
+LIVE first calls admit(context, config) at stage 'native-admission': every check prepare makes
+before it writes its one-shot claim or opens a frame, read-only, so a refusal is an ordinary
+recoverable stop that leaves no marker. Only then does LIVE write native.started.json and call
+prepare(context, config) at stage 'native', once per logical exposure; a started preparation is
+never replayed, whatever stops it, and prepare re-checks everything admit checked. Later
 attempts call verify(context, payload, config) at 'qualification' on the retained checkpoint.
 
 exposure/prepare.py (sealed in the current3 closure) supplies the science unchanged: blind
@@ -21,6 +24,7 @@ verify hashes files without reading a native value.
 """
 import copy
 import hashlib
+import json
 from pathlib import Path
 import sys
 import types
@@ -41,10 +45,10 @@ P = _source(FIT/'exposure/prepare.py', 'w50_live_native_prepare')
 ROUTER = _source(FIT/'live/router.py', 'w50_live_native_router')
 
 
-def _admit_run(context, live, run):
+def _admit_run(context, live, run, capability=None):
     """Render admission's checks in their native-stage form: this exposure's own capability,
     a logical new-bed candidate run, its numerical admission and its admitted endpoints."""
-    live.require_native_preparation(context)
+    (capability or live.require_native_preparation)(context)
     if run not in context['batch']['runs'] or run.get('sceneSource') != 'w50':
         raise ValueError('Native preparation authenticates only a logical new-bed exposure run')
     numerical = CM.read(context['logicalClaim']['path']).get('numericalAdmission')
@@ -75,14 +79,16 @@ def _require_preparation(context, run):
 P._require_preparation = _require_preparation
 
 
-def admission(context, live, config_pin):
+def admission(context, live, config_pin, capability=None):
     """prepare.admission's policy, bound to LIVE's native capability and this attempt's claim.
 
     The root's bootstrap identity is LIVE's own process admission (dispatch._prepare), so it is
     not repeated against a module path here. The logical claim keeps its phase/contract/batch/
     output binding; its pid/lease belong to the first attempt, so the process/lease binding is
-    this attempt's claim (common.execution_claim)."""
-    live.require_native_preparation(context)
+    this attempt's claim (common.execution_claim). `capability` is the stage's own LIVE grant:
+    preparation by default, the read-only pre-start admission for admit."""
+    capability = capability or live.require_native_preparation
+    capability(context)
     CM.execution_claim(context, live)
     if context['phase'] != 'exposure': raise ValueError('Native blind preparation is exposure-only')
     repo = Path(context['repo'])
@@ -92,7 +98,7 @@ def admission(context, live, config_pin):
     newbed = [r for r in context['batch']['runs'] if r.get('sceneSource') == 'w50']
     if not newbed or any(r.get('nativeExposureConfig') != config_pin for r in newbed):
         raise ValueError('W50 exposure requires one shared registered nativeExposureConfig pin')
-    for run in newbed: _admit_run(context, live, run)
+    for run in newbed: _admit_run(context, live, run, capability)
     contract = live.sealed(context['contract'])
     claim = CM.read(context['logicalClaim']['path'])
     if claim.get('phase') != 'exposure' or claim.get('contractSha256') != live.sha(context['contract']) \
@@ -146,12 +152,63 @@ def admission(context, live, config_pin):
     return newbed, config, manifest, scenes
 
 
-def _prepare(context, live, run, config_pin, config, manifest, scenes, destination):
-    """prepare.prepare_native_exposure after its admission, step for step and byte for byte."""
+def _fresh_destination(config, destination):
     archive = Path(config['archiveRoot']).resolve()
     if destination.exists() or destination.is_symlink() \
             or destination.resolve().is_relative_to(archive) or archive.is_relative_to(destination.resolve()):
         raise ValueError('Native exposure destination exists or overlaps its original archive')
+    return archive
+
+
+def _archive_listing(archive, index_sha256):
+    """archive.verify_archive's identity and membership checks without its per-frame content
+    hashing: the index against its pin and sidecar, every member's safe path, and the exact file
+    set, from the index, names and stat alone. No frame is opened; prepare hashes them all."""
+    raw = P.A.safe(archive, 'index.json').read_bytes()
+    if P.A.sha(raw) != index_sha256: raise ValueError('Archive root hash differs from registered evidence')
+    if P.A.safe(archive, 'index.sha256').read_text() != index_sha256+'  index.json\n':
+        raise ValueError('Archive index hash mismatch')
+    doc = json.loads(raw)
+    if doc.get('schema') != 'w50-role-archive-1': raise ValueError('Unknown archive schema')
+    names = [r['path'] for r in doc['files']]
+    if len(set(names)) != len(names) or 'index.json' in names or 'index.sha256' in names:
+        raise ValueError('Duplicate or reserved archive path')
+    if any(not P.A.safe(archive, name).is_file() for name in names):
+        raise ValueError('Archive member is missing')
+    actual = {str(p.relative_to(archive)) for p in archive.rglob('*') if p.is_file() or p.is_symlink()}
+    if actual != set(names) | {'index.json', 'index.sha256'}: raise ValueError('Archive membership mismatch')
+    return doc
+
+
+def admit(context, config):
+    """Read-only pre-start admission (DL5k), before LIVE writes native.started.json.
+
+    Every check prepare runs before its one-shot claim or its first frame: root/config pins, the
+    runs' shape and admission, the logical claim and gate binding, a fresh destination, the
+    downloaded asset's compressed-bytes hash, the archive index's hash and membership, the blind
+    rows' original identities and the index-only fixture plan against every immutable run. It
+    reads JSON, hashes the asset and lists the archive tree; it opens no frame, decodes no image
+    and writes nothing. prepare repeats every one of these checks."""
+    live = CM.dispatcher(context, 'native-admission')
+    newbed, settings, manifest, scenes = admission(context, live, config, live.require_native_admission)
+    destination = Path(context['output'])/'native-blind'
+    archive = _fresh_destination(settings, destination)
+    if destination.with_name('native-blind.started.json').exists():
+        raise ValueError('Native blind preparation claim already exists')
+    asset = settings['archiveAsset']
+    if not Path(asset['path']).is_file() or P.sha(asset['path']) != asset['sha256']:
+        raise ValueError('Original downloaded archive asset hash mismatch')
+    index = _archive_listing(archive, settings['archiveIndexSha256'])
+    P.selected_rows(index, manifest, scenes, settings['partOne']['sha256'])
+    plans = P.read_fixture_plan(archive/'index.json', settings['archiveIndexSha256'], manifest, scenes, destination)
+    ROUTER.verify_fixtures(newbed, _fixture_keys(newbed), plans)
+    live.require_context(context)
+    return {'admitted': True}
+
+
+def _prepare(context, live, run, config_pin, config, manifest, scenes, destination):
+    """prepare.prepare_native_exposure after its admission, step for step and byte for byte."""
+    archive = _fresh_destination(config, destination)
     claim = destination.with_name('native-blind.started.json')
     claim_pin = P.write_once(claim, {'schema': 'w50-native-blind-claim-1',
         'dispatcherContract': P.external_pin(context['contract']),

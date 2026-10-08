@@ -275,6 +275,8 @@ def capture_run(context, run, *, current=False):
 '''
 
 NATIVE = '''import sys
+def admit(context, config):
+    sys.modules['w50_g1_dispatch'].require_native_admission(context)
 def prepare(context, config):
     sys.modules['w50_g1_dispatch'].require_native_preparation(context)
     return {'ready': True, 'artifacts': []}
