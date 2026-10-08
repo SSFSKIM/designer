@@ -1,0 +1,1625 @@
+{
+  "schema": "w50-attribution-1",
+  "historicalTableReplay": "BYTE_IDENTICAL",
+  "interpreter": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "rows": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "dark-solid__rrect-ml__rest",
+      "span": 128,
+      "pixels": 22976,
+      "nativeCodes": 55.07262705431756,
+      "webCodes": 57.13513617688022,
+      "tone": {
+        "encodedInputX": 0.11038773116387571,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.04146027692032908,
+        "blackCurveResponseLinearBeforeFarLevel": 0.04146027692032908,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.7999999999999999,
+          "sizedAlpha": 0.8099999999999999,
+          "collapseArgument": 0.061711216012856965,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011711216012873185,
+          "minimumTransmittedAggregateLinear": 0.0022251310424459057,
+          "responseMinusTransmissionFloor": 0.039235145877883175,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.048438451701090346,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "dark-solid__rrect-lg__rest",
+      "span": 160,
+      "pixels": 37440,
+      "nativeCodes": 53.99977275641026,
+      "webCodes": 57.13154901709402,
+      "tone": {
+        "encodedInputX": 0.11038773116387571,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.04146027692032908,
+        "blackCurveResponseLinearBeforeFarLevel": 0.04146027692032908,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.8999999999999999,
+          "sizedAlpha": 0.9049999999999999,
+          "collapseArgument": 0.061711216012856965,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011711216012873185,
+          "minimumTransmittedAggregateLinear": 0.0011125655212229535,
+          "responseMinusTransmissionFloor": 0.040347711399106125,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.04458310651834931,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 37440,
+      "nativeCodes": 48.14440000000001,
+      "webCodes": 33.0722,
+      "tone": {
+        "encodedInputX": 0.11036621779203415,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.015579764882583284,
+        "blackCurveResponseLinearBeforeFarLevel": 0.015579764882583284,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.9,
+          "sizedAlpha": 0.905,
+          "collapseArgument": 0.06170755922794342,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011710539245605469,
+          "minimumTransmittedAggregateLinear": 0.0011125012283325192,
+          "responseMinusTransmissionFloor": 0.014467263654250764,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.01598592668977985,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "mid-dark-solid__rrect-lg__rest",
+      "span": 160,
+      "pixels": 37440,
+      "nativeCodes": 84.92990777777779,
+      "webCodes": 88.99999999999999,
+      "tone": {
+        "encodedInputX": 0.27058823529433373,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.10085793148239126,
+        "blackCurveResponseLinearBeforeFarLevel": 0.10085793148239126,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.8999999999999999,
+          "sizedAlpha": 0.9049999999999999,
+          "collapseArgument": 0.10951123816307601,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.059511238162946754,
+          "minimumTransmittedAggregateLinear": 0.0056535676254799464,
+          "responseMinusTransmissionFloor": 0.09520436385691132,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.10519819210708434,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "mid-dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 37440,
+      "nativeCodes": 81.0,
+      "webCodes": 82.99999999999999,
+      "tone": {
+        "encodedInputX": 0.27058401703834534,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.08686436129605518,
+        "blackCurveResponseLinearBeforeFarLevel": 0.08686436129605518,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.9,
+          "sizedAlpha": 0.905,
+          "collapseArgument": 0.10950938910245896,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.05950927734375,
+          "minimumTransmittedAggregateLinear": 0.005653381347656248,
+          "responseMinusTransmissionFloor": 0.08121097994839893,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.08973588944574468,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-ml__rest",
+      "span": 128,
+      "pixels": 12834,
+      "nativeCodes": 32.0,
+      "webCodes": 48.99999999999999,
+      "tone": {
+        "encodedInputX": 0.00375,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.9570312499999999,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.031,
+        "blackCurveResponseLinearBeforeFarLevel": 0.031,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.7999999999999999,
+          "sizedAlpha": 0.8099999999999999,
+          "collapseArgument": 0.05029024767801858,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.00375,
+          "minimumTransmittedAggregateLinear": 0.0007125000000000002,
+          "responseMinusTransmissionFloor": 0.0302875,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 32.7863671813931,
+        "targetLinear": 0.015043221312324625,
+        "transmittedAggregateFloor": 0.0007125000000000002,
+        "blackFieldCodes": 31.849463095922484,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-ml__inactive",
+      "span": 128,
+      "pixels": 12834,
+      "nativeCodes": 20.4269128876422,
+      "webCodes": 22.99890914757675,
+      "tone": {
+        "encodedInputX": 0.003422702429816127,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.7981449854783975,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.0,
+        "blackCurveResponseLinearBeforeFarLevel": 0.0,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.8500000000000001,
+          "sizedAlpha": 0.8575,
+          "collapseArgument": 0.05026491505559534,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.003422702895477414,
+          "minimumTransmittedAggregateLinear": 0.00048773516260553135,
+          "responseMinusTransmissionFloor": -0.00048773516260553135,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 20.872789119603112,
+        "targetLinear": 0.0074338305495760875,
+        "transmittedAggregateFloor": 0.00048773516260553135,
+        "blackFieldCodes": 19.899851057849585,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-lg__rest",
+      "span": 160,
+      "pixels": 17288,
+      "nativeCodes": 31.98530772790375,
+      "webCodes": 49.94591624248034,
+      "tone": {
+        "encodedInputX": 0.00375,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.9570312499999999,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.031,
+        "blackCurveResponseLinearBeforeFarLevel": 0.031,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.8999999999999999,
+          "sizedAlpha": 0.9049999999999999,
+          "collapseArgument": 0.05029024767801858,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.00375,
+          "minimumTransmittedAggregateLinear": 0.0003562500000000003,
+          "responseMinusTransmissionFloor": 0.03064375,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 32.75239061767172,
+        "targetLinear": 0.015017029863266432,
+        "transmittedAggregateFloor": 0.0003562500000000003,
+        "blackFieldCodes": 32.28677433530763,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 17288,
+      "nativeCodes": 20.528285515964832,
+      "webCodes": 0.07612216566404442,
+      "tone": {
+        "encodedInputX": 0.005477449856698513,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.00021460428420770955,
+        "blackCurveResponseLinearBeforeFarLevel": 0.00021460428420770955,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.9,
+          "sizedAlpha": 0.905,
+          "collapseArgument": 0.050423951220000165,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.0054774503223598,
+          "minimumTransmittedAggregateLinear": 0.0005203577806241809,
+          "responseMinusTransmissionFloor": -0.0003057534964164714,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": -0.0003378491673110181,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 21.39674971345812,
+        "targetLinear": 0.007704521793113596,
+        "transmittedAggregateFloor": 0.0005203577806241809,
+        "blackFieldCodes": 20.379565132727063,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "dark-solid__rrect-ml__rest",
+      "span": 128,
+      "pixels": 91956,
+      "nativeCodes": 55.0724034190265,
+      "webCodes": 57.13511314976729,
+      "tone": {
+        "encodedInputX": 0.11038773116388675,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.04146027692033081,
+        "blackCurveResponseLinearBeforeFarLevel": 0.04146027692033081,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.7999999999999999,
+          "sizedAlpha": 0.8099999999999999,
+          "collapseArgument": 0.06171121601285884,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011711216012889976,
+          "minimumTransmittedAggregateLinear": 0.002225131042449096,
+          "responseMinusTransmissionFloor": 0.03923514587788171,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.048438451701088535,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "dark-solid__rrect-lg__rest",
+      "span": 160,
+      "pixels": 149740,
+      "nativeCodes": 53.9997426873247,
+      "webCodes": 57.1315376572726,
+      "tone": {
+        "encodedInputX": 0.11038773116388675,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.04146027692033081,
+        "blackCurveResponseLinearBeforeFarLevel": 0.04146027692033081,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.8999999999999999,
+          "sizedAlpha": 0.9049999999999999,
+          "collapseArgument": 0.06171121601285884,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011711216012889976,
+          "minimumTransmittedAggregateLinear": 0.0011125655212245486,
+          "responseMinusTransmissionFloor": 0.04034771139910626,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.044583106518349465,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 149740,
+      "nativeCodes": 48.144400000000005,
+      "webCodes": 33.0722,
+      "tone": {
+        "encodedInputX": 0.11036666482686996,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.01557986259373374,
+        "blackCurveResponseLinearBeforeFarLevel": 0.01557986259373374,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.9,
+          "sizedAlpha": 0.905,
+          "collapseArgument": 0.061707636527717116,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011710539245605469,
+          "minimumTransmittedAggregateLinear": 0.0011125012283325192,
+          "responseMinusTransmissionFloor": 0.01446736136540122,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.0159860346579019,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "mid-dark-solid__rrect-lg__rest",
+      "span": 160,
+      "pixels": 149740,
+      "nativeCodes": 84.92985488446641,
+      "webCodes": 88.99999999999999,
+      "tone": {
+        "encodedInputX": 0.2705882352944469,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.10085793148244653,
+        "blackCurveResponseLinearBeforeFarLevel": 0.10085793148244653,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.8999999999999999,
+          "sizedAlpha": 0.9049999999999999,
+          "collapseArgument": 0.10951123816312563,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.059511238163206706,
+          "minimumTransmittedAggregateLinear": 0.005653567625504642,
+          "responseMinusTransmissionFloor": 0.09520436385694188,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.1051981921071181,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "mid-dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 149740,
+      "nativeCodes": 81.0,
+      "webCodes": 82.99999999999999,
+      "tone": {
+        "encodedInputX": 0.2705841064453125,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.08686441153238861,
+        "blackCurveResponseLinearBeforeFarLevel": 0.08686441153238861,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.9,
+          "sizedAlpha": 0.905,
+          "collapseArgument": 0.10950942635536194,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.05950928106904029,
+          "minimumTransmittedAggregateLinear": 0.0056533817015588265,
+          "responseMinusTransmissionFloor": 0.08121102983082978,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.0897359445644528,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-ml__rest",
+      "span": 128,
+      "pixels": 49888,
+      "nativeCodes": 31.999959910198847,
+      "webCodes": 48.99999999999999,
+      "tone": {
+        "encodedInputX": 0.0037310431985294137,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.9506106124169117,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.031,
+        "blackCurveResponseLinearBeforeFarLevel": 0.031,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.7999999999999999,
+          "sizedAlpha": 0.8099999999999999,
+          "collapseArgument": 0.050288780433322716,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.0033851996632254457,
+          "minimumTransmittedAggregateLinear": 0.0006431879360128349,
+          "responseMinusTransmissionFloor": 0.030356812063987167,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 32.78239197964893,
+        "targetLinear": 0.015040155580806052,
+        "transmittedAggregateFloor": 0.0006431879360128349,
+        "blackFieldCodes": 31.93770381165449,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-ml__inactive",
+      "span": 128,
+      "pixels": 49888,
+      "nativeCodes": 20.402882456703015,
+      "webCodes": 22.0,
+      "tone": {
+        "encodedInputX": 0.003422454232349992,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.7979920783011974,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.0,
+        "blackCurveResponseLinearBeforeFarLevel": 0.0,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.8500000000000001,
+          "sizedAlpha": 0.8575,
+          "collapseArgument": 0.05026489584706724,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.0034224544651806355,
+          "minimumTransmittedAggregateLinear": 0.0004876997612882404,
+          "responseMinusTransmissionFloor": -0.0004876997612882404,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 20.872725829249248,
+        "targetLinear": 0.007433798192970312,
+        "transmittedAggregateFloor": 0.0004876997612882404,
+        "blackFieldCodes": 19.899857253858855,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-lg__rest",
+      "span": 160,
+      "pixels": 66712,
+      "nativeCodes": 31.984590478474637,
+      "webCodes": 49.982911620098335,
+      "tone": {
+        "encodedInputX": 0.0037310431985294137,
+        "inputProvenance": "sRGB encode(report.backdropTone.level); source-uniform x reconstructed in float64",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.9506106124169117,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0.036,
+          0.042,
+          0.199,
+          0.464
+        ],
+        "thickOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.031,
+          0.0414,
+          0.173,
+          0.196
+        ],
+        "blackOrdinateLinear": 0.014443843596092545,
+        "curveResponseLinearBeforeFarLevel": 0.031,
+        "blackCurveResponseLinearBeforeFarLevel": 0.031,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.7,
+          "alphaBase": 0.8999999999999999,
+          "sizedAlpha": 0.9049999999999999,
+          "collapseArgument": 0.050288780433322716,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.0033851996632254457,
+          "minimumTransmittedAggregateLinear": 0.0003215939680064176,
+          "responseMinusTransmissionFloor": 0.030678406031993583,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 32.74858717245371,
+        "targetLinear": 0.015014099565590893,
+        "transmittedAggregateFloor": 0.0003215939680064176,
+        "blackFieldCodes": 32.32850553832922,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "scene": "impulse__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 66712,
+      "nativeCodes": 20.494573689890874,
+      "webCodes": 0.0,
+      "tone": {
+        "encodedInputX": 0.00547818886116147,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.167,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.0002147109175420121,
+        "blackCurveResponseLinearBeforeFarLevel": 0.0002147109175420121,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.8,
+          "alphaBase": 0.9,
+          "sizedAlpha": 0.905,
+          "collapseArgument": 0.05042400843813084,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.005478189792484045,
+          "minimumTransmittedAggregateLinear": 0.0005204280302859841,
+          "responseMinusTransmissionFloor": -0.000305717112743972,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": -0.00033780896435798007,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 21.396938159596175,
+        "targetLinear": 0.007704620166082484,
+        "transmittedAggregateFloor": 0.0005204280302859841,
+        "blackFieldCodes": 20.379621249732224,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 37440,
+      "nativeCodes": 48.14440000000001,
+      "webCodes": 33.0722,
+      "tone": {
+        "encodedInputX": 0.11036621779203415,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.015579340720397131,
+        "blackCurveResponseLinearBeforeFarLevel": 0.015579340720397131,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.06170755922794342,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011710539245605469,
+          "minimumTransmittedAggregateLinear": 0.001223751351165772,
+          "responseMinusTransmissionFloor": 0.01435558936923136,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.0160308088991975,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "mid-dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 37440,
+      "nativeCodes": 79.99999999999999,
+      "webCodes": 82.0,
+      "tone": {
+        "encodedInputX": 0.27058401703834534,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.08514837197679143,
+        "blackCurveResponseLinearBeforeFarLevel": 0.08514837197679143,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.10950938910245896,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.05950927734375,
+          "minimumTransmittedAggregateLinear": 0.006218719482421877,
+          "responseMinusTransmissionFloor": 0.07892965249436955,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.08814031545993249,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "impulse__rrect-ml__inactive",
+      "span": 128,
+      "pixels": 12834,
+      "nativeCodes": 20.600124668848373,
+      "webCodes": 23.60573476702509,
+      "tone": {
+        "encodedInputX": 0.003422702429816127,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.7981449854783975,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.0,
+        "blackCurveResponseLinearBeforeFarLevel": 0.0,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.05026491505559534,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.003422702895477414,
+          "minimumTransmittedAggregateLinear": 0.0003576724525773899,
+          "responseMinusTransmissionFloor": -0.0003576724525773899,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 20.872789119603112,
+        "targetLinear": 0.0074338305495760875,
+        "transmittedAggregateFloor": 0.0003576724525773899,
+        "blackFieldCodes": 20.163098234399165,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "impulse__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 17288,
+      "nativeCodes": 20.979639055992596,
+      "webCodes": 0.4492133271633503,
+      "tone": {
+        "encodedInputX": 0.005477449856698513,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.0002146271242107554,
+        "blackCurveResponseLinearBeforeFarLevel": 0.0002146271242107554,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.050423951220000165,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.0054774503223598,
+          "minimumTransmittedAggregateLinear": 0.0005723935586865993,
+          "responseMinusTransmissionFloor": -0.0003577664344758439,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": -0.00039951583972735224,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 21.39674971345812,
+        "targetLinear": 0.007704521793113596,
+        "transmittedAggregateFloor": 0.0005723935586865993,
+        "blackFieldCodes": 20.275513074694572,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 149740,
+      "nativeCodes": 48.144400000000005,
+      "webCodes": 33.0722,
+      "tone": {
+        "encodedInputX": 0.11036666482686996,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.015579437898829832,
+        "blackCurveResponseLinearBeforeFarLevel": 0.015579437898829832,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.061707636527717116,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.011710539245605469,
+          "minimumTransmittedAggregateLinear": 0.001223751351165772,
+          "responseMinusTransmissionFloor": 0.01435568654766406,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.01603091741782698,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "mid-dark-solid__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 149740,
+      "nativeCodes": 79.99999999999999,
+      "webCodes": 82.0,
+      "tone": {
+        "encodedInputX": 0.2705841064453125,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.08514842085976301,
+        "blackCurveResponseLinearBeforeFarLevel": 0.08514842085976301,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.10950942635536194,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.05950928106904029,
+          "minimumTransmittedAggregateLinear": 0.006218719871714713,
+          "responseMinusTransmissionFloor": 0.0789297009880483,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": 0.08814036961256091,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "impulse__rrect-ml__inactive",
+      "span": 128,
+      "pixels": 49888,
+      "nativeCodes": 20.587215362411804,
+      "webCodes": 23.0,
+      "tone": {
+        "encodedInputX": 0.003422454232349992,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 0.7979920783011974,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.0,
+        "blackCurveResponseLinearBeforeFarLevel": 0.0,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.05026489584706724,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.0034224544651806355,
+          "minimumTransmittedAggregateLinear": 0.00035764649161137654,
+          "responseMinusTransmissionFloor": -0.00035764649161137654,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": null,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 20.872725829249248,
+        "targetLinear": 0.007433798192970312,
+        "transmittedAggregateFloor": 0.00035764649161137654,
+        "blackFieldCodes": 20.163085359308898,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "impulse__rrect-lg__inactive",
+      "span": 160,
+      "pixels": 66712,
+      "nativeCodes": 20.978894351840747,
+      "webCodes": 0.0,
+      "tone": {
+        "encodedInputX": 0.00547818886116147,
+        "inputProvenance": "report.state.backdropToneAbscissae[0].encodedLuminance: recorded GPU reduction/readback; silhouette-tone.ts toneReadingsFromBuffer slot i*8+4; WGSL tones.stats.x = mean.w",
+        "branch": "ORDINATE_CURVE",
+        "blackBlendWeight": 0.0,
+        "toneAuthority": 1.0,
+        "sizeK": 1.0,
+        "thinThickMix": 1.0,
+        "anchorX": [
+          0.004,
+          0.11,
+          0.47,
+          0.95
+        ],
+        "thinOrdinatesLinear": [
+          0,
+          0.0187,
+          0.192,
+          0.448
+        ],
+        "thickOrdinatesLinear": [
+          0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "sizeBlendedOrdinatesLinear": [
+          0.0,
+          0.0155,
+          0.164,
+          0.186
+        ],
+        "blackOrdinateLinear": 0.006995410187265387,
+        "curveResponseLinearBeforeFarLevel": 0.00021473378023777103,
+        "blackCurveResponseLinearBeforeFarLevel": 0.00021473378023777103,
+        "neutralClampContext": {
+          "regularTintAlpha": 0.89,
+          "alphaBase": 0.89,
+          "sizedAlpha": 0.8955,
+          "collapseArgument": 0.05042400843813084,
+          "collapseLow": 0,
+          "collapseHigh": 0.0001,
+          "collapseWeight": 0.0,
+          "toneLinearMean": 0.005478189792484045,
+          "minimumTransmittedAggregateLinear": 0.0005724708333145829,
+          "responseMinusTransmissionFloor": -0.00035773705307681183,
+          "fullAuthorityUnclampedNeutralAtZeroCollapse": -0.00039948302967818185,
+          "qualification": "Held-algebra diagnostic, not another render: at full authority, zero collapse and no far level, this is independent of the original neutral. A negative result must clamp to zero; with a sampled-black far field the body then draws zero. Partial authority (ml impulse) retains the original composition instead."
+        },
+        "qualification": "Attribution of the held curve and branch only, not a full GPU pixel solve: authority multiplies the W9 correction; spatial sample, collapse, neutral/alpha composition and highlights remain part of the rendered pixel."
+      },
+      "illustrativeFullAuthorityPrediction": {
+        "targetCodes": 21.396938159596175,
+        "targetLinear": 0.007704620166082484,
+        "transmittedAggregateFloor": 0.0005724708333145829,
+        "blackFieldCodes": 20.275555353057463,
+        "qualification": "Not rendered or fitted; neglects nonzero blurred samples, rim and tint. Straight-line low-end proxy; the native 1\u20138 response is not measured. At full authority and zero collapse the black-field intercept is R-(1-alpha)*mu."
+      }
+    }
+  ]
+}

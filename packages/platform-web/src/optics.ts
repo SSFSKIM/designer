@@ -449,6 +449,11 @@ export interface BackdropToneResponseConstants {
   readonly blackStrength?: number;
   readonly blackThin?: number;
   readonly blackThick?: number;
+  /** W50 compact chart: encoded output at input codes 0/8/28/40, gated as one unit. */
+  readonly lowEndStrength?: number;
+  readonly lowEnd44?: readonly [number, number, number, number];
+  readonly lowEnd96?: readonly [number, number, number, number];
+  readonly lowEnd160?: readonly [number, number, number, number];
 }
 
 export const BACKDROP_TONE_RESPONSE: BackdropToneResponseConstants = {
@@ -456,6 +461,10 @@ export const BACKDROP_TONE_RESPONSE: BackdropToneResponseConstants = {
   thin: [0.0126, 0.4561, 0.9713],
   thick: [0.4953, 0.5744, 0.9358],
   strength: 1,
+  lowEndStrength: 0,
+  lowEnd44: [0, 0, 0, 0],
+  lowEnd96: [0, 0, 0, 0],
+  lowEnd160: [0, 0, 0, 0],
 };
 
 /**
@@ -513,10 +522,32 @@ export function resolvedBackdropToneResponse(
         `new knot count has to name all three rows.`,
     );
   }
+  const gate = patch?.lowEndStrength;
+  const lowEndStrength = gate === undefined ? BACKDROP_TONE_RESPONSE.lowEndStrength! : gate;
+  if (!Number.isFinite(lowEndStrength) || lowEndStrength < 0 || lowEndStrength > 1) {
+    throw new RangeError("lowEndStrength must be finite in [0, 1]");
+  }
+  // At identity these are one unread gate-group, not three independently meaningful rows.
+  const lowEnd = { lowEnd44: BACKDROP_TONE_RESPONSE.lowEnd44!,
+    lowEnd96: BACKDROP_TONE_RESPONSE.lowEnd96!, lowEnd160: BACKDROP_TONE_RESPONSE.lowEnd160! };
+  if (lowEndStrength > 0) {
+    for (const name of ["lowEnd44", "lowEnd96", "lowEnd160"] as const) {
+      const candidate = patch?.[name];
+      const row = candidate === undefined ? lowEnd[name] : candidate;
+      if (!Array.isArray(row) || row.length !== 4 || row.some((value, i) =>
+        !Number.isFinite(value) || value < 0 || value > 1 || (i > 0 && value < row[i - 1]!)
+      )) {
+        throw new RangeError(`${name} must be four finite ordered encoded output ordinates in [0, 1]`);
+      }
+      lowEnd[name] = row as readonly [number, number, number, number];
+    }
+  }
   return {
     anchorX,
     thin,
     thick,
+    lowEndStrength,
+    ...lowEnd,
     strength: patch?.backdropToneResponseStrength ?? BACKDROP_TONE_RESPONSE.strength,
     blackStrength: patch?.backdropToneBlackStrength ?? 0,
     blackThin: patch?.backdropToneBlackThin ?? 0,
@@ -529,13 +560,47 @@ export function resolvedBackdropToneResponse(
  * the reference shows at this encoded-space backdrop mean. Mirrors the
  * renderer's `backdropToneResponse` term for term: monotone (Fritsch–Carlson)
  * interpolation through the anchors, clamped to their span, smoothstep between
- * the rows.
+ * the rows. W50 replaces only the domain below input code 64 with a chart in
+ * encoded output; its fixed join evaluates the old response at this surface's
+ * actual thickness and far-level term, not at an interpolated row's thickness.
  */
 export function backdropToneResponseLevel(
   encodedInput: number,
   thickness: number,
   response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
   levelFar = 0,
+  span = 44,
+): number {
+  const strength = response.lowEndStrength ?? 0;
+  if (strength <= 0 || encodedInput >= 64 / 255) {
+    return oldBackdropToneResponseLevel(encodedInput, thickness, response, levelFar);
+  }
+  const rowA = span < 96 ? response.lowEnd44! : response.lowEnd96!;
+  const rowB = span < 96 ? response.lowEnd96! : response.lowEnd160!;
+  const spanT = span < 96 ? clamp01((span - 44) / 52) : clamp01((span - 96) / 64);
+  const at = (i: number): number => rowA[i]! + (rowB[i]! - rowA[i]!) * spanT;
+  let encoded: number;
+  if (encodedInput <= 40 / 255) {
+    const inputs = [0, 8 / 255, 28 / 255, 40 / 255] as const;
+    const seg = encodedInput <= inputs[1] ? 0 : encodedInput <= inputs[2] ? 1 : 2;
+    const t = clamp01((encodedInput - inputs[seg]!) / (inputs[seg + 1]! - inputs[seg]!));
+    encoded = at(seg) + (at(seg + 1) - at(seg)) * t;
+  } else {
+    const join = srgbEncode(oldBackdropToneResponseLevel(64 / 255, thickness, response, levelFar));
+    encoded = at(3) + (join - at(3)) * ((encodedInput - 40 / 255) / (24 / 255));
+  }
+  const target = srgbDecode(encoded);
+  if (strength === 1) return target;
+  const old = oldBackdropToneResponseLevel(encodedInput, thickness, response, levelFar);
+  return old + (target - old) * strength;
+}
+
+/** The pre-W50 law is kept intact for exact identity and protected-domain arithmetic. */
+function oldBackdropToneResponseLevel(
+  encodedInput: number,
+  thickness: number,
+  response: BackdropToneResponseConstants,
+  levelFar: number,
 ): number {
   const xs = response.anchorX;
   const tk = clamp01(thickness);
@@ -615,8 +680,10 @@ function blackBranchWeight(x: number, response: BackdropToneResponseConstants): 
  * tint's luma is shifted, achromatically, to land the post-collapse mean on
  * `R(encodedInput, thickness)`. At the default identity, authority fades below
  * the dark anchor; W36 restores it within the selected black branch's separate
- * support, leaving the old impulse/middle response intact. The solve always
- * stands down entirely at k → 1, where the collapse owns the surface.
+ * support, leaving the old impulse/middle response intact at W50's identity.
+ * The enabled W50 chart restores authority below input 64 only; neither branch
+ * changes the alpha, measured-tone or policy gates. The solve always stands down
+ * entirely at k → 1, where the collapse owns the surface.
  */
 export function toneRespondedSourceOptics(
   source: MaterialSourceOptics,
@@ -626,26 +693,13 @@ export function toneRespondedSourceOptics(
   strength: number,
   response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
   levelFar = 0,
+  span = 44,
 ): MaterialSourceOptics {
-  const k = clamp01(adaptation);
+  const solve = toneResponseSolve(source, sample, thickness, adaptation, strength, response,
+    levelFar, span);
+  if (solve === undefined) return source;
+  const { preCollapse, authority, shift } = solve;
   const alpha = source.tintAlpha;
-  const responseStrength = clamp01(strength) * clamp01(response.strength);
-  if (responseStrength <= 0 || alpha <= 1e-3 || k >= 0.995) return source;
-  const encodedInput = srgbEncode(clamp01(sample.luminance));
-  const anchor = Math.max(response.anchorX[0], 1e-4);
-  const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
-  let authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
-  const black = blackBranchWeight(encodedInput, response);
-  if (black > 0) authority += (responseStrength - authority) * black;
-  if (authority <= 0) return source;
-  const target = backdropToneResponseLevel(encodedInput, thickness, response, levelFar);
-  // The collapse's mean pull is toward L(the LINEAR mean colour), not toward
-  // the encoded level — the shader's own comment, mirrored.
-  const preCollapse = (target - k * sample.linearLuminance) / (1 - k);
-  const tintLuma =
-    0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
-  const nominal = (1 - alpha) * sample.linearLuminance + alpha * tintLuma;
-  const shift = ((preCollapse - nominal) / alpha) * authority * clamp01(strength);
   const tint: [number, number, number] = [
     clamp01(source.tint[0] + shift),
     clamp01(source.tint[1] + shift),
@@ -668,6 +722,69 @@ export function toneRespondedSourceOptics(
     tintAlpha = alpha + (alphaTarget - alpha) * authority * clamp01(strength);
   }
   return { ...source, tint, tintAlpha };
+}
+
+/** The unclamped solve state is shared with W50's negative-neutral identification referee. */
+function toneResponseSolve(
+  source: MaterialSourceOptics,
+  sample: { readonly luminance: number; readonly linearLuminance: number },
+  thickness: number,
+  adaptation: number,
+  strength: number,
+  response: BackdropToneResponseConstants,
+  levelFar: number,
+  span: number,
+): { readonly preCollapse: number; readonly authority: number; readonly shift: number } | undefined {
+  const k = clamp01(adaptation);
+  const alpha = source.tintAlpha;
+  const responseStrength = clamp01(strength) * clamp01(response.strength);
+  if (responseStrength <= 0 || alpha <= 1e-3 || k >= 0.995) return undefined;
+  const encodedInput = srgbEncode(clamp01(sample.luminance));
+  const anchor = Math.max(response.anchorX[0], 1e-4);
+  const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
+  let authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
+  const black = blackBranchWeight(encodedInput, response);
+  if (black > 0) authority += (responseStrength - authority) * black;
+  const lowEnd = response.lowEndStrength ?? 0;
+  if (lowEnd > 0 && encodedInput < 64 / 255) {
+    authority += (responseStrength - authority) * lowEnd;
+  }
+  if (authority <= 0) return undefined;
+  const target = backdropToneResponseLevel(encodedInput, thickness, response, levelFar, span);
+  // The collapse's mean pull is toward L(the LINEAR mean colour), not toward
+  // the encoded level — the shader's own comment, mirrored.
+  const preCollapse = (target - k * sample.linearLuminance) / (1 - k);
+  const tintLuma =
+    0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
+  const nominal = (1 - alpha) * sample.linearLuminance + alpha * tintLuma;
+  const shift = ((preCollapse - nominal) / alpha) * authority * clamp01(strength);
+  return { preCollapse, authority, shift };
+}
+
+/**
+ * W50's requested neutral channels before the gamut clamp, on the new chart's
+ * eligible domain only. A negative request is a failed identification/candidate,
+ * even though the drawing path's ordinary clamp still emits a valid colour.
+ * The independent linear mean is retained: decoding the encoded mean would
+ * erase the transmitted floor on a structured black/white source.
+ */
+export function lowEndNeutralRequest(
+  source: MaterialSourceOptics,
+  sample: { readonly luminance: number; readonly linearLuminance: number },
+  thickness: number,
+  adaptation: number,
+  strength: number,
+  response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+  levelFar = 0,
+  span = 44,
+): readonly [number, number, number] | undefined {
+  if ((response.lowEndStrength ?? 0) <= 0 || srgbEncode(clamp01(sample.luminance)) >= 64 / 255) {
+    return undefined;
+  }
+  const solve = toneResponseSolve(source, sample, thickness, adaptation, strength, response,
+    levelFar, span);
+  if (solve === undefined) return undefined;
+  return [source.tint[0] + solve.shift, source.tint[1] + solve.shift, source.tint[2] + solve.shift];
 }
 
 /** The adaptation constants under a profile patch, by the renderer's merge rule. */
@@ -4591,6 +4708,7 @@ export function materialAtBackdrop(
     resolvedBackdropToneResponse(profile),
     sizeToneLevelFar(span, size, devicePixelRatio,
       size.refractionScale[accessibilityRefractionCap(policy)]),
+    span,
   );
   const collapsed = adaptedSourceOptics(
     responded, tone?.rgb, adaptation,

@@ -202,6 +202,12 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneBlackStrength",
   "backdropToneBlackThin",
   "backdropToneBlackThick",
+  // W50 DL4 (§5.217): the compact low-end target/authority gate and its three span rows.
+  // Candidate documents name all four; refusing them here would block the declared fit.
+  "lowEndStrength",
+  "lowEnd44",
+  "lowEnd96",
+  "lowEnd160",
   // The outer shadow (W8, re-read by W14 G1). One key, FIFTEEN constants under
   // it — a nested block like `strongBorderRim`, so the cascade's fit lands as
   // `{ outerShadow: { … } }` and a sweep axis names a dotted leaf inside it

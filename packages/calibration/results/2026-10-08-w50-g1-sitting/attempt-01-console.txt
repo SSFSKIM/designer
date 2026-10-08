@@ -1,0 +1,16 @@
+REFUSED; retained at /Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/QUARANTINE-run-1-1791422534597505000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/w50.py", line 375, in <module>
+    run(registered, args.root, args.stop_after)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/w50.py", line 333, in run
+    d.main(['capture', p['name']])
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 1520, in main
+    validate_manifest(m, doc, pose, scale, label)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/w50.py", line 199, in validate
+    return original_validate(m, doc, pose, scale, d._labels.get(label, label))
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py", line 920, in validate_manifest
+    raise ValueError('pose attestation failed: ' + sid)
+ValueError: pose attestation failed: dark-solid__rrect-lg__rest

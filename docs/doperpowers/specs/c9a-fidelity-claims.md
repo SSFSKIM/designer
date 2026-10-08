@@ -50191,3 +50191,197 @@ those pixel checks. All ten digests, 43 cross-tree renderer rasters and 132 dark
 captures are unchanged; 34 golden tests, 57 GPU tests, the 1,818 frozen entries and X41's 911 pass.
 The native bed remains declared, unspent and user-gated. No document, matrix generation, fixture,
 owner threshold, release version or changeset changed; no merge or push was performed.
+
+## 5.217 W50 G0 — the dark low-end chart landed inert; the compact native sitting
+
+W50's charter is `2026-10-08-w50-dark-low-end-response.md`; DL1–DL4 are recorded there verbatim.
+DL1 places all four dark macOS27 endpoints in scope. The user's DL2 permits the complete named
+X41 dark0.5 publication delta **only after the fixed gate passes**; old aliases, files, light
+bytes, fixtures and the original X41 witness remain evidence. DL3 lifts X5 for the compact sitting
+on the unchanged W39 side bundle, behind a positive noninteractive grant check. DL4 fixes the
+family, blind split and per-cell landing intersection: no post-gate amendment or exception landing.
+G0 does not fit a coefficient, change a document or publish a generation.
+
+### 1. One compact target and its authority, on both tiers
+
+`lowEndStrength:0` gates three four-ordinate rows (`lowEnd44`, `lowEnd96`, `lowEnd160`) as one
+identity-table group. The ordinates are encoded normalized output levels at input codes0/8/28/40;
+interpolation is linear in input and physical span, holding the outer span rows. The fixed64
+join reads the **old law at the actual span's thickness and far-level term**, not an interpolated
+join from the three row spans. Between40 and64 output interpolates in encoded space to that join;
+the response target is decoded to linear light. Target and authority move together, with full
+eligible authority at strength1. At gate0 and at/above input64 the old arithmetic executes exactly.
+
+The renderer appends four vec4s after all existing optics uniform lanes. CSS mirrors the chart
+per surface and passes the actual member span through `materialAtBackdrop`. The bridge already
+derives its patch type through the renderer interface; no separate field list required changing.
+Both macOS27 generators already print arbitrary tuple patch leaves through `print-patch.mjs`;
+a new round-trip case proves the complete chart, without regenerating any endpoint module.
+Enabled rows must be four finite ordered encoded levels in[0,1], and the gate must be finite in[0,1].
+Neither a valid row ordering nor a successful clamp certifies a fitted candidate.
+
+`lowEndNeutralRequest` returns the actual unclamped neutral-channel requests from the same CSS
+solve state used by the material, or no request outside the active law/old eligibility. Its
+structured fixture preserves the independent linear mean instead of replacing it with the decoded
+encoded argument; it detects the negative request that the normal gamut clamp would conceal.
+The dense synthetic rehearsal uses a running maximum, so sub-tolerance adjacent decreases cannot
+accumulate into drift. It covers0–64 at1/64-code steps, spans32–224 at every integer, both scales
+and all four dark endpoint bases. These are **synthetic on-state proofs, not fitted/native results**.
+Existing alpha, no-tone/no-sample, collapse and policy stand-downs keep their thresholds and folds.
+A real-adapter read of the production chart functions agrees with the CPU within0.001 encoded code;
+a separate pixel test proves the new uniform block reaches the body and respects old solve gates.
+
+### 2. Identity is recorded by bytes, not inferred from the zero default
+
+Evidence is under `results/2026-10-08-w50-g0-declaration/evidence/`. All ten resolved material
+fingerprints still equal their documents' recorded digests. The 43 raw renderer rasters (30
+endpoint/DPR readings and13 golden scenes) match the existing W49b post-operator witness exactly,
+whose ten current documents are unchanged. All34 golden tests pass. The new gate's identity-table
+entry is literal-pinned, and the frozen26.5 material comparison excludes only the four newly
+introduced leaves, never an older difference or a changed historical hash.
+
+A strict unchanged-document scratch read contains28 dark controls over both positions and scales.
+The24 cells with prior canonical captures are raw-RGBA byte-identical. Four default-active
+impulse ml/lg cells had no current canonical image; G0 now has their current scratch captures,
+not an invented identity comparison. Their native targets already existed. These captures live
+under `/Users/new/vitrea-w50/identity-controls-complete/`; they are not canonical publication and
+must remain available for the sealed reference map. The earlier20-cell scratch read is retained
+separately. Every pass records the classifying census, actual argv, exit status and capture metadata.
+
+The workspace build and lint pass; **3,288 unit tests pass**, with four absent-tree skips. A
+read-only owner-suite run against the canonical tree closes those checks at165/165. Renderer GPU
+checks pass58 with the optional cross-tree recorder skipped in that aggregate; the recorder was
+run separately and supplied the43 exact witnesses above. Freeze1,818 and X41911 remain intact.
+No material/fixture/generation/threshold/release bytes changed. The operator's independent high
+review found no material findings and ran111 targeted checks; it did not claim native identification.
+
+### 3. The actual compact pass plan and permission boundary
+
+The512×384 bed contains448 identifying glass cells (176 calibration,160 validation,112 blind),
+three repetitions each. Its1,344 glass frames,128 no-glass references,96 operational sentinels and
+32 original320×200 bridge frames total **1,600 stored frames over40 launches**. Seven inter-pass
+slider writes and three display switches are explicit. W43's estimator applied to that actual
+plan reads15,382.41 seconds /4.27h capture and boundaries,4.70h with10% stop loss, and **5.20h
+reserved** including30minutes setup/restoration. This replaces the grounding's labelled5.3h estimate.
+Original-canvas bridge references remain tied to their own position, pose and scale. Opening and
+closing sentinels bracket the harness's real lexical capture order, not only the planner's array.
+
+The first read-only TCC query found no positive ScreenCapture grant for
+`dev.vitrea.reference-apple.w39`, so G0 did not launch it. The user subsequently re-granted it;
+a fresh noninteractive check verified **auth=2 and a matching compiled signing requirement**.
+The unchanged executable hashes to
+`02052b175dd14bfbe2713d8e566c9b650011000f8f72de87a965f070c38b6498`, with CDHash
+`be258cbfc53e5cec6b49ecdec01f126872400b29`. G0 launched no native app, requested no TCC permission,
+modified no TCC state and rebuilt no original bundle. The unchanged
+`/Users/new/vitrea-w39/side/VitreaReference.app` is the sole capture bundle; the positive check
+is repeated before every launch. G0 created no `w50-archive` release and has no native capture hash.
+
+### 4. Operational seals are not a claim that fitting is ready
+
+The two-part declaration fixes the family, split, predictions and exact conditional X41 scope,
+with no amendment verb. Its pre-native reference inventory declares3,527 keyed statistics/tier
+entries;154 inherited dark0.25 T1 readings retain their own historical caps, and unavailable
+readings say UNMEASURED. The four current dark source-document bytes are preserved by full hash.
+An additive pre-fit evidence seal must bind the admitted archive and complete exposed references
+without changing their identities, roles, supports, historical caps or already-known values.
+Blind identities/dependencies remain sealed without reading their statistics merely to complete
+that bookkeeping. The numerical and measured gates remain an intersection, not a pass-by-omission.
+
+The custom new-bed512×384 web adapter and new native measurements remain G1 work and explicit
+pre-fit blockers. A missing numerical candidate proof also refuses a render; runtime synthetic
+proofs are not a substitute for the fitted cohort or its independent structured arguments.
+No prospective native blind pixel or statistic has been opened. The next authorised action is the
+sitting under the assembled seals and positive grant, not a texture refit, an exception landing or
+a silent changed floor.
+
+### 5. Sitting-tool review closure
+
+The independent tooling review found three actionable refusal-boundary defects, each reproduced
+and fixed in a bounded worker pass before sealing: automated Chrome variants could be labelled
+ordinary user Chrome; a later self-sealed web baseline contract lacked root/pre-fit authorization;
+and native planning/safety helpers imported before the source guard. The final census classifies
+browser families and their helpers, including Testing/Canary variants, while still annotating an
+unrelated ordinary user Chrome. Every candidate execution requires its exact contract and
+sidecar under the pre-fit seal. Current-byte baseline reads are not fitted candidates; the candidate
+API does not advertise a baseline phase that could never pass the new law's numerical referee. Both entrypoints start with stdlib-only pin checks, source-compile
+the checked guard, install closure enforcement, and only then load planning/measurement helpers.
+Changed-helper marker and stale-pyc cases prove refusal occurs before helper execution.
+
+The review's bounded closure returned correct with no material findings. G0 independently ran
+all50 Python tool tests and both prospective CPU probes successfully. The native closure exercises
+17 repository sources; the canonical web wrapper exercises ten. These counts are exercised
+Python sources, not a claim that an unimplemented new-bed web adapter has already been sealed.
+Restore/cancellation tests remain dry: no positive-grant/live-sitting branch has been exercised,
+and the unchanged W42 geometry module's ResourceWarning is recorded rather than called a failure.
+
+The final both-tier control read adds28 CSS captures:21 with prior canonical rasters are byte-
+identical, and seven previously absent current images are retained in
+`/Users/new/vitrea-w50/identity-controls-css/`. The two default2x receded ml/lg CSS level-price
+references were completed before sealing under the existing one-code rule, without changing any
+prior reference value or historical cap. The sixteen committed opening bridge cells were also
+replayed through the real region reader with one exterior-pixel perturbation, bypassing the
+identity shortcut: every cell supplied statistics (3–273) and every region median delta was0.
+A dry machine census verified the declared27.0/26A428 build, all three accessibility settings off,
+and no foreign capture process.
+
+The newly available positive-grant branch exposed a command-formatting bug before launch:
+`codesign -R` treated unprefixed textual requirement syntax as a pathname. The checker now passes
+the exact compiled TCC requirement file, retains actual failure diagnostics, and does not ask a
+user with auth=2 to re-grant. Its positive/negative command-boundary regression and focused
+independent review pass; the actual read-only check then passed as well.
+
+### 6. Final numerical and operational seal
+
+The executable numerical referee uses the real composed material, not just ordered chart rows.
+Its full synthetic rehearsal covered6,325,768 samples, returned zero running drawdown and a minimum
+unclamped neutral0.008744262734081729 in10.37s. That is an explicitly synthetic held test profile
+in four endpoint slots, not a fitted/native verdict. An independent full sweep with no measured
+arguments returned UNMEASURED, as it must. The measured producer requires both actual-position
+candidate documents and every exposed low-end argument identity in the fixed inventory; observed
+arguments retain their independent linear mean, including binary32 rounding, and the production
+law itself owns the protected64 boundary. It cannot substitute a small synthetic sample for that
+population or return a measured PASS without its evidence.
+
+The bounded numerical review closed its admission/provenance issues: baseline is not a candidate
+phase; real0.250/0.500 candidate keys are admitted at numeric0.25/0.5 without naming shipped
+endpoints; all four chart leaves cross the real candidate reader; report inputs and the exact
+runtime/input source union are checked; and changed/new Node imports refuse before execution for
+the lifetime of the computation. The candidate reader and consumer were tested against the same
+complete, correctly digested documents. Sixty-one Python tool tests and ten standalone numerical
+tests pass. The latter pass after sealing too, through normal authorization rather than a discovery
+bypass. A78-source numerical runtime witness and17-source native contract were written only after
+source/review convergence. The final source inventory has195 pins.
+
+Both immutable operational parts were hashed on that assembled tree, before native capture:
+
+- part1: `bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86`;
+- part2: `bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85`.
+
+The post-seal checker reports SEALED/native with candidateVerdict NOT_READ, and the directly
+invoked native entrypoint verifies its registered plan:1,600 frames,40 launches, no layer dumps.
+The additive pre-fit seal remains absent by design; native capture authorization is not fitting
+readiness or a material verdict. The G1 data, custom web adapter, complete path/T1 references and
+measured arguments still have to satisfy that separate gate without moving either operational seal.
+
+### 7. G1a opening attempt refused; no identifying data acquired
+
+The driver started from `c123c79a5` under the two seals above and stopped on its first opening
+bridge. Both `dark-solid__rrect-lg__rest` and `impulse__rrect-lg__rest` at dark0.5/1x were captured
+by ScreenCaptureKit but attest `presentedActive:false`. The requested active argv was correct;
+the unchanged harness explicitly reports activation denied by the session. Admission refused
+before any bridge comparison or identifying pass. There are **zero admitted frames, two quarantined
+operational frames, zero identifying frames and zero blind frames**. No `w50-archive` was created.
+
+`session-before.json` already named `com.apple.UserNotificationCenter` as frontmost; every watchdog
+sample retained it. Read-only LaunchServices/CoreGraphics inspection found PID8754's on-screen
+window816380, layer8, bounds1150/288/260/192, with sharing state0. The GUI session is on-console,
+logged in and unlocked. This is a non-shareable system alert holding focus, not an absent capture
+grant and not evidence about the new material. Its content was not read and it was not dismissed
+or killed. The human must resolve it; an ordinary front app and the positive grant must be verified
+before another attempt. No sealed source was changed and no automatic retry was performed.
+
+`results/2026-10-08-w50-g1-sitting/attempt-01.json` binds the two frame hashes, launch, manifest,
+front-app diagnosis and restoration. The full quarantined run remains outside the checkout under
+`/Users/new/vitrea-w50/native-g1a/`. The driver exited1 and positively restored the as-found slider0.5
+and display mode68. A fresh-root retry can use the unchanged declared protocol after the environment
+is corrected; it cannot reuse these rejected frames or call them receded measurements instead.

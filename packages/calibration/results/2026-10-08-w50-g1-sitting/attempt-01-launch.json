@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-n",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/scenes-run-1.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/run-1",
+    "--env",
+    "VITREA_SCALE=1",
+    "--stdout",
+    "/Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/run-1/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/run-1/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w50-b8a97357833545229d1d5805552851f3-w43-open-x0.5-1x-active-1",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "dark-solid__rrect-lg__rest,impulse__rrect-lg__rest"
+  ]
+}

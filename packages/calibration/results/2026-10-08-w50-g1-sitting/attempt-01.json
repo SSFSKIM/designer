@@ -1,0 +1,88 @@
+{
+  "schema": "w50-native-attempt-1",
+  "recordedAt": "2026-10-08T01:43:26.957464+00:00",
+  "sourceHead": "c123c79a578ed0c763f1b6c71c6d7542def4d8b0",
+  "partOneSha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86",
+  "partTwoSha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85",
+  "status": "REFUSED_WRONG_POSE",
+  "driverExitCode": 1,
+  "admittedFrames": 0,
+  "quarantinedOperationalFrames": 2,
+  "identifyingFrames": 0,
+  "blindFrames": 0,
+  "quarantine": "/Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/QUARANTINE-run-1-1791422534597505000",
+  "manifestSha256": "ffaa2037de5e65c999f112facd6f2652bc39dd2a8906955f6911cddba1b3adc7",
+  "fixtures": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "dark-solid__rrect-lg__rest",
+      "requestedPose": "active",
+      "presentedActive": false,
+      "file": "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest.png",
+      "sha256": "223e3ecfd1543fbbb309956842324e8a79540ca76947935efc63022cb5dfc2a1"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "impulse__rrect-lg__rest",
+      "requestedPose": "active",
+      "presentedActive": false,
+      "file": "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+      "sha256": "f05fb61476d797bf286006395e0eeca4dc698a72eecaf02daeb8c83f30552a22"
+    }
+  ],
+  "sessionBefore": {
+    "frontmostIdentifier": "com.apple.UserNotificationCenter",
+    "frontmostPid": 8754,
+    "idleSeconds": 4358.576075833,
+    "screenLocked": false,
+    "windowOwners": [
+      "Dock|20",
+      "UserNotificationCenter|8",
+      "Window Server|2147483630",
+      "Window Server|24",
+      "\uc2dc\uc2a4\ud15c \uc124\uc815|0",
+      "\uc54c\ub9bc \uc13c\ud130|-2147483601"
+    ]
+  },
+  "restoration": {
+    "restored": true,
+    "slider": {
+      "restored": true,
+      "asFound": {
+        "present": true,
+        "value": "0.5",
+        "type": "float"
+      },
+      "read": {
+        "present": true,
+        "value": "0.5",
+        "type": "float"
+      },
+      "written": false
+    },
+    "display": {
+      "restored": true,
+      "mode": "68"
+    }
+  },
+  "diagnosis": {
+    "frontmostIdentifier": "com.apple.UserNotificationCenter",
+    "pid": 8754,
+    "windowNumber": 816380,
+    "onscreen": true,
+    "layer": 8,
+    "bounds": {
+      "x": 1150,
+      "y": 288,
+      "width": 260,
+      "height": 192
+    },
+    "sharingState": 0,
+    "sessionOnConsole": true,
+    "sessionLoginDone": true,
+    "screenLocked": false,
+    "interpretation": "A pre-existing non-shareable system alert retained focus. No protected UI content was read or operated."
+  },
+  "publication": "None: incomplete/refused sitting is not w50-archive",
+  "next": "Human clears the system alert; verify ordinary front app and positive grant, then a fresh-root retry of the unchanged sealed protocol. Do not reuse or relabel these refused frames."
+}

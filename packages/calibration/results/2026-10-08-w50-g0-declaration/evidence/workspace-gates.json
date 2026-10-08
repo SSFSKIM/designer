@@ -1,0 +1,15 @@
+{
+  "build": {
+    "exitCode": 0,
+    "command": "pnpm -r build"
+  },
+  "lint": {
+    "exitCode": 0,
+    "command": "pnpm -r lint"
+  },
+  "unit": {
+    "exitCode": 0,
+    "command": "pnpm -r test",
+    "log": "unit-rerun.log"
+  }
+}

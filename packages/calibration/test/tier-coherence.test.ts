@@ -26,6 +26,7 @@
 import { NOMINAL_ACCESSIBILITY_POLICY, glassTint, resolveAccessibilityPolicy } from "@vitreajs/vitrea";
 import {
   BACKDROP_TONE,
+  BACKDROP_TONE_RESPONSE,
   CSS_TIER_MAPPING,
   FOREGROUND_INK,
   INCREASED_OCCLUSION_LIFT,
@@ -129,6 +130,9 @@ import {
   tintShadeLayer as cssTierTintShadeLayer,
   tintToneAdaptation as cssTierTintToneAdaptation,
   validateBackdropToneAbscissa,
+  lowEndNeutralRequest,
+  macos26MaterialProfileDocument,
+  macos27Glass025MaterialProfileDocument,
   macos27MaterialProfileDocument,
 } from "@vitreajs/vitrea-web";
 import {
@@ -3191,6 +3195,11 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   backdropToneBlackStrength: "resolvedBackdropToneResponse",
   backdropToneBlackThin: "resolvedBackdropToneResponse",
   backdropToneBlackThick: "resolvedBackdropToneResponse",
+  // W50's compact chart and authority share the actual surface span (the W50 block below).
+  lowEndStrength: "resolvedBackdropToneResponse",
+  lowEnd44: "resolvedBackdropToneResponse",
+  lowEnd96: "resolvedBackdropToneResponse",
+  lowEnd160: "resolvedBackdropToneResponse",
   // The collapse's transmission, per scale.
   collapseTransmission: "adaptedSourceOptics",
   collapseTransmission2x: "adaptedSourceOptics",
@@ -3844,4 +3853,127 @@ describe("W49b W/S CSS declines", () => {
       }
     }
   });
+});
+
+/** W50's compact encoded-output chart and solve authority share a per-surface span on both tiers. */
+describe("W50 low-end chart tier coherence", () => {
+  const CHART = {
+    lowEndStrength: 1,
+    lowEnd44: [20 / 255, 28 / 255, 50 / 255, 64 / 255] as const,
+    lowEnd96: [24 / 255, 32 / 255, 54 / 255, 68 / 255] as const,
+    lowEnd160: [28 / 255, 36 / 255, 58 / 255, 72 / 255] as const,
+  };
+  // Read the generated runtime endpoints, not a second patch projection of the documents.
+  const SHIPPED = [
+    ...(["light", "dark"] as const).map((scheme) => ({
+      name: `26.5 ${scheme}`,
+      profile: withMaterialOverrides(DEFAULT_MATERIAL_PROFILE,
+        macos26MaterialProfileDocument.active[scheme].patch ?? {}),
+    })),
+    ...[macos27MaterialProfileDocument, macos27Glass025MaterialProfileDocument].flatMap((document) =>
+      (["light", "dark"] as const).flatMap((scheme) => {
+        const active = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE,
+          document.active[scheme].patch ?? {});
+        return [
+          { name: `${document.glassTintAmount} ${scheme}`, profile: active },
+          { name: `${document.glassTintAmount} ${scheme} receded`,
+            profile: withMaterialOverrides(active, document.receded[scheme].patch ?? {}) },
+        ];
+      })),
+  ];
+  const DARK = SHIPPED.filter(({ name }) => name !== "26.5 dark" && name.includes("dark"));
+
+  it("pins chart identity constants and exact off-state arithmetic on all ten shipped endpoints", () => {
+    for (const key of ["lowEndStrength", "lowEnd44", "lowEnd96", "lowEnd160"] as const) {
+      expect(BACKDROP_TONE_RESPONSE[key], key).toEqual(DEFAULT_MATERIAL_PROFILE[key]);
+    }
+    expect(SHIPPED).toHaveLength(10);
+    for (const { name, profile } of SHIPPED) {
+      const response = resolvedBackdropToneResponse(profile);
+      expect(profile.lowEndStrength, name).toBe(0);
+      for (const key of ["lowEndStrength", "lowEnd44", "lowEnd96", "lowEnd160"] as const) {
+        expect(response[key], `${name} ${key}`).toEqual(profile[key]);
+      }
+      const inert = { ...response, ...CHART, lowEndStrength: 0 };
+      for (const span of [32, 44, 70, 96, 128, 160, 224]) {
+        const thickness = rendererSizeThickness(span, profile);
+        for (const dpr of [1, 2]) {
+          const far = rendererSizeToneLevelFar(span, profile, dpr);
+          for (const code of [0, 0.7, 1, 8, 28, 40, 52, 64, 69, 255]) {
+            const input = code / 255;
+            const target = cssBackdropToneResponseLevel(input, thickness, response, far, span);
+            expect(cssBackdropToneResponseLevel(input, thickness, inert, far, span)).toBe(target);
+            expect(target, `${name} span ${span} dpr ${dpr} input ${code}`)
+              .toBeCloseTo(rendererBackdropToneResponse(input, thickness, profile, far, span), 12);
+            const sample = { luminance: srgbDecode(input), linearLuminance: srgbDecode(input) };
+            const source = profile.optics.regular;
+            expect(toneRespondedSourceOptics(source, sample, thickness, 0, 1, inert, far, span))
+              .toEqual(toneRespondedSourceOptics(source, sample, thickness, 0, 1, response, far, span));
+          }
+        }
+      }
+    }
+  });
+
+  it("carries the chart, fixed actual-span join and fractional authority on all four dark endpoints", () => {
+    for (const { name, profile: shipped } of DARK) {
+      for (const lowEndStrength of [0.4, 1]) {
+        const profile = withMaterialOverrides(shipped, { ...CHART, lowEndStrength });
+        const response = resolvedBackdropToneResponse(profile);
+        for (const span of [32, 44, 70, 96, 128, 160, 224]) {
+          const thickness = rendererSizeThickness(span, profile);
+          for (const dpr of [1, 2]) {
+            const far = rendererSizeToneLevelFar(span, profile, dpr);
+            for (const code of [0, 0.25, 0.7, 1, 4, 8, 18, 28, 34, 40, 52, 64 - 1e-7, 64, 69]) {
+              const input = code / 255;
+              const target = rendererBackdropToneResponse(input, thickness, profile, far, span);
+              expect(cssBackdropToneResponseLevel(input, thickness, response, far, span),
+                `${name} gate ${lowEndStrength} span ${span} dpr ${dpr} input ${code}`)
+                .toBeCloseTo(target, 12);
+              if (code >= 64) continue;
+              const source = profile.optics.regular;
+              const sample = { luminance: srgbDecode(input), linearLuminance: srgbDecode(input) };
+              const luma = 0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
+              const nominal = (1 - source.tintAlpha) * sample.linearLuminance + source.tintAlpha * luma;
+              const authority = rendererBackdropToneSolveWeight(input, profile)
+                * profile.backdropToneResponseStrength;
+              const shift = (target - nominal) / source.tintAlpha * authority;
+              const request = lowEndNeutralRequest(source, sample, thickness, 0, 1, response, far, span)!;
+              for (const channel of [0, 1, 2] as const) {
+                expect(request[channel]).toBeCloseTo(source.tint[channel] + shift, 12);
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  it("bounds running-maximum drawdown of synthetic composed charts at dense inputs and every span", () => {
+    // The chosen low rows are a numerical rehearsal, never native measurements or fitted claims.
+    let worstDrawdown = 0;
+    for (const { profile: shipped } of DARK) {
+      const profile = withMaterialOverrides(shipped, CHART);
+      const response = resolvedBackdropToneResponse(profile);
+      const source = profile.optics.regular;
+      for (const dpr of [1, 2]) {
+        for (let span = 32; span <= 224; span++) {
+          const thickness = rendererSizeThickness(span, profile);
+          const far = rendererSizeToneLevelFar(span, profile, dpr);
+          let runningMax = -Infinity;
+          for (let step = 0; step <= 64 * 64; step++) {
+            const input = step / (64 * 255);
+            const linear = srgbDecode(input);
+            const solved = toneRespondedSourceOptics(source,
+              { luminance: linear, linearLuminance: linear }, thickness, 0, 1, response, far, span);
+            const luma = 0.2126 * solved.tint[0] + 0.7152 * solved.tint[1] + 0.0722 * solved.tint[2];
+            const output = srgbEncode((1 - solved.tintAlpha) * linear + solved.tintAlpha * luma) * 255;
+            worstDrawdown = Math.max(worstDrawdown, runningMax - output);
+            runningMax = Math.max(runningMax, output);
+          }
+        }
+      }
+    }
+    expect(worstDrawdown).toBeLessThanOrEqual(1e-4);
+  }, 15_000);
 });

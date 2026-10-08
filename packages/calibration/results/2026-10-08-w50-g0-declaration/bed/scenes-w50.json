@@ -1,0 +1,1917 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 512,
+    "height": 384
+  },
+  "backgrounds": {
+    "grey-000": {
+      "kind": "solid",
+      "srgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "grey-001": {
+      "kind": "solid",
+      "srgb": [
+        1,
+        1,
+        1
+      ]
+    },
+    "grey-002": {
+      "kind": "solid",
+      "srgb": [
+        2,
+        2,
+        2
+      ]
+    },
+    "grey-003": {
+      "kind": "solid",
+      "srgb": [
+        3,
+        3,
+        3
+      ]
+    },
+    "grey-004": {
+      "kind": "solid",
+      "srgb": [
+        4,
+        4,
+        4
+      ]
+    },
+    "grey-005": {
+      "kind": "solid",
+      "srgb": [
+        5,
+        5,
+        5
+      ]
+    },
+    "grey-006": {
+      "kind": "solid",
+      "srgb": [
+        6,
+        6,
+        6
+      ]
+    },
+    "grey-007": {
+      "kind": "solid",
+      "srgb": [
+        7,
+        7,
+        7
+      ]
+    },
+    "grey-008": {
+      "kind": "solid",
+      "srgb": [
+        8,
+        8,
+        8
+      ]
+    },
+    "grey-012": {
+      "kind": "solid",
+      "srgb": [
+        12,
+        12,
+        12
+      ]
+    },
+    "grey-020": {
+      "kind": "solid",
+      "srgb": [
+        20,
+        20,
+        20
+      ]
+    },
+    "grey-028": {
+      "kind": "solid",
+      "srgb": [
+        28,
+        28,
+        28
+      ]
+    },
+    "grey-040": {
+      "kind": "solid",
+      "srgb": [
+        40,
+        40,
+        40
+      ]
+    },
+    "grey-064": {
+      "kind": "solid",
+      "srgb": [
+        64,
+        64,
+        64
+      ]
+    },
+    "impulse-sparse": {
+      "kind": "impulse",
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "foreground": [
+        255,
+        255,
+        255
+      ],
+      "size": 4,
+      "spacing": 96
+    },
+    "checker-low": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        8,
+        8,
+        8
+      ]
+    }
+  },
+  "components": {
+    "none": {
+      "kind": "none"
+    },
+    "span-44": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ]
+    },
+    "span-96": {
+      "kind": "rrect",
+      "size": [
+        168,
+        96
+      ],
+      "radius": 20.4
+    },
+    "span-128": {
+      "kind": "rrect",
+      "size": [
+        224,
+        128
+      ],
+      "radius": 27.2
+    },
+    "span-160": {
+      "kind": "rrect",
+      "size": [
+        280,
+        160
+      ],
+      "radius": 34.0
+    },
+    "span-224": {
+      "kind": "rrect",
+      "size": [
+        392,
+        224
+      ],
+      "radius": 47.6
+    }
+  },
+  "states": {
+    "rest": {
+      "$comment": "No interaction."
+    },
+    "inactive": {
+      "$comment": "W27c G0/G1 (claims \u00a75.128; X3, X7): the window-recede pose, recovered from the pre-DL14 tree (973fd7e^) where the harness's borderless window could never become key. X3 rules the pose into the scene `state`, never a profile-key segment; it reads bare, per the wave's own worked example (checkerboard__rrect-md__inactive), because activation is the ONE axis 'state' carries for a recovered scene \u2014 the same reason 'rest' reads as the unmarked default everywhere else in this file. Schema 2, single run per cell, pose inferred from the DL14 post-mortem \u2014 not attested per cell (W27 Decision Log 5). A recovered scene whose source was 'pressed', not 'rest', carries that separately: see '$comment-interaction'."
+    }
+  },
+  "scenes": [
+    {
+      "id": "00-open-grey-000__inactive",
+      "background": "grey-000",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "00-open-grey-000__rest",
+      "background": "grey-000",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "00-open-grey-064__inactive",
+      "background": "grey-064",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "00-open-grey-064__rest",
+      "background": "grey-064",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-checker-low-s096__inactive",
+      "background": "checker-low",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-checker-low-s096__rest",
+      "background": "checker-low",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-checker-low-s160__inactive",
+      "background": "checker-low",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-checker-low-s160__rest",
+      "background": "checker-low",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-checker-low-s224__inactive",
+      "background": "checker-low",
+      "component": "span-224",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-checker-low-s224__rest",
+      "background": "checker-low",
+      "component": "span-224",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-000-s044__inactive",
+      "background": "grey-000",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-000-s044__rest",
+      "background": "grey-000",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-000-s096__inactive",
+      "background": "grey-000",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-000-s096__rest",
+      "background": "grey-000",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-000-s128__inactive",
+      "background": "grey-000",
+      "component": "span-128",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-000-s128__rest",
+      "background": "grey-000",
+      "component": "span-128",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-000-s160__inactive",
+      "background": "grey-000",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-000-s160__rest",
+      "background": "grey-000",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-000-s224__inactive",
+      "background": "grey-000",
+      "component": "span-224",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-000-s224__rest",
+      "background": "grey-000",
+      "component": "span-224",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-001-s044__inactive",
+      "background": "grey-001",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-001-s044__rest",
+      "background": "grey-001",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-001-s096__inactive",
+      "background": "grey-001",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-001-s096__rest",
+      "background": "grey-001",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-001-s160__inactive",
+      "background": "grey-001",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-001-s160__rest",
+      "background": "grey-001",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-002-s044__inactive",
+      "background": "grey-002",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-002-s044__rest",
+      "background": "grey-002",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-002-s096__inactive",
+      "background": "grey-002",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-002-s096__rest",
+      "background": "grey-002",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-002-s160__inactive",
+      "background": "grey-002",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-002-s160__rest",
+      "background": "grey-002",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-003-s044__inactive",
+      "background": "grey-003",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-003-s044__rest",
+      "background": "grey-003",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-003-s096__inactive",
+      "background": "grey-003",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-003-s096__rest",
+      "background": "grey-003",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-003-s160__inactive",
+      "background": "grey-003",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-003-s160__rest",
+      "background": "grey-003",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-004-s044__inactive",
+      "background": "grey-004",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-004-s044__rest",
+      "background": "grey-004",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-004-s096__inactive",
+      "background": "grey-004",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-004-s096__rest",
+      "background": "grey-004",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-004-s128__inactive",
+      "background": "grey-004",
+      "component": "span-128",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-004-s128__rest",
+      "background": "grey-004",
+      "component": "span-128",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-004-s160__inactive",
+      "background": "grey-004",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-004-s160__rest",
+      "background": "grey-004",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-004-s224__inactive",
+      "background": "grey-004",
+      "component": "span-224",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-004-s224__rest",
+      "background": "grey-004",
+      "component": "span-224",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-005-s044__inactive",
+      "background": "grey-005",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-005-s044__rest",
+      "background": "grey-005",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-005-s096__inactive",
+      "background": "grey-005",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-005-s096__rest",
+      "background": "grey-005",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-005-s160__inactive",
+      "background": "grey-005",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-005-s160__rest",
+      "background": "grey-005",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-006-s044__inactive",
+      "background": "grey-006",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-006-s044__rest",
+      "background": "grey-006",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-006-s096__inactive",
+      "background": "grey-006",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-006-s096__rest",
+      "background": "grey-006",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-006-s160__inactive",
+      "background": "grey-006",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-006-s160__rest",
+      "background": "grey-006",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-007-s044__inactive",
+      "background": "grey-007",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-007-s044__rest",
+      "background": "grey-007",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-007-s096__inactive",
+      "background": "grey-007",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-007-s096__rest",
+      "background": "grey-007",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-007-s160__inactive",
+      "background": "grey-007",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-007-s160__rest",
+      "background": "grey-007",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-008-s044__inactive",
+      "background": "grey-008",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-008-s044__rest",
+      "background": "grey-008",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-008-s096__inactive",
+      "background": "grey-008",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-008-s096__rest",
+      "background": "grey-008",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-008-s160__inactive",
+      "background": "grey-008",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-008-s160__rest",
+      "background": "grey-008",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-012-s044__inactive",
+      "background": "grey-012",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-012-s044__rest",
+      "background": "grey-012",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-012-s096__inactive",
+      "background": "grey-012",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-012-s096__rest",
+      "background": "grey-012",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-012-s160__inactive",
+      "background": "grey-012",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-012-s160__rest",
+      "background": "grey-012",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-020-s044__inactive",
+      "background": "grey-020",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-020-s044__rest",
+      "background": "grey-020",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-020-s096__inactive",
+      "background": "grey-020",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-020-s096__rest",
+      "background": "grey-020",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-020-s160__inactive",
+      "background": "grey-020",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-020-s160__rest",
+      "background": "grey-020",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-028-s044__inactive",
+      "background": "grey-028",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-028-s044__rest",
+      "background": "grey-028",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-028-s096__inactive",
+      "background": "grey-028",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-028-s096__rest",
+      "background": "grey-028",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-028-s128__inactive",
+      "background": "grey-028",
+      "component": "span-128",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-028-s128__rest",
+      "background": "grey-028",
+      "component": "span-128",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-028-s160__inactive",
+      "background": "grey-028",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-028-s160__rest",
+      "background": "grey-028",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-028-s224__inactive",
+      "background": "grey-028",
+      "component": "span-224",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-028-s224__rest",
+      "background": "grey-028",
+      "component": "span-224",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-040-s044__inactive",
+      "background": "grey-040",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-040-s044__rest",
+      "background": "grey-040",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-040-s096__inactive",
+      "background": "grey-040",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-040-s096__rest",
+      "background": "grey-040",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-040-s160__inactive",
+      "background": "grey-040",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-040-s160__rest",
+      "background": "grey-040",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-064-s044__inactive",
+      "background": "grey-064",
+      "component": "span-44",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-064-s044__rest",
+      "background": "grey-064",
+      "component": "span-44",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-064-s096__inactive",
+      "background": "grey-064",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-064-s096__rest",
+      "background": "grey-064",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-064-s128__inactive",
+      "background": "grey-064",
+      "component": "span-128",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-064-s128__rest",
+      "background": "grey-064",
+      "component": "span-128",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-064-s160__inactive",
+      "background": "grey-064",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-064-s160__rest",
+      "background": "grey-064",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-grey-064-s224__inactive",
+      "background": "grey-064",
+      "component": "span-224",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-grey-064-s224__rest",
+      "background": "grey-064",
+      "component": "span-224",
+      "state": "rest"
+    },
+    {
+      "id": "cell-impulse-sparse-s096__inactive",
+      "background": "impulse-sparse",
+      "component": "span-96",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-impulse-sparse-s096__rest",
+      "background": "impulse-sparse",
+      "component": "span-96",
+      "state": "rest"
+    },
+    {
+      "id": "cell-impulse-sparse-s160__inactive",
+      "background": "impulse-sparse",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-impulse-sparse-s160__rest",
+      "background": "impulse-sparse",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "cell-impulse-sparse-s224__inactive",
+      "background": "impulse-sparse",
+      "component": "span-224",
+      "state": "inactive"
+    },
+    {
+      "id": "cell-impulse-sparse-s224__rest",
+      "background": "impulse-sparse",
+      "component": "span-224",
+      "state": "rest"
+    },
+    {
+      "id": "ref-checker-low__inactive",
+      "background": "checker-low",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-checker-low__rest",
+      "background": "checker-low",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-000__inactive",
+      "background": "grey-000",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-000__rest",
+      "background": "grey-000",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-001__inactive",
+      "background": "grey-001",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-001__rest",
+      "background": "grey-001",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-002__inactive",
+      "background": "grey-002",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-002__rest",
+      "background": "grey-002",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-003__inactive",
+      "background": "grey-003",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-003__rest",
+      "background": "grey-003",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-004__inactive",
+      "background": "grey-004",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-004__rest",
+      "background": "grey-004",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-005__inactive",
+      "background": "grey-005",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-005__rest",
+      "background": "grey-005",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-006__inactive",
+      "background": "grey-006",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-006__rest",
+      "background": "grey-006",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-007__inactive",
+      "background": "grey-007",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-007__rest",
+      "background": "grey-007",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-008__inactive",
+      "background": "grey-008",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-008__rest",
+      "background": "grey-008",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-012__inactive",
+      "background": "grey-012",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-012__rest",
+      "background": "grey-012",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-020__inactive",
+      "background": "grey-020",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-020__rest",
+      "background": "grey-020",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-028__inactive",
+      "background": "grey-028",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-028__rest",
+      "background": "grey-028",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-040__inactive",
+      "background": "grey-040",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-040__rest",
+      "background": "grey-040",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-grey-064__inactive",
+      "background": "grey-064",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-grey-064__rest",
+      "background": "grey-064",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "ref-impulse-sparse__inactive",
+      "background": "impulse-sparse",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "ref-impulse-sparse__rest",
+      "background": "impulse-sparse",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "zz-close-grey-000__inactive",
+      "background": "grey-000",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "zz-close-grey-000__rest",
+      "background": "grey-000",
+      "component": "span-160",
+      "state": "rest"
+    },
+    {
+      "id": "zz-close-grey-064__inactive",
+      "background": "grey-064",
+      "component": "span-160",
+      "state": "inactive"
+    },
+    {
+      "id": "zz-close-grey-064__rest",
+      "background": "grey-064",
+      "component": "span-160",
+      "state": "rest"
+    }
+  ],
+  "split": {
+    "calibration": [
+      "cell-grey-000-s044__rest",
+      "cell-grey-002-s044__rest",
+      "cell-grey-004-s044__rest",
+      "cell-grey-008-s044__rest",
+      "cell-grey-028-s044__rest",
+      "cell-grey-040-s044__rest",
+      "cell-grey-064-s044__rest",
+      "cell-grey-000-s096__rest",
+      "cell-grey-002-s096__rest",
+      "cell-grey-004-s096__rest",
+      "cell-grey-008-s096__rest",
+      "cell-grey-028-s096__rest",
+      "cell-grey-040-s096__rest",
+      "cell-grey-064-s096__rest",
+      "cell-grey-000-s160__rest",
+      "cell-grey-002-s160__rest",
+      "cell-grey-004-s160__rest",
+      "cell-grey-008-s160__rest",
+      "cell-grey-028-s160__rest",
+      "cell-grey-040-s160__rest",
+      "cell-grey-064-s160__rest",
+      "cell-impulse-sparse-s096__rest",
+      "cell-grey-000-s044__inactive",
+      "cell-grey-002-s044__inactive",
+      "cell-grey-004-s044__inactive",
+      "cell-grey-008-s044__inactive",
+      "cell-grey-028-s044__inactive",
+      "cell-grey-040-s044__inactive",
+      "cell-grey-064-s044__inactive",
+      "cell-grey-000-s096__inactive",
+      "cell-grey-002-s096__inactive",
+      "cell-grey-004-s096__inactive",
+      "cell-grey-008-s096__inactive",
+      "cell-grey-028-s096__inactive",
+      "cell-grey-040-s096__inactive",
+      "cell-grey-064-s096__inactive",
+      "cell-grey-000-s160__inactive",
+      "cell-grey-002-s160__inactive",
+      "cell-grey-004-s160__inactive",
+      "cell-grey-008-s160__inactive",
+      "cell-grey-028-s160__inactive",
+      "cell-grey-040-s160__inactive",
+      "cell-grey-064-s160__inactive",
+      "cell-impulse-sparse-s096__inactive"
+    ],
+    "validation": [
+      "cell-grey-001-s044__rest",
+      "cell-grey-003-s044__rest",
+      "cell-grey-005-s044__rest",
+      "cell-grey-006-s044__rest",
+      "cell-grey-012-s044__rest",
+      "cell-grey-001-s096__rest",
+      "cell-grey-003-s096__rest",
+      "cell-grey-005-s096__rest",
+      "cell-grey-006-s096__rest",
+      "cell-grey-012-s096__rest",
+      "cell-grey-001-s160__rest",
+      "cell-grey-003-s160__rest",
+      "cell-grey-005-s160__rest",
+      "cell-grey-006-s160__rest",
+      "cell-grey-012-s160__rest",
+      "cell-grey-000-s128__rest",
+      "cell-grey-004-s128__rest",
+      "cell-grey-028-s128__rest",
+      "cell-grey-064-s128__rest",
+      "cell-impulse-sparse-s160__rest",
+      "cell-grey-001-s044__inactive",
+      "cell-grey-003-s044__inactive",
+      "cell-grey-005-s044__inactive",
+      "cell-grey-006-s044__inactive",
+      "cell-grey-012-s044__inactive",
+      "cell-grey-001-s096__inactive",
+      "cell-grey-003-s096__inactive",
+      "cell-grey-005-s096__inactive",
+      "cell-grey-006-s096__inactive",
+      "cell-grey-012-s096__inactive",
+      "cell-grey-001-s160__inactive",
+      "cell-grey-003-s160__inactive",
+      "cell-grey-005-s160__inactive",
+      "cell-grey-006-s160__inactive",
+      "cell-grey-012-s160__inactive",
+      "cell-grey-000-s128__inactive",
+      "cell-grey-004-s128__inactive",
+      "cell-grey-028-s128__inactive",
+      "cell-grey-064-s128__inactive",
+      "cell-impulse-sparse-s160__inactive"
+    ],
+    "holdout": [
+      "cell-grey-007-s044__rest",
+      "cell-grey-020-s044__rest",
+      "cell-grey-007-s096__rest",
+      "cell-grey-020-s096__rest",
+      "cell-grey-007-s160__rest",
+      "cell-grey-020-s160__rest",
+      "cell-grey-000-s224__rest",
+      "cell-grey-004-s224__rest",
+      "cell-grey-028-s224__rest",
+      "cell-grey-064-s224__rest",
+      "cell-checker-low-s096__rest",
+      "cell-checker-low-s160__rest",
+      "cell-impulse-sparse-s224__rest",
+      "cell-checker-low-s224__rest",
+      "cell-grey-007-s044__inactive",
+      "cell-grey-020-s044__inactive",
+      "cell-grey-007-s096__inactive",
+      "cell-grey-020-s096__inactive",
+      "cell-grey-007-s160__inactive",
+      "cell-grey-020-s160__inactive",
+      "cell-grey-000-s224__inactive",
+      "cell-grey-004-s224__inactive",
+      "cell-grey-028-s224__inactive",
+      "cell-grey-064-s224__inactive",
+      "cell-checker-low-s096__inactive",
+      "cell-checker-low-s160__inactive",
+      "cell-impulse-sparse-s224__inactive",
+      "cell-checker-low-s224__inactive"
+    ],
+    "recorded": [
+      "ref-grey-000__rest",
+      "ref-grey-001__rest",
+      "ref-grey-002__rest",
+      "ref-grey-003__rest",
+      "ref-grey-004__rest",
+      "ref-grey-005__rest",
+      "ref-grey-006__rest",
+      "ref-grey-007__rest",
+      "ref-grey-008__rest",
+      "ref-grey-012__rest",
+      "ref-grey-020__rest",
+      "ref-grey-028__rest",
+      "ref-grey-040__rest",
+      "ref-grey-064__rest",
+      "ref-impulse-sparse__rest",
+      "ref-checker-low__rest",
+      "00-open-grey-000__rest",
+      "00-open-grey-064__rest",
+      "zz-close-grey-000__rest",
+      "zz-close-grey-064__rest",
+      "ref-grey-000__inactive",
+      "ref-grey-001__inactive",
+      "ref-grey-002__inactive",
+      "ref-grey-003__inactive",
+      "ref-grey-004__inactive",
+      "ref-grey-005__inactive",
+      "ref-grey-006__inactive",
+      "ref-grey-007__inactive",
+      "ref-grey-008__inactive",
+      "ref-grey-012__inactive",
+      "ref-grey-020__inactive",
+      "ref-grey-028__inactive",
+      "ref-grey-040__inactive",
+      "ref-grey-064__inactive",
+      "ref-impulse-sparse__inactive",
+      "ref-checker-low__inactive",
+      "00-open-grey-000__inactive",
+      "00-open-grey-064__inactive",
+      "zz-close-grey-000__inactive",
+      "zz-close-grey-064__inactive"
+    ],
+    "probe": []
+  },
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "00-open-grey-000__inactive",
+        "00-open-grey-000__rest",
+        "00-open-grey-064__inactive",
+        "00-open-grey-064__rest",
+        "cell-checker-low-s096__inactive",
+        "cell-checker-low-s096__rest",
+        "cell-checker-low-s160__inactive",
+        "cell-checker-low-s160__rest",
+        "cell-checker-low-s224__inactive",
+        "cell-checker-low-s224__rest",
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-000-s160__rest",
+        "cell-grey-000-s224__inactive",
+        "cell-grey-000-s224__rest",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-004-s160__rest",
+        "cell-grey-004-s224__inactive",
+        "cell-grey-004-s224__rest",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-006-s160__rest",
+        "cell-grey-007-s044__inactive",
+        "cell-grey-007-s044__rest",
+        "cell-grey-007-s096__inactive",
+        "cell-grey-007-s096__rest",
+        "cell-grey-007-s160__inactive",
+        "cell-grey-007-s160__rest",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-012-s160__rest",
+        "cell-grey-020-s044__inactive",
+        "cell-grey-020-s044__rest",
+        "cell-grey-020-s096__inactive",
+        "cell-grey-020-s096__rest",
+        "cell-grey-020-s160__inactive",
+        "cell-grey-020-s160__rest",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-028-s160__rest",
+        "cell-grey-028-s224__inactive",
+        "cell-grey-028-s224__rest",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__inactive",
+        "cell-grey-064-s160__rest",
+        "cell-grey-064-s224__inactive",
+        "cell-grey-064-s224__rest",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__inactive",
+        "cell-impulse-sparse-s160__rest",
+        "cell-impulse-sparse-s224__inactive",
+        "cell-impulse-sparse-s224__rest",
+        "ref-checker-low__inactive",
+        "ref-checker-low__rest",
+        "ref-grey-000__inactive",
+        "ref-grey-000__rest",
+        "ref-grey-001__inactive",
+        "ref-grey-001__rest",
+        "ref-grey-002__inactive",
+        "ref-grey-002__rest",
+        "ref-grey-003__inactive",
+        "ref-grey-003__rest",
+        "ref-grey-004__inactive",
+        "ref-grey-004__rest",
+        "ref-grey-005__inactive",
+        "ref-grey-005__rest",
+        "ref-grey-006__inactive",
+        "ref-grey-006__rest",
+        "ref-grey-007__inactive",
+        "ref-grey-007__rest",
+        "ref-grey-008__inactive",
+        "ref-grey-008__rest",
+        "ref-grey-012__inactive",
+        "ref-grey-012__rest",
+        "ref-grey-020__inactive",
+        "ref-grey-020__rest",
+        "ref-grey-028__inactive",
+        "ref-grey-028__rest",
+        "ref-grey-040__inactive",
+        "ref-grey-040__rest",
+        "ref-grey-064__inactive",
+        "ref-grey-064__rest",
+        "ref-impulse-sparse__inactive",
+        "ref-impulse-sparse__rest",
+        "zz-close-grey-000__inactive",
+        "zz-close-grey-000__rest",
+        "zz-close-grey-064__inactive",
+        "zz-close-grey-064__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "00-open-grey-000__inactive",
+        "00-open-grey-000__rest",
+        "00-open-grey-064__inactive",
+        "00-open-grey-064__rest",
+        "cell-checker-low-s096__inactive",
+        "cell-checker-low-s096__rest",
+        "cell-checker-low-s160__inactive",
+        "cell-checker-low-s160__rest",
+        "cell-checker-low-s224__inactive",
+        "cell-checker-low-s224__rest",
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-000-s160__rest",
+        "cell-grey-000-s224__inactive",
+        "cell-grey-000-s224__rest",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-004-s160__rest",
+        "cell-grey-004-s224__inactive",
+        "cell-grey-004-s224__rest",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-006-s160__rest",
+        "cell-grey-007-s044__inactive",
+        "cell-grey-007-s044__rest",
+        "cell-grey-007-s096__inactive",
+        "cell-grey-007-s096__rest",
+        "cell-grey-007-s160__inactive",
+        "cell-grey-007-s160__rest",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-012-s160__rest",
+        "cell-grey-020-s044__inactive",
+        "cell-grey-020-s044__rest",
+        "cell-grey-020-s096__inactive",
+        "cell-grey-020-s096__rest",
+        "cell-grey-020-s160__inactive",
+        "cell-grey-020-s160__rest",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-028-s160__rest",
+        "cell-grey-028-s224__inactive",
+        "cell-grey-028-s224__rest",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__inactive",
+        "cell-grey-064-s160__rest",
+        "cell-grey-064-s224__inactive",
+        "cell-grey-064-s224__rest",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__inactive",
+        "cell-impulse-sparse-s160__rest",
+        "cell-impulse-sparse-s224__inactive",
+        "cell-impulse-sparse-s224__rest",
+        "ref-checker-low__inactive",
+        "ref-checker-low__rest",
+        "ref-grey-000__inactive",
+        "ref-grey-000__rest",
+        "ref-grey-001__inactive",
+        "ref-grey-001__rest",
+        "ref-grey-002__inactive",
+        "ref-grey-002__rest",
+        "ref-grey-003__inactive",
+        "ref-grey-003__rest",
+        "ref-grey-004__inactive",
+        "ref-grey-004__rest",
+        "ref-grey-005__inactive",
+        "ref-grey-005__rest",
+        "ref-grey-006__inactive",
+        "ref-grey-006__rest",
+        "ref-grey-007__inactive",
+        "ref-grey-007__rest",
+        "ref-grey-008__inactive",
+        "ref-grey-008__rest",
+        "ref-grey-012__inactive",
+        "ref-grey-012__rest",
+        "ref-grey-020__inactive",
+        "ref-grey-020__rest",
+        "ref-grey-028__inactive",
+        "ref-grey-028__rest",
+        "ref-grey-040__inactive",
+        "ref-grey-040__rest",
+        "ref-grey-064__inactive",
+        "ref-grey-064__rest",
+        "ref-impulse-sparse__inactive",
+        "ref-impulse-sparse__rest",
+        "zz-close-grey-000__inactive",
+        "zz-close-grey-000__rest",
+        "zz-close-grey-064__inactive",
+        "zz-close-grey-064__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "00-open-grey-000__inactive",
+        "00-open-grey-000__rest",
+        "00-open-grey-064__inactive",
+        "00-open-grey-064__rest",
+        "cell-checker-low-s096__inactive",
+        "cell-checker-low-s096__rest",
+        "cell-checker-low-s160__inactive",
+        "cell-checker-low-s160__rest",
+        "cell-checker-low-s224__inactive",
+        "cell-checker-low-s224__rest",
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-000-s160__rest",
+        "cell-grey-000-s224__inactive",
+        "cell-grey-000-s224__rest",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-004-s160__rest",
+        "cell-grey-004-s224__inactive",
+        "cell-grey-004-s224__rest",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-006-s160__rest",
+        "cell-grey-007-s044__inactive",
+        "cell-grey-007-s044__rest",
+        "cell-grey-007-s096__inactive",
+        "cell-grey-007-s096__rest",
+        "cell-grey-007-s160__inactive",
+        "cell-grey-007-s160__rest",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-012-s160__rest",
+        "cell-grey-020-s044__inactive",
+        "cell-grey-020-s044__rest",
+        "cell-grey-020-s096__inactive",
+        "cell-grey-020-s096__rest",
+        "cell-grey-020-s160__inactive",
+        "cell-grey-020-s160__rest",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-028-s160__rest",
+        "cell-grey-028-s224__inactive",
+        "cell-grey-028-s224__rest",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__inactive",
+        "cell-grey-064-s160__rest",
+        "cell-grey-064-s224__inactive",
+        "cell-grey-064-s224__rest",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__inactive",
+        "cell-impulse-sparse-s160__rest",
+        "cell-impulse-sparse-s224__inactive",
+        "cell-impulse-sparse-s224__rest",
+        "ref-checker-low__inactive",
+        "ref-checker-low__rest",
+        "ref-grey-000__inactive",
+        "ref-grey-000__rest",
+        "ref-grey-001__inactive",
+        "ref-grey-001__rest",
+        "ref-grey-002__inactive",
+        "ref-grey-002__rest",
+        "ref-grey-003__inactive",
+        "ref-grey-003__rest",
+        "ref-grey-004__inactive",
+        "ref-grey-004__rest",
+        "ref-grey-005__inactive",
+        "ref-grey-005__rest",
+        "ref-grey-006__inactive",
+        "ref-grey-006__rest",
+        "ref-grey-007__inactive",
+        "ref-grey-007__rest",
+        "ref-grey-008__inactive",
+        "ref-grey-008__rest",
+        "ref-grey-012__inactive",
+        "ref-grey-012__rest",
+        "ref-grey-020__inactive",
+        "ref-grey-020__rest",
+        "ref-grey-028__inactive",
+        "ref-grey-028__rest",
+        "ref-grey-040__inactive",
+        "ref-grey-040__rest",
+        "ref-grey-064__inactive",
+        "ref-grey-064__rest",
+        "ref-impulse-sparse__inactive",
+        "ref-impulse-sparse__rest",
+        "zz-close-grey-000__inactive",
+        "zz-close-grey-000__rest",
+        "zz-close-grey-064__inactive",
+        "zz-close-grey-064__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "00-open-grey-000__inactive",
+        "00-open-grey-000__rest",
+        "00-open-grey-064__inactive",
+        "00-open-grey-064__rest",
+        "cell-checker-low-s096__inactive",
+        "cell-checker-low-s096__rest",
+        "cell-checker-low-s160__inactive",
+        "cell-checker-low-s160__rest",
+        "cell-checker-low-s224__inactive",
+        "cell-checker-low-s224__rest",
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-000-s160__rest",
+        "cell-grey-000-s224__inactive",
+        "cell-grey-000-s224__rest",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-004-s160__rest",
+        "cell-grey-004-s224__inactive",
+        "cell-grey-004-s224__rest",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-006-s160__rest",
+        "cell-grey-007-s044__inactive",
+        "cell-grey-007-s044__rest",
+        "cell-grey-007-s096__inactive",
+        "cell-grey-007-s096__rest",
+        "cell-grey-007-s160__inactive",
+        "cell-grey-007-s160__rest",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-012-s160__rest",
+        "cell-grey-020-s044__inactive",
+        "cell-grey-020-s044__rest",
+        "cell-grey-020-s096__inactive",
+        "cell-grey-020-s096__rest",
+        "cell-grey-020-s160__inactive",
+        "cell-grey-020-s160__rest",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-028-s160__rest",
+        "cell-grey-028-s224__inactive",
+        "cell-grey-028-s224__rest",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__inactive",
+        "cell-grey-064-s160__rest",
+        "cell-grey-064-s224__inactive",
+        "cell-grey-064-s224__rest",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__inactive",
+        "cell-impulse-sparse-s160__rest",
+        "cell-impulse-sparse-s224__inactive",
+        "cell-impulse-sparse-s224__rest",
+        "ref-checker-low__inactive",
+        "ref-checker-low__rest",
+        "ref-grey-000__inactive",
+        "ref-grey-000__rest",
+        "ref-grey-001__inactive",
+        "ref-grey-001__rest",
+        "ref-grey-002__inactive",
+        "ref-grey-002__rest",
+        "ref-grey-003__inactive",
+        "ref-grey-003__rest",
+        "ref-grey-004__inactive",
+        "ref-grey-004__rest",
+        "ref-grey-005__inactive",
+        "ref-grey-005__rest",
+        "ref-grey-006__inactive",
+        "ref-grey-006__rest",
+        "ref-grey-007__inactive",
+        "ref-grey-007__rest",
+        "ref-grey-008__inactive",
+        "ref-grey-008__rest",
+        "ref-grey-012__inactive",
+        "ref-grey-012__rest",
+        "ref-grey-020__inactive",
+        "ref-grey-020__rest",
+        "ref-grey-028__inactive",
+        "ref-grey-028__rest",
+        "ref-grey-040__inactive",
+        "ref-grey-040__rest",
+        "ref-grey-064__inactive",
+        "ref-grey-064__rest",
+        "ref-impulse-sparse__inactive",
+        "ref-impulse-sparse__rest",
+        "zz-close-grey-000__inactive",
+        "zz-close-grey-000__rest",
+        "zz-close-grey-064__inactive",
+        "zz-close-grey-064__rest"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "batch-import-closure-1",
+  "batch": {
+    "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting-g1.json",
+    "sha256": "59185f384b0134f01bf133b56bf600af1c9e38dd480d8ce6c9ff458654b63fa8"
+  },
+  "renderer": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/w50.py",
+  "probe": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/probe.py",
+  "closure": {
+    "sources": {
+      "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/forward.py": "1a0d8efd9ae82231a4909906bdfc80da56a9eea0cc3401ae2a703267b4433af4",
+      "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/geometry.py": "de7a4fd0105ff644334c280678e89b6e5af18779ebfdf6ff25989d434998c947",
+      "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/regions.py": "d7744b2753c9801dc91bac62cce61d90112e4f5e56460e1507d02ad1b0b97e42",
+      "packages/calibration/results/2026-09-29-w42-g0-declaration/instrument/tone.py": "e08912b66fe6369cdc057ca7229b67f3f015bb081ccbf7350c9f098aa74fe37c",
+      "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/pass-spec.py": "d739887eefb41c5c70c4eab156404788089fac18e7a042a56b1a8b8c884b7fc4",
+      "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/record-machine.py": "b326aec6d5814a743fa29e7a17fb934b1460f3216b9ae03a04133dc20221bd64",
+      "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/sitting.py": "219381dbe93b71923bf38507f9cd6de1c53e5ac430c140a34de30eedab314bbe",
+      "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/timing.py": "d006994f30d4c85addde2ef475a44bee0eafc325be9c4b93af82641cb78f0256",
+      "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/build.py": "114a529bb9176586d9d9f765a34135a6a82dc0e94e06dbfd210fb04cef8604fd",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/probe.py": "9a506d3bb2827dac24b8b99f529c86b240b7221a9454d684aee3b0245e25e4b4",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/archive.py": "d6bffe0520de278dcf4cf8345d83916031fee6445e9b843a346ef41f4211cab8",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/cuts.py": "7874b2d1f1f2ea66b59096e86e8feddbd51c049bf1b9067c5ed611e3384bc4f9",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/safety.py": "e5c2b1354a2df6a2fae25aedc54c0441256900a759433259ee810f479b8d89bf",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/w50.py": "7a5639ec47e5e36d04ddc0e99b98bbf108561ddf48c7d34d1d3756ffdc6021d5",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/declare.py": "5a9c71d7c3691db21dcedd78fbfcc4de4df4d9e7b514c128b8da01cc171b3a29"
+    },
+    "environment": {
+      "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+      "executable": "/Users/new/vitrea-w49/py/bin/python",
+      "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+      "architecture": "arm64",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "isolated": true,
+      "packages": {
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "Pillow": "12.3.0"
+      }
+    },
+    "probeSha256": "9a506d3bb2827dac24b8b99f529c86b240b7221a9454d684aee3b0245e25e4b4",
+    "discovery": "source-only imports + exec audit + function calls",
+    "pixels": "NONE: synthetic instrument exercise"
+  },
+  "guardSources": {
+    "next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+    "closure.py": "3d0837b87659012e1fb5e789145cc7172becbed750e3d039b55cd7ce028e8d9c"
+  }
+}
