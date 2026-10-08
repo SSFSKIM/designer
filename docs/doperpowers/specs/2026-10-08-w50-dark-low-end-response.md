@@ -634,6 +634,9 @@ DL5m (parent, 2026-10-09, before the LIVE root seal). The judge's six DECISION p
    context have their per-cell owner verdicts (X1, L1, ...) gated (clause 4, DL5e).
 2. Confirmed: an M2 named miss that would need a new owner record is FAIL; exclusions are never
    widened.
+   Clarified by the parent before the seal (2026-10-09): item 2 applies to every owner axis
+   carrying named misses, L1 included, so an L1 named growth miss with no `GROWTH_MISSES` record
+   is FAIL (`judge/live.py` `named_record`, `fe98fc970`).
 3. Confirmed: input 64 passes only on the numerical referee's `fixedJoinPass` (DL5j); the
    rendered difference at 64 is recorded, not gated; an unmeasured 64 blocks.
 4. Changed: a DL5a/b/c REPORTED key whose reading is incomplete or non-finite is recorded
