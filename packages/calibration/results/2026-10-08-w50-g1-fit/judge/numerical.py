@@ -31,7 +31,8 @@ from typing import Sequence
 Number = float | int
 Value = Number | tuple[Number, Number, Number]
 UNITS = ('encoded-RGB-codes', 'encoded-luma-codes', 'linear-luma')
-CHANNELS = ('deep8-channel-median', 'center8-channel-median')
+# The statistic is central8-channel-median; center8 names its geometric support only.
+CHANNELS = ('deep8-channel-median', 'central8-channel-median')
 LUMA = ('deep8-far24-luma-mean', 'deep8-far24-luma-median')
 T1_REGRESSION = ('T1-full-silhouette', 'T1-low')
 

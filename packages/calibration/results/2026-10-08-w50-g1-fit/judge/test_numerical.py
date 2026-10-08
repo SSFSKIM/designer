@@ -31,8 +31,9 @@ def row(n=.25, c=.375, k=.25, *, statistic='T1-full-silhouette', units='linear-l
 
 
 def rgb(k=(20., 20., 20.), statistic='deep8-channel-median'):
+    support = 'center8' if statistic == 'central8-channel-median' else 'deep8'
     key = j.RowIdentity('apple-macos-27.0-1x-dark-standard-glass0.25', 'webgpu',
-                        'uniform__rrect-md__rest', statistic, statistic.split('-')[0])
+                        'uniform__rrect-md__rest', statistic, support)
     ref = j.Reference(key, 'e'*64, reading((20.,)*3, 'encoded-RGB-codes', native=True),
                       reading((20.,)*3, 'encoded-RGB-codes'), 1, .5, 1)
     return ref, j.Candidate(key, reading(k, 'encoded-RGB-codes', documents=pair('f', '0')))
@@ -50,7 +51,7 @@ class NumericalTests(unittest.TestCase):
 
     def test_deep_and_center_independent_and_64_has_no_native_bound(self):
         deep, kd = rgb()
-        center, kc = rgb((20., 22., 20.), 'center8-channel-median')
+        center, kc = rgb((20., 22., 20.), 'central8-channel-median')
         self.assertEqual([r.status for r in j.uniform_levels(40, deep, kd, center, kc)],
                          ['WITHIN', 'EXCEEDS'])
         out = j.uniform_levels(64, deep, kd, center, kc)
@@ -60,7 +61,7 @@ class NumericalTests(unittest.TestCase):
 
     def test_paired_levels_refuse_different_candidate_document_pairs_or_capture(self):
         deep, kd = rgb()
-        center, kc = rgb(statistic='center8-channel-median')
+        center, kc = rgb(statistic='central8-channel-median')
         for evidence in (replace(kc.reading.evidence, document_pair=pair('1', '2')),
                          replace(kc.reading.evidence, capture_sha256='9'*64)):
             mixed = replace(kc, reading=replace(kc.reading, evidence=evidence))
