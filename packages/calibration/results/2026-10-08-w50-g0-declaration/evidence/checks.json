@@ -1,0 +1,39 @@
+{
+  "build": {
+    "exitCode": 0,
+    "command": "pnpm -r build",
+    "log": "final-build.log"
+  },
+  "lint": {
+    "exitCode": 0,
+    "command": "pnpm -r lint",
+    "log": "final-lint.log"
+  },
+  "unit": {
+    "exitCode": 0,
+    "command": "pnpm -r test",
+    "log": "final-unit.log"
+  },
+  "unitPassed": 3288,
+  "unitAbsentTreeSkips": 4,
+  "canonicalOwnerPassed": 165,
+  "goldenPassed": 34,
+  "gpuPassed": 58,
+  "gpuOptionalRecorderSkipped": 1,
+  "rawRecorderSeparatelyPassed": true,
+  "freeze": 1818,
+  "x41": 911,
+  "captureStatus": "not started",
+  "nativeRelease": null,
+  "pythonToolTestsPassed": 61,
+  "nativeAndWebDryProbes": "PASS",
+  "operatorReview": "correct; no material findings",
+  "toolingReview": "correct after three verified fixes",
+  "nativeGrantPositive": true,
+  "cssPriorIdentity": 21,
+  "webgpuPriorIdentity": 24,
+  "openingBridgeDryCells": 16,
+  "numericalStandaloneTestsPassed": 10,
+  "referenceRows": 3527,
+  "inheritedMeasuredReferences": 154
+}

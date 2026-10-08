@@ -50192,7 +50192,7 @@ captures are unchanged; 34 golden tests, 57 GPU tests, the 1,818 frozen entries 
 The native bed remains declared, unspent and user-gated. No document, matrix generation, fixture,
 owner threshold, release version or changeset changed; no merge or push was performed.
 
-## 5.217 W50 G0 — the dark low-end chart landed inert; the compact sitting awaits its grant
+## 5.217 W50 G0 — the dark low-end chart landed inert; the compact native sitting
 
 W50's charter is `2026-10-08-w50-dark-low-end-response.md`; DL1–DL4 are recorded there verbatim.
 DL1 places all four dark macOS27 endpoints in scope. The user's DL2 permits the complete named
@@ -50248,7 +50248,7 @@ under `/Users/new/vitrea-w50/identity-controls-complete/`; they are not canonica
 must remain available for the sealed reference map. The earlier20-cell scratch read is retained
 separately. Every pass records the classifying census, actual argv, exit status and capture metadata.
 
-The workspace build and lint pass; **3,286 unit tests pass**, with four absent-tree skips. A
+The workspace build and lint pass; **3,288 unit tests pass**, with four absent-tree skips. A
 read-only owner-suite run against the canonical tree closes those checks at165/165. Renderer GPU
 checks pass58 with the optional cross-tree recorder skipped in that aggregate; the recorder was
 run separately and supplied the43 exact witnesses above. Freeze1,818 and X41911 remain intact.
@@ -50266,18 +50266,20 @@ reserved** including30minutes setup/restoration. This replaces the grounding's l
 Original-canvas bridge references remain tied to their own position, pose and scale. Opening and
 closing sentinels bracket the harness's real lexical capture order, not only the planner's array.
 
-The read-only TCC query found **no positive ScreenCapture grant for
-`dev.vitrea.reference-apple.w39`**. The unchanged executable hashes to
+The first read-only TCC query found no positive ScreenCapture grant for
+`dev.vitrea.reference-apple.w39`, so G0 did not launch it. The user subsequently re-granted it;
+a fresh noninteractive check verified **auth=2 and a matching compiled signing requirement**.
+The unchanged executable hashes to
 `02052b175dd14bfbe2713d8e566c9b650011000f8f72de87a965f070c38b6498`, with CDHash
 `be258cbfc53e5cec6b49ecdec01f126872400b29`. G0 launched no native app, requested no TCC permission,
-modified no TCC state and rebuilt no original bundle. The user must re-grant the unchanged
-`/Users/new/vitrea-w39/side/VitreaReference.app`; the noninteractive positive check must then pass
-again before any launch. There is no `w50-archive` release or native capture hash yet.
+modified no TCC state and rebuilt no original bundle. The unchanged
+`/Users/new/vitrea-w39/side/VitreaReference.app` is the sole capture bundle; the positive check
+is repeated before every launch. G0 created no `w50-archive` release and has no native capture hash.
 
 ### 4. Operational seals are not a claim that fitting is ready
 
 The two-part declaration fixes the family, split, predictions and exact conditional X41 scope,
-with no amendment verb. Its pre-native reference inventory declares3,525 keyed statistics/tier
+with no amendment verb. Its pre-native reference inventory declares3,527 keyed statistics/tier
 entries;154 inherited dark0.25 T1 readings retain their own historical caps, and unavailable
 readings say UNMEASURED. The four current dark source-document bytes are preserved by full hash.
 An additive pre-fit evidence seal must bind the admitted archive and complete exposed references
@@ -50289,4 +50291,74 @@ The custom new-bed512×384 web adapter and new native measurements remain G1 wor
 pre-fit blockers. A missing numerical candidate proof also refuses a render; runtime synthetic
 proofs are not a substitute for the fitted cohort or its independent structured arguments.
 No prospective native blind pixel or statistic has been opened. The next authorised action is the
-sitting after the user grant, not a texture refit, an exception landing or a silent changed floor.
+sitting under the assembled seals and positive grant, not a texture refit, an exception landing or
+a silent changed floor.
+
+### 5. Sitting-tool review closure
+
+The independent tooling review found three actionable refusal-boundary defects, each reproduced
+and fixed in a bounded worker pass before sealing: automated Chrome variants could be labelled
+ordinary user Chrome; a later self-sealed web baseline contract lacked root/pre-fit authorization;
+and native planning/safety helpers imported before the source guard. The final census classifies
+browser families and their helpers, including Testing/Canary variants, while still annotating an
+unrelated ordinary user Chrome. Every candidate execution requires its exact contract and
+sidecar under the pre-fit seal. Current-byte baseline reads are not fitted candidates; the candidate
+API does not advertise a baseline phase that could never pass the new law's numerical referee. Both entrypoints start with stdlib-only pin checks, source-compile
+the checked guard, install closure enforcement, and only then load planning/measurement helpers.
+Changed-helper marker and stale-pyc cases prove refusal occurs before helper execution.
+
+The review's bounded closure returned correct with no material findings. G0 independently ran
+all50 Python tool tests and both prospective CPU probes successfully. The native closure exercises
+17 repository sources; the canonical web wrapper exercises ten. These counts are exercised
+Python sources, not a claim that an unimplemented new-bed web adapter has already been sealed.
+Restore/cancellation tests remain dry: no positive-grant/live-sitting branch has been exercised,
+and the unchanged W42 geometry module's ResourceWarning is recorded rather than called a failure.
+
+The final both-tier control read adds28 CSS captures:21 with prior canonical rasters are byte-
+identical, and seven previously absent current images are retained in
+`/Users/new/vitrea-w50/identity-controls-css/`. The two default2x receded ml/lg CSS level-price
+references were completed before sealing under the existing one-code rule, without changing any
+prior reference value or historical cap. The sixteen committed opening bridge cells were also
+replayed through the real region reader with one exterior-pixel perturbation, bypassing the
+identity shortcut: every cell supplied statistics (3–273) and every region median delta was0.
+A dry machine census verified the declared27.0/26A428 build, all three accessibility settings off,
+and no foreign capture process.
+
+The newly available positive-grant branch exposed a command-formatting bug before launch:
+`codesign -R` treated unprefixed textual requirement syntax as a pathname. The checker now passes
+the exact compiled TCC requirement file, retains actual failure diagnostics, and does not ask a
+user with auth=2 to re-grant. Its positive/negative command-boundary regression and focused
+independent review pass; the actual read-only check then passed as well.
+
+### 6. Final numerical and operational seal
+
+The executable numerical referee uses the real composed material, not just ordered chart rows.
+Its full synthetic rehearsal covered6,325,768 samples, returned zero running drawdown and a minimum
+unclamped neutral0.008744262734081729 in10.37s. That is an explicitly synthetic held test profile
+in four endpoint slots, not a fitted/native verdict. An independent full sweep with no measured
+arguments returned UNMEASURED, as it must. The measured producer requires both actual-position
+candidate documents and every exposed low-end argument identity in the fixed inventory; observed
+arguments retain their independent linear mean, including binary32 rounding, and the production
+law itself owns the protected64 boundary. It cannot substitute a small synthetic sample for that
+population or return a measured PASS without its evidence.
+
+The bounded numerical review closed its admission/provenance issues: baseline is not a candidate
+phase; real0.250/0.500 candidate keys are admitted at numeric0.25/0.5 without naming shipped
+endpoints; all four chart leaves cross the real candidate reader; report inputs and the exact
+runtime/input source union are checked; and changed/new Node imports refuse before execution for
+the lifetime of the computation. The candidate reader and consumer were tested against the same
+complete, correctly digested documents. Sixty-one Python tool tests and ten standalone numerical
+tests pass. The latter pass after sealing too, through normal authorization rather than a discovery
+bypass. A78-source numerical runtime witness and17-source native contract were written only after
+source/review convergence. The final source inventory has195 pins.
+
+Both immutable operational parts were hashed on that assembled tree, before native capture:
+
+- part1: `bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86`;
+- part2: `bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85`.
+
+The post-seal checker reports SEALED/native with candidateVerdict NOT_READ, and the directly
+invoked native entrypoint verifies its registered plan:1,600 frames,40 launches, no layer dumps.
+The additive pre-fit seal remains absent by design; native capture authorization is not fitting
+readiness or a material verdict. The G1 data, custom web adapter, complete path/T1 references and
+measured arguments still have to satisfy that separate gate without moving either operational seal.

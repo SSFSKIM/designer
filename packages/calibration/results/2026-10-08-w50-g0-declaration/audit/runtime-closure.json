@@ -1,0 +1,322 @@
+{
+  "schema": "w50-numerical-runtime-closure-1",
+  "sources": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical.ts",
+      "sha256": "ca52b9ab11ab6119127d50994213b92d35b30bf295ccd8765cb9d5c4883211ed"
+    },
+    {
+      "path": "packages/calibration/scripts/candidate-document.ts",
+      "sha256": "4fa446e827ee4ecd69b53dd06099b486ac0effa803242b9a6d0c237f5b659c8b"
+    },
+    {
+      "path": "packages/calibration/scripts/material-profile-file.ts",
+      "sha256": "fe933d756f9f900073bc93922ba8b9c1528b11f02fbbdf3c5fda7e4f42c626b4"
+    },
+    {
+      "path": "packages/calibration/src/material-selection.ts",
+      "sha256": "0e56f12e29c3e0c51957a4e2af9b7ee053d32651d273980853c86046ba90dd45"
+    },
+    {
+      "path": "packages/calibration/src/profile.ts",
+      "sha256": "25a44c6d5e6314d4c94a3f3eb2e69416b9943827f322059ca255eb31aabd2adc"
+    },
+    {
+      "path": "packages/core/dist/chunk-IOTISK2R.js",
+      "sha256": "32f440b9b6b2eeeb96449ebb590b104baef35bd6f379d4e2f743f4c7ba2ce74f"
+    },
+    {
+      "path": "packages/core/dist/index.js",
+      "sha256": "bef532c521b3f1b8c456005137a4f29580c870ea5860f10d2a0d1a2a8fc865c1"
+    },
+    {
+      "path": "packages/geometry/dist/apple.js",
+      "sha256": "33f8cea0c32948633e50df96a927c843b0b343eee75b7318ff80c87ac03f1f33"
+    },
+    {
+      "path": "packages/geometry/dist/channels.js",
+      "sha256": "c4a6aff7b36a5306e3f83d39c8a0f6543f9cdff066dcd50d03c2b183e30a2fdb"
+    },
+    {
+      "path": "packages/geometry/dist/coefficients.js",
+      "sha256": "b551538c72b0b3872349ea4b2f05bebedc623bb39969d4896a4f31d893351c0e"
+    },
+    {
+      "path": "packages/geometry/dist/concentric.js",
+      "sha256": "1187805194708a23040fb35ff9d19d5c63e5f30908301bb596b266f7ccf5f7e3"
+    },
+    {
+      "path": "packages/geometry/dist/contour.js",
+      "sha256": "bf2f01d0f3fa9ef5aa6eeaa14d0baf0a45fa568af9bc90bb118bd512617beddd"
+    },
+    {
+      "path": "packages/geometry/dist/corner.js",
+      "sha256": "ce6b506744e0bf353a04004687198002beced6a0a4c7b58bf28c37a81614a6d1"
+    },
+    {
+      "path": "packages/geometry/dist/errors.js",
+      "sha256": "42de04676fb947bd083ad99294e6fd7bce970c3d427346008bdb590420dbb508"
+    },
+    {
+      "path": "packages/geometry/dist/field.js",
+      "sha256": "ba0fae93c40bd05da9b0a16763e62870698f1eb3344866b15198d0b6544cc46a"
+    },
+    {
+      "path": "packages/geometry/dist/index.js",
+      "sha256": "bc601ff758e4b6d36ab5c268d5afd0e398db444cbd219aabb548c5cef4306a80"
+    },
+    {
+      "path": "packages/geometry/dist/morph.js",
+      "sha256": "2a70b2df32bccc8cd875ee9c3b0779f60ece97203b3b364416cfb062b4133d62"
+    },
+    {
+      "path": "packages/geometry/dist/shape.js",
+      "sha256": "832f7b020989cbdb662f97b7892cdd9a34dce4a4ef8223243ee12fc7b9b578fa"
+    },
+    {
+      "path": "packages/geometry/dist/union.js",
+      "sha256": "b95df6fa004e671486bd3719ae0911f77cb5847eaf86f0f941fb2c57def4a189"
+    },
+    {
+      "path": "packages/geometry/dist/wgsl.js",
+      "sha256": "6f4c7b084e7955b61e2755c5ad46311417fa1055aa88a25545348b53e9ee75e4"
+    },
+    {
+      "path": "packages/motion/dist/channels.js",
+      "sha256": "a0d1b848b6857f64d3d1db5a036fc2771860129a75828316a501bebfd4989b00"
+    },
+    {
+      "path": "packages/motion/dist/driver.js",
+      "sha256": "64c49ef403510daae4cd451fb0c7f861d9e44aacba1af0cc971b280424745e20"
+    },
+    {
+      "path": "packages/motion/dist/drivers/create.js",
+      "sha256": "45b33c016e52fd937c041d8b21e5a9cc2fd05f1e14dbdf7f95b6802725505901"
+    },
+    {
+      "path": "packages/motion/dist/drivers/ease.js",
+      "sha256": "545fa59fe7833fdbd46a957c71f431eefa6d44fd2f74760f20149db7f0f46df0"
+    },
+    {
+      "path": "packages/motion/dist/drivers/exponential.js",
+      "sha256": "f3cae982ac6027da8a0d01f21a911312721738f079ecaf786ea3afcd0ab075f9"
+    },
+    {
+      "path": "packages/motion/dist/drivers/low-pass.js",
+      "sha256": "78a65f8cb09161bfbc5b0528fb903720c8f48d199cb2b71dd1b1e777a5802f17"
+    },
+    {
+      "path": "packages/motion/dist/drivers/spring.js",
+      "sha256": "f79db553475eed5746d3e6e676687f49e7c68b5b57fd7f8a730d8dd2f67bb8dc"
+    },
+    {
+      "path": "packages/motion/dist/drivers/step.js",
+      "sha256": "c5eb01a96e9bafaed8c6df84daeed3d1fec06fb3382653b618b422f9dc47a046"
+    },
+    {
+      "path": "packages/motion/dist/drivers/threshold-crossfade.js",
+      "sha256": "270dda2093015145a82cad684cf1852bad61dc3f3d5e487ad6c27b88be92e71f"
+    },
+    {
+      "path": "packages/motion/dist/easing.js",
+      "sha256": "b7da633baa7198aa72e86bdc368f7400854343cb7e7af3f51eae856ad58c08e8"
+    },
+    {
+      "path": "packages/motion/dist/frame.js",
+      "sha256": "fa0b5e6095c983bcc22cc509bd3391da6ad041b12f9135fa4e08eaa277675d8e"
+    },
+    {
+      "path": "packages/motion/dist/index.js",
+      "sha256": "3a7ef7e32c02a1f6d00721a0060fb542a07eefd764131d35aa370c7df772a212"
+    },
+    {
+      "path": "packages/motion/dist/machine.js",
+      "sha256": "bed1c378fe16df20e285067311aa1b34fa798a5b8b7a99db78b84b3f56ce7410"
+    },
+    {
+      "path": "packages/motion/dist/reduced-motion.js",
+      "sha256": "1bb4e1ed04862637c5bbb724ec39468cf287d2037b2c106b99f61a697f10f286"
+    },
+    {
+      "path": "packages/motion/dist/states.js",
+      "sha256": "07f797a6e154f0242f8e92c979f64e68638ea04e295a3dcd4ec183fd5c92d098"
+    },
+    {
+      "path": "packages/motion/dist/tunables.js",
+      "sha256": "289cdda65ac9333ab399facc66db691650390e2e8a0ec782a18d2cf6bb97a2c6"
+    },
+    {
+      "path": "packages/platform-web/dist/index.js",
+      "sha256": "27244fd91484b4ecb400243aac439482c76575fd373c94a0f869ebe22b5ab54a"
+    },
+    {
+      "path": "packages/platform-web/src/dark-profile.ts",
+      "sha256": "e9d4c349ca82dd088c26884b7aef4a6822df99aca968b4742e2ba0ec03e00e75"
+    },
+    {
+      "path": "packages/platform-web/src/macos27-glass025-profile.ts",
+      "sha256": "991d74ac446a450a0c8ad3d34a4960e4febb481230e52e910bad80409ef80241"
+    },
+    {
+      "path": "packages/platform-web/src/macos27-profile.ts",
+      "sha256": "ab953bfe1e06e38a7eb405b96cfbab506dc0e93b9dbfc65f056f22557b4878a2"
+    },
+    {
+      "path": "packages/platform-web/src/material-document.ts",
+      "sha256": "ce9396dcb804f70eba7af30a6714b29d694fff6e9b0228bdd792f264083aef49"
+    },
+    {
+      "path": "packages/platform-web/src/optics.ts",
+      "sha256": "c18419bfd3ad282f665a6992e813fb5d867ab339f6dbcd72dc443f3684ef3303"
+    },
+    {
+      "path": "packages/platform-web/src/receded-profile.ts",
+      "sha256": "245ed3484f92278c68db5b680b4b984753da255511a1fa5d5b59760e9d7d7bf0"
+    },
+    {
+      "path": "packages/policy/dist/index.js",
+      "sha256": "3e64255b210115061dc946fa6f75018091084a3a9134a3662af526d530608b33"
+    },
+    {
+      "path": "packages/policy/dist/refraction.js",
+      "sha256": "6ce24ad5bfe658ed43d6105624c81e170333a05590e96df42818224f2e1748a8"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/analysis.js",
+      "sha256": "e8d2811c578722cfc29b391251a10ef1858b504969cf161652c1541232e0d6ee"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/backdrop-fit.js",
+      "sha256": "17a176a837fdcb95df4f094777419a525eff0989a7abca4fc5f24724e5bfeb9e"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/backdrop.js",
+      "sha256": "69a5f20f1f9b31b7ee441a7d6ad0877874459b1e8b48537964d1b4096d658f4a"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/color.js",
+      "sha256": "0a59f954fbc97e72cd08f04885b511354c01eba09ce5a075a5a720e0f7790d68"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/device.js",
+      "sha256": "27fd5aa24e05cf81cc8678c54a7e3c57cf7a053d654410f5b70d3403b136c0ae"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/errors.js",
+      "sha256": "ebdebff9cd5da07abada836721dd7b806c679d6f8cec1b0b41dedd13a3734861"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/governor.js",
+      "sha256": "93d7d9eb714fd7d137272505f8705b78952fcac460f8f500d481b71d26ca336b"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/gpu-context.js",
+      "sha256": "682988cbedb9155d5be3a1e79c3a5670c9f9350e053e80736f5bc94d1f737769"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/index.js",
+      "sha256": "19ebe1ad92fb4a331ad3882cc28323d3dc8a11f911e37f5d05f74e4d102b9926"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/instances.js",
+      "sha256": "0ef8ba923ab704cfe403a92f478e17aa8647150630f64019407175600deeca45"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/material.js",
+      "sha256": "c700d0211bbe9930ff2fede03fb494c8b3dc858c5703da21866fd89877fa1de7"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/passes.js",
+      "sha256": "5b2977cf88ef2875d1b41ed7f422388a5092bf77e4d75bab8725cd263527ef97"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/pipeline-cache.js",
+      "sha256": "a55d5500c4881cbb1c3dc60d18da7210d785995f5694b3c07e9ba2a72e1ab6a1"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/pyramid-plan.js",
+      "sha256": "90e00cefe23ecf680942166ce5e5685f13f3ad98f52ec5e4bf7ff55a98e22fdb"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/pyramid.js",
+      "sha256": "ab98c989660b4d308c03a44db17a2279380cdfec3f5d04d17c763e74fa6b3667"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/rebuild-ledger.js",
+      "sha256": "8eecfccf1b72ad8adbfd85c1968300ba47a8f7275380f60b920a7fbb3611dc96"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/render-model.js",
+      "sha256": "afc9117964b7c09307ed5c52ae95eeb1910cff5b8ffba955cb6c50c747db86db"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/renderer.js",
+      "sha256": "21576cb676f551dce50876654301af6e51e2645f87683e949b66cb9765152f2b"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/silhouette-tone.js",
+      "sha256": "334c865073e1ebb4920232cacdde6bcc2744333626bbb14bd7a2cb77da0e1391"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/texture-pool.js",
+      "sha256": "7ee74d5c07eaaac8fb6970a78e17118f092c59b617d55344d5f12ea530e360c7"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/timing.js",
+      "sha256": "d28e8455554eee983d1589bcbf7ff5b3694e75a2610caf7d7c9c7b61e2c66c91"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/analysis.js",
+      "sha256": "2eed065a49dd830400b03e6f8bb93395758ab6b4fd9578d15a89def14db7d263"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/backdrop.js",
+      "sha256": "b91b605458851ffa730557080085c84378a0de6e6a34a3d8a5a0194725b32f30"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/cross-check.js",
+      "sha256": "48e7466afbee18d88d8449af49311c4e8e634b62dbf7fa0ac8b6a65dcb820b2b"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/field.js",
+      "sha256": "8ec4b11e98be1a2df8a4cbb1f08e3912a873aa3b3ab9e95fa32933236495c1c1"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/highlight.js",
+      "sha256": "8945a8d2ffdbcd61a1174b6e7619b8f5908e1b0d30813eab14921b237840b770"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/index.js",
+      "sha256": "1e35cb5660d4d21fe01f5c09721ed24057939ecdf28bb45b8fc2bca9a21480cc"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/optics.js",
+      "sha256": "87e64971afe439ace4e3d6e7af20a951f9363ac5f1302d96f2933a552c73e969"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/prelude.js",
+      "sha256": "0744944adda37fa34d922a4ec239544f1cd896596f55c4665db42c7b1194b6f2"
+    },
+    {
+      "path": "packages/renderer-webgpu/dist/wgsl/silhouette-tone.js",
+      "sha256": "d0902d5c945f435eeb0f985f25176ac606074bbe2726ccfde6754e88b1dfd2c8"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/color.ts",
+      "sha256": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/material.ts",
+      "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "c869fd1d93b428ffebbb381a810dc4603a9acb1bfc92622a938c424fc6a7d170"
+    }
+  ],
+  "environment": {
+    "node": "v24.18.0",
+    "executable": "/Users/new/.nvm/versions/node/v24.18.0/bin/node"
+  },
+  "scope": "CPU-only runtime imports; no numerical candidate or pixel measured"
+}

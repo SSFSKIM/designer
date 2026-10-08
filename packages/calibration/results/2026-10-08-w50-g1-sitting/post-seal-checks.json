@@ -1,0 +1,20 @@
+[
+  {
+    "check": "native-seal",
+    "exitCode": 0,
+    "stdout": "{\n  \"status\": \"SEALED\",\n  \"phase\": \"native\",\n  \"candidateVerdict\": \"NOT_READ\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "check": "native-plan",
+    "exitCode": 0,
+    "stdout": "{\"totals\": {\"captureLaunches\": 40, \"captures\": 1600, \"dumpLaunches\": 0, \"dumpScenes\": 0, \"sliderWrites\": 7, \"modeSwitches\": 3, \"publishedCells\": 0}, \"passes\": 24}\n",
+    "stderr": ""
+  },
+  {
+    "check": "sealed-node-tests",
+    "exitCode": 0,
+    "stdout": "(node:25590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u001b[32m\u2714 synthetic composed response passes running-max and unclamped-neutral checks on a reduced helper domain \u001b[90m(15.965ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 ordered chart rows cannot hide a downward fixed join \u001b[90m(7.912208ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 the structured referee retains the independently measured linear mean and rejects a negative request \u001b[90m(7.202ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 required fixed64 controls retain their actual f32 arguments without expanding compact support \u001b[90m(11.664667ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 independently rounded f32 RGB and linear mean are retained, not replaced with a double dot \u001b[90m(6.834709ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 missing or incomplete measured argument cohorts cannot receive a pass \u001b[90m(9.064791ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 measured arguments require unchanged evidence bytes, matching candidate cohort and exposed roles \u001b[90m(4.538833ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 source pins reject changed bytes and runtime closure comes from actual TypeScript loads \u001b[90m(0.679333ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 the source guard refuses changed and late new imports before their top-level marker executes \u001b[90m(2.79675ms)\u001b[39m\u001b[39m\n\u001b[32m\u2714 CLI has no reduced-domain override and requires the candidate/argument cohort \u001b[90m(0.21725ms)\u001b[39m\u001b[39m\n(node:25590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u001b[34m\u2139 tests 10\u001b[39m\n\u001b[34m\u2139 suites 0\u001b[39m\n\u001b[34m\u2139 pass 10\u001b[39m\n\u001b[34m\u2139 fail 0\u001b[39m\n\u001b[34m\u2139 cancelled 0\u001b[39m\n\u001b[34m\u2139 skipped 0\u001b[39m\n\u001b[34m\u2139 todo 0\u001b[39m\n\u001b[34m\u2139 duration_ms 345.949208\u001b[39m\n",
+    "stderr": "(node:25575) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:25577) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n(node:25584) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+  }
+]

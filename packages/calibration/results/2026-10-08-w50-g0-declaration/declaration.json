@@ -1,0 +1,891 @@
+{
+  "schema": "w50-declaration-1",
+  "scope": [
+    "dark.glass0.25",
+    "dark.glass0.5"
+  ],
+  "sources": [
+    {
+      "path": "apps/reference-apple/scenes.json",
+      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+      "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+      "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+      "sha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+      "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+      "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+      "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+      "sha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+      "sha256": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+      "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+      "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py",
+      "sha256": "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/README.txt",
+      "sha256": "8ef776a665c6cd3ba511a7f7c4838aa2fdcbd78fd8c4f45349d0400756984bb1"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/assemble.py",
+      "sha256": "314a8d5b0003aa286ea14f5f51e669ddc379ddfc300e40489d2f1b172c95986a"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/build-runtime-closure.ts",
+      "sha256": "af4b093f87e38a611bfc9e0db92381ee05be0c0873b1ca41c5c52695d6432f18"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/closure.py",
+      "sha256": "3d0837b87659012e1fb5e789145cc7172becbed750e3d039b55cd7ce028e8d9c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/next_wave.py",
+      "sha256": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical.test.ts",
+      "sha256": "0b16b55184ced9ebd37dd88d348c48eee045f3e2f6411cffc4a349e301c388fd"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical.ts",
+      "sha256": "ca52b9ab11ab6119127d50994213b92d35b30bf295ccd8765cb9d5c4883211ed"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical_guard.py",
+      "sha256": "cb1641bae5a95cbcf52bac8d6e92959f3930a066dcca29facc5440eabf08eee5"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/planner.py",
+      "sha256": "1f352db950da07c51d657716e386c3690a24b7cc701292821485ba261b8e7580"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/probe.py",
+      "sha256": "14413c022acb993ebdb5848adf7091ae53e78d1a9cec4193939c2caf33cfdfa6"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/render.py",
+      "sha256": "01b4d420beb9cd11d980d07fdb62bf57525b2be2532a2751dab7c7319e5e3049"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/renderer_template.py",
+      "sha256": "36eff27a717f6a4df7cf787936bd732d324d8ea2284057f0b5fa4aa6af4ec9b8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/runner.py",
+      "sha256": "b3bf96c8b2dd70898da182f36a08f6828f2cc36dec8e223e95da2aa20650973f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/runtime-closure.json",
+      "sha256": "215dd87202590b257c38fe992089a79cb30ba03dbd054dfb20aabdd227ff2188"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/test_execution.py",
+      "sha256": "f845f9c681682bdf4bcb90c546d3b817dc54e29e49b4d1795429c1d050e343da"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/test_membership.py",
+      "sha256": "ea698b7aa51b9f413afd1564421fe0f499abb8a5a4ab8d83325a0ed70566e594"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/test_numerical_guard.py",
+      "sha256": "1ed696030fc71b766aed32b44615ab9907f9a9847684f1c8aa4718209f3b6a57"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/build.py",
+      "sha256": "114a529bb9176586d9d9f765a34135a6a82dc0e94e06dbfd210fb04cef8604fd"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/execution-contract.json",
+      "sha256": "bdc5c99851f2401cbb51e82feaf8ae4fba26d2012bcdadb1361fa4c8f89a7245"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/execution-contract.json.sha256",
+      "sha256": "66fdd9c2a63afd13c3e21fe71e9e0c71ea08009e9bbdbe494ad2b561d7938d6b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/manifest.json",
+      "sha256": "9423a102f38299c738bf8a6367bd0eca7857ebc94b7b931f749ff4da7958bfb5"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/probe.py",
+      "sha256": "9a506d3bb2827dac24b8b99f529c86b240b7221a9454d684aee3b0245e25e4b4"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/archive.py",
+      "sha256": "d6bffe0520de278dcf4cf8345d83916031fee6445e9b843a346ef41f4211cab8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/cuts.py",
+      "sha256": "7874b2d1f1f2ea66b59096e86e8feddbd51c049bf1b9067c5ed611e3384bc4f9"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/safety.py",
+      "sha256": "e5c2b1354a2df6a2fae25aedc54c0441256900a759433259ee810f479b8d89bf"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/test_cuts.py",
+      "sha256": "aa839ca86084f5587c68883410ba0c7348138ecac5ae070b5a6b2280ea95b60c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/test_driver.py",
+      "sha256": "eca2b6b6846604a8a35f7fcd4468a46e33c677c188b00c644a9f7374da136980"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/test_tooling.py",
+      "sha256": "80a2a8c123d670abfa8bcbccebfe2ff3adf0df98e41fa0efdbc27156ca7aa8c8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/w50.py",
+      "sha256": "7a5639ec47e5e36d04ddc0e99b98bbf108561ddf48c7d34d1d3756ffdc6021d5"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting-g1.json",
+      "sha256": "59185f384b0134f01bf133b56bf600af1c9e38dd480d8ce6c9ff458654b63fa8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/test_bed.py",
+      "sha256": "6bd2baa28ab98330124dee773d159b7fbdcd80636ed7f46422cb3461f732d27b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/timing.json",
+      "sha256": "d2337b41c8b1c3333e9415a0aebe25010a9dddb6734d7cf02dea706350fbc5c8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/declare.py",
+      "sha256": "5a9c71d7c3691db21dcedd78fbfcc4de4df4d9e7b514c128b8da01cc171b3a29"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/bridge-dry.json",
+      "sha256": "68c17f4e3fcc974917cd37c06fc64713792c0142638916dd44013f071b92d95f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/bridge-dry.py",
+      "sha256": "1baddc6034b9ca01013dd2026c43d71549d320f414bdeb63e10ca7b044450e1b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/build.log",
+      "sha256": "bb983dbb770723ca51be8edf4336f261a40c55ddd28d067f0c7efffcf4c32f29"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/canonical-owner.log",
+      "sha256": "03180dbee72524cddcf52ea174ff22927af6e831ae0c00d75246ef2f7ac0803f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/checks.json",
+      "sha256": "a3e2d1b9d5a23e77f10285c583a51093f5aaa9e9b2cd225185f6dd886c164c8b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls-complete.json",
+      "sha256": "2584128c6747ba0452d36418aa3bf7fd85d3d29991cca335e9940df95816a4f0"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls-css.json",
+      "sha256": "03b9ac916a0ef99518412e4e471ff19488f4d17b29688cfb5acb6e993563cf8c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls.json",
+      "sha256": "d7efc1ed1347e3c6ccbcc01361de45e5dc2f8950c30a5d2fbf205f363e6a6716"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/digests.json",
+      "sha256": "05c9bf4589e2d5f5ef3422ecba13335e85058af9bc6f06a2498c0fa288274d6a"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/final-build.log",
+      "sha256": "51bbba82e78700155ef1bce55ef6d04d04aeafde1e9015e9ec48309109e90b54"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/final-lint.log",
+      "sha256": "0370f3d3b0b77693ac3e34a7ebcd762a767ba95fe554550123f4504bf76ef366"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/final-tool-checks.json",
+      "sha256": "827b213103e6bd274b254eaffbeac63bef809dce90f19540526ed097091530c9"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/final-unit.log",
+      "sha256": "695cb7f63293d2ff64f3bdbf60991b17d0395c254f4b162f0849b6018b090540"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/final-workspace-gates.json",
+      "sha256": "96be0bf49b9017de2a1e87c6f66623a0cdc72783d0ed017fdcbe9f6277f69e18"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/freeze.log",
+      "sha256": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/goldens.log",
+      "sha256": "2c743301d084966d05f63472fca88a087e3eba770b3d5aab485e93a89958f5b7"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/gpu.log",
+      "sha256": "046c5447b5dbe453cb2931ab67ac2cd4d50fd8d6174b9c761ba5c75bb0bac647"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/identity-controls.py",
+      "sha256": "c8009b175409b7678bf71602173a4ba0d802963c9cbc8c832ca44542066d620e"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/identity-proof.json",
+      "sha256": "f7c6948c729eef9e3ad85ac940cab2fdc1a73dc32f7a47cd2c953d2794a3b9cc"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/lint.log",
+      "sha256": "56b45d047334ff3d6dc2853db3b709f9f4029a6f8e2be33d8ba833da4cce1e7e"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/machine-dry-preflight.json",
+      "sha256": "4f7f1de5365c6fd41a7e4763bf86541828def879ec1e74b2b611163a1893847f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/numerical-review.json",
+      "sha256": "26b0b3e4ce2554bd83b912afd4981d750f140237e9430f70f5890190ca375b12"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/numerical-tests.log",
+      "sha256": "99779f8283e5b386a32b2aa62e51fa0817ad3bbd978e4a45553c8d82736ea82c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/operator-review.json",
+      "sha256": "5f317fc340bee00e34420051def4767acaf63eda916ff303e210845c9fc27a19"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/raw-identity.json",
+      "sha256": "d662626f5ce0a58cdf204800ca1564e37b698a3865c29a2b5c15cc6e2fa48cda"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/raw-identity.log",
+      "sha256": "86002f5560dc22a6de727cfcba315069d2de5f47e0c81c1263f33e19babe7ef2"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/renderer-lint.log",
+      "sha256": "163953deec82d9dcfb6a520f1c56a8e750097a67966b58af1bb405428cf141fa"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/renderer-unit.log",
+      "sha256": "2301a0b044330aa0e8d71737735f89e2a2dcd28e607472abe5eee8183e9e9825"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/synthetic-rehearsal.json",
+      "sha256": "4d7b64bb16eac1f8c7ba4f99126ef3d6e7ab1d30c80261522490b3e020886349"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/tool-checks.json",
+      "sha256": "a2aebf19a0ab980a9fba5beccbe1031e5cd69a6c0fa315753181ca7c1383f3a8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/tooling-review.json",
+      "sha256": "9f5e82e47229fd44787d0e7b496e3114f68bf0ab6695c556ef53fd6d7131755f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/unit-rerun.log",
+      "sha256": "63163ee08b894f5b2761bc69ac1dca55a273aa6ce0aace645816aed7a4bc3dc2"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/unit.log",
+      "sha256": "2a8fe47d228e2d211a82d1fd8e411241c6f4a7a7067f099400fa5658467f1a49"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/verify-identity.py",
+      "sha256": "89b467142d2a64684be5ebdacf7f4d1ccd8f245fe63127acde1359c15c1220a9"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/web-census.json",
+      "sha256": "5e49bd1bbbe83492f2745c283eba7dd2d9214983faa79ee54b69ba9a232bd438"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/workspace-gates.json",
+      "sha256": "13bb2da849b209cc8c6a21cf0bbb22fa052a5ff49956e711d543ce19149c48f0"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/x41.log",
+      "sha256": "4bf02e217666be316834f3309abdc656cbd9227e7a1bb6443a7417cb49ceb71b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445.json",
+      "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2.json",
+      "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735.json",
+      "sha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186.json",
+      "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+      "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.py",
+      "sha256": "b21c9d21e0b80547ff472b4694cffc7bc8bf30c944d7cc980ba586ff3ef8a285"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/rulings.txt",
+      "sha256": "c1c3fa74dab9489783abf1a9fd0311b7a629afe3d6a639e6074b6ab382d9745c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/test_declare.py",
+      "sha256": "e2bb29d5891a3f39ed345798a63a05979a60018eba33269f4e9e743ce7ca27c2"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/test_references.py",
+      "sha256": "e0275acb51df07fd40902768c8c140c8b0a66448cf4b5b8c78becf0bf267bb7e"
+    },
+    {
+      "path": "packages/calibration/scripts/candidate-document.ts",
+      "sha256": "4fa446e827ee4ecd69b53dd06099b486ac0effa803242b9a6d0c237f5b659c8b"
+    },
+    {
+      "path": "packages/calibration/scripts/capture-web.ts",
+      "sha256": "4a5a0bd3383a7a88d41f280d79533c15075f54233d7ccda1b755833a61694e28"
+    },
+    {
+      "path": "packages/calibration/scripts/check-capture-tree.ts",
+      "sha256": "62b1861fec00614d29a62040cb24a65bb5717035c5db7dc0f04d7f263e6c823c"
+    },
+    {
+      "path": "packages/calibration/scripts/declared-geometry.ts",
+      "sha256": "d4e266a7eadeeb1fc1c6328dc1c9d9bd745798f1f1d9b7085692af874094bd40"
+    },
+    {
+      "path": "packages/calibration/scripts/material-profile-file.ts",
+      "sha256": "fe933d756f9f900073bc93922ba8b9c1528b11f02fbbdf3c5fda7e4f42c626b4"
+    },
+    {
+      "path": "packages/calibration/scripts/no-opaque-glass.ts",
+      "sha256": "7f904b472fdff83c5644fa34531a1200b48b0a8a7cc562f786a69fe3cfb61894"
+    },
+    {
+      "path": "packages/calibration/scripts/probe-score.ts",
+      "sha256": "db467044dc9cd6eefc2a2c788ca8d1e59cfd35292cafc50ec03ba07a8dfa15a0"
+    },
+    {
+      "path": "packages/calibration/scripts/recede.ts",
+      "sha256": "1caf722275e778815bb990adea4efe59fe69952afe621a96d41969319db465ed"
+    },
+    {
+      "path": "packages/calibration/scripts/sweep.ts",
+      "sha256": "3ea77f3c6d9022024f4421fd49b59581a31d1f0ab137500a14b097fe5a11f5de"
+    },
+    {
+      "path": "packages/calibration/scripts/vibrancy.ts",
+      "sha256": "0059f698f14814461d9adf3b617246398130f6d81407816db921486a3c01a30b"
+    },
+    {
+      "path": "packages/calibration/src/backdrop-probe.ts",
+      "sha256": "5425686539f9a43e8a2c8eebc39c3e09e039c5d659b283ac1e7b9503d3939810"
+    },
+    {
+      "path": "packages/calibration/src/capture-integrity.ts",
+      "sha256": "a2511011484b0c53937953a5e9e65afde730afd56ae135766a35f0af81a6bac1"
+    },
+    {
+      "path": "packages/calibration/src/color.ts",
+      "sha256": "5331c4145ce59e6f069fba9e5951e39db6e6b34cb9392d3fc1f83b59933b9742"
+    },
+    {
+      "path": "packages/calibration/src/component-region.ts",
+      "sha256": "ca76a1cf84aefc18ac3929700c194c907c0260b0109a37d17873804175c29784"
+    },
+    {
+      "path": "packages/calibration/src/document-position.ts",
+      "sha256": "5d6ba2feaa84a6730c942df4d8131d3224341e3dd15e204f204f1ce71119b2de"
+    },
+    {
+      "path": "packages/calibration/src/errors.ts",
+      "sha256": "e5c66523a9621d62c7d89c5c73ca3dd96260857a5a926e6bc8e8658124247b28"
+    },
+    {
+      "path": "packages/calibration/src/generation-stage.ts",
+      "sha256": "3d6ac7aaf26c125533cf5851612365a86ab041740e7483e9a8b5dc4e11794a88"
+    },
+    {
+      "path": "packages/calibration/src/image.ts",
+      "sha256": "604765765ceaf9cd15ceb10963567f223a384de2001de24a7eb6f5244484cfe8"
+    },
+    {
+      "path": "packages/calibration/src/index.ts",
+      "sha256": "7c383f0352c097c6251365307782e2c7127e153f4918973fd9f5ce6c236e5fb4"
+    },
+    {
+      "path": "packages/calibration/src/material-selection.ts",
+      "sha256": "0e56f12e29c3e0c51957a4e2af9b7ee053d32651d273980853c86046ba90dd45"
+    },
+    {
+      "path": "packages/calibration/src/matrix-store.ts",
+      "sha256": "6df4943e17f6dc3912c8d7496cbb6d890c6597ec8af392d0aa0f208bac151406"
+    },
+    {
+      "path": "packages/calibration/src/matrix-write-guard.ts",
+      "sha256": "46b341dd3a0cacff1b998f1a4d2d5191d7446bf75310b1066312d8adb77051bf"
+    },
+    {
+      "path": "packages/calibration/src/metrics/chroma.ts",
+      "sha256": "f9c6fd82f682620d6589481c3fe3e0187abc3859a5fb6b12434f41da7297d26f"
+    },
+    {
+      "path": "packages/calibration/src/metrics/material.ts",
+      "sha256": "aa93d523abd8026f69b0aefa3a3254b499609783bd9a5238ba1505e935196e28"
+    },
+    {
+      "path": "packages/calibration/src/metrics/motion.ts",
+      "sha256": "659599e671c284572000c7bae6935803b2584ae9b511143e2c12a9ce3ccc841f"
+    },
+    {
+      "path": "packages/calibration/src/metrics/perceptual.ts",
+      "sha256": "1f3364375c6ed1409b1d9aaf44a6665b3c641cda1acae311658f828f1afc76c2"
+    },
+    {
+      "path": "packages/calibration/src/metrics/shadow.ts",
+      "sha256": "241b01382428359080da58df1047bcae60980bb288e6e228e339c10d9a738c08"
+    },
+    {
+      "path": "packages/calibration/src/metrics/shape.ts",
+      "sha256": "5008fdb00781fd5cd12ee1302312a1813ea9d3b7fc123d4f6e2333ca58601bbc"
+    },
+    {
+      "path": "packages/calibration/src/plurality.ts",
+      "sha256": "ca1d1135963a4ca2e4aebff8d9467ea1dd2c2e62a5652f1430cda63494ed248c"
+    },
+    {
+      "path": "packages/calibration/src/profile.ts",
+      "sha256": "25a44c6d5e6314d4c94a3f3eb2e69416b9943827f322059ca255eb31aabd2adc"
+    },
+    {
+      "path": "packages/calibration/src/report.ts",
+      "sha256": "2f3cc032002ca72eef65b92cf8ffb52b465a868b8b5a17c6b5f2485003a2aee8"
+    },
+    {
+      "path": "packages/calibration/src/run-provenance.ts",
+      "sha256": "9799d249c47461b403046bb64c5322968d8478eec1c0bf31743dcb65894f94ba"
+    },
+    {
+      "path": "packages/calibration/src/silhouette.ts",
+      "sha256": "586a68d734296153b5ca0dc286aa38ac032acd6e9b534ad0c504a7a402105473"
+    },
+    {
+      "path": "packages/calibration/src/stats.ts",
+      "sha256": "a2cdba0a825312fc5ff0259e07381ca1718a91cf7113664b5b781d22f6af49cb"
+    },
+    {
+      "path": "packages/calibration/test/adopted-thresholds.test.ts",
+      "sha256": "5b83ea260b3ccf28bf0f4809fa71fa6c41a9ad35faf6411981cd2e50b68012b0"
+    },
+    {
+      "path": "packages/calibration/test/tier-coherence.test.ts",
+      "sha256": "c7440f04119071549a12774374bf0c4b630ef55a459eb8a1cf251c3dfa30782e"
+    },
+    {
+      "path": "packages/platform-web/src/backdrop-proxy.ts",
+      "sha256": "231d2f7829fc3e2eeb65876f4b06b0724b16a6d5bf62ff16510214a6447fcded"
+    },
+    {
+      "path": "packages/platform-web/src/backdrop-stack.ts",
+      "sha256": "4aebd6aa03ed7b29ae23017a8e656527275d73d24c16e0029717641ec1f32fdd"
+    },
+    {
+      "path": "packages/platform-web/src/backdrop-tone.ts",
+      "sha256": "2fcbce58b28ad371aebe0b390b7b0fa82cdfc5fe5cfc7181274c8f30841f341b"
+    },
+    {
+      "path": "packages/platform-web/src/channels.ts",
+      "sha256": "d9bcbc7a73a025a29bda637a70f6862852926dc87f275bcf72c2abed284593d3"
+    },
+    {
+      "path": "packages/platform-web/src/color-scheme.ts",
+      "sha256": "54bc178e8488b669c89d1cef43fce8f4b426fe19de9cdfea9256a9e3d9a827ea"
+    },
+    {
+      "path": "packages/platform-web/src/css-tier-layers.ts",
+      "sha256": "78fd8fb2b41126f79a671e3a7fd721cc79c16f708c41e2b0571fb222c9533799"
+    },
+    {
+      "path": "packages/platform-web/src/css-tier-shadow.ts",
+      "sha256": "d0debe636198bd1b0f791077576100b5c64d3158111f956518b15cdaced70123"
+    },
+    {
+      "path": "packages/platform-web/src/css-tier.ts",
+      "sha256": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a"
+    },
+    {
+      "path": "packages/platform-web/src/dark-profile.ts",
+      "sha256": "e9d4c349ca82dd088c26884b7aef4a6822df99aca968b4742e2ba0ec03e00e75"
+    },
+    {
+      "path": "packages/platform-web/src/diagnostics.ts",
+      "sha256": "c107192eaa588d5a4438e1ff5e8e4a8450623f3555b31ca56435e57be52a3e78"
+    },
+    {
+      "path": "packages/platform-web/src/geometry-sync.ts",
+      "sha256": "c3648735a8adcec8eb4a1eb02c507ef212b739b6189e0b12b845d8fa7ff7c1bb"
+    },
+    {
+      "path": "packages/platform-web/src/group-state.ts",
+      "sha256": "dfe57e778d6876af81d6c3a12a9f93de3d216455b794e508202dec584de14618"
+    },
+    {
+      "path": "packages/platform-web/src/host.ts",
+      "sha256": "66d23a59046d283346b163aa19c1649431e5bc717ca68340721f0282352bfa8a"
+    },
+    {
+      "path": "packages/platform-web/src/index.ts",
+      "sha256": "7d1ad33802beec9fa27f4bd07aa096403c10cab47a59def0cc2794a61c6120b4"
+    },
+    {
+      "path": "packages/platform-web/src/ink-stylesheet.ts",
+      "sha256": "073df7f2b8058694911e20ea43207fe8556d07f92479e39f6ee4c83365e5fd6c"
+    },
+    {
+      "path": "packages/platform-web/src/layer-model.ts",
+      "sha256": "684428a8783a4b8d6fe61d9f05034994da0852fc674a14bccdf6723f1f7a295c"
+    },
+    {
+      "path": "packages/platform-web/src/macos27-glass025-profile.ts",
+      "sha256": "991d74ac446a450a0c8ad3d34a4960e4febb481230e52e910bad80409ef80241"
+    },
+    {
+      "path": "packages/platform-web/src/macos27-profile.ts",
+      "sha256": "ab953bfe1e06e38a7eb405b96cfbab506dc0e93b9dbfc65f056f22557b4878a2"
+    },
+    {
+      "path": "packages/platform-web/src/material-document.ts",
+      "sha256": "ce9396dcb804f70eba7af30a6714b29d694fff6e9b0228bdd792f264083aef49"
+    },
+    {
+      "path": "packages/platform-web/src/measure.ts",
+      "sha256": "242adc5075307594f7b7d180192522f94ce1a802c39852a12d4ac8d88bec720b"
+    },
+    {
+      "path": "packages/platform-web/src/media-policy.ts",
+      "sha256": "ef08388f9a2bef32dee0837f1df35c640dabb3aeb78ade2ad212226696e345c6"
+    },
+    {
+      "path": "packages/platform-web/src/optics.ts",
+      "sha256": "c18419bfd3ad282f665a6992e813fb5d867ab339f6dbcd72dc443f3684ef3303"
+    },
+    {
+      "path": "packages/platform-web/src/planes.ts",
+      "sha256": "19122645501fb84bea5b09cd942f2819c4ea52fa97e6c3ce3e3a8d13e32c2f58"
+    },
+    {
+      "path": "packages/platform-web/src/probe/backdrop-root.ts",
+      "sha256": "cb007fb27a96f67e15d4a865778957efb0c91a4c3d5d700f92a459dfceba59a2"
+    },
+    {
+      "path": "packages/platform-web/src/probe/conformance-table.ts",
+      "sha256": "222dde1c8a288d0a40e6eb56b9a627efb8fc5bc1c04d383b36db8c87a3fa58e3"
+    },
+    {
+      "path": "packages/platform-web/src/probe/engine-defects.ts",
+      "sha256": "41e71115ab683edecd70c3aaecf02e49080c07bc64ddb6cad21aac0ba319e77a"
+    },
+    {
+      "path": "packages/platform-web/src/probe/index.ts",
+      "sha256": "607fe6a847b34ce2f509b87cde85c137a4dfa92371beaa7e2370a93f7230e55a"
+    },
+    {
+      "path": "packages/platform-web/src/probe/support-gate.ts",
+      "sha256": "820275ef1f9c71a903f168df4a549bf47960874485dc6f7b01ff856a2205b8cb"
+    },
+    {
+      "path": "packages/platform-web/src/proxy-geometry.ts",
+      "sha256": "23138ff7d8936379a8c41397c14b994053580140f95d392ce1e62e548f4c5494"
+    },
+    {
+      "path": "packages/platform-web/src/receded-profile.ts",
+      "sha256": "245ed3484f92278c68db5b680b4b984753da255511a1fa5d5b59760e9d7d7bf0"
+    },
+    {
+      "path": "packages/platform-web/src/refraction.ts",
+      "sha256": "31e6a7249602bce69fa5ae046d96f07fc9dbfa663da6c65ea5701a45298f5ece"
+    },
+    {
+      "path": "packages/platform-web/src/renderer-bridge.ts",
+      "sha256": "79e7e726ad818a4d03ad1cf16a1c691ebab15ade157eed00d20f256352ce5ec3"
+    },
+    {
+      "path": "packages/platform-web/src/root.ts",
+      "sha256": "1432f4eb0a0b8a259192ead6a5d04b8ba01fc52ac88f1c585b0ad74c62f32ad5"
+    },
+    {
+      "path": "packages/platform-web/src/tint.ts",
+      "sha256": "55ede850cfdb1c05e358ae5dcabcd245f022616633b836e8de8f3493bb3b3195"
+    },
+    {
+      "path": "packages/platform-web/src/vibrancy.ts",
+      "sha256": "d6fef8ada88a18754e000851e40bb73e70ed3dc6a0ca256935ddec74675a8a21"
+    },
+    {
+      "path": "packages/platform-web/src/webgpu.ts",
+      "sha256": "8897ee578f68312bf0f6d82f0ab32a919bf8ac019c5eee0379a6d0d1aee90fe0"
+    },
+    {
+      "path": "packages/platform-web/src/window-activation.ts",
+      "sha256": "240efd99f8c1c61626c0f9033728b85827e7f11034083ed81e4f4abbbe383333"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/analysis.ts",
+      "sha256": "7354f9b2700c09d8a26a66091a94cb0e94884af6d4a24c46be5ebf8eda0680ff"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/backdrop-fit.ts",
+      "sha256": "1dfa57e0a20e6aab26e64400a26eb710fec3ef6ced4a37b608edb38681e64d54"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/backdrop.ts",
+      "sha256": "0f30a434c25fc2cc07f26bae6ced2bf8b8c5c813ca3fd5b9096f052e2ed7b97a"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/color.ts",
+      "sha256": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/device.ts",
+      "sha256": "196db857fa7070da666d5aa254c8e7ea8bf4ace299b4369b6a49d21e3a8391fa"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/errors.ts",
+      "sha256": "0d43be3782cf274f995a0fb15efc12967753259c350937763b1c751d7298b510"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/governor.ts",
+      "sha256": "92ce3c2332f08584415448ba515474cfd03536eeffbeed28b1118aaaaf544ff5"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/gpu-context.ts",
+      "sha256": "e258c382774107049c9380e6be5db008bdfd51ff59a83054f8f098aa264403aa"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/index.ts",
+      "sha256": "c7c9d41b2b8d737de085e309fbe014202b364e314d7cb3faf3a5470196c0ee74"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/instances.ts",
+      "sha256": "474733181df23d8a421def4c8c3c3efa31a429f00e0d5498319aea34568fb3d2"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/material.ts",
+      "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/passes.ts",
+      "sha256": "ff13f2521ce9988a63daafce7752381aafbd056dc7f8b0d1ecd843fc6b4ff958"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/pipeline-cache.ts",
+      "sha256": "ba6c401286cf1dd8bacb7c0366b7ae381ff88061c7e932d344b0c3a5018d1dcf"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/pyramid-plan.ts",
+      "sha256": "ad051a77663bae7116a065b994a4164d1bced0b0a45ea592fa0957d2a3314ac2"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/pyramid.ts",
+      "sha256": "db11378e6d1cff459e914dbee7466c6809606cbba1994187a8c8713312d935e6"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/rebuild-ledger.ts",
+      "sha256": "78cf7c30e45076acfae498da9baff073b14f9d96c0c2b315b196ef6017e73886"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/render-model.ts",
+      "sha256": "2edca16d4d7e92bac6443eeb14d77b12028fb3036aea21e4e3c4ce1a67a552ec"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/renderer.ts",
+      "sha256": "147179f39a976ff2669c14051f2aa288940cd028d1f25a658ea52fef4e483177"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/silhouette-tone.ts",
+      "sha256": "aa8d144c8903cc9cafdc1e23bcffb384390838cac1e047b4de7b4bca05d5733e"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/texture-pool.ts",
+      "sha256": "19d666d9ea02611e5767f76efd83db079f1c9d06dbefefee88c951501280486b"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/timing.ts",
+      "sha256": "c88a2d9493f4985dfa92b4ea79b7d141fe81afe0a798f0fa0a754a32daf85226"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/analysis.ts",
+      "sha256": "60d3a49228d446db683fbb76b463a0e64807bba61f9308bd8f58c5f6ca0e772a"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/backdrop.ts",
+      "sha256": "676323120b90dbcd8bfe7176d33a48e6dc3d94782b5310b6507dec406f035c66"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/cross-check.ts",
+      "sha256": "fa4904c1f5e02e7cc67ee0bcb6cb4d5d4a6b070a75c13dacf2bcfdb5e616b500"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/field.ts",
+      "sha256": "2c18f5eb405db0795460ed872ce8dfd6ff2ea4cc9baf69b55ffa5f3d834a9a1c"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/highlight.ts",
+      "sha256": "917fc0dbecd3aa2036f6204ba92d304e8187ed9a24eeeb1cd206ce3c99b8831c"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/index.ts",
+      "sha256": "e2d9185d7f1785b2b5eeda13dd8a26ee116bc3915ff2dbdc97de80b6ff535073"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/optics.ts",
+      "sha256": "247e49336cb3a7194e89e1dc1c9a8a7654dcfb3311bbc678d220c99fb503f673"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/prelude.ts",
+      "sha256": "beb2fb3c03c61e00f6a24d1c1dee55c22b63830dc415e1e95d34a43a6e8981f6"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/silhouette-tone.ts",
+      "sha256": "65e66f70d2ce855b69173c260de7b870e3e3c97c175abe2043fad8adb65a7c56"
+    }
+  ],
+  "rulings": "rulings.txt",
+  "family": {
+    "gate": "lowEndStrength",
+    "identity": 0,
+    "leaves": [
+      "lowEnd44",
+      "lowEnd96",
+      "lowEnd160"
+    ],
+    "inputCodes": [
+      0,
+      8,
+      28,
+      40
+    ],
+    "spanRows": [
+      44,
+      96,
+      160
+    ],
+    "ordinates": "Encoded neutral output normalized to [0,1]; four independent dark endpoints",
+    "interpolation": "Piecewise linear input and span; hold outer span rows; no DPR coefficients",
+    "join": {
+      "inputCode": 64,
+      "free": false,
+      "ordinate": "encode(OLD tone_response(64/255, actual span, endpoint)); never interpolate joins",
+      "bridge": "Linear encoded output from measured40 at actual span to old-law64 at actual span",
+      "atAndAbove64": "Exact old arithmetic"
+    },
+    "authority": "Full below64 only where old tone solve is eligible; preserve strength folds and no-tone/no-sample, alpha, zero/full collapse and policy stand-downs",
+    "failure": "Any negative pre-clamp neutral channel, fixed64 below measured40, dense drawdown failure or measured gate failure is NEITHER, not a clamping success",
+    "held": "Existing group/source/silhouette arguments, alpha, scatter, chroma, composition and all other material leaves remain current",
+    "css": "Same target and authority per surface before existing projection; no new layer/tap; no silent CSS decline"
+  },
+  "identity": "One identity-table gate-group; all ten digests and all goldens identical at gate0; light and26.5 remain at gate0 after fit",
+  "references": "references.json",
+  "native": {
+    "manifest": "bed/manifest.json",
+    "sitting": "bed/sitting-g1.json",
+    "timing": "bed/timing.json",
+    "bundle": "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "admission": "Positive non-interactive grant check before any launch; unchanged side bundle; original bundle never rebuilt; classifying census and W43 protections"
+  },
+  "split": {
+    "coreCalibration": [
+      0,
+      2,
+      4,
+      8,
+      28,
+      40,
+      64
+    ],
+    "coreValidation": [
+      1,
+      3,
+      5,
+      6,
+      12
+    ],
+    "coreBlind": [
+      7,
+      20
+    ],
+    "span128": "validation",
+    "span224": "blind",
+    "sparseImpulse": {
+      "96": "calibration",
+      "160": "validation",
+      "224": "blind"
+    },
+    "lowChecker": "blind at all spans",
+    "dependencies": "Exclusive blind no-glass references guarded; shared calibration references copied by role; archive by hash before fitting"
+  },
+  "bar": {
+    "formula": "max(0.5 code, half largest admitted run-to-run separation)",
+    "noiseStop": "Native spread >1 code in required population stops; no extra runs without ruling"
+  },
+  "predictions": {
+    "kind": "Analytical scalar proxies only, NOT rendered or fitted results",
+    "receded025_ml_lg": [
+      19.9,
+      20.38
+    ],
+    "receded05_ml_lg": [
+      20.16,
+      20.28
+    ],
+    "active025_range": [
+      31.85,
+      32.33
+    ],
+    "caveat": "[28,28,30] scalar proxy is not measured neutral28; residual blur/rim/tint omitted"
+  },
+  "contracts": {
+    "native": "bed/execution-contract.json",
+    "web": "audit/execution-contract.json",
+    "sidecarsRequired": true,
+    "rendererInternalBinding": true,
+    "closure": "Dry-exercised transitive imports, checked again in the live process"
+  },
+  "sealPhases": "Operational parts before new native pixels; append-only pre-fit evidence binds known reference identities, complete exposed readings and archive-only blind identities before fitting; fixed batches before each authorised rendering phase"
+}

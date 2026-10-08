@@ -29,8 +29,9 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   no material reader bug and reproduced 404/44 and the historical diagnostic table exactly.
   Inventory replay preserves both JSON outputs; the W50 CSV changes only CRLF to LF.
 - [x] Parent/user rulings DL1–DL4: scope/default freeze, native sitting, family and fixed rule.
-- [ ] G0 declaration/instrument/bed, including independent review, completed before any new pixel.
-- [ ] G1 native identification, inert implementation, fit, frozen gate and one exposure.
+- [x] G0 declaration/instrument/bed, independent reviews and assembled seals completed before native capture.
+- [x] Inert two-tier implementation and identity proofs; no material document moved.
+- [ ] G1 native sitting/identification, fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
 
 ## Proposed landing rule — fixed before the first candidate gate
@@ -481,12 +482,20 @@ This list permits no G0 mutation: the original X41 witness stays intact until a 
 
 ## Deferred and outcomes
 
-Grounding delivers an identified mechanism and a testable family, **not the native1–8 response**.
-That response, true black at160/224, and the scale/pose/position interaction remain unmeasured until
-the proposed capture. A per-pixel body law, low-end chroma model, directional contour, revised
-scatter, blend ordering and wide-span behaviour beyond224 are outside this repair. Existing
-mid-dark/chroma/edge gaps remain named. No runtime/material/publication/release change is made
-by this branch, and the main checkout was not edited.
+G0 delivers the identified mechanism, an inert two-tier instrument and a declared native bed,
+**not the native1–8 response or a fitted repair**. That response, true black at160/224, and the
+scale/pose/position interaction remain unmeasured until capture. The read-only grant check found
+no positive grant initially. The user then re-granted the unchanged W39 side bundle, and the
+noninteractive auth=2/signing-requirement check passed before any launch. The four missing
+default-active impulse ml/lg current captures now exist in scratch on both tiers; they do not
+replace missing native controls or certify the new family.
+
+Before fitting, G1 must supply the role-isolated native readings, complete reference evidence and
+the512×384 web adapter; missing evidence refuses the candidate path. A per-pixel body law,
+low-end chroma model, directional contour, revised scatter, blend ordering and wide-span behaviour
+beyond224 remain outside this repair. Existing mid-dark/chroma/edge gaps stay named. Runtime
+operators landed only at identity: no material document, matrix publication, fixture, owner bound
+or release changed, and the main checkout was not edited.
 
 ## Revision Notes
 
@@ -503,3 +512,16 @@ by this branch, and the main checkout was not edited.
   404 inventory rows,44 non-held anchor reads and the historical diagnostic table exactly. The
   W50 inventory writer now emits LF explicitly; replay leaves both generated JSON files
   byte-identical and changes the CSV only in newline encoding. No historical evidence was rewritten.
+
+- 2026-10-08 — DL1–DL4 recorded verbatim. G0 implemented the compact target/authority family
+  at identity on both tiers, including the actual-span fixed64 join and unclamped neutral diagnostic.
+  Numerical rehearsals, exact byte witnesses and the unchanged freeze evidence are in §5.217.
+  The actual1600-frame40-launch sitting prices at5.20h including loss/setup allowance. Native
+  capture was held while the .w39 grant was absent; after the user's re-grant, a positive read-only
+  check verified auth=2 and the compiled signing requirement against the unchanged bundle.
+  Operational declaration and additive pre-fit evidence are distinct; blind statistics are not
+  opened to fill a reference map.
+
+- G0 assembled seal — part1 `bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86`;
+  part2 `bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85`. Native plan and ten
+  numerical tests pass again after sealing, using the authorized runtime path rather than discovery.

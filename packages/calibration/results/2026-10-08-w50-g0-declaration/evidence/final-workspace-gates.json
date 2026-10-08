@@ -1,0 +1,17 @@
+{
+  "build": {
+    "exitCode": 0,
+    "command": "pnpm -r build",
+    "log": "final-build.log"
+  },
+  "lint": {
+    "exitCode": 0,
+    "command": "pnpm -r lint",
+    "log": "final-lint.log"
+  },
+  "unit": {
+    "exitCode": 0,
+    "command": "pnpm -r test",
+    "log": "final-unit.log"
+  }
+}

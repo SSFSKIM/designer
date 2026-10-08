@@ -1,0 +1,1352 @@
+{
+  "schema": "w43-sitting-plan-1",
+  "sitting": "g1",
+  "sources": {
+    "w50": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    },
+    "canonical": {
+      "path": "apps/reference-apple/scenes.json",
+      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8"
+    }
+  },
+  "passes": [
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 1,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.5-1x-active",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest.png",
+              "sha256": "bd57bc945289319c4a42415c04e39d1f69f84aec97b8d0ed6b22483dcec6695f"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+              "sha256": "05b1e9820970fd5e1f7b90c4a78fca1ef75ea666b8976dd6b66bd5a13ad864e4"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.5-1x-active",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.5,
+      "scale": 1,
+      "pose": "active",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "00-open-grey-000__rest",
+          "00-open-grey-064__rest",
+          "cell-checker-low-s096__rest",
+          "cell-checker-low-s160__rest",
+          "cell-checker-low-s224__rest",
+          "cell-grey-000-s044__rest",
+          "cell-grey-000-s096__rest",
+          "cell-grey-000-s128__rest",
+          "cell-grey-000-s160__rest",
+          "cell-grey-000-s224__rest",
+          "cell-grey-001-s044__rest",
+          "cell-grey-001-s096__rest",
+          "cell-grey-001-s160__rest",
+          "cell-grey-002-s044__rest",
+          "cell-grey-002-s096__rest",
+          "cell-grey-002-s160__rest",
+          "cell-grey-003-s044__rest",
+          "cell-grey-003-s096__rest",
+          "cell-grey-003-s160__rest",
+          "cell-grey-004-s044__rest",
+          "cell-grey-004-s096__rest",
+          "cell-grey-004-s128__rest",
+          "cell-grey-004-s160__rest",
+          "cell-grey-004-s224__rest",
+          "cell-grey-005-s044__rest",
+          "cell-grey-005-s096__rest",
+          "cell-grey-005-s160__rest",
+          "cell-grey-006-s044__rest",
+          "cell-grey-006-s096__rest",
+          "cell-grey-006-s160__rest",
+          "cell-grey-007-s044__rest",
+          "cell-grey-007-s096__rest",
+          "cell-grey-007-s160__rest",
+          "cell-grey-008-s044__rest",
+          "cell-grey-008-s096__rest",
+          "cell-grey-008-s160__rest",
+          "cell-grey-012-s044__rest",
+          "cell-grey-012-s096__rest",
+          "cell-grey-012-s160__rest",
+          "cell-grey-020-s044__rest",
+          "cell-grey-020-s096__rest",
+          "cell-grey-020-s160__rest",
+          "cell-grey-028-s044__rest",
+          "cell-grey-028-s096__rest",
+          "cell-grey-028-s128__rest",
+          "cell-grey-028-s160__rest",
+          "cell-grey-028-s224__rest",
+          "cell-grey-040-s044__rest",
+          "cell-grey-040-s096__rest",
+          "cell-grey-040-s160__rest",
+          "cell-grey-064-s044__rest",
+          "cell-grey-064-s096__rest",
+          "cell-grey-064-s128__rest",
+          "cell-grey-064-s160__rest",
+          "cell-grey-064-s224__rest",
+          "cell-impulse-sparse-s096__rest",
+          "cell-impulse-sparse-s160__rest",
+          "cell-impulse-sparse-s224__rest",
+          "zz-close-grey-000__rest",
+          "zz-close-grey-064__rest"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "ref-checker-low__rest",
+          "ref-grey-000__rest",
+          "ref-grey-001__rest",
+          "ref-grey-002__rest",
+          "ref-grey-003__rest",
+          "ref-grey-004__rest",
+          "ref-grey-005__rest",
+          "ref-grey-006__rest",
+          "ref-grey-007__rest",
+          "ref-grey-008__rest",
+          "ref-grey-012__rest",
+          "ref-grey-020__rest",
+          "ref-grey-028__rest",
+          "ref-grey-040__rest",
+          "ref-grey-064__rest",
+          "ref-impulse-sparse__rest"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 1,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.5-1x-receded",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive.png",
+              "sha256": "223e3ecfd1543fbbb309956842324e8a79540ca76947935efc63022cb5dfc2a1"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__inactive.png",
+              "sha256": "f05fb61476d797bf286006395e0eeca4dc698a72eecaf02daeb8c83f30552a22"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.5-1x-receded",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.5,
+      "scale": 1,
+      "pose": "receded",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "00-open-grey-000__inactive",
+          "00-open-grey-064__inactive",
+          "cell-checker-low-s096__inactive",
+          "cell-checker-low-s160__inactive",
+          "cell-checker-low-s224__inactive",
+          "cell-grey-000-s044__inactive",
+          "cell-grey-000-s096__inactive",
+          "cell-grey-000-s128__inactive",
+          "cell-grey-000-s160__inactive",
+          "cell-grey-000-s224__inactive",
+          "cell-grey-001-s044__inactive",
+          "cell-grey-001-s096__inactive",
+          "cell-grey-001-s160__inactive",
+          "cell-grey-002-s044__inactive",
+          "cell-grey-002-s096__inactive",
+          "cell-grey-002-s160__inactive",
+          "cell-grey-003-s044__inactive",
+          "cell-grey-003-s096__inactive",
+          "cell-grey-003-s160__inactive",
+          "cell-grey-004-s044__inactive",
+          "cell-grey-004-s096__inactive",
+          "cell-grey-004-s128__inactive",
+          "cell-grey-004-s160__inactive",
+          "cell-grey-004-s224__inactive",
+          "cell-grey-005-s044__inactive",
+          "cell-grey-005-s096__inactive",
+          "cell-grey-005-s160__inactive",
+          "cell-grey-006-s044__inactive",
+          "cell-grey-006-s096__inactive",
+          "cell-grey-006-s160__inactive",
+          "cell-grey-007-s044__inactive",
+          "cell-grey-007-s096__inactive",
+          "cell-grey-007-s160__inactive",
+          "cell-grey-008-s044__inactive",
+          "cell-grey-008-s096__inactive",
+          "cell-grey-008-s160__inactive",
+          "cell-grey-012-s044__inactive",
+          "cell-grey-012-s096__inactive",
+          "cell-grey-012-s160__inactive",
+          "cell-grey-020-s044__inactive",
+          "cell-grey-020-s096__inactive",
+          "cell-grey-020-s160__inactive",
+          "cell-grey-028-s044__inactive",
+          "cell-grey-028-s096__inactive",
+          "cell-grey-028-s128__inactive",
+          "cell-grey-028-s160__inactive",
+          "cell-grey-028-s224__inactive",
+          "cell-grey-040-s044__inactive",
+          "cell-grey-040-s096__inactive",
+          "cell-grey-040-s160__inactive",
+          "cell-grey-064-s044__inactive",
+          "cell-grey-064-s096__inactive",
+          "cell-grey-064-s128__inactive",
+          "cell-grey-064-s160__inactive",
+          "cell-grey-064-s224__inactive",
+          "cell-impulse-sparse-s096__inactive",
+          "cell-impulse-sparse-s160__inactive",
+          "cell-impulse-sparse-s224__inactive",
+          "zz-close-grey-000__inactive",
+          "zz-close-grey-064__inactive"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "ref-checker-low__inactive",
+          "ref-grey-000__inactive",
+          "ref-grey-001__inactive",
+          "ref-grey-002__inactive",
+          "ref-grey-003__inactive",
+          "ref-grey-004__inactive",
+          "ref-grey-005__inactive",
+          "ref-grey-006__inactive",
+          "ref-grey-007__inactive",
+          "ref-grey-008__inactive",
+          "ref-grey-012__inactive",
+          "ref-grey-020__inactive",
+          "ref-grey-028__inactive",
+          "ref-grey-040__inactive",
+          "ref-grey-064__inactive",
+          "ref-impulse-sparse__inactive"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 1,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.25-1x-active",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest.png",
+              "sha256": "7c0c7a7611219ef2320b08efcae70cc6ff5b7c887497aae09cdeb85e0ef7afbd"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest.png",
+              "sha256": "16de9d7e2cc4410a4145af7271bf4f993f19e2fae795dae5f8221f397b535348"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.25-1x-active",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.25,
+      "scale": 1,
+      "pose": "active",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "00-open-grey-000__rest",
+          "00-open-grey-064__rest",
+          "cell-checker-low-s096__rest",
+          "cell-checker-low-s160__rest",
+          "cell-checker-low-s224__rest",
+          "cell-grey-000-s044__rest",
+          "cell-grey-000-s096__rest",
+          "cell-grey-000-s128__rest",
+          "cell-grey-000-s160__rest",
+          "cell-grey-000-s224__rest",
+          "cell-grey-001-s044__rest",
+          "cell-grey-001-s096__rest",
+          "cell-grey-001-s160__rest",
+          "cell-grey-002-s044__rest",
+          "cell-grey-002-s096__rest",
+          "cell-grey-002-s160__rest",
+          "cell-grey-003-s044__rest",
+          "cell-grey-003-s096__rest",
+          "cell-grey-003-s160__rest",
+          "cell-grey-004-s044__rest",
+          "cell-grey-004-s096__rest",
+          "cell-grey-004-s128__rest",
+          "cell-grey-004-s160__rest",
+          "cell-grey-004-s224__rest",
+          "cell-grey-005-s044__rest",
+          "cell-grey-005-s096__rest",
+          "cell-grey-005-s160__rest",
+          "cell-grey-006-s044__rest",
+          "cell-grey-006-s096__rest",
+          "cell-grey-006-s160__rest",
+          "cell-grey-007-s044__rest",
+          "cell-grey-007-s096__rest",
+          "cell-grey-007-s160__rest",
+          "cell-grey-008-s044__rest",
+          "cell-grey-008-s096__rest",
+          "cell-grey-008-s160__rest",
+          "cell-grey-012-s044__rest",
+          "cell-grey-012-s096__rest",
+          "cell-grey-012-s160__rest",
+          "cell-grey-020-s044__rest",
+          "cell-grey-020-s096__rest",
+          "cell-grey-020-s160__rest",
+          "cell-grey-028-s044__rest",
+          "cell-grey-028-s096__rest",
+          "cell-grey-028-s128__rest",
+          "cell-grey-028-s160__rest",
+          "cell-grey-028-s224__rest",
+          "cell-grey-040-s044__rest",
+          "cell-grey-040-s096__rest",
+          "cell-grey-040-s160__rest",
+          "cell-grey-064-s044__rest",
+          "cell-grey-064-s096__rest",
+          "cell-grey-064-s128__rest",
+          "cell-grey-064-s160__rest",
+          "cell-grey-064-s224__rest",
+          "cell-impulse-sparse-s096__rest",
+          "cell-impulse-sparse-s160__rest",
+          "cell-impulse-sparse-s224__rest",
+          "zz-close-grey-000__rest",
+          "zz-close-grey-064__rest"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "ref-checker-low__rest",
+          "ref-grey-000__rest",
+          "ref-grey-001__rest",
+          "ref-grey-002__rest",
+          "ref-grey-003__rest",
+          "ref-grey-004__rest",
+          "ref-grey-005__rest",
+          "ref-grey-006__rest",
+          "ref-grey-007__rest",
+          "ref-grey-008__rest",
+          "ref-grey-012__rest",
+          "ref-grey-020__rest",
+          "ref-grey-028__rest",
+          "ref-grey-040__rest",
+          "ref-grey-064__rest",
+          "ref-impulse-sparse__rest"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 1,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.25-1x-receded",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive.png",
+              "sha256": "fcdac9170ee87249d90fa2b11386e6f46c1794ce4bb57a04cc2be02fccbbe445"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive.png",
+              "sha256": "6625818468288f5a6fe6e056cc6253fa6fc101210f47d84898999207d2a845e8"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.25-1x-receded",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.25,
+      "scale": 1,
+      "pose": "receded",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "00-open-grey-000__inactive",
+          "00-open-grey-064__inactive",
+          "cell-checker-low-s096__inactive",
+          "cell-checker-low-s160__inactive",
+          "cell-checker-low-s224__inactive",
+          "cell-grey-000-s044__inactive",
+          "cell-grey-000-s096__inactive",
+          "cell-grey-000-s128__inactive",
+          "cell-grey-000-s160__inactive",
+          "cell-grey-000-s224__inactive",
+          "cell-grey-001-s044__inactive",
+          "cell-grey-001-s096__inactive",
+          "cell-grey-001-s160__inactive",
+          "cell-grey-002-s044__inactive",
+          "cell-grey-002-s096__inactive",
+          "cell-grey-002-s160__inactive",
+          "cell-grey-003-s044__inactive",
+          "cell-grey-003-s096__inactive",
+          "cell-grey-003-s160__inactive",
+          "cell-grey-004-s044__inactive",
+          "cell-grey-004-s096__inactive",
+          "cell-grey-004-s128__inactive",
+          "cell-grey-004-s160__inactive",
+          "cell-grey-004-s224__inactive",
+          "cell-grey-005-s044__inactive",
+          "cell-grey-005-s096__inactive",
+          "cell-grey-005-s160__inactive",
+          "cell-grey-006-s044__inactive",
+          "cell-grey-006-s096__inactive",
+          "cell-grey-006-s160__inactive",
+          "cell-grey-007-s044__inactive",
+          "cell-grey-007-s096__inactive",
+          "cell-grey-007-s160__inactive",
+          "cell-grey-008-s044__inactive",
+          "cell-grey-008-s096__inactive",
+          "cell-grey-008-s160__inactive",
+          "cell-grey-012-s044__inactive",
+          "cell-grey-012-s096__inactive",
+          "cell-grey-012-s160__inactive",
+          "cell-grey-020-s044__inactive",
+          "cell-grey-020-s096__inactive",
+          "cell-grey-020-s160__inactive",
+          "cell-grey-028-s044__inactive",
+          "cell-grey-028-s096__inactive",
+          "cell-grey-028-s128__inactive",
+          "cell-grey-028-s160__inactive",
+          "cell-grey-028-s224__inactive",
+          "cell-grey-040-s044__inactive",
+          "cell-grey-040-s096__inactive",
+          "cell-grey-040-s160__inactive",
+          "cell-grey-064-s044__inactive",
+          "cell-grey-064-s096__inactive",
+          "cell-grey-064-s128__inactive",
+          "cell-grey-064-s160__inactive",
+          "cell-grey-064-s224__inactive",
+          "cell-impulse-sparse-s096__inactive",
+          "cell-impulse-sparse-s160__inactive",
+          "cell-impulse-sparse-s224__inactive",
+          "zz-close-grey-000__inactive",
+          "zz-close-grey-064__inactive"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "ref-checker-low__inactive",
+          "ref-grey-000__inactive",
+          "ref-grey-001__inactive",
+          "ref-grey-002__inactive",
+          "ref-grey-003__inactive",
+          "ref-grey-004__inactive",
+          "ref-grey-005__inactive",
+          "ref-grey-006__inactive",
+          "ref-grey-007__inactive",
+          "ref-grey-008__inactive",
+          "ref-grey-012__inactive",
+          "ref-grey-020__inactive",
+          "ref-grey-028__inactive",
+          "ref-grey-040__inactive",
+          "ref-grey-064__inactive",
+          "ref-impulse-sparse__inactive"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 2,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.5-2x-active",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest.png",
+              "sha256": "cbb451bce8c2d69d05ed422d082cbace0c8f0acf213c3dc1f67f773c2b217a7f"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+              "sha256": "633efbfde7ceb7273dd61b109f43abbf6f0f9cf4801d8e5be6c01161bf6157d2"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.5-2x-active",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.5,
+      "scale": 2,
+      "pose": "active",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "00-open-grey-000__rest",
+          "00-open-grey-064__rest",
+          "cell-checker-low-s096__rest",
+          "cell-checker-low-s160__rest",
+          "cell-checker-low-s224__rest",
+          "cell-grey-000-s044__rest",
+          "cell-grey-000-s096__rest",
+          "cell-grey-000-s128__rest",
+          "cell-grey-000-s160__rest",
+          "cell-grey-000-s224__rest",
+          "cell-grey-001-s044__rest",
+          "cell-grey-001-s096__rest",
+          "cell-grey-001-s160__rest",
+          "cell-grey-002-s044__rest",
+          "cell-grey-002-s096__rest",
+          "cell-grey-002-s160__rest",
+          "cell-grey-003-s044__rest",
+          "cell-grey-003-s096__rest",
+          "cell-grey-003-s160__rest",
+          "cell-grey-004-s044__rest",
+          "cell-grey-004-s096__rest",
+          "cell-grey-004-s128__rest",
+          "cell-grey-004-s160__rest",
+          "cell-grey-004-s224__rest",
+          "cell-grey-005-s044__rest",
+          "cell-grey-005-s096__rest",
+          "cell-grey-005-s160__rest",
+          "cell-grey-006-s044__rest",
+          "cell-grey-006-s096__rest",
+          "cell-grey-006-s160__rest",
+          "cell-grey-007-s044__rest",
+          "cell-grey-007-s096__rest",
+          "cell-grey-007-s160__rest",
+          "cell-grey-008-s044__rest",
+          "cell-grey-008-s096__rest",
+          "cell-grey-008-s160__rest",
+          "cell-grey-012-s044__rest",
+          "cell-grey-012-s096__rest",
+          "cell-grey-012-s160__rest",
+          "cell-grey-020-s044__rest",
+          "cell-grey-020-s096__rest",
+          "cell-grey-020-s160__rest",
+          "cell-grey-028-s044__rest",
+          "cell-grey-028-s096__rest",
+          "cell-grey-028-s128__rest",
+          "cell-grey-028-s160__rest",
+          "cell-grey-028-s224__rest",
+          "cell-grey-040-s044__rest",
+          "cell-grey-040-s096__rest",
+          "cell-grey-040-s160__rest",
+          "cell-grey-064-s044__rest",
+          "cell-grey-064-s096__rest",
+          "cell-grey-064-s128__rest",
+          "cell-grey-064-s160__rest",
+          "cell-grey-064-s224__rest",
+          "cell-impulse-sparse-s096__rest",
+          "cell-impulse-sparse-s160__rest",
+          "cell-impulse-sparse-s224__rest",
+          "zz-close-grey-000__rest",
+          "zz-close-grey-064__rest"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "ref-checker-low__rest",
+          "ref-grey-000__rest",
+          "ref-grey-001__rest",
+          "ref-grey-002__rest",
+          "ref-grey-003__rest",
+          "ref-grey-004__rest",
+          "ref-grey-005__rest",
+          "ref-grey-006__rest",
+          "ref-grey-007__rest",
+          "ref-grey-008__rest",
+          "ref-grey-012__rest",
+          "ref-grey-020__rest",
+          "ref-grey-028__rest",
+          "ref-grey-040__rest",
+          "ref-grey-064__rest",
+          "ref-impulse-sparse__rest"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 2,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.5-2x-receded",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive.png",
+              "sha256": "81ba198a65a8c9841f3a30a65253b2765b1f87062627855222a7487d968a69cb"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__inactive.png",
+              "sha256": "5a88c7e9642130562e20ae4fcccc41aa139d8b71a374aefa61557de9f442e841"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.5-2x-receded",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.5,
+      "scale": 2,
+      "pose": "receded",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "00-open-grey-000__inactive",
+          "00-open-grey-064__inactive",
+          "cell-checker-low-s096__inactive",
+          "cell-checker-low-s160__inactive",
+          "cell-checker-low-s224__inactive",
+          "cell-grey-000-s044__inactive",
+          "cell-grey-000-s096__inactive",
+          "cell-grey-000-s128__inactive",
+          "cell-grey-000-s160__inactive",
+          "cell-grey-000-s224__inactive",
+          "cell-grey-001-s044__inactive",
+          "cell-grey-001-s096__inactive",
+          "cell-grey-001-s160__inactive",
+          "cell-grey-002-s044__inactive",
+          "cell-grey-002-s096__inactive",
+          "cell-grey-002-s160__inactive",
+          "cell-grey-003-s044__inactive",
+          "cell-grey-003-s096__inactive",
+          "cell-grey-003-s160__inactive",
+          "cell-grey-004-s044__inactive",
+          "cell-grey-004-s096__inactive",
+          "cell-grey-004-s128__inactive",
+          "cell-grey-004-s160__inactive",
+          "cell-grey-004-s224__inactive",
+          "cell-grey-005-s044__inactive",
+          "cell-grey-005-s096__inactive",
+          "cell-grey-005-s160__inactive",
+          "cell-grey-006-s044__inactive",
+          "cell-grey-006-s096__inactive",
+          "cell-grey-006-s160__inactive",
+          "cell-grey-007-s044__inactive",
+          "cell-grey-007-s096__inactive",
+          "cell-grey-007-s160__inactive",
+          "cell-grey-008-s044__inactive",
+          "cell-grey-008-s096__inactive",
+          "cell-grey-008-s160__inactive",
+          "cell-grey-012-s044__inactive",
+          "cell-grey-012-s096__inactive",
+          "cell-grey-012-s160__inactive",
+          "cell-grey-020-s044__inactive",
+          "cell-grey-020-s096__inactive",
+          "cell-grey-020-s160__inactive",
+          "cell-grey-028-s044__inactive",
+          "cell-grey-028-s096__inactive",
+          "cell-grey-028-s128__inactive",
+          "cell-grey-028-s160__inactive",
+          "cell-grey-028-s224__inactive",
+          "cell-grey-040-s044__inactive",
+          "cell-grey-040-s096__inactive",
+          "cell-grey-040-s160__inactive",
+          "cell-grey-064-s044__inactive",
+          "cell-grey-064-s096__inactive",
+          "cell-grey-064-s128__inactive",
+          "cell-grey-064-s160__inactive",
+          "cell-grey-064-s224__inactive",
+          "cell-impulse-sparse-s096__inactive",
+          "cell-impulse-sparse-s160__inactive",
+          "cell-impulse-sparse-s224__inactive",
+          "zz-close-grey-000__inactive",
+          "zz-close-grey-064__inactive"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "ref-checker-low__inactive",
+          "ref-grey-000__inactive",
+          "ref-grey-001__inactive",
+          "ref-grey-002__inactive",
+          "ref-grey-003__inactive",
+          "ref-grey-004__inactive",
+          "ref-grey-005__inactive",
+          "ref-grey-006__inactive",
+          "ref-grey-007__inactive",
+          "ref-grey-008__inactive",
+          "ref-grey-012__inactive",
+          "ref-grey-020__inactive",
+          "ref-grey-028__inactive",
+          "ref-grey-040__inactive",
+          "ref-grey-064__inactive",
+          "ref-impulse-sparse__inactive"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 2,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.25-2x-active",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest.png",
+              "sha256": "3cac2a1a519b9988881c0a3ee1245bb6c2a05b7f5ff060ceffa590b5b9d24b10"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest.png",
+              "sha256": "56daf125789a9c13fea539494a2125ea1bf18f09dbc22fe7bd61812d6a84408b"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.25-2x-active",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.25,
+      "scale": 2,
+      "pose": "active",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "00-open-grey-000__rest",
+          "00-open-grey-064__rest",
+          "cell-checker-low-s096__rest",
+          "cell-checker-low-s160__rest",
+          "cell-checker-low-s224__rest",
+          "cell-grey-000-s044__rest",
+          "cell-grey-000-s096__rest",
+          "cell-grey-000-s128__rest",
+          "cell-grey-000-s160__rest",
+          "cell-grey-000-s224__rest",
+          "cell-grey-001-s044__rest",
+          "cell-grey-001-s096__rest",
+          "cell-grey-001-s160__rest",
+          "cell-grey-002-s044__rest",
+          "cell-grey-002-s096__rest",
+          "cell-grey-002-s160__rest",
+          "cell-grey-003-s044__rest",
+          "cell-grey-003-s096__rest",
+          "cell-grey-003-s160__rest",
+          "cell-grey-004-s044__rest",
+          "cell-grey-004-s096__rest",
+          "cell-grey-004-s128__rest",
+          "cell-grey-004-s160__rest",
+          "cell-grey-004-s224__rest",
+          "cell-grey-005-s044__rest",
+          "cell-grey-005-s096__rest",
+          "cell-grey-005-s160__rest",
+          "cell-grey-006-s044__rest",
+          "cell-grey-006-s096__rest",
+          "cell-grey-006-s160__rest",
+          "cell-grey-007-s044__rest",
+          "cell-grey-007-s096__rest",
+          "cell-grey-007-s160__rest",
+          "cell-grey-008-s044__rest",
+          "cell-grey-008-s096__rest",
+          "cell-grey-008-s160__rest",
+          "cell-grey-012-s044__rest",
+          "cell-grey-012-s096__rest",
+          "cell-grey-012-s160__rest",
+          "cell-grey-020-s044__rest",
+          "cell-grey-020-s096__rest",
+          "cell-grey-020-s160__rest",
+          "cell-grey-028-s044__rest",
+          "cell-grey-028-s096__rest",
+          "cell-grey-028-s128__rest",
+          "cell-grey-028-s160__rest",
+          "cell-grey-028-s224__rest",
+          "cell-grey-040-s044__rest",
+          "cell-grey-040-s096__rest",
+          "cell-grey-040-s160__rest",
+          "cell-grey-064-s044__rest",
+          "cell-grey-064-s096__rest",
+          "cell-grey-064-s128__rest",
+          "cell-grey-064-s160__rest",
+          "cell-grey-064-s224__rest",
+          "cell-impulse-sparse-s096__rest",
+          "cell-impulse-sparse-s160__rest",
+          "cell-impulse-sparse-s224__rest",
+          "zz-close-grey-000__rest",
+          "zz-close-grey-064__rest"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "ref-checker-low__rest",
+          "ref-grey-000__rest",
+          "ref-grey-001__rest",
+          "ref-grey-002__rest",
+          "ref-grey-003__rest",
+          "ref-grey-004__rest",
+          "ref-grey-005__rest",
+          "ref-grey-006__rest",
+          "ref-grey-007__rest",
+          "ref-grey-008__rest",
+          "ref-grey-012__rest",
+          "ref-grey-020__rest",
+          "ref-grey-028__rest",
+          "ref-grey-040__rest",
+          "ref-grey-064__rest",
+          "ref-impulse-sparse__rest"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 2,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "open-x0.25-2x-receded",
+      "bridge": {
+        "stop": true,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive.png",
+              "sha256": "ee38ffc4af64fa1ef96d0cfa296ec6b09e03f45e2c9ab293b4d873b7075f9897"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive.png",
+              "sha256": "8b2c91f61f21132562a4b8f43231ae6e7a2fccc988a88ae2c383d596d79e8296"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "bed-x0.25-2x-receded",
+      "kind": "capture",
+      "role": "low-end",
+      "glass": 0.25,
+      "scale": 2,
+      "pose": "receded",
+      "source": "w50",
+      "runs": 3,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "00-open-grey-000__inactive",
+          "00-open-grey-064__inactive",
+          "cell-checker-low-s096__inactive",
+          "cell-checker-low-s160__inactive",
+          "cell-checker-low-s224__inactive",
+          "cell-grey-000-s044__inactive",
+          "cell-grey-000-s096__inactive",
+          "cell-grey-000-s128__inactive",
+          "cell-grey-000-s160__inactive",
+          "cell-grey-000-s224__inactive",
+          "cell-grey-001-s044__inactive",
+          "cell-grey-001-s096__inactive",
+          "cell-grey-001-s160__inactive",
+          "cell-grey-002-s044__inactive",
+          "cell-grey-002-s096__inactive",
+          "cell-grey-002-s160__inactive",
+          "cell-grey-003-s044__inactive",
+          "cell-grey-003-s096__inactive",
+          "cell-grey-003-s160__inactive",
+          "cell-grey-004-s044__inactive",
+          "cell-grey-004-s096__inactive",
+          "cell-grey-004-s128__inactive",
+          "cell-grey-004-s160__inactive",
+          "cell-grey-004-s224__inactive",
+          "cell-grey-005-s044__inactive",
+          "cell-grey-005-s096__inactive",
+          "cell-grey-005-s160__inactive",
+          "cell-grey-006-s044__inactive",
+          "cell-grey-006-s096__inactive",
+          "cell-grey-006-s160__inactive",
+          "cell-grey-007-s044__inactive",
+          "cell-grey-007-s096__inactive",
+          "cell-grey-007-s160__inactive",
+          "cell-grey-008-s044__inactive",
+          "cell-grey-008-s096__inactive",
+          "cell-grey-008-s160__inactive",
+          "cell-grey-012-s044__inactive",
+          "cell-grey-012-s096__inactive",
+          "cell-grey-012-s160__inactive",
+          "cell-grey-020-s044__inactive",
+          "cell-grey-020-s096__inactive",
+          "cell-grey-020-s160__inactive",
+          "cell-grey-028-s044__inactive",
+          "cell-grey-028-s096__inactive",
+          "cell-grey-028-s128__inactive",
+          "cell-grey-028-s160__inactive",
+          "cell-grey-028-s224__inactive",
+          "cell-grey-040-s044__inactive",
+          "cell-grey-040-s096__inactive",
+          "cell-grey-040-s160__inactive",
+          "cell-grey-064-s044__inactive",
+          "cell-grey-064-s096__inactive",
+          "cell-grey-064-s128__inactive",
+          "cell-grey-064-s160__inactive",
+          "cell-grey-064-s224__inactive",
+          "cell-impulse-sparse-s096__inactive",
+          "cell-impulse-sparse-s160__inactive",
+          "cell-impulse-sparse-s224__inactive",
+          "zz-close-grey-000__inactive",
+          "zz-close-grey-064__inactive"
+        ]
+      },
+      "run1Only": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "ref-checker-low__inactive",
+          "ref-grey-000__inactive",
+          "ref-grey-001__inactive",
+          "ref-grey-002__inactive",
+          "ref-grey-003__inactive",
+          "ref-grey-004__inactive",
+          "ref-grey-005__inactive",
+          "ref-grey-006__inactive",
+          "ref-grey-007__inactive",
+          "ref-grey-008__inactive",
+          "ref-grey-012__inactive",
+          "ref-grey-020__inactive",
+          "ref-grey-028__inactive",
+          "ref-grey-040__inactive",
+          "ref-grey-064__inactive",
+          "ref-impulse-sparse__inactive"
+        ]
+      },
+      "publish": false
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 1,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.5-1x-active",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest.png",
+              "sha256": "bd57bc945289319c4a42415c04e39d1f69f84aec97b8d0ed6b22483dcec6695f"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+              "sha256": "05b1e9820970fd5e1f7b90c4a78fca1ef75ea666b8976dd6b66bd5a13ad864e4"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 1,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.5-1x-receded",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive.png",
+              "sha256": "223e3ecfd1543fbbb309956842324e8a79540ca76947935efc63022cb5dfc2a1"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__inactive.png",
+              "sha256": "f05fb61476d797bf286006395e0eeca4dc698a72eecaf02daeb8c83f30552a22"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 1,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.25-1x-active",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest.png",
+              "sha256": "7c0c7a7611219ef2320b08efcae70cc6ff5b7c887497aae09cdeb85e0ef7afbd"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest.png",
+              "sha256": "16de9d7e2cc4410a4145af7271bf4f993f19e2fae795dae5f8221f397b535348"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 1,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.25-1x-receded",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive.png",
+              "sha256": "fcdac9170ee87249d90fa2b11386e6f46c1794ce4bb57a04cc2be02fccbbe445"
+            }
+          },
+          "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive.png",
+              "sha256": "6625818468288f5a6fe6e056cc6253fa6fc101210f47d84898999207d2a845e8"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 2,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.5-2x-active",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest.png",
+              "sha256": "cbb451bce8c2d69d05ed422d082cbace0c8f0acf213c3dc1f67f773c2b217a7f"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+              "sha256": "633efbfde7ceb7273dd61b109f43abbf6f0f9cf4801d8e5be6c01161bf6157d2"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.5,
+      "scale": 2,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.5-2x-receded",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive.png",
+              "sha256": "81ba198a65a8c9841f3a30a65253b2765b1f87062627855222a7487d968a69cb"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__inactive.png",
+              "sha256": "5a88c7e9642130562e20ae4fcccc41aa139d8b71a374aefa61557de9f442e841"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 2,
+      "pose": "active",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__rest",
+          "impulse__rrect-lg__rest"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.25-2x-active",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest.png",
+              "sha256": "3cac2a1a519b9988881c0a3ee1245bb6c2a05b7f5ff060ceffa590b5b9d24b10"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest.png",
+              "sha256": "56daf125789a9c13fea539494a2125ea1bf18f09dbc22fe7bd61812d6a84408b"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    },
+    {
+      "kind": "capture",
+      "role": "bridge-w50-canonical",
+      "glass": 0.25,
+      "scale": 2,
+      "pose": "receded",
+      "source": "canonical",
+      "runs": 1,
+      "protocol": "normal",
+      "profiles": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25": [
+          "dark-solid__rrect-lg__inactive",
+          "impulse__rrect-lg__inactive"
+        ]
+      },
+      "publish": false,
+      "name": "close-x0.25-2x-receded",
+      "bridge": {
+        "stop": false,
+        "cells": {
+          "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive.png",
+              "sha256": "ee38ffc4af64fa1ef96d0cfa296ec6b09e03f45e2c9ab293b4d873b7075f9897"
+            }
+          },
+          "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive": {
+            "reference": {
+              "path": "apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive.png",
+              "sha256": "8b2c91f61f21132562a4b8f43231ae6e7a2fccc988a88ae2c383d596d79e8296"
+            }
+          }
+        }
+      },
+      "runAfterCut": true
+    }
+  ]
+}

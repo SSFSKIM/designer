@@ -1,0 +1,560 @@
+{
+  "rates": {
+    "source": "packages/calibration/results/2026-09-30-w42-g1-sitting/attest",
+    "admittedRuns": 88,
+    "captureRates": {
+      "normal-1x": {
+        "runs": 28,
+        "captures": 458,
+        "cells": [
+          14,
+          16,
+          23,
+          26
+        ],
+        "overheadSeconds": 10.878,
+        "intervalSeconds": 9.5333,
+        "crossCheckFit": {
+          "perRunSeconds": 2.14,
+          "perCaptureSeconds": 9.4674
+        },
+        "wallSeconds": 4395.9
+      },
+      "normal-2x": {
+        "runs": 28,
+        "captures": 2935,
+        "cells": [
+          87,
+          92,
+          101,
+          107,
+          133,
+          148,
+          157,
+          175
+        ],
+        "overheadSeconds": 11.427,
+        "intervalSeconds": 9.5322,
+        "crossCheckFit": {
+          "perRunSeconds": 7.15,
+          "perCaptureSeconds": 9.4906
+        },
+        "wallSeconds": 28054.9
+      },
+      "long-1x": {
+        "runs": 12,
+        "captures": 24,
+        "cells": [
+          2
+        ],
+        "overheadSeconds": 16.75,
+        "intervalSeconds": 16.0,
+        "crossCheckFit": null,
+        "wallSeconds": 394.4
+      },
+      "long-2x": {
+        "runs": 12,
+        "captures": 24,
+        "cells": [
+          2
+        ],
+        "overheadSeconds": 17.079,
+        "intervalSeconds": 16.0,
+        "crossCheckFit": null,
+        "wallSeconds": 399.9
+      }
+    },
+    "dump": {
+      "launches": 8,
+      "scenes": [
+        87,
+        92,
+        101,
+        107,
+        14,
+        16,
+        14,
+        16
+      ],
+      "perLaunchSeconds": 0.77,
+      "perSceneSeconds": 8.3311,
+      "elapsedFit": {
+        "perLaunchSeconds": 0.19,
+        "perSceneSeconds": 8.3306
+      }
+    },
+    "gapWithinPassSeconds": 0.75,
+    "gapWithinPassCount": 62,
+    "gapBetweenPassesSeconds": 1.15,
+    "gapBetweenPassesCount": 20,
+    "modeSwitchSeconds": 7.74,
+    "modeSwitches": [
+      7.8,
+      7.7,
+      7.6
+    ],
+    "excludedStopGaps": [
+      {
+        "after": "2x-light-receded/run-3",
+        "before": "2x-light-receded/run-4",
+        "seconds": 1137.2
+      },
+      {
+        "after": "2x-light-receded/run-6",
+        "before": "2x-light-receded/run-7",
+        "seconds": 277.5
+      }
+    ],
+    "sliderWriteSeconds": 1.0,
+    "sliderWriteNote": "ASSUMED, not measured: W42 never wrote the slider inside a sitting"
+  },
+  "price": {
+    "passes": [
+      {
+        "name": "open-x0.5-1x-active",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "bed-x0.5-1x-active",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1874.1,
+        "exactSeconds": 1874.0609000000002
+      },
+      {
+        "name": "open-x0.5-1x-receded",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "bed-x0.5-1x-receded",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1874.1,
+        "exactSeconds": 1874.0609000000002
+      },
+      {
+        "name": "open-x0.25-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "bed-x0.25-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1874.1,
+        "exactSeconds": 1874.0609000000002
+      },
+      {
+        "name": "open-x0.25-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "bed-x0.25-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1874.1,
+        "exactSeconds": 1874.0609000000002
+      },
+      {
+        "name": "open-x0.5-2x-active",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "bed-x0.5-2x-active",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1875.5,
+        "exactSeconds": 1875.4956000000002
+      },
+      {
+        "name": "open-x0.5-2x-receded",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "bed-x0.5-2x-receded",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1875.5,
+        "exactSeconds": 1875.4956000000002
+      },
+      {
+        "name": "open-x0.25-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "bed-x0.25-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1875.5,
+        "exactSeconds": 1875.4956000000002
+      },
+      {
+        "name": "open-x0.25-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "bed-x0.25-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 3,
+        "protocol": "normal",
+        "captures": 196,
+        "seconds": 1875.5,
+        "exactSeconds": 1875.4956000000002
+      },
+      {
+        "name": "close-x0.5-1x-active",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "close-x0.5-1x-receded",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "close-x0.25-1x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "close-x0.25-1x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "69",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 20.4,
+        "exactSeconds": 20.4113
+      },
+      {
+        "name": "close-x0.5-2x-active",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "close-x0.5-2x-receded",
+        "kind": "capture",
+        "glass": 0.5,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "close-x0.25-2x-active",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      },
+      {
+        "name": "close-x0.25-2x-receded",
+        "kind": "capture",
+        "glass": 0.25,
+        "mode": "68",
+        "runs": 1,
+        "protocol": "normal",
+        "captures": 2,
+        "seconds": 21.0,
+        "exactSeconds": 20.9592
+      }
+    ],
+    "boundaries": [
+      {
+        "after": "open-x0.5-1x-active",
+        "before": "bed-x0.5-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.5-1x-active",
+        "before": "open-x0.5-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "open-x0.5-1x-receded",
+        "before": "bed-x0.5-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.5-1x-receded",
+        "before": "open-x0.25-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": true,
+        "exactSeconds": 2.15
+      },
+      {
+        "after": "open-x0.25-1x-active",
+        "before": "bed-x0.25-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.25-1x-active",
+        "before": "open-x0.25-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "open-x0.25-1x-receded",
+        "before": "bed-x0.25-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.25-1x-receded",
+        "before": "open-x0.5-2x-active",
+        "modeSwitch": true,
+        "sliderWrite": true,
+        "exactSeconds": 8.74
+      },
+      {
+        "after": "open-x0.5-2x-active",
+        "before": "bed-x0.5-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.5-2x-active",
+        "before": "open-x0.5-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "open-x0.5-2x-receded",
+        "before": "bed-x0.5-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.5-2x-receded",
+        "before": "open-x0.25-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": true,
+        "exactSeconds": 2.15
+      },
+      {
+        "after": "open-x0.25-2x-active",
+        "before": "bed-x0.25-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.25-2x-active",
+        "before": "open-x0.25-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "open-x0.25-2x-receded",
+        "before": "bed-x0.25-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "bed-x0.25-2x-receded",
+        "before": "close-x0.5-1x-active",
+        "modeSwitch": true,
+        "sliderWrite": true,
+        "exactSeconds": 8.74
+      },
+      {
+        "after": "close-x0.5-1x-active",
+        "before": "close-x0.5-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "close-x0.5-1x-receded",
+        "before": "close-x0.25-1x-active",
+        "modeSwitch": false,
+        "sliderWrite": true,
+        "exactSeconds": 2.15
+      },
+      {
+        "after": "close-x0.25-1x-active",
+        "before": "close-x0.25-1x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "close-x0.25-1x-receded",
+        "before": "close-x0.5-2x-active",
+        "modeSwitch": true,
+        "sliderWrite": true,
+        "exactSeconds": 8.74
+      },
+      {
+        "after": "close-x0.5-2x-active",
+        "before": "close-x0.5-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      },
+      {
+        "after": "close-x0.5-2x-receded",
+        "before": "close-x0.25-2x-active",
+        "modeSwitch": false,
+        "sliderWrite": true,
+        "exactSeconds": 2.15
+      },
+      {
+        "after": "close-x0.25-2x-active",
+        "before": "close-x0.25-2x-receded",
+        "modeSwitch": false,
+        "sliderWrite": false,
+        "exactSeconds": 1.15
+      }
+    ],
+    "totals": {
+      "captureLaunches": 40,
+      "captures": 1600,
+      "dumpLaunches": 0,
+      "dumpScenes": 0,
+      "sliderWrites": 7,
+      "modeSwitches": 3,
+      "publishedCells": 0
+    },
+    "captureSeconds": 15329.2,
+    "dumpSeconds": 0,
+    "boundarySeconds": 53.2,
+    "totalSeconds": 15382.4,
+    "totalHours": 4.27,
+    "withStopLossHours": 4.7,
+    "exactTotalSeconds": 15382.410000000002,
+    "reservedHours": 5.2,
+    "allowance": "10% stop loss plus 30 minutes setup, slider/display restore and grant handling"
+  }
+}

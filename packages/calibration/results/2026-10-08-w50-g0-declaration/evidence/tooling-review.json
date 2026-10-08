@@ -1,0 +1,19 @@
+{
+  "reviewer": "doperpowers:reviewer-medium",
+  "scope": "native bed/sitting and root-to-web declaration/import guards",
+  "initialFindings": [
+    "automated Chrome variants annotated as ordinary user Chrome",
+    "web baseline contract self-seal not authorized by root",
+    "native early helper imports execute before source/refusal guard"
+  ],
+  "closure": "all three verified and fixed via bounded workers",
+  "verdict": "correct; no material findings remain",
+  "independentClosureTests": {
+    "nativeDriver": 6,
+    "sittingTooling": 9,
+    "webExecution": 7,
+    "declaration": 11
+  },
+  "nativeCpuProbe": "PASS",
+  "limitations": "No live native launch; final operational seals checked separately by author."
+}
