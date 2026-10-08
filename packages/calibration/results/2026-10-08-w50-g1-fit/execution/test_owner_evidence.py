@@ -32,11 +32,26 @@ class OwnerEvidence(unittest.TestCase):
             aggregate={'requiredFinite':['median','cells'],'nonemptyObjects':[]})
         contract=self.put('contracts.json',self.snapshot)
         declaration=self.put('scenes.json',{'scenes':[{'id':self.row['scene'],'state':'rest'}]})
-        matrix=self.put('matrix.json',{'schemaVersion':5,'cells':[{'key':{
-            'profileKey':self.row['profile'],'sceneId':self.row['scene'],'web':{'renderer':self.row['renderer']}},
-            'state':'rest'}]})
-        self.inputs=dict(declaration=declaration,current=[{'matrix':matrix,'documents':{}}],
-                         references=[{'matrix':matrix,'documents':{}}],captures={},referenceCaptures={},python='not-executed')
+        self.active=self.put('active.json',{'synthetic':'original active'})
+        self.receded=self.put('receded.json',{'synthetic':'original receded'})
+        documents={p['path']:p['sha256'] for p in (self.active,self.receded)}
+        self.web=dict(renderer=self.row['renderer'],sceneId=self.row['scene'],capturePath=
+            f'materialProfile={self.active["path"]} sha256:{self.active["sha256"][:12]} '
+            f'recededProfile={self.receded["path"]} sha256:{self.receded["sha256"][:12]}')
+        self.matrix={'schemaVersion':5,'cells':[{'key':{'profileKey':self.row['profile'],
+            'sceneId':self.row['scene'],'web':self.web},'state':'rest'}]}
+        matrix=self.put('matrix.json',self.matrix)
+        capture=dict(web=self.put('web.png',{'synthetic':'original current pixels'}),
+            native=self.put('native.png',{'synthetic':'original native pixels'}),
+            backdrop=self.put('backdrop.png',{'synthetic':'original backdrop'}),
+            metadata=self.put('metadata.json',self.web),documents=documents.copy())
+        self.inputs=dict(declaration=declaration,current=[{'matrix':matrix,'documents':documents}],
+            references=[{'matrix':self.put('reference-matrix.json',self.matrix),'documents':documents.copy()}],captures={self.identity:capture},
+            referenceCaptures={},python='not-executed')
+        self.row.update(currentDocumentPair={'active.dark':self.active['sha256'],'receded.dark':self.receded['sha256']},
+            currentGeneration=self.active['sha256'][:12]+'-'+self.receded['sha256'][:12],
+            currentEvidence=copy.deepcopy(capture['web']),currentMetadata=copy.deepcopy(capture['metadata']),
+            nativeEvidence=copy.deepcopy(capture['native']))
         inputs=self.put('inputs.json',self.inputs)
         axes={a:dict(state='NOT_APPLICABLE',reason='Outside source-owned population') for a in self.snapshot['axes']}
         axes['M1']=dict(state='MEASURED',verdict='failure',native=.1,candidate=.4,R=4)
@@ -46,7 +61,7 @@ class OwnerEvidence(unittest.TestCase):
             intrinsic={a:dict(state='UNMEASURED',reason='Intrinsic candidate check is separate') for a in ('X75','X76')},
             noNewTrade='Source owner laws retained')
         report=self.put('report.json',self.report)
-        self.projection=dict(schema='w50-owner-evidence-1',row=copy.deepcopy(self.row),cellId=self.identity,inputsPin=inputs,
+        self.projection=dict(schema='w50-owner-evidence-1',row={k:self.row[k] for k in KEY},cellId=self.identity,inputsPin=inputs,
             reportPin=report,contractsPin=contract,ownerSource=self.owner,
             axes={a:dict(evidence=axes[a],**{k:v for k,v in c.items() if k!='sourceSelectors'}) for a,c in self.snapshot['axes'].items()},
             aggregateKeys=[self.aggregate],intrinsic={a:dict(contract=c,evidence=self.report['intrinsic'][a],
@@ -63,6 +78,13 @@ class OwnerEvidence(unittest.TestCase):
         validator.validate(self.row,self.evidence)
         validator.finish()
 
+    def repin_inputs(self):
+        self.inputs['current'][0]['matrix']=self.put('matrix.json',self.matrix)
+        self.projection['inputsPin']=self.put('inputs.json',self.inputs)
+        self.report['provenance'].update(current=copy.deepcopy(self.inputs['current']),
+            fixedReferences=copy.deepcopy(self.inputs['references']))
+        self.repin()
+
     def repin(self):
         self.projection['reportPin']=self.put('report.json',self.report)
         self.projection['contractsPin']=self.contract=self.put('contracts.json',self.snapshot)
@@ -70,6 +92,63 @@ class OwnerEvidence(unittest.TestCase):
 
     def test_measured_failure_is_real_current_evidence_not_a_failed_preparation(self):
         self.check()
+
+    def test_valid_same_generation_accepts_active_alias_and_receded_qualified_identity(self):
+        self.check()
+        self.row['currentGeneration']=self.active['sha256'][:12]
+        self.check()
+
+    def test_wrong_active_or_receded_generation_is_not_current_even_with_coherent_pins(self):
+        for role in ('active','receded'):
+            with self.subTest(role=role):
+                before_inputs=copy.deepcopy(self.inputs); before_matrix=copy.deepcopy(self.matrix)
+                other=self.put(f'other-{role}.json',{'synthetic':'retired '+role})
+                old=self.active if role=='active' else self.receded
+                descriptor='materialProfile' if role=='active' else 'recededProfile'
+                self.matrix['cells'][0]['key']['web']['capturePath']=self.matrix['cells'][0]['key']['web']['capturePath'].replace(
+                    f'{descriptor}={old["path"]} sha256:{old["sha256"][:12]}',
+                    f'{descriptor}={other["path"]} sha256:{other["sha256"][:12]}')
+                for docs in (self.inputs['current'][0]['documents'],self.inputs['captures'][self.identity]['documents']):
+                    del docs[old['path']]; docs[other['path']]=other['sha256']
+                self.inputs['captures'][self.identity]['metadata']=self.put('retired-metadata.json',self.matrix['cells'][0]['key']['web'])
+                self.repin_inputs()
+                with self.assertRaises(ValueError): self.check()
+                self.inputs=before_inputs; self.matrix=before_matrix; self.repin_inputs()
+
+    def test_wrong_current_capture_or_metadata_cannot_complete_original_reference(self):
+        for field in ('web','metadata'):
+            before=copy.deepcopy(self.inputs)
+            content=self.web if field=='metadata' else {'synthetic':'another generation pixels'}
+            self.inputs['captures'][self.identity][field]=self.put('other-'+field+'.json',content)
+            self.repin_inputs()
+            with self.subTest(field=field),self.assertRaises(ValueError): self.check()
+            self.inputs=before; self.repin_inputs()
+
+    def test_full_document_hash_cannot_hide_behind_matching_twelve_hex_descriptor(self):
+        for role in ('active','receded'):
+            original=self.active if role=='active' else self.receded
+            changed=original['sha256'][:12]+('a' if original['sha256'][12]!='a' else 'b')+original['sha256'][13:]
+            before=copy.deepcopy(self.inputs)
+            self.inputs['current'][0]['documents'][original['path']]=changed
+            self.inputs['captures'][self.identity]['documents'][original['path']]=changed
+            self.repin_inputs()
+            with self.subTest(role=role),self.assertRaisesRegex(ValueError,'document pair differs'):
+                self.check()
+            self.inputs=before; self.repin_inputs()
+
+    def test_missing_original_metadata_is_not_permission_to_pick_another_generation(self):
+        self.row.pop('currentMetadata')
+        with self.assertRaises(ValueError): self.check()
+
+    def test_wrong_generation_label_and_descriptor_role_swap_are_refused(self):
+        self.row['currentGeneration']='c'*12+'-'+'d'*12
+        with self.assertRaises(ValueError): self.check()
+        self.row['currentGeneration']=self.active['sha256'][:12]
+        self.matrix['cells'][0]['key']['web']['capturePath']=(
+            f'materialProfile={self.receded["path"]} sha256:{self.receded["sha256"][:12]} '
+            f'recededProfile={self.active["path"]} sha256:{self.active["sha256"][:12]}')
+        self.repin_inputs()
+        with self.assertRaises(ValueError): self.check()
 
     def test_wrong_cell_or_contract_scope_is_refused(self):
         for mutate in (lambda p:p['row'].update(scene='other'),
@@ -125,8 +204,7 @@ class OwnerEvidence(unittest.TestCase):
         spec=importlib.util.spec_from_file_location('owner_prefit',HERE/'prefit.py')
         P=importlib.util.module_from_spec(spec); spec.loader.exec_module(P)
         original={**self.row,'status':'UNMEASURED','B':None,'support':'original owner scope',
-                  'role':'gate','currentDocumentPair':{'active':'a'},'currentGeneration':'g',
-                  'historical':[],'nativeEvidence':self.owner,'currentEvidence':self.reader}
+                  'role':'gate','historical':[]}
         completed={**original,'status':'MEASURED','ownerEvidence':self.evidence}
         keys=[[original[k] for k in KEY]]
         def check(row=completed):

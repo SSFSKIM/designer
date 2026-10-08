@@ -9,6 +9,7 @@ import gzip
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 
 AXES = {'M1', 'M2', 'C1', 'X1', 'L1', 'E2', 'coherence'}
@@ -135,6 +136,45 @@ class OwnerEvidence:
             if not same(at(evidence, rule['unless']['field']), rule['unless']['equals']):
                 require_numbers(evidence, rule['paths'])
 
+    def bind_current_reference(self, row, source, matrix_input, inputs, cell_id):
+        """Identity alone does not select a generation: bind both roles and actual pixels."""
+        profile = re.fullmatch(r'apple-macos-27\.0-[12]x-(light|dark)-standard-glass0\.(25|5)', row['profile'])
+        if not profile:
+            raise ValueError('Owner current reference profile is outside its original material scope')
+        pair = row.get('currentDocumentPair', {})
+        scheme = profile[1]
+        expected = {'materialProfile': pair.get(f'active.{scheme}'),
+                    'recededProfile': pair.get(f'receded.{scheme}')}
+        if any(not isinstance(v, str) or not re.fullmatch(r'[0-9a-f]{64}', v) for v in expected.values()):
+            raise ValueError('Original owner reference lacks its full role-bound document pair')
+        active, receded = expected['materialProfile'], expected['recededProfile']
+        # Ordinary and receded-only generation identities are both evidence conventions.
+        # The short name never substitutes for the full pair comparison below.
+        if row.get('currentGeneration') not in (active[:12], active[:12]+'-'+receded[:12]):
+            raise ValueError('Original owner generation identity differs from its document pair')
+        web = source['key']['web']
+        descriptors = re.findall(r'(materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})(?![0-9a-f])',
+                                 web.get('capturePath', ''))
+        if len(descriptors) != 2 or {r[0] for r in descriptors} != set(expected):
+            raise ValueError('Current matrix lacks exactly one descriptor for each document role')
+        capture = inputs.get('captures', {}).get(cell_id)
+        if not isinstance(capture, dict):
+            raise ValueError('Owner current reference lacks its original captured evidence')
+        for role, path, short in descriptors:
+            digest = expected[role]
+            if short != digest[:12] or matrix_input.get('documents', {}).get(path) != digest or \
+                    capture.get('documents', {}).get(path) != digest:
+                raise ValueError('Owner current matrix/capture document pair differs from original reference')
+            self.check({'path': path, 'sha256': digest})
+        for field, original in (('web', 'currentEvidence'), ('metadata', 'currentMetadata'),
+                                ('native', 'nativeEvidence')):
+            actual_pin, original_pin = capture.get(field), row.get(original)
+            actual_path, original_path = self.check(actual_pin), self.check(original_pin)
+            if actual_path != original_path or actual_pin['sha256'] != original_pin['sha256']:
+                raise ValueError(f'Owner {field} capture pin differs from original {original}')
+        if not same(self.read(capture['metadata']), web):
+            raise ValueError('Original captured metadata differs from the selected current matrix row')
+
     def validate(self, row, evidence_pin):
         projection = self.read(evidence_pin)
         identity = {k: row[k] for k in KEY}
@@ -158,10 +198,12 @@ class OwnerEvidence:
             matrix = self.read(item['matrix'])
             if matrix.get('schemaVersion') != 5 or not isinstance(matrix.get('cells'), list):
                 raise ValueError('Owner inputs require the original schema-5 current matrices')
-            source_rows += [r for r in matrix['cells'] if r['key']['profileKey'] == row['profile'] and
+            source_rows += [(r, item) for r in matrix['cells'] if r['key']['profileKey'] == row['profile'] and
                            r['key']['web']['renderer'] == row['renderer'] and r['key']['sceneId'] == row['scene']]
         if len(source_rows) != 1:
             raise ValueError('Owner reference is absent or ambiguous in pinned current matrices')
+        source_row, matrix_input = source_rows[0]
+        self.bind_current_reference(row, source_row, matrix_input, inputs, cell_id)
         raw = report.get('cells', {}).get(cell_id)
         if not isinstance(raw, dict) or set(raw) != AXES or set(projection.get('axes', {})) != AXES:
             raise ValueError('Owner evidence adds or drops an original axis')
@@ -176,7 +218,7 @@ class OwnerEvidence:
         if raw['M1']['state'] != 'NOT_APPLICABLE':
             position = .25 if row['profile'].endswith('-glass0.25') else .5
             scheme = 'dark' if '-dark-' in row['profile'] else 'light'
-            aggregates.append(f'M1/{position}/{scheme}/{source_rows[0]["state"]}')
+            aggregates.append(f'M1/{position}/{scheme}/{source_row["state"]}')
         if raw['C1']['state'] != 'NOT_APPLICABLE': aggregates.append('C1')
         if projection.get('aggregateKeys') != aggregates:
             raise ValueError('Owner projection omits or changes a required complete-bed aggregate')
