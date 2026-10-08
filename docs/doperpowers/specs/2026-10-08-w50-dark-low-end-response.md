@@ -447,7 +447,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5l are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5m are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -627,6 +627,26 @@ keys, with a test that a radius change still refuses, rereads once, with read 1'
 rows as a byte-level non-regression witness. Accepted as a reference-evidence recovery: no
 candidate, selection or blind value existed. A recovery of that kind, done the same way, needs
 no ruling; it is reported.
+
+DL5m (parent, 2026-10-09, before the LIVE root seal). The judge's six DECISION points in
+`judge/live.py`:
+1. Confirmed: the 105 dark-solid/impulse low-end path cells inside the owner referee's 745-cell
+   context have their per-cell owner verdicts (X1, L1, ...) gated (clause 4, DL5e).
+2. Confirmed: an M2 named miss that would need a new owner record is FAIL; exclusions are never
+   widened.
+3. Confirmed: input 64 passes only on the numerical referee's `fixedJoinPass` (DL5j); the
+   rendered difference at 64 is recorded, not gated; an unmeasured 64 blocks.
+4. Changed: a DL5a/b/c REPORTED key whose reading is incomplete or non-finite is recorded
+   UNMEASURED_REPORTED with its cause and does NOT change the verdict, because those keys never
+   gate. The report validator admits that status for exactly those enumerated keys. A missing or
+   corrupt capture still blocks through the gated rows read from the same capture, which are
+   UNMEASURED themselves. Tests cover both sides.
+5. Confirmed: the owner union needs every owner aggregate within, C1 present, X75's twelve entries
+   within, and X76's 0.25 and 0.5 records.
+6. Confirmed: the six W48 T1 targets (C rest, F inactive, P with both poses pooled, per scale,
+   every role), each cell against its G0 `fidelity.reference` (d0219 W48), epsilon the W49a cut's
+   code, never B; the current-as-candidate self-check reading all six WITHIN is the expected
+   witness.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
