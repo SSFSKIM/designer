@@ -1,0 +1,833 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "newBedRendererAdapter",
+ "status": "PASS",
+ "establishes": "The custom 512x384 new-bed compare/measurement adapter (DL5f border-box host, DL5h repeat admission) exists, is sealed with its exercised source closure, and has produced the completed current chain the references were assembled from (README pre-fit clause; \u00a75.217 \u00a74; Revision Notes G1 attempt3).",
+ "boundary": "No capture or current read was rerun; tests use synthetic inputs and roots are hash-verified only.",
+ "builtFrom": {
+  "gitHead": "9ab03c54cb9c0d47c7ae88f714281e112dbc3ab9",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "web-current-tests",
+   "status": "PASS",
+   "verifies": "New-bed web adapter current.test.ts.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "--test",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/current.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "\u2139 pass 2",
+    "\u2139 fail 0"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-current-tests.log",
+    "sha256": "dc9e558c2633af0f1cdbf60784b2b11f94e46bbcab33246b754f95a88cd2e307"
+   }
+  },
+  {
+   "id": "web-pair-tests",
+   "status": "PASS",
+   "verifies": "New-bed web adapter pair.test.ts.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "--test",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/pair.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "\u2139 pass 1",
+    "\u2139 fail 0"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-pair-tests.log",
+    "sha256": "77d047040ac4372ce5aabeb69a18bfe2782c49568264872850c98085bec747f5"
+   }
+  },
+  {
+   "id": "web-host-tests",
+   "status": "PASS",
+   "verifies": "New-bed web adapter host.test.mjs.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "--test",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/host.test.mjs"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "\u2139 pass 2",
+    "\u2139 fail 0"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-host-tests.log",
+    "sha256": "2b10b8728c55e0d28ee610c8097569a197ab513d6a99beb9b59e988554c3b5fc"
+   }
+  },
+  {
+   "id": "web-guard-tests",
+   "status": "PASS",
+   "verifies": "New-bed web adapter guard.test.mjs.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "--test",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/guard.test.mjs"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "\u2139 pass 46",
+    "\u2139 fail 0"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-guard-tests.log",
+    "sha256": "2e161752d2cb89cb40c8b257fc967a72b57566f783ee118bcf428d2e2a020a6a"
+   }
+  },
+  {
+   "id": "web-discovery-tests",
+   "status": "PASS",
+   "verifies": "New-bed web adapter discovery.test.mjs.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "--test",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/discovery.test.mjs"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "\u2139 pass 4",
+    "\u2139 fail 0"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-discovery-tests.log",
+    "sha256": "20cbb4247b8b8565989b31dea167f5e5acfba9ec96a57f2d74dcd31f09580fcf"
+   }
+  },
+  {
+   "id": "current3-web-test_adapter",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/web/test_adapter.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/test_adapter.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/web",
+   "exitCode": 0,
+   "matched": [
+    "Ran 13 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-web-test_adapter.log",
+    "sha256": "0fe5cb662bfff14a9884376c5dc9b13021e73aa15d1c18bc3ecfc2226a9f364f"
+   }
+  },
+  {
+   "id": "current3-canonical-test_adapter",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/canonical/test_adapter.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/test_adapter.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/canonical",
+   "exitCode": 0,
+   "matched": [
+    "Ran 13 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-canonical-test_adapter.log",
+    "sha256": "e018d53c83c76dd979c299e3dd9b8fdb4882986a60b3212dc41402531362ee95"
+   }
+  },
+  {
+   "id": "current3-repeat-test_admission",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_admission.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_admission.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_admission.log",
+    "sha256": "38f4be995c1bb305dc5d7f1c806efbe264aa65ec6a86669aa31361674503f9a3"
+   }
+  },
+  {
+   "id": "current3-repeat-test_archived",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_archived.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_archived.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat",
+   "exitCode": 0,
+   "matched": [
+    "Ran 3 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_archived.log",
+    "sha256": "edaea244b13bb4717b5b983ad9b89832b6e95a6eedf4961aefae3124c6d3892e"
+   }
+  },
+  {
+   "id": "current3-repeat-test_blind",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_blind.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_blind.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat",
+   "exitCode": 0,
+   "matched": [
+    "Ran 4 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_blind.log",
+    "sha256": "44deff6c962116fb626a05ba823679fb86c40d84ff79da7a47e8c3b3fe217f33"
+   }
+  },
+  {
+   "id": "current3-repeat-test_core",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_core.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_core.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat",
+   "exitCode": 0,
+   "matched": [
+    "Ran 7 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_core.log",
+    "sha256": "83166b089fbcb82fac63f22522fa6ae99bb5e46368cd35d756277fd463dd6346"
+   }
+  },
+  {
+   "id": "current3-repeat-test_source_probe",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_source_probe.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_source_probe.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat",
+   "exitCode": 0,
+   "matched": [
+    "Ran 1 test in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_source_probe.log",
+    "sha256": "d5a25ae826210340490e7b125f29991fa9ec9eb21bad1296937fc254c2f886a9"
+   }
+  },
+  {
+   "id": "current3-repeat-test_sources",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_sources.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/test_sources.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat",
+   "exitCode": 0,
+   "matched": [
+    "Ran 7 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_sources.log",
+    "sha256": "c0efbe389cd9bac35a255afc5fd7287f78c3c35dac73233665f2abc4fdc89fbd"
+   }
+  },
+  {
+   "id": "current3-execution-test_recovery",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_recovery.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_recovery.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_recovery.log",
+    "sha256": "d03e5adb3162827585e08dfac6cb5510f79ad947ba99c6ba006941214b592a1c"
+   }
+  },
+  {
+   "id": "current3-execution-test_retained",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_retained.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_retained.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 5 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_retained.log",
+    "sha256": "6299c61ecefc2c6e262ba2dccd92b35e4ade4e41b723fe2eac602dbd7b324b98"
+   }
+  },
+  {
+   "id": "current3-execution-test_root_recovery",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_root_recovery.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_root_recovery.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 4 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_root_recovery.log",
+    "sha256": "dea181e21530bb85ef6977bc2c475f4d3b81a96ccb0d72656192a6d549790b6f"
+   }
+  },
+  {
+   "id": "current3-execution-test_router_recovery",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_router_recovery.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/test_router_recovery.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-current3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_router_recovery.log",
+    "sha256": "24f205aa33ee6b869cc69f97f0a597b23995ab8ce12bd9f4388f488487a5c70a"
+   }
+  },
+  {
+   "id": "canonical3-execution-test_composition",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_composition.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_composition.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 3 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_composition.log",
+    "sha256": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4"
+   }
+  },
+  {
+   "id": "canonical3-execution-test_dispatch",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_dispatch.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_dispatch.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_dispatch.log",
+    "sha256": "2488bbdb0d318b70d48e56d76da1feea34b04e097d9da5f46c405a3ef26bf324"
+   }
+  },
+  {
+   "id": "canonical3-execution-test_evidence",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_evidence.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_evidence.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_evidence.log",
+    "sha256": "28ac24320688cdd1b685720ae2f389ef328c5441ac38e8c41077a11639833467"
+   }
+  },
+  {
+   "id": "canonical3-execution-test_invocation",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_invocation.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_invocation.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 2 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_invocation.log",
+    "sha256": "445259e6364dfbbfa72f3fb9f9218e6dcae7c515547742e8f6df968f925c765e"
+   }
+  },
+  {
+   "id": "canonical3-execution-test_recovery",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_recovery.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/test_recovery.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution",
+   "exitCode": 0,
+   "matched": [
+    "Ran 7 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_recovery.log",
+    "sha256": "9ec9e3c52e7908b746c625587944c7e1eb71f90fc834fbb4527d510523684dd2"
+   }
+  },
+  {
+   "id": "g1fit-current-analysis-composed-test_analysis",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/test_analysis.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/test_analysis.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed",
+   "exitCode": 0,
+   "matched": [
+    "Ran 5 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/g1fit-current-analysis-composed-test_analysis.log",
+    "sha256": "f1e81a091fb7d467ea9489cf20f66385c7da3062d767e6f43ef8343e5a987809"
+   }
+  },
+  {
+   "id": "g1fit-current-analysis-composed-test_archived",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/test_archived.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/test_archived.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed",
+   "exitCode": 0,
+   "matched": [
+    "Ran 3 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/g1fit-current-analysis-composed-test_archived.log",
+    "sha256": "fe49f552b395905d9fcf10cb667dca7548eaec0e67717f992d26c1a905fe739d"
+   }
+  },
+  {
+   "id": "g1fit-current-analysis-composed-test_run",
+   "status": "PASS",
+   "verifies": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/test_run.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/test_run.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed",
+   "exitCode": 0,
+   "matched": [
+    "Ran 5 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/g1fit-current-analysis-composed-test_run.log",
+    "sha256": "c5482fc158fe87c8ab6b9c2e80b5a883e75b29d226d06ef73ad9ada708841100"
+   }
+  },
+  {
+   "id": "instrument-roots",
+   "status": "PASS",
+   "verifies": "The current3 (new-bed 512x384), canonical3 and composed-analysis roots are sealed and every source/closure/capture pin inside still hashes.",
+   "function": "instrument_roots",
+   "summary": {
+    "roots": [
+     {
+      "root": "current3 root",
+      "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44",
+      "repoPinsVerified": 876,
+      "externalPinsVerified": 3969,
+      "guardedPinsNotOpened": 0
+     },
+     {
+      "root": "canonical3 root",
+      "sha256": "849e137f82b544c56baa20088e39d563ea060e3f6401c25781ba1099956b0ab6",
+      "repoPinsVerified": 92,
+      "externalPinsVerified": 20,
+      "guardedPinsNotOpened": 0
+     },
+     {
+      "root": "composed analysis root",
+      "sha256": "0b140dfda703b8d352f2567a490ce644892c361f72845700901a8d14a6b943c3",
+      "repoPinsVerified": 48,
+      "externalPinsVerified": 0,
+      "guardedPinsNotOpened": 0
+     }
+    ]
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/instrument-roots.json",
+    "sha256": "e74c3409f8418f92c45dc74112b8315df4053e5d864480ca62bded4402e4aa44"
+   }
+  },
+  {
+   "id": "new-bed-result-chain",
+   "status": "PASS",
+   "verifies": "The new-bed current batch result (20b7422c...) is CAPTURED with 672 logical captures (501 retained + 171 fresh, DL5h) and every capture/repeat receipt pin hashes.",
+   "function": "new_bed_result_chain",
+   "summary": {
+    "resultSha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d",
+    "captures": 672,
+    "origins": {
+     "retainedAttempt2": 501,
+     "freshAttempt3": 171
+    },
+    "receiptPinsVerified": 3385
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/new-bed-result-chain.json",
+    "sha256": "cf2e325f59db68dbeec5b0d050e28dc46144d7325c9e3a79434311a9b71711e5"
+   }
+  },
+  {
+   "id": "composed-analysis-archive",
+   "status": "PASS",
+   "verifies": "The composed current analysis (the adapter's exercised measurement over both real chains) is archived exactly and names its root.",
+   "function": "composed_analysis_archive",
+   "summary": {
+    "completedCurrentSha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+    "summary": {
+     "referenceEvidenceRows": 1632,
+     "numericalArguments": 787,
+     "canonicalMissingT1Routes": 12,
+     "actualRoots": 2
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/composed-analysis-archive.json",
+    "sha256": "4028297955c66619484798f58b1038e92122d6b2862169affee652cc385a4fd3"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+   "sha256": "70d23fee4fdbb514f107d746fbc425286d13b5b1bf8f7004458aaada34291f46"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json",
+   "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json.sha256",
+   "sha256": "ca879823375b6c29994bf47d74221208958f6f12143f48fafd3b473b5116834e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument-root.json",
+   "sha256": "849e137f82b544c56baa20088e39d563ea060e3f6401c25781ba1099956b0ab6"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument-root.json.sha256",
+   "sha256": "8a6f34b5ec26b90416e82aeca98d33892bca80cef2a31d990f9a051857b51c04"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/instrument-root.json",
+   "sha256": "0b140dfda703b8d352f2567a490ce644892c361f72845700901a8d14a6b943c3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/instrument-root.json.sha256",
+   "sha256": "37349d306e771489b3aa9986a887b3672ec042ec8f1d626ca01ff08f398894ab"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json",
+   "sha256": "6f6be35b1a8a25b78e9c0c787a5f0a532440c4408923a11fa84ec5aff0f46d55"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.result.json",
+   "sha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.result.json.sha256",
+   "sha256": "90161c79ab0f9aac122605ee256d1dbbfab0943a0222228477021410fd3136e3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/web/adapter.py",
+   "sha256": "e5fa6c51694deee54b2a208e547cee24f6777fc208aa3a7cbcb308984f62c621"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/web/capture-web.ts",
+   "sha256": "db0491f1d09acf7db8377c682ae05ba00fa9b90155befa3c9eff84ba2b2be7b3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/web/current.ts",
+   "sha256": "d745509bf31aa49f516def418e9886be91e923e2624c0d4d0f0f02783d97f3f2"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/web/host.mjs",
+   "sha256": "1be0459f916ba31756512624d6e262ea427d080b531256cff716b9013ba33609"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/web/pair.ts",
+   "sha256": "e23262c7d2ca3a4787046b2dd83248d805d0fca200a8e11528f6d6e03b8980db"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py",
+   "sha256": "c1ed09042ef0093d5954b50a1ac9557fad29f0df7ed5284b2a55f50904f1aaed"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py",
+   "sha256": "55d7b30077c959d643cdd9e22e3d027aa5e49bdb71b5e468695927b30fab3f39"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/core.py",
+   "sha256": "f6d64fe00883dcf28605da7c7ab683eee4b5296acf2ca9444eaa492675200b6e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+   "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/current-python-closure.json",
+   "sha256": "7e6a0527dfa1ed3022bda17044915451d1ae479d3b781b82d2a41a6106a6d23e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/analysis.py",
+   "sha256": "96650826aa67e2fd75354d672a0ba3f4f760a9d27c5af51ce717ec41a56c2536"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/run.py",
+   "sha256": "e95ed27c6bd917b6ceaad05851b42307625e6ca5281d53b237a9562323926033"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/archive.json",
+   "sha256": "521126e0692714a687807917fc6dada031cffc93884ff5cd1b24e0db6239f842"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz",
+   "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+   "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-current-tests.log",
+   "sha256": "dc9e558c2633af0f1cdbf60784b2b11f94e46bbcab33246b754f95a88cd2e307"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-pair-tests.log",
+   "sha256": "77d047040ac4372ce5aabeb69a18bfe2782c49568264872850c98085bec747f5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-host-tests.log",
+   "sha256": "2b10b8728c55e0d28ee610c8097569a197ab513d6a99beb9b59e988554c3b5fc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-guard-tests.log",
+   "sha256": "2e161752d2cb89cb40c8b257fc967a72b57566f783ee118bcf428d2e2a020a6a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/web-discovery-tests.log",
+   "sha256": "20cbb4247b8b8565989b31dea167f5e5acfba9ec96a57f2d74dcd31f09580fcf"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-web-test_adapter.log",
+   "sha256": "0fe5cb662bfff14a9884376c5dc9b13021e73aa15d1c18bc3ecfc2226a9f364f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-canonical-test_adapter.log",
+   "sha256": "e018d53c83c76dd979c299e3dd9b8fdb4882986a60b3212dc41402531362ee95"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_admission.log",
+   "sha256": "38f4be995c1bb305dc5d7f1c806efbe264aa65ec6a86669aa31361674503f9a3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_archived.log",
+   "sha256": "edaea244b13bb4717b5b983ad9b89832b6e95a6eedf4961aefae3124c6d3892e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_blind.log",
+   "sha256": "44deff6c962116fb626a05ba823679fb86c40d84ff79da7a47e8c3b3fe217f33"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_core.log",
+   "sha256": "83166b089fbcb82fac63f22522fa6ae99bb5e46368cd35d756277fd463dd6346"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_source_probe.log",
+   "sha256": "d5a25ae826210340490e7b125f29991fa9ec9eb21bad1296937fc254c2f886a9"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-repeat-test_sources.log",
+   "sha256": "c0efbe389cd9bac35a255afc5fd7287f78c3c35dac73233665f2abc4fdc89fbd"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_recovery.log",
+   "sha256": "d03e5adb3162827585e08dfac6cb5510f79ad947ba99c6ba006941214b592a1c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_retained.log",
+   "sha256": "6299c61ecefc2c6e262ba2dccd92b35e4ade4e41b723fe2eac602dbd7b324b98"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_root_recovery.log",
+   "sha256": "dea181e21530bb85ef6977bc2c475f4d3b81a96ccb0d72656192a6d549790b6f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/current3-execution-test_router_recovery.log",
+   "sha256": "24f205aa33ee6b869cc69f97f0a597b23995ab8ce12bd9f4388f488487a5c70a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_composition.log",
+   "sha256": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_dispatch.log",
+   "sha256": "2488bbdb0d318b70d48e56d76da1feea34b04e097d9da5f46c405a3ef26bf324"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_evidence.log",
+   "sha256": "28ac24320688cdd1b685720ae2f389ef328c5441ac38e8c41077a11639833467"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_invocation.log",
+   "sha256": "445259e6364dfbbfa72f3fb9f9218e6dcae7c515547742e8f6df968f925c765e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/canonical3-execution-test_recovery.log",
+   "sha256": "9ec9e3c52e7908b746c625587944c7e1eb71f90fc834fbb4527d510523684dd2"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/g1fit-current-analysis-composed-test_analysis.log",
+   "sha256": "f1e81a091fb7d467ea9489cf20f66385c7da3062d767e6f43ef8343e5a987809"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/g1fit-current-analysis-composed-test_archived.log",
+   "sha256": "fe49f552b395905d9fcf10cb667dca7548eaec0e67717f992d26c1a905fe739d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/g1fit-current-analysis-composed-test_run.log",
+   "sha256": "c5482fc158fe87c8ab6b9c2e80b5a883e75b29d226d06ef73ad9ada708841100"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/instrument-roots.json",
+   "sha256": "e74c3409f8418f92c45dc74112b8315df4053e5d864480ca62bded4402e4aa44"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/new-bed-result-chain.json",
+   "sha256": "cf2e325f59db68dbeec5b0d050e28dc46144d7325c9e3a79434311a9b71711e5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/newBedRendererAdapter/composed-analysis-archive.json",
+   "sha256": "4028297955c66619484798f58b1038e92122d6b2862169affee652cc385a4fd3"
+  }
+ ]
+}

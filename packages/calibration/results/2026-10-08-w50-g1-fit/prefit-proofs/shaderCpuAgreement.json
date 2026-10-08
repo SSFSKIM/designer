@@ -1,0 +1,76 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "shaderCpuAgreement",
+ "status": "PASS",
+ "establishes": "Shader/CPU agreement has its own <=1e-3 encoded output code precision bound (landing rule 1; part 2 shaderCpuMaxErrorCode 0.001; \u00a75.217 \u00a71).",
+ "boundary": "A synthetic chart on the production functions; no candidate document was rendered.",
+ "builtFrom": {
+  "gitHead": "9ab03c54cb9c0d47c7ae88f714281e112dbc3ab9",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "gpu-w50-low-end",
+   "status": "PASS",
+   "verifies": "On a hardware adapter: the production WGSL chart agrees with the CPU within 0.001 encoded code, and the uniform block reaches the body while every old solve gate holds.",
+   "command": [
+    "pnpm",
+    "exec",
+    "playwright",
+    "test",
+    "e2e/gpu/w50-low-end.spec.ts",
+    "--project=chromium-gpu"
+   ],
+   "cwd": "packages/renderer-webgpu",
+   "exitCode": 0,
+   "matched": [
+    "\n  2 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/shaderCpuAgreement/gpu-w50-low-end.log",
+    "sha256": "c031d752d7868f2b4a8b51b7d127b9d14d68b924b37576ffcee00a5d44bd86f2"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+   "sha256": "70d23fee4fdbb514f107d746fbc425286d13b5b1bf8f7004458aaada34291f46"
+  },
+  {
+   "path": "packages/renderer-webgpu/e2e/gpu/w50-low-end.spec.ts",
+   "sha256": "edf32dcc0df88608c281bb2bf8e3adebc5c6001a0a24d64817ffbe93faf8fdd5"
+  },
+  {
+   "path": "packages/renderer-webgpu/e2e/support.ts",
+   "sha256": "42c811221ca6558d7347392ba0ad1781c8398b46350de67309e80288a5f93f29"
+  },
+  {
+   "path": "packages/renderer-webgpu/src/material.ts",
+   "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+  },
+  {
+   "path": "packages/renderer-webgpu/src/wgsl/optics.ts",
+   "sha256": "247e49336cb3a7194e89e1dc1c9a8a7654dcfb3311bbc678d220c99fb503f673"
+  },
+  {
+   "path": "packages/renderer-webgpu/src/renderer.ts",
+   "sha256": "147179f39a976ff2669c14051f2aa288940cd028d1f25a658ea52fef4e483177"
+  },
+  {
+   "path": "packages/renderer-webgpu/playwright.config.ts",
+   "sha256": "d21644153fedeb4701762c677b10efb9eafaf0155bfef625c2662204f577144e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.json",
+   "sha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/shaderCpuAgreement/gpu-w50-low-end.log",
+   "sha256": "c031d752d7868f2b4a8b51b7d127b9d14d68b924b37576ffcee00a5d44bd86f2"
+  }
+ ]
+}

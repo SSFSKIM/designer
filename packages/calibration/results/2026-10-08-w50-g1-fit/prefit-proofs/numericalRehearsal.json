@@ -1,0 +1,230 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "numericalRehearsal",
+ "status": "PASS",
+ "establishes": "G0's numerical rehearsal: the composed pre-quantised CPU uniform response meets the running-drawdown bound <=1e-4 code over the full declared domain with the fixed64 join and every stand-down intact (landing rule 1; part 2 monotonicity; \u00a75.217 \u00a71 and \u00a76). Synthetic on-state proofs, not a fitted candidate's numericalReferee.",
+ "boundary": "Synthetic profile only; no candidate, measured argument or native value.",
+ "builtFrom": {
+  "gitHead": "9ab03c54cb9c0d47c7ae88f714281e112dbc3ab9",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "numerical-standalone-tests",
+   "status": "PASS",
+   "verifies": "audit/numerical.test.ts: the ten standalone producer tests in authorised (post-seal) runtime mode.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "--test",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "\u2139 pass 10",
+    "\u2139 fail 0"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/numerical-standalone-tests.log",
+    "sha256": "0bbf52d02b04e1c00409469731a72187ea516125df4137074ff03bc3fa935315"
+   }
+  },
+  {
+   "id": "numerical-guard-tests",
+   "status": "PASS",
+   "verifies": "audit/numerical_guard.py consumer pins (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/audit/test_numerical_guard.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit",
+   "exitCode": 0,
+   "matched": [
+    "Ran 9 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/numerical-guard-tests.log",
+    "sha256": "442472d7d7b59752f156a0a55696bcc64635a6b61581b88f37c0ca0632b2b866"
+   }
+  },
+  {
+   "id": "full-synthetic-sweep",
+   "status": "PASS",
+   "verifies": "The full declared domain (0-64 at 1/64 code, spans 32-224, both scales/positions/poses) through the sealed producer reproduces G0's record exactly: 6,325,768 samples, zero running drawdown, minimum neutral 0.008744262734081729, fixed join and stand-downs intact; UNMEASURED without measured arguments.",
+   "function": "full_synthetic_sweep",
+   "summary": {
+    "status": "UNMEASURED",
+    "samples": 6325768,
+    "maxRunningDrawdownCode": 0,
+    "minimumRequestedNeutral": 0.008744262734081729,
+    "fixedJoinPass": true,
+    "standDownPass": true,
+    "structuredArgumentPass": false,
+    "negativeRequests": [],
+    "structuredCoverage": [],
+    "scope": "Numerical eligibility only; measured structured identities are not a claim of complete native identification",
+    "wallSeconds": 10.122435875
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/full-synthetic-sweep.json",
+    "sha256": "c5cb284fb29ade6822231b5f2712eae77912547b5bc5663dfecae50c60039af3"
+   }
+  },
+  {
+   "id": "css-low-end-unit",
+   "status": "PASS",
+   "verifies": "CSS low-end law: interpolation, fixed64 join, authority, drawdown referee, stand-downs.",
+   "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/w50-low-end.test.ts"
+   ],
+   "cwd": "packages/platform-web",
+   "exitCode": 0,
+   "matched": [
+    "Tests  10 passed",
+    "Test Files  1 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/css-low-end-unit.log",
+    "sha256": "8af0fe9f1584611337467d657a7fa71ff53a1b53766c4c1be7a5cae78c1a6f77"
+   }
+  },
+  {
+   "id": "renderer-low-end-unit",
+   "status": "PASS",
+   "verifies": "Renderer chart: identity drop, actual-span join, validation.",
+   "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/w50-low-end.test.ts"
+   ],
+   "cwd": "packages/renderer-webgpu",
+   "exitCode": 0,
+   "matched": [
+    "Tests  4 passed",
+    "Test Files  1 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/renderer-low-end-unit.log",
+    "sha256": "6b2886b9ce1337678163acf5baf9f86e85f351265d04e5869b2c354a072b6c7d"
+   }
+  },
+  {
+   "id": "candidate-reader-unit",
+   "status": "PASS",
+   "verifies": "Candidate chart reader across the real document reader.",
+   "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/w50-candidate-reader.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "Tests  2 passed",
+    "Test Files  1 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/candidate-reader-unit.log",
+    "sha256": "5c4601309c36eb2da3b16aac4c3eb149370f719ba9fb5a8243e0fefdd217652c"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+   "sha256": "70d23fee4fdbb514f107d746fbc425286d13b5b1bf8f7004458aaada34291f46"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical.ts",
+   "sha256": "ca52b9ab11ab6119127d50994213b92d35b30bf295ccd8765cb9d5c4883211ed"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical.test.ts",
+   "sha256": "0b16b55184ced9ebd37dd88d348c48eee045f3e2f6411cffc4a349e301c388fd"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical_guard.py",
+   "sha256": "cb1641bae5a95cbcf52bac8d6e92959f3930a066dcca29facc5440eabf08eee5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/test_numerical_guard.py",
+   "sha256": "1ed696030fc71b766aed32b44615ab9907f9a9847684f1c8aa4718209f3b6a57"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/runtime-closure.json",
+   "sha256": "215dd87202590b257c38fe992089a79cb30ba03dbd054dfb20aabdd227ff2188"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/synthetic-rehearsal.json",
+   "sha256": "4d7b64bb16eac1f8c7ba4f99126ef3d6e7ab1d30c80261522490b3e020886349"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/synthetic-sweep.ts",
+   "sha256": "e92ab477471834aaeeb3c08c26b9aeaf62aa2f5ae287335b063507cfc35f851f"
+  },
+  {
+   "path": "packages/platform-web/src/optics.ts",
+   "sha256": "c18419bfd3ad282f665a6992e813fb5d867ab339f6dbcd72dc443f3684ef3303"
+  },
+  {
+   "path": "packages/platform-web/test/w50-low-end.test.ts",
+   "sha256": "42060ee62344328b4c43abddc6217988b0a2b8e87efc2e33a971496cfac74f22"
+  },
+  {
+   "path": "packages/renderer-webgpu/src/material.ts",
+   "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+  },
+  {
+   "path": "packages/renderer-webgpu/test/w50-low-end.test.ts",
+   "sha256": "6a493171d027c14fce03f34bd16d6c87bf421526a874a3b8e33a55ce0abbacb8"
+  },
+  {
+   "path": "packages/calibration/test/w50-candidate-reader.test.ts",
+   "sha256": "b3f3329baa12d5a39e5ff048297b97d6ab4d5691f8cd571f248252c87153bac6"
+  },
+  {
+   "path": "packages/calibration/scripts/candidate-document.ts",
+   "sha256": "4fa446e827ee4ecd69b53dd06099b486ac0effa803242b9a6d0c237f5b659c8b"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/numerical-standalone-tests.log",
+   "sha256": "0bbf52d02b04e1c00409469731a72187ea516125df4137074ff03bc3fa935315"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/numerical-guard-tests.log",
+   "sha256": "442472d7d7b59752f156a0a55696bcc64635a6b61581b88f37c0ca0632b2b866"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/full-synthetic-sweep.json",
+   "sha256": "c5cb284fb29ade6822231b5f2712eae77912547b5bc5663dfecae50c60039af3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/css-low-end-unit.log",
+   "sha256": "8af0fe9f1584611337467d657a7fa71ff53a1b53766c4c1be7a5cae78c1a6f77"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/renderer-low-end-unit.log",
+   "sha256": "6b2886b9ce1337678163acf5baf9f86e85f351265d04e5869b2c354a072b6c7d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/numericalRehearsal/candidate-reader-unit.log",
+   "sha256": "5c4601309c36eb2da3b16aac4c3eb149370f719ba9fb5a8243e0fefdd217652c"
+  }
+ ]
+}

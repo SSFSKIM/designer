@@ -1,0 +1,210 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "nativeArchive",
+ "status": "PASS",
+ "establishes": "The G1a native sitting is archived by hash before fitting (charter \"Archive by hash before fitting\"; \u00a75.217 \u00a78-9): 40 admitted runs, 1,600 frames, all 16 bridges agree, published as release w50-archive and re-verified here by compressed-asset SHA-256, with the identification read bound to the same archive record.",
+ "boundary": "Hash verification only: no archive was decompressed or extracted and no blind frame, thumbnail or statistic was opened (DL5k).",
+ "builtFrom": {
+  "gitHead": "9ab03c54cb9c0d47c7ae88f714281e112dbc3ab9",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "archive-wrapper-synthetic-tests",
+   "status": "PASS",
+   "verifies": "The G1a archive wrapper refuses incomplete admission, changed bridge reports and unbridged closes on synthetic inputs (\u00a75.217 \u00a78: 11 tests).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-sitting/test_archive_finished.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-sitting",
+   "exitCode": 0,
+   "matched": [
+    "Ran 11 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/archive-wrapper-synthetic-tests.log",
+    "sha256": "1281c86bde7dcb9d038bd45471cd29e21f4f919d4e73fa17b2a9567055116c35"
+   }
+  },
+  {
+   "id": "sitting-records-agree",
+   "status": "PASS",
+   "verifies": "attempt-02-complete, pack, local and release verification records name one admitted 1,600-frame bridged archive (\u00a75.217 \u00a78-9).",
+   "function": "sitting_records_agree",
+   "summary": {
+    "admittedRuns": 40,
+    "frames": 1600,
+    "bridgesAgree": 16,
+    "archiveSha256": "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+    "indexSha256": "71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191",
+    "files": 2624,
+    "failedAttemptSha256": "86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/sitting-records-agree.json",
+    "sha256": "d445cb33950346c06806963cd4f1b66ff37930fa2f45635b0c143216d1c3e2e7"
+   }
+  },
+  {
+   "id": "release-assets-local-sha256",
+   "status": "PASS",
+   "verifies": "Both local copies of the release assets hash to SHA256SUMS; compressed bytes only, nothing decoded (DL5k).",
+   "function": "release_assets_local_sha256",
+   "summary": {
+    "assetsVerifiedByCompressedSha256": {
+     "/Users/new/vitrea-w50/w50-release": [
+      "86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560",
+      "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448"
+     ],
+     "/Users/new/vitrea-w50/w50-release-fetched": [
+      "86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560",
+      "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448"
+     ]
+    },
+    "decoded": false
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/release-assets-local-sha256.json",
+    "sha256": "ecc8bcf6bf27ef05b196178a942b97bbcf1995c4c2ed3d16f367e349e4805d87"
+   }
+  },
+  {
+   "id": "release-remote-redownload",
+   "status": "PASS",
+   "verifies": "A fresh download of release w50-archive matches SHA256SUMS and the committed record (compressed bytes only).",
+   "function": "release_remote_redownload",
+   "summary": {
+    "remoteDigests": {
+     "SHA256SUMS": "sha256:be8e8dcf1f135a52befdbb1162da909a9e5e5639f7979a053f678d0602c850d0",
+     "w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst": "sha256:a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+     "w50-failed-attempt1-86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560.tar.zst": "sha256:86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560"
+    },
+    "downloadedSha256": {
+     "w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst": "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+     "w50-failed-attempt1-86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560.tar.zst": "86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560",
+     "SHA256SUMS": "be8e8dcf1f135a52befdbb1162da909a9e5e5639f7979a053f678d0602c850d0"
+    },
+    "decoded": false
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/release-remote-redownload.json",
+    "sha256": "1082877a2a00f789217db61bc1c2f429e82d4308ac7288146c6efe7d37acf760"
+   }
+  },
+  {
+   "id": "identification-binds-archive",
+   "status": "PASS",
+   "verifies": "The sealed identification root pins the archive pack record, and its read opened only the calibration/validation exports.",
+   "function": "identification_binds_archive",
+   "summary": {
+    "root": "native identification root",
+    "sha256": "cdd283599e8dc625a561876c73a554d55a7a5aa95aff9f0455c8c95c50fd7e95",
+    "repoPinsVerified": 17,
+    "externalPinsVerified": 0,
+    "guardedPinsNotOpened": 0,
+    "rolesRead": [
+     "calibration",
+     "validation"
+    ],
+    "blindRoleRead": false,
+    "exportIndexSha256": {
+     "calibration": "ed4c939da8b870872ad56adcdc8d2f8eef3d232838134204cc4d0a5905a3d469",
+     "validation": "b292ddc95e9177244a62d47c47c09d20594ca1e0c724979162506aef2d12a7ab"
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/identification-binds-archive.json",
+    "sha256": "ce08b1a8967da11f3aab47fd50d560bb0abf0b5c4656a5fdfe0ebc619dbac153"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+   "sha256": "70d23fee4fdbb514f107d746fbc425286d13b5b1bf8f7004458aaada34291f46"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/archive_finished.py",
+   "sha256": "eeb805fd8b4a7949ca32db2a810d8347b20f6b4deaa4e0756cd547ebed67dbcd"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/test_archive_finished.py",
+   "sha256": "9892a326e268b093252d0a5e3eb565df59d4f2779c21b24b22505b83b3c9d2c1"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/attempt-02-complete.json",
+   "sha256": "fefe65713ca02a3641c732346b9632a823c6a5c110aa075e14eecd059f414ecc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/pack.json",
+   "sha256": "73572d2225b4a763856e7518c7b6ee77c348cad51d54d1a2d67f9fe443bfa8b5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/local-verification.json",
+   "sha256": "40a0b9355786a46b968a2ec16b673a49d38e1848c24111586f457cfca7ca34df"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/release-verification.json",
+   "sha256": "587f8830510693688c8d0c18cdc5afec1cdcdaecd8600b548355e83da796e1b5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/SHA256SUMS",
+   "sha256": "be8e8dcf1f135a52befdbb1162da909a9e5e5639f7979a053f678d0602c850d0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/release-notes.txt",
+   "sha256": "f13eac112e6d36a6df95919c25e5152fc853351a71ebacb5a4c4afee3207964e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/declaration.json",
+   "sha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.json",
+   "sha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/instrument-root.json",
+   "sha256": "cdd283599e8dc625a561876c73a554d55a7a5aa95aff9f0455c8c95c50fd7e95"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/instrument-root.json.sha256",
+   "sha256": "2a003c12a80f87031e5e893de635239ced572f96d479781149156d57bf4f7473"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-read.json.gz",
+   "sha256": "fab6f90bd70eeb24affc491cb86f502c5d7ae2980afda639f0c987819fec2905"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-exposed.json",
+   "sha256": "2d97a793de1e2bc8069a0a4823aff2a70dbf18b29b3b1d9d1ac0bea8400b292b"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/archive-wrapper-synthetic-tests.log",
+   "sha256": "1281c86bde7dcb9d038bd45471cd29e21f4f919d4e73fa17b2a9567055116c35"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/sitting-records-agree.json",
+   "sha256": "d445cb33950346c06806963cd4f1b66ff37930fa2f45635b0c143216d1c3e2e7"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/release-assets-local-sha256.json",
+   "sha256": "ecc8bcf6bf27ef05b196178a942b97bbcf1995c4c2ed3d16f367e349e4805d87"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/release-remote-redownload.json",
+   "sha256": "1082877a2a00f789217db61bc1c2f429e82d4308ac7288146c6efe7d37acf760"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/nativeArchive/identification-binds-archive.json",
+   "sha256": "ce08b1a8967da11f3aab47fd50d560bb0abf0b5c4656a5fdfe0ebc619dbac153"
+  }
+ ]
+}
