@@ -181,7 +181,7 @@ print(json.dumps(dict(sorted(seen.items()))))
 
 def assemble():
     current3 = D.sealed(FIT.parent/'2026-10-08-w50-g1-current3/execution/current-instrument-root.json')
-    binding = D.load(FIT/'completion/registered/binding.json')
+    binding = D.load(FIT/'completion/registered-2/binding.json')
     doc = {'schema': 'w50-g1-execution-root-1', 'repo': str(REPO), 'lifecycle': 'logical-phase-attempts-1',
            'quarantine': 'instrument-api-role-discipline-1', 'bootstrap': pin(LIVE/'dispatch.py'),
            'probe': pin(HERE/'probe.py'), 'recoveryRuling': pin(CANONICAL3/'inputs/dl5k-ruling.txt')}

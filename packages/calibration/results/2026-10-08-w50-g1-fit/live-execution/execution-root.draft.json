@@ -5,7 +5,7 @@
   "quarantine": "instrument-api-role-discipline-1",
   "bootstrap": {
     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/dispatch.py",
-    "sha256": "1ea18254b452568a171a3766685251e3ba1a3788d59a7cfdf1d671a67bc455c1"
+    "sha256": "71cdcfe17f4d61a6db1128d0cc5145fbb3fd40abc43115992243afdfcf806cc6"
   },
   "probe": {
     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/probe.py",
@@ -44953,8 +44953,8 @@
     ]
   ],
   "ownerContracts": {
-    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/contracts.json",
-    "sha256": "b8698df859c404c38ff8dd6df361015e459e5c2cf474f432913bc554260170a4"
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/contracts.json",
+    "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
   },
   "currentComposition": {
     "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
@@ -44992,7 +44992,7 @@
     "capture": {
       "entrypoint": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py",
-        "sha256": "d6b1c787712a267c3f0fc3881f25e5f91b2d3137694eb4d4508b077613a0ba8b"
+        "sha256": "0037b04ed2dc8454f1e0c8a065f747772e7613566510a15712d1bf5cc3c960ee"
       },
       "config": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture-config.json",
@@ -45002,7 +45002,7 @@
     "native": {
       "entrypoint": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native.py",
-        "sha256": "7138284f11ea2af0461c434988f30ba9cde0b04ca00bc7aa128e42152e7f911b"
+        "sha256": "8a8835c9ef11af9331a35cc22804db6bea886bd286437bf97d1e3b2fc1e46d46"
       },
       "config": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native-exposure-inputs.json",
@@ -45016,33 +45016,33 @@
       },
       "config": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/measurement-config.json",
-        "sha256": "c9fce45b1a44316ea79e628e9f53c3509f8bbaa9fdb676a5510012bbc1a430ca"
+        "sha256": "267ac5b6511d4ba85e816bff810eda27ca5d84e8224b0342b7ee60800fba431b"
       }
     },
     "owner": {
       "entrypoint": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner.py",
-        "sha256": "d6fc26e81d1d14732209cb1823f0efd96438abb2ad21784ba4020b117b166284"
+        "sha256": "bcee6932b116189524f0ca3a88a9a015ced2d62405869fdc8cac2567a410e736"
       },
       "config": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner-config.json",
-        "sha256": "553ff59ee5fb756e305b06380ed5a2572f0e6d319d7e287169052517eb828018"
+        "sha256": "33ad311e007ec2cfb993dbad5c1f6bad0166dcf93973cedf6d8ab2fdba3d709b"
       }
     },
     "judge": {
       "entrypoint": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py",
-        "sha256": "9e1256866ab4726e15a63137b9814f7a2bf47e18d7551816a2c5510468421415"
+        "sha256": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2"
       },
       "config": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/config.json",
-        "sha256": "8ccbc78a4e0d9201aa4540c3333e18e6951879a07e5f280c47f7965792374636"
+        "sha256": "6d2ed32d2a79fc45af1bca7fa9ae2564f0de4878e3762d9f3bf756c25caa306e"
       }
     },
     "fit": {
       "entrypoint": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live.py",
-        "sha256": "fc8ae82c1927725d060422221b0a4322cfa227a83faf9ed4158c6a4595283fdc"
+        "sha256": "5669f2f8699695051e47861785c6cdcb82bdaaa2f6990b4b1a162fd6343c943c"
       },
       "config": {
         "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/analysis-config.json",
@@ -45063,7 +45063,7 @@
   "inputs": [
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py",
-      "sha256": "d6b1c787712a267c3f0fc3881f25e5f91b2d3137694eb4d4508b077613a0ba8b"
+      "sha256": "0037b04ed2dc8454f1e0c8a065f747772e7613566510a15712d1bf5cc3c960ee"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture-config.json",
@@ -45079,7 +45079,7 @@
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native.py",
-      "sha256": "7138284f11ea2af0461c434988f30ba9cde0b04ca00bc7aa128e42152e7f911b"
+      "sha256": "8a8835c9ef11af9331a35cc22804db6bea886bd286437bf97d1e3b2fc1e46d46"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native-exposure-inputs.json",
@@ -45099,11 +45099,11 @@
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/measurement-config.json",
-      "sha256": "c9fce45b1a44316ea79e628e9f53c3509f8bbaa9fdb676a5510012bbc1a430ca"
+      "sha256": "267ac5b6511d4ba85e816bff810eda27ca5d84e8224b0342b7ee60800fba431b"
     },
     {
-      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json",
-      "sha256": "a85ef80a068915a2ed1b3170ecacca36c81b42a5b94c77c828539d6e6be39da6"
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+      "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
@@ -45127,35 +45127,35 @@
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner.py",
-      "sha256": "d6fc26e81d1d14732209cb1823f0efd96438abb2ad21784ba4020b117b166284"
+      "sha256": "bcee6932b116189524f0ca3a88a9a015ced2d62405869fdc8cac2567a410e736"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner-config.json",
-      "sha256": "553ff59ee5fb756e305b06380ed5a2572f0e6d319d7e287169052517eb828018"
+      "sha256": "33ad311e007ec2cfb993dbad5c1f6bad0166dcf93973cedf6d8ab2fdba3d709b"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner-runtime-closure.json",
-      "sha256": "edda6fff38cff734f74bda20ac354fe107377e5a0e99be5c0669aa2452fc35b5"
+      "sha256": "c3deb7defd29187011c55c2e4378f8b824b01eaf2966774ff1828f0c9b898255"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py",
-      "sha256": "9e1256866ab4726e15a63137b9814f7a2bf47e18d7551816a2c5510468421415"
+      "sha256": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/config.json",
-      "sha256": "8ccbc78a4e0d9201aa4540c3333e18e6951879a07e5f280c47f7965792374636"
+      "sha256": "6d2ed32d2a79fc45af1bca7fa9ae2564f0de4878e3762d9f3bf756c25caa306e"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
       "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
     },
     {
-      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/binding.json",
-      "sha256": "d68fc6ceb6df8ee7642f5000530e4dc6062fff6384b80c0527fec104265bfd69"
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+      "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
     },
     {
-      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/contracts.json",
-      "sha256": "b8698df859c404c38ff8dd6df361015e459e5c2cf474f432913bc554260170a4"
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/contracts.json",
+      "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/targets-config.json",
@@ -45166,8 +45166,12 @@
       "sha256": "f769ca417c4d2b18799f2488853a78215cc9cdcbdf650f7d6a6f30fb34913dbb"
     },
     {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/prepare.json",
+      "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+    },
+    {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live.py",
-      "sha256": "fc8ae82c1927725d060422221b0a4322cfa227a83faf9ed4158c6a4595283fdc"
+      "sha256": "5669f2f8699695051e47861785c6cdcb82bdaaa2f6990b4b1a162fd6343c943c"
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/analysis-config.json",
@@ -45338,6 +45342,26 @@
       "sha256": "bd14e087d15ef009271eff425a9058a3446159b17dea6925fa1ed7675ea02495"
     }
   ],
+  "liveInputs": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+      "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558",
+      "archive": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/completed-references.json.gz",
+        "sha256": "feabe6468dc4b390d4b2c0b5d3f3f950d7e4d523996a88fb6a902e4f1a6f0d5a"
+      },
+      "restore": "gunzip -c packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/completed-references.json.gz > packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json   # from the repository root"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+      "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+      "archive": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz",
+        "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50"
+      },
+      "restore": "gunzip -c packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz > packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json   # from the repository root"
+    }
+  ],
   "closure": {
     "sources": {
       "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py": "29d785ae6d50b6eb1857dfdf710466ebd3cd31ff4bc23d122cf1aa04e6c27291",
@@ -45379,38 +45403,39 @@
       "packages/calibration/results/2026-10-08-w50-g1-fit/exposure/prepare.py": "5be345abecc96b9ef8a30cecf277de5054004ed9aa0bd0ac20472d689bceeb2c",
       "packages/calibration/results/2026-10-08-w50-g1-fit/fit/execution.py": "59d08409ea2a4150d8b97ea2df6fc3c9605ddfd92a0cdebfa2a99e9d4ece86c6",
       "packages/calibration/results/2026-10-08-w50-g1-fit/fit/inputs.py": "38d7d446cd9fc8db789693926fc9bef2497490934bac52d7774d57405e86e1c0",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live.py": "fc8ae82c1927725d060422221b0a4322cfa227a83faf9ed4158c6a4595283fdc",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live.py": "5669f2f8699695051e47861785c6cdcb82bdaaa2f6990b4b1a162fd6343c943c",
       "packages/calibration/results/2026-10-08-w50-g1-fit/fit/uniform.py": "86a9f6794eaa624cd35f378cafdca9e481bcf61439326b08e9ef614b05408279",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py": "9e1256866ab4726e15a63137b9814f7a2bf47e18d7551816a2c5510468421415",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2",
       "packages/calibration/results/2026-10-08-w50-g1-fit/judge/numerical.py": "b8dce9e947a98661c51927b41450b544ae68640e71dad3089dcb0e72737b5af2",
       "packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py": "840302e6caaa75044206a2960b257f17c057b1a3ce93c6bf877c92747049398d",
       "packages/calibration/results/2026-10-08-w50-g1-fit/judge/targets.py": "afc031f589a611da1fc41462bbb478ff3412b62a95ea0491be96a863598c7a01",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py": "fffb625cb274fccc4a10cb740945822c5396b8236c2616bc9494de88eecb96d1",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/common.py": "dca720ee7e87dff59676498680a805f7cb4e87599e48e4f9031ba29861cc6f9c",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/dispatch.py": "1ea18254b452568a171a3766685251e3ba1a3788d59a7cfdf1d671a67bc455c1",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py": "00f94251ab3d801b0584b7a7b0e930d83c43eaba51661eb912f2e81a4ec68554",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/common.py": "b0de9e0c43a583e21abd10ab3f63a929a0fb6cff1e1fa847f595006865a6bf38",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/dispatch.py": "71cdcfe17f4d61a6db1128d0cc5145fbb3fd40abc43115992243afdfcf806cc6",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/lifecycle.py": "e93ccacbacf41eb9fc0bea4d15fe52f1017b3ef58590430e6946c2db114d3032",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/lifecycle.py": "41caf9507e13f220eb8c6749e3c77a2b79d8f3b7b7952a9959dbd18ea0f68555",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/native_evidence.py": "92dceef56c9c036996fe841a1d2b8be312a32121585145f0b8d8b111e2c35fd3",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/owner_evidence.py": "bb17674546657c75b9122242bf65a481ea102d278eeb1c3a2187e3c58590c7f8",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/prefit.py": "9769e1585e8d1288d4aaaf35b9851e1eb0d74c0dc48107ed27368b1e5b45fa51",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/probe.py": "1f4facbad656c9e9df32e52011f1f88d031c961f963f6a243833b04c165ed4a6",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/quarantine.py": "122b9ff5e851780f8263c66942d4b452b97cc4bd20b88030a2739d061abb63c7",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py": "d6b1c787712a267c3f0fc3881f25e5f91b2d3137694eb4d4508b077613a0ba8b",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py": "0037b04ed2dc8454f1e0c8a065f747772e7613566510a15712d1bf5cc3c960ee",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/common.py": "dd51b6181ff38f557ca9364de91fa9679877f71945b500ef918d796fe4bb1ae7",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/measurement.py": "c4ad04a1fe6fac9628dfec404382f835db9e639bfda98fde202d123b8665e27b",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native.py": "7138284f11ea2af0461c434988f30ba9cde0b04ca00bc7aa128e42152e7f911b",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner.py": "d6fc26e81d1d14732209cb1823f0efd96438abb2ad21784ba4020b117b166284",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native.py": "8a8835c9ef11af9331a35cc22804db6bea886bd286437bf97d1e3b2fc1e46d46",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner.py": "bcee6932b116189524f0ca3a88a9a015ced2d62405869fdc8cac2567a410e736",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/probe.py": "2a9d2af183ae8f3f371eb854bc59c0866b2d1e15a9305eda8a36e649289121aa",
       "packages/calibration/results/2026-10-08-w50-g1-fit/live/router.py": "146c0cc2d3581b56ed5a22131a8e92e23f5a2a6f5829638f2703b4742adc235c",
       "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/capture.py": "64c3ee48d20018ef70511af9ce70403d90be13fe4cb74a167f22a131675363c6",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py": "a1e1dbc5dfc2ccf557eec1ff356a8dbe776894b62a91ca7f97b1cb13e90a9811",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py": "2c884df0dc28b59627d6713380ff07dabec94ec309d1d3d2f67040343b40855f",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/projection.py": "50f4231a26dcbb66b7b5f51e8a42a21fc95e6a84488d2495e910367b6cd70b32",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py": "c30b98a226961f40fadc3fdbf9a94f9d34c45d0dec24cd1c974bca14c4f971fd",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py": "aa52d478a7035c625dbdc3003cd9654f020fdacd70528fa150511832a9e44d7f",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/projection.py": "2e942dd7d3f85025d9fb2fded6ad8a1eac896cfd4900b12e94dc56c31f0cd2f3",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/readiness.py": "ab5a7c8d769f437705ed2c2715cdd8656006fb858b32740dca19273ebf46abcd",
       "packages/calibration/results/2026-10-08-w50-g1-fit/native/reader.py": "881cb14dd69bb1034018676166774638ef3ebd0f70b345182689d002e6a79a33",
       "packages/calibration/results/2026-10-08-w50-g1-fit/native/run.py": "fa482c0ce2a9421718c56e350414764b710e266f81af7a0e1f59c8c465d13fcc",
       "packages/calibration/results/2026-10-08-w50-g1-fit/native/statistics.py": "d1fe736d99e7ca55b2121baf1137812887ee7d81b3249be8f5fe925d1f01c7f4",
-      "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/live.py": "fc43bc6c0fdfa4d51f8b8306afa0ea4edc018d068c494c76ae12a818876e248a",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/live.py": "48e2dfe31e9c0726cd8e29f82ed1aca10a54f5b47bf65746cee0f669b84ad99c",
       "packages/calibration/results/2026-10-08-w50-g1-fit/references/canonical.py": "de418e4e315b83840d5cbd3f6ecffb4c56ec65579708e5d81c7ebe901011b8c4",
       "packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py": "242b91db8f7dc4b1a211a4fe98f6abad8edc5c04a50da201efac618ef42c7402",
       "packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py": "09c5539c7350c11c8f35d05e56df6df3ed17ac9e902c56e2175b833ba8c1099f"
