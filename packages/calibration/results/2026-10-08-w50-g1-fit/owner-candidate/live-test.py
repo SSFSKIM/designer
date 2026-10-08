@@ -1,4 +1,5 @@
 """Synthetic dispatcher leases only; no material documents, captured pixels or owner readings."""
+import contextlib
 import copy
 import hashlib
 import importlib.util
@@ -396,6 +397,135 @@ class LiveTests(unittest.TestCase):
         request['candidate'] = self.put('foreign-but-pinned.png', {'syntheticBytes': 4})
         with self.assertRaisesRegex(ValueError, 'same-cell'):
             edge.edge_images(request, inputs, snapshot)
+
+    # Metadata-only preflight (pre-seal review P1) -------------------------------------------
+    PROBE = '{"exercise":"synthetic source-only","pixels":"NONE"}\n'
+
+    def exercised(self, evidence=None):
+        """Record a synthetic exercise for the closure and, optionally, owner inputs whose
+        evidence pins name files; the probe launch itself is faked by probe()."""
+        closure = self.read(self.closure)
+        closure['exerciseSha256'] = hashlib.sha256(self.PROBE.encode()).hexdigest()
+        self.closure = self.put('closure.json', closure)
+        if evidence is not None:
+            config = self.read(self.config)
+            config['ownerInputs'] = self.put('inputs.json', {'captures': {'k': {'web': evidence}}})
+            config['completedOwnerReferences'] = self.put('references.json', {'cells': [{'evidence': [evidence]}]})
+            self.config = self.put('config.json', config)
+        self.refresh()
+
+    def probe(self, stdout=None, returncode=0):
+        launches = []
+        def run(args, **kwargs):
+            launches.append((list(args), kwargs['env']))
+            return type('Result', (), {'returncode': returncode, 'stderr': 'synthetic probe refusal',
+                                       'stdout': self.PROBE if stdout is None else stdout})()
+        patch.stopall()
+        patch.object(self.live.subprocess, 'run', side_effect=run).start()
+        return launches
+
+    @contextlib.contextmanager
+    def creation_context(self):
+        """LIVE's context at the exposure's creation: no contract, output or claim exists yet.
+        (This suite's original dispatcher hashes the contract in require_context; LIVE's own
+        owner-admission capability is exercised in live-roles/test_owner.py.)"""
+        context = {**self.context, 'contract': None, 'output': None, 'executionClaim': None, 'logicalClaim': None}
+        def genuine(value):
+            if value is not context: raise ValueError('no dispatcher capability')
+            return value
+        with patch.object(self.dispatch, 'require_context', genuine):
+            yield context
+
+    def test_preflight_admits_at_creation_and_before_each_marker_and_writes_nothing(self):
+        evidence = self.put('evidence.png', {'syntheticBytes': 5})
+        self.exercised(evidence)
+        launches = self.probe()
+        before = sorted((str(p), p.read_bytes()) for p in Path(self.temp.name).rglob('*') if p.is_file())
+        expected = {'admitted': True, 'evidencePins': 1}
+        self.assertEqual(self.live.preflight(self.context, self.config), expected)
+        with self.creation_context() as context:
+            self.assertEqual(self.live.preflight(context, self.config), expected)
+        after = sorted((str(p), p.read_bytes()) for p in Path(self.temp.name).rglob('*') if p.is_file())
+        self.assertEqual(before, after)
+        self.assertEqual(len(launches), 2)
+        for args, env in launches:
+            self.assertEqual(args, [self.read(self.config)['node']['path'], '--import',
+                                    str(self.here.parent/'owner/node-guard.mjs'), str(self.here/'live-probe.mjs')])
+            self.assertEqual((env['W50_WEB_CLOSURE'], env['W50_WEB_CLOSURE_SHA256']),
+                             (self.closure['path'], self.closure['sha256']))
+            self.assertNotIn('W50_OWNER_LIVE_SNAPSHOT', env)
+
+    def test_preflight_refuses_owner_drift_before_any_marker(self):
+        evidence = self.put('evidence.png', {'syntheticBytes': 5})
+        self.exercised(evidence)
+        original = Path(evidence['path']).read_bytes()
+        def changed_evidence():
+            Path(evidence['path']).write_bytes(original+b' '); return lambda: Path(evidence['path']).write_bytes(original)
+        def missing_evidence():
+            aside = Path(evidence['path']+'.aside'); Path(evidence['path']).rename(aside)
+            return lambda: aside.rename(evidence['path'])
+        def changed_source():
+            bridge = self.here/'bridge.ts'; raw = bridge.read_bytes(); bridge.write_bytes(raw+b'\n')
+            return lambda: bridge.write_bytes(raw)
+        def changed_intrinsic():
+            path = Path(self.intrinsic['path']); raw = path.read_bytes(); path.write_bytes(raw+b' ')
+            return lambda: path.write_bytes(raw)
+        cases = [(changed_evidence, 'Changed owner evidence pin', None), (missing_evidence, 'Missing owner evidence', None),
+                 (changed_source, 'Changed', None), (changed_intrinsic, 'Changed', None),
+                 (lambda: (lambda: None), 'no longer reproduces', '{"exercise":"other"}\n'),
+                 (lambda: (lambda: None), 'probe refused', None)]
+        for index, (drift, message, stdout) in enumerate(cases):
+            for creation in (False, True):
+                with self.subTest(case=index, creation=creation), \
+                        (self.creation_context() if creation else contextlib.nullcontext(self.context)) as context:
+                    launches = self.probe(stdout, returncode=1 if message == 'probe refused' else 0)
+                    restore = drift()
+                    try:
+                        with self.assertRaisesRegex(ValueError, message):
+                            self.live.preflight(context, self.config)
+                    finally:
+                        restore()
+                    self.assertFalse(any('live-node.mjs' in ' '.join(a) for a, _ in launches))
+        self.assertFalse((self.output/'owner-candidate.snapshot.json').exists())
+
+    def test_preflight_rechecks_the_exposure_contract_once_it_exists(self):
+        self.exercised()
+        self.probe()
+        path = Path(self.claim['path']); raw = path.read_bytes()
+        changed = self.read(self.claim); changed['output'] = '/elsewhere'
+        path.write_text(json.dumps(changed))
+        with self.assertRaisesRegex(ValueError, 'Changed exposure claim'):
+            self.live.preflight(self.context, self.config)
+        with self.creation_context() as context:
+            self.assertEqual(self.live.preflight(context, self.config)['admitted'], True)
+        path.write_bytes(raw)
+        self.assertEqual(self.live.preflight(self.context, self.config)['admitted'], True)
+
+    def test_node_probe_reproduces_a_fresh_discovery_exercise(self):
+        """The real live-probe.mjs, launched as preflight launches it, against a closure the real
+        discovery (live-discover.mjs) exercised just now: stdout reproduces exerciseSha256."""
+        patch.stopall()
+        real = HERE.parents[4]
+        node = pin(Path(shutil.which('node')).resolve())
+        tsx = pin((HERE.parents[2]/'node_modules/tsx/dist/esm/api/index.mjs').resolve())
+        scratch = Path(self.temp.name).resolve()
+        script = ('import fs from "node:fs";import {createHash} from "node:crypto";'
+            'const m=await import(process.argv[1]);const s=m.candidateSources();const p=process.argv[2];'
+            'fs.writeFileSync(p,JSON.stringify(s));const raw=fs.readFileSync(p);'
+            'const pin={path:fs.realpathSync(p),sha256:createHash("sha256").update(raw).digest("hex")};'
+            'const out=m.exerciseRuntime(process.argv[3],pin,JSON.parse(process.argv[4]),process.argv[5]);'
+            'process.stdout.write(JSON.stringify(out));')
+        found = subprocess.run([node['path'], '--input-type=module', '-e', script, str(HERE/'live-discover.mjs'),
+            str(scratch/'static.json'), str(real), json.dumps({'node': node, 'tsx': tsx}), str(scratch/'runtime.json')],
+            text=True, capture_output=True, cwd=real)
+        self.assertEqual(found.returncode, 0, found.stderr[-2000:])
+        runtime = json.loads(found.stdout)
+        closure = json.loads(Path(runtime['path']).read_text())
+        live = module(HERE/'live.py', 'real_owner_live_probe')
+        live.node_probe({'node': node, 'tsx': tsx}, runtime, closure)
+        closure['exerciseSha256'] = '0'*64
+        with self.assertRaisesRegex(ValueError, 'no longer reproduces'):
+            live.node_probe({'node': node, 'tsx': tsx}, runtime, closure)
 
     def test_closure_mutation_refuses_before_child(self):
         (self.here/'bridge.ts').write_text('throw Error("changed");')

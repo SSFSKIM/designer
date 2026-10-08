@@ -10,6 +10,17 @@ its pid/lease are that attempt's and are not compared here. The EXECUTION claim 
 issued this context under must be the exclusive full-union analysis marker held by this very
 process and lease (DL5k: no analytical read before that marker); the snapshot carries it and
 the Node child rechecks it against its own parent.
+
+preflight(context, config_pin) is the same seam's metadata-only admission (pre-seal review P1).
+The owner is first exercised after the exposure's irreversible analysis marker, so any drift
+there (a changed TS source, a Node or Python upgrade, a moved superseded capture) would end the
+one exposure with no result. preflight runs, before any marker, every config, root, runtime
+closure and source check evaluate makes, hashes every transitive {path, sha256} pin of the
+owner inputs and completed owner references as the referee's pinnedBytes reads them, and runs
+the Node closure's fixed source-only probe, whose stdout must reproduce the recorded exercise
+byte for byte. It decodes no image, computes no statistic, writes nothing and returns metadata.
+Where the exposure contract already exists it adds evaluate's contract, logical claim, gate and
+intrinsic-record checks. evaluate repeats all of it after the marker.
 """
 import hashlib
 import json
@@ -101,14 +112,8 @@ def child_environment(snapshot, config, config_pin):
     return env
 
 
-def evaluate(context, captures, config_pin):
-    """Return {report: OwnerReport, snapshot: Pin}, never a full referee verdict."""
-    if context.get('phase') != 'exposure':
-        raise ValueError('Candidate owner requires exposure; gate belongs to the full judge')
-    dispatch = sys.modules.get('w50_g1_dispatch')
-    if dispatch is None:
-        raise ValueError('No live dispatcher capability')
-    dispatch.require_context(context)
+def _authority(context, config_pin):
+    """Config, root and Node runtime closure: every evaluate check that needs no contract."""
     repo = Path(context['repo']).resolve()
     if repo != ROOT:
         raise ValueError('Owner wrapper is outside the live repository')
@@ -118,13 +123,7 @@ def evaluate(context, captures, config_pin):
         raise ValueError('Unknown prospective owner config')
     root_pin = pin(context['executionRoot'])
     root = load(root_pin['path'])
-    # require_context binds the contract bytes; the contract binds the root bytes.
-    contract_pin, batch_pin = pin(context['contract']), pin(context['batchPath'])
-    contract, batch = load(contract_pin['path']), load(batch_pin['path'])
-    if contract.get('executionRootSha256') != root_pin['sha256'] or root['inputs'] != context['inputs'] \
-            or Path(root['repo']).resolve() != repo or batch != context['batch'] \
-            or contract.get('phase') != 'exposure' or contract['cohort'] != batch['cohort'] \
-            or normalized(contract['batch'], repo) != batch_pin:
+    if root['inputs'] != context['inputs'] or Path(root['repo']).resolve() != repo:
         raise ValueError('Changed live root/contract/batch binding')
     registered(config_pin, root['inputs'], repo)
     runtime_pin = registered(config['runtimeClosure'], root['inputs'], repo)
@@ -152,19 +151,24 @@ def evaluate(context, captures, config_pin):
     for rel, item in config['sourcePins'].items():
         if str(checked(item).relative_to(repo)) != rel or sources.get(rel) != item['sha256']:
             raise ValueError('Frozen owner authority missing from runtime closure')
+    return repo, config_pin, config, root_pin, root, runtime_pin, closure
+
+
+def _exposure(context, repo, root_pin, root):
+    """The exposure contract's root/batch binding, its logical claim, the same-cohort gate and
+    the frozen intrinsic records: evaluate's checks that need the sealed exposure contract."""
+    contract_pin, batch_pin = pin(context['contract']), pin(context['batchPath'])
+    contract, batch = load(contract_pin['path']), load(batch_pin['path'])
+    if contract.get('executionRootSha256') != root_pin['sha256'] or batch != context['batch'] \
+            or contract.get('phase') != 'exposure' or contract['cohort'] != batch['cohort'] \
+            or normalized(contract['batch'], repo) != batch_pin:
+        raise ValueError('Changed live root/contract/batch binding')
     claim_pin = pin(context['contract']+'.started.json')
     claim = load(claim_pin['path'])
     if any(claim.get(k) != v for k, v in {
         'contractSha256': contract_pin['sha256'], 'batchSha256': batch_pin['sha256'],
         'phase': 'exposure', 'output': context['output']}.items()):
         raise ValueError('Changed exposure claim')
-    execution_pin = normalized(context.get('executionClaim'), repo)
-    execution = load(execution_pin['path'])
-    if execution_pin['path'] != str(Path(contract_pin['path']+'.phase')/'analysis.started.json') \
-            or execution.get('schema') != 'w50-live-analysis-claim-1' \
-            or execution.get('logicalContract') != contract_pin or execution.get('pid') != os.getpid() \
-            or execution.get('gpuLease') != dispatch._LEASE['token'] or execution.get('output') != context['output']:
-        raise ValueError('Owner needs the full-union analysis claim held by this live lease owner')
     gate_pin = normalized(context['gateResult'], repo)
     gate = load(checked(gate_pin))
     gate_contract_pin = normalized(contract['gateContract'], repo)
@@ -180,6 +184,102 @@ def evaluate(context, captures, config_pin):
     if gate_batch.get('phase') != 'gate' or gate_batch.get('cohort') != batch['cohort'] \
             or gate_batch.get('ownerIntrinsicRecords') != batch['ownerIntrinsicRecords']:
         raise ValueError('Exposure intrinsic records differ from the frozen gate batch')
+    return contract_pin, batch_pin, contract, batch, claim_pin, gate_pin, intrinsic_pin
+
+
+def _evidence_pins(value, out):
+    if isinstance(value, dict):
+        if set(value) == {'path', 'sha256'} and isinstance(value['path'], str):
+            out.add((value['path'], value['sha256']))
+        for item in value.values():
+            _evidence_pins(item, out)
+    elif isinstance(value, list):
+        for item in value:
+            _evidence_pins(item, out)
+    return out
+
+
+def evidence_walk(config, repo):
+    """Every {path, sha256} pin inside the owner inputs and completed owner references, hashed
+    as the referee's pinnedBytes reads them (cwd = repo). Bytes only; no decode, no statistic."""
+    pins = set()
+    for key in ('ownerInputs', 'completedOwnerReferences'):
+        _evidence_pins(load(checked(config[key])), pins)
+    for path, digest in sorted(pins):
+        target = Path(path) if Path(path).is_absolute() else Path(repo)/path
+        if not re.fullmatch('[0-9a-f]{64}', digest) or not target.is_file():
+            raise ValueError('Missing owner evidence pin: '+path)
+        with target.open('rb') as handle:
+            if hashlib.file_digest(handle, 'sha256').hexdigest() != digest:
+                raise ValueError('Changed owner evidence pin: '+path)
+    return len(pins)
+
+
+def node_probe(config, runtime_pin, closure):
+    """The Node closure's fixed source-only probe, launched as live-discover.mjs exercised it.
+    Its stdout (source binding, empty synthetic membership, Node identity) must reproduce the
+    recorded exercise byte for byte; no owner input, candidate or capture reaches it."""
+    probe = checked(closure['probe'])
+    env = {key: os.environ[key] for key in ('HOME', 'TMPDIR', 'TMP', 'TEMP') if key in os.environ}
+    env.update({'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LC_ALL': 'C', 'TSX_DISABLE_CACHE': '1',
+        'W50_WEB_ROOT': str(ROOT), 'W50_WEB_CLOSURE': runtime_pin['path'],
+        'W50_WEB_CLOSURE_SHA256': runtime_pin['sha256'],
+        'W50_OWNER_PROBE_TSX': config['tsx']['path'], 'W50_OWNER_PROBE_TSX_SHA256': config['tsx']['sha256']})
+    result = subprocess.run([config['node']['path'], '--import', str(HERE.parent/'owner/node-guard.mjs'), str(probe)],
+        text=True, capture_output=True, check=False, cwd=ROOT, env=env)
+    if result.returncode:
+        raise ValueError('Node owner closure probe refused: '+(result.stderr.strip().splitlines() or [''])[-1])
+    if hashlib.sha256(result.stdout.encode()).hexdigest() != closure.get('exerciseSha256'):
+        raise ValueError('Node owner closure no longer reproduces its recorded source-only exercise')
+    for item in (runtime_pin, closure['probe'], config['node'], config['tsx']):
+        checked(item)
+
+
+def preflight(context, config_pin):
+    """Metadata-only owner admission before any marker (module docstring); {admitted, pins}."""
+    dispatch = sys.modules.get('w50_g1_dispatch')
+    if dispatch is None:
+        raise ValueError('No live dispatcher capability')
+    dispatch.require_context(context)
+    repo, config_pin, config, root_pin, root, runtime_pin, closure = _authority(context, config_pin)
+    if context.get('phase') == 'exposure':
+        if load(context['batchPath']) != context['batch']:
+            raise ValueError('Changed live root/contract/batch binding')
+        checked(context['batch']['ownerIntrinsicRecords'], repo)
+        gate = load(checked(normalized(context['gateResult'], repo)))
+        if gate.get('captures') != context['gateCaptures']:
+            raise ValueError('Changed same-cohort gate capture authority')
+        if context.get('contract') is not None:
+            _exposure(context, repo, root_pin, root)
+            output = Path(context['output'])
+            if not output.is_absolute() or output.resolve() != output or not output.is_dir() \
+                    or output.is_relative_to(repo):
+                raise ValueError('Snapshot requires the live external output directory')
+    count = evidence_walk(config, repo)
+    node_probe(config, runtime_pin, closure)
+    source_map(repo, closure)
+    dispatch.require_context(context)
+    return {'admitted': True, 'evidencePins': count}
+
+
+def evaluate(context, captures, config_pin):
+    """Return {report: OwnerReport, snapshot: Pin}, never a full referee verdict."""
+    if context.get('phase') != 'exposure':
+        raise ValueError('Candidate owner requires exposure; gate belongs to the full judge')
+    dispatch = sys.modules.get('w50_g1_dispatch')
+    if dispatch is None:
+        raise ValueError('No live dispatcher capability')
+    dispatch.require_context(context)
+    repo, config_pin, config, root_pin, root, runtime_pin, closure = _authority(context, config_pin)
+    contract_pin, batch_pin, contract, batch, claim_pin, gate_pin, intrinsic_pin = \
+        _exposure(context, repo, root_pin, root)
+    execution_pin = normalized(context.get('executionClaim'), repo)
+    execution = load(execution_pin['path'])
+    if execution_pin['path'] != str(Path(contract_pin['path']+'.phase')/'analysis.started.json') \
+            or execution.get('schema') != 'w50-live-analysis-claim-1' \
+            or execution.get('logicalContract') != contract_pin or execution.get('pid') != os.getpid() \
+            or execution.get('gpuLease') != dispatch._LEASE['token'] or execution.get('output') != context['output']:
+        raise ValueError('Owner needs the full-union analysis claim held by this live lease owner')
     if captures.get('status') != 'CAPTURED':
         raise ValueError('Exposure bundle is not completed captures')
     output = Path(context['output'])

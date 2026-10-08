@@ -16,7 +16,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 HERE = Path(__file__).resolve().parent
 FIT = HERE.parent
@@ -40,6 +40,9 @@ K = module(HERE/'livekit.py', 'w50_owner_role_test_kit')
 def pin(path):
     path = Path(path).resolve()
     return {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+
+
+PROBE = '{"exercise":"synthetic source-only","pixels":"NONE"}\n'
 
 
 def child_result(returncode=0, stdout=None, stderr=''):
@@ -71,7 +74,7 @@ def admit(context,config):
  sys.modules['w50_g1_dispatch'].require_native_admission(context)
 def prepare(context,config):
  sys.modules['w50_g1_dispatch'].require_native_preparation(context)
- return {'ready':True,'native':'%s','artifacts':[]}
+ return {'ready':True,'complete':True,'stops':[],'native':'%s','artifacts':[]}
 def verify(context,payload,config):pass
 ''' % SECRET
 MEASUREMENT = 'def evaluate(context,captures,config):\n return {"synthetic":"measurement"}\n'
@@ -106,7 +109,7 @@ class OwnerRole(unittest.TestCase):
                    for p in sorted(fit.rglob('*')) if p.is_file()]
         closure = kit.put('owner-runtime.json', {'schema': 'w50-owner-candidate-runtime-1', 'sources': sources,
             'exercise': 'synthetic source-only', 'probe': pin(fit/'owner-candidate/live-probe.mjs'),
-            'toolchain': {'node': node, 'tsx': tsx}})
+            'toolchain': {'node': node, 'tsx': tsx}, 'exerciseSha256': hashlib.sha256(PROBE.encode()).hexdigest()})
         config = kit.put('owner-config.json', {'schema': 'w50-owner-candidate-config-1',
             'ownerInputs': pin(kit.put('owner-inputs.json', {})),
             'completedOwnerReferences': pin(kit.put('owner-references.json', {})),
@@ -135,7 +138,14 @@ class OwnerRole(unittest.TestCase):
         return kit
 
     def setUp(self):
-        self.child = patch.object(subprocess, 'run', return_value=child_result()).start()
+        """subprocess.run is the process boundary: the owner child (live-node.mjs) is self.child,
+        the Node closure's source-only probe (live-probe.mjs) answers PROBE (self.probe_stdout)."""
+        self.child = Mock(return_value=child_result()); self.probes = []; self.probe_stdout = PROBE
+        def run(args, *rest, **kwargs):
+            if str(args[-1]).endswith('owner-candidate/live-probe.mjs'):
+                self.probes.append(list(args)); return child_result(stdout=self.probe_stdout)
+            return self.child(args, *rest, **kwargs)
+        patch.object(subprocess, 'run', side_effect=run).start()
         self.addCleanup(patch.stopall)
 
     def marker(self, **changes):
@@ -267,6 +277,75 @@ class OwnerRole(unittest.TestCase):
         self.assertEqual(event, {'schema': 'w50-live-public-event-1', 'code': 'ANALYSIS_STOPPED', 'phase': 'exposure'})
         self.assertFalse(Path(str(kit.contract)+'.result.json').exists())
         with self.assertRaises(ValueError): kit.store.plan()
+
+    # Metadata-only admission before any marker (pre-seal review P1) ------------------------
+    def test_admit_runs_the_owner_preflight_at_its_own_stage_and_writes_nothing(self):
+        kit = self.build()
+        with kit.lease():
+            attempt, claim = kit.attempt_claim()
+            before = sorted(str(p) for p in kit.base.rglob('*'))
+            with kit.stage('owner-admission', claim) as context:
+                self.assertEqual(self.role.admit(context, self.config), {'admitted': True})
+            self.assertEqual(sorted(str(p) for p in kit.base.rglob('*')), before)
+            for stage in ('analysis', 'native-admission'):
+                with self.subTest(stage=stage), kit.stage(stage, claim) as context:
+                    with self.assertRaisesRegex(ValueError, 'outside its LIVE stage'):
+                        self.role.admit(context, self.config)
+            with kit.stage('owner-admission', claim) as context:
+                with self.assertRaisesRegex(ValueError, 'No genuine live context'):
+                    self.role.admit(dict(context), self.config)
+                other = kit.pin(kit.put('other-config.json', json.loads(Path(kit.repo/self.config['path']).read_text())))
+                with self.assertRaisesRegex(ValueError, 'prospective root input'):
+                    self.role.admit(context, other)
+        self.assertEqual(len(self.probes), 1)
+        self.child.assert_not_called()
+        gate = self.build(phase='gate')
+        with gate.lease():
+            _, claim = gate.attempt_claim()
+            with gate.stage('owner-admission', claim) as context:
+                with self.assertRaisesRegex(ValueError, 'owner admission capability'):
+                    self.role.admit(context, self.config)
+
+    def test_owner_drift_refuses_at_admission_not_after_a_marker(self):
+        kit = self.build()
+        bridge = kit.repo/REL/'owner-candidate/bridge.ts'; raw = bridge.read_bytes()
+        cases = (('changed closure source', lambda: bridge.write_bytes(raw+b'\n'), lambda: bridge.write_bytes(raw), 'Changed'),
+                 ('probe drift', lambda: setattr(self, 'probe_stdout', '{"exercise":"other"}\n'),
+                  lambda: setattr(self, 'probe_stdout', PROBE), 'no longer reproduces'))
+        for name, drift, restore, message in cases:
+            with self.subTest(case=name), kit.lease():
+                _, claim = kit.attempt_claim() if not kit.store._contracts() else (None, kit.L.pin(
+                    kit.store._contracts()[-1].parent/'started.json'))
+                drift()
+                try:
+                    with kit.stage('owner-admission', claim) as context, self.assertRaisesRegex(ValueError, message):
+                        self.role.admit(context, self.config)
+                finally:
+                    restore()
+        self.child.assert_not_called()
+
+    def test_execute_attempt_and_analysis_admit_the_owner_before_each_marker(self):
+        """Through LIVE: a drifted owner stops the attempt before native.started.json and refuses
+        the analysis before its marker; once fixed, both proceed."""
+        kit = self.build()
+        for role, text in (('capture', CAPTURE), ('native', NATIVE), ('measurement', MEASUREMENT), ('judge', JUDGE)):
+            path = kit.base/(role+'.py'); path.write_text(text); kit.register(role, path, {})
+        with patch.object(kit.C.D, 'validate_report', lambda *a, **k: None), self.streams():
+            self.probe_stdout = '{"exercise":"drifted"}\n'
+            stopped = kit.D.execute_attempt(kit.root, kit.contract, kit.D.prepare_attempt(kit.root, kit.contract))
+            self.assertFalse((kit.store.home/'native.started.json').exists())
+            self.probe_stdout = PROBE
+            done = kit.D.execute_attempt(kit.root, kit.contract, kit.D.prepare_attempt(kit.root, kit.contract))
+            self.probe_stdout = '{"exercise":"drifted"}\n'
+            refused = kit.D.execute_analysis(kit.root, kit.contract)
+            self.assertFalse(kit.store.analysis_marker.exists())
+            self.probe_stdout = PROBE
+            event = kit.D.execute_analysis(kit.root, kit.contract)
+        self.assertEqual((stopped['code'], done['code']), ('INSTRUMENT_FAULT', 'ATTEMPT_COMPLETE'))
+        self.assertNotEqual(refused['code'], 'ANALYSIS_COMPLETE')
+        self.assertEqual(event['code'], 'ANALYSIS_COMPLETE')
+        self.assertEqual(self.child.call_count, 1)
+        self.assertGreaterEqual(len(self.probes), 4)
 
     def test_source_probe_is_source_only(self):
         self.assertEqual(module(HERE/'owner.py', 'w50_owner_role_probe').source_probe(), {'status': 'SOURCE_ONLY'})

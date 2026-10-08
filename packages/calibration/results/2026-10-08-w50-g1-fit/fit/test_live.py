@@ -37,6 +37,10 @@ class FitTests(unittest.TestCase):
         self.world = H.World(self)
         self.world.install(self)
         self.fit = source(HERE/'live.py', 'w50_fit_live_under_test')
+        # The owner's metadata-only preflight reads the real owner closure and evidence; this
+        # World has neither, so it is recorded here and exercised in owner-candidate/live-test.py.
+        self.owner_preflights = []
+        self.fit.O.preflight = lambda context, config: self.owner_preflights.append((context['phase'], config))
 
     def analyse(self, overrides=None, rows=None):
         w = self.world
@@ -78,6 +82,20 @@ class FitTests(unittest.TestCase):
         blind.add((P1, 'webgpu', 'cell-grey-007-s096__rest', 'deep8-channel-median'))
         with self.assertRaises(ValueError):
             self.analyse(rows=blind)
+
+    def test_the_owner_preflight_runs_in_the_fit_and_its_refusal_fails_the_fit(self):
+        """Pre-seal review P1: owner drift fails the fit analysis, not the one exposure."""
+        w = self.world
+        owner = {'path': 'live-roles/owner-config.json', 'sha256': '1'*64}
+        w.root['instruments']['owner'] = {'entrypoint': {'path': 'live-roles/owner.py', 'sha256': '2'*64},
+                                          'config': owner}
+        w.write('live/execution-root.json', w.root)
+        self.analyse()
+        self.assertEqual(self.owner_preflights, [('fit', owner)])
+        def refuse(context, config): raise ValueError('Changed owner evidence pin: synthetic')
+        self.fit.O.preflight = refuse
+        with self.assertRaisesRegex(ValueError, 'owner evidence pin'):
+            self.analyse()
 
     def test_a_root_missing_a_judge_input_fails_the_fit_not_the_gate(self):
         w = self.world

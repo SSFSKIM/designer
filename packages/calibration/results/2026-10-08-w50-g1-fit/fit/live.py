@@ -28,8 +28,9 @@ candidate domain and is not a free coefficient.
 DECISION (id): a cohort's id is its two candidate document SHA-256s, sorted and joined by '+'.
 
 Before reading the measurement it also reads the registered judge's config, binding, target
-config and cut and builds every target reference, so a root wiring fault surfaces here and not
-inside the gate's one exclusive analysis.
+config and cut and builds every target reference, and runs the registered owner's metadata-only
+preflight (owner-candidate/live.preflight), so a root wiring fault or owner drift surfaces here
+and not inside the gate's or the exposure's one exclusive analysis.
 
 fit_record(execution_root, completed) builds the metadata-only w50-g1-fit-record-1 body that
 names the ONE completed fit result; the caller writes it exclusively and passes it to the
@@ -62,6 +63,7 @@ def source(path, name):
 
 
 J = source(HERE.parent/'judge/live.py', 'w50_fit_live_judge')
+O = source(HERE.parent/'owner-candidate/live.py', 'w50_fit_live_owner')
 KEY = J.KEY
 
 
@@ -149,6 +151,7 @@ def evaluate(context, measured, config_pin):
     judge = ((root.get('instruments') or {}).get('judge') or {}).get('config')
     _, _, targets, cut = J.inputs(context, live, root, judge)
     J.preflight(document, root, cut, targets)
+    O.preflight(context, ((root.get('instruments') or {}).get('owner') or {}).get('config'))
     rows = J.measurement(context, live, root, inventory, measured)
     if any(row['role'] in J.WITHHELD for row in rows.values()):
         raise ValueError('Withheld cells never enter fit analysis or ranking')

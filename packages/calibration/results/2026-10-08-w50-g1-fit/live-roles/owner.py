@@ -7,6 +7,14 @@ owner-candidate/live.py, which binds the logical exposure claim, the same-candid
 the frozen intrinsic records and the separately exercised Node closure, and whose snapshot
 carries the execution claim. The result is {report, snapshot}: metric evidence for the full
 judge, never a PASS/NEITHER (DL4, DL5d-DL5e).
+
+admit(context, config) is the same seam's metadata-only admission at LIVE's 'owner-admission'
+stage (pre-seal review P1): at the exposure's creation, before the one-shot native marker and
+before the analysis marker, so owner drift is an ordinary recoverable stop rather than an
+analysis that ends with no result. It holds LIVE's require_owner_admission grant and runs
+owner-candidate/live.preflight: every check evaluate makes before its snapshot, a hash of every
+transitive owner evidence pin and the Node closure's source-only probe. No execution claim is
+required (at the exposure's creation none exists) and nothing is written.
 """
 from pathlib import Path
 import types
@@ -36,6 +44,19 @@ def evaluate(context, captures, config):
     if not isinstance(result, dict) or set(result) != {'report', 'snapshot'}:
         raise ValueError('Owner seam did not return {report, snapshot}')
     return result
+
+
+def admit(context, config):
+    live = C.dispatcher(context, 'owner-admission')
+    live.require_owner_admission(context)
+    if context.get('phase') != 'exposure' or context['batch'].get('phase') != 'exposure':
+        raise ValueError('Owner admission is exposure-only')
+    C.registered(context, live, config, SCHEMA)
+    result = C.source(OWNER, 'w50_live_role_owner_admission').preflight(context, config)
+    live.require_context(context)
+    if not isinstance(result, dict) or result.get('admitted') is not True:
+        raise ValueError('Owner preflight did not admit')
+    return {'admitted': True}
 
 
 def source_probe():
