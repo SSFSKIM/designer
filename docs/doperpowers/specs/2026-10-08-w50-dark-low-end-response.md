@@ -52,9 +52,12 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   analysis marker; an L1 named growth miss grading PASS) and two P2s (stale-lock release race;
   pre-fit evidence not bound to the rebuilt proofs), fixed by FW-A (`5e84465d6`, `1bfa3f30a`) and
   FW-B (`fe98fc970`, `5e0f65575`, `b8e5f5325`). Draft root regenerated on the registered-2 binding
-  (`89e7b0d90`, sha `3923669a…`, validate_body PASS); all suites green. Running: a final review of
-  `4ffa48746..89e7b0d90`, and the operator tooling in `live-run/` (pre-fit evidence builder, batch
-  builders, run CLI). Next (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
+  (`89e7b0d90`, sha `3923669a…`, validate_body PASS); all suites green. The final review of
+  `4ffa48746..89e7b0d90` found no P0-P2 (P3s in the tech-debt tracker), and the LIVE root is
+  SEALED: `live-execution/execution-root.json` `3923669a33979e78…` (`a09e02e94`). Running: the
+  operator tooling in `live-run/` (pre-fit evidence builder, batch builders, run CLI). Next:
+  executionClosure + independentReview proofs and `pre-fit-evidence.json` (verify through LIVE
+  `verify_prefit` before sealing it); then (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
   executionClosure and independentReview proofs and `pre-fit-evidence.json` pinning the root;
   fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind every step.
