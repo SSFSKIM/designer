@@ -1,9 +1,13 @@
-"""Additive DL5–DL5c completion checks; the G0 inventory is never rewritten.
+"""Additive DL5–DL5g completion checks; the G0 inventory is never rewritten.
 
 Only named measurement placeholders can be completed. Every other original field,
 including provenance, historical caps and order, survives. Blind rows carry identities
 and dependency pins only. Reported span-control rows require actual readings except
 for exact DL5b/c keys whose pinned native read proves all three detected masks empty.
+DL5g retains blind capture nulls until the exposure-only helper binds real evidence, keeps
+canonical T1's typed fidelity label, and binds new-bed native evidence through all three
+admitted runs without replacing the original support text. This module is deliberately
+outside the already-sealed current-only capture closure; the future live root must pin it.
 """
 import hashlib
 import importlib.util
@@ -76,7 +80,14 @@ def reading(cell):
             raise ValueError('Low-end path reading differs from declared cut/channel shape')
     elif statistic == 'owner-contracts' and not isinstance(native, dict):
         raise ValueError('Owner readings require nonempty named numerical maps')
-    if cell.get('fidelity') is not None:
+    if statistic == 'T1-low' or (statistic == 'T1-full-silhouette' and isinstance(cell.get('fidelity'), dict)):
+        fidelity = cell.get('fidelity')
+        label = 'T1-fine' if statistic == 'T1-low' else 'T1-full-silhouette'
+        if not isinstance(fidelity, dict) or set(fidelity) != {'statistic', 'native', 'current', 'reference'} or \
+                fidelity['statistic'] != label or any(not finite(fidelity[k]) or fidelity[k] < 0
+                    for k in ('native', 'current', 'reference')):
+            raise ValueError('T1 fidelity requires its typed statistic and finite native/current/reference readings')
+    elif cell.get('fidelity') is not None:
         fidelity_shape = numerical_shape(cell['fidelity'])
         if statistic in ('deep8-channel-median', 'central8-channel-median', 'low-end-path-level') and \
                 fidelity_shape != shape:
@@ -172,6 +183,7 @@ def validate_completion(original, completed, exemptions, repo, empty_support_key
     exempt = {tuple(k) for k in exemptions}
     if len(exempt) != len(exemptions) or not exempt.issubset({key(c) for c in cells}):
         raise ValueError('Unknown/duplicate reported key')
+    native = None
     for before, cell in zip(cells, after):
         for name, value in before.items():
             if name == 'status' or (name in FILLABLE and value is None):
@@ -198,10 +210,25 @@ def validate_completion(original, completed, exemptions, repo, empty_support_key
                     raise ValueError('Reported span row requires REPORTED and null B')
             elif cell.get('status') != 'MEASURED' or not finite(cell.get('B')) or cell['B'] <= 0:
                 raise ValueError('Gated reference requires MEASURED and positive finite B')
-        for name in ('nativeEvidence', 'currentEvidence'):
-            pin_path(cell.get(name), repo, external=True)
-        if cell.get('currentMetadata') is not None:
-            pin_path(cell['currentMetadata'], repo, external=True)
+        if blind:
+            # DL5g: an identity-only row cannot name pixels not yet captured. Preserve
+            # original nulls; the separate exposure helper requires actual evidence later.
+            for name in ('nativeEvidence', 'currentEvidence', 'currentMetadata'):
+                if cell.get(name) != before.get(name):
+                    raise ValueError('Blind pre-fit evidence must retain its original identity-only provenance')
+        else:
+            if before.get('nativeIdentity') and before.get('nativeEvidence') is None:
+                if native is None:
+                    path = Path(__file__).with_name('native_evidence.py')
+                    spec = importlib.util.spec_from_file_location('w50_native_evidence_checker', path)
+                    checker = importlib.util.module_from_spec(spec)
+                    exec(compile(path.read_bytes(), str(path), 'exec'), checker.__dict__)
+                    native = checker.NativeEvidence(repo, original.get('inputs', {}).get('bed'))
+                native.validate(cell, cell.get('nativeEvidence'))
+            for name in ('nativeEvidence', 'currentEvidence'):
+                pin_path(cell.get(name), repo, external=True)
+            if cell.get('currentMetadata') is not None:
+                pin_path(cell['currentMetadata'], repo, external=True)
         if not cell.get('currentDocumentPair') or not cell.get('support') or not cell.get('role'):
             raise ValueError('Incomplete reference provenance')
         for history in cell.get('historical', []):
@@ -209,6 +236,7 @@ def validate_completion(original, completed, exemptions, repo, empty_support_key
                 raise ValueError('Incomplete historical reference')
 
     if owner is not None: owner.finish()
+    if native is not None: native.finish()
 
 
 def validate_proof(proof, kind, repo):
