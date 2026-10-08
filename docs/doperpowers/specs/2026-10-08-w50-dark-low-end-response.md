@@ -17,6 +17,16 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 
 ## Progress
 
+**Current operational checkpoint (2026-10-09).** Root 2 (`2e6f4c99…`, `ef68b07c6`) and its
+pre-fit evidence (`a106c8d8d`) are sealed. The first initializer invocation assembled ONE point
+under `fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/`,
+then `bind_arguments` refused: “Measured argument has changed or withheld reference identity”.
+All eleven files are preserved unchanged with `fit/live-initializer/attempt-1-refusal.json`
+(`6d36b7fbd`). No numerical referee, fit render, gate or exposure ran. Do NOT rerun initialize,
+change the candidate, or edit the sealed sources. A read-only diagnosis is running; the parent
+has been told. Next is the exact mismatch diagnosis and a prospective recovery ruling, not a
+second point. This checkpoint supersedes the historical handoff notes below.
+
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
 - [x] W36/W42/W43/W49b evidence and both tier implementations read; four native archives fetched
   through their recorded hash-verifying tools. No native or web capture made.
