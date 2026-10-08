@@ -1,0 +1,48 @@
+{
+  "schema": "w50-current-material-sources-1",
+  "position": 0.25,
+  "gate": 0,
+  "endpointDifference": "profileKey only",
+  "endpoints": {
+    "active.light": {
+      "source": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+        "sha256": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44"
+      },
+      "derived": {
+        "path": "active.light.json",
+        "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+      }
+    },
+    "active.dark": {
+      "source": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+        "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+      },
+      "derived": {
+        "path": "active.dark.json",
+        "sha256": "bbee073f93e5884f33ffba743d399a4e019b9bb1db824b805d112c4319ee2104"
+      }
+    },
+    "receded.light": {
+      "source": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+        "sha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203"
+      },
+      "derived": {
+        "path": "receded.light.json",
+        "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+      }
+    },
+    "receded.dark": {
+      "source": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+        "sha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+      },
+      "derived": {
+        "path": "receded.dark.json",
+        "sha256": "6804a7ec004fc8112d2ffebdb19b819e2f9f8b4251a16c9219565e9106961bd5"
+      }
+    }
+  }
+}

@@ -32,7 +32,9 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 - [x] G0 declaration/instrument/bed, independent reviews and assembled seals completed before native capture.
 - [x] Inert two-tier implementation and identity proofs; no material document moved.
 - [x] G1a native sitting:1,600 admitted frames; all opening/closing bridges agree; restoration verified.
-- [ ] G1 identification, fit, frozen gate and one exposure.
+- [x] G1 exposed native identification:336 calibration/validation cells, required repeats ready; blind unopened.
+- [ ] G1 reference/current-render completion and additive pre-fit gate.
+- [ ] G1 fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
 
 ## Proposed landing rule — fixed before the first candidate gate
@@ -329,7 +331,8 @@ current evidence. They stay outside exploration and get one frozen prediction-ch
 the label “blind”. Existing0.5 canonical holdout is historical/exposed, also a prediction check.
 W42 H is unspent but is not a near-black1–8 or thick-black referee; do not open it to manufacture
 one. W39's holdout was spent by W41. W43 G1b has no blind low-end ladder. The new native split above
-is the prospective blind referee; no capture exists and no pixel has been spent by this grounding.
+is the prospective blind referee. No capture existed at grounding; G1a subsequently archived the
+full bed, and G1 has read only its336 calibration/validation cells. All112 blind cells remain closed.
 
 ## Execution boundaries and children
 
@@ -416,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5a are recorded verbatim (2026-10-08); DL5 and DL5a precede every G1 analytical read.
+DL1–DL5c are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -468,6 +471,18 @@ measured values strictly, and exempts ONLY those enumerated row keys (listed by 
 G1 root, not matched by pattern) from the MEASURED/positive-B requirement; their values are still
 computed and recorded, and the two level rows per control gate normally. The sealed declare.py
 checker is unchanged historical machinery.
+
+DL5b (parent, after the identification read, before pre-fit/any candidate). The 12 DL5a REPORTED
+T1 rows (span 128 receded, greys 0/4/28, both positions/scales) whose native detected silhouette
+is EMPTY are recorded UNMEASURED_EMPTY_SUPPORT, value null, B null, with the empty-support witness;
+no analytical mask, no substituted 0. They never gate. The strict checker admits exactly those
+enumerated keys in that status; every other row stays strict. Their deep/center level rows gate.
+
+DL5c (parent, prospective, before pre-fit and with blind data sealed). The 24 analogous blind
+neutral span-224 REPORTED T1 keys are pre-enumerated as ELIGIBLE for UNMEASURED_EMPTY_SUPPORT,
+admitted only if the one exposure's own zero-support witness (zero pixels, mask hash) proves it;
+otherwise they are computed and reported. They never gate. Their level rows gate normally, and an
+unmeasurable level row remains a block. No other key gains the status.
 
 ### DL2 — conditional X41 publication delta (ruled)
 
@@ -591,3 +606,18 @@ or release changed, and the main checkout was not edited.
   No identifying/blind statistic was opened. Acquisition and archival are complete; native
   analysis, complete reference evidence, the512×384 web adapter and the additive pre-fit gate
   still precede fitting. No material document or matrix generation changed.
+
+- G1 exposed identification — Native root `cdd283599e8dc625a561876c73a554d55a7a5aa95aff9f0455c8c95c50fd7e95`
+  was reviewed, source-sealed and committed before reading. Its finite batch opened only the
+  registered calibration/validation exports under a sandbox denying the original raw/full trees.
+  All336 exposed cells pass required repeat readiness; every required bar stays at0.5 code.
+  Uniform black reads32 active and20 receded at every exposed span, both positions/scales. On
+  the NEW512 canvas, sparse-impulse96/160 far-body medians also read32/20; these are not substituted
+  for the original320 controls. The native deep/center difference is at most1 code. No coefficient
+  is fitted yet. Twelve optional span128 receded T1 native masks are empty; DL5b retains null
+  with the zero-support witnesses, never a substituted path mask or0. DL5c prospectively names
+  the24 analogous blind224 reference keys as eligible for that status only if their one-exposure
+  witness proves empty; their level rows still gate. The two tiers reuse each native witness,
+  so the12 observed native measurements correspond to24 exact reference keys. Evidence is under
+  `results/2026-10-08-w50-g1-fit/identification/`; its compressed full and per-role reports reproduce
+  the read exactly. G1 pre-fit readiness, numerical fitting and the gate are still pending.

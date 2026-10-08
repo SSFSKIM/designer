@@ -50444,3 +50444,43 @@ This completes acquisition and archival only. No identifying/blind pixels, thumb
 statistics were opened; no native analytical reading, candidate, fitted document, new matrix
 generation, relaxed bound or product release is claimed. Complete native/reference evidence,
 the512×384 web adapter and the additive pre-fit admission remain the next G1 work.
+
+### 10. G1 exposed native identification, before fitting
+
+The standalone native reader was high-reviewed independently of the still-developing candidate
+lifecycle. Its root `cdd283599e8dc625a561876c73a554d55a7a5aa95aff9f0455c8c95c50fd7e95` and batch
+`f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628` were committed before decoding.
+Its actual-process source guard uses the unchanged G0 templates; discovery exercises synthetic
+inputs only. Metadata/hash preflight admitted176 calibration and160 validation identities with
+64/80 role dependencies, then the sealed analytical read opened only those exports. The raw
+roots and full archive trees were denied by the process sandbox. The read exited0/READY with
+no required repeat stop; every required bar remains at the0.5-code floor. The largest required
+repeat separation, in its recorded code units, is below0.001. All112 blind cells stay unopened.
+
+Uniform black is RGB32 in the active pose andRGB20 receded at spans44/96/128/160, at both glass
+positions and both scales. The largest exposed neutral deep8 versus central8 median difference
+is1 code (1x active span44 at input28); the remaining exposed differences are0. The new sparse
+impulse96/160 far-body medians are32 active and20 receded. Active0.25 means span31.9488–31.9568;
+across all receded configurations the means span20.0212–20.3226. These are readings on the NEW
+512×384 bed, not replacements for the original320×200 lg control whose far-body level is about
+20.5. No family coefficient has been fitted, no current/candidate gate has run, and native curve
+acquisition alone does not certify the composed material or its spatial transfer.
+
+The read exposes one measurement limitation rather than hiding it. For neutral span128 receded,
+greys0/4/28 at both positions/scales, the driver's native detected silhouette is empty. These12
+native T1 readings are UNMEASURED_EMPTY_SUPPORT, not0; their analytical deep/center levels are
+measured. DL5b keeps their24 per-tier reference keys non-gating, B null, with each run's zero-pixel
+mask and hash. DL5c names the24 analogous blind224 keys BEFORE exposure as eligible for the same
+status only with that exposure's own empty-support witness. Nonempty supports are measured;
+no other key gains an exception, and an unmeasurable required level still blocks. No analytical
+mask is substituted for T1's native detected silhouette.
+
+`results/2026-10-08-w50-g1-fit/identification/native-read.json.gz` retains the complete reader
+output; its decoded SHA-256 is `50b91affeeaa467fb7e25e4ea20083d136b16f2606b08c40ad63104c66a92a83`
+and compressed SHA-256 is `fab6f90bd70eeb24affc491cb86f502c5d7ae2980afda639f0c987819fec2905`.
+Per-role compressed projections preserve the exact role objects. `native-exposed.json` retains
+every exposed statistic and per-run scalar value with frame/support hashes; projection equality
+was checked cell by cell. `empty-support-keys.json` lists observed and prospectively eligible
+keys separately, and `empty-witnesses/` binds observed support witnesses to the complete native
+role report. The original read and its measurement statuses are unchanged by the subsequent
+reporting rulings.
