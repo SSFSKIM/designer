@@ -1,0 +1,82 @@
+{
+  "schema": "w50-owner-read-supersession-1",
+  "ruling": "DL5l reference-evidence recovery; DL5m item 1 (owner context cells gate)",
+  "cause": "owner/referee.ts classifyCell read an absent L1 mean as undefined, so the eight named dark inactive dark-solid WebGPU cells never carried namedExclusion; fixed in 7e621f344 to the owner test's own reading (absent is null)",
+  "superseded": {
+    "instruments": {
+      "contracts": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/contracts-instrument.json",
+        "sha256": "031793e07b8ef0f4f574fd6e63d5c4d220bbca65567cd4b434af34b2d833bd5c"
+      },
+      "prepare": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/prepare-instrument.json",
+        "sha256": "406048b29195b3fc8d33eb7b96c265612130f46d9138a9f2f2878e3ced8fbf3d"
+      },
+      "projection": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/projection-instrument.json",
+        "sha256": "0e9542420d294c883258cb95c8aae8b2758030aa834bd063a1b105ecbe55711a"
+      }
+    },
+    "requests": {
+      "contracts": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/contracts-request.json",
+        "sha256": "0d981646ecd3c228096e31a4db2e10842ef027926f08dbffce013f5df9d96cb0"
+      },
+      "prepare": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/prepare-request.json",
+        "sha256": "7d1fc1ea96a8a6f255238e86538a53e2ff67269c6df3c023ff9596f82559d461"
+      },
+      "projection": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/projection-request.json",
+        "sha256": "173417123682965609b5c87b505bfe8519490d13e2649ab7ab4fb62d9ccd5d97"
+      }
+    },
+    "closure": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/source-closure.json",
+      "sha256": "91517fa49cb753ecddfd67ec724ddca70825c2f3ba5b8343962ea5239ddbd1dd"
+    },
+    "outputs": {
+      "contracts.json": {
+        "path": "/Users/new/vitrea-w50/g1-owner-read/contracts.json",
+        "sha256": "b8698df859c404c38ff8dd6df361015e459e5c2cf474f432913bc554260170a4"
+      },
+      "prepare.json": {
+        "path": "/Users/new/vitrea-w50/g1-owner-read/prepare.json",
+        "sha256": "fc4ac59c450b0643c5296a7789901b2569a549a2b5d50a453f857fa3d2168648"
+      },
+      "projection.json": {
+        "path": "/Users/new/vitrea-w50/g1-owner-read/projection.json",
+        "sha256": "8e0a0b74e7c34ba9da2c1e99fd663b083392a1b6e93efded06468aa35fe2e98c"
+      }
+    },
+    "evidence": {
+      "contracts.json": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/contracts.json",
+        "sha256": "b8698df859c404c38ff8dd6df361015e459e5c2cf474f432913bc554260170a4"
+      },
+      "prepare.json": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/prepare.json",
+        "sha256": "fc4ac59c450b0643c5296a7789901b2569a549a2b5d50a453f857fa3d2168648"
+      },
+      "projection-index.json": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/projection-index.json",
+        "sha256": "ff981240989625983171d911824b97faeb2188fb1f38d3391fd7c22281fcf9f5"
+      },
+      "projection.json.gz": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/projection.json.gz",
+        "sha256": "b4868ba301ae64ac9de04efec76465938c4f2b13fdc8636ace0f6c1859a4a6ff"
+      }
+    },
+    "status": "retained unedited; recorded evidence of the pre-fix referee"
+  },
+  "closure": {
+    "r2": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/source-closure.json",
+      "sha256": "84465e599c9b8f9c4b2355028085311c990c637f0a9849fc38d703bc6d8dd6d2"
+    },
+    "movedSources": [
+      "packages/calibration/results/2026-10-08-w50-g1-fit/owner/referee.ts"
+    ]
+  },
+  "unchanged": "config, inventory, ownerKeys, inputWitness, node and pythonEnvironment are the superseded instruments' own pins; owner/run.py and the bridge are unchanged"
+}
