@@ -82,6 +82,8 @@ def identity(statistic, value, evidence, *, native=False):
 
 
 SIDES = ('native', 'current', 'candidate')
+NOT_READY = 'NATIVE_NOT_READY'
+INCOMPLETE = 'INCOMPLETE_READING'
 
 
 def defect(value, units):
@@ -102,6 +104,19 @@ def defect(value, units):
     return None
 
 
+def unread(candidate, reported):
+    """The DL5n / DL5m (4) reason the evaluator gave for not taking a reading, or None.
+
+    readiness.evaluate_supports marks a statistic the native checkpoint stops NATIVE_NOT_READY
+    and a reported statistic with an incomplete reading INCOMPLETE_READING, both UNMEASURED with
+    every value null. A stop names a required key, an incomplete reading a reported one."""
+    if candidate['measurementStatus'] != 'UNMEASURED' or candidate.get('reason') not in (NOT_READY, INCOMPLETE):
+        return None
+    if (candidate['reason'] == NOT_READY) == reported:
+        raise ValueError('A native stop names a required key and an incomplete reading a reported key')
+    return candidate['reason']
+
+
 def reading(candidate, current, candidate_evidence, current_evidence, *, reported, eligible_empty):
     """A same-native-support reading; transport MAD is not a statistic, code step or budget.
 
@@ -110,6 +125,13 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
     is UNMEASURED with the defect kind as its reason, and readingDefects names kind and side,
     never the value. The judge then records the key UNMEASURED_REPORTED; refusing here, after
     LIVE's irreversible analysis marker, would stop the one exposure with no result (DL5k).
+
+    Two deterministic properties of the blind data reach the judge the same way, every side
+    UNMEASURED with the reason named and no value: a statistic the completed native read stopped
+    (NATIVE_NOT_READY, DL5n; the judge holds the key UNMEASURED and the verdict NEITHER), and a
+    reported key whose reading is incomplete (INCOMPLETE_READING, DL5m (4); UNMEASURED_REPORTED),
+    including a reported T1 with no native silhouette outside the exact DL5b/c eligibility. An
+    eligible empty T1 keeps UNMEASURED_EMPTY_SUPPORT with its three zero-support witnesses.
     """
     def same(a, b):
         # A reported key's shared native value compares by its JSON text, so the same NaN on
@@ -120,13 +142,18 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
             raise ValueError('Current/candidate readings differ on their original native source/support')
     status = candidate['measurementStatus']
     witnesses = candidate['nativeSupportWitnesses']
+    reason = unread(candidate, reported)
     if status == 'UNMEASURED_EMPTY_SUPPORT' and candidate['support'] == 'full-silhouette':
-        if not reported or not eligible_empty or len(witnesses) != 3 or \
+        if not reported or len(witnesses) != 3 or \
                 [w['run'] for w in witnesses] != [1, 2, 3] or any(w['pixels'] != 0 for w in witnesses):
             raise ValueError('Empty T1 needs exact eligibility and three original zero-support witnesses')
+        if not eligible_empty:
+            reason = INCOMPLETE
     units = candidate['units']
     ceiling = 1 if units == 'linear-luma' else 255
     values = (candidate.get('nativeValue'), candidate['value'], current['value'] if current else None)
+    if reason:
+        values = (None, None, None)
     defects = []
     if reported:
         kinds = [defect(value, units) for value in values]
@@ -162,6 +189,11 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
         if any(item['side'] == 'candidate' for item in defects):
             result['measurementStatus'] = 'UNMEASURED'
         result['readingDefects'] = defects
+    if reason:
+        result.update(measurementStatus='UNMEASURED', reason=reason)
+        for side in SIDES:
+            result[side+'MeasurementStatus'] = 'UNMEASURED'
+            result[side+'Reason'] = reason
     return result
 
 

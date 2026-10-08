@@ -76,14 +76,18 @@ class ProjectionTests(unittest.TestCase):
                            reported=True, eligible_empty=True)
         self.assertIsNone(result['candidate']); self.assertIsNone(result['native'])
         self.assertEqual(result['measurementStatus'], 'UNMEASURED_EMPTY_SUPPORT')
-        for change in ('ineligible', 'nonzero', 'two-runs'):
+        self.assertEqual(result['nativeMeasurementStatus'], 'UNMEASURED_EMPTY_SUPPORT')
+        self.assertNotIn('reason', result)
+        # An ineligible empty REPORTED T1 is recorded INCOMPLETE_READING (DL5m (4); tested in
+        # test_readiness.py); a gated key or a witness that is not three exact zeros still refuses.
+        for change in ('gated', 'nonzero', 'two-runs'):
             with self.subTest(change=change):
                 bad = copy.deepcopy(candidate)
                 if change == 'nonzero': bad['nativeSupportWitnesses'][1]['pixels'] = 1
                 elif change == 'two-runs': bad['nativeSupportWitnesses'].pop()
                 with self.assertRaises(ValueError):
                     P.reading(bad, current, self.provenance(), self.provenance('d'),
-                              reported=True, eligible_empty=change != 'ineligible')
+                              reported=change != 'gated', eligible_empty=True)
 
     def test_support_or_native_source_mismatch_cannot_borrow_current_measurement(self):
         candidate = self.reading([1, 2, 3]); current = copy.deepcopy(candidate)

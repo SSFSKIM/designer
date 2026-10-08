@@ -2,10 +2,11 @@
 
 Exposed NEWBED runs capture.measure_capture's own checks and pure functions on the member's own
 derived run (measure_exposed). Blind NEWBED uses the existing repeat reader's ACTUAL
-preparation-chain validator and the immutable pure native-support evaluator; no native statistic
-is remeasured and no role is relabelled. Canonical measurement consumes original published
-native/backdrop pins and frozen seven-run/reference evidence, not a new reference fit. All live
-pairs use both source report validators before first-image measurement.
+preparation-chain validator and the immutable pure native-support evaluator, as readiness.py's
+check-for-check mirrors (below); no native statistic is remeasured and no role is relabelled.
+Canonical measurement consumes original published native/backdrop pins and frozen
+seven-run/reference evidence, not a new reference fit. All live pairs use both source report
+validators before first-image measurement.
 
 LIVE stages its capabilities: render admission belongs to a remaining capture member, while this
 reader runs in the analysis stage over checkpointed members under read admission. The immutable
@@ -13,6 +14,13 @@ helpers that authenticate through render admission (capture.measure_capture's ba
 the repeat helper's live verify_receipt, current3's blind_exposure) are therefore replaced here by
 their own checks over the member's run: the archived pair replay of live-roles/common.py and the
 mirrors below. No helper's numerical or admission rule changes.
+
+The blind read is the exposure's native checkpoint, ready or not (DL5n). Its blind source, its
+typed-evidence reader and its support evaluator are readiness.py's: the sealed ones, check for
+check, except that a not-ready read is admitted with exactly its checkpointed stops, a stopped
+statistic is UNMEASURED (NATIVE_NOT_READY) and is not computed, and an incomplete reported
+statistic is UNMEASURED (INCOMPLETE_READING, DL5m item 4). Each is a deterministic property of
+the blind data, met after the analysis marker, so it must reach the judge as a reading.
 """
 import copy
 import gzip
@@ -40,6 +48,7 @@ C = source(CURRENT3/'canonical/adapter.py', 'w50_phase_paired_canonical')
 R = source(FIT/'references/canonical.py', 'w50_phase_original_canonical')
 B = source(CURRENT3/'repeat/sources.py', 'w50_phase_actual_blind_source')
 L = source(FIT/'live-roles/common.py', 'w50_phase_live_role_common')
+BR = source(HERE/'readiness.py', 'w50_phase_blind_readiness')
 
 
 def indexed(rows):
@@ -90,7 +99,13 @@ class PhaseSources:
                 or self.native_batch['inputs']['scenes'] != config['native']['scenes'] \
                 or self.native_batch['inputs']['manifest'] != root['manifest']:
             raise ValueError('Native source batch differs from the actual root/scene declaration')
-        self.reports = {}; self.canonical_cache = {}
+        self.reports = {}; self.canonical_cache = {}; self._readiness = None
+
+    def readiness(self):
+        """The exposure's native checkpoint metadata, read once (readiness.native_readiness)."""
+        if getattr(self, '_readiness', None) is None:
+            self._readiness = BR.native_readiness(self.context, self.dispatcher)
+        return self._readiness
 
     def registered(self, pin):
         if pin not in self.root['inputs'] or pin not in self.context['inputs']:
@@ -199,7 +214,8 @@ class PhaseSources:
         if self.context['phase'] != 'exposure' or any(r['role'] != 'blind' for r in rows):
             raise ValueError('Original blind population may only be measured inside exposure')
         plan, spec, blobs, evidence = self.authenticate(run, receipt)
-        cell, dependency, export, provenance = B.blind_cell(self.context, run, rows[0], self.scenes)
+        readiness = self.readiness()
+        cell, dependency, export, provenance = BR.blind_cell(self.context, run, rows[0], self.scenes, readiness)
         if [r['run'] for r in cell['runs']] != [1, 2, 3] or set(cell['statistics']) != {r['statistic'] for r in rows}:
             raise ValueError('Blind measurements must preserve the exact original three-run statistic population')
         background = M.R.read_verified_frame(export, dependency, self.scenes['canvas'], plan['dpr'])
@@ -209,7 +225,8 @@ class PhaseSources:
             plan['dpr'], web.shape[:2], background=background,
             impulse=self.scenes['backgrounds'][scene['background']]['kind'] == 'impulse')
         if cell['family'] == 'uniform': del masks['deep8_far24']
-        measured = M.evaluate_native_supports(web, cell, masks, renderer=run['renderer'])
+        measured = BR.evaluate_supports(web, cell, masks, renderer=run['renderer'],
+                                        stopped=BR.stopped(readiness, cell['id']))
         evidence.update(copy.deepcopy(provenance))
         for statistic in measured['statistics'].values():
             statistic['nativeRuns'] = [copy.deepcopy(r['evidence']) for r in cell['runs']]
@@ -235,14 +252,16 @@ class PhaseSources:
                              'indexSha256': artifact['export']['indexSha256']}}
 
     def native_evidence(self, manifest):
+        """current3's NativeEvidence, reading the native checkpoint's readiness as admitted (DL5n)."""
         module = source(CURRENT3/'execution/native_evidence.py', 'w50_phase_blind_native_evidence')
-        return module.NativeEvidence(self.context['repo'], manifest)
+        return BR.readiness_view(module.NativeEvidence, self.readiness())(self.context['repo'], manifest)
 
     def validate_blind_rows(self, rows):
         """current3 execution/blind_exposure.validate_blind_exposure (DL5g), check for check, except
         that each lane is authenticated through its OWN checkpointed member: the receipt must equal
         its checkpoint (resolve_capture_run) and the member run is read-admitted, where the original
-        render-admitted the batch run and its baseline_run derivative."""
+        render-admitted the batch run and its baseline_run derivative, and that native_evidence
+        reads a not-ready checkpoint's readiness as admitted (DL5n)."""
         context, live = self.context, self.dispatcher
         live.require_context(context)
         if context.get('phase') != 'exposure' or context.get('batch', {}).get('phase') != 'exposure':
@@ -515,6 +534,7 @@ def source_probe():
     """Exercise pure statistics and late Python helper imports without any authority data read."""
     M.source_probe()
     R.M.source_probe()
+    BR.source_probe()
     source(CURRENT3/'repeat/admission.py', 'w50_phase_probe_live_repeat')
     source(CURRENT3/'execution/native_evidence.py', 'w50_phase_probe_native_validator')
     source(FIT.parent/'2026-10-08-w50-g1-current2/execution/native_evidence.py',

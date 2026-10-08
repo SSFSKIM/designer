@@ -28,6 +28,10 @@ def source(path, name):
 
 
 P = source(HERE/'phase.py', 'w50_test_phase')
+RD = source(HERE/'readiness.py', 'w50_test_phase_readiness')
+TR = source(HERE/'test_readiness.py', 'w50_test_phase_readiness_fixtures')
+RULES = source(FIT/'judge/rules.py', 'w50_test_phase_judge_rules')
+JUDGE = source(FIT/'judge/live.py', 'w50_test_phase_judge_live')
 LIVE = FIT/'live-execution'
 D = source(LIVE/'dispatch.py', 'w50_test_phase_live_dispatch')
 CORE = source(LIVE/'common.py', 'w50_test_phase_live_common')
@@ -462,6 +466,99 @@ class PhaseTests(unittest.TestCase):
         self.assertEqual(row['readings']['deep8-channel-median']['readingDefects'],
                          [{'kind': 'OUT_OF_DOMAIN_READING', 'side': 'native'}])
         self.assertEqual(self.blind_validated, [row])
+
+    # DL5n and DL5m (4) after the analysis marker: the readiness evaluator's two unread kinds
+    # reach the strict snapshot as rows, never a raise, and route as the judge expects.
+    def evaluated(self, name, empties, *, reported, stopped=()):
+        cell, masks = TR.structured(empties, reported=reported)
+        statistic = RD.evaluate_supports(TR.web(), cell, masks, renderer='webgpu',
+                                         stopped=set(stopped))['statistics'][name]
+        statistic['nativeRuns'] = [{'run': n, 'sha256': str(n)*64} for n in (1, 2, 3)]
+        return statistic
+
+    SCENES = {'uniform': 'cell-grey-004-s096__rest', 'structured': 'cell-impulse-sparse-s224__rest',
+              'span': 'cell-grey-000-s224__inactive'}
+
+    def blind(self, statistic, produced, *, family, reported=False, eligible=False):
+        scene = self.SCENES[family]
+        self.row.update(role='blind', historical=[], statistic=statistic, scene=scene,
+                        nativeIdentity=self.profile+'/'+scene)
+        self.run['scenes'] = [scene]; self.receipt['scene'] = scene
+        self.completed_row = copy.deepcopy(self.row)
+        self.context['expectedCells'] = [{k: self.row[k] for k in KEY}]
+        self.rebind_documents(); self.phase('exposure')
+        key = [self.row[k] for k in KEY]
+        self.root.update(reportedKeys=[key] if reported else [], emptySupportKeys=[key] if eligible else [])
+        self.install_active()
+        producer = self.measure_member
+        def measure(run, receipt, rows):
+            measured = producer(run, receipt, rows)
+            measured['statistics'] = {statistic: copy.deepcopy(produced)}
+            measured['declaration'].update(family=family, inputCode=4 if family == 'uniform' else 0)
+            return measured
+        self.backend.measure_member = measure
+        result = P.measure_phase(self.context, self.captures, self.config)
+        raw = Path(result['snapshot']['path']).read_text()
+        self.assertEqual(json.loads(raw, parse_constant=lambda c: self.fail('nonfinite constant'))['rows'],
+                         result['rows'])
+        self.assertNotIn(TR.CANARY_TEXT, raw)
+        row = result['rows'][0]
+        self.assertEqual(self.blind_validated, [row])
+        routed = RULES.route_row(row, inventory_sha256=self.root['references']['sha256'],
+            reported_keys=self.root['reportedKeys'], empty_support_keys=self.root['emptySupportKeys'])
+        return row, row['readings'][statistic], routed
+
+    def assert_unread(self, reading, reason):
+        self.assertEqual((reading['measurementStatus'], reading['reason']), ('UNMEASURED', reason))
+        for side in ('native', 'current', 'candidate'):
+            self.assertIsNone(reading[side])
+            self.assertEqual((reading[side+'MeasurementStatus'], reading[side+'Reason']), ('UNMEASURED', reason))
+
+    def test_a_stopped_required_blind_level_reaches_the_judge_unmeasured_native_not_ready(self):
+        cell, masks, _ = TR.TC.native_cell()
+        cell['statistics']['deep8-channel-median'].update(value=[TR.CANARY]*3,
+            repeat={'spreadCodes': [TR.CANARY]*3, 'passes': False})
+        produced = RD.evaluate_supports(TR.web(), cell, masks, renderer='webgpu',
+                                        stopped={'deep8-channel-median'})['statistics']['deep8-channel-median']
+        produced['nativeRuns'] = [{'run': n, 'sha256': str(n)*64} for n in (1, 2, 3)]
+        row, reading, routed = self.blind('deep8-channel-median', produced, family='uniform')
+        self.assert_unread(reading, 'NATIVE_NOT_READY')
+        self.assertEqual((reading['B'], reading['reported']), (None, False))
+        self.assertNotIn('native', row)
+        self.assertEqual(routed['status'], 'UNMEASURED')
+
+    def test_a_stopped_required_blind_t1_with_no_native_silhouette_reaches_the_judge(self):
+        produced = self.evaluated('T1-full-silhouette', [True]*3, reported=False, stopped={'T1-full-silhouette'})
+        row, reading, routed = self.blind('T1-full-silhouette', produced, family='structured')
+        self.assert_unread(reading, 'NATIVE_NOT_READY')
+        self.assertNotIn('native', row)
+        self.assertEqual(routed['status'], 'UNMEASURED')
+
+    def test_an_incomplete_reported_blind_t1_is_unmeasured_reported_for_the_judge(self):
+        cases = {'partly empty': ([True, True, False], True), 'empty, not eligible': ([True]*3, False)}
+        for label, (empties, eligible) in cases.items():
+            with self.subTest(label):
+                import shutil; shutil.rmtree(self.output/'measurement', ignore_errors=True)
+                self.blind_validated.clear()
+                produced = self.evaluated('T1-full-silhouette', empties, reported=True)
+                row, reading, routed = self.blind('T1-full-silhouette', produced, family='span',
+                                                  reported=True, eligible=eligible)
+                self.assert_unread(reading, 'INCOMPLETE_READING')
+                self.assertEqual((reading['B'], reading['reported'], reading['eligibleEmptySupport']),
+                                 (None, True, eligible))
+                self.assertNotIn('native', row)
+                self.assertEqual(routed['status'], 'UNMEASURED')
+                gap = JUDGE.reported_gap(routed['status'], reading)
+                self.assertEqual((gap['kind'], gap['sides']), ('INCOMPLETE_READING', ['native', 'current', 'candidate']))
+
+    def test_an_eligible_empty_blind_t1_is_unchanged(self):
+        produced = self.evaluated('T1-full-silhouette', [True]*3, reported=True)
+        row, reading, routed = self.blind('T1-full-silhouette', produced, family='span', reported=True, eligible=True)
+        self.assertEqual((reading['measurementStatus'], reading['nativeMeasurementStatus']), ('UNMEASURED_EMPTY_SUPPORT',)*2)
+        self.assertNotIn('reason', reading)
+        self.assertIn('native', row); self.assertIsNone(row['native'])
+        self.assertEqual(routed['status'], 'UNMEASURED_EMPTY_SUPPORT')
+        self.assertEqual([w['pixels'] for w in routed['emptySupportWitnesses']], [0]*3)
 
 
 if __name__ == '__main__':

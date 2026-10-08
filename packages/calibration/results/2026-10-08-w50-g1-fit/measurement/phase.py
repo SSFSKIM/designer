@@ -197,9 +197,11 @@ def measure_phase(context, captures, config_pin):
                 row['currentCapture'] = copy.deepcopy(baseline_receipt)
                 primary = row['readings'][key[3]]
                 # validate_blind_rows binds row['native'] to the native report's aggregate. A
-                # reported key's native side the projection nulled as a defect (DL5m (4)) has no
-                # value to bind, so the field is omitted and the rest of the envelope still binds.
-                if not any(d['side'] == 'native' for d in primary.get('readingDefects', [])):
+                # native side the projection left UNMEASURED has no value to bind: a reported
+                # key's defect or incomplete reading (DL5m (4)), or a statistic the not-ready
+                # read stopped (DL5n), whose aggregate may still carry the stopped spread. The
+                # field is omitted and the rest of the envelope still binds.
+                if primary['nativeMeasurementStatus'] != 'UNMEASURED':
                     row['native'] = copy.deepcopy(primary['native'])
                 row['readings'][key[3]]['evidence']['native']['nativeEvidence'] = copy.deepcopy(row['nativeEvidence'])
             row_body = {'schema': 'w50-keyed-measurement-evidence-1',

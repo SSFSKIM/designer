@@ -59,6 +59,11 @@ class SourceTests(unittest.TestCase):
         self.reader.context = self.context; self.reader.output = self.output; self.reader.repo = self.base
         self.reader.root = {}; self.reader.config = {}; self.reader.canonical_cache = {}
         self.reader.dispatcher = types.SimpleNamespace(require_read_admission=lambda *a, **k: None)
+        # A ready native checkpoint (readiness.native_readiness's metadata); not-ready reads are
+        # exercised against the real preparation chain in test_readiness.py.
+        self.reader._readiness = {'ready': True, 'stops': [],
+            'artifactManifest': {'path': str(self.output/'native-blind/artifacts.json'), 'sha256': 'e'*64},
+            'nativeRead': {'path': str(self.output/'native-blind/native-read.json'), 'sha256': 'f'*64}}
         self.plan = {'dpr': 1, 'position': .25, 'canvas': self.canvas,
             'scenes': [{'scene': self.scene, 'pose': 'active', 'span': 48}]}
         self.spec = self.plan['scenes'][0]
@@ -142,11 +147,12 @@ class SourceTests(unittest.TestCase):
         rows = self.blind_rows()
         provenance = {'nativeExposure': {'path': str(self.output/'artifacts.json'), 'sha256': 'e'*64},
                       'nativeRead': {'path': str(self.output/'native.json'), 'sha256': 'f'*64}}
-        with patch.object(S.B, 'blind_cell', return_value=(self.cell, {'synthetic': 'dependency'},
-                                                         self.base, provenance)) as authority, \
+        with patch.object(S.BR, 'blind_cell', return_value=(self.cell, {'synthetic': 'dependency'},
+                                                          self.base, provenance)) as authority, \
              patch.object(S.M.R, 'read_verified_frame', return_value=self.background):
             result = self.reader.measure_member(self.run, self.receipt, rows)
-        authority.assert_called_once_with(self.context, self.run, rows[0], self.reader.scenes)
+        authority.assert_called_once_with(self.context, self.run, rows[0], self.reader.scenes,
+                                          self.reader._readiness)
         reading = result['statistics']['T1-full-silhouette']
         self.assertEqual(reading['runValues'], [.5, 0, 0])
         self.assertEqual(reading['value'], 0)
@@ -160,14 +166,41 @@ class SourceTests(unittest.TestCase):
     def test_blind_baseline_is_measured_from_its_own_first_image_on_the_same_masks(self):
         self.first[:] = 128
         baseline = dict(self.receipt, lane='current')
-        with patch.object(S.B, 'blind_cell', return_value=(self.cell, {}, self.base, {})), \
+        with patch.object(S.BR, 'blind_cell', return_value=(self.cell, {}, self.base, {})), \
              patch.object(S.M.R, 'read_verified_frame', return_value=self.background):
             result = self.reader.measure_member(self.run, baseline, self.blind_rows())
         self.assertEqual(result['statistics']['T1-full-silhouette']['runValues'], [0, 0, 0])
         self.assertEqual(result['statistics']['deep8-channel-median']['value'], [128, 128, 128])
 
+    def test_a_not_ready_checkpoint_stops_only_the_statistics_it_names_on_this_cell(self):
+        """DL5n: the blind reader hands the evaluator exactly this cell's checkpointed stops."""
+        stop = {'cell': self.cell['id'], 'statistic': 'deep8-channel-median', 'reason': 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}
+        elsewhere = dict(stop, cell='synthetic/other', statistic='central8-channel-median')
+        self.reader._readiness = dict(self.reader._readiness, ready=False, stops=[stop, elsewhere])
+        with patch.object(S.BR, 'blind_cell', return_value=(self.cell, {}, self.base, {})) as authority, \
+             patch.object(S.M.R, 'read_verified_frame', return_value=self.background):
+            result = self.reader.measure_member(self.run, self.receipt, self.blind_rows())
+        self.assertIs(authority.call_args.args[4], self.reader._readiness)
+        stopped = result['statistics']['deep8-channel-median']
+        self.assertEqual((stopped['measurementStatus'], stopped['reason'], stopped['value']),
+                         ('UNMEASURED', 'NATIVE_NOT_READY', None))
+        self.assertEqual(stopped['nativeRuns'], [r['evidence'] for r in self.cell['runs']])
+        self.assertEqual({n: s['measurementStatus'] for n, s in result['statistics'].items() if n != stop['statistic']},
+                         {n: 'MEASURED' for n in self.cell['statistics'] if n != stop['statistic']})
+
+    def test_typed_blind_evidence_reads_through_the_native_checkpoint(self):
+        manifest = write(self.base/'manifest.json', {'synthetic': 'manifest'})
+        checker = self.reader.native_evidence(manifest)
+        self.assertEqual(type(checker).__name__, 'NativeEvidence')
+        self.reader._readiness = dict(self.reader._readiness, ready=False, stops=[
+            {'cell': self.cell['id'], 'statistic': 'deep8-channel-median', 'reason': 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}])
+        checker = self.reader.native_evidence(manifest)
+        self.assertEqual((type(checker).__name__, type(checker).__mro__[1].__name__),
+                         ('CheckpointedNativeEvidence', 'NativeEvidence'))
+        self.assertEqual(checker.manifest_pin, manifest)
+
     def test_blind_helper_refuses_wrong_phase_and_changed_original_statistic_membership(self):
-        with patch.object(S.B, 'blind_cell', return_value=(self.cell, {}, self.base, {})) as authority:
+        with patch.object(S.BR, 'blind_cell', return_value=(self.cell, {}, self.base, {})) as authority:
             self.context['phase'] = 'gate'
             with self.assertRaises(ValueError): self.reader.blind(self.run, self.receipt, self.blind_rows())
             authority.assert_not_called()
