@@ -54,8 +54,12 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   FW-B (`fe98fc970`, `5e0f65575`, `b8e5f5325`). Draft root regenerated on the registered-2 binding
   (`89e7b0d90`, sha `3923669a…`, validate_body PASS); all suites green. The final review of
   `4ffa48746..89e7b0d90` found no P0-P2 (P3s in the tech-debt tracker), and the LIVE root is
-  SEALED: `live-execution/execution-root.json` `3923669a33979e78…` (`a09e02e94`). Running: the
-  operator tooling in `live-run/` (pre-fit evidence builder, batch builders, run CLI). Next:
+  SEALED: `live-execution/execution-root.json` `3923669a33979e78…` (`a09e02e94`); nothing executed
+  under it. DL5o (X76 family-keyed history) then requires a SUCCESSOR root. Running: X1 (owner
+  intrinsic port per DL5o, r3 evidence cascade `owner/r3`, `completion/registered-3`,
+  `prefit-proofs-r3`, graded X76 self-check); X3 (successor-root mechanism and per-root slots in
+  `live-execution/`); the live-run worker (candidate fitted/hold records, `ownerIntrinsicRecords`,
+  operator tooling in `live-run/`). Then: regenerate and seal the successor root, then
   executionClosure + independentReview proofs and `pre-fit-evidence.json` (verify through LIVE
   `verify_prefit` before sealing it); then (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
