@@ -10,8 +10,17 @@ the sealed root's pathname, without writing it. The closure is what the composit
 now; it must be rediscovered when any source changes, which the seal (authority.seal_root) does
 and compares.
 
+LIVE pins its large inputs repository-relative, so they sit in gitignored live-inputs/ as
+byte-identical copies of committed gzip archives. live_inputs() asserts that each pinned
+live-inputs/ file equals the decompressed bytes of a committed archive. It finds that archive
+by the decompressed hash an evidence/archive.json manifest records, then streams the archive,
+whose own content is checked against its pin. The draft records each file's archive and its
+restore command under liveInputs (pre-seal review P3).
+
 Run: /Users/new/vitrea-w49/py/bin/python -I -B live-roles/draft_root.py   (from the fit directory or anywhere)
 """
+import gzip
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -82,11 +91,63 @@ def role_inputs(name, config):
     if name == 'native':
         return [doc[k] for k in ('scenes', 'pack')]
     if name == 'owner':
+        # owner-candidate/live.py requires the runtime closure as a root input, and root inputs
+        # are repository pins: one outside the repository cannot be registered, so refuse here.
         runtime = Path(doc['runtimeClosure']['path'])
-        return [pin(runtime)] if runtime.is_relative_to(REPO) else []
+        if not runtime.is_absolute() or not runtime.resolve().is_relative_to(REPO):
+            raise ValueError('Owner runtime closure is outside the repository; it cannot be a root input')
+        return [pin(runtime)]
     if name == 'capture':
         return list(doc['transports'].values())
     return []
+
+
+def _archives(value, found):
+    """Every {archive: {path, sha256} gzip} entry of an archive manifest, by decompressed hash."""
+    if isinstance(value, dict):
+        archive = value.get('archive')
+        if isinstance(archive, dict) and str(archive.get('path', '')).endswith('.gz'):
+            digest = archive.get('decompressedSha256') or (value.get('original') or {}).get('sha256')
+            if digest:
+                found.setdefault(digest, []).append({'path': archive['path'], 'sha256': archive['sha256']})
+        for item in value.values(): _archives(item, found)
+    elif isinstance(value, list):
+        for item in value: _archives(item, found)
+    return found
+
+
+def _tracked(path):
+    relative = str(Path(path).resolve().relative_to(REPO))
+    if subprocess.run(['git', '-C', str(REPO), 'ls-files', '--error-unmatch', relative],
+                      capture_output=True).returncode:
+        raise ValueError('Live input archive is not committed: '+relative)
+
+
+def live_inputs(inputs):
+    """Each pinned live-inputs/ file against the decompressed bytes of its committed archive."""
+    prefix = str((FIT/'live-inputs').relative_to(REPO))+'/'
+    found = {}
+    for manifest in sorted(FIT.glob('**/evidence/archive.json')):
+        if subprocess.run(['git', '-C', str(REPO), 'ls-files', '--error-unmatch', str(manifest.relative_to(REPO))],
+                          capture_output=True).returncode == 0:
+            _archives(D.load(manifest), found)
+    out = []
+    for item in inputs:
+        if not item['path'].startswith(prefix): continue
+        D.checked(REPO, item)
+        candidates = {json.dumps(a, sort_keys=True): a for a in found.get(item['sha256'], [])}
+        if len(candidates) != 1:
+            raise ValueError('Live input has no unique committed archive: '+item['path'])
+        archive = next(iter(candidates.values()))
+        path = D.checked(REPO, archive); _tracked(path)
+        digest = hashlib.sha256()
+        with gzip.open(path, 'rb') as handle:
+            for chunk in iter(lambda: handle.read(1 << 20), b''): digest.update(chunk)
+        if digest.hexdigest() != item['sha256']:
+            raise ValueError('Live input differs from its committed archive: '+item['path'])
+        out.append({'path': item['path'], 'sha256': item['sha256'], 'archive': archive,
+                    'restore': f'gunzip -c {archive["path"]} > {item["path"]}   # from the repository root'})
+    return out
 
 
 def closure(probe, sources=None):
@@ -163,6 +224,7 @@ def assemble():
                  doc['currentComposition'], doc['currentEvidence'], *current['chainPins'], doc['ownerContracts']):
         add(item)
     doc['inputs'] = inputs
+    doc['liveInputs'] = live_inputs(inputs)
     A.current_authority(doc, D.load(D.checked(REPO, doc['currentEvidence'])), current)
     if doc['ownerBudgetKeys']:
         source(LIVE/'owner_evidence.py', 'w50_draft_owner').OwnerEvidence(REPO, doc['ownerContracts'], D.owner_source(doc)).finish()
