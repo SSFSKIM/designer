@@ -39,10 +39,11 @@ class Initializer:
         return {'cohort': w.pin(w.repo/'numerical-cohort.json'), 'argumentManifest': w.pin(w.repo/'arguments.json')}
 
 
-def operator(case, world, lines):
+def operator(case, world, lines, numerical=None, pnpm='pnpm'):
     initializer = Initializer(world)
+    if numerical is None: numerical = lambda cohort: world.repo/world.numerical['path']
     op = R.Operator(repo=world.repo, live=world.fit_dir/'live-execution', work=world.base/'outputs',
-                    call=C.run_inprocess(world.D, initializer), numerical=lambda cohort: world.repo/world.numerical['path'],
+                    call=C.run_inprocess(world.D, initializer), numerical=numerical or None, pnpm=pnpm,
                     declarations=lambda: T.declarations(world), transport=lambda decl: T.transport(world, decl),
                     owner_records=lambda decl, candidate: world.intrinsic, out=lines.append)
     return op, initializer
@@ -73,6 +74,7 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(codes, [0]*9)
         self.assertEqual(initializer.calls, ['assemble', 'bind'])
         out = events(self, lines)
+        self.assertEqual([e['code'] for e in out[:2]], ['INITIALIZER_RECORDED', 'CANDIDATE_WRITTEN'])
         verdicts = [(e['phase'], e['verdict']) for e in out if e['code'] == 'VERDICT']
         self.assertEqual(verdicts, [('fit', 'CAPTURED'), ('gate', 'PASS_EXPOSED_OWNER_PENDING'), ('exposure', 'PASS')])
         self.assertEqual([e['phase'] for e in out if e['code'] == 'PHASE_CREATED'], ['fit', 'gate', 'exposure'])
@@ -108,6 +110,91 @@ class EndToEnd(unittest.TestCase):
         self.assertFalse(op.record('exposure-batch.json').exists())
         self.assertFalse(op.output('exposure').exists())
         self.assertFalse(op.slot('exposure').exists())
+
+
+class Initialize(unittest.TestCase):
+    """A failed numerical referee keeps the initializer's result; the rerun runs only the referee."""
+
+    def test_a_failed_referee_resumes_from_the_recorded_initializer_result(self):
+        world = T.K.EndToEnd(self); lines = []; attempts = []
+        def numerical(cohort):
+            attempts.append(cohort)
+            if len(attempts) == 1: raise FileNotFoundError('pnpm')  # an unforeseen fault: code ERROR
+            return world.repo/world.numerical['path']
+        op, initializer = operator(self, world, lines, numerical=numerical)
+        self.assertEqual(R.main(['initialize'], op), 1)
+        out = events(self, lines)
+        self.assertEqual([e['code'] for e in out], ['INITIALIZER_RECORDED', 'ERROR'])
+        self.assertNotIn('Traceback', ''.join(lines)); self.assertNotIn('pnpm', ''.join(lines))
+        self.assertIn('FileNotFoundError', Path(out[-1]['log']).read_text())
+        self.assertTrue(op.record('initialized.json').is_file()); self.assertFalse(op.record('candidate.json').exists())
+        lines.clear()
+        self.assertEqual(R.main(['initialize'], op), 0)
+        self.assertEqual([e['code'] for e in events(self, lines)], ['INITIALIZE_RESUMED', 'CANDIDATE_WRITTEN'])
+        self.assertEqual(initializer.calls, ['assemble', 'bind'])
+        self.assertEqual(attempts[0], attempts[1])
+        recorded = json.loads(op.record('initialized.json').read_text())
+        candidate = json.loads(op.record('candidate.json').read_text())
+        self.assertEqual({k: candidate[k] for k in R.INITIALIZED}, {k: recorded[k] for k in R.INITIALIZED})
+        # The run continues from the resumed candidate.
+        lines.clear(); self.assertEqual(R.main(['fit-batch'], op), 0)
+
+    def test_a_changed_initializer_output_refuses_the_resume(self):
+        world = T.K.EndToEnd(self); lines = []
+        def numerical(cohort): raise R.Stop(step='initialize', code='REFUSED')
+        op, initializer = operator(self, world, lines, numerical=numerical)
+        self.assertEqual(R.main(['initialize'], op), 1)
+        (world.repo/'arguments.json').write_text('changed\n')
+        lines.clear(); self.assertEqual(R.main(['initialize'], op), 1)
+        self.assertEqual([e['code'] for e in events(self, lines)], ['REFUSED'])
+        self.assertEqual(initializer.calls, ['assemble', 'bind'])
+
+    def test_the_real_referee_call_stops_cleanly_and_logs_each_attempt_freshly(self):
+        world = T.K.EndToEnd(self); lines = []
+        tools = Path(world.base/'tools'); tools.mkdir()
+        failing = tools/'failing-pnpm'; failing.write_text('#!/bin/sh\necho crashed\nexit 1\n'); failing.chmod(0o755)
+        working = tools/'working-pnpm'
+        working.write_text(f"#!/bin/sh\ncp '{world.repo/world.numerical['path']}' \"$7\"\n"); working.chmod(0o755)
+        op, initializer = operator(self, world, lines, numerical=False, pnpm=str(tools/'absent-pnpm'))
+        self.assertEqual(R.main(['initialize'], op), 1)
+        out = events(self, lines)
+        self.assertEqual([e['code'] for e in out], ['INITIALIZER_RECORDED', 'TOOL_MISSING'])
+        self.assertIn('not on PATH', Path(out[-1]['log']).read_text())
+        logs = [out[-1]['log']]
+        op.pnpm = str(failing)
+        for _ in range(2):
+            lines.clear(); self.assertEqual(R.main(['initialize'], op), 1)
+            out = events(self, lines)
+            self.assertEqual([e['code'] for e in out], ['INITIALIZE_RESUMED', 'REFUSED'])
+            self.assertIn('crashed', Path(out[-1]['log']).read_text()); logs.append(out[-1]['log'])
+        self.assertEqual(len(set(logs)), 3)
+        op.pnpm = str(working)
+        lines.clear(); self.assertEqual(R.main(['initialize'], op), 0)
+        self.assertEqual([e['code'] for e in events(self, lines)], ['INITIALIZE_RESUMED', 'CANDIDATE_WRITTEN'])
+        self.assertEqual(initializer.calls, ['assemble', 'bind'])
+
+
+class Errors(unittest.TestCase):
+    def test_an_unforeseen_exception_prints_only_a_code_and_a_log_path(self):
+        with tempfile.TemporaryDirectory() as name:
+            base = Path(name).resolve(); lines = []
+            root = base/'live/execution-root-2.json'; root.parent.mkdir(); root.write_text('{}\n')
+            op = R.Operator(repo=base, live=FIT/'live-execution', root=root, records=base/'run', work=base/'work',
+                            call=Scripted([]), out=lines.append)
+            def boom(): raise RuntimeError('value 0.731 leaked')
+            op.step_status = boom
+            self.assertEqual(R.main(['status'], op), 1)
+            out = events(self, lines)
+            self.assertEqual([(e['step'], e['code']) for e in out], [('status', 'ERROR')])
+            self.assertNotIn('0.731', ''.join(lines)); self.assertNotIn('Traceback', ''.join(lines))
+            self.assertIn('RuntimeError: value 0.731 leaked', Path(out[0]['log']).read_text())
+            self.assertTrue(Path(out[0]['log']).is_relative_to(base/'work/operator'))
+            # A stop whose event is not allowlisted is an error too, never a traceback.
+            lines.clear()
+            def bad(): raise R.Stop(step='status', code='NOT_A_CODE')
+            op.step_status = bad
+            self.assertEqual(R.main(['status'], op), 1)
+            self.assertEqual([e['code'] for e in events(self, lines)], ['ERROR'])
 
 
 class Scripted:

@@ -5,8 +5,10 @@
 
 Steps, in order:
     prefit                       executionClosure + independentReview proofs, the root's pre-fit evidence
-    initialize                   the initializer once: the ONE candidate cohort, its numerical cohort
-                                 and the G0 numerical referee report; writes run/candidate.json
+    initialize                   the initializer once: the ONE candidate cohort and its numerical cohort,
+                                 recorded in run/initialized.json before anything else runs; then the
+                                 G0 numerical referee report and run/candidate.json. A rerun after a
+                                 failed referee resumes from that record and runs only the referee.
     fit-batch                    run/fit-batch.json
     run fit [--retries N]        create, then attempts until captured, then the analysis
     fit-record                   run/fit-record.json over the one completed fit (fit/live.fit_record)
@@ -35,14 +37,22 @@ incomplete native read or a started analysis without a sealed result stops (only
 whose one write survived before its sidecar is completed, which the dispatcher reads as a
 seal, not a replay). A second fit point, gate or exposure is never created; an existing slot
 is resumed. A gate that is not PASS_EXPOSED_OWNER_PENDING stops everything after it.
+
+The initializer's outputs are write-once (fit/execution.py assemble and bind_arguments), so its
+result is recorded before the referee runs and is never asked for twice. The referee's report
+is read if an earlier attempt wrote it, never regenerated; its log is fresh per attempt. Any
+exception the step does not stop on is printed as code ERROR with the path of a fresh log that
+holds its traceback, never the traceback itself.
 """
 import argparse
 import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
+import traceback
 import types
 
 HERE = Path(__file__).resolve().parent
@@ -57,7 +67,9 @@ STEPS = ('prefit', 'initialize', 'fit-batch', 'run', 'fit-record', 'gate-batch',
 CODES = ('PREFIT_WRITTEN', 'CANDIDATE_WRITTEN', 'NUMERICAL_NOT_PASS', 'BATCH_WRITTEN', 'RECORD_WRITTEN',
          'PHASE_CREATED', 'PHASE_RESUMED', 'ATTEMPT', 'STALE_STOPPED', 'ANALYSIS', 'VERDICT', 'STATUS',
          'OWNER_RECORDS_BLOCKED', 'STOPPED_AFTER_GATE', 'NO_PHASE', 'REFUSED', 'STALE_ATTEMPT',
-         'NATIVE_INCOMPLETE', 'ANALYSIS_STARTED', 'LEASE_HELD', 'EXISTS', 'ONE_FIT_ONLY')
+         'NATIVE_INCOMPLETE', 'ANALYSIS_STARTED', 'LEASE_HELD', 'EXISTS', 'ONE_FIT_ONLY', 'INITIALIZER_RECORDED',
+         'INITIALIZE_RESUMED', 'TOOL_MISSING', 'ERROR')
+INITIALIZED = ('cohort', 'initializer', 'numericalCohort', 'argumentManifest')
 FIELDS = {'step': str, 'code': str, 'phase': str, 'attempt': int, 'members': int, 'runs': int, 'cells': int,
           'verdict': str, 'path': str, 'log': str, 'event': dict, 'status': dict}
 # Dispatcher messages that name an operator state, read only to choose the code.
@@ -93,7 +105,7 @@ class Operator:
     end-to-end test; the defaults are the real tree."""
 
     def __init__(self, *, repo=REPO, live=None, root=None, records=None, work=WORK, call=None, numerical=None,
-                 declarations=None, transport=None, owner_records=None, prefit=None, out=print):
+                 declarations=None, transport=None, owner_records=None, prefit=None, out=print, pnpm='pnpm'):
         self.repo = Path(repo).resolve(); self.live = Path(live or FIT/'live-execution')
         self.chain = source(self.live/'common.py', 'w50_live_run_chain_ops')
         self.root = Path(root or self.chain.newest_root(self.live)).resolve()
@@ -109,7 +121,7 @@ class Operator:
         self.transport = transport or B.transport_fields
         self.owner_records = owner_records or (lambda decl, candidate: B.owner_intrinsic_records(
             self.repo, decl.root['references'], candidate['cohort'], self.records/'owner-records'))
-        self.prefit = prefit; self.out = out
+        self.prefit = prefit; self.out = out; self.pnpm = pnpm
 
     # paths ----------------------------------------------------------------------------------
     def record(self, name): return self.records/name
@@ -178,28 +190,60 @@ class Operator:
     def step_initialize(self):
         target = self.record('candidate.json')
         if target.exists(): raise Stop(step='initialize', code='EXISTS', path=self.rel(target))
-        made = self.child('initialize', 'initialize')
-        report = self.numerical(made['numericalCohort'])
-        verdict = load(report).get('status')
+        recorded = self.record('initialized.json')
+        if recorded.exists():
+            made = self.initialized(recorded)
+            self.emit(step='initialize', code='INITIALIZE_RESUMED', path=self.rel(recorded), members=len(made['cohort']))
+        else:
+            result = self.child('initialize', 'initialize')
+            made = {k: result[k] for k in INITIALIZED}
+            B.write_once(recorded, {'schema': 'w50-live-run-initialized-1', 'executionRootSha256': sha(self.root), **made})
+            self.emit(step='initialize', code='INITIALIZER_RECORDED', path=self.rel(recorded), members=len(made['cohort']))
+        report = Path(self.numerical(made['numericalCohort']))
+        try: verdict = load(report).get('status')
+        except (OSError, ValueError): raise Stop(step='initialize', code='REFUSED', path=self.rel(report)) from None
         if verdict != 'PASS': raise Stop(step='initialize', code='NUMERICAL_NOT_PASS', path=self.rel(report))
         g0 = (self.repo/load(self.root)['partTwo']['path']).parent
         runner = source(g0/'audit/runner.py', 'w50_live_run_numerical_runner')
-        for item in made['cohort']: runner.validate_numerical_referee(load(report), item['sha256'], self.repo)
-        B.write_once(target, {'schema': 'w50-live-run-candidate-1', 'executionRootSha256': sha(self.root),
-                              'cohort': made['cohort'], 'initializer': made['initializer'],
-                              'numericalCohort': made['numericalCohort'], 'argumentManifest': made['argumentManifest'],
+        try:
+            for item in made['cohort']: runner.validate_numerical_referee(load(report), item['sha256'], self.repo)
+        except ValueError: raise Stop(step='initialize', code='NUMERICAL_NOT_PASS', path=self.rel(report)) from None
+        B.write_once(target, {'schema': 'w50-live-run-candidate-1', 'executionRootSha256': sha(self.root), **made,
                               'numericalReferee': B.D.pin(self.repo, report)})
         self.emit(step='initialize', code='CANDIDATE_WRITTEN', path=self.rel(target), members=len(made['cohort']))
 
+    def initialized(self, path):
+        """The recorded initializer result, for this root, with every output it names unchanged."""
+        value = load(path)
+        if value.get('schema') != 'w50-live-run-initialized-1' or value.get('executionRootSha256') != sha(self.root) or \
+                set(value) != {'schema', 'executionRootSha256', *INITIALIZED}:
+            raise Stop(step='initialize', code='REFUSED', path=self.rel(path))
+        try:
+            for item in [*value['cohort'], *(value[k] for k in INITIALIZED[1:])]:
+                B.D.checked(self.repo, {k: item.get(k) for k in ('path', 'sha256')})
+        except (AttributeError, ValueError): raise Stop(step='initialize', code='REFUSED', path=self.rel(path)) from None
+        return {k: value[k] for k in INITIALIZED}
+
     def _numerical(self, cohort):
-        """G0's numerical referee over the numerical cohort (audit/numerical.ts), report beside it."""
+        """G0's numerical referee over the numerical cohort (audit/numerical.ts), report beside it.
+        A report an earlier attempt wrote is returned as it is (numerical.ts writes it exclusively,
+        and a referee is never re-run to replace one); each attempt logs to a fresh file."""
         g0 = (self.repo/load(self.root)['partTwo']['path']).parent
         cohort_path = self.repo/cohort['path']; report = cohort_path.with_name('referee.json')
-        log = self.work/'operator'/'numerical-referee.log'; log.parent.mkdir(parents=True, exist_ok=True)
+        if report.exists(): return report
+        _, log = C._fresh(self.work/'operator', 'numerical-referee')
         with log.open('x') as stream:
-            subprocess.run(['pnpm', 'exec', 'tsx', str((g0/'audit/numerical.ts').relative_to(self.repo/'packages/calibration')),
-                            '--cohort', cohort['path'], '--out', str(report)], cwd=self.repo/'packages/calibration',
-                           stdout=stream, stderr=subprocess.STDOUT)
+            tool = shutil.which(self.pnpm)
+            if tool is None:
+                stream.write(f'{self.pnpm} is not on PATH\n')
+                raise Stop(step='initialize', code='TOOL_MISSING', log=str(log))
+            try:
+                subprocess.run([tool, 'exec', 'tsx', str((g0/'audit/numerical.ts').relative_to(self.repo/'packages/calibration')),
+                                '--cohort', cohort['path'], '--out', str(report)], cwd=self.repo/'packages/calibration',
+                               stdout=stream, stderr=subprocess.STDOUT)
+            except OSError as error:
+                stream.write(f'{type(error).__name__}: {error}\n')
+                raise Stop(step='initialize', code='TOOL_MISSING', log=str(log)) from None
         if not report.is_file(): raise Stop(step='initialize', code='REFUSED', log=str(log))
         return report
 
@@ -338,14 +382,34 @@ def main(argv=None, operator=None):
     parser.add_argument('--retries', type=int, default=1)
     args = parser.parse_args(argv)
     if (args.step == 'run') != (args.phase is not None): parser.error('run takes exactly one phase')
-    operator = operator or Operator(work=args.work)
     try:
+        operator = operator or Operator(work=args.work)
         if args.step == 'run': return 0 if operator.step_run(args.phase, args.retries) else 1
         getattr(operator, 'step_'+args.step.replace('-', '_'))()
         return 0
     except Stop as stop:
-        operator.emit(**stop.event)
-        return 1
+        try:
+            operator.emit(**stop.event)
+            return 1
+        except BaseException as error:
+            return failure(args.step, operator, args.work, error)
+    except BaseException as error:
+        return failure(args.step, operator, args.work, error)
+
+
+def failure(step, operator, work, error):
+    """Prints code ERROR and the path of a fresh log holding the traceback; nothing the error
+    says reaches the terminal (DL5k)."""
+    out = operator.out if operator is not None else print
+    event = {'schema': 'w50-live-run-event-1', 'step': step, 'code': 'ERROR'}
+    try:
+        _, log = C._fresh(Path(operator.work if operator is not None else work)/'operator', 'operator-error')
+        with log.open('x') as stream: traceback.print_exception(error, file=stream)
+        event['log'] = str(log)
+    except BaseException:
+        pass
+    out(json.dumps(event, sort_keys=True))
+    return 1
 
 
 if __name__ == '__main__':
