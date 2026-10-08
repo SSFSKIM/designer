@@ -1,7 +1,7 @@
 {
   "schema": "w50-live-review-records-1",
   "subject": "The LIVE dispatcher (live-execution/), its seven registered roles and the sealed root they bind (charter DL5: an independent review of the dispatcher before first use).",
-  "basis": "Rounds pre-seal-1 and pre-seal-2 are seeded from the fix commits' messages and the charter handoff notes (git log 98dfef53a..89e7b0d90). Reconcile each against the review reports before sealing the proof; a finding the reports carry and the commits do not must be added with its disposition.",
+  "basis": "Rounds pre-seal-1 and pre-seal-2 are seeded from the fix commits' messages and the charter handoff notes (git log 98dfef53a..89e7b0d90). Reconcile each against the review reports before sealing the proof; a finding the reports carry and the commits do not must be added with its disposition. Round pre-seal-final is taken from the seal commit a09e02e94, the charter Progress handoff and the tracker entry it logged; round dl5o from the two review reports as the coordinator relayed them, its fixing commits from git.",
   "severity": {
     "P0": "blocks every exposure or corrupts a verdict",
     "P1": "loses the one-shot read or admits a wrong verdict",
@@ -232,13 +232,200 @@
       ]
     },
     {
-      "id": "final",
+      "id": "pre-seal-final",
       "range": {
         "base": "4ffa487466b283423b90f6308f13f9dec39aaa2f",
-        "head": "TODO: the last reviewed commit"
+        "head": "89e7b0d901e9d14e8156b4e58b3e6dddca4ee5db"
       },
-      "reviewers": "TODO: the final review of 4ffa48746..89e7b0d90 is still running; name its reviewers",
-      "findings": "TODO: its findings by severity and dispositions with fixing commits. Every byte the sealed root binds must be at or before the LAST round's head (prefit.py root-bound-reviewed): the DL5o successor-root changes (fit/, owner/, owner-candidate/, live-execution/) land after 89e7b0d90, so a round must cover them before the successor root's proof can be written."
+      "reviewers": [
+        "independent final pre-seal review of 4ffa48746..89e7b0d90 (the reviewer model is not recorded in the seal commit or the charter)"
+      ],
+      "findings": [
+        {
+          "severity": "P3",
+          "summary": "A blind cell whose stopped statistic was unmeasurable has no finite repeat bar, so only a byte-identical repeat pair qualifies it under DL5h (ii); a persistently non-identical draw would loop DL5k recaptures although the verdict is already NEITHER.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)'; real but small, or bounded by ruling."
+        },
+        {
+          "severity": "P3",
+          "summary": "The judge FAILs an L1 named growth miss on a GROWTH_RULED cell because GROWTH_MISSES is empty, applying DL5m item 2's principle to L1 while the ruling names M2.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)'; real but small, or bounded by ruling."
+        },
+        {
+          "severity": "P3",
+          "summary": "A candidate that closes a recorded miss passes the judge, but the owner test's named/recorded set equality fails until the publication removes the record (G2 publication work).",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)'; real but small, or bounded by ruling."
+        },
+        {
+          "severity": "P3",
+          "summary": "_lease_mutex takes its flock without a timeout, so a suspended holder blocks other entries for its window rather than refusing them.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)'; real but small, or bounded by ruling."
+        },
+        {
+          "severity": "P3",
+          "summary": "_alive treats a lock whose pid equals the current process's as held; a later invocation has a different pid, so this cannot wedge.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)'; real but small, or bounded by ruling."
+        }
+      ],
+      "sealedAfter": {
+        "root": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root.json",
+        "sha256": "3923669a33979e7819e1bc39663dd008c4620983ed6b16356f24fd08130c44ad",
+        "commit": "a09e02e947ec68284c8093f8a6c5b9bd641979e4",
+        "status": "superseded by execution-root-2.json under DL5o; nothing executed under it"
+      }
+    },
+    {
+      "id": "dl5o",
+      "range": {
+        "base": "dd73ebdc36a539ba1460b7a6eae6f433d1ceee72",
+        "head": "d223c86639ca3b90677b87c29b9ed8313bc1e685"
+      },
+      "reviewers": [
+        "opus read-only review 1 of dd73ebdc3..d223c8663: the DL5o owner port and the candidate X76 records",
+        "opus read-only review 2 of dd73ebdc3..d223c8663: the successor chain, per-root slots and live-run tooling"
+      ],
+      "note": "Both reviewers were opus: the GPT reviewer models were out of quota until 2026-10-14, and the coordinator approved opus for this round. The round starts after a gap from pre-seal-final (89e7b0d90..dd73ebdc3: the root 1 seal, charter and tracker) that moved no file root 2 binds. No P0/P1; every P2 is in the unbound live-run tooling and fixed there; every unfixed P3 is logged.",
+      "findings": [
+        {
+          "severity": "P2",
+          "summary": "prefit.py sealed execution-root-2.pre-fit-evidence.json before LIVE verify_prefit ran; a failing verify left an irreplaceable evidence file and a root that can no longer be superseded. Every verify_prefit check now runs in memory on the evidence first.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "64bf766daa3f4d4a27ce482e6df8a8c86ddb15da"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "run.py initialize kept nothing when the numerical referee failed and could not run twice (write-once initializer outputs, fixed referee log); the result is now recorded first and a rerun runs only the referee, with fresh logs and a clean stop on a missing tool.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "8cfbcab0572fa1944388618d5da25f08522c15f3"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "The executionClosure proof ran neither owner/'s suites nor any TS suite while claiming every LIVE-related suite passes; it now runs owner/ unittest and node:test over owner/, owner-candidate/ and fit/.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "64bf766daa3f4d4a27ce482e6df8a8c86ddb15da"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "prefit converged did not require contiguous review rounds.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "64bf766daa3f4d4a27ce482e6df8a8c86ddb15da"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "The TODO refusal ran after the executionClosure suites, and any summary containing \"TODO\" refused.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "64bf766daa3f4d4a27ce482e6df8a8c86ddb15da"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "A crash between Proof.finish's log rename and the proof write wedged every later run.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "64bf766daa3f4d4a27ce482e6df8a8c86ddb15da"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "run.main let an unforeseen exception print its traceback.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "8cfbcab0572fa1944388618d5da25f08522c15f3"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: the candidate records carry extra holds at 0.5 (harmless).",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: no chart-candidate test runs through the owner port (verified in scratch).",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewers 1 and 2: the TS and Python family classifications can disagree (latent).",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: a family the port does not match passes unchecked (only cssTierBlur today).",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: a dropped leaf that belongs to no family is not caught.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: the active and receded documents refuse a moved family in different forms.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: bodyChromaRetention is classified as a family.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 1: fit/execution.py _provenance is untested.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 2: a torn successor seal (document without sidecar) needs manual cleanup.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 2: authority.sealing_commit does not require the sealing commit to be reachable from HEAD.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 2: operator run directories are shared across root generations.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "Reviewer 2: a crash between claim_output and the contract write leaves an orphaned output.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)'."
+        }
+      ],
+      "sealedAfter": {
+        "root": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.json",
+        "sha256": "2e6f4c990f4cd38810994549b95804333ea883a0ea886320648d9f88d0853dd5",
+        "commit": "ef68b07c60f90d7c17da5b0bfdbc7b0e7fa7020a",
+        "status": "sealed, supersedes execution-root.json (3923669a, a09e02e94) under DL5o"
+      }
     }
   ]
 }

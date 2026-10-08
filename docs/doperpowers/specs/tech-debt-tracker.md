@@ -7991,3 +7991,28 @@ the record; that is G2 publication work. (4) `_lease_mutex` takes its `flock` wi
 so a suspended holder blocks other entries for its millisecond window rather than refusing them.
 (5) `_alive` treats a lock whose pid equals the current process's as held; a later invocation has
 a different pid, so this cannot wedge.
+
+## W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)
+
+*Logged rather than fixed: the DL5o review of `dd73ebdc3..d223c8663` (two opus reviewers) found no
+P0/P1; its three P2s and four cheap P3s were fixed in the unbound live-run tooling (`64bf766da`,
+`8cfbcab05`). These P3s are real but small, and none can change a verdict of root 2
+(`execution-root-2.json`, `2e6f4c99…`, sealed at `ef68b07c6`).* Owner port and candidate records:
+(1) the candidate documents carry hold records at 0.5 beyond the ones X76 needs; harmless.
+(2) No test drives a chart candidate through the owner port; it was verified in scratch only.
+(3) The TS (`owner/`) and Python family classifications are separate tables that can disagree;
+latent today, since both name the same families. A shared generated table, or a test that compares
+them leaf by leaf, closes it. (4) A family the port does not match passes unchecked; today only
+`cssTierBlur`. (5) A dropped leaf that belongs to no family is not caught. (6) The active and
+receded documents refuse a moved family in different forms. (7) `bodyChromaRetention` is classified
+as a family although it is one leaf. (8) `fit/execution.py` `_provenance` is untested. LIVE chain and
+lifecycle: (9) a torn successor seal (a root document without its sidecar) supersedes its
+predecessor by design (`common.superseded`, the safe side), but has to be cleaned up by hand.
+(10) `authority.sealing_commit` checks that the commit introduced the root's bytes but not that it
+is reachable from HEAD. (11) The operator's `run/` records and `<work>/<phase>` outputs are shared
+by every root generation of the directory; a successor root's operator would find its
+predecessor's records. Naming them by root stem closes it. (12) A crash between `claim_output`
+and the contract write leaves a claimed output with no contract; nothing reuses it, but it needs
+manual inspection. In the same shape, a crash in the instant between a successful initializer
+child and `run/initialized.json` leaves the result only in the child's result file under
+`<work>/operator/`.
