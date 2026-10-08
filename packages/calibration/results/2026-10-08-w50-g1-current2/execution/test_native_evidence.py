@@ -108,6 +108,18 @@ class NativeEnvelope(unittest.TestCase):
             with self.subTest(field=field),self.assertRaises(ValueError):self.check()
             self.envelope=original
 
+    def test_repeated_nested_run_cannot_impersonate_three_ordered_runs(self):
+        self.check()
+        runs=self.report['cells'][0]['runs']
+        # Each nested record is authentic run-1 archive evidence; only its placement under
+        # the outer run-2/run-3 labels is false. Re-pin the report/envelope, not the archive.
+        first=copy.deepcopy(runs[0]['evidence'])
+        for run in runs:run['evidence']=copy.deepcopy(first)
+        self.envelope['runs']=[r['evidence'] for r in runs]
+        self.envelope['nativeRead']=self.put_gz('native-read.json.gz',self.report)
+        self.envelope_pin=self.put('envelope.json',self.envelope)
+        with self.assertRaisesRegex(ValueError,'run'):self.check()
+
     def test_report_index_and_actual_png_must_agree(self):
         p=self.export/self.index['files'][0]['path'];p.write_bytes(b'not a PNG')
         with self.assertRaises(ValueError):self.check()

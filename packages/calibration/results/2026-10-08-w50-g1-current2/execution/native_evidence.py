@@ -180,6 +180,10 @@ class NativeEvidence:
                 cell.get('role')!=row['role'] or [r.get('run') for r in runs]!=[1,2,3] or \
                 envelope.get('runs')!=[r.get('evidence') for r in runs] or any(r.get('dependency')!=row['referenceIdentity'] for r in runs):
             raise ValueError('Native envelope must retain all three exact run/dependency records')
+        # Bind each ordered report run to its nested archive identity before archive lookup;
+        # an authentic frame from another run is not evidence of this repetition.
+        if any(not isinstance(r.get('evidence'),dict) or r['evidence'].get('run')!=r['run'] for r in runs):
+            raise ValueError('Native nested evidence run must match its ordered outer run')
         if 'native' in row and not same(cell.get('statistics',{}).get(row['statistic'],{}).get('value'),row['native']):
             raise ValueError('Native reference reading differs from its three-run aggregate')
         scale=re.search(r'-([12])x-',row['profile'])

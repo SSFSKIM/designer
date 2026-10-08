@@ -181,6 +181,21 @@ class ExposureEvidence(unittest.TestCase):
         frame=self.f.export/self.f.index['files'][0]['path'];frame.write_bytes(b'changed native')
         with self.assertRaises(ValueError):self.validate()
 
+    def test_blind_repeated_nested_run_refuses_even_with_repinned_exposure_chain(self):
+        self.assertEqual(self.validate()['status'],'BOUND_BLIND_EVIDENCE')
+        envelope=json.loads(Path(self.rows[0]['nativeEvidence']['path']).read_text())
+        artifact=json.loads(Path(envelope['nativeExposure']['path']).read_text())
+        runs=self.f.report['cells'][0]['runs']
+        # Genuine original-archive run-1 evidence must not satisfy all three outer labels.
+        first=copy.deepcopy(runs[0]['evidence'])
+        for run in runs:run['evidence']=copy.deepcopy(first)
+        native_read=self.f.put_gz('native-read.json.gz',self.f.report)
+        artifact['nativeRead']=native_read
+        envelope.update(nativeRead=native_read,runs=[r['evidence'] for r in runs],
+                        nativeExposure=self.f.put('blind-artifacts.json',artifact))
+        self.rows[0]['nativeEvidence']=self.f.put('blind-envelope.json',envelope)
+        with self.assertRaisesRegex(ValueError,'run'):self.validate()
+
     def test_native_claim_must_belong_to_this_exact_exposure(self):
         envelope=json.loads(Path(self.rows[0]['nativeEvidence']['path']).read_text())
         artifact=json.loads(Path(envelope['nativeExposure']['path']).read_text())
