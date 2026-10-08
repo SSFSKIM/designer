@@ -15,6 +15,10 @@ COMPONENTS = (HERE/'capture.py', HERE/'native.py', HERE/'measurement.py', HERE/'
               FIT/'judge/live.py', FIT/'judge/targets.py', FIT/'fit/live.py')
 # The initializer is a separate pre-render entrypoint with no source_probe; it executes these.
 INITIALIZER = (FIT/'fit/execution.py', FIT/'fit/inputs.py', FIT/'fit/uniform.py')
+# Executed by the dispatcher itself at run time, not by a role: admission.validate_numerical
+# loads G0's numerical referee (which loads numerical_guard.py) in every fit, gate and exposure
+# attempt, and refuses unless both are in the closure.
+DISPATCHER = (FIT.parent/'2026-10-08-w50-g0-declaration/audit/runner.py',)
 
 
 def source(path, name):
@@ -30,6 +34,8 @@ def root_probe():
             raise ValueError('A LIVE component probe did not remain source-only')
     for index, path in enumerate(INITIALIZER):
         source(path, f'w50_live_root_probe_initializer_{index}')
+    for index, path in enumerate(DISPATCHER):
+        source(path, f'w50_live_root_probe_dispatcher_{index}')
     return {'status': 'SOURCE_ONLY'}
 
 

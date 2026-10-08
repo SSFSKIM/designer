@@ -3,10 +3,12 @@
 Every field is derived from repository bytes and checked by the original source validators the
 seal will run again (authority.validate_body): G0 declaration selection, the DL5d dependency
 table, the composed-current authority, the DL5a/b/c key enumerations, the DL5e owner budget and
-evidence, each registered role's interface and its config/input registration. A component that
-is not yet landed keeps a named TODO slot, which instrument_shape refuses, so the draft cannot be
-sealed by accident. The closure is what the composite probe executes now; it must be rediscovered
-when any source changes, which the seal (authority.seal_root) does and compares.
+evidence, each registered role's interface and its config/input registration. A component whose
+files are absent keeps a named TODO slot, which instrument_shape refuses, so such a draft cannot
+be sealed by accident. A complete draft is then run through authority.validate_body in memory at
+the sealed root's pathname, without writing it. The closure is what the composite probe executes
+now; it must be rediscovered when any source changes, which the seal (authority.seal_root) does
+and compares.
 
 Run: /Users/new/vitrea-w49/py/bin/python -I -B live-roles/draft_root.py   (from the fit directory or anywhere)
 """
@@ -45,21 +47,34 @@ INSTRUMENTS = {
     'native': (HERE/'native.py', HERE/'native-exposure-inputs.json'),
     'measurement': (HERE/'measurement.py', HERE/'measurement-config.json'),
     'owner': (HERE/'owner.py', HERE/'owner-config.json'),
-}
-PENDING = {
-    'judge': (todo('judge', 'entrypoint', 'judge/live.py', 'concurrent judge worker'),
-              todo('judge', 'config', 'judge/config.json', 'concurrent judge worker')),
-    'fit': (todo('fit', 'entrypoint', 'fit/live.py', 'concurrent fit worker'),
-            todo('fit', 'config', 'fit/analysis-config.json', 'concurrent fit worker')),
-    'initializer': ({'path': str((FIT/'fit/execution.py').relative_to(REPO)), 'sha256': None},
-                    todo('initializer', 'config', 'w50-fit-initializer-inputs-1 document',
-                         'completedCurrent=currentEvidence, runtime closure/node, fit-scratch output; not yet written')),
+    'judge': (FIT/'judge/live.py', FIT/'judge/config.json'),
+    'fit': (FIT/'fit/live.py', FIT/'fit/analysis-config.json'),
+    # The pre-render initializer and its w50-fit-initializer-inputs-1 document.
+    'initializer': (FIT/'fit/execution.py', FIT/'fit/initializer-inputs.json'),
 }
 
 
 def role_inputs(name, config):
-    """Pins a role config names that its role requires to be root inputs (repo files only)."""
+    """Pins a role config names that its role requires to be root inputs (repo files only).
+
+    judge/fit: judge/live.inputs reads its config, binding, target config and that config's cut
+    through `registered` (root AND context inputs), and fit/live.evaluate reads its own config the
+    same way and then the judge's, so a missing pin fails the fit analysis before the gate. The
+    inventory, owner snapshot and part two the configs also name are read by pin; they are
+    registered too, so the root binds every pin either config names.
+    initializer: fit/execution._state registers its config, the runtime closure (_runtime_spec),
+    completedCurrent (= root.currentEvidence) and that evidence's scenes and native batch, and
+    initialize registers the two exposed native reports."""
     doc = D.load(config)
+    if name == 'judge':
+        targets = D.load(D.checked(REPO, doc['targets']))
+        return [doc['references'], doc['binding'], doc['ownerContracts'], doc['targets'], targets['cut']]
+    if name == 'fit':
+        return [doc['partTwo'], doc['references']]
+    if name == 'initializer':
+        current = D.load(D.checked(REPO, doc['completedCurrent']))
+        return [doc['runtime']['closure'], doc['completedCurrent'], current['originals']['scenes'],
+                current['native']['batch'], *current['native']['reports'].values()]
     if name == 'measurement':
         native = doc['native']
         return [doc['completedReferences'], doc['completedCurrentEvidence'], doc['canonicalReferenceEvidence'],
@@ -141,10 +156,8 @@ def assemble():
         instruments[name] = {'entrypoint': pin(entrypoint), 'config': pin(config)}
         A.instrument_interface(name, source(entrypoint, 'w50_draft_interface_'+name))
         for item in (*instruments[name].values(), *role_inputs(name, config)): add(item)
-    for name, (entrypoint, config) in PENDING.items():
-        if entrypoint.get('sha256', '') is None: entrypoint = pin(REPO/entrypoint['path'])
-        instruments[name] = {'entrypoint': entrypoint, 'config': config}; pending.append(name)
-        if 'TODO' not in entrypoint: add(entrypoint)
+    if D.load(INSTRUMENTS['initializer'][1])['completedCurrent'] != doc['currentEvidence']:
+        raise ValueError('Initializer completedCurrent must be the root currentEvidence (fit/execution._state)')
     doc['instruments'] = instruments
     for item in (doc['recoveryRuling'], *doc['repeatAdmission'].values(), doc['newBedHost'],
                  doc['currentComposition'], doc['currentEvidence'], *current['chainPins'], doc['ownerContracts']):
@@ -156,9 +169,9 @@ def assemble():
     for item in inputs: D.checked(REPO, item)
     doc['closure'] = closure(HERE/'probe.py')
     for name, role in instruments.items():
-        for item in role.values():
-            if 'TODO' not in item and doc['closure']['sources'].get(item['path']) not in (None, item['sha256']):
-                raise ValueError('Component bytes differ from the exercised closure')
+        entrypoint = role['entrypoint']
+        if 'TODO' not in entrypoint and doc['closure']['sources'].get(entrypoint['path']) != entrypoint['sha256']:
+            raise ValueError('Component entrypoint absent from or different in the exercised closure')
     return doc, pending
 
 
@@ -166,8 +179,12 @@ def main():
     doc, pending = assemble()
     target = LIVE/'execution-root.draft.json'
     target.write_text(json.dumps(doc, indent=2, allow_nan=False)+'\n')
-    print(json.dumps({'draft': str(target.relative_to(REPO)), 'pending': pending,
-                      'inputs': len(doc['inputs']), 'closureSources': len(doc['closure']['sources'])}))
+    # The seal's own body validation, in memory, at the sealed root's pathname; nothing is
+    # written there. A draft with a pending slot cannot pass it (instrument_shape refuses).
+    body = 'PENDING' if pending else (A.validate_body(LIVE/'execution-root.json', doc) is doc and 'PASS')
+    print(json.dumps({'draft': str(target.relative_to(REPO)), 'sha256': D.sha(target), 'pending': pending,
+                      'inputs': len(doc['inputs']), 'closureSources': len(doc['closure']['sources']),
+                      'validateBody': body}))
 
 
 if __name__ == '__main__':
