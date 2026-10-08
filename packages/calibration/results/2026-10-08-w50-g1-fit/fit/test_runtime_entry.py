@@ -17,7 +17,7 @@ def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 class RuntimeGuardTests(unittest.TestCase):
-    def execute(self, *, extra_import=None, changed=False):
+    def execute(self, *, extra_import=None, changed=False, legacy=None):
         with tempfile.TemporaryDirectory() as name:
             base=Path(name).resolve();repo=base/'repo';repo.mkdir()
             for folder in ('fit','owner','web','fit/common'):(repo/folder).mkdir(parents=True,exist_ok=True)
@@ -57,8 +57,11 @@ class RuntimeGuardTests(unittest.TestCase):
             candidate=repo/'gate0.json';candidate.write_text('{}')
             pin={'path':'gate0.json','sha256':sha(candidate)}
             root=repo/'execution-root.json'
-            root.write_text(json.dumps({'schema':'w50-g1-execution-root-1','repo':str(repo),
-                'baselineDocuments':[pin],'inputs':[runtime_pin],'closure':closure}))
+            document={'schema':'w50-g1-execution-root-1','lifecycle':'logical-phase-attempts-1',
+                'repo':str(repo),'baselineDocuments':[pin],'inputs':[runtime_pin],'closure':closure}
+            if legacy=='missing-lifecycle':document.pop('lifecycle')
+            elif legacy:document[legacy]={'synthetic':'virtual current alias'}
+            root.write_text(json.dumps(document))
             Path(str(root)+'.sha256').write_text(f'{sha(root)}  {root.name}\n')
             if changed:bridge.write_text(bridge.read_text()+'// changed after root\n')
             env={key:os.environ[key] for key in ('HOME','TMPDIR','TMP','TEMP') if key in os.environ}
@@ -82,6 +85,13 @@ class RuntimeGuardTests(unittest.TestCase):
                 self.assertNotEqual(result.returncode,0)
                 self.assertRegex(result.stderr,'Unsealed|unsealed')
                 self.assertNotIn('UNSEALED SIDE EFFECT',result.stdout)
+
+    def test_child_refuses_unborn_legacy_lifecycle_and_virtual_current_aliases(self):
+        for legacy in ('missing-lifecycle','currentInstrument','currentResults'):
+            with self.subTest(legacy=legacy):
+                result=self.execute(legacy=legacy)
+                self.assertNotEqual(result.returncode,0)
+                self.assertIn('live lifecycle',result.stderr)
 
     def test_changed_prospective_source_refuses_before_import(self):
         result=self.execute(changed=True)

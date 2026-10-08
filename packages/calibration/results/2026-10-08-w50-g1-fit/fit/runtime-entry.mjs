@@ -12,7 +12,10 @@ if (readFileSync(rootPath+'.sha256', 'utf8') !== `${hash(rootPath)}  ${rootPath.
   throw Error('Changed configured execution root');
 }
 const root = JSON.parse(readFileSync(rootPath, 'utf8'));
-if (root.schema !== 'w50-g1-execution-root-1') throw Error('Runtime bridge requires the configured live root');
+if (root.schema !== 'w50-g1-execution-root-1' || root.lifecycle !== 'logical-phase-attempts-1' ||
+    ['currentInstrument','currentResults'].some(key => Object.hasOwn(root, key))) {
+  throw Error('Runtime bridge requires the composed-current live lifecycle root');
+}
 const repo = realpathSync(root.repo);
 const closurePin = request.runtimeClosure;
 if (!root.inputs.some(p => p.path === closurePin?.path && p.sha256 === closurePin?.sha256)) {

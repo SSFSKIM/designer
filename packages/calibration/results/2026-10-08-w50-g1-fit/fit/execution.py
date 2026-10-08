@@ -5,17 +5,20 @@ assemble(execution_root) uses the production candidate builder for that proposal
 bind_arguments(execution_root, evaluation_cohort) writes an additive G0-schema cohort.
 No observations, coefficients, joins, report paths or sampling overrides are public inputs.
 
-Prospective integration (nothing is configured or sealed by this module): the LIVE root pins
-this file explicitly in inputs AND its source closure. Its separate instruments.fit remains
-the live evaluate(context,captures) adapter, not this pre-render entrypoint. The PYTHON closure
+Prospective integration (nothing is configured or sealed by this module): the LIVE root registers
+instruments.initializer={entrypoint:this file's pin,config:its input document pin}; both belong
+to root.inputs and this Python source belongs to its source closure. Its separate instruments.fit
+remains the live evaluate(context,captures) adapter, not this pre-render entrypoint. The PYTHON closure
 includes inputs.py/uniform.py and their exercised Python imports only. Node/TS sources live in a
 SEPARATELY exercised runtime closure, pinned as a root INPUT, never in the Python observed set.
-Root inputs also include fit/initializer-inputs.json plus every referenced evidence/document pin.
+Root inputs also include the explicitly registered initializer config and every referenced evidence/document pin.
 That input has exactly schema='w50-fit-initializer-inputs-1', completedCurrent={path,sha256},
 runtime={closure:{path,sha256},node:{path,sha256}} (node uses its canonical absolute path), and output (a fresh
 repository-relative directory UNDER this fit directory, needed by G0's relative-pin schema).
-The completed-current evidence is an immutable repository-pinned copy of the actual source read,
-not a map of user-supplied statistics. Its original external capture/report pins remain intact.
+completedCurrent must equal root.currentEvidence: the authoritative schema2 read of
+root.currentComposition's genuine ordered instrument/result chains, authenticated again through
+dispatcher.current_evidence after prefit. There is no schema1/singular-current-root compatibility
+path. The original external capture/report pins remain intact; no numeric map can substitute.
 
 Every public operation verifies the sealed live root and real dispatcher.verify_prefit BEFORE
 opening native report values or loading the solver. A live capture context cannot be required
@@ -87,11 +90,16 @@ def _bootstrap(root_path):
 def _admit(root_path):
     dispatcher = _bootstrap(root_path)
     root = dispatcher.root_doc(root_path)
-    if root.get('schema') != 'w50-g1-execution-root-1':
-        raise ValueError('Only a configured live execution root may initialize candidates')
+    if (root.get('schema') != 'w50-g1-execution-root-1' or
+            root.get('lifecycle') != 'logical-phase-attempts-1' or
+            any(k in root for k in ('currentInstrument', 'currentResults'))):
+        raise ValueError('Only the composed-current live lifecycle root may initialize candidates')
     repo = Path(root['repo']).resolve()
-    if _pin(repo, Path(__file__).resolve()) not in root.get('inputs', []):
-        raise ValueError('Root does not explicitly bind this exact pre-render fit source')
+    initializer = root.get('instruments', {}).get('initializer', {})
+    own = _pin(repo, Path(__file__).resolve())
+    if (set(initializer) != {'entrypoint', 'config'} or initializer.get('entrypoint') != own or
+            any(item not in root.get('inputs', []) for item in initializer.values())):
+        raise ValueError('Root does not register this exact initializer fit source and config')
     prefit = dispatcher.verify_prefit(root_path, root)
     # The first native/config/solver read in this entrypoint is strictly AFTER this call.
     return dispatcher, root, repo, prefit
@@ -105,20 +113,22 @@ def _registered(root, repo, pin):
 
 def _state(root_path):
     dispatcher, root, repo, prefit = _admit(root_path)
-    config_path = HERE/'initializer-inputs.json'
-    candidates = [p for p in root['inputs'] if p.get('path') == str(config_path.relative_to(repo))]
-    if len(candidates) != 1:
-        raise ValueError('Exactly one configured initializer-inputs pin required')
-    config = _load(_registered(root, repo, candidates[0]))
+    config_pin = root['instruments']['initializer']['config']
+    config = _load(_registered(root, repo, config_pin))
     if set(config) != {'schema', 'completedCurrent', 'output', 'runtime'} or config['schema'] != 'w50-fit-initializer-inputs-1':
         raise ValueError('Initializer config cannot supply coefficients, values or numeric overrides')
     _runtime_spec(root, repo, config)
-    completed = _load(_registered(root, repo, config['completedCurrent']))
-    if (completed.get('schema') != 'w50-completed-current-evidence-1' or completed.get('status') != 'EVIDENCE_ONLY' or
-            completed.get('currentInstrument') != root['currentInstrument'] or
-            completed.get('currentResults') != root['currentResults'] or
+    if config['completedCurrent'] != root['currentEvidence']:
+        raise ValueError('Initializer must use the live root currentEvidence pin')
+    _registered(root, repo, config['completedCurrent'])
+    # This API re-admits the genuine composition: ordered actual instruments/results and
+    # every chain pin are checked by the source-owned authority, never flattened here.
+    completed = dispatcher.current_evidence(root_path, root)
+    if (completed.get('schema') != 'w50-completed-current-evidence-2' or
+            completed.get('status') != 'EVIDENCE_ONLY' or 'currentInstrument' in completed or
+            completed.get('currentComposition') != root['currentComposition'] or
             completed.get('originals', {}).get('references') != root['references']):
-        raise ValueError('Initializer completed-current input is not the root-bound original read')
+        raise ValueError('Initializer requires the authenticated composed-current evidence2 read')
     output = (repo/config['output']).resolve()
     if not output.is_relative_to(HERE) or output == HERE:
         raise ValueError('Generated candidate/numerical outputs must stay in configured fit scratch')

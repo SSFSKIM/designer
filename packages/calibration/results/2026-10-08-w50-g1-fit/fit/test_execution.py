@@ -15,10 +15,17 @@ E=importlib.util.module_from_spec(spec);spec.loader.exec_module(E)
 
 
 class ExecutionBoundaryTests(unittest.TestCase):
+    def admitted_root_metadata(self):
+        own={'path':str((HERE/'execution.py').relative_to(HERE.parents[4])),
+             'sha256':hashlib.sha256((HERE/'execution.py').read_bytes()).hexdigest()}
+        config={'path':'registered-initializer.json','sha256':'f'*64}
+        return {'schema':'w50-g1-execution-root-1','lifecycle':'logical-phase-attempts-1',
+                'repo':str(HERE.parents[4]),'inputs':[own,config],
+                'instruments':{'initializer':{'entrypoint':own,'config':config},
+                    'fit':{'entrypoint':{'path':'separate-live-evaluator.py','sha256':'a'*64},'config':config}}}
+
     def test_missing_prefit_refuses_before_native_values_or_solver_or_bridge(self):
-        root={'schema':'w50-g1-execution-root-1','repo':str(HERE.parents[4]),
-              'inputs':[{'path':str((HERE/'execution.py').relative_to(HERE.parents[4])),
-                         'sha256':hashlib.sha256((HERE/'execution.py').read_bytes()).hexdigest()}]}
+        root=self.admitted_root_metadata()
         dispatcher=types.SimpleNamespace(root_doc=lambda p: root,
             verify_prefit=lambda p,d: (_ for _ in ()).throw(ValueError('UNMEASURED pre-fit')))
         with patch.object(E,'_bootstrap',return_value=dispatcher), \
@@ -35,22 +42,29 @@ class ExecutionBoundaryTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'live'):E.initialize('unused')
 
     def test_root_must_select_this_fit_source_before_reading_native_reports(self):
-        root={'schema':'w50-g1-execution-root-1','repo':str(HERE.parents[4]),
-              'instruments':{'fit':{'path':'other.py','sha256':'a'*64}}}
+        root=self.admitted_root_metadata()
+        root['instruments']['initializer']['entrypoint']={'path':'other.py','sha256':'a'*64}
         dispatcher=types.SimpleNamespace(root_doc=lambda p:root,verify_prefit=lambda *args:{'path':'pre','sha256':'b'*64})
         with patch.object(E,'_bootstrap',return_value=dispatcher), \
                 patch.object(E,'_load',side_effect=AssertionError('native/config opened')):
             with self.assertRaisesRegex(ValueError,'fit source'):E.initialize('unused')
 
     def test_initializer_source_pin_does_not_impersonate_live_fit_evaluator(self):
-        own={'path':str((HERE/'execution.py').relative_to(HERE.parents[4])),
-             'sha256':hashlib.sha256((HERE/'execution.py').read_bytes()).hexdigest()}
-        root={'schema':'w50-g1-execution-root-1','repo':str(HERE.parents[4]),'inputs':[own],
-              'instruments':{'fit':{'path':'separate-live-evaluator.py','sha256':'a'*64}}}
+        root=self.admitted_root_metadata()
         dispatcher=types.SimpleNamespace(root_doc=lambda p:root,
             verify_prefit=lambda *args:{'path':'prefit.json','sha256':'b'*64})
         with patch.object(E,'_bootstrap',return_value=dispatcher):
             self.assertEqual(E._admit('synthetic-root')[3]['sha256'],'b'*64)
+
+    def test_unborn_legacy_live_root_and_singular_aliases_are_not_compatibility_paths(self):
+        for legacy in ('missing-lifecycle','currentInstrument','currentResults'):
+            root=self.admitted_root_metadata()
+            if legacy=='missing-lifecycle':root.pop('lifecycle')
+            else:root[legacy]={'synthetic':'virtual alias'}
+            dispatcher=types.SimpleNamespace(root_doc=lambda p:root,
+                verify_prefit=lambda *args:(_ for _ in ()).throw(AssertionError('legacy root admitted')))
+            with patch.object(E,'_bootstrap',return_value=dispatcher),self.assertRaisesRegex(ValueError,'live lifecycle'):
+                E._admit('synthetic-root')
 
     def test_no_public_numeric_observation_or_join_override(self):
         with self.assertRaises(TypeError):E.initialize('unused',readings=[1],joins=[2])
