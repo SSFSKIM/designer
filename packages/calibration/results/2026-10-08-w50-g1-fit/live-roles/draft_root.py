@@ -211,9 +211,21 @@ print(json.dumps(dict(sorted(seen.items()))))
     return guard.discover(REPO, probe, sources)
 
 
+def newest_binding():
+    """The newest registered completion binding (completion/registered[-n]/binding.json): each
+    reference-evidence recovery (DL5l, DL5n; DL5o's owner cascade) registers the next one."""
+    found = {}
+    for path in FIT.glob('completion/registered*/binding.json'):
+        name = path.parent.name
+        if name == 'registered' or (name.startswith('registered-') and name[11:].isdigit() and name[11] != '0'):
+            found[1 if name == 'registered' else int(name[11:])] = path
+    if not found: raise ValueError('No registered completion binding')
+    return found[max(found)]
+
+
 def assemble():
     current3 = D.sealed(FIT.parent/'2026-10-08-w50-g1-current3/execution/current-instrument-root.json')
-    binding = D.load(FIT/'completion/registered-2/binding.json')
+    binding = D.load(newest_binding())
     doc = {'schema': 'w50-g1-execution-root-1', 'repo': str(REPO), 'lifecycle': 'logical-phase-attempts-1',
            'quarantine': 'instrument-api-role-discipline-1', 'bootstrap': pin(LIVE/'dispatch.py'),
            'probe': pin(HERE/'probe.py'), 'recoveryRuling': pin(CANONICAL3/'inputs/dl5k-ruling.txt')}
@@ -279,7 +291,7 @@ def main():
     # there. A draft with a pending slot cannot pass it (instrument_shape refuses).
     body = 'PENDING' if pending else (A.validate_body(root, doc) is doc and 'PASS')
     print(json.dumps({'draft': str(target.relative_to(REPO)), 'sha256': D.sha(target), 'root': str(root.relative_to(REPO)),
-                      'supersedes': doc['supersedes']['root'], 'pending': pending, 'inputs': len(doc['inputs']),
+                      'supersedes': doc['supersedes']['root'], 'binding': str(newest_binding().relative_to(REPO)), 'pending': pending, 'inputs': len(doc['inputs']),
                       'closureSources': len(doc['closure']['sources']), 'validateBody': body}))
 
 

@@ -82,6 +82,13 @@ class DraftRoot(unittest.TestCase):
         self.git('commit', '-q', '-m', 'untracked archive')
         with self.assertRaisesRegex(ValueError, 'not committed'): self.draft.live_inputs([self.item])
 
+    def test_the_newest_registered_binding_is_read(self):
+        with self.assertRaisesRegex(ValueError, 'No registered completion binding'): self.draft.newest_binding()
+        for name in ('registered', 'registered-2', 'registered-10', 'registered-03', 'registered-x'):
+            (self.fit/'completion'/name).mkdir(parents=True, exist_ok=True); (self.fit/'completion'/name/'binding.json').write_text('{}')
+        (self.fit/'completion/registered-11').mkdir()
+        self.assertEqual(self.draft.newest_binding(), self.fit/'completion/registered-10/binding.json')
+
     def test_an_owner_runtime_closure_outside_the_repository_refuses_registration(self):
         inside = self.fit/'live-roles/owner-runtime-closure.json'; inside.parent.mkdir(parents=True)
         inside.write_text('{}\n')
