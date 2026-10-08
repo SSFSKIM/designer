@@ -18,7 +18,12 @@ Exposure. The complete union is the sealed gate report's exposed cells, this exp
 routed rows (blind and historical prediction checks with their DL5d physical closure), the
 owner referee's full-union report and the six W48 target aggregates over their unchanged
 complete populations against their original references (judge/targets.py). PASS needs all
-of them; anything else is NEITHER (DL4). Owner rows never pass on a partial population.
+of them; anything else is NEITHER (DL4). Owner rows never pass on a partial population: the
+owner report is graded only at the prepared current report's exact membership, pinned in the
+judge config's ownerUnion (its 745 cells and every aggregate name), so a report that drops or
+adds a cell or aggregate refuses. owner_selfcheck.py grades that prepared report itself as the
+candidate through the same grade_owner_report and expects every cell and aggregate to PASS.
+The measurement evidence must name this phase's analysis claim; an omitted claim refuses.
 
 Routing decisions the charter text fixes and this module only maps:
 * Input 64 (DL5j) is reported on both tiers; its gating condition is numerical identity of the
@@ -143,7 +148,7 @@ def measurement(context, live, root, inventory, measured):
             measured.get('candidateSha256s') != sorted(p['sha256'] for p in cohort) or \
             measured.get('referenceInventory') != root['references'] or \
             measured.get('gateResult') != context.get('gateResult') or \
-            measured.get('executionClaim', context['executionClaim']) != context['executionClaim']:
+            'executionClaim' not in measured or measured['executionClaim'] != context['executionClaim']:
         raise ValueError('Measurement evidence is not this phase, cohort, inventory or analysis claim')
     for name, field in (('executionRoot', 'executionRoot'), ('contract', 'contract'), ('batch', 'batchPath')):
         if measured.get(name) != {'path': context[field], 'sha256': sha(context[field])}:
@@ -405,7 +410,67 @@ def _leaves(value):
     return value if isinstance(value, dict) else {}
 
 
-def owner_union(context, owner, contracts):
+def owner_membership(value):
+    """The judge config's `ownerUnion`: the prepared current owner report's cell identities and
+    aggregate names, as that report's own sorted keys, with the report's pin as provenance.
+
+    The referee reports every cell of its fixed current inventory (745: the 640 owner keys and
+    the 105 DL5m (1) context cells) and every complete-bed aggregate it defines. A candidate
+    report is graded only at exactly that membership, so a dropped or added cell or aggregate
+    refuses rather than changing what has to pass. The lists live in the root-pinned config;
+    the judge does not open the report (owner_selfcheck.py binds the two, and grades the
+    report itself as the candidate through grade_owner_report)."""
+    if not isinstance(value, dict) or set(value) != {'report', 'cells', 'aggregates'} or \
+            not T._pin(value['report']):
+        raise ValueError('Judge config ownerUnion needs the prepared report pin, cells and aggregates')
+    for name in ('cells', 'aggregates'):
+        items = value[name]
+        if not isinstance(items, list) or not items or any(not isinstance(i, str) or not i for i in items) or \
+                items != sorted(set(items)):
+            raise ValueError('Judge config ownerUnion '+name+' must be sorted unique names')
+    if 'C1' not in value['aggregates'] or any(len(i.split('/', 2)) != 3 for i in value['cells']):
+        raise ValueError('Judge config ownerUnion lacks C1 or names a malformed cell')
+    return value
+
+
+def grade_owner_report(report, owner_keys, contracts, membership):
+    """Grade one owner report at the pinned membership: every cell over its seven axes, every
+    aggregate, X75/X76, and the context cells that carry no owner-contracts key (DL5m 1)."""
+    cells = report.get('cells')
+    owners = {'/'.join(k[:3]) for k in owner_keys}
+    if not isinstance(cells, dict) or not owners <= set(cells):
+        raise ValueError('Owner report omits an original owner key')
+    if set(cells) != set(membership['cells']):
+        raise ValueError('Owner report cells differ from the prepared current report membership')
+    reported = report.get('aggregates')
+    if not isinstance(reported, dict) or sorted(reported) != membership['aggregates']:
+        raise ValueError('Owner report aggregates differ from the prepared current report membership')
+    graded = {identity: owner_cell(identity, axes, contracts) for identity, axes in sorted(cells.items())}
+    aggregates = []
+    for name, evidence in sorted(reported.items()):
+        ok = isinstance(evidence, dict) and evidence.get('state') == 'MEASURED' and evidence.get('verdict') == 'within'
+        aggregates.append({'name': name, 'status': 'PASS' if ok else 'FAIL' if
+                           (evidence or {}).get('verdict') == 'failure' else 'UNMEASURED'})
+    intrinsic = []
+    expected = {'X75': 12, 'X76': {'0.25', '0.5'}}
+    for name, shape in expected.items():
+        leaves = _leaves((report.get('intrinsic') or {}).get(name))
+        complete = len(leaves) == shape if isinstance(shape, int) else set(leaves) == shape
+        for member, evidence in sorted(leaves.items()):
+            ok = evidence.get('state') == 'MEASURED' and evidence.get('verdict') == 'within'
+            intrinsic.append({'name': name, 'member': member, 'status': 'PASS' if ok else
+                              'FAIL' if evidence.get('verdict') == 'failure' else 'UNMEASURED'})
+        if not complete:
+            intrinsic.append({'name': name, 'member': '*', 'status': 'UNMEASURED'})
+    # DECISION (owner context): the 105 low-end path cells are in the owner referee's 745-cell
+    # context but carry no owner-contracts key, because G0 keyed them by their path statistic.
+    # Clause 4 retains every applicable owner contract at both positions, so their per-cell
+    # owner verdicts gate here too; nothing is added beyond the owner's own bounds.
+    context_checks = [{'id': identity, **value} for identity, value in graded.items() if identity not in owners]
+    return {'cells': graded, 'aggregates': aggregates, 'intrinsic': intrinsic, 'context': context_checks}
+
+
+def owner_union(context, owner, contracts, membership):
     """Authenticate the owner referee's full-union report and grade every owner check."""
     if not isinstance(owner, dict) or set(owner) != {'report', 'snapshot'}:
         raise ValueError('Exposure requires the owner referee report and its snapshot')
@@ -425,36 +490,9 @@ def owner_union(context, owner, contracts):
             Path(live['gateResult']['path']).resolve() != (Path(context['repo'])/gate['path']).resolve() or \
             live.get('snapshot') != snapshot:
         raise ValueError('Owner report names another union, cohort or gate')
-    cells = report.get('cells')
-    owners = {'/'.join(k[:3]) for k in context['ownerUnionKeys']}
-    if not isinstance(cells, dict) or not owners <= set(cells):
-        raise ValueError('Owner report omits an original owner key')
-    graded = {identity: owner_cell(identity, axes, contracts) for identity, axes in sorted(cells.items())}
-    aggregates = []
-    for name, evidence in sorted((report.get('aggregates') or {}).items()):
-        ok = isinstance(evidence, dict) and evidence.get('state') == 'MEASURED' and evidence.get('verdict') == 'within'
-        aggregates.append({'name': name, 'status': 'PASS' if ok else 'FAIL' if
-                           (evidence or {}).get('verdict') == 'failure' else 'UNMEASURED'})
-    if not any(a['name'] == 'C1' for a in aggregates):
-        aggregates.append({'name': 'C1', 'status': 'UNMEASURED'})
-    intrinsic = []
-    expected = {'X75': 12, 'X76': {'0.25', '0.5'}}
-    for name, shape in expected.items():
-        leaves = _leaves((report.get('intrinsic') or {}).get(name))
-        complete = len(leaves) == shape if isinstance(shape, int) else set(leaves) == shape
-        for member, evidence in sorted(leaves.items()):
-            ok = evidence.get('state') == 'MEASURED' and evidence.get('verdict') == 'within'
-            intrinsic.append({'name': name, 'member': member, 'status': 'PASS' if ok else
-                              'FAIL' if evidence.get('verdict') == 'failure' else 'UNMEASURED'})
-        if not complete:
-            intrinsic.append({'name': name, 'member': '*', 'status': 'UNMEASURED'})
-    # DECISION (owner context): the 105 low-end path cells are in the owner referee's 745-cell
-    # context but carry no owner-contracts key, because G0 keyed them by their path statistic.
-    # Clause 4 retains every applicable owner contract at both positions, so their per-cell
-    # owner verdicts gate here too; nothing is added beyond the owner's own bounds.
-    context_checks = [{'id': identity, **value} for identity, value in graded.items() if identity not in owners]
-    return {'cells': graded, 'aggregates': aggregates, 'intrinsic': intrinsic, 'context': context_checks,
-            'report': {'path': str(report_path), 'sha256': sha(report_path)}, 'snapshot': copy.deepcopy(snapshot)}
+    graded = grade_owner_report(report, context['ownerUnionKeys'], contracts, membership)
+    return {**graded, 'report': {'path': str(report_path), 'sha256': sha(report_path)},
+            'snapshot': copy.deepcopy(snapshot)}
 
 
 # Evaluation ---------------------------------------------------------------------------------
@@ -462,8 +500,9 @@ def owner_union(context, owner, contracts):
 def inputs(context, live, root, config_pin):
     config = registered(context, live, root, config_pin)
     if not isinstance(config, dict) or config.get('schema') != SCHEMA or set(config) != {
-            'schema', 'references', 'binding', 'ownerContracts', 'targets'}:
+            'schema', 'references', 'binding', 'ownerContracts', 'targets', 'ownerUnion'}:
         raise ValueError('Unknown judge config')
+    owner_membership(config['ownerUnion'])
     if config['references'] != root['references'] or config['ownerContracts'] != root.get('ownerContracts'):
         raise ValueError('Judge config names another inventory or owner snapshot')
     binding = registered(context, live, root, config['binding'])
@@ -560,7 +599,7 @@ def evaluate(context, evidence, config_pin):
         for item, value in gate_cells.items():
             if value.get('status') not in wanted(item, 'gate', root):
                 raise ValueError('Qualified gate report carries an unqualified cell')
-        graded = owner_union(context, evidence['owner'], contracts)
+        graded = owner_union(context, evidence['owner'], contracts, config['ownerUnion'])
         cells = []
         for original in context['unionExpectedCells']:
             item = key(original)

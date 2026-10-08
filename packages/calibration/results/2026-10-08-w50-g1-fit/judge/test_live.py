@@ -88,8 +88,14 @@ class World:
         self.targets = self.write('judge/targets-config.json', {'schema': 'w50-target-contract-config-1',
             'inventory': self.references, 'cut': self.cut, 'currentGeneration': CURRENT_GENERATION,
             'w48Generation': 'd0219cd684bf'})
+        # The owner referee's prepared current membership: every owner key plus two context cells.
+        self.owner_cells = sorted({'/'.join(k[:3]) for k in self.dependencies['ownerUnionKeys']} |
+                                  {f'{P1}/webgpu/dark-solid__rrect-lg__rest', f'{P1}/webgpu/dark-solid__rrect-lg__inactive'})
+        self.owner_aggregates = ['C1', 'M1/0.25/dark/rest']
+        prepared = self.write('owner/prepare.json', {'synthetic': 'prepared current owner report'})
         self.config = self.write('judge/config.json', {'schema': 'w50-judge-config-1', 'references': self.references,
-            'binding': self.binding, 'ownerContracts': self.owner_contracts, 'targets': self.targets})
+            'binding': self.binding, 'ownerContracts': self.owner_contracts, 'targets': self.targets,
+            'ownerUnion': {'report': prepared, 'cells': self.owner_cells, 'aggregates': self.owner_aggregates}})
         self.part_two = self.write('g0/fit-declaration.json', {'selection': [
             'Minimum worst exposed low-end level error', 'Minimum mean absolute low-end level error',
             'Minimum squared normalized coefficient distance from current over range[0,1]',
@@ -366,8 +372,7 @@ class World:
             out = {name: {'state': 'NOT_APPLICABLE', 'reason': 'synthetic'} for name in self.judge.AXES}
             out['M1'] = {'state': 'MEASURED', 'verdict': 'within', 'R': 1.0}
             return out
-        cells = {'/'.join(k[:3]): axes() for k in self.dependencies['ownerUnionKeys']}
-        cells[f'{P1}/webgpu/dark-solid__rrect-lg__rest'] = axes()
+        cells = {identity: axes() for identity in self.owner_cells}
         report = {'cells': cells, 'aggregates': {'C1': {'state': 'MEASURED', 'verdict': 'within'},
                   'M1/0.25/dark/rest': {'state': 'MEASURED', 'verdict': 'within'}},
                   'intrinsic': {'X75': {f'endpoint-{i:02}': {'state': 'MEASURED', 'verdict': 'within'} for i in range(12)},
@@ -590,6 +595,64 @@ class JudgeTests(unittest.TestCase):
         _, report = world.exposure(world.qualified_gate(), owner=gap)
         self.assertEqual(report['status'], 'NEITHER')
         self.assertEqual(cell_of(report, P1, 'checkerboard__rrect-md__rest', 'owner-contracts')['status'], 'UNMEASURED')
+
+    def test_owner_report_membership_is_the_prepared_report_exactly(self):
+        context_cell = f'{P1}/webgpu/dark-solid__rrect-lg__rest'
+        def drop_context(report): del report['cells'][context_cell]
+        def drop_aggregate(report): del report['aggregates']['M1/0.25/dark/rest']
+        def drop_c1(report): del report['aggregates']['C1']
+        def extra_cell(report): report['cells'][f'{P2}/webgpu/dark-solid__rrect-lg__rest'] = report['cells'][context_cell]
+        def extra_aggregate(report): report['aggregates']['M1/0.5/dark/rest'] = {'state': 'MEASURED', 'verdict': 'within'}
+        for label, mutate in (('dropped context cell', drop_context), ('dropped aggregate', drop_aggregate),
+                              ('dropped C1', drop_c1), ('added cell', extra_cell), ('added aggregate', extra_aggregate)):
+            with self.subTest(label):
+                world = World(self); world.install(self)
+                with self.assertRaisesRegex(ValueError, 'prepared current report membership'):
+                    world.exposure(world.qualified_gate(), owner=mutate)
+        world = World(self); world.install(self)
+        _, report = world.exposure(world.qualified_gate())
+        self.assertEqual(report['status'], 'PASS')
+        self.assertEqual([c['id'] for c in report['owner']['context']],
+                         [f'{P1}/webgpu/dark-solid__rrect-lg__inactive', context_cell])
+
+    def test_judge_config_requires_a_well_formed_owner_union(self):
+        judge = self.world.judge
+        good = json.loads((self.world.repo/self.world.config['path']).read_text())['ownerUnion']
+        self.assertIs(judge.owner_membership(good), good)
+        for label, change in (
+                ('unsorted cells', lambda u: u['cells'].reverse()),
+                ('duplicate aggregate', lambda u: u['aggregates'].append('M1/0.25/dark/rest')),
+                ('no C1', lambda u: u['aggregates'].remove('C1')),
+                ('empty cells', lambda u: u['cells'].clear()),
+                ('malformed cell', lambda u: u['cells'].insert(0, 'a/b')),
+                ('no report pin', lambda u: u.pop('report')),
+                ('short report pin', lambda u: u['report'].update(sha256='0'))):
+            with self.subTest(label):
+                union = copy.deepcopy(good); change(union)
+                with self.assertRaises(ValueError):
+                    judge.owner_membership(union)
+        w = World(self); w.install(self)
+        config = json.loads((w.repo/w.config['path']).read_text()); del config['ownerUnion']
+        w.config = w.write('judge/config.json', config)
+        w.root['instruments']['judge']['config'] = w.config
+        w.root['inputs'][0] = w.config
+        w.write('live/execution-root.json', w.root)
+        context = w.context('gate')
+        with self.assertRaisesRegex(ValueError, 'Unknown judge config'):
+            w.run(context, w.measured(context))
+
+    def test_measurement_without_the_analysis_claim_refuses(self):
+        w = self.world
+        context = w.context('gate')
+        measured = w.measured(context)
+        self.assertEqual(w.run(context, measured)['status'], 'PASS_EXPOSED_OWNER_PENDING')
+        context = w.context('gate')
+        measured = w.measured(context)
+        del measured['executionClaim']
+        measured['snapshot'] = w.absolute(Path(context['output'])/'measurement/phase.json',
+                                          {k: v for k, v in measured.items() if k != 'snapshot'})
+        with self.assertRaisesRegex(ValueError, 'analysis claim'):
+            w.run(context, measured)
 
     def test_blind_row_without_exposure_content_pin_blocks(self):
         w = self.world
