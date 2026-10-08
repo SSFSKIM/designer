@@ -1,0 +1,86 @@
+{
+  "completedOwnerReferences": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/prepare.json",
+    "sha256": "fc4ac59c450b0643c5296a7789901b2569a549a2b5d50a453f857fa3d2168648"
+  },
+  "frozenSourceClosure": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/source-closure.json",
+    "sha256": "91517fa49cb753ecddfd67ec724ddca70825c2f3ba5b8343962ea5239ddbd1dd"
+  },
+  "interpreter": {
+    "path": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf"
+  },
+  "node": {
+    "path": "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+    "sha256": "ee6fb0e015284d83a91e8ec5213f43a157f8a392b58555301682892ba928c04a"
+  },
+  "originalInventory": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+    "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  "ownerInputs": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/inputs-resolved.json",
+    "sha256": "ac6b693748a94396ce069541201bfb9d5db194955a88814b7a65c98754dc6466"
+  },
+  "python": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/live-python-shim",
+  "pythonEnvironment": {
+    "architecture": "arm64",
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+    "isolated": true,
+    "packages": [
+      [
+        "numpy",
+        "2.5.3"
+      ],
+      [
+        "pillow",
+        "12.3.0"
+      ],
+      [
+        "pip",
+        "26.1.2"
+      ],
+      [
+        "scipy",
+        "1.18.1"
+      ]
+    ],
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]"
+  },
+  "pythonLaunch": "/Users/new/vitrea-w49/py/bin/python",
+  "pythonPrefix": "/Users/new/vitrea-w49/py",
+  "pythonVenvConfig": {
+    "path": "/Users/new/vitrea-w49/py/pyvenv.cfg",
+    "sha256": "1ff4be75ecab254ecb39992d06a83f20bf2c84a8426e16ff3a6328bf7b842561"
+  },
+  "runtimeClosure": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner-runtime-closure.json",
+    "sha256": "edda6fff38cff734f74bda20ac354fe107377e5a0e99be5c0669aa2452fc35b5"
+  },
+  "schema": "w50-owner-candidate-config-1",
+  "sourcePins": {
+    "packages/calibration/results/2026-10-08-w50-g1-fit/owner/api.ts": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/api.ts",
+      "sha256": "a80a4caea17002b88b5de44b5ac9abf7a88f9d90328041a2e8afde304b6b7a1a"
+    },
+    "packages/calibration/results/2026-10-08-w50-g1-fit/owner/intrinsic.ts": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/intrinsic.ts",
+      "sha256": "052a18daa895311275196dfb72d109bc8b7fe3776a1b15b8953235e649ce13e7"
+    },
+    "packages/calibration/results/2026-10-08-w50-g1-fit/owner/referee.ts": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/referee.ts",
+      "sha256": "9ea8e26d8e49ee083de96d27e38135dce9a368aff0c4ab4ff349193779c32ba1"
+    },
+    "packages/calibration/results/2026-10-08-w50-g1-fit/owner/source.ts": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/source.ts",
+      "sha256": "1aea30da0199b81d1c05e5c80ea377cfb257f8bd99774c5272d35612d5b2f51e"
+    }
+  },
+  "tsx": {
+    "path": "/Users/new/vitrea-w50/g0/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/api/index.mjs",
+    "sha256": "477bed5ef167ef825ec4cb99ed010ac6d70833d1b4e8b46e23825cc6de543d8e"
+  }
+}

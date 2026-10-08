@@ -3,6 +3,13 @@
 The dispatcher owns the live Python closure and GPU lease. The separately registered Node
 closure owns the owner algorithm, compiler boundary and Python edge subprocess. The full
 judge, not this wrapper, decides PASS/NEITHER. A snapshot is evidence, not a reusable lease.
+
+Two claims are bound. The LOGICAL claim (contract.started.json) names the phase, contract,
+batch, output and numerical admission; LIVE writes it once, in whichever attempt first ran, so
+its pid/lease are that attempt's and are not compared here. The EXECUTION claim the dispatcher
+issued this context under must be the exclusive full-union analysis marker held by this very
+process and lease (DL5k: no analytical read before that marker); the snapshot carries it and
+the Node child rechecks it against its own parent.
 """
 import hashlib
 import json
@@ -149,9 +156,15 @@ def evaluate(context, captures, config_pin):
     claim = load(claim_pin['path'])
     if any(claim.get(k) != v for k, v in {
         'contractSha256': contract_pin['sha256'], 'batchSha256': batch_pin['sha256'],
-        'phase': 'exposure', 'pid': os.getpid(), 'output': context['output'],
-        'gpuLease': dispatch._LEASE['token']}.items()):
-        raise ValueError('Changed exposure claim or live lease owner')
+        'phase': 'exposure', 'output': context['output']}.items()):
+        raise ValueError('Changed exposure claim')
+    execution_pin = normalized(context.get('executionClaim'), repo)
+    execution = load(execution_pin['path'])
+    if execution_pin['path'] != str(Path(contract_pin['path']+'.phase')/'analysis.started.json') \
+            or execution.get('schema') != 'w50-live-analysis-claim-1' \
+            or execution.get('logicalContract') != contract_pin or execution.get('pid') != os.getpid() \
+            or execution.get('gpuLease') != dispatch._LEASE['token'] or execution.get('output') != context['output']:
+        raise ValueError('Owner needs the full-union analysis claim held by this live lease owner')
     gate_pin = normalized(context['gateResult'], repo)
     gate = load(checked(gate_pin))
     gate_contract_pin = normalized(contract['gateContract'], repo)
@@ -175,6 +188,7 @@ def evaluate(context, captures, config_pin):
         raise ValueError('Snapshot requires the live external output directory')
     snapshot = {'schema': 'w50-owner-live-capture-union-1', 'phase': 'exposure',
         'executionRoot': root_pin, 'contract': contract_pin, 'batch': batch_pin, 'claim': claim_pin,
+        'executionClaim': execution_pin,
         'config': config_pin, 'gateResult': gate_pin, 'output': str(output),
         'cohort': batch['cohort'], 'ownerIntrinsicRecords': intrinsic_pin,
         'ownerUnionKeys': context['ownerUnionKeys'],
@@ -193,7 +207,7 @@ def evaluate(context, captures, config_pin):
         capture_output=True, check=False, cwd=repo, env=env)
     dispatch.require_context(context)
     # The child cannot silently replace any launch authority while producing its report.
-    for item in (snapshot_pin, claim_pin, root_pin, config_pin, runtime_pin, gate_pin):
+    for item in (snapshot_pin, claim_pin, execution_pin, root_pin, config_pin, runtime_pin, gate_pin):
         checked(item)
     source_map(repo, closure)
     if result.returncode:

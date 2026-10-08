@@ -67,17 +67,22 @@ if(Object.keys(request).sort().join(',')!=='config,snapshot'||!isDeepStrictEqual
   ||request.snapshot.sha256!==process.env.W50_OWNER_LIVE_SNAPSHOT_SHA256)
   throw Error('Request was not bound by the live snapshot writer');
 const snapshot=read(request.snapshot),root=read(snapshot.executionRoot),claim=read(snapshot.claim);
-const contract=read(snapshot.contract),batch=read(snapshot.batch);
+const contract=read(snapshot.contract),batch=read(snapshot.batch),execution=read(snapshot.executionClaim);
 const absolute=pin=>({path:resolve(ROOT,pin.path),sha256:pin.sha256});
 const registered=pin=>root.inputs.some(item=>isDeepStrictEqual(absolute(item),pin));
 if(snapshot.schema!=='w50-owner-live-capture-union-1'||snapshot.phase!=='exposure'
   ||snapshot.executionRoot.sha256!==process.env.W50_OWNER_LIVE_ROOT_SHA256
   ||contract.executionRootSha256!==snapshot.executionRoot.sha256||root.repo!==ROOT
   ||!registered(configPin)||!registered(config.runtimeClosure)||!isDeepStrictEqual(snapshot.config,configPin)
-  ||claim.phase!=='exposure'||claim.pid!==process.ppid||claim.output!==snapshot.output
+  ||claim.phase!=='exposure'||claim.output!==snapshot.output
   ||claim.contractSha256!==snapshot.contract.sha256||claim.batchSha256!==snapshot.batch.sha256
   ||request.snapshot.path!==resolve(claim.output,'owner-candidate.snapshot.json')
   ||snapshot.claim.path!==snapshot.contract.path+'.started.json'
+  // The logical claim is whichever attempt first ran; the process binding is the analysis
+  // marker the parent was issued under, held by exactly this parent.
+  ||snapshot.executionClaim.path!==snapshot.contract.path+'.phase/analysis.started.json'
+  ||execution.schema!=='w50-live-analysis-claim-1'||execution.pid!==process.ppid
+  ||!isDeepStrictEqual(execution.logicalContract,snapshot.contract)||execution.output!==snapshot.output
   ||!isDeepStrictEqual(absolute(contract.batch),snapshot.batch)
   ||!isDeepStrictEqual(batch.cohort,snapshot.cohort))
   throw Error('Snapshot lacks the live parent claim/root binding');

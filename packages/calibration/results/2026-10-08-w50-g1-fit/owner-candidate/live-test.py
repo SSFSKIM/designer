@@ -109,7 +109,7 @@ class LiveTests(unittest.TestCase):
             'inputs': [self.config, self.closure], 'gateResult': self.gate_result,
             'gateCaptures': self.gate_captures, 'ownerUnionKeys': [], 'expectedCells': [],
             'unionExpectedCells': []}
-        self.activate()
+        self.mark()
         self.captures = {'status': 'CAPTURED', 'runs': [], 'synthetic': {'exact': ['exposure', 2]}}
         self.child = patch.object(self.live.subprocess, 'run', return_value=type('Result', (), {
             'returncode': 0, 'stdout': json.dumps({'cells': {}, 'aggregates': {}, 'intrinsic': {},
@@ -128,6 +128,19 @@ class LiveTests(unittest.TestCase):
         self.dispatch._ACTIVE = (self.context, copy.deepcopy(self.context), self.contract['sha256'],
             self.batch['sha256'], True, self.read(self.root), None)
 
+    def mark(self, **changes):
+        """(Re)write LIVE's full-union analysis marker for the current contract, held by this
+        process and synthetic lease, and issue the context under it."""
+        path = Path(self.contract['path']+'.phase')/'analysis.started.json'
+        path.parent.mkdir(exist_ok=True)
+        value = {'schema': 'w50-live-analysis-claim-1', 'logicalContract': self.contract,
+            'captures': self.batch, 'pid': os.getpid(), 'gpuLease': self.dispatch._LEASE['token'],
+            'output': str(self.output), **changes}
+        path.write_text(json.dumps(value, sort_keys=True)+'\n')
+        self.execution = pin(path)
+        self.context['executionClaim'] = self.execution
+        self.activate()
+
     def test_genuine_snapshot_preserves_bundles_and_is_exclusive(self):
         before = copy.deepcopy((self.captures, self.context))
         result = self.live.evaluate(self.context, self.captures, self.config)
@@ -135,6 +148,7 @@ class LiveTests(unittest.TestCase):
         self.assertEqual(snapshot['exposureCaptures'], self.captures)
         self.assertEqual(snapshot['gateCaptures'], self.gate_captures)
         self.assertEqual(snapshot['claim'], self.claim)
+        self.assertEqual(snapshot['executionClaim'], self.execution)
         self.assertEqual(snapshot['cohort'], [self.doc])
         self.assertEqual(before, (self.captures, self.context))
         self.assertFalse(Path(self.contract['path']+'.result.json').exists())
@@ -161,8 +175,32 @@ class LiveTests(unittest.TestCase):
             self.live.evaluate(self.context, self.captures, other)
         self.child.assert_not_called()
 
+    def test_logical_claim_pid_is_the_first_attempt_and_is_not_this_process(self):
+        # LIVE writes the logical claim once, in whichever attempt ran first.
+        claim = self.read(self.claim); claim.update(pid=-1, gpuLease='an earlier attempt lease')
+        self.claim = self.put('contract.json.started.json', claim)
+        result = self.live.evaluate(self.context, self.captures, self.config)
+        self.assertEqual(self.read(result['snapshot'])['claim'], self.claim)
+
+    def test_execution_claim_must_be_this_process_lease_marker(self):
+        for changes in ({'pid': -1}, {'gpuLease': 'another lease'}, {'output': '/elsewhere'},
+                        {'schema': 'w50-live-attempt-1'}, {'logicalContract': self.batch}):
+            with self.subTest(changes=changes):
+                self.mark(**changes)
+                with self.assertRaisesRegex(ValueError, 'analysis claim'):
+                    self.live.evaluate(self.context, self.captures, self.config)
+        self.mark()
+        attempt = Path(self.contract['path']+'.phase')/'attempts/000001/started.json'
+        attempt.parent.mkdir(parents=True)
+        attempt.write_text(Path(self.execution['path']).read_text())
+        self.context['executionClaim'] = pin(attempt); self.activate()
+        with self.assertRaisesRegex(ValueError, 'analysis claim'):
+            self.live.evaluate(self.context, self.captures, self.config)
+        self.child.assert_not_called()
+
     def test_changed_root_claim_and_gate_cohort_refuse(self):
-        for target, field, value in [(self.root, 'inputs', []), (self.claim, 'pid', -1),
+        for target, field, value in [(self.root, 'inputs', []), (self.claim, 'phase', 'gate'),
+                                     (self.claim, 'output', '/elsewhere'),
                                      (self.gate_contract, 'cohort', [])]:
             with self.subTest(field=field):
                 path = Path(target['path']); original = path.read_bytes()
@@ -218,7 +256,7 @@ class LiveTests(unittest.TestCase):
         self.claim = self.put('contract.json.started.json', claim)
         self.context.update(inputs=[self.config, self.closure], gateResult=self.gate_result,
                             batch=self.read(self.batch))
-        self.activate()
+        self.mark()
 
     def test_real_child_refuses_unsealed_cjs_reader(self):
         patch.stopall()
