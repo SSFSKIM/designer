@@ -60,9 +60,14 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   `8c91f529c`); the draft root registers all seven roles and passes `validate_body` in memory
   (`0294ddc45`, `a2d1bfbb9`; initializer config `fit/initializer-inputs.json`), and a synthetic
   fit→gate→exposure end-to-end through LIVE and the real roles passes (`cde988e6b`). Running:
-  three read-only opus reviews of `98dfef53a..a2d1bfbb9` (LIVE + capture/native; judge, targets,
-  fit, measurement; measurement/owner roles and root wiring). Next: fix wave on verified
-  findings, re-run `live-roles/draft_root.py` and all suites, then fill the
+  three pre-seal fix waves on the reviews of `98dfef53a..a2d1bfbb9` (DL5n): W1 owner-referee
+  absent-field P0 + DL5l-type evidence recovery (new contracts, owner reads, `completion/registered-2`,
+  `live-inputs/*-r2`, `prefit-proofs-r2/`) + owner self-check; W2a LIVE dispatcher (owner
+  admission before both markers, intrinsic records at create_phase, stale-lock release, gate
+  re-derives the fit record, crash windows, not-ready native checkpoint); W2b roles (owner admit,
+  native admit hashes frames, DL5m-4 for blind reported keys, not-ready native payload, capture
+  conformance). Next: update role configs to W1's pins, re-run `live-roles/draft_root.py` and all
+  suites, a short re-review, then fill the
   draft's judge/fit slots and the initializer config, an independent review of LIVE and all
   roles before first use (DL5), then seal the LIVE root (`live-execution/execution-root.json`); the
   executionClosure and independentReview proofs (a reviewer-high-equivalent review of LIVE and the
