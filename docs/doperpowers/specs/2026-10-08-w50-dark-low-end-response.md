@@ -62,11 +62,11 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   `2e6f4c99…`, validate_body PASS); live-run tooling + candidate records (`adb4774ab`..`68552375b`,
   `a4ec7ec6d`, `6223e3d76`; operator CLI `live-run/run.py`). The DL5o review of
   `dd73ebdc3..d223c8663` found no P0/P1 in root-bound code, and the SUCCESSOR ROOT IS SEALED:
-  `live-execution/execution-root-2.json` `2e6f4c99…` (`ef68b07c6`). Running: a live-run fix for
-  three P2s in the unbound tooling (verify pre-fit evidence in memory before sealing it; resumable
-  `initialize`; owner + TS suites in the executionClosure proof) and the review record's final
-  round. Then: `live-run/run.py prefit` (writes `execution-root-2.pre-fit-evidence.json`; after it
-  root 2 cannot be superseded without a ruling), then `initialize`, then
+  `live-execution/execution-root-2.json` `2e6f4c99…` (`ef68b07c6`). The live-run P2s are fixed
+  (`64bf766da`, `8cfbcab05`) and `live-run/review-records.json` is complete (`03f28bfbf`). Running:
+  `live-run/run.py --work /Users/new/vitrea-w50/g1-live prefit` (writes
+  `execution-root-2.pre-fit-evidence.json`; after it root 2 cannot be superseded without a ruling;
+  output in `/Users/new/vitrea-w50/g1-live-prefit.out`). Then `initialize`, then
   executionClosure + independentReview proofs and `pre-fit-evidence.json` (verify through LIVE
   `verify_prefit` before sealing it); then (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
