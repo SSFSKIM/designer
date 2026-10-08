@@ -1,11 +1,16 @@
-"""The owner self-check on the committed owner evidence (DL5m 1 and 5).
+"""The owner self-check on the committed owner evidence (DL5m 1 and 5; DL5o).
 
 Current read as the candidate passes every owner-contract cell, context cell and aggregate at
-the report the judge config pins, through the judge's own grade_owner_report; the superseded
-evidence reproduces the defect 7e621f344 fixed (eight context cells UNMEASURED on L1); and a
-report off the pinned membership refuses. Statuses, counts and identities only.
+the report the judge config pins, through the judge's own grade_owner_report, and X75/X76 are
+GRADED on the hypothetical identity candidate through the frozen owner engine (DL5o): twelve
+X75 endpoints and X76 at both positions PASS. The superseded evidence reproduces the defect
+7e621f344 fixed (eight context cells UNMEASURED on L1); an identity candidate missing one
+required hold FAILS X76 at its position instead of being counted; and a report off the pinned
+membership refuses. Statuses, counts and identities only.
 """
 import copy
+import json
+import tempfile
 from pathlib import Path
 import sys
 import types
@@ -43,9 +48,39 @@ class OwnerSelfcheckTests(unittest.TestCase):
         self.assertEqual(result['status'], 'PASS')
         self.assertEqual(result['counts'], {'cells': 745, 'ownerCells': 640, 'contextCells': 105, 'aggregates': 5})
         self.assertEqual(result['statuses'], {'ownerCells': {'PASS': 640}, 'contextCells': {'PASS': 105},
-                                              'aggregates': {'PASS': 5}})
+                                              'aggregates': {'PASS': 5}, 'intrinsic': {'PASS': 14}})
         self.assertEqual([a['name'] for a in result['aggregates']], AGGREGATES)
         self.assertEqual(result['notPassing'], [])
+        self.assertEqual(sorted((i['name'], i['member']) for i in result['intrinsic'] if i['name'] == 'X76'),
+                         [('X76', '0.25'), ('X76', '0.5')])
+        self.assertEqual(sum(i['name'] == 'X75' for i in result['intrinsic']), 12)
+        # DL5o (a): at 0.5 the historical family entries hold; only the unrecorded leaves need holds.
+        self.assertEqual(result['familyHolds']['0.5']['heldByFamily'],
+                         {'backdropToneAnchorX': 'backdropToneResponse', 'outerShadow.liftAmplitude': 'outerShadow',
+                          'outerShadow.thinOcclusionDark': 'outerShadow'})
+        self.assertEqual(result['familyHolds']['0.25']['heldByFamily'], {})
+
+    def test_an_identity_candidate_missing_a_required_hold_fails_x76_rather_than_being_counted(self):
+        identity = read(S.IDENTITY)
+        with tempfile.TemporaryDirectory() as scratch:
+            methods = read(S.REPO/identity['recededRecords']['0.5']['methods']['path'])
+            del methods['methods']['backdropToneBlackStrength']
+            path = Path(scratch)/'receded-methods.json'
+            path.write_text(json.dumps(methods))
+            identity['recededRecords']['0.5']['methods'] = {'path': str(path), 'sha256': S.sha(path)}
+            records = Path(scratch)/'records.json'
+            records.write_text(json.dumps(identity))
+            result = S.selfcheck(HERE/'config.json', S.OWNER_CONFIG, records)
+        self.assertEqual(result['status'], 'FAIL')
+        self.assertEqual([i for i in result['intrinsic'] if i['status'] != 'PASS'],
+                         [{'name': 'X76', 'member': '0.5', 'status': 'FAIL'}])
+        self.assertEqual(result['familyHolds']['0.5']['missing'], ['backdropToneBlackStrength'])
+
+    def test_without_intrinsic_evidence_the_placeholder_is_counted_not_graded(self):
+        report = read(OWNER/'evidence-r3/prepare.json')
+        result = S.grade(report, read(OWNER/'evidence-r3/contracts.json'), self.keys, S.membership_of(report))
+        self.assertEqual(result['intrinsicNotGraded'], {'UNMEASURED': 4})
+        self.assertNotIn('intrinsic', result)
 
     def test_superseded_evidence_reproduces_the_eight_unmeasured_context_cells(self):
         report = read(OWNER/'evidence/prepare.json')
@@ -56,8 +91,8 @@ class OwnerSelfcheckTests(unittest.TestCase):
         self.assertEqual(result['notPassing'], [{'id': i, 'axes': ['L1']} for i in NAMED])
 
     def test_a_report_off_the_pinned_membership_refuses(self):
-        report = read(OWNER/'evidence-r2/prepare.json')
-        contracts = read(OWNER/'evidence-r2/contracts.json')
+        report = read(OWNER/'evidence-r3/prepare.json')
+        contracts = read(OWNER/'evidence-r3/contracts.json')
         membership = S.membership_of(report)
         context = next(i for i in sorted(report['cells']) if i not in {'/'.join(k[:3]) for k in self.keys})
         for label, change in (('dropped context cell', lambda r: r['cells'].pop(context)),
