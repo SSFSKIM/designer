@@ -1,0 +1,46 @@
+{
+  "schema": "w50-composed-current-config-1",
+  "currentComposition": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+    "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+  },
+  "native": {
+    "instrument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/instrument-root.json",
+      "sha256": "cdd283599e8dc625a561876c73a554d55a7a5aa95aff9f0455c8c95c50fd7e95"
+    },
+    "contract": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/execution-contract.json",
+      "sha256": "571181d387e27a0d67b1cbc3d2f5de4480b18729c7f68bedabf437350d01f766"
+    },
+    "batch": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/read-batch.json",
+      "sha256": "f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628"
+    },
+    "reports": {
+      "calibration": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz",
+        "sha256": "9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550"
+      },
+      "validation": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz",
+        "sha256": "6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e"
+      }
+    }
+  },
+  "originals": {
+    "references": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+      "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+    },
+    "scenes": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    },
+    "canonicalScenes": {
+      "path": "apps/reference-apple/scenes.json",
+      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8"
+    }
+  },
+  "output": "/Users/new/vitrea-w50/g1-current-analysis/completed-current.json"
+}
