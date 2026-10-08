@@ -28,6 +28,91 @@ C = source(FIT/'canonical/adapter.py', 'w50_completed_original_canonical')
 E = source(HERE/'native_evidence.py', 'w50_completed_native_provenance')
 
 
+class _CompletedRepeat:
+    """Internal evidence bound only after the completed root/result chain was authenticated."""
+    def __init__(self, member, *, legacy=False, pair=None):
+        self.member = copy.deepcopy({k: member[k] for k in ('run', 'receipt', 'output')})
+        self.legacy, self.pair = legacy, pair
+
+
+def bind_completed_repeat(root, root_pin, member, original_rows, *, dispatcher=None, result=None):
+    """Bind one row AFTER current_evidence_inputs, without creating a live capability.
+
+    completed() supplies its already checked dispatcher/result once per batch. The standalone
+    test path rechecks the exact pinned result/claim/contract link. The shared repeat helper
+    owns pair/statistic semantics; this consumer subsequently validates BOTH raw pages with
+    the original pure source validators before any analytical pixel reading.
+    """
+    authenticated = result is not None
+    if not authenticated:
+        root_path = B.checked(REPO, root_pin)
+        if B.load(root_path) != root:
+            raise ValueError('Repeat registration differs from the authenticated current root')
+    if dispatcher is None:
+        dispatcher = source(B.checked(REPO, root['bootstrap']), 'w50_archived_repeat_dispatch')
+    path = (lambda item: REPO/item['path']) if authenticated else (lambda item: B.checked(REPO, item))
+    contract_path = path(member['contract'])
+    batch_path = path(member['batch'])
+    claim_path = path(member['claim'])
+    if claim_path != Path(str(contract_path)+'.started.json'):
+        raise ValueError('Archived repeat claim differs from its registered contract')
+    result_path = path(member['result'])
+    if result_path != Path(str(contract_path)+'.result.json'):
+        raise ValueError('Archived repeat result differs from its registered contract')
+    if result is None:
+        result = dispatcher.result_for(contract_path)
+    if result.get('contractSha256') != member['contract']['sha256'] or \
+            result.get('claimSha256') != member['claim']['sha256'] or \
+            result.get('report', {}).get('status') != 'CAPTURED':
+        raise ValueError('Archived repeat result/claim chain is not completed capture evidence')
+    receipt = member['receipt']
+    matches = [r for r in result['captures']['captures'] if all(r.get(k) == receipt.get(k) for k in KEY[:3])]
+    if matches != [receipt]:
+        raise ValueError('Archived repeat row differs from its exact completed result member')
+    if receipt.get('origin', {}).get('kind') == 'retained-attempt2':
+        if not authenticated:
+            dispatcher.verify_recovery_records({'batchPath': str(batch_path)}, result['captures'], doc=root)
+        member['_repeat'] = _CompletedRepeat(member, legacy=True)
+        return
+    required_pins = [receipt.get('repeatPair'), receipt.get('repeatAdmission')]
+    if any(pin not in result.get('repeatReceipt', []) for pin in required_pins):
+        raise ValueError('Archived repeat proof/pair is absent from the registered result inventory')
+    rows = [r for r in original_rows if all(r[k] == receipt[k] for k in KEY[:3])]
+    binding = dict(executionRootSha256=root_pin['sha256'], contractSha256=member['contract']['sha256'],
+        batchSha256=member['batch']['sha256'], config=root['repeatAdmission']['config'], declaredRows=rows)
+    if member['run']['sceneSource'] == 'canonical':
+        scenes = C.read(C.SCENES)
+        scene = next(s for s in scenes['scenes'] if s['id'] == receipt['scene'])
+        binding['canonicalBackgroundKind'] = scenes['backgrounds'][scene['background']]['kind']
+    pair = M.repeat_helper(root, REPO).verify_archived_pair(binding, member['run'], receipt, member['output'])
+    member['_repeat'] = _CompletedRepeat(member, pair=pair)
+
+
+def bound_repeat(member):
+    bound = member.get('_repeat')
+    if bound is not None:
+        if not isinstance(bound, _CompletedRepeat) or bound.member != {
+                k: member[k] for k in ('run', 'receipt', 'output')}:
+            raise ValueError('Completed repeat member changed after source admission')
+        return bound
+    if any(k in member['receipt'] for k in ('repeatPair', 'repeatAdmission', 'origin')):
+        raise ValueError('Repeat/origin evidence lacks the authenticated completed result chain')
+    return None
+
+
+def completed_repeat(member, metadata):
+    bound = bound_repeat(member)
+    if bound is not None:
+        if bound.legacy and (metadata.get('deterministic') is not True or \
+                type(metadata.get('repeatNoise')) not in (int, float) or metadata['repeatNoise'] != 0):
+            raise ValueError('Retained original lost its true/zero equality attestation')
+        return bound
+    if metadata.get('deterministic') is not True or type(metadata.get('repeatNoise')) not in (int, float) \
+            or metadata['repeatNoise'] != 0:
+        raise ValueError('Non-identical current capture lacks an admitted archived repeat proof')
+    return None
+
+
 def completed(config, root_path):
     """Verify BOTH full chains and exact original gate0 endpoints before analytical reads."""
     root = B.load(root_path)
@@ -61,12 +146,18 @@ def completed(config, root_path):
         candidates[candidate_pin['sha256']] = dict(document=candidate_pin, endpoints=endpoints,
                                                    originalDocumentPair=pair, position=position)
     members = []
+    repeat_rows = dispatcher.load(dispatcher.checked(REPO, root['references']))['cells'] \
+        if root.get('repeatAdmission') else None
+    root_pin = B.pin(REPO, root_path)
     for batch_pin, result_pin in zip(root['currentBatches'], current['results'], strict=True):
         batch = B.load(B.checked(REPO, batch_pin))
         result_path = B.checked(REPO, result_pin)
         result = dispatcher.sealed(result_path)
         contract_path = result_path.with_name(result_path.name.removesuffix('.result.json'))
         claim = B.load(Path(str(contract_path)+'.started.json'))
+        if repeat_rows is not None:
+            dispatcher.verify_recovery_records({'batchPath': str(REPO/batch_pin['path'])},
+                                               result['captures'], doc=root)
         for receipt in result['captures']['captures']:
             runs = [run for run in batch['runs'] if all(run[k] == receipt[k]
                 for k in ('profile', 'renderer', 'candidate')) and receipt['scene'] in run['scenes']]
@@ -75,8 +166,12 @@ def completed(config, root_path):
             run = runs[0]
             if receipt.get('sceneSource') != run['sceneSource']:
                 raise ValueError('Completed receipt changed scene source')
-            members.append(dict(run=run, receipt=receipt, output=claim['output'], result=result_pin,
-                contract=B.pin(REPO, contract_path), claim=B.pin(REPO, Path(str(contract_path)+'.started.json'))))
+            member = dict(run=run, receipt=receipt, output=claim['output'], result=result_pin,
+                contract=B.pin(REPO, contract_path), claim=B.pin(REPO, Path(str(contract_path)+'.started.json')),
+                batch=batch_pin)
+            if repeat_rows is not None:
+                bind_completed_repeat(root, root_pin, member, repeat_rows, dispatcher=dispatcher, result=result)
+            members.append(member)
     triples = [tuple(m['receipt'][k] for k in KEY[:3]) for m in members]
     if len(triples) != len(set(triples)):
         raise ValueError('Duplicate completed-current member across result chains')
@@ -268,6 +363,9 @@ def canonical_argument(page, run, plan, spec, abscissa):
 def canonical_inputs(member, candidate, *, argument_required):
     """Verify the original canonical receipt/report and all transport pins, with no live wrapper."""
     receipt, run = member['receipt'], member['run']
+    repeat = bound_repeat(member)
+    if repeat is not None and repeat.legacy:
+        raise ValueError('The retained501 declaration carries no canonical legacy draw')
     plan = C.scene_plan(run, 'current')
     if plan['scheme'] != 'dark' or plan['a11y'] != 'standard' or candidate['position'] != plan['position'] \
             or candidate['document'] != run['candidate']:
@@ -299,12 +397,20 @@ def canonical_inputs(member, candidate, *, argument_required):
         if not pins or len(paths) != len(set(paths)):
             raise ValueError('Missing/duplicate canonical artifact transport pins')
         if collection == 'files':
-            if any(Path(p).parent != folder for p in paths) or any(artifacts[n] not in pins for n in blobs):
-                raise ValueError('Canonical file inventory differs from capture folder')
+            required = [artifacts[n] for n in blobs]
+            if repeat is not None:
+                required += [receipt['repeatPair']]
+                required += [repeat.pair['proof']['pair'][side][kind]
+                             for side in ('first','second') for kind in ('image','report')]
+            if any(Path(p).parent != folder for p in paths) or any(item not in pins for item in required):
+                raise ValueError('Canonical file inventory differs from capture folder or retained pair')
         else:
             expected = {str(Path(run['captureRoot'])/name) for name in (
                 f'census-{scene["id"]}.json',f'request-{scene["id"]}.json',f'exit-{scene["id"]}.json',
                 f'compare-{scene["id"]}.log','request.json','native-request.json',f'native-admission-{scene["id"]}.json')}
+            if repeat is not None:
+                expected |= {str(Path(run['captureRoot'])/name) for name in (
+                    f'capture-{scene["id"]}.log', f'fresh-{scene["id"]}.json')}
             if set(paths) != expected: raise ValueError('Canonical transport paths differ from fixed run')
         for item in pins: read_artifact(item)
     matrix_pin = receipt['matrix']
@@ -314,9 +420,9 @@ def canonical_inputs(member, candidate, *, argument_required):
     row = next(r for r in rows if r['key']['sceneId']==scene['id'])
     metadata = M._json(blobs['cell'])
     if row != receipt['row'] or metadata != row['key']['web'] or metadata.get('renderer') != run['renderer'] \
-            or metadata.get('colorSpace') != 'srgb' or metadata.get('deterministic') is not True \
-            or metadata.get('repeatNoise') != 0:
-        raise ValueError('Canonical row/cell transport metadata differs or is not deterministic')
+            or metadata.get('colorSpace') != 'srgb':
+        raise ValueError('Canonical row/cell transport metadata differs')
+    repeat = completed_repeat(member, metadata)
     pixels = tuple(plan['canvas'][k]*plan['dpr'] for k in ('width','height'))
     raw = blobs['png']
     if len(raw) < 24 or raw[:8] != b'\x89PNG\r\n\x1a\n' \
@@ -324,6 +430,11 @@ def canonical_inputs(member, candidate, *, argument_required):
         raise ValueError('Canonical PNG dimensions differ from original raster')
     envelope = M._json(blobs['report'])
     C.validate_report(envelope, run, plan, scene, endpoint)
+    if repeat is not None:
+        if envelope != repeat.pair['envelope']:
+            raise ValueError('Canonical first envelope differs from its archived repeat reading')
+        for page in repeat.pair['pages']:
+            C.validate_report({**envelope, 'page': page}, run, plan, scene, endpoint)
     scenes_path = B.ordinary(C.SCENES)
     plan.update(source='canonical', scenesPath=str(scenes_path), scenesSha256=B.sha(scenes_path))
     provenance = dict(capture=copy.deepcopy(artifacts['png']),report=copy.deepcopy(artifacts['report']),
@@ -334,11 +445,16 @@ def canonical_inputs(member, candidate, *, argument_required):
         endpoint={k:copy.deepcopy(v) for k,v in endpoint.items() if k != 'patch'},
         reportedSurfaces=copy.deepcopy(envelope['page']['surfaces']),evidenceKind='completed-current-gate0',baseline=True,
         geometryDomain='canonical-reported-bounds-not-native-mask-equivalence')
+    if repeat is not None:
+        provenance.update(repeatAdmission=copy.deepcopy(receipt['repeatAdmission']),
+                          repeatPair=copy.deepcopy(receipt['repeatPair']), reading='first')
     arguments = []
     if argument_required:
         resolved = {**candidate['endpoints']['active.dark']['patch'], **endpoint['patch']}
         abscissa = resolved.get('backdropToneAbscissa','source')
         abscissa = 'silhouette' if isinstance(abscissa,dict) else abscissa
+        if repeat is not None:
+            for page in repeat.pair['pages']: canonical_argument(page,run,plan,spec,abscissa)
         argument = canonical_argument(envelope['page'],run,plan,spec,abscissa)
         argument['provenance'].update(copy.deepcopy(provenance)); arguments.append(argument)
     return plan, spec, raw, arguments, provenance
@@ -357,25 +473,37 @@ def capture_inputs(member, candidate, *, argument_required=True):
     spec = next(s for s in plan['scenes'] if s['scene'] == receipt['scene'])
     if receipt.get('canvas') != plan['canvas'] or receipt.get('dpr') != plan['dpr']:
         raise ValueError('Completed capture canvas/scale differs from original run')
+    repeat = bound_repeat(member)
+    folder = Path(run['captureRoot'])/receipt['scene']
+    if repeat is not None and repeat.legacy:
+        folder = Path(member['output'])/'retained-attempt2'/receipt['profile']/receipt['scene']/receipt['renderer']
     artifacts = receipt['artifacts']; blobs = {}
     for name, filename in (('png', f'{receipt["scene"]}__{receipt["renderer"]}.png'),
                            ('report', f'report__{receipt["renderer"]}.json'),
                            ('cell', f'cell__{receipt["renderer"]}.json')):
-        expected = Path(run['captureRoot'])/receipt['scene']/filename
+        expected = folder/filename
         if artifacts[name]['path'] != str(expected):
             raise ValueError('Completed artifact path differs from the original fixed run')
         B.ordinary(expected)
         blobs[name] = M._pin_bytes(artifacts[name], Path(member['output']), external=True)
     metadata = M._json(blobs['cell'])
     if metadata.get('renderer') != run['renderer'] or metadata.get('colorSpace') != 'srgb' \
-            or metadata.get('deterministic') is not True or metadata.get('repeatNoise') != 0 \
             or f'declarationSha256={run["candidate"]["sha256"][:12]}' not in metadata.get('capturePath', ''):
-        raise ValueError('Completed current cell metadata lacks original deterministic identity')
+        raise ValueError('Completed current cell metadata lacks original candidate/tier identity')
+    repeat = completed_repeat(member, metadata)
     endpoint = candidate['endpoints'][spec['pose']+'.dark']
     resolved = {**candidate['endpoints']['active.dark']['patch'], **endpoint['patch']}
     abscissa = resolved.get('backdropToneAbscissa', 'source')
     abscissa = 'silhouette' if isinstance(abscissa, dict) else abscissa
-    arguments = M.A.validate_report(M._json(blobs['report']), run, endpoint, abscissa=abscissa, phase='current')
+    envelope = M._json(blobs['report'])
+    arguments = M.A.validate_report(envelope, run, endpoint, abscissa=abscissa, phase='current')
+    if repeat is not None and not repeat.legacy:
+        if envelope != repeat.pair['envelope']:
+            raise ValueError('Completed first envelope differs from its archived repeat reading')
+        for page in repeat.pair['pages']:
+            readings = M.A.validate_report({**envelope, 'page': page}, run, endpoint,
+                                          abscissa=abscissa, phase='current')
+            for argument in readings: M.N.validate_tone_values(argument)
     provenance = dict(capture=copy.deepcopy(artifacts['png']), report=copy.deepcopy(artifacts['report']),
         cell=copy.deepcopy(artifacts['cell']), candidateDocument=copy.deepcopy(run['candidate']),
         originalDocumentPair=copy.deepcopy(candidate['originalDocumentPair']),
@@ -383,6 +511,10 @@ def capture_inputs(member, candidate, *, argument_required=True):
         sceneSource=run['sceneSource'], scenesSha256=plan['scenesSha256'],
         endpoint={k:copy.deepcopy(v) for k,v in endpoint.items() if k != 'patch'},
         evidenceKind='completed-current-gate0', baseline=True)
+    if repeat is not None:
+        provenance.update(repeatAdmission=copy.deepcopy(receipt['repeatAdmission']), reading='first')
+        if repeat.legacy: provenance['origin'] = copy.deepcopy(receipt['origin'])
+        else: provenance['repeatPair'] = copy.deepcopy(receipt['repeatPair'])
     for argument in arguments:
         M.N.validate_tone_values(argument)
         argument['provenance'].update(copy.deepcopy(provenance))

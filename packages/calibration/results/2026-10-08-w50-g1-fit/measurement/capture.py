@@ -217,6 +217,45 @@ def _native_cell(report, receipt, plan, spec, doc):
     return cell
 
 
+def repeat_helper(root, repo):
+    """Load only the current3 helper pinned by the already verified execution root."""
+    binding = root.get('repeatAdmission')
+    if not isinstance(binding, dict) or set(binding) != {'entrypoint', 'config'}:
+        raise ValueError('Missing source-bound repeat admission registration')
+    entry = binding['entrypoint']
+    path = FIT.parent/'2026-10-08-w50-g1-current3/repeat/admission.py'
+    if entry.get('path') != str(path.relative_to(repo)) or \
+            root['closure']['sources'].get(entry['path']) != entry.get('sha256'):
+        raise ValueError('Repeat admission helper is outside the registered source closure')
+    _pin_bytes(entry, repo)
+    return source(path, 'w50_measurement_registered_repeat')
+
+
+def verify_live_repeat(context, run, receipt, metadata):
+    """Keep true/zero legacy attestations, or recheck a real source-admitted fresh pair.
+
+    deterministic:false and repeatNoise remain original observations. A matching metadata
+    flag or a caller's claimed proof is not authority; the live root-bound helper must verify
+    both retained files/reports and the per-statistic native repeat-band admission.
+    """
+    has_pair, has_proof = 'repeatPair' in receipt, 'repeatAdmission' in receipt
+    if has_pair or has_proof:
+        if not has_pair or not has_proof:
+            raise ValueError('Fresh repeat evidence needs both pair and admission pins')
+        dispatcher = sys.modules.get('w50_g1_dispatch')
+        if dispatcher is None:
+            raise ValueError('Repeat verification requires a live dispatcher context')
+        dispatcher.require_context(context)
+        root = dispatcher.sealed(context['executionRoot'])
+        if context.get('repeatAdmission') != root.get('repeatAdmission'):
+            raise ValueError('Repeat admission is not the live root registration')
+        return repeat_helper(root, Path(context['repo'])).verify_receipt(context, run, receipt)
+    if metadata.get('deterministic') is not True or type(metadata.get('repeatNoise')) not in (int, float) \
+            or metadata['repeatNoise'] != 0:
+        raise ValueError('Non-identical capture lacks a source-admitted repeat proof')
+    return None
+
+
 def measure_capture(context, native_report_pin, receipt, scenes_pin, *, native_batch_pin):
     """Measure one admitted exposed capture; return evidence plus actual independent arguments.
 
@@ -270,9 +309,9 @@ def measure_capture(context, native_report_pin, receipt, scenes_pin, *, native_b
         blobs[name] = _pin_bytes(artifacts[name], Path(context['output']), external=True)
     metadata = _json(blobs['cell'])
     if metadata.get('renderer') != run['renderer'] or metadata.get('colorSpace') != 'srgb' \
-            or metadata.get('deterministic') is not True or metadata.get('repeatNoise') != 0 \
             or f'declarationSha256={run["candidate"]["sha256"][:12]}' not in metadata.get('capturePath', ''):
-        raise ValueError('Capture metadata differs from admitted deterministic candidate/tier')
+        raise ValueError('Capture metadata differs from admitted candidate/tier')
+    repeat_proof = verify_live_repeat(context, run, receipt, metadata)
     candidate = A.candidate_info(run['candidate'], plan['position'])
     endpoint = candidate['endpoints'][spec['pose']+'.dark']
     resolved = {**candidate['endpoints']['active.dark']['patch'], **endpoint['patch']}
@@ -302,6 +341,9 @@ def measure_capture(context, native_report_pin, receipt, scenes_pin, *, native_b
         scenes=copy.deepcopy(scenes_pin), nativeDependency=copy.deepcopy(evidence),
         capture=copy.deepcopy(artifacts['png']), report=copy.deepcopy(artifacts['report']),
         cell=copy.deepcopy(artifacts['cell']), candidateDocument=copy.deepcopy(run['candidate']))
+    if repeat_proof is not None:
+        provenance.update(repeatAdmission=copy.deepcopy(receipt['repeatAdmission']),
+                          repeatPair=copy.deepcopy(receipt['repeatPair']), reading='first')
     for argument in arguments:
         argument['provenance'].update(report=copy.deepcopy(artifacts['report']),
             capture=copy.deepcopy(artifacts['png']), sceneSource='w50', scenesSha256=scenes_pin['sha256'],

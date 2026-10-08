@@ -1,9 +1,10 @@
 """Prospective LIVE capture transport, not a fitter, measurement instrument or referee.
 
 execute(context) admits only fit/gate/exposure through the registered dispatcher singleton.
-Canonical runs keep the original canonical transport; W50 NEWBED runs use DL5f's current2
-transport and its unchanged border-box host. Every candidate call receives the ORIGINAL
-context and run. Exposure baselines are only dispatcher.baseline_run derivatives admitted
+Canonical and W50 NEWBED runs use CURRENT3's paired transports under DL5h in every phase;
+NEWBED keeps DL5f's border-box host. Every candidate call receives the ORIGINAL context
+and run, and complete repeat evidence passes through unchanged. Exposure baselines are only
+dispatcher.baseline_run derivatives admitted
 inside that same invocation, never another current lane or another lease.
 
 W50 exposure runs bind one shared nativeExposureConfig input pin and their complete fixtures
@@ -18,7 +19,7 @@ import types
 
 HERE = Path(__file__).resolve().parent
 G1 = HERE.parent
-CURRENT2 = G1.parent/'2026-10-08-w50-g1-current2'
+CURRENT3 = G1.parent/'2026-10-08-w50-g1-current3'
 
 
 def source(path, name):
@@ -29,8 +30,8 @@ def source(path, name):
 
 
 def adapters():
-    return {'canonical': source(G1/'canonical/adapter.py', 'w50_live_canonical'),
-            'w50': source(CURRENT2/'web/adapter.py', 'w50_live_newbed')}
+    return {'canonical': source(CURRENT3/'canonical/adapter.py', 'w50_live_canonical'),
+            'w50': source(CURRENT3/'web/adapter.py', 'w50_live_newbed')}
 
 
 def native_adapter():
@@ -40,12 +41,13 @@ def native_adapter():
 def source_probe():
     """Exercise all source import branches without an invocation or native data locator.
 
-    The new-bed probe reads only its sealed scene declaration and classifies synthetic census
-    rows. The native probe uses synthetic arrays, not an archive, role export or actual image.
+    CURRENT3's source-only helper exercises paired transports, native authority metadata and
+    synthetic repeat statistics, never current execution/recovery or measured native data.
+    The native exposure helper likewise uses synthetic arrays without locating an archive.
     """
-    for adapter in adapters().values():
-        if adapter.source_probe().get('status') != 'SOURCE_ONLY':
-            raise ValueError('Unexpected capture source probe result')
+    paired = source(CURRENT3/'current_router.py', 'w50_live_paired_probe')
+    if paired.source_probe() != {'status': 'SOURCE_ONLY'}:
+        raise ValueError('Unexpected paired capture source probe result')
     native_adapter().source_probe()
     return {'status': 'SOURCE_ONLY'}
 

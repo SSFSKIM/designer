@@ -49,7 +49,7 @@ def identity(record):
             ('profile','renderer','scene','candidate','lane','sceneSource')}
 
 
-def read_pair(context,run,record,pair_pin):
+def read_retained_pair(output,run,record,pair_pin):
     """Artifact validation only; this function cannot issue an admission receipt."""
     if any(record.get(k)!=run.get(k) for k in ('profile','renderer','candidate','sceneSource')) \
             or record.get('scene') not in run['scenes'] or record.get('lane') not in ('current','candidate'):
@@ -61,7 +61,7 @@ def read_pair(context,run,record,pair_pin):
     folder/=scene
     if pair_pin.get('path')!=str(folder/f'repeat__{tier}.json'):
         raise C.InstrumentFault('Pair manifest is not the exact retained source member')
-    pair=load(read_pin(pair_pin,context['output']))
+    pair=load(read_pin(pair_pin,output))
     if pair.get('schema')!=1 or pair.get('kind')!='w50-retained-repeat-pair' \
             or pair.get('reading')!='first' or pair.get('scene')!=scene or pair.get('renderer')!=tier:
         raise C.InstrumentFault('Fresh admission requires both retained captures, not legacy attestation')
@@ -77,13 +77,13 @@ def read_pair(context,run,record,pair_pin):
             if item[name].get('path')!=str(folder/filename):
                 raise C.InstrumentFault('Retained image/report aliases another capture')
             pins.append(item[name])
-        raw=read_pin(item['image'],context['output']); raw_images.append(raw)
+        raw=read_pin(item['image'],output); raw_images.append(raw)
         with Image.open(io.BytesIO(raw)) as image:
             if image.format!='PNG': raise C.InstrumentFault('Retained image is not PNG')
             decoded=S.M.np.asarray(image.convert('RGBA'))
         if decoded.shape!=shape: raise C.InstrumentFault('Actual retained PNG geometry differs')
         images.append(decoded)
-        pages.append(load(read_pin(item['report'],context['output'])))
+        pages.append(load(read_pin(item['report'],output)))
     if len({os.stat(p['path']).st_ino for p in pins})!=4:
         raise C.InstrumentFault('Retained capture artifacts must be independent files')
     identical=raw_images[0]==raw_images[1]
@@ -98,13 +98,16 @@ def read_pair(context,run,record,pair_pin):
     for name,filename in (('report',f'report__{tier}.json'),('cell',f'cell__{tier}.json')):
         if artifacts[name].get('path')!=str(folder/filename):
             raise C.InstrumentFault('Original envelope/cell differs from exact capture member')
-    envelope=load(read_pin(artifacts['report'],context['output']))
-    cell=load(read_pin(artifacts['cell'],context['output']))
+    envelope=load(read_pin(artifacts['report'],output))
+    cell=load(read_pin(artifacts['cell'],output))
     if envelope.get('page')!=pages[0] or cell.get('deterministic')!=identical \
             or cell.get('repeatNoise')!=noise or cell.get('renderer')!=tier or cell.get('colorSpace')!='srgb':
         raise C.InstrumentFault('Original report/cell cannot be relabelled to admit a repeat')
     return dict(pair=pair,images=[im[:,:,:3] for im in images],pages=pages,envelope=envelope,
                 identical=identical,noise=noise,folder=folder)
+
+def read_pair(context,run,record,pair_pin):
+    return read_retained_pair(context['output'],run,record,pair_pin)
 
 
 def authority(context,run,record):
@@ -156,6 +159,32 @@ def validate_reports(context,run,record,retained,inventory):
     for page in retained['pages']: A.canonical_argument(page,run,plan,spec,mode)
 
 
+def receipt_binding(context,run,record,config,rows,*,needs_statistics=False):
+    """Extract identity only after live authority; archived callers already possess these pins."""
+    binding=dict(config=copy.deepcopy(context['repeatAdmission']['config']),declaredRows=rows,
+        executionRootSha256=sha(Path(context['executionRoot']).read_bytes()),
+        contractSha256=sha(Path(context['contract']).read_bytes()),
+        batchSha256=sha(Path(context['batchPath']).read_bytes()))
+    if needs_statistics and run['sceneSource']=='canonical':
+        dispatcher=sys.modules['w50_g1_dispatch']
+        canonical=dispatcher.load(dispatcher.checked(context['repo'],config['canonical']))
+        scenes=S.R.json_pin(canonical['scenes'])
+        scene=next(s for s in scenes['scenes'] if s['id']==record['scene'])
+        binding['canonicalBackgroundKind']=scenes['backgrounds'][scene['background']]['kind']
+    return binding
+
+
+def proof_metadata(binding,record,pair_pin,retained):
+    return dict(schema='w50-repeat-admission-1',kind='retained-repeat-pair',reading='first',
+        **identity(record),mode='byte-identical' if retained['identical'] else 'native-repeat-band',
+        manifest=copy.deepcopy(pair_pin),config=copy.deepcopy(binding['config']),
+        pair=copy.deepcopy(retained['pair']),originalArtifacts={k:copy.deepcopy(record['artifacts'][k])
+            for k in ('png','report','cell')},differences={},
+        declaredStatistics=[r['statistic'] for r in binding['declaredRows']],
+        rule='every statistic/channel/cut <= 0.1 native repeat bar; never 0.1 B',
+        **{k:binding[k] for k in ('executionRootSha256','contractSha256','batchSha256')})
+
+
 def proof_body(context,run,record,pair_pin,retained,config,rows):
     differences={}
     if not retained['identical']:
@@ -166,16 +195,8 @@ def proof_body(context,run,record,pair_pin,retained,config,rows):
             canonical=dispatcher.load(dispatcher.checked(context['repo'],config['canonical']))
             first,second=S.canonical_pair(canonical,rows,*retained['images'])
         differences=C.compare_statistics(first,second)
-    return dict(schema='w50-repeat-admission-1',kind='retained-repeat-pair',reading='first',
-        **identity(record),mode='byte-identical' if retained['identical'] else 'native-repeat-band',
-        manifest=copy.deepcopy(pair_pin),config=copy.deepcopy(context['repeatAdmission']['config']),
-        pair=copy.deepcopy(retained['pair']),originalArtifacts={k:copy.deepcopy(record['artifacts'][k])
-            for k in ('png','report','cell')},differences=differences,
-        declaredStatistics=[r['statistic'] for r in rows],
-        rule='every statistic/channel/cut <= 0.1 native repeat bar; never 0.1 B',
-        executionRootSha256=sha(Path(context['executionRoot']).read_bytes()),
-        contractSha256=sha(Path(context['contract']).read_bytes()),
-        batchSha256=sha(Path(context['batchPath']).read_bytes()))
+    binding=receipt_binding(context,run,record,config,rows)
+    return dict(proof_metadata(binding,record,pair_pin,retained),differences=differences)
 
 
 def write_once(path, body):
@@ -218,27 +239,22 @@ def admit_pair(context,run,record,pair_pin):
     return write_once(path,body)
 
 
-def verify_receipt(context,run,record):
-    """Recheck the pair and both source reports without reopening native statistical data."""
-    dispatcher,config,rows,inventory=authority(context,run,record)
-    retained=read_pair(context,run,record,record['repeatPair'])
-    validate_reports(context,run,record,retained,inventory)
-    pin=record['repeatAdmission']
-    if pin.get('path')!=str(retained['folder']/f'repeat-admission__{run["renderer"]}.json'):
-        raise C.InstrumentFault('Repeat proof is not the member-owned receipt')
-    proof=load(read_pin(pin,context['output']))
-    expected=proof_body(context,run,record,record['repeatPair'],
-        {**retained,'identical':True},config,rows)
+def verify_pair_semantics(binding,run,record,retained,proof):
+    """Pure replay of already source-admitted evidence, not admission or native measurement."""
+    rows=binding['declaredRows']
+    if not rows or len({r['statistic'] for r in rows})!=len(rows) or any(
+            any(r.get(k)!=record[k] for k in ('profile','renderer','scene')) for r in rows):
+        raise C.InstrumentFault('Bound original reference rows differ from this exact repeat member')
+    for name in ('executionRootSha256','contractSha256','batchSha256'):
+        S.M.R.digest(binding[name],'Bound repeat chain identity')
+    S.M.R.digest(binding['config']['sha256'],'Bound repeat configuration')
+    expected=proof_metadata(binding,record,record['repeatPair'],retained)
     if not retained['identical']:
-        expected['mode']='native-repeat-band'
         differences=proof.get('differences',{})
         if run['sceneSource']=='w50':
             names={r['statistic'] for r in rows}
         else:
-            canonical=dispatcher.load(dispatcher.checked(context['repo'],config['canonical']))
-            scenes=S.R.json_pin(canonical['scenes'])
-            scene=next(s for s in scenes['scenes'] if s['id']==record['scene'])
-            kind=scenes['backgrounds'][scene['background']]['kind']
+            kind=binding['canonicalBackgroundKind']
             names=set(S.canonical_membership(rows,impulse=kind=='impulse',solid=kind=='solid'))
         if set(differences)!=names:
             raise C.InstrumentFault('Repeat receipt omitted or invented a declared statistic/cut')
@@ -249,8 +265,45 @@ def verify_receipt(context,run,record):
             first[name]=dict(common,value=item['first']);second[name]=dict(common,value=item['second'])
         expected['differences']=C.compare_statistics(first,second)
     if proof!=expected: raise C.InstrumentFault('Repeat receipt is not bound to this exact original pair')
+    return proof
+
+
+def retained_proof(output,run,record,retained):
+    pin=record['repeatAdmission']
+    if pin.get('path')!=str(retained['folder']/f'repeat-admission__{run["renderer"]}.json'):
+        raise C.InstrumentFault('Repeat proof is not the member-owned receipt')
+    return load(read_pin(pin,output))
+
+
+def verify_receipt(context,run,record):
+    """Live wrapper: actual capability and BOTH source report validators remain mandatory."""
+    dispatcher,config,rows,inventory=authority(context,run,record)
+    retained=read_pair(context,run,record,record['repeatPair'])
+    validate_reports(context,run,record,retained,inventory)
+    proof=retained_proof(context['output'],run,record,retained)
+    binding=receipt_binding(context,run,record,config,rows,needs_statistics=not retained['identical'])
+    verify_pair_semantics(binding,run,record,retained,proof)
     dispatcher.require_context(context)
     return proof
+
+
+def verify_archived_pair(binding,run,record,output):
+    """Replay retained evidence ONLY after the caller authenticates its completed chain.
+
+    binding comes from current_evidence_inputs-validated root/contract/claim/result and
+    repeatReceipt: root/contract/batch digests, root repeat config pin, exact original
+    declaredRows, and the source plan's canonicalBackgroundKind for canonical members.
+    It is not a capability and this function grants no admission or fitting permission.
+    It never rehashes a whole execution root per cell or rereads native statistical data.
+
+    The caller must validate BOTH returned raw pages through its source-owned pure report
+    validators with its authenticated plan/endpoint before measuring the first image.
+    No live context is reconstructed, and no second report envelope is written.
+    """
+    retained=read_retained_pair(output,run,record,record['repeatPair'])
+    proof=retained_proof(output,run,record,retained)
+    verify_pair_semantics(binding,run,record,retained,proof)
+    return dict(proof=proof,pages=retained['pages'],envelope=retained['envelope'])
 
 
 def source_probe():

@@ -1,7 +1,8 @@
-"""Synthetic routing checks; no archive, fixture, image, browser, GPU or seal is opened."""
+"""Synthetic routing/source checks; authority metadata only, no role/image reads or seal creation."""
 import copy
 import importlib.machinery
 from pathlib import Path
+import subprocess
 import sys
 import types
 import unittest
@@ -9,6 +10,7 @@ from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 G1 = HERE.parent
+CURRENT3 = G1.parent/'2026-10-08-w50-g1-current3'
 
 
 def source(path, name):
@@ -22,10 +24,16 @@ def pin(name, digit):
     return {'path': name, 'sha256': digit * 64}
 
 
+# Load the real fault type before per-test sys.modules snapshots; NumPy's extension module
+# cannot be unloaded by patch.dict cleanup and imported a second time in this process.
+InstrumentFault = source(CURRENT3/'repeat/core.py', 'w50_live_test_repeat_fault').InstrumentFault
+
+
 class RouterTests(unittest.TestCase):
     def setUp(self):
         self.router = source(HERE/'router.py', 'w50_live_test_router')
-        self.dispatcher = source(G1/'execution/dispatch.py', 'w50_live_test_dispatch')
+        self.load_adapters = self.router.adapters
+        self.dispatcher = source(CURRENT3/'execution/dispatch.py', 'w50_live_test_dispatch')
         self.candidate = pin('candidate.json', 'a')
         self.baseline = pin('baseline.json', 'b')
         self.config = pin('native-inputs.json', 'c')
@@ -39,6 +47,8 @@ class RouterTests(unittest.TestCase):
             'batchPath': '/synthetic/batch.json', 'output': '/synthetic/output',
             'batch': {'phase': 'fit', 'cohort': [self.candidate], 'runs': self.runs},
             'baselineDocuments': [self.baseline], 'inputs': [self.config],
+            'repeatAdmission': {'entrypoint': pin('repeat/admission.py', '6'),
+                                'config': pin('repeat-config.json', '7')},
             'phaseDependencies': {'pendingOwnerKeys': pending}, 'gateResult': None,
             'gateReport': None, 'gateCaptures': None, 'unionExpectedCells': []}
         self.adapters = {
@@ -188,6 +198,74 @@ class RouterTests(unittest.TestCase):
             self.assertIs(baseline_call[1]['fixtures'] if 'fixtures' in original else original,
                           original['fixtures'] if 'fixtures' in original else original)
 
+    def test_every_live_phase_routes_current3_and_keeps_paired_evidence_for_both_sources(self):
+        original_source = self.router.source
+        expected = {'canonical': CURRENT3/'canonical/adapter.py', 'w50': CURRENT3/'web/adapter.py'}
+        loaded = []
+        emitted = []
+        repeat_binding = self.context['repeatAdmission']
+        def paired_source(path, name):
+            self.assertIn(path, expected.values(), 'LIVE selected an unpaired transport')
+            adapter = original_source(path, name)
+            loaded.append(path)
+            def paired_capture(context, run, *, current):
+                self.assertIs(context['repeatAdmission'], repeat_binding)
+                self.assertEqual(path, expected[run['sceneSource']])
+                rows = self.capture(context, run, current=current)
+                for row in rows:
+                    row['repeatPair'] = pin('/synthetic/output/repeat.json', '9')
+                    row['repeatAdmission'] = {'status': 'ADMITTED', 'reading': 'first',
+                        'artifacts': [pin('/synthetic/output/first.png', '4'),
+                                      pin('/synthetic/output/second.png', '5')]}
+                    emitted.append(row)
+                return rows
+            if path == expected['canonical']:
+                adapter.capture_run = paired_capture
+            else:
+                adapter._capture_run = paired_capture
+                adapter.scene_plan = self.plan
+            return adapter
+        with patch.object(self.router, 'adapters', self.load_adapters), \
+             patch.object(self.router, 'source', side_effect=paired_source):
+            for phase in ('fit', 'gate', 'exposure'):
+                with self.subTest(phase=phase):
+                    self.phase(phase); loaded.clear(); emitted.clear(); self.calls.clear()
+                    before = copy.deepcopy(self.context)
+                    result = self.router.execute(self.context)
+                    self.assertEqual(set(loaded), set(expected.values()))
+                    self.assertEqual(self.context, before)
+                    self.assertEqual(len(result['captures']), 4 if phase == 'exposure' else 2)
+                    for row, original in zip(result['captures'], emitted):
+                        self.assertIs(row, original)
+                        self.assertIs(row['repeatPair'], original['repeatPair'])
+                        self.assertIs(row['repeatAdmission'], original['repeatAdmission'])
+                    self.assertEqual([row['lane'] for row in result['captures']],
+                                     ['candidate', 'current', 'candidate', 'current']
+                                     if phase == 'exposure' else ['candidate', 'candidate'])
+
+    def test_repeat_instrument_fault_propagates_once_without_retry_or_later_draw(self):
+        fault = InstrumentFault('synthetic repeat disagreement')
+        attempts = []
+        def refuse(context, run, *, current):
+            self.dispatcher.require_render_admission(context, run, current=current)
+            attempts.append((context, run, current))
+            raise fault
+        self.adapters['w50']._capture_run = refuse
+        for phase in ('fit', 'gate', 'exposure'):
+            with self.subTest(phase=phase):
+                self.phase(phase); attempts.clear(); self.prepare_calls.clear()
+                before = copy.deepcopy(self.context)
+                with self.assertRaises(type(fault)) as raised:
+                    self.router.execute(self.context)
+                self.assertIs(raised.exception, fault)
+                self.assertEqual(len(attempts), 1)
+                self.assertIs(attempts[0][0], self.context)
+                self.assertIs(attempts[0][1], self.runs[0])
+                self.assertFalse(attempts[0][2])
+                self.assertEqual(self.calls, [])
+                self.assertEqual(len(self.prepare_calls), 1 if phase == 'exposure' else 0)
+                self.assertEqual(self.context, before)
+
     def test_current_direct_copied_or_mutated_context_is_refused_without_capture(self):
         for mode in ('current', 'copied', 'mutated', 'unregistered'):
             with self.subTest(mode=mode):
@@ -321,15 +399,32 @@ class SourceProbeTests(unittest.TestCase):
     def test_probe_imports_all_transport_branches_without_reading_data_or_executing_capture(self):
         router = source(HERE/'router.py', 'w50_live_source_probe_test')
         original, original_text = Path.read_bytes, Path.read_text
-        scene_source = G1.parent/'2026-10-08-w50-g0-declaration/bed/scenes-w50.json'
+        g0 = G1.parent/'2026-10-08-w50-g0-declaration'
+        metadata = {g0/name for name in ('bed/scenes-w50.json', 'bed/manifest.json',
+            'declaration.json', 'declaration.sha256', 'fit-declaration.json', 'fit-declaration.sha256')}
+        metadata.update(G1/'native'/name for name in ('instrument-root.json',
+            'instrument-root.json.sha256', 'execution-contract.json',
+            'execution-contract.json.sha256', 'read-batch.json'))
+        metadata.update((CURRENT3/'inputs/repeat-config.json',
+                         G1.parent/'2026-10-08-w50-g1-sitting/pack.json'))
         def source_only(path):
-            if path.suffix != '.py' and path != scene_source:
+            if path.suffix != '.py' and path not in metadata:
                 raise AssertionError('non-source file read: '+str(path))
             return original(path)
         def declaration_only(path, *args, **kwargs):
-            if path.is_relative_to(G1.parents[3]) and path != scene_source:
+            if path.is_relative_to(G1.parents[3]) and path not in metadata:
                 raise AssertionError('repository data read: '+str(path))
             return original_text(path, *args, **kwargs)
+        original_run = subprocess.run
+        def source_subprocess(argv, *args, **kwargs):
+            self.assertEqual(argv[:4], [sys.executable, '-I', '-B', str(g0/'audit/closure.py')])
+            self.assertEqual(argv[argv.index('--probe')+1], str(G1/'native/probe.py'))
+            return original_run(argv, *args, **kwargs)
+        original_source = router.source
+        imports = []
+        def exercised_source(path, name):
+            imports.append(path)
+            return original_source(path, name)
         original_code = importlib.machinery.SourceFileLoader.get_code
         def guarded_source(loader, name):
             path = Path(loader.get_filename(name)).resolve()
@@ -339,15 +434,16 @@ class SourceProbeTests(unittest.TestCase):
         with patch.object(Path, 'read_bytes', source_only), \
              patch.object(Path, 'read_text', declaration_only), \
              patch.object(importlib.machinery.SourceFileLoader, 'get_code', guarded_source), \
-             patch('subprocess.run', side_effect=AssertionError('process launch')):
+             patch('subprocess.run', side_effect=source_subprocess), \
+             patch.object(router, 'source', side_effect=exercised_source):
             self.assertEqual(router.source_probe(), {'status': 'SOURCE_ONLY'})
+        self.assertIn(CURRENT3/'current_router.py', imports)
 
-    def test_runtime_loader_routes_newbed_to_current2_and_canonical_to_original(self):
+    def test_runtime_loader_routes_both_sources_to_current3_paired_adapters(self):
         router = source(HERE/'router.py', 'w50_live_source_routes_test')
         adapters = router.adapters()
-        self.assertEqual(Path(adapters['w50'].__file__),
-                         G1.parent/'2026-10-08-w50-g1-current2/web/adapter.py')
-        self.assertEqual(Path(adapters['canonical'].__file__), G1/'canonical/adapter.py')
+        self.assertEqual(Path(adapters['w50'].__file__), CURRENT3/'web/adapter.py')
+        self.assertEqual(Path(adapters['canonical'].__file__), CURRENT3/'canonical/adapter.py')
         self.assertEqual(Path(router.native_adapter().__file__), G1/'exposure/prepare.py')
         self.assertFalse(hasattr(router, 'execute_current'))
 

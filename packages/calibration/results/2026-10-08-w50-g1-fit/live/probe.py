@@ -1,7 +1,8 @@
 """Standalone source-only LIVE transport probe; the parent composes it into its root probe.
 
-No batch, exposure config, result, image, native locator, browser or GPU is consulted.
-Only imported Python sources, the new-bed scene declaration and synthetic probe inputs are read.
+No LIVE batch, exposure config, result, image, native export, browser or GPU is consulted.
+CURRENT3's helper exercises paired transports and immutable native authority metadata using
+synthetic arrays; no current execution/recovery, role report or archive index is opened.
 """
 from pathlib import Path
 import types
