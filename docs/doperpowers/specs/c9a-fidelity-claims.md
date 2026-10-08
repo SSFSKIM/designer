@@ -50421,3 +50421,26 @@ The bounded bridge-binding fix and independent medium review pass11 synthetic te
 27 invalid-evidence cases and accepted/reported non-stopping disagreement. The worker reran all11
 successfully before actual packaging. No pixel/statistic recomputation is part of this wrapper.
 The unchanged26.5 and X41 witnesses again read1,818 and911 entries respectively.
+
+### 9. G1a archive published and remotely replayed without the source trees
+
+[Release `w50-archive`](https://github.com/SSFSKIM/designer/releases/tag/w50-archive) now contains
+both §8 assets and their combined `SHA256SUMS`. Its target is sealed G0 merge
+`f608255abc7182dd3f69b0fe7e4d8fcd7e72f057`; notes bind the finished-sitting wrapper/evidence
+branch commit `7c4869eaf`, wrapper SHA-256 and pack metadata SHA-256, explicitly stating that the
+wrapper lands on main with G1. The capture itself ran from the earlier source head §8 records.
+
+Both release assets were downloaded to a new directory and match their local SHA-256 values.
+The rejected-attempt asset also passes compressed-stream integrity. The admitted download
+replays all1,600 admissions and2,624 indexed files, reports `bridged` and no unbridged closing
+passes, while a process sandbox denies reads of `native-g1a`, `native-g1a-run2`, the local pack
+and the first local verified tree. Each of those four directory reads was positively proved
+DENIED before replay. The verifier ran with isolated Python from the source checkout outside
+all extraction directories. `results/2026-10-08-w50-g1-sitting/release-verification.json` records
+remote asset identities, source hashes, exact deny policy and the replay result. Neither raw
+root was modified to establish this proof; attempt1 remains intact and remotely findable.
+
+This completes acquisition and archival only. No identifying/blind pixels, thumbnails or
+statistics were opened; no native analytical reading, candidate, fitted document, new matrix
+generation, relaxed bound or product release is claimed. Complete native/reference evidence,
+the512×384 web adapter and the additive pre-fit admission remain the next G1 work.

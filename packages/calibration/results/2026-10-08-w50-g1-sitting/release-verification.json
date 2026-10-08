@@ -1,0 +1,76 @@
+{
+  "schema": "w50-g1-remote-archive-verification",
+  "recordedAt": "2026-10-08T07:43:13.308904+00:00",
+  "release": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/SSFSKIM/designer/releases/assets/621120079",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-08T07:41:16Z",
+        "digest": "sha256:be8e8dcf1f135a52befdbb1162da909a9e5e5639f7979a053f678d0602c850d0",
+        "downloadCount": 0,
+        "id": "RA_kwDOTgCLlc4lBYpP",
+        "label": "",
+        "name": "SHA256SUMS",
+        "size": 310,
+        "state": "uploaded",
+        "updatedAt": "2026-10-08T07:41:16Z",
+        "url": "https://github.com/SSFSKIM/designer/releases/download/w50-archive/SHA256SUMS"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/SSFSKIM/designer/releases/assets/621120080",
+        "contentType": "application/zstd",
+        "createdAt": "2026-10-08T07:41:16Z",
+        "digest": "sha256:a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+        "downloadCount": 0,
+        "id": "RA_kwDOTgCLlc4lBYpQ",
+        "label": "",
+        "name": "w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst",
+        "size": 4125721,
+        "state": "uploaded",
+        "updatedAt": "2026-10-08T07:41:16Z",
+        "url": "https://github.com/SSFSKIM/designer/releases/download/w50-archive/w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/SSFSKIM/designer/releases/assets/621120078",
+        "contentType": "application/zstd",
+        "createdAt": "2026-10-08T07:41:15Z",
+        "digest": "sha256:86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560",
+        "downloadCount": 0,
+        "id": "RA_kwDOTgCLlc4lBYpO",
+        "label": "",
+        "name": "w50-failed-attempt1-86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560.tar.zst",
+        "size": 29047,
+        "state": "uploaded",
+        "updatedAt": "2026-10-08T07:41:16Z",
+        "url": "https://github.com/SSFSKIM/designer/releases/download/w50-archive/w50-failed-attempt1-86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560.tar.zst"
+      }
+    ],
+    "tagName": "w50-archive",
+    "targetCommitish": "f608255abc7182dd3f69b0fe7e4d8fcd7e72f057",
+    "url": "https://github.com/SSFSKIM/designer/releases/tag/w50-archive"
+  },
+  "wrapperCommit": "7c4869eafc53dbd2fb98795b4ad743587a750552",
+  "wrapperSha256": "eeb805fd8b4a7949ca32db2a810d8347b20f6b4deaa4e0756cd547ebed67dbcd",
+  "packMetadataSha256": "73572d2225b4a763856e7518c7b6ee77c348cad51d54d1a2d67f9fe443bfa8b5",
+  "downloadedChecksumsSha256": "be8e8dcf1f135a52befdbb1162da909a9e5e5639f7979a053f678d0602c850d0",
+  "checksumsMatchLocal": true,
+  "downloadedAssetsBothSha256Verified": true,
+  "failedAttemptZstdIntegrityVerified": true,
+  "replay": {
+    "verified": true,
+    "bridgeStatus": "bridged",
+    "unbridgedClosingPasses": [],
+    "frames": 1600,
+    "files": 2624,
+    "sha256": "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+    "indexSha256": "71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191"
+  },
+  "sandbox": {
+    "policy": "(version 1)(allow default)(deny file-read* (subpath \"/Users/new/vitrea-w50/native-g1a\") (subpath \"/Users/new/vitrea-w50/native-g1a-run2\") (subpath \"/Users/new/vitrea-w50/g1a-archive-final\") (subpath \"/Users/new/vitrea-w50/g1a-archive-verified\"))",
+    "allFourDirectoryReadsProvedDenied": true,
+    "isolatedPython": true,
+    "scriptOutsideExtraction": true
+  },
+  "fittingStatus": "NOT_READ; no identifying/blind pixels or statistics opened; additive pre-fit gate absent"
+}

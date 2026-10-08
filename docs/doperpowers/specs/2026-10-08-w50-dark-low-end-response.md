@@ -550,3 +550,14 @@ or release changed, and the main checkout was not edited.
   and locally verified by SHA-256; §5.217 §8 and the G1 sitting record name both assets.
   The new archive wrapper binds the existing operational reports without redefining the sealed
   closing stop:false policy. Eleven synthetic tests and independent medium review pass.
+
+- G1a archive publication — `w50-archive` now retains both hash-named assets and their combined
+  `SHA256SUMS`, targeting sealed G0 merge `f608255abc7182dd3f69b0fe7e4d8fcd7e72f057`.
+  Release notes identify wrapper/evidence commit `7c4869eaf`, its source SHA-256 and the pack
+  metadata hash; the wrapper lands on main with G1. Both assets were downloaded into a fresh
+  directory and checksum-verified. The admitted asset replay again verifies1,600 frames and
+  all bridges, with reads of BOTH raw roots and BOTH local archive trees denied by a process
+  sandbox; each denial was positively tested. `release-verification.json` records that proof.
+  No identifying/blind statistic was opened. Acquisition and archival are complete; native
+  analysis, complete reference evidence, the512×384 web adapter and the additive pre-fit gate
+  still precede fitting. No material document or matrix generation changed.

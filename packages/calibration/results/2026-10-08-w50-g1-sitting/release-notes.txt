@@ -1,0 +1,20 @@
+W50 G1a archive of record, before analytical reading (claims §5.217 §8).
+
+- 1,600 admitted frames in 40 runs; all 16 opening/closing bridge reports agree (18 byte and 14 region control agreements). Slider 0.5 and display mode 68 restored; driver exit 0.
+- Admitted asset SHA-256: `a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448`.
+- Archive index SHA-256: `71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191`.
+- Pack metadata SHA-256: `73572d2225b4a763856e7518c7b6ee77c348cad51d54d1a2d67f9fe443bfa8b5`.
+- Rejected attempt 1 is a separate operational-evidence asset, SHA-256 `86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560`: two quarantined controls, zero admitted/identifying/blind frames. It is not part of the admitted dataset.
+- `SHA256SUMS` covers both assets. Local compressed-asset replay passed before publication; remote download/replay is recorded with G1.
+
+Provenance
+
+- Release target: sealed G0 merge `f608255abc7182dd3f69b0fe7e4d8fcd7e72f057`.
+- Native source head: `37598d0dd21a8054ab5872990ca7394d8e2858e6`.
+- Finished-sitting wrapper/source-evidence branch commit: `7c4869eafc53dbd2fb98795b4ad743587a750552` on `w50-g0-grounding`; it lands on main with G1.
+- Wrapper path: `packages/calibration/results/2026-10-08-w50-g1-sitting/archive_finished.py`.
+- Wrapper SHA-256: `eeb805fd8b4a7949ca32db2a810d8347b20f6b4deaa4e0756cd547ebed67dbcd`.
+- Part 1 seal: `bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86`.
+- Part 2 seal: `bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85`.
+
+No identifying or blind pixels/statistics were opened. This archive is acquisition evidence, not a fitted material or candidate verdict. No material document or canonical matrix changed.
