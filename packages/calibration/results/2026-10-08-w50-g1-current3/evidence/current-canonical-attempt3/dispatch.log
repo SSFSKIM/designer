@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 1050, in <module>
+    print(execute(args.root, args.contract, args.batch, args.out))
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 978, in execute
+    return execute_admitted(path, contract_path, registered, output, doc, batch, expected, admission, numerical)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 1008, in execute_admitted
+    captures = (adapter.execute_current if phase == 'current' else adapter.execute)(context)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/current_router.py", line 51, in execute_current
+    for record in capture(context,run,current=True):
+                  ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py", line 274, in capture_run
+    launch_cells(context,run,argv,env,captures)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py", line 181, in launch_cells
+    if observed.get('passes') is not True: raise ValueError('Classifying census refused')
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Classifying census refused
