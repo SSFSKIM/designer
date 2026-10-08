@@ -23,6 +23,17 @@ error message; any other failure is the dispatcher's INSTRUMENT_FAULT or LEASE_L
 
 The config (schema w50-live-capture-config-1) pins the two transports by content. Their paths
 are fixed to CURRENT3's DL5h transports, so a config cannot route a member elsewhere.
+
+One seam of the role's own W50 transport instance changes (W50 DL5n). After a completed native
+read that is not ready, the root-bound DL5h helper's sealed blind_cell refuses the checkpoint,
+so every NON-identical blind pair at capture would be an instrument fault. The helper is loaded
+by the transport's load_source(path, 'w50_repeat_admission'). The role wraps that loader so the
+loaded helper's sources resolve blind_cell to measurement/readiness.checkpointed_blind_cell.
+That function has the sealed signature and takes readiness from LIVE's checkpoint. A ready
+checkpoint reads exactly as the sealed function does; a not-ready one only with its own stops.
+A pair is then admitted by its cell's finite native repeat bar, unchanged; a pair with no finite
+bar still needs byte identity (DL5h (ii)). Byte-identical pairs never reach it, and no other
+loader call, transport or helper function changes.
 """
 from pathlib import Path
 import types
@@ -43,6 +54,24 @@ TRANSPORTS = {'canonical': str((C.CURRENT3/'canonical/adapter.py').relative_to(R
               'w50': str((C.CURRENT3/'web/adapter.py').relative_to(REPO))}
 
 
+READINESS = C.FIT/'measurement/readiness.py'
+REPEAT_HELPER = 'w50_repeat_admission'
+
+
+def checkpointed(transport):
+    """Wrap the W50 transport's helper loader so the loaded DL5h helper's sources read blind
+    readiness from LIVE's native checkpoint (module docstring). Returns the transport."""
+    load_source = transport.load_source
+    def loader(path, name):
+        module = load_source(path, name)
+        if name == REPEAT_HELPER:
+            readiness = C.source(READINESS, 'w50_live_capture_readiness')
+            module.S.blind_cell = readiness.checkpointed_blind_cell
+        return module
+    transport.load_source = loader
+    return transport
+
+
 def transports(context, live, config):
     """The two content-pinned DL5h transports, loaded from bytes at their fixed paths."""
     _, doc = C.registered(context, live, config, SCHEMA)
@@ -53,6 +82,7 @@ def transports(context, live, config):
         if item.get('path') != TRANSPORTS[name]:
             raise ValueError('Capture transport is not the DL5h paired transport')
         loaded[name] = C.source(live.checked(context['repo'], item), 'w50_live_capture_'+name)
+    checkpointed(loaded['w50'])
     return loaded
 
 
@@ -246,4 +276,5 @@ def source_probe():
     for name, relative in TRANSPORTS.items():
         C.source(REPO/relative, 'w50_live_capture_probe_'+name).source_probe()
     C.source(C.CURRENT3/'repeat/admission.py', 'w50_live_capture_probe_repeat').source_probe()
+    C.source(READINESS, 'w50_live_capture_probe_readiness')
     return {'status': 'SOURCE_ONLY'}

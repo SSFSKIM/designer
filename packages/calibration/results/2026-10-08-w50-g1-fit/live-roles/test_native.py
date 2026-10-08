@@ -602,6 +602,93 @@ class NativeRole(unittest.TestCase):
         public = out.getvalue()+str(first)+str(second)+str(status)+str(kit.store.status())+json.dumps(checkpoint)
         self.assertFalse([v for v in spreads if v in public])
 
+    # The capture role's DL5h helper after a completed read (DL5n) ---------------------------
+    def capture_helper(self, wired):
+        """The root-bound DL5h repeat helper as the W50 transport loads it: through the capture
+        role's checkpointed loader (wired) or the sealed loader."""
+        capture = K.module(HERE/'capture.py', 'w50_native_capture_role_'+('wired' if wired else 'sealed'))
+        transport = capture.C.source(capture.C.CURRENT3/'web/adapter.py', 'w50_native_capture_transport')
+        if wired: capture.checkpointed(transport)
+        return transport.load_source(capture.C.CURRENT3/'repeat/admission.py', capture.REPEAT_HELPER)
+
+    @contextlib.contextmanager
+    def checkpointed_capture(self, stops=False):
+        """One completed native read checkpointed by LIVE's journal (not ready when `stops`),
+        then a genuine capture-stage context of the same attempt."""
+        kit = self.kit
+        with kit.lease():
+            attempt, claim = kit.attempt_claim(); kit.store.start_native(attempt)
+            with kit.stage('native', claim) as context, (self.required_stops() if stops else contextlib.nullcontext()):
+                payload = self.role.prepare(context, self.config)
+            kit.store.complete_native(payload)
+            with kit.stage('capture', claim, attempt['members'][:1]) as context:
+                yield context, payload
+
+    def blind_row(self, scene='cell-grey-007-s044__rest', statistic='deep8-channel-median'):
+        cell = next(c for c in self.manifest['cells'] if c['scene'] == scene)
+        return dict(profile=cell['profile'], renderer='webgpu', scene=scene, role='blind', statistic=statistic,
+                    nativeIdentity=cell['id'], referenceIdentity=cell['reference'])
+
+    def pair_statistics(self, helper, context, row, first, second):
+        """newbed_pair's blind branch after its native-batch plumbing: the helper's own
+        blind_cell, the original analytical masks, native_statistics and the 0.1-bar comparison."""
+        S = helper.S
+        cell, dependency, export, _ = S.blind_cell(context, self.runs[0], row, self.scenes)
+        background = S.M.R.read_verified_frame(export, dependency, self.scenes['canvas'], cell['scale'])
+        scene = next(s for s in self.scenes['scenes'] if s['id'] == row['scene'])
+        masks = S.M.R.S.analytical_masks(self.scenes['components'][scene['component']], self.scenes['canvas'],
+                                         cell['scale'], first.shape[:2], background=background)
+        if cell['family'] == 'uniform': del masks['deep8_far24']
+        return helper.C.compare_statistics(*S.native_statistics(first, second, cell, masks, renderer='webgpu',
+                                                                 provenance={}))
+
+    def test_after_a_not_ready_read_a_non_identical_blind_pair_is_admitted_by_its_finite_bar(self):
+        """DL5n at capture: the sealed helper refuses a not-ready checkpoint, so every non-identical
+        blind pair would fault; through the capture role's loader the spread-stopped cell's pair is
+        admitted within 0.1 of its own finite native bar, and a pair outside it still refuses."""
+        sealed, wired = self.capture_helper(False), self.capture_helper(True)
+        self.assertIsNot(sealed.S.blind_cell, wired.S.blind_cell)
+        self.assertIs(wired.S.newbed_pair.__globals__['blind_cell'], wired.S.blind_cell)
+        self.assertEqual(wired.S.blind_cell.__name__, 'checkpointed_blind_cell')
+        first = np.full((384, 512, 3), 20, np.uint8)
+        second = first.copy(); second[0, 0] = 21          # different bytes, outside every support
+        row = self.blind_row()
+        with self.checkpointed_capture(stops=True) as (context, payload):
+            self.assertFalse(payload['ready'])
+            with self.assertRaises(ValueError):
+                sealed.S.blind_cell(context, self.runs[0], row, self.scenes)
+            admitted = self.pair_statistics(wired, context, row, first, second)
+            self.assertEqual(set(admitted), {'deep8-channel-median', 'central8-channel-median'})
+            for item in admitted.values():
+                self.assertEqual(item['difference'], [0.0]*3)
+                self.assertEqual(item['limit'], [.1*item['nativeRepeat']['bar'][0]]*3)
+                self.assertEqual(item['nativeRepeat']['bar'], [1.5]*3)   # max(.5, spread 3 / 2)
+            with self.assertRaisesRegex(ValueError, 'outside 0.1 native bar'):
+                self.pair_statistics(wired, context, row, first, first+1)
+
+    def test_with_a_ready_read_the_checkpointed_blind_cell_reads_as_the_sealed_one(self):
+        sealed, wired = self.capture_helper(False), self.capture_helper(True)
+        row = self.blind_row()
+        with self.checkpointed_capture() as (context, payload):
+            self.assertTrue(payload['ready'])
+            expected = sealed.S.blind_cell(context, self.runs[0], row, self.scenes)
+            self.assertEqual(wired.S.blind_cell(context, self.runs[0], row, self.scenes), expected)
+
+    def test_a_byte_identical_pair_never_reads_the_native_report(self):
+        wired = self.capture_helper(True)
+        self.rebind({'repeatAdmission': {'config': self.config}})
+        record = dict(profile=fixture.PROFILE, renderer='webgpu', scene='cell-grey-007-s044__rest',
+                      candidate=self.candidate, lane='candidate', sceneSource='w50',
+                      artifacts={k: {'path': k, 'sha256': '0'*64} for k in ('png', 'report', 'cell')})
+        retained = {'identical': True, 'pair': {'first': 'png', 'second': 'png'}}
+        forbidden = AssertionError('native report read for a byte-identical pair')
+        with self.checkpointed_capture(stops=True) as (context, _), \
+                patch.object(wired.S, 'blind_cell', side_effect=forbidden), \
+                patch.object(self.kit.D, 'qualification_native', side_effect=forbidden):
+            body = wired.proof_body(context, self.runs[0], record, {'path': 'pair', 'sha256': '0'*64}, retained,
+                                    {}, [self.blind_row()])
+        self.assertEqual((body['mode'], body['differences']), ('byte-identical', {}))
+
     def test_source_probe_is_source_only(self):
         role = K.module(HERE/'native.py', 'w50_native_role_probe')
         self.assertEqual(role.source_probe(), {'status': 'SOURCE_ONLY'})
