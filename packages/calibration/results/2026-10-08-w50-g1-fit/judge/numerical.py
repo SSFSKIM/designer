@@ -26,7 +26,7 @@ from dataclasses import dataclass
 import math
 import re
 from statistics import median
-from typing import Sequence
+from typing import Literal, Sequence
 
 Number = float | int
 Value = Number | tuple[Number, Number, Number]
@@ -71,13 +71,23 @@ class DocumentPair:
 
 @dataclass(frozen=True)
 class Evidence:
-    capture_sha256: str
+    """A typed source identity plus its derived statistic's evidence digest.
+
+    source_sha256 names PNG bytes, an admitted native three-run cohort, or an immutable
+    frozen-reference record according to source_kind. Non-PNG sources never acquire a
+    capture identity by conversion. The adapter supplies the kind; validation is structural,
+    not authentication. Existing actual PNG callers may use the explicit PNG default.
+    """
+    source_sha256: str
     statistic_sha256: str
     document_pair: DocumentPair | None
+    source_kind: Literal['png', 'native-three-run-cohort', 'frozen-reference-record'] = 'png'
 
     def __post_init__(self):
-        _hash(self.capture_sha256)
+        _hash(self.source_sha256)
         _hash(self.statistic_sha256)
+        if self.source_kind not in ('png', 'native-three-run-cohort', 'frozen-reference-record'):
+            raise ValueError('Unknown evidence source kind')
         if self.document_pair is not None and not isinstance(self.document_pair, DocumentPair):
             raise ValueError('Document identity must be a full DocumentPair')
 
@@ -124,6 +134,27 @@ class Reading:
 
 
 @dataclass(frozen=True)
+class FrozenT1Budget:
+    """Preserved original canonical0.25 budget, distinct from a fresh native repeat reading.
+
+    This structural witness does not authenticate its inventory bytes; the live adapter does.
+    It never changes the code-step used by aggregates or manufactures a replacement bar.
+    """
+    identity: RowIdentity
+    inventory_sha256: str
+    value: Number
+
+    def __post_init__(self):
+        _hash(self.inventory_sha256)
+        _number(self.value, 'Frozen canonical T1 B', 0, 2)
+        if (not isinstance(self.identity, RowIdentity) or self.identity.renderer != 'webgpu' or
+                re.fullmatch(r'apple-macos-27\.0-[12]x-dark-standard-glass0\.25', self.identity.profile) is None or
+                self.identity.statistic not in T1_REGRESSION or self.identity.scene.startswith('cell-') or
+                self.value <= 0):
+            raise ValueError('Frozen budgets belong only to original canonical dark0.25 WebGPU T1')
+
+
+@dataclass(frozen=True)
 class Reference:
     identity: RowIdentity
     inventory_sha256: str
@@ -132,6 +163,7 @@ class Reference:
     code: Value | None
     bar: Value | None
     budget: Value | None
+    frozen_t1_budget: FrozenT1Budget | None = None
 
     def __post_init__(self):
         if not isinstance(self.identity, RowIdentity):
@@ -145,6 +177,11 @@ class Reference:
             raise ValueError('Native evidence cannot name a web document pair')
         if self.current.status == 'MEASURED' and self.current.evidence.document_pair is None:
             raise ValueError('Current web evidence requires full document pair')
+        frozen = self.frozen_t1_budget
+        if frozen is not None and (not isinstance(frozen, FrozenT1Budget) or
+                frozen.identity != self.identity or frozen.inventory_sha256 != self.inventory_sha256 or
+                frozen.value != self.budget or self.native.units != 'linear-luma'):
+            raise ValueError('Frozen T1 budget must name this exact row, inventory, units and B')
         if any(v is None for v in (self.code, self.bar, self.budget)):
             if any(v is not None for v in (self.code, self.bar, self.budget)):
                 raise ValueError('Missing budget must leave code/bar/budget all null')
@@ -156,8 +193,8 @@ class Reference:
             _number(code, 'code', 0, ceiling)
             _number(bar, 'bar', 0, ceiling)
             _number(budget, 'B', 0, 2 * ceiling)
-            if code <= 0 or bar < code / 2 or budget != max(code, 2 * bar):
-                raise ValueError('Expected positive code, bar >= half-code and B=max(code,2*bar)')
+            if code <= 0 or bar < code / 2 or (frozen is None and budget != max(code, 2 * bar)):
+                raise ValueError('Expected positive code, bar >= half-code and B=max(code,2*bar) unless explicitly frozen')
             if self.native.units != 'linear-luma' and code != 1:
                 raise ValueError('Encoded output budgets use one encoded code')
 
@@ -240,6 +277,16 @@ def _compare(ref, candidate, *, growth=False, bounds=None, baseline=None, diagno
     return Comparison(ref.identity, status, ref.native.units, tuple(components))
 
 
+def diagnostic_reading(reference: Reference, candidate: Candidate) -> Comparison:
+    """One authenticated statistic reported without any bound or gate verdict.
+
+    The rule router, not this mathematical layer, selects diagnostic populations such as
+    DL5j's input64 controls, the exact DL5a reported keys and the T1-fine companion.
+    """
+    _match(reference, candidate)
+    return _missing(reference, candidate, budget=False) or _compare(reference, candidate, diagnostic=True)
+
+
 def channel_level(reference: Reference, candidate: Candidate) -> Comparison:
     """Independent RGB median bounds for a declared deep8 or center8 row."""
     _match(reference, candidate)
@@ -257,8 +304,9 @@ def _same_cell(a, ka, b, kb):
     for left, right in ((a.native, b.native), (a.current, b.current), (ka.reading, kb.reading)):
         if left.status == right.status == 'MEASURED':
             le, re = left.evidence, right.evidence
-            if (le.capture_sha256, le.document_pair) != (re.capture_sha256, re.document_pair):
-                raise ValueError('Paired statistics must come from the same capture and documents')
+            if (le.source_kind, le.source_sha256, le.document_pair) != (
+                    re.source_kind, re.source_sha256, re.document_pair):
+                raise ValueError('Paired statistics must come from the same typed source and documents')
 
 
 def uniform_levels(input_code: Number, deep: Reference, deep_candidate: Candidate,
@@ -281,6 +329,14 @@ def uniform_levels(input_code: Number, deep: Reference, deep_candidate: Candidat
     return tuple(out)
 
 
+def luma_level(reference: Reference, candidate: Candidate) -> Comparison:
+    """One original encoded-luma mean or median key, with its own declared bound."""
+    _match(reference, candidate)
+    if reference.identity.statistic not in LUMA or reference.native.units != 'encoded-luma-codes':
+        raise ValueError('Expected a deep8/far24 encoded-luma mean or median')
+    return _missing(reference, candidate) or _compare(reference, candidate, bounds=reference.budget)
+
+
 def luma_levels(mean: Reference, mean_candidate: Candidate,
                 median_ref: Reference, median_candidate: Candidate) -> tuple[Comparison, Comparison]:
     """Encoded-luma mean AND median, not mean-channel luma or an averaged error."""
@@ -291,7 +347,7 @@ def luma_levels(mean: Reference, mean_candidate: Candidate,
         _match(ref, candidate)
         if ref.identity.statistic != statistic or ref.native.units != 'encoded-luma-codes':
             raise ValueError('Expected separate deep8/far24 encoded-luma mean and median')
-        out.append(_missing(ref, candidate) or _compare(ref, candidate, bounds=ref.budget))
+        out.append(luma_level(ref, candidate))
     return tuple(out)
 
 
@@ -318,6 +374,44 @@ def t1_growth(reference: Reference, candidate: Candidate) -> Comparison:
     _t1(reference, candidate)
     return _missing(reference, candidate, current=True) or _compare(
         reference, candidate, growth=True, bounds=reference.budget, baseline=reference.current)
+
+
+def newbed_structured_t1_growth(reference: Reference, candidate: Candidate) -> Comparison:
+    """DL5i: new structured-bed texture growth applies to BOTH declared renderer tiers.
+
+    The live reader still authenticates original bed membership/support; this shape check
+    cannot promote canonical cells or neutral span controls into the structured population.
+    Canonical and own-history T1 retain their separate WebGPU-only contracts above/below.
+    """
+    _match(reference, candidate)
+    if (reference.native.units != 'linear-luma' or
+            reference.identity.statistic != 'T1-full-silhouette' or
+            re.fullmatch(r'cell-(impulse-sparse|checker-low)-s\d{3}__(rest|inactive)',
+                         reference.identity.scene) is None):
+        raise ValueError('New-bed structured T1 requires its declared full-silhouette linear statistic')
+    return _missing(reference, candidate, current=True) or _compare(
+        reference, candidate, growth=True, bounds=reference.budget, baseline=reference.current)
+
+
+def historical_from_frozen_in_b(reference: Reference, reading: Reading, *,
+                                frozen_current_growth_in_b: Number, repaired: bool) -> Historical:
+    """Verify G0's original normalized witness before retaining its exact raw-unit growth.
+
+    G0 stored (abs(current-native)-abs(historical-native))/B without rounding. Multiplying
+    that quotient back by B can lose an ulp. Repeating the ORIGINAL division and requiring
+    equality proves the witness instead; no tolerance, candidate input or re-baseline enters.
+    """
+    if (not isinstance(reference, Reference) or not isinstance(reading, Reading) or
+            reference.identity.renderer != 'webgpu' or reference.native.units != 'linear-luma' or
+            reading.units != 'linear-luma' or reference.identity.statistic not in T1_REGRESSION):
+        raise ValueError('Normalized history requires its canonical WebGPU T1 reference')
+    _number(frozen_current_growth_in_b, 'Frozen normalized historical growth', -math.inf, math.inf)
+    if reference.budget is None or any(r.status != 'MEASURED' for r in (reference.native, reference.current, reading)):
+        return Historical(reading, None, repaired)
+    raw = abs(reference.current.value-reference.native.value)-abs(reading.value-reference.native.value)
+    if raw / reference.budget != frozen_current_growth_in_b:
+        raise ValueError('Frozen normalized historical growth differs from its original readings')
+    return Historical(reading, raw, repaired)
 
 
 def historical_growth(reference: Reference, candidate: Candidate, historical: Historical) -> Comparison:

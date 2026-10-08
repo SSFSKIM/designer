@@ -63,15 +63,52 @@ class NumericalTests(unittest.TestCase):
         deep, kd = rgb()
         center, kc = rgb(statistic='central8-channel-median')
         for evidence in (replace(kc.reading.evidence, document_pair=pair('1', '2')),
-                         replace(kc.reading.evidence, capture_sha256='9'*64)):
+                         replace(kc.reading.evidence, source_sha256='9'*64)):
             mixed = replace(kc, reading=replace(kc.reading, evidence=evidence))
             with self.assertRaises(ValueError): j.uniform_levels(40, deep, kd, center, mixed)
+
+    def test_typed_source_kinds_preserve_cohort_and_reference_identity_without_inventing_pngs(self):
+        for kind in ('png','native-three-run-cohort','frozen-reference-record'):
+            evidence=j.Evidence(source_sha256='a'*64,statistic_sha256='b'*64,
+                                document_pair=None,source_kind=kind)
+            self.assertEqual(evidence.source_kind,kind)
+            self.assertEqual(evidence.source_sha256,'a'*64)
+            self.assertFalse(hasattr(evidence,'capture_sha256'))
+        with self.assertRaises(ValueError):
+            j.Evidence('a'*64,'b'*64,None,source_kind='pretend-png')
+        deep,kd=rgb();center,kc=rgb(statistic='central8-channel-median')
+        cohort=replace(center.native.evidence,source_kind='native-three-run-cohort')
+        center=replace(center,native=replace(center.native,evidence=cohort))
+        # The same digest bytes in different source namespaces are not the same evidence.
+        with self.assertRaises(ValueError):j.uniform_levels(40,deep,kd,center,kc)
+        deep=replace(deep,native=replace(deep.native,evidence=cohort))
+        self.assertEqual([r.status for r in j.uniform_levels(40,deep,kd,center,kc)],['WITHIN','WITHIN'])
 
     def test_missing_budget_does_not_pass_and_T_regression_reads_low_not_fine(self):
         ref, candidate = row(statistic='T1-low')
         self.assertEqual(j.t1_growth(ref, candidate).status, 'WITHIN')
         ref = replace(ref, code=None, bar=None, budget=None)
         self.assertEqual(j.t1_growth(ref, candidate).status, 'UNMEASURED')
+
+    def test_single_luma_original_key_uses_its_own_encoded_bound_without_a_sibling(self):
+        for statistic in ('deep8-far24-luma-mean','deep8-far24-luma-median'):
+            ref,candidate=row(20,23,22,statistic=statistic,units='encoded-luma-codes',code=1,bar=1)
+            out=j.luma_level(ref,candidate)
+            self.assertEqual(out.identity,ref.identity)
+            self.assertEqual(out.status,'WITHIN')
+            self.assertEqual(out.components[0].error,2)
+            self.assertEqual(out.components[0].bound,2)
+            worse=replace(candidate,reading=reading(22.01,'encoded-luma-codes'))
+            self.assertEqual(j.luma_level(ref,worse).status,'EXCEEDS')
+            missing=replace(candidate,reading=j.Reading('UNMEASURED_EMPTY_SUPPORT',
+                'encoded-luma-codes',None,None,'empty original support'))
+            self.assertEqual(j.luma_level(ref,missing).status,'UNMEASURED')
+            with self.assertRaises(ValueError):
+                j.luma_level(ref,replace(candidate,identity=replace(candidate.identity,scene='other')))
+        for ref,candidate in (row(statistic='deep8-far24-luma-mean'),
+                              row(20,20,20,statistic='deep8-luma-mean',
+                                  units='encoded-luma-codes',code=1,bar=.5)):
+            with self.assertRaises(ValueError):j.luma_level(ref,candidate)
 
     def test_luma_mean_and_median_do_not_cancel(self):
         mean = row(20, 22, 20, statistic='deep8-far24-luma-mean',
@@ -100,6 +137,25 @@ class NumericalTests(unittest.TestCase):
         self.assertEqual(j.t1_growth(*row(n=.1, c=.45, k=.45)).status, 'WITHIN')
         with self.assertRaises(ValueError): j.t1_growth(*row(statistic='T1-fine'))
 
+    def test_newbed_structured_t1_prices_both_tiers_without_widening_canonical_scope(self):
+        for tier in ('webgpu','css'):
+            ref, candidate = row(n=.25,c=.375,k=.0625,renderer=tier,
+                                 scene='cell-checker-low-s096__rest')
+            out=j.newbed_structured_t1_growth(ref,candidate)
+            self.assertEqual(out.status,'WITHIN')
+            self.assertEqual(out.components[0].growth,.0625)
+            self.assertEqual(j.newbed_structured_t1_growth(ref,replace(candidate,reading=reading(.06))).status,
+                             'EXCEEDS')
+            if tier=='css':
+                with self.assertRaises(ValueError):j.t1_growth(ref,candidate)
+                with self.assertRaises(ValueError):
+                    j.historical_growth(ref,candidate,j.Historical(reading(.25),.125,False))
+        for scene in ('checkerboard__rrect-md__rest','cell-grey-000-s128__rest'):
+            with self.assertRaises(ValueError):
+                j.newbed_structured_t1_growth(*row(scene=scene,renderer='css'))
+        with self.assertRaises(ValueError):
+            j.newbed_structured_t1_growth(*row(scene='cell-impulse-sparse-s096__rest',statistic='T1-low'))
+
     def test_own_historical_reference_cap_is_unrounded_and_frozen(self):
         ref, candidate = row(n=.25, c=.4375, k=.4375)
         historical = j.Historical(reading(.3125, documents=pair('1', '2')), .125, False)
@@ -112,12 +168,38 @@ class NumericalTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 j.historical_growth(ref, candidate, replace(historical, **changes))
 
+    def test_frozen_in_B_normalization_proves_original_division_without_roundtrip_loss(self):
+        ref,candidate=row(n=.1,c=.203,k=.203,code=.0003,bar=.00015)
+        old=reading(.2,documents=pair('1','2'))
+        raw=abs(.203-.1)-abs(.2-.1)
+        normalized=10.000000000000009
+        self.assertNotEqual(normalized*ref.budget,raw)
+        history=j.historical_from_frozen_in_b(ref,old,frozen_current_growth_in_b=normalized,repaired=False)
+        self.assertEqual(history.frozen_current_growth,raw)
+        self.assertEqual(j.historical_growth(ref,candidate,history).status,'WITHIN')
+        with self.assertRaises(ValueError):
+            j.historical_from_frozen_in_b(ref,old,frozen_current_growth_in_b=10.0,repaired=False)
+
     def test_repaired_entry_cannot_revive_old_allowance(self):
         ref, candidate = row(n=.25, c=.3125, k=.375)
         repaired = j.Historical(reading(.25, documents=pair('1', '2')), .0625, True)
         out = j.historical_growth(ref, candidate, repaired)
         self.assertEqual(out.components[0].bound, .0625)
         self.assertEqual(out.status, 'EXCEEDS')
+
+    def test_single_row_diagnostic_has_no_bound_and_keeps_missing_status(self):
+        ref,candidate=rgb((20.,30.,10.),'central8-channel-median')
+        ref=replace(ref,code=None,bar=None,budget=None)
+        out=j.diagnostic_reading(ref,candidate)
+        self.assertEqual(out.identity,ref.identity)
+        self.assertEqual(out.status,'DIAGNOSTIC')
+        self.assertEqual([c.error for c in out.components],[0,10,10])
+        self.assertTrue(all(c.bound is None for c in out.components))
+        scalar=j.diagnostic_reading(*row(statistic='T1-fine',renderer='css'))
+        self.assertEqual(scalar.units,'linear-luma')
+        self.assertEqual(scalar.status,'DIAGNOSTIC')
+        missing=j.Reading('UNMEASURED_EMPTY_SUPPORT','encoded-RGB-codes',None,None,'empty')
+        self.assertEqual(j.diagnostic_reading(replace(ref,native=missing),candidate).status,'UNMEASURED')
 
     def test_empty_support_is_explicitly_unmeasured(self):
         ref, candidate = rgb()
@@ -141,6 +223,22 @@ class NumericalTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             j.t1_growth(ref, replace(candidate, identity=replace(candidate.identity, scene='other')))
         with self.assertRaises(TypeError): j.t1_growth({'native': .1}, candidate)
+
+    def test_only_explicit_own_row_frozen_T1_budget_can_differ_from_fresh_repeat_budget(self):
+        ref,candidate=row(n=.25,c=.375,k=.03125,code=.0625,bar=.0625)
+        self.assertEqual(j.t1_growth(ref,candidate).status,'WITHIN')
+        frozen=j.FrozenT1Budget(ref.identity,ref.inventory_sha256,.0625)
+        old=replace(ref,budget=.0625,frozen_t1_budget=frozen)
+        self.assertEqual(old.code,.0625)
+        self.assertEqual(old.bar,.0625)
+        self.assertEqual(j.t1_growth(old,candidate).status,'EXCEEDS')
+        with self.assertRaises(ValueError):replace(ref,budget=.0625)
+        with self.assertRaises(ValueError):
+            replace(ref,budget=.0625,frozen_t1_budget=replace(frozen,inventory_sha256='9'*64))
+        for identity in (replace(ref.identity,renderer='css'),
+                         replace(ref.identity,profile=ref.identity.profile.replace('glass0.25','glass0.5')),
+                         replace(ref.identity,scene='cell-checker-low-s096__rest')):
+            with self.assertRaises(ValueError):j.FrozenT1Budget(identity,ref.inventory_sha256,.0625)
 
     def test_aggregate_epsilon_is_own_code_not_B_and_aggregate_is_median(self):
         cells = []
