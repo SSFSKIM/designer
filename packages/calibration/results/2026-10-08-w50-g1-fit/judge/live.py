@@ -2,15 +2,17 @@
 
 evaluate(context, {'measurement', 'owner', 'captures'}, config_pin) -> report, called by the
 LIVE dispatcher in its exclusive analysis stage of the gate and of the one exposure. The
-report is a value-bearing payload; the dispatcher seals it and validates it with current3's
-validate_report. Nothing here prints, logs or formats a measured value; errors carry field
-names and keys only (DL5k).
+report is a value-bearing payload; the dispatcher seals it and validates it with the LIVE
+report validator (live-execution/common.py), which runs current3's unchanged validate_report
+over it. Nothing here prints, logs or formats a measured value; errors carry field names and
+keys only (DL5k).
 
 Gate. Exactly the exposed (gateKeys) rows are routed by judge/rules.route_row. A positive
 gate is PASS_EXPOSED_OWNER_PENDING: every numeric row WITHIN (PASS), every DL5a reported row
-REPORTED with finite readings and B null, every DL5b key UNMEASURED_EMPTY_SUPPORT with its
-witness or REPORTED, every owner-contracts row PENDING_OWNER_UNION. ownerChecks and
-targetChecks are PENDING_FULL_UNION and pendingOwnerKeys is the root's ordered closure.
+REPORTED with finite readings and B null or UNMEASURED_REPORTED with its cause (DL5m 4), every
+DL5b key also admitting UNMEASURED_EMPTY_SUPPORT with its witness, every owner-contracts row
+PENDING_OWNER_UNION. ownerChecks and targetChecks are PENDING_FULL_UNION and pendingOwnerKeys
+is the root's ordered closure.
 
 Exposure. The complete union is the sealed gate report's exposed cells, this exposure's
 routed rows (blind and historical prediction checks with their DL5d physical closure), the
@@ -22,8 +24,12 @@ Routing decisions the charter text fixes and this module only maps:
 * Input 64 (DL5j) is reported on both tiers; its gating condition is numerical identity of the
   law at the join, carried by the G0 numerical referee the dispatcher admitted the cohort
   under (fixedJoinPass). The rendered candidate/current difference is recorded, not gated.
-* Missing evidence is UNMEASURED and never a pass, including a reported row whose readings are
-  incomplete: validate_report admits REPORTED only with finite native/current/candidate.
+* Missing evidence on a gated row is UNMEASURED and never a pass.
+* A DL5a/b/c reported key (the root's reportedKeys, which contain the DL5b/c emptySupportKeys)
+  whose reading is incomplete or non-finite is UNMEASURED_REPORTED with its cause, every
+  reading field null. It never gates, so it does not change the verdict (DL5m 4); a missing or
+  corrupt capture still blocks through the gated level rows read from the same capture, which
+  are UNMEASURED themselves. No other key can carry that status.
 * An owner axis passes when NOT_APPLICABLE, MEASURED within/reported, a named miss of an
   EXISTING record, or UNMEASURED under a source-owned exception of the root's owner contracts
   snapshot (owner_evidence.py's rule). A named outcome that would need a NEW owner record
@@ -183,6 +189,29 @@ def scalar(value):
     return type(value) in (int, float) and math.isfinite(value) and value >= 0
 
 
+SIDES = ('native', 'current', 'candidate')
+NULL_FIELDS = SIDES+('value', 'fidelity', 'B')
+
+
+def reported_gap(status, reading):
+    """None for a complete reported reading; else the DL5m (4) cause, metadata only.
+
+    A side is incomplete when absent or null and non-finite when a NaN/infinite float. A route
+    that is not DIAGNOSTIC (a source or diagnostic status not MEASURED) is incomplete too, with
+    the router's own labels. The router admits nothing else on a reported key (a MEASURED value
+    is range-checked, an UNMEASURED one is null), so any other defect refuses.
+    """
+    missing = [side for side in SIDES if reading.get(side) is None]
+    nonfinite = [side for side in SIDES if type(reading.get(side)) is float and not math.isfinite(reading[side])]
+    if any(not scalar(reading.get(side)) for side in SIDES if side not in missing+nonfinite) or \
+            status not in ('DIAGNOSTIC', 'UNMEASURED'):
+        raise ValueError('Reported reading is outside the routed domain')
+    if status == 'DIAGNOSTIC' and not missing and not nonfinite:
+        return None
+    return {'kind': 'NON_FINITE_READING' if nonfinite else 'INCOMPLETE_READING',
+            'sides': [side for side in SIDES if side in missing+nonfinite], 'routeStatus': status}
+
+
 def join_identity(context, live, root):
     """The numerical referee the dispatcher admitted this cohort under, re-run unchanged."""
     claim = context['logicalClaim']
@@ -223,9 +252,14 @@ def cell(item, row, routed, root, *, join, witness):
                     fidelity=None, value=None, B=None, emptySupportWitness=pin)
     elif reported:
         value = row['readings'][item[3]]
-        complete = status == 'DIAGNOSTIC' and all(scalar(value.get(k)) for k in ('native', 'current', 'candidate'))
-        cell.update(status='REPORTED' if complete else 'UNMEASURED', B=None,
-                    **{k: copy.deepcopy(value.get(k)) for k in ('native', 'current', 'candidate')})
+        gap = reported_gap(status, value)
+        if gap is None:
+            cell.update(status='REPORTED', B=None, **{k: copy.deepcopy(value[k]) for k in SIDES})
+        else:
+            # DL5m (4): recorded with its cause and every reading field null, so nothing in the
+            # cell can be read as a pass; the readings stay in cell['readings'] as evidence.
+            cell.update(status='UNMEASURED_REPORTED', cause={**gap, 'unmeasured': list(routed.get('unmeasured', []))},
+                        **dict.fromkeys(NULL_FIELDS))
     elif status == 'WITHIN':
         cell['status'] = 'PASS'
     elif status == 'EXCEEDS':
@@ -237,7 +271,10 @@ def cell(item, row, routed, root, *, join, witness):
     else:
         raise ValueError('Required original key has no declared referee')
     if row['role'] == 'blind':
-        # DL5g (1): a blind row without real exposure content pins blocks.
+        # DL5g (1): a blind row without real exposure content pins blocks. DECISION (DL5m 4
+        # boundary): this holds for a blind reported key too. A broken per-key native envelope
+        # is an evidence-integrity fault, not an incomplete reading, so it is not admitted as
+        # UNMEASURED_REPORTED.
         pin = row.get('nativeEvidence') or {}
         path = Path(pin.get('path', ''))
         if not path.is_file() or sha(path) != pin.get('sha256'):
@@ -248,8 +285,9 @@ def cell(item, row, routed, root, *, join, witness):
 
 def wanted(item, phase, root):
     if item in {tuple(k) for k in root['reportedKeys']}:
-        return {'REPORTED', 'UNMEASURED_EMPTY_SUPPORT'} if item in {tuple(k) for k in root['emptySupportKeys']} \
-            else {'REPORTED'}
+        reported = {'REPORTED', 'UNMEASURED_REPORTED'}
+        return reported|{'UNMEASURED_EMPTY_SUPPORT'} if item in {tuple(k) for k in root['emptySupportKeys']} \
+            else reported
     if item[3] == 'owner-contracts' and phase == 'gate':
         return {'PENDING_OWNER_UNION'}
     return {'PASS'}
@@ -511,6 +549,9 @@ def evaluate(context, evidence, config_pin):
         failed += [t for t in target_checks if t['status'] != 'WITHIN']
         failed += [c for group in ('aggregates', 'intrinsic', 'context') for c in graded[group] if c['status'] != 'PASS']
         report['status'] = 'PASS' if not failed else 'NEITHER'
+    reported = {tuple(k) for k in root['reportedKeys']}
+    if any(c['status'] == 'UNMEASURED_REPORTED' and key(c) not in reported for c in cells):
+        raise ValueError('UNMEASURED_REPORTED on a key outside the enumerated reported keys')
     report['cells'] = cells
     live.require_context(context)
     # The sealed result is JSON; normalize now so the in-memory and archived reports agree.
@@ -523,7 +564,8 @@ def public_summary(report):
     for value in report['cells']:
         counts[value['status']] = counts.get(value['status'], 0) + 1
     blocking = sorted([c[k] for k in KEY] for c in report['cells']
-                      if c['status'] not in ('PASS', 'REPORTED', 'UNMEASURED_EMPTY_SUPPORT', 'PENDING_OWNER_UNION'))
+                      if c['status'] not in ('PASS', 'REPORTED', 'UNMEASURED_REPORTED', 'UNMEASURED_EMPTY_SUPPORT',
+                                             'PENDING_OWNER_UNION'))
     owner = report.get('owner') or {}
     return {'schema': 'w50-judge-public-summary-1', 'phase': report['phase'], 'status': report['status'],
             'candidateSha256s': list(report['candidateSha256s']), 'ownerChecks': report['ownerChecks'],

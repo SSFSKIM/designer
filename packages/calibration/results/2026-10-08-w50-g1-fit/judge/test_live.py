@@ -2,8 +2,9 @@
 
 The World below builds a miniature original inventory with every routed row family, its
 DL5d physical closure, a W49a-shaped cut, owner contracts and referee output, and checks each
-report against current3's unchanged validate_report. No inventory, capture, native read or
-blind statistic of the wave is opened.
+report as the LIVE dispatcher does: through live-execution/common.py's validate_report, which
+runs current3's unchanged validate_report behind its DL5m (4) check. No inventory, capture,
+native read or blind statistic of the wave is opened.
 """
 import base64
 import contextlib
@@ -40,6 +41,7 @@ def source(path, name):
 F = source(HERE/'test_rules.py', 'w50_judge_live_test_fixtures')
 D = source(CURRENT3/'execution/dispatch.py', 'w50_judge_live_test_current3')
 Q = source(FIT/'live-execution/quarantine.py', 'w50_judge_live_test_quarantine')
+V = source(FIT/'live-execution/common.py', 'w50_judge_live_test_report')
 
 
 def sha_bytes(raw):
@@ -403,10 +405,13 @@ class World:
         measured = self.measured(context, overrides)
         return context, self.run(context, measured, self.owner_report(context, owner))
 
+    def doc(self):
+        return {'repo': str(self.repo), 'references': self.references, 'phaseDependencies': self.dependencies,
+                'reportedKeys': self.reported, 'emptySupportKeys': self.empty, 'bootstrap': self.bootstrap}
+
     def validate(self, context, report):
-        doc = {'repo': str(self.repo), 'references': self.references, 'phaseDependencies': self.dependencies,
-               'reportedKeys': self.reported, 'emptySupportKeys': self.empty, 'bootstrap': self.bootstrap}
-        D.validate_report(doc, context['batch'], context['expectedCells'], report, gate_result=context.get('gateResult'))
+        V.validate_report(self.doc(), context['batch'], context['expectedCells'], report,
+                          gate_result=context.get('gateResult'))
 
 
 def candidate(name, value):
@@ -466,9 +471,7 @@ class JudgeTests(unittest.TestCase):
             'unmeasured': ((P1, 'webgpu', 'cell-grey-004-s096__rest', 'central8-channel-median'),
                            unmeasured('central8-channel-median'), 'UNMEASURED'),
             'canonical T1': ((P1, 'webgpu', 'photo__rrect-md__rest', 'T1-full-silhouette'),
-                             candidate('T1-full-silhouette', .5), 'FAIL'),
-            'reported gap': ((P1, 'webgpu', 'cell-grey-028-s128__rest', 'deep8-far24-luma-mean'),
-                             unmeasured('deep8-far24-luma-mean'), 'UNMEASURED'),
+                             candidate('T1-full-silhouette', .5), 'FAIL')
         }
         for label, (item, change, status) in cases.items():
             with self.subTest(label):
@@ -664,6 +667,218 @@ class JudgeTests(unittest.TestCase):
             self.assertIn('Traceback', error_log.read_text())
             self.assertNotIn(CANARY_TEXT, error_log.read_text())
             self.assertNotIn('876.54321', error_log.read_text())
+
+
+
+REPORTED_LUMA = (P1, 'webgpu', 'cell-grey-028-s128__rest', 'deep8-far24-luma-mean')
+SPAN128_LEVEL = (P1, 'webgpu', 'cell-grey-028-s128__rest', 'deep8-channel-median')
+BLIND_T1 = (P1, 'webgpu', 'cell-grey-000-s224__inactive', 'T1-full-silhouette')
+BLIND_LEVEL = (P1, 'webgpu', 'cell-grey-000-s224__inactive', 'deep8-channel-median')
+
+
+def missing(name, side):
+    """A reported reading with one side absent, as the producer marks an incomplete read."""
+    def change(row):
+        row['readings'][name].update({side: None, side+'MeasurementStatus': 'UNMEASURED',
+                                      'measurementStatus': 'UNMEASURED', side+'Reason': 'synthetic gap'})
+    return change
+
+
+def computed_blind_t1_without_candidate(row):
+    """DL5c: the eligible blind T1 whose exposure support is NOT empty, read incompletely."""
+    value = row['readings']['T1-full-silhouette']
+    value.update(measurementStatus='UNMEASURED', nativeMeasurementStatus='MEASURED',
+                 currentMeasurementStatus='MEASURED', candidateMeasurementStatus='UNMEASURED',
+                 native=.25, current=.25, candidate=None, nativeSupportWitnesses=[])
+
+
+class UnmeasuredReportedTests(unittest.TestCase):
+    """DL5m (4): an incomplete/non-finite DL5a/b/c reported key is recorded, never gates."""
+
+    def setUp(self):
+        self.world = World(self)
+        self.world.install(self)
+
+    def fresh(self):
+        world = World(self)
+        world.install(self)
+        return world
+
+    def assert_unmeasured_reported(self, cell, sides):
+        self.assertEqual(cell['status'], 'UNMEASURED_REPORTED')
+        self.assertEqual((cell['cause']['kind'], cell['cause']['sides'], cell['cause']['routeStatus']),
+                         ('INCOMPLETE_READING', sides, 'UNMEASURED'))
+        self.assertTrue(cell['cause']['unmeasured'])
+        self.assertTrue(all(cell[k] is None for k in ('native', 'current', 'candidate', 'value', 'fidelity', 'B')))
+
+    def test_reported_gap_alone_leaves_the_gate_success(self):
+        for side in ('candidate', 'native'):
+            with self.subTest(side):
+                w = self.fresh()
+                context, report = w.gate({REPORTED_LUMA: missing('deep8-far24-luma-mean', side)})
+                self.assertEqual(report['status'], 'PASS_EXPOSED_OWNER_PENDING')
+                self.assert_unmeasured_reported(cell_of(report, *REPORTED_LUMA[:1], REPORTED_LUMA[2], REPORTED_LUMA[3]),
+                                                [side])
+                self.assertEqual(w.judge.public_summary(report)['blockingKeys'], [])
+                w.validate(context, report)
+
+    def test_reported_gaps_alone_leave_the_exposure_pass(self):
+        w = self.world
+        gate = w.qualified_gate({REPORTED_LUMA: missing('deep8-far24-luma-mean', 'candidate')})
+        self.assertEqual(gate['report']['status'], 'PASS_EXPOSED_OWNER_PENDING')
+        context, report = w.exposure(gate, {BLIND_T1: computed_blind_t1_without_candidate})
+        self.assertEqual(report['status'], 'PASS')
+        carried = cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])
+        self.assertEqual(carried['phase'], 'gate')
+        self.assert_unmeasured_reported(carried, ['candidate'])
+        self.assert_unmeasured_reported(cell_of(report, P1, BLIND_T1[2], BLIND_T1[3]), ['candidate'])
+        w.validate(context, report)
+
+    def test_non_finite_reported_reading_is_its_own_cause_and_cannot_cross_the_snapshot(self):
+        judge = self.world.judge
+        for bad in (float('nan'), float('inf')):
+            cause = judge.reported_gap('DIAGNOSTIC', {'native': .25, 'current': bad, 'candidate': .3})
+            self.assertEqual(cause, {'kind': 'NON_FINITE_READING', 'sides': ['current'], 'routeStatus': 'DIAGNOSTIC'})
+        self.assertIsNone(judge.reported_gap('DIAGNOSTIC', {'native': .25, 'current': .25, 'candidate': .3}))
+        for bad in (-1, [1], 'x', True):
+            with self.assertRaisesRegex(ValueError, 'outside the routed domain'):
+                judge.reported_gap('DIAGNOSTIC', {'native': bad, 'current': .25, 'candidate': .3})
+        # The measurement snapshot is strict JSON: a NaN reaching the judge is refused, never a verdict.
+        w = self.world
+        context = w.context('gate')
+        measured = w.measured(context, {REPORTED_LUMA: candidate('deep8-far24-luma-mean', float('nan'))})
+        with self.assertRaisesRegex(ValueError, 'Nonfinite JSON constant'):
+            w.run(context, measured)
+
+    def test_missing_capture_still_blocks_through_its_gated_rows(self):
+        w = self.world
+        context, report = w.gate({REPORTED_LUMA: missing('deep8-far24-luma-mean', 'candidate'),
+                                  SPAN128_LEVEL: unmeasured('deep8-channel-median')})
+        self.assertEqual(report['status'], 'NEITHER')
+        self.assertEqual(cell_of(report, P1, SPAN128_LEVEL[2], SPAN128_LEVEL[3])['status'], 'UNMEASURED')
+        self.assert_unmeasured_reported(cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3]), ['candidate'])
+        self.assertEqual(w.judge.public_summary(report)['blockingKeys'], [list(SPAN128_LEVEL)])
+        w.validate(context, report)
+        world = self.fresh()
+        context, report = world.exposure(world.qualified_gate(), {BLIND_T1: computed_blind_t1_without_candidate,
+                                                                  BLIND_LEVEL: unmeasured('deep8-channel-median')})
+        self.assertEqual(report['status'], 'NEITHER')
+        self.assertEqual(cell_of(report, P1, BLIND_LEVEL[2], BLIND_LEVEL[3])['status'], 'UNMEASURED')
+        world.validate(context, report)
+        # A corrupt blind native envelope blocks even on a reported key (DL5g (1)).
+        world = self.fresh()
+        gate = world.qualified_gate()
+        context = world.context('exposure', gate=gate)
+        measured = world.measured(context, {BLIND_T1: computed_blind_t1_without_candidate})
+        for row in measured['rows']:
+            if key(row) == BLIND_T1:
+                Path(row['nativeEvidence']['path']).write_text('{"changed": true}\n')
+        report = world.run(context, measured, world.owner_report(context))
+        self.assertEqual((report['status'], cell_of(report, P1, BLIND_T1[2], BLIND_T1[3])['status']),
+                         ('NEITHER', 'UNMEASURED'))
+
+    def gap_report(self):
+        context, report = self.world.gate({REPORTED_LUMA: missing('deep8-far24-luma-mean', 'candidate')})
+        self.assertEqual(report['status'], 'PASS_EXPOSED_OWNER_PENDING')
+        self.world.validate(context, report)
+        return context, report
+
+    def refused(self, context, report, pattern):
+        with self.assertRaisesRegex(ValueError, pattern):
+            self.world.validate(context, report)
+
+    def test_validator_refuses_the_status_on_a_non_enumerated_key(self):
+        context, report = self.gap_report()
+        source = cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])
+        for status in ('PASS_EXPOSED_OWNER_PENDING', 'NEITHER'):
+            for target in (SPAN128_LEVEL, (P1, 'webgpu', 'checkerboard__rrect-md__rest', 'owner-contracts')):
+                with self.subTest(status=status, target=target[3]):
+                    changed = copy.deepcopy(report)
+                    changed['status'] = status
+                    cell = cell_of(changed, P1, target[2], target[3])
+                    for name in list(cell):
+                        if name not in KEY: cell.pop(name)
+                    cell.update({k: copy.deepcopy(v) for k, v in source.items() if k not in KEY})
+                    self.refused(context, changed, 'enumerated DL5a/b/c reported key')
+
+    def test_validator_refuses_a_missing_or_malformed_cause(self):
+        context, report = self.gap_report()
+        def mutate(change):
+            changed = copy.deepcopy(report)
+            change(cell_of(changed, P1, REPORTED_LUMA[2], REPORTED_LUMA[3]))
+            return changed
+        cases = {
+            'absent': lambda c: c.pop('cause'),
+            'null': lambda c: c.update(cause=None),
+            'unknown kind': lambda c: c['cause'].update(kind='OPERATOR_DECLINED'),
+            'no side or label': lambda c: c['cause'].update(sides=[], unmeasured=[]),
+            'complete route': lambda c: c['cause'].update(sides=[], routeStatus='DIAGNOSTIC'),
+            'unknown side': lambda c: c['cause'].update(sides=['reference']),
+            'extra field': lambda c: c['cause'].update(value=1),
+        }
+        for label, change in cases.items():
+            with self.subTest(label):
+                self.refused(context, mutate(change), 'requires its stated cause')
+
+    def test_validator_refuses_a_value_that_could_read_as_a_pass(self):
+        context, report = self.gap_report()
+        cases = {'candidate': lambda c: c.update(candidate=.3), 'native': lambda c: c.update(native=.25),
+                 'B': lambda c: c.update(B=.0625), 'absent field': lambda c: c.pop('fidelity'),
+                 'join': lambda c: c.update(joinIdentity=True), 'held': lambda c: c.update(heldDifference=[0])}
+        for label, change in cases.items():
+            with self.subTest(label):
+                changed = copy.deepcopy(report)
+                change(cell_of(changed, P1, REPORTED_LUMA[2], REPORTED_LUMA[3]))
+                self.refused(context, changed, 'null readings and no passable value')
+
+    def test_original_validator_still_runs_on_every_other_row(self):
+        context, report = self.gap_report()
+        with self.assertRaisesRegex(ValueError, 'complete phase/owner intersection'):
+            # current3 alone cannot accept the status; the LIVE validator is what admits it.
+            D.validate_report(self.world.doc(), context['batch'], context['expectedCells'], report)
+        overbroad = copy.deepcopy(report)
+        cell_of(overbroad, P1, SPAN128_LEVEL[2], SPAN128_LEVEL[3])['status'] = 'REPORTED'
+        self.refused(context, overbroad, 'Overbroad reported-row exemption')
+        reported = copy.deepcopy(report)
+        cell_of(reported, P1, 'cell-grey-000-s128__inactive', 'T1-full-silhouette').update(
+            status='REPORTED', native=.25, current=.25, candidate=.25, B=.1)
+        self.refused(context, reported, 'finite native/current/candidate and null B')
+        empty = copy.deepcopy(report)
+        cell_of(empty, P1, 'cell-grey-000-s128__inactive', 'T1-full-silhouette').update(native=0)
+        self.refused(context, empty, 'explicit null readings')
+        membership = copy.deepcopy(report)
+        membership['cells'] = [c for c in membership['cells'] if key(c) != REPORTED_LUMA]
+        self.refused(context, membership, 'membership differs')
+        unbound = copy.deepcopy(report)
+        unbound['candidateSha256s'] = []
+        self.refused(context, unbound, 'bind verdict to candidate bytes')
+        presented = V.presented(self.world.doc(), report)
+        self.assertEqual(cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])['status'], 'UNMEASURED_REPORTED')
+        self.assertEqual(cell_of(presented, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])['status'], 'REPORTED')
+        self.assertEqual([c for c in presented['cells'] if key(c) != REPORTED_LUMA],
+                         [c for c in report['cells'] if key(c) != REPORTED_LUMA])
+
+    def test_quarantine_canaries_hold_for_an_unmeasured_reported_key(self):
+        w = self.world
+        def canary(row):
+            missing('deep8-far24-luma-mean', 'candidate')(row)
+            row['readings']['deep8-far24-luma-mean']['native'] = CANARY
+        log = w.base/'quarantine/reported.log'
+        ok, (context, report) = Q.run_private(log, lambda: w.gate({REPORTED_LUMA: canary}))
+        self.assertTrue(ok)
+        self.assertEqual(log.read_text(), '')
+        cell = cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])
+        self.assertEqual(cell['status'], 'UNMEASURED_REPORTED')
+        self.assertNotIn(CANARY_TEXT, json.dumps(cell['cause']))
+        self.assertNotIn(CANARY_TEXT, json.dumps({k: v for k, v in cell.items() if k not in ('readings', 'route')}))
+        self.assertNotIn(CANARY_TEXT, json.dumps(w.judge.public_summary(report)))
+        changed = copy.deepcopy(report)
+        cell_of(changed, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])['native'] = CANARY
+        public = io.StringIO()
+        with contextlib.redirect_stdout(public), contextlib.redirect_stderr(public):
+            with self.assertRaises(ValueError) as caught:
+                w.validate(context, changed)
+        self.assertNotIn(CANARY_TEXT, str(caught.exception)+public.getvalue())
 
 
 if __name__ == '__main__':

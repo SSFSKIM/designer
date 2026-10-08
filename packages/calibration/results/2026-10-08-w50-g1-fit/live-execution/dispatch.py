@@ -114,7 +114,7 @@ def create_phase(root,batch_path,output,fit_record=None):
         D.validate_fit_record(root,doc,batch['cohort'],fit_record);extra['fitRecord']=D.pin(repo,fit_record)
     if phase=='exposure':
         result_for(root.parent/D.SLOTS['gate'])
-        gate,result=D.checked_gate_result(root,doc)
+        gate,result=_CORE['C'].checked_gate_result(root,doc)
         if D.sealed(gate)['cohort']!=batch['cohort']:raise ValueError('Exposure changes frozen gate cohort')
         extra={'gateContract':D.pin(repo,gate),'gateResult':D.pin(repo,Path(str(gate)+'.result.json'))}
     target=root.parent/'fit'/f'{sha(batch_path)}.json' if phase=='fit' else root.parent/D.SLOTS[phase]
@@ -145,7 +145,7 @@ def _phase(root,contract):
     if phase=='fit' and (Path(root).parent/D.SLOTS['gate']).exists():raise ValueError('Gate froze fitting')
     if phase=='gate':D.validate_fit_record(root,doc,batch['cohort'],D.checked(repo,body['fitRecord']))
     if phase=='exposure':
-        result_for(D.checked(repo,body['gateContract']));gate,result=D.checked_gate_result(root,doc)
+        result_for(D.checked(repo,body['gateContract']));gate,result=_CORE['C'].checked_gate_result(root,doc)
         if body['gateResult']!=D.pin(repo,Path(str(gate)+'.result.json')) or D.sealed(gate)['cohort']!=batch['cohort']:
             raise ValueError('Exposure changed original qualified gate')
     store=_CORE['L'].Store(contract,batch,body['logicalOutput'])
@@ -503,7 +503,8 @@ def execute_analysis(root,contract):
                         module,config=_component(doc,'owner');owner=module.evaluate(ctx,captures,config);require_context(ctx)
                     judge,config=_component(doc,'judge')
                     report=judge.evaluate(ctx,{'measurement':measured,'owner':owner,'captures':captures},config);require_context(ctx)
-                    D.validate_report(doc,batch,expected,report,gate_result=ctx.get('gateResult'))
+                    # DL5m (4): current3's validate_report, behind the LIVE UNMEASURED_REPORTED check.
+                    _CORE['C'].validate_report(doc,batch,expected,report,gate_result=ctx.get('gateResult'))
                 if captures['captures']!=[L.read(L.checked(r['payload'])) for r in union['members']]:
                     raise ValueError('Analysis mutated the immutable original capture records')
                 return D.write_sealed(Path(str(contract)+'.result.json'),{'contractSha256':sha(contract),

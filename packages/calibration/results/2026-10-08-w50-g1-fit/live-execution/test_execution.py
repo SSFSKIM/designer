@@ -293,7 +293,7 @@ def verify(context,member,record,config):
         self.put('gate.json.result.json',{'synthetic':'gate result'})
         self.D.root_doc=lambda root:self.doc;self.D.verify_prefit=lambda root,doc:{'synthetic':'prefit'}
         D.validate_batch=lambda doc,p,phase:(json.loads(Path(p).read_text()),[])
-        D.checked_gate_result=lambda root,doc:(gate,{});D.sealed=lambda p:{'cohort':batch['cohort']}
+        self.C.checked_gate_result=lambda root,doc:(gate,{});D.sealed=lambda p:{'cohort':batch['cohort']}
         return self.D.create_phase(self.root,path,output)
     def test_malformed_exposure_contract_refuses_before_its_one_shot_slot_is_sealed(self):
         slot=self.repo/self.C.D.SLOTS['exposure'];output=self.repo.parent/(self.repo.name+'-exposure')
