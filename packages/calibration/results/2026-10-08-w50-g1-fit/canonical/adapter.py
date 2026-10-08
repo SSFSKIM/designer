@@ -199,7 +199,21 @@ def native_request(context,run,dispatcher):
         p=evidence[0]
         # Do not hash or open PNGs here: the bounded Node preflight owns those selected reads.
         pins.append(dict(scene=scene,path=str((ROOT/p['path']).resolve()),sha256=p['sha256']))
-    return dict(profile=run['profile'],scenes=run['scenes'],sets=run['sets'],native=pins)
+    roots=set()
+    for pin in pins:
+        path=Path(pin['path'])
+        if path.name!=pin['scene']+'.png' or path.parent.name!=run['profile']:
+            raise ValueError('Original native pin lacks canonical profile/scene suffix')
+        roots.add(path.parent.parent)
+    if len(roots)!=1: raise ValueError('Original native pins span multiple fixture roots')
+    fixtures=roots.pop()
+    manifest=run.get('nativeManifest') or {}
+    manifest_path=Path(manifest.get('path','')).resolve()
+    if (manifest_path!=fixtures/'manifest.json' or not re.fullmatch('[0-9a-f]{64}',manifest.get('sha256','')) or
+        sha(manifest_path)!=manifest['sha256']):
+        raise ValueError('Missing or changed original-root native manifest pin')
+    return dict(profile=run['profile'],scenes=run['scenes'],sets=run['sets'],native=pins,
+                fixtures=dict(path=str(fixtures),manifest=dict(path=str(manifest_path),sha256=manifest['sha256'])))
 
 
 def capture_run(context,run,*,current=False):

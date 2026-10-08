@@ -136,9 +136,12 @@ class CanonicalTests(unittest.TestCase):
     def test_native_request_uses_original_inventory_pins_without_opening_pngs(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp); inventory=root/'references.json'; execution=root/'root.json'
-            pin={'path':str(root/'NEVER_OPEN.png'),'sha256':'f'*64}
-            rows=[dict(profile=self.run['profile'],renderer='webgpu',scene=s,nativeEvidence=pin)
-                  for s in self.run['scenes']]
+            fixtures=root/'original-main-fixtures'; fixtures.mkdir()
+            manifest=fixtures/'manifest.json'; manifest.write_text('{}')
+            run={**self.run,'nativeManifest':{'path':str(manifest),'sha256':self.a.sha(manifest)}}
+            rows=[dict(profile=run['profile'],renderer='webgpu',scene=s,nativeEvidence=
+                  {'path':str(fixtures/run['profile']/(s+'.png')),'sha256':'f'*64}) for s in run['scenes']]
+            pin=rows[0]['nativeEvidence']
             inventory.write_text(json.dumps({'cells':rows}))
             execution.write_text(json.dumps({'references':{'path':str(inventory),'sha256':self.a.sha(inventory)}}))
             class Dispatcher:
@@ -147,7 +150,9 @@ class CanonicalTests(unittest.TestCase):
                     return Path(item['path'])
             self_outer=self
             context={'executionRoot':str(execution)}
-            request=self.a.native_request(context,self.run,Dispatcher())
+            request=self.a.native_request(context,run,Dispatcher())
+            self.assertEqual(request['fixtures']['path'],str(fixtures.resolve()))
+            self.assertEqual(request['fixtures']['manifest']['sha256'],self.a.sha(manifest))
             self.assertEqual(request['native'][0],{'scene':'pressed',**pin,'path':str(Path(pin['path']).resolve())})
             self.assertFalse(Path(pin['path']).exists())
             rows.append({**rows[0],'nativeEvidence':{**pin,'sha256':'e'*64}})

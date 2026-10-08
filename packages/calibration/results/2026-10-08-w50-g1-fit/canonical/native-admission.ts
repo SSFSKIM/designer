@@ -10,6 +10,23 @@ export interface NativeRequest {
   native: {scene: string; path: string; sha256: string}[];
 }
 
+/** Select the original tree, not the worktree copy; compare and its capture child inherit it. */
+export function selectFixtures(request: NativeRequest & {fixtures:{path:string;manifest:{path:string;sha256:string}}}) {
+  const root=realpathSync(request.fixtures.path);
+  if(!request.native.length || request.native.some(pin=>
+    realpathSync(pin.path)!==realpathSync(resolve(root,request.profile,pin.scene+'.png')))) {
+    throw Error('Original native pins differ from selected fixture root');
+  }
+  const path=realpathSync(request.fixtures.manifest.path);
+  if(path!==resolve(root,'manifest.json'))throw Error('Native manifest pin names another fixture root');
+  const bytes=readFileSync(path);
+  if(createHash('sha256').update(bytes).digest('hex')!==request.fixtures.manifest.sha256) {
+    throw Error('Changed native manifest pin');
+  }
+  process.env.VITREA_FIXTURES=root;
+  return {root,manifest:JSON.parse(bytes.toString()) as Manifest};
+}
+
 /** Only selected original native pins may be read. This is not a global tint certification. */
 export function admitNative(spec: SceneSpec, manifest: Manifest, root: string, request: NativeRequest) {
   const profiles=manifest.profiles.filter(p=>p.profileKey===request.profile);

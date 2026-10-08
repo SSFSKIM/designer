@@ -5,7 +5,8 @@ import {syncBuiltinESMExports} from 'node:module';
 import {tmpdir} from 'node:os';
 import {join,relative} from 'node:path';
 import {createHash} from 'node:crypto';
-import {admitNative} from './native-admission.ts';
+import {spawnSync} from 'node:child_process';
+import {admitNative, selectFixtures} from './native-admission.ts';
 import {candidateMaterialLabel} from '../../../src/material-selection.ts';
 import {colourlessTintEvidence} from '../../../cli/gates.ts';
 
@@ -50,6 +51,24 @@ test('selected native admission never opens out-of-batch holdout and refuses los
   pins[0]!.sha256='0'.repeat(64);
   assert.throws(()=>admitNative(spec as any,manifest as any,root,request),/pin/i);
  }finally{fs.readFileSync=original;syncBuiltinESMExports();fs.rmSync(root,{recursive:true,force:true});}
+});
+
+test('external original fixture root is pinned and propagates to production descendants',()=>{
+ const root=fs.mkdtempSync(join(tmpdir(),'w50-original-tree-'));
+ const before=process.env.VITREA_FIXTURES;
+ try {
+  fs.mkdirSync(join(root,'p'));fs.writeFileSync(join(root,'p/s.png'),'synthetic');
+  const manifest=join(root,'manifest.json');fs.writeFileSync(manifest,JSON.stringify({profiles:[]}));
+  const request={profile:'p',scenes:['s'],sets:['calibration'],native:[{scene:'s',path:join(root,'p/s.png'),sha256:digest(join(root,'p/s.png'))}],
+    fixtures:{path:root,manifest:{path:manifest,sha256:digest(manifest)}}};
+  process.env.VITREA_FIXTURES='/wrong-worktree/fixtures';
+  const selected=selectFixtures(request);
+  assert.equal(selected.root,fs.realpathSync(root));
+  assert.equal(process.env.VITREA_FIXTURES,selected.root);
+  const child=spawnSync(process.execPath,['-e','process.stdout.write(process.env.VITREA_FIXTURES)'],{encoding:'utf8'});
+  assert.equal(child.status,0);assert.equal(child.stdout,selected.root);
+  fs.writeFileSync(manifest,'{}');assert.throws(()=>selectFixtures(request),/manifest pin/);
+ }finally{if(before===undefined)delete process.env.VITREA_FIXTURES;else process.env.VITREA_FIXTURES=before;fs.rmSync(root,{recursive:true,force:true});}
 });
 
 test('production candidate label uses the driver repository-relative declaration',()=>{
