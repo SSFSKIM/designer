@@ -1,0 +1,64 @@
+{
+  "schema": "w50-reference-assembly-archive-1",
+  "status": "EXACT_BYTES_ARCHIVED",
+  "binding": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/binding.json",
+    "sha256": "d68fc6ceb6df8ee7642f5000530e4dc6062fff6384b80c0527fec104265bfd69"
+  },
+  "completedReferences": {
+    "original": {
+      "path": "/Users/new/vitrea-w50/g1-completion/completed-references.json",
+      "sha256": "a85ef80a068915a2ed1b3170ecacca36c81b42a5b94c77c828539d6e6be39da6",
+      "bytes": 283939815
+    },
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/evidence/completed-references.json.gz",
+      "sha256": "d253b9e9aeff83d16b220e089d9cdc074c2200df2f7ea444d66afaaa4ef120c3",
+      "encoding": "gzip level9 no-name mtime0"
+    },
+    "liveCopy": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json",
+      "note": "identical bytes, gitignored; the LIVE root pins it repo-relative"
+    }
+  },
+  "bundle": {
+    "path": "/Users/new/vitrea-w50/g1-completion/bundle.json",
+    "sha256": "2a76acdbc7dc78ca18400cb7d02fd2a2604341fc9d8ed58beaf6b96e606a11d8",
+    "note": "not archived: validate_registered re-derives it deterministically from the binding"
+  },
+  "artifacts": {
+    "root": "/Users/new/vitrea-w50/g1-completion/artifacts",
+    "files": 828,
+    "contentAddressedNamesVerified": true,
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/evidence/artifacts.tar.gz",
+      "sha256": "b0197fe3f0a05e3be7cc00321ebd78490bb47727262c9e960767419c8a60e252",
+      "encoding": "tar (uid/gid 0) gzip level9 no-name"
+    }
+  },
+  "liveCurrentEvidenceCopy": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+    "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+    "note": "identical bytes of the composed current analysis output, gitignored; archived in current-analysis-composed/evidence"
+  },
+  "summary": {
+    "counts": {
+      "newbed": 1632,
+      "canonical": 423,
+      "owners": 640,
+      "blind": 832
+    },
+    "rows": 3527,
+    "statuses": {
+      "blind SEALED_BLIND": 832,
+      "calibration MEASURED": 752,
+      "gate MEASURED": 963,
+      "historical-prediction-check MEASURED": 100,
+      "validation MEASURED": 688,
+      "validation REPORTED": 168,
+      "validation UNMEASURED_EMPTY_SUPPORT": 24
+    },
+    "validateRegistered": "PASS (deterministic re-assembly and the corrected current2 validator)"
+  },
+  "boundary": "Reference evidence only; blind rows identity-only; no candidate, fit, gate or exposure value."
+}
