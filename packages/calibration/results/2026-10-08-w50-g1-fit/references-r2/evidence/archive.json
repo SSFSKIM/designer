@@ -1,0 +1,43 @@
+{
+  "schema": "w50-reference-read-archive-1",
+  "status": "EXACT_BYTES_ARCHIVED",
+  "original": {
+    "path": "/Users/new/vitrea-w50/g1-canonical-references-r2/canonical-references.json",
+    "sha256": "ebb4575915e86d8bbf162423d8d384fda4fcbf9ed2360b78102cd90b5e59438f",
+    "bytes": 465305205
+  },
+  "archive": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/evidence/canonical-references.json.gz",
+    "sha256": "5022ef35b554050c8e9901d9fb15670c4effe3c5e996f06d35ea800324b17e1b",
+    "encoding": "gzip level9 no-name mtime0",
+    "decompressedSha256": "ebb4575915e86d8bbf162423d8d384fda4fcbf9ed2360b78102cd90b5e59438f"
+  },
+  "instrumentRootSha256": "604041d23a250084757aa109ba2a1cdca80e5ab809a7bfd46a23d065728a6acc",
+  "readLog": {
+    "path": "/Users/new/vitrea-w50/g1-canonical-references-r2/read.log",
+    "sha256": "28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320",
+    "content": "exit 0 (no other output)"
+  },
+  "summary": {
+    "gate": {
+      "rows": 379,
+      "MEASURED": 379
+    },
+    "historical-prediction-check": {
+      "rows": 44,
+      "MEASURED": 44
+    },
+    "reference-only": {
+      "rows": 0
+    }
+  },
+  "attempt1Witness": {
+    "attempt1Output": "d6b5d5c30b5f49cdeda3fb70504341173d3b4a1a331c514bd6953e615e6113dc",
+    "attempt1Measured": 397,
+    "byteIdenticalInThisRead": 397,
+    "sameKeysAndOrder": true,
+    "otherTopLevelFieldsEqual": true,
+    "differs": "inputs.config path (references-r2), instrument root, contract, batch and source pins; the 26 rows attempt 1 refused"
+  },
+  "boundary": "Canonical reference evidence only; no candidate, fit, gate, exposure or blind value. W50 DL5l."
+}
