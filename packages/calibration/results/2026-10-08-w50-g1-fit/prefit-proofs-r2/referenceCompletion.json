@@ -1,0 +1,273 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "referenceCompletion",
+ "status": "PASS",
+ "establishes": "The completed reference inventory (3,527 rows) is the one assembly executed from the committed binding and archived exactly; it keeps every declared identity, role, support, historical cap and known value; every exposed row is measured or carries its ruled status; blind rows stay identity-only (README pre-fit clause; DL5a-DL5g, DL5l).",
+ "boundary": "Reference validation only; no candidate, fit, gate or exposure value; blind rows were checked for nullity without reading or printing a value.",
+ "builtFrom": {
+  "gitHead": "021ee4dab32ae53a466f67f7cccebe6290265664",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "archive-bytes",
+   "status": "PASS",
+   "verifies": "The archived completed inventory, its gitignored live copy and the external original are byte-identical.",
+   "function": "archive_bytes",
+   "summary": {
+    "completedReferencesSha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558",
+    "bytes": 283946703,
+    "bindingSha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/archive-bytes.json",
+    "sha256": "a416c81fc531b2e7f956abff70aa5294045ba1a64d074614c5e811b4e2828baf"
+   }
+  },
+  {
+   "id": "registered-revalidation",
+   "status": "PASS",
+   "verifies": "bound.validate_registered re-derives the bundle deterministically from the registered evidence and passes the strict pre-fit completion validator (exemptions, DL5b/c empty support, owner budgets, DL5g blind).",
+   "function": "registered_revalidation",
+   "summary": {
+    "result": "REFERENCE_VALIDATION_ONLY",
+    "validator": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/prefit.py",
+     "sha256": "9769e1585e8d1288d4aaaf35b9851e1eb0d74c0dc48107ed27368b1e5b45fa51"
+    },
+    "deterministicReassembly": "EQUAL",
+    "counts": {
+     "newbed": 1632,
+     "canonical": 423,
+     "owners": 640,
+     "blind": 832
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/registered-revalidation.json",
+    "sha256": "9d8d499e3497f3defba182124f340630f9908e0b86ed992955cf70db33a212e6"
+   }
+  },
+  {
+   "id": "declared-identity-preserved",
+   "status": "PASS",
+   "verifies": "G0 declare.verify(phase=fit)'s reference clauses: membership/order, fixed fields and every already-known value unchanged.",
+   "function": "declared_identity_preserved",
+   "summary": {
+    "rows": 3527,
+    "declaredSha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/declared-identity-preserved.json",
+    "sha256": "a87c03a9e2098f7f881ac608e1944bcd3275e4964a68de2dc30d84dc3ba7e1e8"
+   }
+  },
+  {
+   "id": "status-census",
+   "status": "PASS",
+   "verifies": "Every exposed row is MEASURED, REPORTED (DL5a) or UNMEASURED_EMPTY_SUPPORT (DL5b); 832 blind rows are SEALED_BLIND with null values and evidence (DL5g); census equals the archive record.",
+   "function": "status_census",
+   "summary": {
+    "statuses": {
+     "blind SEALED_BLIND": 832,
+     "calibration MEASURED": 752,
+     "validation UNMEASURED_EMPTY_SUPPORT": 24,
+     "validation MEASURED": 688,
+     "validation REPORTED": 168,
+     "gate MEASURED": 963,
+     "historical-prediction-check MEASURED": 100
+    },
+    "blindIdentityOnly": 832
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/status-census.json",
+    "sha256": "6216a00014bc2eabd0960495779f3a191c97908b4e3d6b20963a7a0d5a4c0a8e"
+   }
+  },
+  {
+   "id": "completion-assembler-tests",
+   "status": "PASS",
+   "verifies": "Completion test_assembler.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_assembler.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/completion",
+   "exitCode": 0,
+   "matched": [
+    "Ran 11 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-assembler-tests.log",
+    "sha256": "85ca96fb207a9acf727b042ed3fd6fdb6890b8cc0d45810393b27db424a95d19"
+   }
+  },
+  {
+   "id": "completion-bound-tests",
+   "status": "PASS",
+   "verifies": "Completion test_bound.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_bound.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/completion",
+   "exitCode": 0,
+   "matched": [
+    "Ran 4 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-bound-tests.log",
+    "sha256": "62f05e43d507409ea130ebb84a7af42446bc1f460da1f51f185f66237b6c5f46"
+   }
+  },
+  {
+   "id": "completion-bound_composed-tests",
+   "status": "PASS",
+   "verifies": "Completion test_bound_composed.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_bound_composed.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/completion",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-bound_composed-tests.log",
+    "sha256": "8e5995a5a2507b86f7e0824794e492aa90847b86e7f6839dcf362b19f9f481a2"
+   }
+  },
+  {
+   "id": "completion-validator-tests",
+   "status": "PASS",
+   "verifies": "Completion test_validator.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_validator.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/completion",
+   "exitCode": 0,
+   "matched": [
+    "Ran 2 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-validator-tests.log",
+    "sha256": "f2f7f20b09268ff1a5a9edf399b32bb047568b9780fc65a6c38dee4a6be91892"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/build.py",
+   "sha256": "72740d7ab70d1e97e787b6750dc79ee0841d612f3027c9c15fab96dace708d61"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+   "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/run.py",
+   "sha256": "107a0724b6ac8c51b6f9418be89ce5b338c39613c4bf8a18a312dc4f29cfcb59"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/archive.json",
+   "sha256": "3d699f8c27c8530d33748afab99b60e45e28b151901ebd138c93c70a146ef10b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/completed-references.json.gz",
+   "sha256": "feabe6468dc4b390d4b2c0b5d3f3f950d7e4d523996a88fb6a902e4f1a6f0d5a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/artifacts.tar.gz",
+   "sha256": "1970452e746fd71d6e528ef3494d4ab697b1c4bd965657aaf430adcc47972e6f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/bound.py",
+   "sha256": "4103ed5703851f938706fee14c5c6b1cc5d0226d708cd706db8c7366dd11d777"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/assembler.py",
+   "sha256": "6f64bdbf127af3088e682d95b2a3e41dd4359d05a75f8cccb8f51e1b28e15f70"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/prefit.py",
+   "sha256": "9769e1585e8d1288d4aaaf35b9851e1eb0d74c0dc48107ed27368b1e5b45fa51"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+   "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/manifest.json",
+   "sha256": "9423a102f38299c738bf8a6367bd0eca7857ebc94b7b931f749ff4da7958bfb5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+   "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_assembler.py",
+   "sha256": "48d1b26dedc2cb1e5e066a201d3662e8747f7459366b5d9f7d32c96b7fe6632e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_bound.py",
+   "sha256": "4234a1e3402ae41a3709ad39624a84880e645c130a3265182283ff607e720863"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_bound_composed.py",
+   "sha256": "15b007a400c5253c3fa4535f4d2a8bda3c5220a272e9ecf2719be8f4cb00210e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_validator.py",
+   "sha256": "55b822ecf2369640798ccc7c4b15e629d393d54cd26e34b314cfc637ed5dff54"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/archive-bytes.json",
+   "sha256": "a416c81fc531b2e7f956abff70aa5294045ba1a64d074614c5e811b4e2828baf"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/registered-revalidation.json",
+   "sha256": "9d8d499e3497f3defba182124f340630f9908e0b86ed992955cf70db33a212e6"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/declared-identity-preserved.json",
+   "sha256": "a87c03a9e2098f7f881ac608e1944bcd3275e4964a68de2dc30d84dc3ba7e1e8"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/status-census.json",
+   "sha256": "6216a00014bc2eabd0960495779f3a191c97908b4e3d6b20963a7a0d5a4c0a8e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-assembler-tests.log",
+   "sha256": "85ca96fb207a9acf727b042ed3fd6fdb6890b8cc0d45810393b27db424a95d19"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-bound-tests.log",
+   "sha256": "62f05e43d507409ea130ebb84a7af42446bc1f460da1f51f185f66237b6c5f46"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-bound_composed-tests.log",
+   "sha256": "8e5995a5a2507b86f7e0824794e492aa90847b86e7f6839dcf362b19f9f481a2"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/referenceCompletion/completion-validator-tests.log",
+   "sha256": "f2f7f20b09268ff1a5a9edf399b32bb047568b9780fc65a6c38dee4a6be91892"
+  }
+ ]
+}
