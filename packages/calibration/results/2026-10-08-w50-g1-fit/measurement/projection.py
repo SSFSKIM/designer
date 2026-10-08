@@ -81,10 +81,42 @@ def identity(statistic, value, evidence, *, native=False):
                          'documentPair': pair})
 
 
+SIDES = ('native', 'current', 'candidate')
+
+
+def defect(value, units):
+    """The DL5m (4) kind of a producer value outside its statistic's domain, or None.
+
+    Metadata only: the kind names what is wrong, never the value. A scalar statistic carrying
+    channel values is outside the domain too, because the numerical layer refuses that shape.
+    """
+    if value is None: return None
+    members = value if isinstance(value, list) else [value]
+    if any(isinstance(v, float) and not math.isfinite(v) for v in members):
+        return 'NON_FINITE_READING'
+    ceiling = 1 if units == 'linear-luma' else 255
+    if (units == 'encoded-RGB-codes') != isinstance(value, list) or \
+            (isinstance(value, list) and len(value) != 3) or \
+            any(type(v) not in (int, float) or not 0 <= v <= ceiling for v in members):
+        return 'OUT_OF_DOMAIN_READING'
+    return None
+
+
 def reading(candidate, current, candidate_evidence, current_evidence, *, reported, eligible_empty):
-    """A same-native-support reading; transport MAD is not a statistic, code step or budget."""
+    """A same-native-support reading; transport MAD is not a statistic, code step or budget.
+
+    A gated key refuses a nonfinite or out-of-domain value. A DL5a/b/c reported key never gates,
+    so a defective side is recorded instead (W50 DL5m (4)): its value is nulled, its side status
+    is UNMEASURED with the defect kind as its reason, and readingDefects names kind and side,
+    never the value. The judge then records the key UNMEASURED_REPORTED; refusing here, after
+    LIVE's irreversible analysis marker, would stop the one exposure with no result (DL5k).
+    """
+    def same(a, b):
+        # A reported key's shared native value compares by its JSON text, so the same NaN on
+        # both sides is the same source rather than a mismatch; == decides everything else.
+        return a == b or (reported and json.dumps(a, sort_keys=True) == json.dumps(b, sort_keys=True))
     for field in ('units', 'support', 'nativeValue', 'nativeRepeat', 'nativeSupportWitnesses'):
-        if current is not None and current.get(field) != candidate.get(field):
+        if current is not None and not same(current.get(field), candidate.get(field)):
             raise ValueError('Current/candidate readings differ on their original native source/support')
     status = candidate['measurementStatus']
     witnesses = candidate['nativeSupportWitnesses']
@@ -95,6 +127,13 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
     units = candidate['units']
     ceiling = 1 if units == 'linear-luma' else 255
     values = (candidate.get('nativeValue'), candidate['value'], current['value'] if current else None)
+    defects = []
+    if reported:
+        kinds = [defect(value, units) for value in values]
+        defects = sorted(({'kind': kind, 'side': side} for side, kind in
+                          zip(('native', 'candidate', 'current'), kinds) if kind),
+                         key=lambda item: SIDES.index(item['side']))
+        values = tuple(None if kind else value for value, kind in zip(values, kinds))
     for value in values:
         if value is None: continue
         members = value if isinstance(value, list) else [value]
@@ -104,10 +143,10 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
             raise ValueError('Nonfinite or out-of-domain producer reading')
     code, bar, bound = budget(candidate)
     evidence = {'native': identity(candidate, values[0], candidate_evidence, native=True),
-                'candidate': identity(candidate, candidate['value'], candidate_evidence)}
+                'candidate': identity(candidate, values[1], candidate_evidence)}
     if current is not None:
-        evidence['current'] = identity(current, current['value'], current_evidence)
-    return {'units': units, 'support': candidate['support'], 'measurementStatus': status,
+        evidence['current'] = identity(current, values[2], current_evidence)
+    result = {'units': units, 'support': candidate['support'], 'measurementStatus': status,
         'nativeMeasurementStatus': 'MEASURED' if values[0] is not None else status,
         'currentMeasurementStatus': current['measurementStatus'] if current else 'UNMEASURED',
         'candidateMeasurementStatus': status, 'native': copy.deepcopy(values[0]),
@@ -116,6 +155,14 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
         'budgetDomain': 'PRODUCER_NATIVE_REPEAT', 'nativeRepeat': copy.deepcopy(candidate['nativeRepeat']),
         'nativeSupportWitnesses': copy.deepcopy(witnesses), 'required': candidate['required'],
         'reported': reported, 'eligibleEmptySupport': eligible_empty, 'evidence': evidence}
+    if defects:
+        for item in defects:
+            result[item['side']+'MeasurementStatus'] = 'UNMEASURED'
+            result[item['side']+'Reason'] = item['kind']
+        if any(item['side'] == 'candidate' for item in defects):
+            result['measurementStatus'] = 'UNMEASURED'
+        result['readingDefects'] = defects
+    return result
 
 
 def frozen_scope(row):

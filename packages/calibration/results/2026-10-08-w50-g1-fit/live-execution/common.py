@@ -2,7 +2,9 @@
 judge-report validation over it (W50 DL5m item 4).
 
 DL5m (4) admits UNMEASURED_REPORTED, with its cause, for a DL5a/b/c reported key whose reading
-is incomplete or non-finite; such a key never gates, so it does not change the verdict.
+is incomplete, non-finite or out of domain; such a key never gates, so it does not change the
+verdict. A nonfinite or out-of-domain side reaches the judge already nulled by the measurement
+projection, and the cause carries the projection's defects (kind and side, never a value).
 current3's validate_report is sealed and knows no such status: for a qualified verdict it
 requires every reported key REPORTED with finite native/current/candidate.
 
@@ -41,7 +43,8 @@ def source(path,name):
 D=source(CURRENT3/'execution/dispatch.py','w50_live_immutable_mechanics')
 
 UNMEASURED_REPORTED='UNMEASURED_REPORTED'
-CAUSES=('INCOMPLETE_READING','NON_FINITE_READING')
+CAUSES=('INCOMPLETE_READING','NON_FINITE_READING','OUT_OF_DOMAIN_READING')
+DEFECTS=('NON_FINITE_READING','OUT_OF_DOMAIN_READING')
 SIDES=('native','current','candidate')
 NULL_FIELDS=SIDES+('value','fidelity','B')
 PASS_FIELDS=('joinIdentity','heldDifference','emptySupportWitness')
@@ -52,13 +55,23 @@ def check_unmeasured_reported(doc,cell):
     if tuple(cell.get(k) for k in D.KEY) not in {tuple(k) for k in doc['reportedKeys']}:
         raise ValueError('UNMEASURED_REPORTED is admitted only on an enumerated DL5a/b/c reported key')
     cause=cell.get('cause')
-    if not isinstance(cause,dict) or set(cause)!={'kind','sides','routeStatus','unmeasured'} or \
+    if not isinstance(cause,dict) or set(cause)-{'defects'}!={'kind','sides','routeStatus','unmeasured'} or \
             cause['kind'] not in CAUSES or cause['routeStatus'] not in ('DIAGNOSTIC','UNMEASURED') or \
             not isinstance(cause['sides'],list) or any(s not in SIDES for s in cause['sides']) or \
             len(set(cause['sides']))!=len(cause['sides']) or not isinstance(cause['unmeasured'],list) or \
             any(type(u) is not str for u in cause['unmeasured']) or \
             not (cause['sides'] or (cause['routeStatus']=='UNMEASURED' and cause['unmeasured'])) or \
             (cause['kind']=='NON_FINITE_READING' and not cause['sides']):
+        raise ValueError('UNMEASURED_REPORTED requires its stated cause')
+    # The projection's defects, when present: kind and side only, each side one of the cause's
+    # sides, and the cause's kind the one they imply (an out-of-domain kind has no other source).
+    defects=cause.get('defects',[])
+    if ('defects' in cause and (not isinstance(defects,list) or not defects)) or any(
+            not isinstance(d,dict) or set(d)!={'kind','side'} or d['kind'] not in DEFECTS or
+            d['side'] not in cause['sides'] for d in defects) or \
+            len({d['side'] for d in defects})!=len(defects) or \
+            (cause['kind']=='OUT_OF_DOMAIN_READING')!=(bool(defects) and cause['kind']!='NON_FINITE_READING') or \
+            (any(d['kind']=='NON_FINITE_READING' for d in defects) and cause['kind']!='NON_FINITE_READING'):
         raise ValueError('UNMEASURED_REPORTED requires its stated cause')
     if any(name not in cell or cell[name] is not None for name in NULL_FIELDS) or any(name in cell for name in PASS_FIELDS):
         raise ValueError('UNMEASURED_REPORTED must carry null readings and no passable value')

@@ -414,6 +414,55 @@ class PhaseTests(unittest.TestCase):
             P.measure_phase(self.context, self.captures, self.config)
         self.assertEqual(self.produced, [])
 
+    def test_reported_key_defect_reaches_the_strict_snapshot_and_a_gated_key_still_refuses(self):
+        """W50 DL5m (4)/DL5k: after the analysis marker a reported key's nonfinite or
+        out-of-domain reading is recorded, never a stop; a gated key's still refuses."""
+        canary = 987.654321
+        producer = self.measure_member
+        def defective(run, receipt, rows):
+            measured = producer(run, receipt, rows)
+            measured['statistics']['deep8-channel-median']['value'] = [11, float('nan'), 31]
+            return measured
+        self.backend.measure_member = defective
+        self.backend.current_measurement = lambda row, *, name: (self.statistic([12, canary, 32]), {
+            'snapshot': self.current_report, 'capture': self.receipt['artifacts']['png'],
+            'material': {'documentPair': {'activeSha256': 'a'*64, 'recededSha256': 'b'*64}}})
+        self.root['reportedKeys'] = [[self.row[k] for k in KEY]]; self.install_active()
+        self.phase('gate')
+        result = P.measure_phase(self.context, self.captures, self.config)
+        read = result['rows'][0]['readings']['deep8-channel-median']
+        self.assertEqual((read['native'], read['current'], read['candidate']), ([10, 20, 30], None, None))
+        self.assertEqual(read['readingDefects'], [{'kind': 'OUT_OF_DOMAIN_READING', 'side': 'current'},
+                                                  {'kind': 'NON_FINITE_READING', 'side': 'candidate'}])
+        raw = Path(result['snapshot']['path']).read_text()
+        self.assertEqual(json.loads(raw, parse_constant=lambda c: self.fail('nonfinite constant'))['rows'], result['rows'])
+        self.assertNotIn('987.654321', raw)
+        import shutil; shutil.rmtree(self.output/'measurement')
+        self.root['reportedKeys'] = []; self.install_active()
+        with self.assertRaisesRegex(ValueError, 'Nonfinite or out-of-domain producer reading') as caught:
+            P.measure_phase(self.context, self.captures, self.config)
+        self.assertNotIn('987.654321', str(caught.exception))
+        self.assertFalse((self.output/'measurement/phase.json').exists())
+
+    def test_blind_reported_native_defect_is_not_bound_as_the_native_aggregate(self):
+        """A nulled native side on a blind reported key leaves row native unbound, so the blind
+        envelope's native-aggregate comparison cannot refuse it after the marker (DL5m (4))."""
+        self.row.update(role='blind', historical=[])
+        self.completed_row = copy.deepcopy(self.row)
+        self.rebind_documents(); self.phase('exposure')
+        self.root['reportedKeys'] = [[self.row[k] for k in KEY]]; self.install_active()
+        statistic = self.statistic
+        def outside(value):
+            produced = statistic(value); produced['nativeValue'] = [10, 300, 30]
+            return produced
+        self.statistic = outside
+        result = P.measure_phase(self.context, self.captures, self.config)
+        row = result['rows'][0]
+        self.assertNotIn('native', row)
+        self.assertEqual(row['readings']['deep8-channel-median']['readingDefects'],
+                         [{'kind': 'OUT_OF_DOMAIN_READING', 'side': 'native'}])
+        self.assertEqual(self.blind_validated, [row])
+
 
 if __name__ == '__main__':
     unittest.main()

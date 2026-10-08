@@ -42,6 +42,7 @@ F = source(HERE/'test_rules.py', 'w50_judge_live_test_fixtures')
 D = source(CURRENT3/'execution/dispatch.py', 'w50_judge_live_test_current3')
 Q = source(FIT/'live-execution/quarantine.py', 'w50_judge_live_test_quarantine')
 V = source(FIT/'live-execution/common.py', 'w50_judge_live_test_report')
+M = source(FIT/'measurement/projection.py', 'w50_judge_live_test_projection')
 
 
 def sha_bytes(raw):
@@ -879,6 +880,184 @@ class UnmeasuredReportedTests(unittest.TestCase):
             with self.assertRaises(ValueError) as caught:
                 w.validate(context, changed)
         self.assertNotIn(CANARY_TEXT, str(caught.exception)+public.getvalue())
+
+
+OUT_OF_DOMAIN = 987.654321
+OUT_OF_DOMAIN_TEXT = '987.654321'
+
+
+def projected(name, *, native, current, candidate, eligible_empty=False, reported=True):
+    """A reported key's reading exactly as measurement/projection.reading writes it for phase.py,
+    from synthetic producer statistics (no capture is read). Arguments are value factories, so
+    each side holds its own object, as separately produced floats do. reported=False is the same
+    statistic under a gated key's flag, as phase.py passes it per key."""
+    t1 = name == 'T1-full-silhouette'
+    units, support = ('linear-luma', 'full-silhouette') if t1 else ('encoded-luma-codes', 'deep8_far24')
+    repeat = {'codeStepLinear': .004, 'barLinear': .002} if t1 else {'barCodes': .5}
+    def statistic(value):
+        return {'status': 'REPORTED', 'measurementStatus': 'MEASURED', 'value': value(),
+                'nativeValue': native(), 'required': False, 'support': support, 'units': units,
+                'nativeRepeat': copy.deepcopy(repeat), 'nativeRuns': [{'run': r, 'sha256': str(r)*64} for r in (1, 2, 3)],
+                'nativeSupportWitnesses': [{'run': r, 'maskShape': [384, 512], 'pixels': 4096,
+                                            'maskPackedBitsSha256': str(r)*64} for r in (1, 2, 3)]}
+    def evidence(digit, pair):
+        return {'capture': {'path': f'/synthetic/{digit}.png', 'sha256': digit*64}, 'reading': 'first',
+                'material': {'documentPair': {'activeSha256': pair[0]*64, 'recededSha256': pair[1]*64}}}
+    def change(row):
+        value = M.reading(statistic(candidate), statistic(current), evidence('c', 'f0'), evidence('d', 'ab'),
+                          reported=reported, eligible_empty=eligible_empty)
+        value['originalBudgetB'] = None
+        value['evidence']['historical'] = []
+        row['readings'][name] = value
+    return change
+
+
+def fixed(value):
+    return lambda: value
+
+
+class ProjectedReportedDefectTests(unittest.TestCase):
+    """DL5m (4) through the real chain: projection -> strict snapshot -> judge -> LIVE validator.
+
+    A nonfinite or out-of-domain reading on a reported key is recorded UNMEASURED_REPORTED and
+    leaves the verdict where it was; on a gated key it still refuses, before any verdict. No
+    value reaches a cause, a stream or an error (DL5k)."""
+
+    def setUp(self):
+        self.world = World(self)
+        self.world.install(self)
+
+    def fresh(self):
+        world = World(self)
+        world.install(self)
+        return world
+
+    def luma(self, **sides):
+        values = dict(native=fixed(20), current=fixed(20), candidate=fixed(21))
+        values.update(sides)
+        return projected(REPORTED_LUMA[3], **values)
+
+    def test_projected_defect_is_unmeasured_reported_at_the_gate_and_the_verdict_holds(self):
+        nan = lambda: float('nan')
+        cases = {
+            'candidate nan': (dict(candidate=nan), 'NON_FINITE_READING', ['candidate'],
+                              [{'kind': 'NON_FINITE_READING', 'side': 'candidate'}]),
+            'current infinite': (dict(current=fixed(float('inf'))), 'NON_FINITE_READING', ['current'],
+                                 [{'kind': 'NON_FINITE_READING', 'side': 'current'}]),
+            'native and current out of domain': (dict(native=fixed(-1), current=fixed(OUT_OF_DOMAIN)),
+                'OUT_OF_DOMAIN_READING', ['native', 'current'],
+                [{'kind': 'OUT_OF_DOMAIN_READING', 'side': 'native'}, {'kind': 'OUT_OF_DOMAIN_READING', 'side': 'current'}]),
+            'native nan beside an out-of-domain candidate': (dict(native=nan, candidate=fixed(OUT_OF_DOMAIN)),
+                'NON_FINITE_READING', ['native', 'candidate'],
+                [{'kind': 'NON_FINITE_READING', 'side': 'native'}, {'kind': 'OUT_OF_DOMAIN_READING', 'side': 'candidate'}]),
+        }
+        failing = {(P1, 'webgpu', 'cell-grey-004-s096__rest', 'deep8-channel-median'):
+                   candidate('deep8-channel-median', [22, 18, 20])}
+        for label, (sides, kind, named, defects) in cases.items():
+            for gated_failure in (False, True):
+                with self.subTest(label, gated_failure=gated_failure):
+                    w = self.fresh()
+                    overrides = dict(failing) if gated_failure else {}
+                    _, clean = w.gate(overrides)
+                    context, report = w.gate({**overrides, REPORTED_LUMA: self.luma(**sides)})
+                    self.assertEqual(report['status'], clean['status'])
+                    self.assertEqual(report['status'], 'NEITHER' if gated_failure else 'PASS_EXPOSED_OWNER_PENDING')
+                    self.assertEqual(w.judge.public_summary(report)['blockingKeys'],
+                                     w.judge.public_summary(clean)['blockingKeys'])
+                    cell = cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])
+                    self.assertEqual(cell['status'], 'UNMEASURED_REPORTED')
+                    self.assertEqual({k: cell['cause'][k] for k in ('kind', 'sides', 'routeStatus', 'defects')},
+                                     {'kind': kind, 'sides': named, 'routeStatus': 'UNMEASURED', 'defects': defects})
+                    self.assertTrue(all(cell[k] is None for k in ('native', 'current', 'candidate', 'value', 'fidelity', 'B')))
+                    w.validate(context, report)
+
+    def test_projected_defects_leave_the_exposure_pass(self):
+        w = self.world
+        gate = w.qualified_gate({REPORTED_LUMA: self.luma(candidate=lambda: float('nan'))})
+        self.assertEqual(gate['report']['status'], 'PASS_EXPOSED_OWNER_PENDING')
+        blind = projected(BLIND_T1[3], native=fixed(.25), current=fixed(.25), candidate=fixed(1.5), eligible_empty=True)
+        context, report = w.exposure(gate, {BLIND_T1: blind})
+        self.assertEqual(report['status'], 'PASS')
+        carried = cell_of(report, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])
+        self.assertEqual((carried['phase'], carried['status'], carried['cause']['kind']),
+                         ('gate', 'UNMEASURED_REPORTED', 'NON_FINITE_READING'))
+        exposed = cell_of(report, P1, BLIND_T1[2], BLIND_T1[3])
+        self.assertEqual((exposed['phase'], exposed['status'], exposed['cause']['kind'], exposed['cause']['defects']),
+                         ('exposure', 'UNMEASURED_REPORTED', 'OUT_OF_DOMAIN_READING',
+                          [{'kind': 'OUT_OF_DOMAIN_READING', 'side': 'candidate'}]))
+        w.validate(context, report)
+
+    def test_the_same_value_on_a_gated_key_still_refuses(self):
+        w = self.world
+        for bad in (lambda: float('nan'), fixed(OUT_OF_DOMAIN)):
+            with self.subTest(value=repr(bad())):
+                gated = projected(REPORTED_LUMA[3], native=fixed(20), current=fixed(20), candidate=bad, reported=False)
+                row = copy.deepcopy(next(r for r in w.rows if key(r) == REPORTED_LUMA))
+                with self.assertRaisesRegex(ValueError, 'Nonfinite or out-of-domain producer reading') as caught:
+                    gated(row)
+                self.assertNotIn(OUT_OF_DOMAIN_TEXT, str(caught.exception))
+        # A defect record forged onto a gated row is refused by the judge, never recorded.
+        def forged(row):
+            unmeasured('deep8-channel-median')(row)
+            reading = row['readings']['deep8-channel-median']
+            reading.update(candidateReason='NON_FINITE_READING',
+                           readingDefects=[{'kind': 'NON_FINITE_READING', 'side': 'candidate'}])
+        context = w.context('gate')
+        with self.assertRaisesRegex(ValueError, 'admitted only on a DL5a/b/c reported key'):
+            w.run(context, w.measured(context, {SPAN128_LEVEL: forged}))
+        # A corrupt producer record on a reported key is refused too, not passed off as a cause.
+        def malformed(row):
+            self.luma(candidate=lambda: float('nan'))(row)
+            row['readings'][REPORTED_LUMA[3]]['readingDefects'][0]['side'] = 'current'
+        context = w.context('gate')
+        with self.assertRaisesRegex(ValueError, 'defect record is malformed'):
+            w.run(context, w.measured(context, {REPORTED_LUMA: malformed}))
+
+    def test_validator_refuses_a_defect_cause_that_does_not_hold_together(self):
+        w = self.world
+        context, report = w.gate({REPORTED_LUMA: self.luma(native=fixed(-1), candidate=lambda: float('nan'))})
+        w.validate(context, report)
+        cases = {
+            'out-of-domain kind without defects': lambda c: (c.pop('defects'), c.update(kind='OUT_OF_DOMAIN_READING')),
+            'incomplete kind with defects': lambda c: c.update(kind='INCOMPLETE_READING'),
+            'nonfinite defect under an out-of-domain kind': lambda c: c.update(kind='OUT_OF_DOMAIN_READING'),
+            'defect side outside the sides': lambda c: c.update(sides=['candidate']),
+            'unknown defect kind': lambda c: c['defects'][0].update(kind='OPERATOR_DECLINED'),
+            'value in a defect': lambda c: c['defects'][0].update(value=1),
+            'duplicate side': lambda c: c['defects'].append(dict(c['defects'][0])),
+            'empty defects': lambda c: c.update(defects=[]),
+        }
+        for label, change in cases.items():
+            with self.subTest(label):
+                changed = copy.deepcopy(report)
+                change(cell_of(changed, P1, REPORTED_LUMA[2], REPORTED_LUMA[3])['cause'])
+                with self.assertRaisesRegex(ValueError, 'requires its stated cause'):
+                    w.validate(context, changed)
+
+    def test_quarantine_canaries_hold_through_the_projected_chain(self):
+        w = self.world
+        log = w.base/'quarantine/projected.log'
+        def work():
+            context, report = w.gate({REPORTED_LUMA: self.luma(candidate=fixed(OUT_OF_DOMAIN))})
+            w.validate(context, report)
+            return report
+        ok, report = Q.run_private(log, work)
+        self.assertTrue(ok)
+        self.assertEqual(log.read_text(), '')
+        self.assertEqual(report['status'], 'PASS_EXPOSED_OWNER_PENDING')
+        self.assertNotIn(OUT_OF_DOMAIN_TEXT, json.dumps(report))
+        self.assertNotIn(OUT_OF_DOMAIN_TEXT, json.dumps(w.judge.public_summary(report)))
+        # The gated refusal, run as the dispatcher runs it, keeps the value out of every stream.
+        row = copy.deepcopy(next(r for r in w.rows if key(r) == REPORTED_LUMA))
+        error_log = w.base/'quarantine/projected-error.log'
+        public = io.StringIO()
+        gated = projected(REPORTED_LUMA[3], native=fixed(20), current=fixed(20), candidate=fixed(OUT_OF_DOMAIN),
+                          reported=False)
+        with contextlib.redirect_stdout(public), contextlib.redirect_stderr(public):
+            ok, value = Q.run_private(error_log, lambda: gated(row))
+        self.assertEqual((ok, value), (False, {'code': 'INSTRUMENT_FAULT'}))
+        self.assertIn('Nonfinite or out-of-domain producer reading', error_log.read_text())
+        self.assertNotIn(OUT_OF_DOMAIN_TEXT, error_log.read_text()+public.getvalue())
 
 
 if __name__ == '__main__':

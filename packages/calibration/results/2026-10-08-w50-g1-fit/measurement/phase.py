@@ -195,7 +195,12 @@ def measure_phase(context, captures, config_pin):
                 envelope_path = destination/(Q.digest({'key': list(key), 'kind': 'native'})+'.json')
                 row['nativeEvidence'] = write_once(envelope_path, envelope)
                 row['currentCapture'] = copy.deepcopy(baseline_receipt)
-                row['native'] = copy.deepcopy(row['readings'][key[3]]['native'])
+                primary = row['readings'][key[3]]
+                # validate_blind_rows binds row['native'] to the native report's aggregate. A
+                # reported key's native side the projection nulled as a defect (DL5m (4)) has no
+                # value to bind, so the field is omitted and the rest of the envelope still binds.
+                if not any(d['side'] == 'native' for d in primary.get('readingDefects', [])):
+                    row['native'] = copy.deepcopy(primary['native'])
                 row['readings'][key[3]]['evidence']['native']['nativeEvidence'] = copy.deepcopy(row['nativeEvidence'])
             row_body = {'schema': 'w50-keyed-measurement-evidence-1',
                 'phase': phase, 'executionRoot': body['executionRoot'], 'contract': body['contract'],

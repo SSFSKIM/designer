@@ -14,6 +14,8 @@ def source(path, name):
 
 
 P = source(HERE/'projection.py', 'w50_projection_tests')
+CANARY = 987.654321
+CANARY_TEXT = '987.654321'
 
 
 class ProjectionTests(unittest.TestCase):
@@ -116,6 +118,61 @@ class ProjectionTests(unittest.TestCase):
         result = P.reading(scalar, scalar, self.provenance(), self.provenance('d'),
                            reported=False, eligible_empty=False)
         self.assertEqual((result['code'], result['bar'], result['B']), (.004, .003, .006))
+
+    def luma(self, value, native):
+        """A DL5a reported deep8-far24 luma reading as the producer hands it over."""
+        reading = self.reading(value, support='deep8_far24', units='encoded-luma-codes', native=native)
+        reading.update(required=False, status='REPORTED', nativeRepeat={'barCodes': .5})
+        return reading
+
+    def side_case(self, side, bad):
+        """Candidate/current statistics with ``bad()`` on one side; each call makes a fresh object."""
+        native = (lambda: bad()) if side == 'native' else (lambda: 40)
+        candidate = self.luma(bad() if side == 'candidate' else 21, native())
+        current = self.luma(bad() if side == 'current' else 22, native())
+        return candidate, current
+
+    def test_reported_defect_is_nulled_with_its_kind_and_side_never_the_value(self):
+        """W50 DL5m (4): a reported key's defective side cannot stop the analysis stage (DL5k)."""
+        nonfinite, outside = 'NON_FINITE_READING', 'OUT_OF_DOMAIN_READING'
+        cases = ((lambda: float('nan'), nonfinite), (lambda: float('inf'), nonfinite),
+                 (lambda: float('-inf'), nonfinite), (lambda: -1, outside), (lambda: CANARY, outside),
+                 (lambda: 255.5, outside), (lambda: 'x', outside), (lambda: True, outside),
+                 (lambda: [20], outside))
+        clean = {'native': 40, 'current': 22, 'candidate': 21}
+        for side in P.SIDES:
+            for bad, kind in cases:
+                with self.subTest(side=side, value=repr(bad())):
+                    candidate, current = self.side_case(side, bad)
+                    result = P.reading(candidate, current, self.provenance(), self.provenance('d'),
+                                       reported=True, eligible_empty=False)
+                    self.assertIsNone(result[side])
+                    self.assertEqual((result[side+'MeasurementStatus'], result[side+'Reason']), ('UNMEASURED', kind))
+                    self.assertEqual(result['readingDefects'], [{'kind': kind, 'side': side}])
+                    for other in set(P.SIDES)-{side}:
+                        self.assertEqual((result[other], result[other+'MeasurementStatus']), (clean[other], 'MEASURED'))
+                    self.assertEqual(result['measurementStatus'], 'UNMEASURED' if side == 'candidate' else 'MEASURED')
+                    self.assertIsNone(result['B'])
+                    text = P.encoded(result).decode()  # the strict JSON the snapshot is written in
+                    for token in (CANARY_TEXT, 'NaN', 'Infinity', '255.5', '"x"'):
+                        self.assertNotIn(token, text)
+        candidate, current = self.side_case('candidate', lambda: 21)
+        result = P.reading(candidate, current, self.provenance(), self.provenance('d'),
+                           reported=True, eligible_empty=False)
+        self.assertNotIn('readingDefects', result)
+        self.assertNotIn('candidateReason', result)
+
+    def test_the_same_values_on_a_gated_key_still_refuse(self):
+        for side in P.SIDES:
+            for bad in (lambda: float('nan'), lambda: float('inf'), lambda: -1, lambda: CANARY,
+                        lambda: 'x', lambda: True):
+                with self.subTest(side=side, value=repr(bad())):
+                    candidate, current = self.side_case(side, bad)
+                    candidate['required'] = current['required'] = True
+                    with self.assertRaises(ValueError) as caught:
+                        P.reading(candidate, current, self.provenance(), self.provenance('d'),
+                                  reported=False, eligible_empty=False)
+                    self.assertNotIn(CANARY_TEXT, str(caught.exception))
 
 
 if __name__ == '__main__':

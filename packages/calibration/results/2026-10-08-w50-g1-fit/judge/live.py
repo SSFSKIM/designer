@@ -26,10 +26,13 @@ Routing decisions the charter text fixes and this module only maps:
   under (fixedJoinPass). The rendered candidate/current difference is recorded, not gated.
 * Missing evidence on a gated row is UNMEASURED and never a pass.
 * A DL5a/b/c reported key (the root's reportedKeys, which contain the DL5b/c emptySupportKeys)
-  whose reading is incomplete or non-finite is UNMEASURED_REPORTED with its cause, every
-  reading field null. It never gates, so it does not change the verdict (DL5m 4); a missing or
-  corrupt capture still blocks through the gated level rows read from the same capture, which
-  are UNMEASURED themselves. No other key can carry that status.
+  whose reading is incomplete, non-finite or out of domain is UNMEASURED_REPORTED with its
+  cause, every reading field null. It never gates, so it does not change the verdict (DL5m 4);
+  a missing or corrupt capture still blocks through the gated level rows read from the same
+  capture, which are UNMEASURED themselves. No other key can carry that status. A nonfinite or
+  out-of-domain value is nulled by the measurement projection with its kind and side recorded
+  (readingDefects), because the measurement snapshot is strict JSON and a refusal there would
+  follow the analysis marker; a gated key's defect still refuses in the projection.
 * An owner axis passes when NOT_APPLICABLE, MEASURED within/reported, a named miss of an
   EXISTING record, or UNMEASURED under a source-owned exception of the root's owner contracts
   snapshot (owner_evidence.py's rule). A named outcome that would need a NEW owner record
@@ -191,16 +194,40 @@ def scalar(value):
 
 SIDES = ('native', 'current', 'candidate')
 NULL_FIELDS = SIDES+('value', 'fidelity', 'B')
+DEFECTS = ('NON_FINITE_READING', 'OUT_OF_DOMAIN_READING')
+
+
+def reading_defects(reading):
+    """The measurement projection's DL5m (4) defect record on a reported reading, checked.
+
+    The projection nulls a reported key's nonfinite or out-of-domain side before the snapshot
+    (which is strict JSON) and names kind and side only. Each named side must be null, UNMEASURED
+    and carry its kind as its reason, in SIDES order; absent means no defect.
+    """
+    if 'readingDefects' not in reading:
+        return []
+    defects = reading['readingDefects']
+    if not isinstance(defects, list) or not defects or any(
+            not isinstance(d, dict) or set(d) != {'kind', 'side'} or d['kind'] not in DEFECTS or
+            d['side'] not in SIDES or reading.get(d['side']) is not None or
+            reading.get(d['side']+'MeasurementStatus') != 'UNMEASURED' or
+            reading.get(d['side']+'Reason') != d['kind'] for d in defects) or \
+            [d['side'] for d in defects] != [s for s in SIDES if s in {d['side'] for d in defects}]:
+        raise ValueError('Reported reading defect record is malformed')
+    return defects
 
 
 def reported_gap(status, reading):
     """None for a complete reported reading; else the DL5m (4) cause, metadata only.
 
-    A side is incomplete when absent or null and non-finite when a NaN/infinite float. A route
-    that is not DIAGNOSTIC (a source or diagnostic status not MEASURED) is incomplete too, with
-    the router's own labels. The router admits nothing else on a reported key (a MEASURED value
-    is range-checked, an UNMEASURED one is null), so any other defect refuses.
+    A side is incomplete when absent or null and non-finite when a NaN/infinite float. A side
+    the projection nulled as nonfinite or out of domain keeps that kind, and the cause names the
+    projection's defects (kind and side, never a value). A route that is not DIAGNOSTIC (a source
+    or diagnostic status not MEASURED) is incomplete too, with the router's own labels. The router
+    admits nothing else on a reported key (a MEASURED value is range-checked, an UNMEASURED one
+    is null), so any other defect refuses.
     """
+    defects = reading_defects(reading)
     missing = [side for side in SIDES if reading.get(side) is None]
     nonfinite = [side for side in SIDES if type(reading.get(side)) is float and not math.isfinite(reading[side])]
     if any(not scalar(reading.get(side)) for side in SIDES if side not in missing+nonfinite) or \
@@ -208,8 +235,13 @@ def reported_gap(status, reading):
         raise ValueError('Reported reading is outside the routed domain')
     if status == 'DIAGNOSTIC' and not missing and not nonfinite:
         return None
-    return {'kind': 'NON_FINITE_READING' if nonfinite else 'INCOMPLETE_READING',
-            'sides': [side for side in SIDES if side in missing+nonfinite], 'routeStatus': status}
+    kinds = {d['kind'] for d in defects}
+    kind = 'NON_FINITE_READING' if nonfinite or 'NON_FINITE_READING' in kinds else \
+        'OUT_OF_DOMAIN_READING' if kinds else 'INCOMPLETE_READING'
+    cause = {'kind': kind, 'sides': [side for side in SIDES if side in missing+nonfinite], 'routeStatus': status}
+    if defects:
+        cause['defects'] = copy.deepcopy(defects)
+    return cause
 
 
 def join_identity(context, live, root):
@@ -243,6 +275,9 @@ def cell(item, row, routed, root, *, join, witness):
             'readings': {name: compact_reading(value) for name, value in row['readings'].items()},
             'evidence': copy.deepcopy(row.get('evidence'))}
     reported = item in {tuple(k) for k in root['reportedKeys']}
+    if not reported and any('readingDefects' in value for value in row['readings'].values()):
+        # A gated key's defective reading refuses in the projection; it is never recorded.
+        raise ValueError('A reading defect record is admitted only on a DL5a/b/c reported key')
     status = routed['status']
     if item[3] == 'owner-contracts':
         cell['status'] = 'PENDING_OWNER_UNION'
