@@ -438,7 +438,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5k are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5l are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -609,6 +609,15 @@ marker. Canary tests cover stdout, stderr, errors and status. No agent working o
 open the plaintext blind archive or checkpoint with Read or Bash before that marker. This last
 restriction holds by role discipline, not by OS isolation. No host-level broker or permission
 change is part of this wave.
+
+DL5l (parent, 2026-10-09): canonical reference read 1 (root `e16bda56…`) lost 26 dark 0.5
+rrect-ml rows to a reader defect: `same_geometry` compared whole component dicts, and
+scenes.json's rrect-ml carries a `$comment-w32-g0` annotation added after W29 captured those
+passes. A reader copy (`references-r2`, root `604041d2…`) that ignores `$`-prefixed annotation
+keys, with a test that a radius change still refuses, rereads once, with read 1's 397 measured
+rows as a byte-level non-regression witness. Accepted as a reference-evidence recovery: no
+candidate, selection or blind value existed. A recovery of that kind, done the same way, needs
+no ruling; it is reported.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
