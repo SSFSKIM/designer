@@ -32,9 +32,13 @@ def canonical_membership(rows, *, impulse=False, solid=False):
             selected[name] = row
             if name == 'T1-low': selected['T1-fine'] = None
         elif name == 'low-end-path-level':
-            prefix = 'deep8-far24' if impulse else 'deep8'
-            for suffix in ('luma-mean','luma-median'): selected[prefix+'-'+suffix] = None
-            if solid: selected['deep8-channel-median'] = None
+            if solid:
+                selected['deep8-channel-median'] = None
+            elif impulse:
+                for suffix in ('luma-mean','luma-median'):
+                    selected['deep8-far24-'+suffix] = None
+            else:
+                raise C.InstrumentFault('No declared low-end repeat statistics for this backdrop')
         elif name != 'owner-contracts':
             raise C.InstrumentFault('Unknown declared canonical repeat statistic: '+name)
     return selected

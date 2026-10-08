@@ -33,6 +33,38 @@ class SourcesTests(unittest.TestCase):
         self.assertEqual(a['T1-low']['repeat']['bar'],.01)
         self.assertNotEqual(a['T1-fine']['repeat']['bar'],.01)
 
+    def test_solid_undeclared_mean_cannot_veto_but_each_rgb_median_still_can(self):
+        native=np.full((64,64,3),128,dtype=np.uint8)
+        background=np.zeros_like(native)
+        second=native.copy();second[20:28,20:28]=130
+        options=dict(component={'kind':'rrect','size':[48,48],'radius':0},
+                     canvas={'width':64,'height':64},scale=1)
+        measured=S.R.M.canonical_read(native,background,web_rgb=second,**options)
+        first_mean=measured['statistics']['deep8-luma-mean']['value']
+        second_mean=measured['web']['statistics']['deep8-luma-mean']['value']
+        self.assertGreater(second_mean-first_mean,.05)
+        declared=[dict(statistic='low-end-path-level',backgroundKind='solid',role='gate')]
+        first,repeat=S.canonical_statistics(native,background,[native]*7,native,second,declared,
+                                            provenance={'own':'synthetic-seven'},**options)
+        admitted=S.C.compare_statistics(first,repeat)
+        self.assertEqual(set(admitted),{'deep8-channel-median'})
+        self.assertEqual(admitted['deep8-channel-median']['first'],[128.,128.,128.])
+        self.assertEqual(admitted['deep8-channel-median']['second'],[128.,128.,128.])
+        for channel in range(3):
+            moved=native.copy();moved[:,:,channel]=129
+            a,b=S.canonical_statistics(native,background,[native]*7,native,moved,declared,
+                                      provenance={'own':'synthetic-seven'},**options)
+            with self.subTest(channel=channel),self.assertRaises(S.C.InstrumentFault):
+                S.C.compare_statistics(a,b)
+
+    def test_low_end_membership_is_backdrop_specific_and_keeps_independent_texture_rows(self):
+        low=dict(statistic='low-end-path-level')
+        self.assertEqual(set(S.canonical_membership([low,{'statistic':'T1-low'}],impulse=True)),
+            {'deep8-far24-luma-mean','deep8-far24-luma-median','T1-low','T1-fine'})
+        self.assertEqual(set(S.canonical_membership([low,{'statistic':'T1-full-silhouette'}],solid=True)),
+            {'deep8-channel-median','T1-full-silhouette'})
+        with self.assertRaises(S.C.InstrumentFault):S.canonical_membership([low])
+
     def test_owner_only_does_not_invent_statistics(self):
         image=np.full((64,64,3),128,dtype=np.uint8)
         a,b=S.canonical_statistics(image,np.zeros_like(image),[image]*7,image,image,
