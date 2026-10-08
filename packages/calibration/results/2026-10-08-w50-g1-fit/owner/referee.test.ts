@@ -87,6 +87,32 @@ test('L1 named absent means do not excuse a missing original reference',()=>{
   const mismatched=structuredClone(base); mismatched.material.interiorMeanNative.value=.2;
   assert.equal(classifyCell(C,r,mismatched).L1.namedExclusion,false);
 });
+test('L1 reads an absent mean as the owner test does: null, so the named exclusion holds',()=>{
+  // The macOS 27 generations omit both means on the named dark inactive dark-solid cells.
+  const absent=(scene:string,position:string)=>{
+    const r=row(scene,position); r.state='inactive';
+    delete (r.material as any).interiorMeanNative; delete (r.material as any).interiorMeanWeb;
+    return r;
+  };
+  for(const position of ['0.25','0.5']) {
+    const r=absent('dark-solid__capsule-button__inactive',position), base=structuredClone(r);
+    const L1=classifyCell(C,r,base).L1;
+    assert.equal(L1.state,'UNMEASURED');
+    assert.equal(L1.namedExclusion,true);
+    assert.equal(classifyCell(C,r).L1.namedExclusion,false);
+    const nulled=structuredClone(base);
+    (nulled.material as any).interiorMeanNative={value:null};
+    (nulled.material as any).interiorMeanWeb={value:null};
+    assert.equal(classifyCell(C,r,nulled).L1.namedExclusion,true);
+    const measured=structuredClone(base); (measured.material as any).interiorMeanNative={value:.2};
+    assert.equal(classifyCell(C,r,measured).L1.namedExclusion,false);
+  }
+  const unnamed=absent('dark-solid__rrect-lg__inactive','0.5');
+  assert.equal(classifyCell(C,unnamed,structuredClone(unnamed)).L1.namedExclusion,false);
+  const nullEntry=absent('dark-solid__rrect-md__inactive','0.5');
+  (nullEntry.material as any).interiorMeanWeb=null;
+  assert.throws(()=>classifyCell(C,nullEntry,structuredClone(nullEntry)),TypeError);
+});
 
 import * as referee from './referee.ts';
 test('coherence source presence follows exact profiles and gated-bed exclusions',()=>{

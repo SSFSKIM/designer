@@ -30,6 +30,16 @@ const value = (r: Row | undefined, field: string): number | undefined => {
   const v = r?.material?.[field]?.value;
   return typeof v === 'number' && Number.isFinite(v) ? v : undefined;
 };
+/** The owner test's own reading (adopted-thresholds.test.ts, the L1 block's `value`): a metric
+ * the row does not carry reads as null, exactly as a recorded `{value:null}` does. The macOS 27
+ * generations omit the means of the four dark inactive dark-solid cells rather than nulling
+ * them, and the owner excuses those cells under MISSING/MISSING_025 either way; reading the raw
+ * field here would leave `undefined`, which no named exclusion admits. A null entry throws, as
+ * the owner's `m.value` does, rather than reading as a missing mean. */
+const ownerReading = (r: Row | undefined, field: string): unknown => {
+  const m = r?.material?.[field];
+  return typeof m === 'object' ? m.value : null;
+};
 const na = (reason: string): Evidence => ({ state: 'NOT_APPLICABLE', reason });
 const unread = (reason: string): Evidence => ({ state: 'UNMEASURED', reason });
 const measured = (data: Record<string, unknown>, verdict: Evidence['verdict']): Evidence =>
@@ -115,7 +125,7 @@ export function classifyCell(C: Contracts, r: Row, baseline?: Row): Record<strin
   const missing = [...C.MISSING, ...C.MISSING_025].includes(cellKey(r));
   if (n === undefined || w === undefined || bn === undefined || bw === undefined) {
     const rawMeans=[r,baseline].flatMap(row=>['interiorMeanNative','interiorMeanWeb']
-      .map(field=>row?.material?.[field]?.value));
+      .map(field=>ownerReading(row,field)));
     const namedExclusion=missing && baseline!==undefined && n===bn
       && rawMeans.every(v=>v===null || (typeof v==='number' && Number.isFinite(v)))
       && rawMeans.slice(0,2).includes(null);
