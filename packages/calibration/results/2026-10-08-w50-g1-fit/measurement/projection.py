@@ -118,6 +118,77 @@ def reading(candidate, current, candidate_evidence, current_evidence, *, reporte
         'reported': reported, 'eligibleEmptySupport': eligible_empty, 'evidence': evidence}
 
 
+def frozen_scope(row):
+    return (row['renderer'] == 'webgpu' and
+        re.fullmatch(r'apple-macos-27\.0-[12]x-dark-standard-glass0\.25', row['profile']) is not None and
+        row['statistic'] in ('T1-full-silhouette', 'T1-low') and row.get('B') is not None and
+        row.get('nativeIdentity') is None)
+
+
+def frozen_operand(row, inventory_pin, name, side):
+    """Bind an ORIGINAL inventory operand as a source record, not a recomputed PNG statistic."""
+    record = {'kind': 'frozen-reference-record', 'inventory': copy.deepcopy(inventory_pin),
+        'key': [row[k] for k in KEY], 'side': side, 'original': copy.deepcopy(row)}
+    capture_hash = digest(record)
+    pair = None if side == 'native' else {'activeSha256': checked_hash(row['currentDocumentPair']['active.dark']),
+                                        'recededSha256': checked_hash(row['currentDocumentPair']['receded.dark'])}
+    return {'captureIdentity': dict(record, digest=capture_hash),
+        'originalCapture': copy.deepcopy(row.get(side+'Evidence')),
+        'routingOperands': 'ORIGINAL_INVENTORY',
+        'numericIdentity': {'captureSha256': capture_hash,
+            'statisticSha256': digest({'inventory': inventory_pin, 'key': record['key'],
+                'statistic': name, 'side': side, 'value': row[side], 'original': row}),
+            'documentPair': pair}}
+
+
+def frozen_primary(original, reference, source_reading, production, inventory_pin):
+    """Reconcile the frozen comparison contract without changing its operands or estimator.
+
+    Full T1 is source-owned TS sequential accumulation; text low is the original NumPy
+    Gaussian-band estimator. Recomputed native/current statistics and native-repeat budgets
+    remain complete diagnostics. Original normalized history is never recomputed from them.
+    """
+    if not frozen_scope(original): return copy.deepcopy(source_reading)
+    for field in ('native', 'current', 'B', 'historical'):
+        if reference.get(field) != original.get(field):
+            raise ValueError('Frozen canonical reference changed its original operands/history')
+    if original.get('native') is None or original.get('current') is None:
+        raise ValueError('Frozen canonical primary requires its original finite operands')
+    name = original['statistic']
+    full = name == 'T1-full-silhouette'
+    estimator = 'PRODUCTION_TS_INTERIOR_LEVEL' if full else 'CANONICAL_NUMPY_GAUSSIAN_LOW'
+    producer = ('packages/calibration/src/metrics/material.ts#interiorLevel' if full else
+        'packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py#canonical_read')
+    field = 'material.interiorStdDevWeb' if full else 'web.statistics.T1-low'
+    if not isinstance(production, dict) or any(production.get(k) != v for k, v in (
+            ('estimator', estimator), ('statistic', name), ('producer', producer), ('field', field),
+            ('reading', 'first'), ('scene', original['scene']), ('units', 'linear-luma'))):
+        raise ValueError('Frozen candidate needs its named source-owned first-image producer')
+    checked_hash(production['matrix']['sha256'])
+    capture = source_reading['evidence']['candidate']['captureIdentity']
+    if capture.get('kind') != 'png' or production['capture'] != capture['pin']:
+        raise ValueError('Production statistic differs from the authenticated first PNG')
+    value = production.get('value')
+    if value is not None and (type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1):
+        raise ValueError('Production T1 must be finite linear-luma SD')
+    result = copy.deepcopy(source_reading)
+    result['sourceReading'] = copy.deepcopy(source_reading)
+    result.update(native=original['native'], current=original['current'], candidate=value,
+        nativeMeasurementStatus='MEASURED', currentMeasurementStatus='MEASURED',
+        candidateMeasurementStatus='MEASURED' if value is not None else 'UNMEASURED',
+        measurementStatus='MEASURED' if value is not None else 'UNMEASURED',
+        routingOperands='ORIGINAL_INVENTORY', candidateEstimator=estimator,
+        originalBudgetB=original['B'], supportWitnessDomain='NUMPY_DIAGNOSTIC_NATIVE_MASK')
+    if value is None:
+        result['candidateReason'] = 'Source-owned production statistic is absent on the first reading'
+    result['evidence']['native'] = frozen_operand(original, inventory_pin, name, 'native')
+    result['evidence']['current'] = frozen_operand(original, inventory_pin, name, 'current')
+    candidate_evidence = result['evidence']['candidate']
+    candidate_evidence['productionStatistic'] = copy.deepcopy(production)
+    candidate_evidence['numericIdentity']['statisticSha256'] = digest(production)
+    return result
+
+
 def histories(row, inventory_pin, name):
     """Frozen numeric history has source-record identity, never an invented per-PNG pin."""
     if name != row['statistic']: return []

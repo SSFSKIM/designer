@@ -15,6 +15,7 @@ import copy
 from dataclasses import asdict
 import hashlib
 from pathlib import Path
+import re
 import sys
 import types
 
@@ -51,12 +52,14 @@ def _value(value):
     return tuple(value) if isinstance(value, list) else value
 
 
-def _evidence(record, side):
+def _evidence(record, side, *, frozen_records=False):
     numeric, capture = record['numericIdentity'], record['captureIdentity']
     if capture.get('digest') != numeric.get('captureSha256'):
         raise ValueError('Numeric capture identity differs from its labelled source identity')
     allowed = ('png', 'native-three-run-cohort') if side == 'native' else \
         ('png', 'frozen-reference-record') if side == 'historical' else ('png',)
+    if frozen_records and side in ('native', 'current'):
+        allowed = ('frozen-reference-record',)
     if capture.get('kind') not in allowed:
         raise ValueError('Capture/cohort/frozen-record identity has the wrong source kind')
     if capture['kind'] == 'png' and capture['pin']['sha256'] != capture['digest']:
@@ -70,35 +73,80 @@ def _evidence(record, side):
                       source_kind=capture['kind'])
 
 
-def _reading(source, side):
+def _reading(source, side, *, original=None):
     status = source[side+'MeasurementStatus']
-    evidence = _evidence(source['evidence'][side], side) if status == 'MEASURED' else None
+    frozen = original is not None and side in ('native', 'current')
+    evidence = _evidence(source['evidence'][side], side, frozen_records=frozen) if status == 'MEASURED' else None
     reason = '' if status == 'MEASURED' else source.get(side+'Reason', source.get('reason', status))
-    return N.Reading(status, source['units'], _value(source[side]), evidence, reason)
+    value = original[side] if frozen else source[side]
+    return N.Reading(status, source['units'], _value(value), evidence, reason)
 
 
-def _contracts(row, name, inventory, *, frozen=False):
-    source = row['readings'][name]
+def _original_operands(row, name, inventory):
+    """Frozen TS figures stay criteria; fresh reductions are diagnostic source observations."""
+    source, original = row['readings'][name], row['originalReference']
+    diagnostic = source.get('sourceReading')
+    if source.get('routingOperands') != 'ORIGINAL_INVENTORY' or not isinstance(diagnostic, dict):
+        raise ValueError('Frozen canonical T1 requires explicit original operands and separate source diagnostics')
+    for side in ('native', 'current'):
+        if source[side] != original.get(side) or row['reference'].get(side) != original.get(side):
+            raise ValueError('Frozen native/current operand differs from the original inventory figure')
+        capture = source['evidence'][side]['captureIdentity']
+        if capture.get('kind') != 'frozen-reference-record' or capture.get('side') != side or \
+                capture.get('key') != list(_key(row)) or capture.get('original') != original or \
+                capture.get('inventory', {}).get('sha256') != inventory:
+            raise ValueError('Original operand evidence is not the exact frozen inventory record')
+    for field in ('units', 'support', 'code', 'bar', 'B', 'nativeRepeat', 'nativeSupportWitnesses'):
+        if source.get(field) != diagnostic.get(field):
+            raise ValueError('Fresh source code/bar/support diagnostics were changed or rebased')
+    estimator, producer, field = (
+        ('PRODUCTION_TS_INTERIOR_LEVEL', 'packages/calibration/src/metrics/material.ts#interiorLevel',
+         'material.interiorStdDevWeb') if name == 'T1-full-silhouette' else
+        ('CANONICAL_NUMPY_GAUSSIAN_LOW',
+         'packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py#canonical_read',
+         'web.statistics.T1-low'))
+    evidence = source['evidence']['candidate']
+    production = evidence.get('productionStatistic', {})
+    expected = dict(estimator=estimator, producer=producer, field=field, statistic=name,
+                    reading='first', scene=row['scene'], units='linear-luma', value=source['candidate'])
+    if source.get('candidateEstimator') != estimator or \
+            any(production.get(k) != v for k, v in expected.items()) or \
+            production.get('capture') != evidence['captureIdentity'].get('pin') or \
+            production.get('capture') != diagnostic['evidence']['candidate']['captureIdentity'].get('pin') or \
+            not isinstance(production.get('matrix'), dict):
+        raise ValueError('Authoritative candidate lacks its named original-estimator production statistic')
+    # These are shape checks, not file authentication. The phase reader owns both content pins.
+    matrix = production['matrix']
+    if not isinstance(matrix.get('path'), str) or not matrix['path'] or \
+            not isinstance(matrix.get('sha256'), str) or not re.fullmatch('[0-9a-f]{64}', matrix['sha256']):
+        raise ValueError('Production statistic has no explicit matrix content identity')
+    return original
+
+
+def _contracts(row, name, inventory, *, frozen=False, source_override=None):
+    source = row['readings'][name] if source_override is None else source_override
     units = 'encoded-RGB-codes' if name in N.CHANNELS else \
         'encoded-luma-codes' if name in N.LUMA else 'linear-luma'
     if source['support'] != SUPPORT[name] or source['units'] != units:
         raise ValueError('Producer statistic/support/units differ from the declared reader')
     identity = N.RowIdentity(row['profile'], row['renderer'], row['scene'], name, source['support'])
-    native, current, candidate = (_reading(source, side) for side in ('native', 'current', 'candidate'))
     code, bar, budget = (_value(source.get(k)) for k in ('code', 'bar', 'B'))
     original = source.get('originalBudgetB')
-    witness = None
+    witness, operands = None, None
     if frozen and name in N.T1_REGRESSION:
         declared = row['originalReference'].get('B')
         if original != declared or (declared is not None and row['reference'].get('B') != declared):
             raise ValueError('Frozen T1 B differs from the unchanged original/reference budget')
         if original is not None:
+            operands = _original_operands(row, name, inventory)
             witness = N.FrozenT1Budget(identity, inventory, original)
             budget = original
     if budget is None:
         # Reported rows retain their native-repeat bundle in sourceReadings; they have no
         # numerical budget contract. No new B is reconstructed from their native bar.
         code = bar = None
+    native, current, candidate = (_reading(source, side, original=operands)
+                                  for side in ('native', 'current', 'candidate'))
     ref = N.Reference(identity, inventory, native, current, code, bar, budget, witness)
     return ref, N.Candidate(identity, candidate)
 
@@ -222,7 +270,11 @@ def route_row(row, *, inventory_sha256, reported_keys=(), empty_support_keys=())
     contracts = {name: _contracts(row, name, inventory_sha256,
         frozen=row['sceneSource'] == 'canonical' and row['renderer'] == 'webgpu' and name == row['statistic'])
         for name in names}
-    _same_sources(contracts)
+    source_contracts = {
+        name: _contracts(row, name, inventory_sha256, source_override=row['readings'][name]['sourceReading'])
+        if reference.frozen_t1_budget is not None else (reference, candidate)
+        for name, (reference, candidate) in contracts.items()}
+    _same_sources(source_contracts)
     if is_reported:
         for name, (ref, candidate) in contracts.items():
             result['diagnostics'].append(_check('reported-native-error', ref, N.diagnostic_reading(ref, candidate)))
@@ -268,8 +320,8 @@ def route_row(row, *, inventory_sha256, reported_keys=(), empty_support_keys=())
             result['checks'].append(_check('canonical-T1-growth', ref, N.t1_growth(ref, candidate)))
             result['checks'].extend(_histories(row, row['statistic'], ref, candidate))
         for name in names:
-            result['diagnostics'].append(_check('texture-native-error', contracts[name][0],
-                                                N.diagnostic_reading(*contracts[name])))
+            result['diagnostics'].append(_check('texture-native-error', source_contracts[name][0],
+                                                N.diagnostic_reading(*source_contracts[name])))
     else:
         # The NEWBED structured family has level rows as well as its separately keyed T1 row.
         for name in names:

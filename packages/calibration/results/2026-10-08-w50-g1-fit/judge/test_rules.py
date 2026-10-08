@@ -67,6 +67,33 @@ def row(name='deep8-channel-median', *, source='w50', family='uniform', renderer
 def key(item):return tuple(item[k] for k in KEY)
 
 
+def frozen_operands(item):
+    """Mirror the source-owned original-operand schema using synthetic frozen records only."""
+    name=item['statistic'];value=item['readings'][name]
+    for reference in (item['originalReference'],item['reference']):
+        reference.update(native=value['native'],current=value['current'])
+    value['sourceReading']=copy.deepcopy(value)
+    value['routingOperands']='ORIGINAL_INVENTORY'
+    for side in ('native','current'):
+        binding=dict(kind='frozen-reference-record',inventory={'path':'original.json','sha256':INVENTORY},
+                     key=list(key(item)),side=side,original=copy.deepcopy(item['originalReference']))
+        token=digest(binding)
+        pair=None if side=='native' else {'activeSha256':'a'*64,'recededSha256':'b'*64}
+        value['evidence'][side]=dict(captureIdentity={**binding,'digest':token},numericIdentity={
+            'captureSha256':token,'statisticSha256':digest({'side':side,'value':value[side]}),'documentPair':pair})
+    full=name=='T1-full-silhouette'
+    estimator='PRODUCTION_TS_INTERIOR_LEVEL' if full else 'CANONICAL_NUMPY_GAUSSIAN_LOW'
+    value['candidateEstimator']=estimator
+    value['evidence']['candidate']['productionStatistic']=dict(estimator=estimator,statistic=name,
+        producer='packages/calibration/src/metrics/material.ts#interiorLevel' if full else
+            'packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py#canonical_read',
+        field='material.interiorStdDevWeb' if full else 'web.statistics.T1-low',reading='first',
+        capture=copy.deepcopy(value['evidence']['candidate']['captureIdentity']['pin']),
+        matrix={'path':'candidate-matrix.json','sha256':'7'*64},scene=item['scene'],
+        units='linear-luma',value=value['candidate'])
+    return value
+
+
 class RulesTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -172,6 +199,7 @@ class RulesTests(unittest.TestCase):
                  native=.25,current=.375,candidate=.5)
         value=item['readings']['T1-full-silhouette'];value['originalBudgetB']=.125
         item['originalReference']['B']=item['reference']['B']=.125
+        frozen_operands(item)
         out=self.route(item)
         self.assertEqual(out['status'],'WITHIN')
         self.assertEqual(out['checks'][0]['comparison']['components'][0]['bound'],.125)
@@ -179,6 +207,7 @@ class RulesTests(unittest.TestCase):
         self.assertEqual(out['sourceReadings']['T1-full-silhouette']['bar'],.015625)
         self.assertEqual(out['sourceReadings']['T1-full-silhouette']['B'],.03125)
         value['candidate']=.5001
+        value['evidence']['candidate']['productionStatistic']['value']=.5001
         self.assertEqual(self.route(item)['status'],'EXCEEDS')
         value['originalBudgetB']=.25
         with self.assertRaises(ValueError):self.route(item)
@@ -199,6 +228,7 @@ class RulesTests(unittest.TestCase):
                         frozenCurrentGrowthInB=.5,documentPair={'active.dark':'1'*64,'receded.dark':'2'*64})
         for container in (item,item['reference'],item['originalReference']):container['historical']=[copy.deepcopy(historical)]
         value['evidence']['historical']=[dict(evidence('historical','T1-full-silhouette',history=True),original=historical)]
+        frozen_operands(item)
         out=self.route(item)
         self.assertEqual(out['status'],'EXCEEDS')
         self.assertEqual(out['failures'],['own-history[0]:T1-full-silhouette'])
@@ -218,6 +248,49 @@ class RulesTests(unittest.TestCase):
         self.assertEqual(out['status'],'UNMEASURED')
         self.assertFalse(out['complete'])
         self.assertIsNone(out['sourceHistorical'][0]['value'])
+
+    def test_original_TS_operands_keep_unchanged_candidate_within_its_attained_historical_cap(self):
+        import math
+        native,current,historical_value=.125,.25,.125
+        item=row('T1-full-silhouette',source='canonical',family='texture',input_code=None,
+                 native=native,current=current,candidate=current)
+        value=item['readings'][item['statistic']];value['originalBudgetB']=.03125
+        item['originalReference']['B']=item['reference']['B']=.03125
+        historical=dict(generation='own-history',value=historical_value,enforced=True,maxGrowthInB=4,
+            frozenCurrentGrowthInB=4,documentPair={'active.dark':'1'*64,'receded.dark':'2'*64})
+        for holder in (item,item['reference'],item['originalReference']):holder['historical']=[copy.deepcopy(historical)]
+        value['evidence']['historical']=[dict(evidence('historical',item['statistic'],history=True),original=historical)]
+        frozen_operands(item)
+        source=value['sourceReading']
+        source['native']=math.nextafter(native,1)
+        source['current']=math.nextafter(current,1)
+        source['candidate']=math.nextafter(current,1)
+        original=copy.deepcopy(item)
+        out=self.route(item)
+        historical_check=next(c for c in out['checks'] if c['rule']=='own-history[0]')
+        self.assertEqual(out['status'],'WITHIN')
+        self.assertEqual(historical_check['comparison']['status'],'WITHIN')
+        self.assertEqual(historical_check['comparison']['components'][0]['bound'],.125)
+        self.assertEqual(item,original)
+        self.assertEqual(out['sourceReadings'][item['statistic']]['sourceReading'],source)
+        value['candidate']=math.nextafter(current,1)
+        value['evidence']['candidate']['productionStatistic']['value']=value['candidate']
+        self.assertEqual(next(c for c in self.route(item)['checks'] if c['rule']=='own-history[0]')['comparison']['status'],'EXCEEDS')
+        value['current']=source['current']
+        with self.assertRaises(ValueError):self.route(item)
+
+    def test_frozen_primary_and_fine_associate_via_unchanged_source_reading_not_record_digest(self):
+        item=row('T1-low',source='canonical',family='texture',input_code=None,
+                 scene='hc-text-7__rrect-lg__rest',native=.125,current=.25,candidate=.25)
+        item['originalReference']['B']=item['reference']['B']=.03125
+        primary=item['readings']['T1-low'];primary['originalBudgetB']=.03125
+        item['readings']['T1-fine']=reading('T1-fine',.01,.02,.02)
+        frozen_operands(item)
+        out=self.route(item)
+        self.assertEqual(out['status'],'WITHIN')
+        self.assertTrue(any(c['statistic']=='T1-fine' for c in out['diagnostics']))
+        primary['candidateEstimator']='UNATTESTED_RECOMPUTATION'
+        with self.assertRaises(ValueError):self.route(item)
 
     def test_exact_reported_keys_only_and_empty_T1_retains_three_zero_witnesses_not_zero_value(self):
         item=row('T1-full-silhouette',family='span',scene='cell-grey-000-s128__inactive',input_code=0)

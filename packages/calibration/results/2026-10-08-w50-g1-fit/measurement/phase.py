@@ -171,6 +171,9 @@ def measure_phase(context, captures, config_pin):
                         reported=key in reported, eligible_empty=key in empty)
                     value['originalBudgetB'] = copy.deepcopy(original.get('B')) if name == key[3] else None
                     value['evidence']['historical'] = Q.histories(original, root['references'], name)
+                    if name == key[3]:
+                        value = Q.frozen_primary(original, reference, value,
+                            measured.get('productionStatistic'), root['references'])
                     if baseline is not None and original['role'] != 'blind':
                         value['exposureBaseline'] = Q.reading(baseline['statistics'][name], None,
                             baseline['evidence'], {}, reported=key in reported, eligible_empty=key in empty)

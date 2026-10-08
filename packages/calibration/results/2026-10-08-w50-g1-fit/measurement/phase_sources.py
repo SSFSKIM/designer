@@ -24,6 +24,7 @@ def source(path, name):
     return module
 
 
+Q = source(HERE/'projection.py', 'w50_phase_source_projection')
 M = source(HERE/'capture.py', 'w50_phase_immutable_measurement')
 W = source(CURRENT3/'web/adapter.py', 'w50_phase_paired_newbed')
 C = source(CURRENT3/'canonical/adapter.py', 'w50_phase_paired_canonical')
@@ -264,6 +265,24 @@ class PhaseSources:
                             'native': copy.deepcopy(pins['native']), 'background': copy.deepcopy(pins['background']),
                             'scenes': copy.deepcopy(pins['scenes'])})
                     record_map[name] = item
+                    if name == item['statistic'] and Q.frozen_scope(item['reference']):
+                        full = name == 'T1-full-silhouette'
+                        value = produced['value']
+                        if full:
+                            material = receipt['row'].get('material')
+                            metric = (material or {}).get('interiorStdDevWeb')
+                            if metric is not None and metric.get('units') != 'luminance':
+                                raise ValueError('Production full-T1 statistic has wrong units')
+                            value = None if metric is None else metric['value']
+                        statistics[name]['productionStatistic'] = {
+                            'estimator': 'PRODUCTION_TS_INTERIOR_LEVEL' if full else 'CANONICAL_NUMPY_GAUSSIAN_LOW',
+                            'statistic': name,
+                            'producer': 'packages/calibration/src/metrics/material.ts#interiorLevel' if full else
+                                'packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py#canonical_read',
+                            'field': 'material.interiorStdDevWeb' if full else 'web.statistics.T1-low',
+                            'reading': 'first', 'capture': copy.deepcopy(evidence['capture']),
+                            'matrix': copy.deepcopy(receipt['matrix']), 'scene': receipt['scene'],
+                            'units': 'linear-luma', 'value': value}
             evidence.update(referenceReport=copy.deepcopy(self.config['canonicalReferenceEvidence']),
                             originalNative=copy.deepcopy(pins['native']), originalBackground=copy.deepcopy(pins['background']))
         return {'statistics': statistics, 'evidence': evidence, 'material': evidence['material'],

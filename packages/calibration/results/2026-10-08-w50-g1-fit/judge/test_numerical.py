@@ -180,6 +180,31 @@ class NumericalTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             j.historical_from_frozen_in_b(ref,old,frozen_current_growth_in_b=10.0,repaired=False)
 
+    def test_unchanged_candidate_at_attained_cap_uses_original_not_recomputed_operands(self):
+        # These stand for source-owned sequential-reduction readings, not any real cell.
+        original,candidate=row(n=.1,c=.203,k=.203,code=.0003,bar=.00015)
+        original=replace(original,frozen_t1_budget=j.FrozenT1Budget(
+            original.identity,original.inventory_sha256,original.budget))
+        old=reading(.2,documents=pair('1','2'))
+        frozen_in_b=10.000000000000009
+        history=j.historical_from_frozen_in_b(original,old,
+            frozen_current_growth_in_b=frozen_in_b,repaired=False)
+        at_cap=j.historical_growth(original,candidate,history)
+        self.assertEqual(at_cap.status,'WITHIN')
+        self.assertEqual(at_cap.components[0].growth,at_cap.components[0].bound)
+        self.assertEqual(j.t1_growth(original,candidate).components[0].growth,0)
+        # Another reducer's last bit is diagnostic evidence, never a replacement witness.
+        fresh=replace(original,current=replace(original.current,
+            value=math.nextafter(original.current.value,math.inf)))
+        with self.assertRaisesRegex(ValueError,'original readings'):
+            j.historical_from_frozen_in_b(fresh,old,
+                frozen_current_growth_in_b=frozen_in_b,repaired=False)
+        with self.assertRaisesRegex(ValueError,'own-row readings'):
+            j.historical_growth(fresh,candidate,history)
+        genuinely_higher=replace(candidate,reading=replace(candidate.reading,
+            value=math.nextafter(candidate.reading.value,math.inf)))
+        self.assertEqual(j.historical_growth(original,genuinely_higher,history).status,'EXCEEDS')
+
     def test_repaired_entry_cannot_revive_old_allowance(self):
         ref, candidate = row(n=.25, c=.3125, k=.375)
         repaired = j.Historical(reading(.25, documents=pair('1', '2')), .0625, True)

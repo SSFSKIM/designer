@@ -240,6 +240,55 @@ class SourceTests(unittest.TestCase):
         self.assertEqual(result['declaration']['family'], 'solid')
         self.assertEqual(result['statistics']['deep8-channel-median']['value'], [127.5]*3)
 
+    def frozen_fixture(self, name, *, text=False):
+        row, report, scenes_pin = self.canonical_fixture(name, text=text)
+        profile = 'apple-macos-27.0-1x-dark-standard-glass0.25'
+        row.update(profile=profile, native=0., current=0., B=.01)
+        report.update(profile=profile, reference=copy.deepcopy(row))
+        self.run['profile'] = profile; self.receipt['profile'] = profile
+        self.reader.canonical = {tuple(row[k] for k in S.KEY): report}
+        self.receipt['matrix'] = write(self.output/'matrix.json', {'synthetic': 'authenticated matrix'})
+        self.receipt['row'] = {'material': {'interiorStdDevWeb': {'value': .49, 'units': 'luminance'}}}
+        self.evidence['capture'] = {'path': str(self.output/'first.png'), 'sha256': 'd'*64}
+        return row, report, scenes_pin
+
+    def test_frozen_full_t1_keeps_authenticated_production_value_separate_from_numpy(self):
+        row, report, scenes_pin = self.frozen_fixture('T1-full-silhouette')
+        original = copy.deepcopy(row)
+        with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+            result = self.reader.canonical_member(self.run, self.receipt, [row])
+        reading = result['statistics']['T1-full-silhouette']
+        self.assertEqual(reading['value'], .5)
+        owned = reading['productionStatistic']
+        self.assertEqual(owned['value'], .49)
+        self.assertEqual(owned['estimator'], 'PRODUCTION_TS_INTERIOR_LEVEL')
+        self.assertEqual(owned['field'], 'material.interiorStdDevWeb')
+        self.assertEqual(owned['capture'], self.evidence['capture'])
+        self.assertEqual(owned['matrix'], self.receipt['matrix'])
+        self.assertEqual(owned['reading'], 'first'); self.assertEqual(row, original)
+        self.assertEqual(report['reference'], original)
+
+    def test_frozen_text_keeps_original_gaussian_producer_and_never_borrows_full_matrix_metric(self):
+        row, _, scenes_pin = self.frozen_fixture('T1-low', text=True)
+        with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+            result = self.reader.canonical_member(self.run, self.receipt, [row])
+        low = result['statistics']['T1-low']
+        self.assertEqual(low['productionStatistic']['value'], low['value'])
+        self.assertEqual(low['productionStatistic']['estimator'], 'CANONICAL_NUMPY_GAUSSIAN_LOW')
+        self.assertNotEqual(low['value'], .49)
+        self.assertNotIn('productionStatistic', result['statistics']['T1-fine'])
+
+    def test_frozen_production_field_wrong_units_refuses_and_absent_metric_stays_unmeasured(self):
+        row, _, scenes_pin = self.frozen_fixture('T1-full-silhouette')
+        self.receipt['row']['material']['interiorStdDevWeb']['units'] = 'encoded-luma-codes'
+        with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+            with self.assertRaises(ValueError): self.reader.canonical_member(self.run, self.receipt, [row])
+        self.receipt['row']['material'] = None
+        with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+            result = self.reader.canonical_member(self.run, self.receipt, [row])
+        self.assertIsNone(result['statistics']['T1-full-silhouette']['productionStatistic']['value'])
+        self.assertEqual(result['statistics']['T1-full-silhouette']['value'], .5)
+
     def test_canonical_pinned_support_witness_mismatch_stops_instead_of_substituting_web_support(self):
         row, report, scenes_pin = self.canonical_fixture('T1-full-silhouette')
         report['publishedReading']['supports']['full-silhouette']['pixels'] += 1
