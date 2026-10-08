@@ -51,7 +51,12 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   the capture/native/measurement/owner role wrappers over `live/router.py`, `exposure/prepare.py`,
   `measurement/phase.py`, `owner-candidate/live.py` (with a draft root body). Done since: the fix
   wave (`a97dfa777`, `9ab03c54c`) and ten pre-fit proofs in `prefit-proofs/` (`574bcb462`,
-  `9b4f10471`; built by `build.py`, all pass `validate_proof`; they pin `live-inputs/`). Next: seal the LIVE root (`live-execution/execution-root.json`); the
+  `9b4f10471`; built by `build.py`, all pass `validate_proof`; they pin `live-inputs/`); the
+  capture/native/measurement/owner roles in `live-roles/` (`9cd82169f`..`d1db182ac`) with an
+  unsealed `live-execution/execution-root.draft.json` built by `live-roles/draft_root.py`; native
+  admission now runs read-only before the one-shot native marker (`ea8684a0b`). Next: fill the
+  draft's judge/fit slots and the initializer config, an independent review of LIVE and all
+  roles before first use (DL5), then seal the LIVE root (`live-execution/execution-root.json`); the
   executionClosure and independentReview proofs (a reviewer-high-equivalent review of LIVE and the
   roles); `pre-fit-evidence.json` pinning the root; fit one point, gate, one exposure; hand back
   PASS or NEITHER. DL4 and DL5k bind every step; no agent opens the blind archive or checkpoint
