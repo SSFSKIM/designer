@@ -212,6 +212,36 @@ class EndToEnd(unittest.TestCase):
             world.D.prepare_attempt(world.root, contract)
         self.assertFalse(Path(str(contract)+'.result.json').exists())
 
+    def test_a_not_ready_native_read_is_neither_with_its_stopped_rows_unmeasured(self):
+        """DL5n end to end: a native spread past one code on a required blind statistic completes
+        the read not ready; LIVE checkpoints it, the stopped rows reach the judge UNMEASURED on
+        both tiers, and the verdict is NEITHER through the normal path, with no value published."""
+        cell = K.P5+'/'+BLIND[2]
+        world = K.EndToEnd(self, levels={(cell, 3): 23})
+        self.fit_and_gate(world)
+        exposure, exposed = world.phase('exposure')
+        checkpoint = json.loads((Path(str(exposure)+'.phase')/'native.complete.json').read_text())
+        payload = json.loads(Path(checkpoint['payload']['path']).read_text())
+        self.assertEqual((payload['ready'], payload['complete']), (False, True))
+        self.assertEqual([(s['cell'], s['statistic'], s['reason']) for s in payload['stops']],
+                         [(cell, name, 'NATIVE_SPREAD_EXCEEDS_ONE_CODE') for name in ('central8-channel-median', 'deep8-channel-median')])
+        report = exposed['report']
+        self.assertEqual(report['status'], 'NEITHER')
+        stopped = {(K.P5, renderer, BLIND[2], name) for renderer in ('webgpu', 'css')
+                   for name in ('central8-channel-median', 'deep8-channel-median')}
+        cells = {key(c): c for c in report['cells']}
+        self.assertEqual({k for k, c in cells.items() if c['status'] not in ('PASS', 'REPORTED', 'UNMEASURED_EMPTY_SUPPORT')}, stopped)
+        for item in stopped:
+            self.assertEqual(cells[item]['status'], 'UNMEASURED')
+            self.assertEqual(cells[item]['cause'], {'kind': 'NATIVE_NOT_READY', 'reason': 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'})
+            self.assertEqual([cells[item][k] for k in ('native', 'current', 'candidate', 'B')], [None]*4)
+        # The spread is the one native value a stop carries; it stays in the quarantined read.
+        native = json.loads(Path(payload['nativeExposure']['nativeRead']['path']).read_text())
+        spreads = {repr(v) for s in native['stops'] for v in s['repeat']['spreadCodes'] if v > 1}
+        self.assertTrue(spreads)
+        self.assertFalse([v for v in spreads if v in json.dumps(payload['stops'])+json.dumps(checkpoint)])
+        self.validate(world, exposure, exposed)
+
     def test_a_failing_gate_row_is_neither_and_admits_no_exposure(self):
         world = K.EndToEnd(self, offsets={'|'.join(GATED): 10})
         *_, gate, gated = self.fit_and_gate(world)
