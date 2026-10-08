@@ -447,7 +447,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5n are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5o are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -662,6 +662,20 @@ readiness criteria are unchanged. Also accepted: the owner referee port's absent
 on eight dark inactive dark-solid context cells) is a DL5l-type pre-fit reference recovery, with
 a current-as-candidate owner self-check (every owner cell, context cell and aggregate PASS) added
 as the owner counterpart of DL5m item 6. Every pre-seal must-fix check moves before its marker.
+
+DL5o (parent, 2026-10-09, pre-fit; nothing executed under root `a09e02e94`). The owner intrinsic
+port cannot read X76 on dark 0.5: the shipped 0.5 active document (`0eac5b294cc2`) predates X76
+and keys its provenance entries by FAMILY, not leaf, so under DL5m(5) every exposure would be
+NEITHER. X76's intent (§5.215) is that every inherited leaf of a sealed document is fitted or
+explicitly held. Ruled (a): the port admits a historical family-keyed entry verbatim as that
+family's hold when no leaf the candidate moves falls under it; a family containing a moved leaf
+needs per-leaf fitted records. Every W50 candidate document carries fitted methods for its moved
+low-end leaves and explicit hold records for each inherited leaf with no record anywhere (the
+helper named backdropToneAnchorX, backdropToneBlackStrength, optics.clear.rimLevelGain,
+outerShadow.liftAmplitude and outerShadow.thinOcclusionDark, to be confirmed). DL5m(5) stands.
+Because the fix moves owner closure sources, a successor LIVE root naming `a09e02e94` and this
+ruling is sealed; before it seals, the owner self-check grades X76 at both positions on a
+hypothetical identity candidate (current documents plus the required records).
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
