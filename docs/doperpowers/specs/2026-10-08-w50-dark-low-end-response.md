@@ -35,45 +35,22 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 - [x] G1 exposed native identification:336 calibration/validation cells, required repeats ready; blind unopened.
 - [ ] G1 reference/current-render completion and additive pre-fit gate.
 
-  **Handoff note (2026-10-09 03:00; branch `w50-g1-fit`; worktree `/Users/new/vitrea-w50/g0`).**
-  Sealed and done: current generation 799 members (current3 `dbe20abc…` + canonical3 `849e137f…`,
-  composition `a0a19b92…`); composed current analysis (root `0b140dfd…`, output `10381e74…`,
-  archived, never rerun); reference read attempt 1 burned (`references-r2/attempt1-failure.json`),
-  r2 read (root `604041d2…`) ran once, 423/423 MEASURED, 397 rows byte-identical to attempt 1,
-  archived (`references-r2/evidence/`; DL5l); the 3,527-row assembly executed once from
-  `completion/registered/binding.json` and passed `validate_registered` (inventory `a85ef80a…`,
-  archived in `completion/registered/evidence/`). `live-inputs/` (gitignored) holds byte-identical
-  copies of the completed inventory and current evidence, because LIVE pins inputs repo-relative;
-  restore them from the archives if absent. Running (opus workers): the live-execution fix wave
-  (stale-attempt recovery, repeat-admission bypass, successor reconciliation, exposure
-  `baselineCandidate`, plus cheap P3s and two `judge/rules.py` hardening checks); the judge role,
-  target-contract reader and fit-phase analysis (`judge/live.py`, `judge/targets.py`, `fit/live.py`);
-  the capture/native/measurement/owner role wrappers over `live/router.py`, `exposure/prepare.py`,
-  `measurement/phase.py`, `owner-candidate/live.py` (with a draft root body). Done since: the fix
-  wave (`a97dfa777`, `9ab03c54c`) and ten pre-fit proofs in `prefit-proofs/` (`574bcb462`,
-  `9b4f10471`; built by `build.py`, all pass `validate_proof`; they pin `live-inputs/`); the
-  capture/native/measurement/owner roles in `live-roles/` (`9cd82169f`..`d1db182ac`) with an
-  unsealed `live-execution/execution-root.draft.json` built by `live-roles/draft_root.py`; native
-  admission now runs read-only before the one-shot native marker (`ea8684a0b`); judge, target
-  reader and fit roles (`06cd41b4a`, `3c2f64899`, `b36e4137a`); DL5m recorded (`09802c8b2`) and
-  item 4 implemented through measurement, judge and the LIVE report validator (`8e02209e1`,
-  `8c91f529c`); the draft root registers all seven roles and passes `validate_body` in memory
-  (`0294ddc45`, `a2d1bfbb9`; initializer config `fit/initializer-inputs.json`), and a synthetic
-  fit→gate→exposure end-to-end through LIVE and the real roles passes (`cde988e6b`). Running:
-  three pre-seal fix waves on the reviews of `98dfef53a..a2d1bfbb9` (DL5n): W1 owner-referee
-  absent-field P0 + DL5l-type evidence recovery (new contracts, owner reads, `completion/registered-2`,
-  `live-inputs/*-r2`, `prefit-proofs-r2/`) + owner self-check; W2a LIVE dispatcher (owner
-  admission before both markers, intrinsic records at create_phase, stale-lock release, gate
-  re-derives the fit record, crash windows, not-ready native checkpoint); W2b roles (owner admit,
-  native admit hashes frames, DL5m-4 for blind reported keys, not-ready native payload, capture
-  conformance). Next: update role configs to W1's pins, re-run `live-roles/draft_root.py` and all
-  suites, a short re-review, then fill the
-  draft's judge/fit slots and the initializer config, an independent review of LIVE and all
-  roles before first use (DL5), then seal the LIVE root (`live-execution/execution-root.json`); the
-  executionClosure and independentReview proofs (a reviewer-high-equivalent review of LIVE and the
-  roles); `pre-fit-evidence.json` pinning the root; fit one point, gate, one exposure; hand back
-  PASS or NEITHER. DL4 and DL5k bind every step; no agent opens the blind archive or checkpoint
-  before the judge marker.
+  **Handoff note (2026-10-09, late; branch `w50-g1-fit`; worktree `/Users/new/vitrea-w50/g0`).**
+  Sealed/done: current generation 799 (current3 `dbe20abc…` + canonical3 `849e137f…`); composed
+  analysis `10381e74…` (archived; never rerun); reference read r2 (`references-r2`, DL5l);
+  assembly 1 (`completion/registered/`, superseded) and assembly 2 after the owner-referee P0
+  (`completion/registered-2/`, binding `ab418b64…`, inventory `44476315…`, witness
+  ONLY_RULED_DIFFERENCES; DL5n); owner r2 evidence (`owner/r2/`, `owner/evidence-r2/`; self-check
+  `judge/owner-selfcheck.json` PASS 640/105/5); pre-fit proofs: six in `prefit-proofs/` still
+  stand, four rebuilt in `prefit-proofs-r2/`; all seven LIVE roles plus the pre-seal fix waves
+  (W2a `44fe213cb`; W2b `bd099ae2c`..`b29074c33`; W1 `7e621f344`..`da0fc4cee`). `live-inputs/`
+  (gitignored) must hold `completed-current.json` `10381e74…` and `completed-references-r2.json`
+  `44476315…`; restore with `gunzip -c` from the archives `draft_root.py` records.
+  Running: W3 (measurement side of DL5n and DL5m item 4, repin `measurement-config.json` to the r2
+  inventory). Next: W2b's NEITHER end-to-end test; re-run `live-roles/draft_root.py`; all suites;
+  a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
+  executionClosure and independentReview proofs and `pre-fit-evidence.json` pinning the root;
+  fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind every step.
 
 - [ ] G1 fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
