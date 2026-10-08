@@ -55,11 +55,14 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   (`89e7b0d90`, sha `3923669a…`, validate_body PASS); all suites green. The final review of
   `4ffa48746..89e7b0d90` found no P0-P2 (P3s in the tech-debt tracker), and the LIVE root is
   SEALED: `live-execution/execution-root.json` `3923669a33979e78…` (`a09e02e94`); nothing executed
-  under it. DL5o (X76 family-keyed history) then requires a SUCCESSOR root. Running: X1 (owner
-  intrinsic port per DL5o, r3 evidence cascade `owner/r3`, `completion/registered-3`,
-  `prefit-proofs-r3`, graded X76 self-check); X3 (successor-root mechanism and per-root slots in
-  `live-execution/`); the live-run worker (candidate fitted/hold records, `ownerIntrinsicRecords`,
-  operator tooling in `live-run/`). Then: regenerate and seal the successor root, then
+  under it. DL5o (X76 family-keyed history) then required a SUCCESSOR root. Landed: X1 owner port
+  + r3 chain (`c32fb0fbe`..`3e0ae3f16`; `completion/registered-3`, `prefit-proofs-r3`, graded
+  self-check `judge/owner-selfcheck-r3.json` PASS incl. X75 12 + X76 both positions); X3 successor
+  chain and per-root slots (`bed87a4fb`..`d223c8663`; draft `execution-root-2.draft.json`
+  `2e6f4c99…`, validate_body PASS); live-run tooling + candidate records (`adb4774ab`..`68552375b`,
+  `a4ec7ec6d`, `6223e3d76`; operator CLI `live-run/run.py`). Running: two read-only reviews of
+  `dd73ebdc3..d223c8663`. Then: fill `live-run/review-records.json`'s final round, regenerate and
+  seal `execution-root-2.json` (authority.seal_root), then `live-run/run.py prefit`, then
   executionClosure + independentReview proofs and `pre-fit-evidence.json` (verify through LIVE
   `verify_prefit` before sealing it); then (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
