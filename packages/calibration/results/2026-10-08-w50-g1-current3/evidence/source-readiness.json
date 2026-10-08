@@ -1,0 +1,33 @@
+{
+  "schema": "w50-current3-source-readiness-1",
+  "status": "REVIEWED_BEFORE_LAUNCH",
+  "candidateVerdict": "NOT_READ",
+  "ruling": "W50 DL5h; exact recovery, first-image reading, retained pairs and own native repeat bars",
+  "rootSha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44",
+  "membership": {"retainedAttempt2": 501, "freshNewbed": 171, "freshCanonical": 127},
+  "sourceClosure": {
+    "pythonSources": 35,
+    "webPins": 241,
+    "pythonClosureSha256": "7e6a0527dfa1ed3022bda17044915451d1ae479d3b781b82d2a41a6106a6d23e",
+    "exercise": "G0 source-only collector plus witnessed collector reimport, followed by exact permanent-guard discovery; no guessed allowlist entries"
+  },
+  "verification": {
+    "interpreter": "/Users/new/vitrea-w49/py/bin/python -I -B",
+    "command": "-m unittest discover -s <suite> -p test_*.py",
+    "suites": {"repeat": 28, "execution": 21, "web": 13, "canonical": 13, "measurement": 17, "current-analysis": 41, "live": 18},
+    "total": 151,
+    "result": "ALL_PASS",
+    "data": "Synthetic tests and registered source/authority metadata only",
+    "g0": {"status": "SEALED", "phase": "native", "candidateVerdict": "NOT_READ"}
+  },
+  "review": {
+    "recoveryAndPairedPolicy": "Previously reviewed at 6df7e315b; dark-solid statistic correction 11e7320c8 reviewed closed",
+    "consumerBase": "e6447eef3",
+    "consumerHead": "a70cf0d6b713736ebb06fb4a0b0fee8c6d1ab4e8",
+    "level": "high",
+    "result": "No material findings",
+    "scope": "Archived-chain authentication, retained/fresh evidence, first-reading preservation, both-page validation, current3 live routing",
+    "limitation": "Independent reviewer performed static review; its default-Python test attempt lacked NumPy. The coordinator's assembled 151-test run used the pinned scientific interpreter and passed. No independent test pass is claimed."
+  },
+  "launch": "Not performed when this record was written; roots and contracts are prospective only. No candidate, fit, gate or exposure result is asserted."
+}

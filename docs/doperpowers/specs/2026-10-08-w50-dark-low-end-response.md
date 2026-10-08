@@ -495,6 +495,10 @@ is what admits the exposure contract. The final verdict is PASS only if every ga
 pending owner row passes on the complete same-candidate gate+exposure union; aggregate or paired
 owner checks (C1, coherence, etc.) are evaluated only on that union, never declared on a partial
 population. Any failure there is NEITHER (DL4).
+DL5d clarification (parent, before any candidate): the full-union timing also covers the six W48
+T1 target aggregates. At the gate, targetChecks is PENDING_FULL_UNION; at exposure, the unchanged
+complete populations are evaluated against their original references. This is the existing union
+rule, not a new population, bound or exposure.
 
 DL5e (parent, before any coefficient fit). The 640 enumerated `owner-contracts` reference rows
 carry B null: they are owner laws (M1/M2/C1/X1/L1/E2/coherence/X75/X76) with their own units and
