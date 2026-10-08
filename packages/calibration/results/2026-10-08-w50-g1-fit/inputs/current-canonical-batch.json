@@ -1,0 +1,307 @@
+{
+  "schema": "w50-g1-batch-1",
+  "phase": "current",
+  "cohort": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+      "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+      "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+    }
+  ],
+  "runs": [
+    {
+      "id": "1x-dark-standard-glass0.25-css",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-48__inactive",
+        "dark-solid__rrect-48__rest",
+        "dark-solid__rrect-64__rest",
+        "dark-solid__rrect-80__inactive",
+        "dark-solid__rrect-80__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-lg__rest",
+        "dark-solid__rrect-md-clear20__inactive",
+        "dark-solid__rrect-md-clear20__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "dark-solid__rrect-ml__rest",
+        "dark-solid__rrect-sm__inactive",
+        "dark-solid__rrect-sm__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+        "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/1x-dark-standard-glass0.25-css",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/1x-dark-standard-glass0.25-css.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "1x-dark-standard-glass0.25-webgpu",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-48__inactive",
+        "dark-solid__rrect-48__rest",
+        "dark-solid__rrect-64__rest",
+        "dark-solid__rrect-80__inactive",
+        "dark-solid__rrect-80__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-lg__rest",
+        "dark-solid__rrect-md-clear20__inactive",
+        "dark-solid__rrect-md-clear20__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "dark-solid__rrect-ml__rest",
+        "dark-solid__rrect-sm__inactive",
+        "dark-solid__rrect-sm__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+        "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/1x-dark-standard-glass0.25-webgpu",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/1x-dark-standard-glass0.25-webgpu.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "1x-dark-standard-glass0.5-css",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+        "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/1x-dark-standard-glass0.5-css",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/1x-dark-standard-glass0.5-css.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "1x-dark-standard-glass0.5-webgpu",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+        "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/1x-dark-standard-glass0.5-webgpu",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/1x-dark-standard-glass0.5-webgpu.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "2x-dark-standard-glass0.25-css",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-48__inactive",
+        "dark-solid__rrect-48__rest",
+        "dark-solid__rrect-64__rest",
+        "dark-solid__rrect-80__inactive",
+        "dark-solid__rrect-80__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-lg__rest",
+        "dark-solid__rrect-md-clear20__inactive",
+        "dark-solid__rrect-md-clear20__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "dark-solid__rrect-ml__rest",
+        "dark-solid__rrect-sm__inactive",
+        "dark-solid__rrect-sm__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+        "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/2x-dark-standard-glass0.25-css",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/2x-dark-standard-glass0.25-css.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "2x-dark-standard-glass0.25-webgpu",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-48__inactive",
+        "dark-solid__rrect-48__rest",
+        "dark-solid__rrect-64__rest",
+        "dark-solid__rrect-80__inactive",
+        "dark-solid__rrect-80__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-lg__rest",
+        "dark-solid__rrect-md-clear20__inactive",
+        "dark-solid__rrect-md-clear20__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "dark-solid__rrect-ml__rest",
+        "dark-solid__rrect-sm__inactive",
+        "dark-solid__rrect-sm__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+        "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/2x-dark-standard-glass0.25-webgpu",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/2x-dark-standard-glass0.25-webgpu.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "2x-dark-standard-glass0.5-css",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+        "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/2x-dark-standard-glass0.5-css",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/2x-dark-standard-glass0.5-css.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    },
+    {
+      "id": "2x-dark-standard-glass0.5-webgpu",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__rrect-lg__inactive",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__rrect-lg__inactive",
+        "impulse__rrect-lg__rest",
+        "impulse__rrect-ml__inactive",
+        "impulse__rrect-ml__rest"
+      ],
+      "sets": [
+        "calibration",
+        "probe"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+        "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+      },
+      "captureRoot": "/Users/new/vitrea-w50/g1-baselines/current-canonical/captures/2x-dark-standard-glass0.5-webgpu",
+      "matrixPath": "/Users/new/vitrea-w50/g1-baselines/current-canonical/matrices/2x-dark-standard-glass0.5-webgpu.json",
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-closure.json",
+        "sha256": "d6a0565a177aeb8453c817773580b71b59ae2717b5c125aaf37ec9817f74d4d2"
+      }
+    }
+  ]
+}
