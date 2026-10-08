@@ -54,7 +54,11 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   `9b4f10471`; built by `build.py`, all pass `validate_proof`; they pin `live-inputs/`); the
   capture/native/measurement/owner roles in `live-roles/` (`9cd82169f`..`d1db182ac`) with an
   unsealed `live-execution/execution-root.draft.json` built by `live-roles/draft_root.py`; native
-  admission now runs read-only before the one-shot native marker (`ea8684a0b`). Next: fill the
+  admission now runs read-only before the one-shot native marker (`ea8684a0b`); judge, target
+  reader and fit roles (`06cd41b4a`, `3c2f64899`, `b36e4137a`); DL5m recorded (`09802c8b2`) and
+  item 4 implemented through measurement, judge and the LIVE report validator (`8e02209e1`,
+  `8c91f529c`). Running: root-draft integration plus a synthetic fit→gate→exposure end-to-end
+  through LIVE and the real roles. Next: fill the
   draft's judge/fit slots and the initializer config, an independent review of LIVE and all
   roles before first use (DL5), then seal the LIVE root (`live-execution/execution-root.json`); the
   executionClosure and independentReview proofs (a reviewer-high-equivalent review of LIVE and the
