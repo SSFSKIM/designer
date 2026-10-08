@@ -1,0 +1,30 @@
+{
+  "schema": "w50-native-attempt-2",
+  "recordedAt": "2026-10-08T03:14:11.692218+00:00",
+  "status": "RUNNING",
+  "sourceHead": "37598d0dd21a8054ab5872990ca7394d8e2858e6",
+  "partOneSha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86",
+  "partTwoSha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85",
+  "outputRoot": "/Users/new/vitrea-w50/native-g1a-run2",
+  "priorAttempt": "native-g1a kept quarantined; no reuse",
+  "grant": "positive auth2 with unchanged bundle and matching signing requirement, read before launch",
+  "frontAppBeforeRetry": "com.apple.finder",
+  "firstBridge": {
+    "admitted": true,
+    "frames": 2,
+    "agrees": true,
+    "verdicts": [
+      "AGREE (regions)",
+      "AGREE (regions)"
+    ],
+    "presentedActive": [
+      true,
+      true
+    ],
+    "admissionSha256": "2b50358e97056a10820ebc8104015155c6c5c1995983c945b99cabf6c7c08498",
+    "bridgeSha256": "112524b2415b210da1a2e704133a11132715bc6d23fb27ee27f878cdc237341d",
+    "manifestSha256": "0a31b0dfdae6436a51af9efaf4d1c3de8b3aef515aaa7d1f7eee96b15c4c9468"
+  },
+  "wakeAssertion": "caffeinate -d -i bound to owned driver PID; no user-active assertion or persistent preference change",
+  "blindPolicy": "No identifying or blind image/statistic is being opened by the progress observer"
+}

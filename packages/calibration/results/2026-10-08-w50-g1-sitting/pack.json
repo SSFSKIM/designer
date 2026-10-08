@@ -1,0 +1,17 @@
+{
+  "tag": "w50-archive",
+  "bridgeStatus": "bridged",
+  "unbridgedClosingPasses": [],
+  "asset": "w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst",
+  "sha256": "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+  "bytes": 4125721,
+  "indexSha256": "71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191",
+  "declarationSha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86",
+  "frames": 1600,
+  "files": 2624,
+  "exportIndexSha256": {
+    "calibration": "ed4c939da8b870872ad56adcdc8d2f8eef3d232838134204cc4d0a5905a3d469",
+    "validation": "b292ddc95e9177244a62d47c47c09d20594ca1e0c724979162506aef2d12a7ab"
+  },
+  "releaseRecipe": "# Prepared only: parent chooses the source commit and publishes after verification.\ngh release create w50-archive --repo SSFSKIM/designer --latest=false --target \"$G1_COMMIT\" --title \"W50 archive of record\" --notes 'W50 G1a: 1600 admitted frames. Asset SHA-256 a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448; archive index SHA-256 71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191. Blind pixels remain unexposed.'\ngh release upload w50-archive --repo SSFSKIM/designer /Users/new/vitrea-w50/g1a-archive-final/w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst /Users/new/vitrea-w50/g1a-archive-final/SHA256SUMS\ngh release view w50-archive --repo SSFSKIM/designer --json assets"
+}

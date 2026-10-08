@@ -1,0 +1,414 @@
+{
+  "schema": "w50-native-attempt-2-complete",
+  "recordedAt": "2026-10-08T07:39:14.843941+00:00",
+  "sourceHead": "37598d0dd21a8054ab5872990ca7394d8e2858e6",
+  "driverTask": "binxr9qbi",
+  "driverExitCode": 0,
+  "ownedWakeAssertionExitCode": 0,
+  "outputRoot": "/Users/new/vitrea-w50/native-g1a-run2",
+  "admissions": [
+    {
+      "path": "bed-x0.25-1x-active/run-1/admission.json",
+      "sha256": "5d4ad5f35695474f4f3d079d908e10fdf50c2328acadc6ac02103ee29c4fdc46",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.25-1x-active/run-2/admission.json",
+      "sha256": "d78eb12242a04df29c8b43ad4beb95b203592cae7c86cbaba08c95348fd28dbf",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-1x-active/run-3/admission.json",
+      "sha256": "8995406a7835b3a48452dda59605942e803b61d4366991e75cbd521a67ded2ec",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-1x-receded/run-1/admission.json",
+      "sha256": "37a9dc82b27c3f34de4ea83d08f3a827572bee60401323da2a1bc55f424d721f",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.25-1x-receded/run-2/admission.json",
+      "sha256": "e9f851ebbe8904f6f68e1f228ebd23acef0df0da255de27b8d5558d09611f627",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-1x-receded/run-3/admission.json",
+      "sha256": "d3afbd119bb3de19853ab190f02f67ba82df5f90bdd628e22c60ffdf583145ba",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-2x-active/run-1/admission.json",
+      "sha256": "8f2eabf90a449c5e86f918a7c8c783cfaa8a8e29194719e7e4ea2cbbdc0ca623",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.25-2x-active/run-2/admission.json",
+      "sha256": "7d7da4dea9d39aedc741c2a63f3b46e4aefbda50f4cc2b7ed0631a1f13222272",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-2x-active/run-3/admission.json",
+      "sha256": "883151e88610a77211e345f21de5bdcb461d70975dc9d30aa3b4714bf2b6ffce",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-2x-receded/run-1/admission.json",
+      "sha256": "bacc24480507b1e11c13754543fb577bfdcf9d274c9550cdda6f5e15f57a1f4d",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.25-2x-receded/run-2/admission.json",
+      "sha256": "7a3b3bd25bbeabb5c9e0489bab1061f8f517d1becc61b4bda05e302fef2c6a6c",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.25-2x-receded/run-3/admission.json",
+      "sha256": "daf8e52295c5c0ab8dab9fe6260ea93346583c4ca1031c86e364b04964b9ba6d",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-1x-active/run-1/admission.json",
+      "sha256": "d7faa0996fc19c3436575a9a4fd1ef75fe187899058fb795b5ba00b9bdeaf6b2",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.5-1x-active/run-2/admission.json",
+      "sha256": "29624d75d1195ecdc96ceee96139e4dba455b648fa3ab3a8a7e741319ee31fb2",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-1x-active/run-3/admission.json",
+      "sha256": "76d229374eff7ccf794be58b159c2e8d63f0f1826c7e299f7286491b6d287d2b",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-1x-receded/run-1/admission.json",
+      "sha256": "ecb5e8f3608988c1f3a936146f45258197832d74afaa6a99ba7c82ea661d8832",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.5-1x-receded/run-2/admission.json",
+      "sha256": "0fcc2f6a7e492d63a17f26a22a57a1ba5dfada3d114e710dd2ce620a52d2f662",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-1x-receded/run-3/admission.json",
+      "sha256": "f9c283d9eabe1923626d0dabd9049014e75a41b5e25f89d3a6efb03803a1cb1a",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-2x-active/run-1/admission.json",
+      "sha256": "686151e5de384c9913bdd77fe489b2763e031c9bfdd8af9737bc11dd828112ff",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.5-2x-active/run-2/admission.json",
+      "sha256": "38f2db00ae6427e04eff85f05f1701f03a7d8de4c0354fc775fa6b1e9a73b09a",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-2x-active/run-3/admission.json",
+      "sha256": "2f3522a685a703676232646bb6f17e53b1e8df00007d8dc05b3e6b9c6202f8fa",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-2x-receded/run-1/admission.json",
+      "sha256": "091d4f1a6d78983e2e5fce1232142c86ecfe980a64aadad4e1ff45eca75da835",
+      "frames": 76
+    },
+    {
+      "path": "bed-x0.5-2x-receded/run-2/admission.json",
+      "sha256": "0543361d1c70c7cfc6c427c2a88d8ad35d4ae14a00ddb0f1d5221632b6c2e972",
+      "frames": 60
+    },
+    {
+      "path": "bed-x0.5-2x-receded/run-3/admission.json",
+      "sha256": "a373ddefb08bea9d4f4d8dbb532a59124a598a35a153d6043b0e43c28bce567e",
+      "frames": 60
+    },
+    {
+      "path": "close-x0.25-1x-active/run-1/admission.json",
+      "sha256": "00e3260c22ab3216643637c800ff83894bf15658328e96e114ecce281fd7a3a0",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.25-1x-receded/run-1/admission.json",
+      "sha256": "49c53c59fdf71b17b0a7523dcd51bf9973a7c7e97fbd0cc549042f98eaa130b0",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.25-2x-active/run-1/admission.json",
+      "sha256": "cd127d2ebb304d3b902891155303cf0792dbd29b6fb4c64c1860f843131cb145",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.25-2x-receded/run-1/admission.json",
+      "sha256": "e75bf9ee0aabcaf8e8f9264e396f978ac5203c5d9ff4ce7ab4baf31f27025448",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.5-1x-active/run-1/admission.json",
+      "sha256": "0147fb39155da831f54cd2556a285a8c71b078fb9fe64f2ad2d408d4e97afd82",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.5-1x-receded/run-1/admission.json",
+      "sha256": "f49485effe121cfc3faa6e48cd2137e66e4ae9341dbdf180c85ef2b51cd181b2",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.5-2x-active/run-1/admission.json",
+      "sha256": "5ec8f69d70e308133cbb63abee6cf8e70b1eb27440b46ca27050865ec4759c6f",
+      "frames": 2
+    },
+    {
+      "path": "close-x0.5-2x-receded/run-1/admission.json",
+      "sha256": "4a9f48d5a593af38bd1e9326ccd8b9beb4bbd27b9da41d56a2d1c56bb166ff7c",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.25-1x-active/run-1/admission.json",
+      "sha256": "ba0341cf0ef0dbd639666dfb318c75ae757934b00d6ca1b1e9bb32d501633330",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.25-1x-receded/run-1/admission.json",
+      "sha256": "d644b75bb44408ee794b042032b6b5f967d5cb2f923303fc0710f6a5d9520dc1",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.25-2x-active/run-1/admission.json",
+      "sha256": "0bca9abe203c1d411c0abf364fcd7053b572091ce2416e4678104f709fa33b86",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.25-2x-receded/run-1/admission.json",
+      "sha256": "f13ef42035f777c8fb24dc74b75d29e4182d4c379f67df1d0d79c04a975de54c",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.5-1x-active/run-1/admission.json",
+      "sha256": "2b50358e97056a10820ebc8104015155c6c5c1995983c945b99cabf6c7c08498",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.5-1x-receded/run-1/admission.json",
+      "sha256": "e9e402a50c4a5d64c3b6d1021ef96b562c52b3b0a35cc3e46bd4353c40ecdc1a",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.5-2x-active/run-1/admission.json",
+      "sha256": "df7f5aff1eaf6bbf6e7b3c1b55ce3fa810f90699c1e621c9d21beaee11980b55",
+      "frames": 2
+    },
+    {
+      "path": "open-x0.5-2x-receded/run-1/admission.json",
+      "sha256": "3c184ea9bbc0e1842c7d9d1942187d110c0ad6d689d118fbef0d73abb4390af0",
+      "frames": 2
+    }
+  ],
+  "frames": 1600,
+  "bridges": [
+    {
+      "path": "close-x0.25-1x-active/run-1/bridge.json",
+      "sha256": "e0e7403f5ca348befd1b0108604e07eb786b5d16c28f98ad90a51c159db4a206",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest": "AGREE (regions)"
+      }
+    },
+    {
+      "path": "close-x0.25-1x-receded/run-1/bridge.json",
+      "sha256": "72f7f51423537dcf297a2eb6def9e6b26a022dcb7a46d95e25c3f634de36f243",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "close-x0.25-2x-active/run-1/bridge.json",
+      "sha256": "64122d14f69396a068b11508408d2bf1899202c74d9dedca79a8c542d27fa6e6",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest": "AGREE (regions)"
+      }
+    },
+    {
+      "path": "close-x0.25-2x-receded/run-1/bridge.json",
+      "sha256": "4ea95be6723715e2e45f76ac35ab97ccc7306e648b1c281a2ac13729127b86df",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "close-x0.5-1x-active/run-1/bridge.json",
+      "sha256": "ca552b823ae47208e7232abe5c7aebec4c4c2688153e2096ba0ec4a4a4722cf5",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest": "AGREE (regions)"
+      }
+    },
+    {
+      "path": "close-x0.5-1x-receded/run-1/bridge.json",
+      "sha256": "be7e865302f15b70dde1fe9c08f7845a8106ddd0ea8939f3c33fa534accf7ea5",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": "AGREE (regions)",
+        "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "close-x0.5-2x-active/run-1/bridge.json",
+      "sha256": "70cca66dd7d5fcf20378071d4e1e044c85a60e2a282c936528b8e0f9ca9ba509",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest": "AGREE (regions)"
+      }
+    },
+    {
+      "path": "close-x0.5-2x-receded/run-1/bridge.json",
+      "sha256": "4c95167453e90858fb4bc48793393f41f1f8c37dd89a50cbdf3e6cbcc6ea676f",
+      "agrees": true,
+      "stop": false,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "open-x0.25-1x-active/run-1/bridge.json",
+      "sha256": "a3155175973b1a8d6d55da73c1d0abf5d08c3e036225c76847647f40f9433e2c",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "open-x0.25-1x-receded/run-1/bridge.json",
+      "sha256": "8f3bfc7d431299d7d7ce335241c815ca5e83dfdb53102793fe4291a9a12328d2",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "open-x0.25-2x-active/run-1/bridge.json",
+      "sha256": "0e8d5326bc5188eadca4daddd0b0faec49d8d24298d799f2730b0a8f471cae3a",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest": "AGREE (regions)"
+      }
+    },
+    {
+      "path": "open-x0.25-2x-receded/run-1/bridge.json",
+      "sha256": "a37eabf65b87eaa91798c99844bda72e0914d397904abe3cbf2cfad3bed00bfd",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "open-x0.5-1x-active/run-1/bridge.json",
+      "sha256": "112524b2415b210da1a2e704133a11132715bc6d23fb27ee27f878cdc237341d",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "AGREE (regions)",
+        "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest": "AGREE (regions)"
+      }
+    },
+    {
+      "path": "open-x0.5-1x-receded/run-1/bridge.json",
+      "sha256": "f7e779a0ad850849c8d71dd2bb017dfc66f946549785eee6e6b10508cc2161dd",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "open-x0.5-2x-active/run-1/bridge.json",
+      "sha256": "8188bbbd836d5151de743434db014b944334e7acebfb684ef00d6e4e222a1e94",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__rest": "AGREE (bytes)",
+        "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest": "AGREE (bytes)"
+      }
+    },
+    {
+      "path": "open-x0.5-2x-receded/run-1/bridge.json",
+      "sha256": "d383b23848babcc44a2d8593cd81b19ad56d0cee36bd5f0b53df107cf172e52b",
+      "agrees": true,
+      "stop": true,
+      "verdicts": {
+        "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-lg__inactive": "AGREE (bytes)",
+        "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__inactive": "AGREE (bytes)"
+      }
+    }
+  ],
+  "bridgeStatus": "bridged",
+  "restore": {
+    "restored": true,
+    "slider": {
+      "restored": true,
+      "asFound": {
+        "present": true,
+        "value": "0.5",
+        "type": "float"
+      },
+      "read": {
+        "present": true,
+        "value": "0.5",
+        "type": "float"
+      },
+      "written": true
+    },
+    "display": {
+      "restored": true,
+      "mode": "68"
+    }
+  },
+  "consoleSha256": "4b89acdf0329b8f8b76da8b0aef44f352f3c0ba5db4f861e6c10f8a19e3812b1",
+  "partOneSha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86",
+  "partTwoSha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85",
+  "archive": {
+    "asset": "w50-archive-a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448.tar.zst",
+    "sha256": "a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448",
+    "indexSha256": "71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191",
+    "packMetadataSha256": "73572d2225b4a763856e7518c7b6ee77c348cad51d54d1a2d67f9fe443bfa8b5"
+  },
+  "failedAttemptArchive": {
+    "asset": "w50-failed-attempt1-86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560.tar.zst",
+    "sha256": "86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560",
+    "admittedFrames": 0,
+    "quarantinedOperationalFrames": 2,
+    "sourceUntouched": true
+  },
+  "blindPolicy": "No identifying or blind pixels/statistics opened; role exports copied by declared membership only.",
+  "releaseStatus": "Local archives verified; release publication follows this provenance commit."
+}
