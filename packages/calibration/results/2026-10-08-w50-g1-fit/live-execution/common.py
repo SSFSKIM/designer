@@ -28,9 +28,12 @@ tree). Errors carry field names and keys only (DL5k).
 
 DL5n: a completed native blind read that is not ready reaches the judge with its stops, and
 each stopped key's cell is UNMEASURED with null readings and the cause NATIVE_NOT_READY.
-current3 admits an UNMEASURED cell on a NEITHER verdict unchanged; check_native_not_ready only
-holds the cause to that shape: an exposure, a NEITHER verdict, a blind non-reported key, null
-readings, and exactly the report's own stoppedKeys.
+current3 admits an UNMEASURED cell on a NEITHER verdict unchanged; check_native_not_ready holds
+the readiness the report states to the stops it states (second pre-seal review P3): every
+exposure report states it, a gate report never; a read that is not ready has stops and a NEITHER
+verdict; stoppedKeys are exactly the stops expanded over both renderers within the phase's
+expected keys, each stop naming at least one; and the NATIVE_NOT_READY cells are exactly those
+keys, each an UNMEASURED blind non-reported key with null readings.
 """
 import copy
 from pathlib import Path
@@ -85,20 +88,44 @@ def check_unmeasured_reported(doc,cell):
         raise ValueError('UNMEASURED_REPORTED must carry null readings and no passable value')
 
 
-def check_native_not_ready(doc,report):
-    """DL5n: the NATIVE_NOT_READY cells are exactly the report's stopped keys, each an UNMEASURED
-    blind non-reported key with null readings, and only a NEITHER exposure carries them."""
-    cells=[c for c in report.get('cells',[]) if isinstance(c,dict) and
-           (c.get('cause') or {}).get('kind')==NATIVE_NOT_READY] if isinstance(report,dict) else []
-    readiness=report.get('nativeReadiness') if isinstance(report,dict) else None
-    if not cells and not (readiness or {}).get('stoppedKeys'):
+def stopped_keys(readiness,expected):
+    """The phase keys a report's stated stops name: each stop's (profile, scene, statistic) on
+    both renderers, within the expected keys; a stop naming none refuses (judge/live.native_stops)."""
+    stops=readiness['stops'];phase={tuple(c[k] for k in D.KEY) for c in expected};keys=set()
+    if any(not isinstance(s,dict) or set(s)!={'cell','statistic','reason'} or s['reason'] not in NATIVE_STOPS or
+           not isinstance(s['cell'],str) or s['cell'].count('/')!=1 or not isinstance(s['statistic'],str)
+           for s in stops) or len({(s['cell'],s['statistic']) for s in stops})!=len(stops):
+        raise ValueError('A stated native stop is metadata on one statistic')
+    for stop in stops:
+        profile,scene=stop['cell'].split('/')
+        named={(profile,renderer,scene,stop['statistic']) for renderer in ('webgpu','css')}&phase
+        if not named:raise ValueError('A stated native stop names no key of this phase')
+        keys|=named
+    return sorted(keys)
+
+
+def check_native_not_ready(doc,report,expected):
+    """DL5n: the readiness a report states binds its NATIVE_NOT_READY cells (module docstring).
+    `expected` is the phase's expected keys, as validate_report receives them."""
+    if not isinstance(report,dict):return
+    cells=[c for c in report.get('cells',[]) if isinstance(c,dict) and (c.get('cause') or {}).get('kind')==NATIVE_NOT_READY]
+    if report.get('phase')!='exposure':
+        if cells or 'nativeReadiness' in report:raise ValueError('Native readiness belongs to an exposure report only')
         return
+    readiness=report.get('nativeReadiness')
+    if not isinstance(readiness,dict) or set(readiness)!={'ready','stops','stoppedKeys'} or \
+            type(readiness['ready']) is not bool or not isinstance(readiness['stops'],list) or \
+            not isinstance(readiness['stoppedKeys'],list) or readiness['ready']!=(readiness['stops']==[]):
+        raise ValueError('An exposure report states its native readiness and its stops')
+    keys=stopped_keys(readiness,expected)
+    if not readiness['ready'] and report.get('status')!='NEITHER':
+        raise ValueError('A native read that is not ready admits only a NEITHER exposure')
+    if [tuple(k) if isinstance(k,list) else k for k in readiness['stoppedKeys']]!=keys or \
+            sorted(tuple(c.get(k) for k in D.KEY) for c in cells)!=keys:
+        raise ValueError('NATIVE_NOT_READY is admitted only on the stopped keys of a NEITHER exposure')
+    if not cells:return
     roles={tuple(c[k] for k in D.KEY):c['role'] for c in D.load(D.checked(doc['repo'],doc['references']))['cells']}
     reported={tuple(k) for k in doc['reportedKeys']}
-    keys=sorted(tuple(c.get(k) for k in D.KEY) for c in cells)
-    if report.get('phase')!='exposure' or report.get('status')!='NEITHER' or not isinstance(readiness,dict) or \
-            readiness.get('ready') is not False or [tuple(k) for k in readiness.get('stoppedKeys',[])]!=keys:
-        raise ValueError('NATIVE_NOT_READY is admitted only on the stopped keys of a NEITHER exposure')
     for cell,identity in zip(cells,(tuple(c.get(k) for k in D.KEY) for c in cells)):
         if cell.get('status')!='UNMEASURED' or roles.get(identity)!='blind' or identity in reported or \
                 set(cell['cause'])!={'kind','reason'} or cell['cause']['reason'] not in NATIVE_STOPS or \
@@ -109,7 +136,6 @@ def check_native_not_ready(doc,report):
 
 def presented(doc,report):
     """current3's view: each checked UNMEASURED_REPORTED cell as an accepted non-gating row."""
-    check_native_not_ready(doc,report)
     out=copy.deepcopy(report)
     for cell in out.get('cells',[]) if isinstance(out,dict) else []:
         if isinstance(cell,dict) and cell.get('status')==UNMEASURED_REPORTED:
@@ -119,6 +145,7 @@ def presented(doc,report):
 
 
 def validate_report(doc,batch,expected,report,gate_result=None):
+    check_native_not_ready(doc,report,expected)
     D.validate_report(doc,batch,expected,presented(doc,report),gate_result=gate_result)
 
 

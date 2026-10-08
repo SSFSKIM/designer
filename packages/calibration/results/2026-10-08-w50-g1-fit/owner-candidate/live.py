@@ -20,7 +20,16 @@ owner inputs and completed owner references as the referee's pinnedBytes reads t
 the Node closure's fixed source-only probe, whose stdout must reproduce the recorded exercise
 byte for byte. It decodes no image, computes no statistic, writes nothing and returns metadata.
 Where the exposure contract already exists it adds evaluate's contract, logical claim, gate and
-intrinsic-record checks. evaluate repeats all of it after the marker.
+intrinsic-record checks, and confirms the two exclusive files evaluate creates do not exist yet.
+evaluate repeats all of it after the marker.
+
+At a gate's or an exposure's creation preflight also runs intrinsic_probe (second pre-seal
+review P1): the frozen engine's candidateIntrinsics on the batch's intrinsic records, with the
+candidate declarations and the frozen current rows but no candidate capture row, in the same Node
+closure through the bridge's checkIntrinsicRecords request. After the analysis marker the same
+function throws on records whose content it refuses (an endpoint identity, a current document
+pair, a record's applicability); none of those reads a capture, so they refuse here, while the
+gate's records can still change. The request returns admission only, never X75/X76 states.
 """
 import hashlib
 import json
@@ -98,7 +107,7 @@ def python_launch(config):
     return launch
 
 
-def child_environment(snapshot, config, config_pin):
+def live_environment(config, config_pin):
     # Compiler escape hatches, including ESBUILD_BINARY_PATH and CJS preload routes,
     # never cross this allowlist. No ambient Python/Node options or compiler cache.
     env = {key: os.environ[key] for key in ('HOME', 'TMPDIR', 'TMP', 'TEMP') if key in os.environ}
@@ -106,9 +115,13 @@ def child_environment(snapshot, config, config_pin):
         'W50_WEB_ROOT': str(ROOT), 'W50_WEB_CLOSURE': config['runtimeClosure']['path'],
         'W50_WEB_CLOSURE_SHA256': config['runtimeClosure']['sha256'],
         'W50_OWNER_LIVE_CONFIG': config_pin['path'], 'W50_OWNER_LIVE_CONFIG_SHA256': config_pin['sha256'],
-        'W50_OWNER_LIVE_SNAPSHOT': snapshot['path'],
-        'W50_OWNER_LIVE_SNAPSHOT_SHA256': snapshot['sha256'],
         'W50_OWNER_LIVE_PYTHON': python_launch(config)})
+    return env
+
+
+def child_environment(snapshot, config, config_pin):
+    env = live_environment(config, config_pin)
+    env.update({'W50_OWNER_LIVE_SNAPSHOT': snapshot['path'], 'W50_OWNER_LIVE_SNAPSHOT_SHA256': snapshot['sha256']})
     return env
 
 
@@ -235,6 +248,26 @@ def node_probe(config, runtime_pin, closure):
         checked(item)
 
 
+INTRINSIC_ADMITTED = '{"intrinsic":"ADMITTED"}\n'
+EXCLUSIVE = ('owner-candidate.snapshot.json', 'owner-candidate.report.json')
+
+
+def intrinsic_probe(config, config_pin, root_pin, batch_pin):
+    """The frozen engine's candidateIntrinsics on the batch's intrinsic records (module
+    docstring), as live-node.mjs's intrinsic request. Its stdout is admission alone."""
+    env = live_environment(config, config_pin)
+    env.update({'W50_OWNER_LIVE_ROOT_SHA256': root_pin['sha256'], 'W50_OWNER_LIVE_BATCH_SHA256': batch_pin['sha256']})
+    result = subprocess.run([config['node']['path'], str(HERE/'live-node.mjs')],
+        input=json.dumps({'config': config_pin, 'root': root_pin, 'batch': batch_pin}), text=True,
+        capture_output=True, check=False, cwd=ROOT, env=env)
+    for item in (config_pin, root_pin, batch_pin, config['runtimeClosure']):
+        checked(item)
+    if result.returncode:
+        raise ValueError('Frozen owner engine refused the intrinsic records: '+result.stderr.strip())
+    if result.stdout != INTRINSIC_ADMITTED:
+        raise ValueError('Owner intrinsic request returned no admission')
+
+
 def preflight(context, config_pin):
     """Metadata-only owner admission before any marker (module docstring); {admitted, pins}."""
     dispatch = sys.modules.get('w50_g1_dispatch')
@@ -242,10 +275,12 @@ def preflight(context, config_pin):
         raise ValueError('No live dispatcher capability')
     dispatch.require_context(context)
     repo, config_pin, config, root_pin, root, runtime_pin, closure = _authority(context, config_pin)
-    if context.get('phase') == 'exposure':
-        if load(context['batchPath']) != context['batch']:
+    intrinsic = context.get('phase') in ('gate', 'exposure')
+    if intrinsic:
+        if load(context['batchPath']) != context['batch'] or context['batch'].get('phase') != context['phase']:
             raise ValueError('Changed live root/contract/batch binding')
         checked(context['batch']['ownerIntrinsicRecords'], repo)
+    if context.get('phase') == 'exposure':
         gate = load(checked(normalized(context['gateResult'], repo)))
         if gate.get('captures') != context['gateCaptures']:
             raise ValueError('Changed same-cohort gate capture authority')
@@ -255,8 +290,14 @@ def preflight(context, config_pin):
             if not output.is_absolute() or output.resolve() != output or not output.is_dir() \
                     or output.is_relative_to(repo):
                 raise ValueError('Snapshot requires the live external output directory')
+            # evaluate opens both exclusively after the analysis marker (second pre-seal review P3).
+            for name in EXCLUSIVE:
+                if os.path.lexists(output/name):
+                    raise ValueError('The owner\'s exclusive output already exists: '+name)
     count = evidence_walk(config, repo)
     node_probe(config, runtime_pin, closure)
+    if intrinsic:
+        intrinsic_probe(config, config_pin, root_pin, pin(context['batchPath']))
     source_map(repo, closure)
     dispatch.require_context(context)
     return {'admitted': True, 'evidencePins': count}

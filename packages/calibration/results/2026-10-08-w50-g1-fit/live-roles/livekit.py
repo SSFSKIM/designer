@@ -654,7 +654,7 @@ class EndToEnd:
         self.build_root()
         self.build_batches()
         self.put('synthetic/control.json', {'offsets': offsets or {}})
-        self.child = []; self.probes = []
+        self.child = []; self.probes = []; self.intrinsic_requests = []
         real = subprocess.run
         def run(args, *a, **kw):
             if isinstance(args, (list, tuple)) and len(args) == 2 and str(args[1]).endswith('owner-candidate/live-node.mjs'):
@@ -1025,6 +1025,10 @@ class EndToEnd:
     # the owner referee child (stand-in at the process boundary) ---------------------------------
     def owner_child(self, args, kwargs):
         request = json.loads(kwargs['input'])
+        if set(request) == {'config', 'root', 'batch'}:
+            # The pre-marker intrinsic request: the frozen engine's reading answers admission only.
+            self.intrinsic_requests.append(json.loads(Path(request['batch']['path']).read_text())['phase'])
+            return subprocess.CompletedProcess(args, 0, stdout='{"intrinsic":"ADMITTED"}\n', stderr='')
         snapshot = json.loads(Path(request['snapshot']['path']).read_text())
         cells = {'/'.join(k[:3]): _axes() for k in snapshot['ownerUnionKeys']}
         report = {'cells': cells, 'aggregates': {name: {'state': 'MEASURED', 'verdict': 'within'} for name in OWNER_AGGREGATES},

@@ -59,6 +59,56 @@ function jsonNative(value:any):any {
   return value;
 }
 
+/** The frozen owner engine for one cohort, after its source authority is the registered
+ * frozen closure: every function source pinned by the config is that closure's own. */
+function frozenEngine(config:any,repo:string,declarations:Pin[]) {
+  const frozenClosure=readJson(config.frozenSourceClosure);
+  if(config.frozenSourceClosure.sha256!==FROZEN_CLOSURE_SHA256) throw Error('Unregistered frozen owner source closure');
+  const frozenPins=new Map(frozenClosure.sources.map((pin:Pin)=>[pin.path,pin.sha256]));
+  for(const [path,pin] of Object.entries(config.sourcePins) as [string,Pin][]) {
+    if(frozenPins.get(path)!==pin.sha256||pin.path!==resolve(repo,path)) throw Error('Owner function source differs from frozen closure');
+    readPinned(pin);
+  }
+  return createCandidateEngine({sourcePins:config.sourcePins,declarations});
+}
+
+/** The intrinsic records as candidateIntrinsics takes them: their declarations exactly the
+ * frozen cohort, compared as both sides resolve lexically against the repository. */
+function intrinsicRecords(intrinsic:any,declarations:Pin[],repo:string) {
+  if(!Array.isArray(intrinsic?.candidateDeclarations)
+    ||!equalSet(intrinsic.candidateDeclarations.map((pin:Pin)=>absolutePin(pin,repo)),declarations)) {
+    throw Error('Intrinsic declarations differ from frozen candidate cohort');
+  }
+  return {...intrinsic,candidateDeclarations:declarations};
+}
+
+/** The pre-marker intrinsic admission (second pre-seal review P1), called only by live-node.mjs
+ * after its own bootstrap and guard checks. It runs the same frozen candidateIntrinsics the
+ * exposure's executeRequest runs, on the batch's records, the cohort's declarations and the
+ * frozen current rows, with no candidate capture row: every content check that reads no
+ * capture throws here instead of after the analysis marker. Its result is discarded; the
+ * request answers admission only. */
+export function checkIntrinsicRecords(request:{config:Pin;root:Pin;batch:Pin}) {
+  if(!request||!isDeepStrictEqual(Object.keys(request).sort(),['batch','config','root'])) throw Error('Invalid live intrinsic request');
+  if(process.env.W50_OWNER_LIVE_CONFIG_SHA256!==request.config.sha256||process.env.W50_OWNER_LIVE_CONFIG!==request.config.path
+    ||process.env.W50_OWNER_LIVE_ROOT_SHA256!==request.root.sha256
+    ||process.env.W50_OWNER_LIVE_BATCH_SHA256!==request.batch.sha256) throw Error('Missing live owner intrinsic admission');
+  const config=readJson(request.config);
+  if(config.schema!=='w50-owner-candidate-config-1') throw Error('Unknown candidate owner config');
+  const root=readJson(request.root),repo=root.repo,batch=readJson(request.batch);
+  if(!root.inputs?.some((pin:Pin)=>samePin(absolutePin(pin,repo),request.config))) {
+    throw Error('Owner candidate config is not registered in live root');
+  }
+  if(!['gate','exposure'].includes(batch.phase)||!Array.isArray(batch.cohort)||!batch.cohort.length) {
+    throw Error('Intrinsic records belong to a gate or exposure cohort');
+  }
+  const declarations=batch.cohort.map((pin:Pin)=>absolutePin(pin,repo));
+  const engine=frozenEngine(config,repo,declarations);
+  const records=intrinsicRecords(readJson(absolutePin(batch.ownerIntrinsicRecords,repo)),declarations,repo);
+  engine.candidateIntrinsics(records,[],engine.rowsOf(readJson(config.ownerInputs).current));
+  return {intrinsic:'ADMITTED'};
+}
+
 /** Called only by live-node.mjs after the genuine Python context writer and Node source
  * guard. No CLI autorun and no output write: the wrapper owns its exclusive result path. */
 export function executeRequest(request:{snapshot:Pin;config:Pin}) {
@@ -79,15 +129,8 @@ export function executeRequest(request:{snapshot:Pin;config:Pin}) {
   const inventory=readJson(inventoryPin);
   validateAuthority(snapshot,{root,contract,batch,claim,gate,gateContract,gateBatch,inventory},request.config);
   if(!request.snapshot.path.startsWith(resolve(snapshot.output)+'/')) throw Error('Snapshot outside claimed output');
-  const frozenClosure=readJson(config.frozenSourceClosure);
-  if(config.frozenSourceClosure.sha256!==FROZEN_CLOSURE_SHA256) throw Error('Unregistered frozen owner source closure');
-  const frozenPins=new Map(frozenClosure.sources.map((pin:Pin)=>[pin.path,pin.sha256]));
-  for(const [path,pin] of Object.entries(config.sourcePins) as [string,Pin][]) {
-    if(frozenPins.get(path)!==pin.sha256||pin.path!==resolve(repo,path)) throw Error('Owner function source differs from frozen closure');
-    readPinned(pin);
-  }
   const declarations=snapshot.cohort.map((pin:Pin)=>absolutePin(pin,repo));
-  const engine=createCandidateEngine({sourcePins:config.sourcePins,declarations});
+  const engine=frozenEngine(config,repo,declarations);
   const inputs=readJson(config.ownerInputs),completed=readJson(config.completedOwnerReferences);
   const contracts=engine.loadContracts();
   if(!isDeepStrictEqual(completed.provenance,{owner:contracts.source,current:inputs.current,
@@ -101,11 +144,8 @@ export function executeRequest(request:{snapshot:Pin;config:Pin}) {
   // current report and original baselines are retained verbatim, and the substitution is named.
   const context={inputs:{...inputs,python:config.python},contracts,declaration,currentRows,referenceRows,current:completed};
   const report=engine.evaluateRows(context,admitted.rows,admitted.captures,true);
-  const intrinsic=readJson(snapshot.ownerIntrinsicRecords);
-  if(!equalSet(intrinsic.candidateDeclarations.map((pin:Pin)=>absolutePin(pin,repo)),declarations)) {
-    throw Error('Intrinsic declarations differ from frozen candidate cohort');
-  }
-  report.intrinsic=engine.candidateIntrinsics({...intrinsic,candidateDeclarations:declarations},admitted.rows,currentRows);
+  const intrinsic=intrinsicRecords(readJson(snapshot.ownerIntrinsicRecords),declarations,repo);
+  report.intrinsic=engine.candidateIntrinsics(intrinsic,admitted.rows,currentRows);
   return jsonNative({...report,liveUnion:{snapshot:request.snapshot,config:request.config,
     gateResult:snapshot.gateResult,claim:snapshot.claim,cohort:snapshot.cohort,
     ownerInputs:config.ownerInputs,completedOwnerReferences:config.completedOwnerReferences,

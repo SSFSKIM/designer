@@ -82,4 +82,35 @@ class CurrentAuthority(unittest.TestCase):
         evidence={**self.evidence,'currentInstrument':self.evidence['currentInstruments'][0]}
         with self.assertRaisesRegex(ValueError,'composed authority'):A.current_authority(self.doc,evidence,self.current)
 
+
+class PrefitLineage(unittest.TestCase):
+    """Second pre-seal review P2, on the committed proofs and supersession records: the ten
+    standing proofs and the r2 inventory pass; each superseded proof, the superseded inventory
+    and a completion that names another inventory refuse. Only proof and record JSON is read."""
+    REPO=H.parents[4];FIT='packages/calibration/results/2026-10-08-w50-g1-fit/'
+    STANDING={**{k:'prefit-proofs' for k in ('nativeArchive','identityDigestsGoldens','negativeNeutralDiagnostic',
+                 'newBedRendererAdapter','numericalRehearsal','shaderCpuAgreement')},
+              **{k:'prefit-proofs-r2' for k in ('referenceCompletion','repeatBar','dark05Bands','active05ScratchBaselines')}}
+    def proof(self,folder,kind):return A.D.pin(self.REPO,self.REPO/self.FIT/folder/(kind+'.json'))
+    def evidence(self,**folders):
+        proofs={k:self.proof(folders.get(k,v),k) for k,v in self.STANDING.items()}
+        completion=A.D.load(self.REPO/self.FIT/'prefit-proofs-r2/referenceCompletion.json')
+        references=next(p for p in completion['sources'] if p['path'].endswith('live-inputs/completed-references-r2.json'))
+        return {'evidence':proofs,'references':references,'sources':[]}
+    def test_the_rebuilt_proofs_and_their_inventory_pass(self):
+        A.prefit_lineage(self.REPO,self.evidence())
+    def test_each_superseded_proof_refuses(self):
+        for kind in ('referenceCompletion','repeatBar','dark05Bands','active05ScratchBaselines'):
+            with self.subTest(kind=kind),self.assertRaisesRegex(ValueError,kind+' pins evidence a recorded recovery superseded'):
+                A.prefit_lineage(self.REPO,self.evidence(**{kind:'prefit-proofs'}))
+    def test_the_superseded_inventory_and_another_inventory_refuse(self):
+        old=A.D.load(self.REPO/self.FIT/'prefit-proofs/repeatBar.json')
+        stale=next(p for p in old['sources'] if p['path'].endswith('live-inputs/completed-references.json'))
+        with self.assertRaisesRegex(ValueError,'evidence pins evidence a recorded recovery superseded'):
+            A.prefit_lineage(self.REPO,{**self.evidence(),'references':stale})
+        with self.assertRaisesRegex(ValueError,'superseded'):
+            A.prefit_lineage(self.REPO,{**self.evidence(),'sources':[{'path':self.FIT+'completion/registered/run.py','sha256':'0'*64}]})
+        other={'path':self.FIT+'live-inputs/completed-references-r3.json','sha256':'1'*64}
+        with self.assertRaisesRegex(ValueError,'own inventory'):A.prefit_lineage(self.REPO,{**self.evidence(),'references':other})
+
 if __name__=='__main__':unittest.main()

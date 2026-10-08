@@ -1,4 +1,5 @@
 """Prospective live-root admission. No fallback component or pre-fit PASS exists here."""
+import os
 from pathlib import Path
 import re
 import types
@@ -94,7 +95,61 @@ def current_authority(doc,evidence,current):
 
 
 def root_doc(path):return validate_body(path,D.sealed(path))
-def verify_prefit(path,doc):return D.verify_prefit(path,doc)
+
+
+def verify_prefit(path,doc):
+    """current3's verify_prefit, then LIVE's lineage check on the same sealed evidence."""
+    pinned=D.verify_prefit(path,doc)
+    prefit_lineage(doc['repo'],D.sealed(Path(path).resolve().parent/'pre-fit-evidence.json'))
+    return pinned
+
+
+FIT_REL=Path('packages/calibration/results/2026-10-08-w50-g1-fit')
+SUPERSESSIONS=('owner/r2/supersedes.json','completion/registered-2/supersedes.json')
+
+
+def _pins(value,out):
+    if isinstance(value,dict):
+        if isinstance(value.get('path'),str) and isinstance(value.get('sha256'),str):out.append(value)
+        for item in value.values():_pins(item,out)
+    elif isinstance(value,list):
+        for item in value:_pins(item,out)
+    return out
+
+
+def _lexical(repo,path):return os.path.normpath(os.path.join(str(repo),path))
+
+
+def prefit_lineage(repo,evidence):
+    """Tie the pre-fit evidence to the rebuilt proofs (second pre-seal review P2).
+
+    current3's verify_prefit validates each proof alone, so a proof superseded by the DL5l-type
+    reference recovery (DL5n) still validates beside the evidence that replaced it. Two
+    supersession records name what that recovery replaced: owner/r2/supersedes.json and
+    completion/registered-2/supersedes.json, each under its 'superseded' key. A superseded
+    assembly archive also names, by content, the completed inventory it archived. Refused: any
+    pin, anywhere in the evidence or in one of its proofs, that names a superseded file (by its
+    lexically resolved path) or a superseded completed inventory (by content hash, so its live
+    copy under any name). Required: referenceCompletion's sources contain the evidence's own
+    completed inventory, exactly that pin."""
+    repo=Path(repo);paths=set();inventories=set()
+    for name in SUPERSESSIONS:
+        record=D.load(repo/FIT_REL/name)
+        if not isinstance(record.get('superseded'),dict):raise ValueError('Supersession record names nothing superseded')
+        paths|={_lexical(repo,item['path']) for item in _pins(record['superseded'],[])}
+        archive=record['superseded'].get('archive')
+        if archive is not None:
+            manifest=D.load(D.checked(repo,archive))
+            if manifest.get('schema')!='w50-reference-assembly-archive-1':raise ValueError('Superseded archive is not an assembly archive')
+            inventories.add(manifest['completedReferences']['original']['sha256'])
+    documents=[('evidence',evidence)]+[(kind,D.load(D.checked(repo,item))) for kind,item in sorted(evidence['evidence'].items())]
+    for kind,document in documents:
+        for item in _pins(document,[]):
+            if _lexical(repo,item['path']) in paths or item['sha256'] in inventories:
+                raise ValueError('Pre-fit '+kind+' pins evidence a recorded recovery superseded')
+    completion=dict(documents)['referenceCompletion']
+    if evidence['references'] not in completion.get('sources',[]):
+        raise ValueError('referenceCompletion does not complete the pre-fit evidence\'s own inventory')
 
 
 def seal_root(path,document):

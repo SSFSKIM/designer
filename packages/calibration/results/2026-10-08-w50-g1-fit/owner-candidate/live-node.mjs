@@ -63,34 +63,55 @@ for(const path of [fileURLToPath(import.meta.url),resolve(HERE,'bridge.ts'),
   checked({path,sha256:sources.get(relative(ROOT,path))});
 }
 const request=JSON.parse(fs.readFileSync(0,'utf8'));
-if(Object.keys(request).sort().join(',')!=='config,snapshot'||!isDeepStrictEqual(request.config,configPin)
-  ||request.snapshot.sha256!==process.env.W50_OWNER_LIVE_SNAPSHOT_SHA256)
-  throw Error('Request was not bound by the live snapshot writer');
-const snapshot=read(request.snapshot),root=read(snapshot.executionRoot),claim=read(snapshot.claim);
-const contract=read(snapshot.contract),batch=read(snapshot.batch),execution=read(snapshot.executionClaim);
 const absolute=pin=>({path:resolve(ROOT,pin.path),sha256:pin.sha256});
-const registered=pin=>root.inputs.some(item=>isDeepStrictEqual(absolute(item),pin));
-if(snapshot.schema!=='w50-owner-live-capture-union-1'||snapshot.phase!=='exposure'
-  ||snapshot.executionRoot.sha256!==process.env.W50_OWNER_LIVE_ROOT_SHA256
-  ||contract.executionRootSha256!==snapshot.executionRoot.sha256||root.repo!==ROOT
-  ||!registered(configPin)||!registered(config.runtimeClosure)||!isDeepStrictEqual(snapshot.config,configPin)
-  ||claim.phase!=='exposure'||claim.output!==snapshot.output
-  ||claim.contractSha256!==snapshot.contract.sha256||claim.batchSha256!==snapshot.batch.sha256
-  ||request.snapshot.path!==resolve(claim.output,'owner-candidate.snapshot.json')
-  ||snapshot.claim.path!==snapshot.contract.path+'.started.json'
-  // The logical claim is whichever attempt first ran; the process binding is the analysis
-  // marker the parent was issued under, held by exactly this parent.
-  ||snapshot.executionClaim.path!==snapshot.contract.path+'.phase/analysis.started.json'
-  ||execution.schema!=='w50-live-analysis-claim-1'||execution.pid!==process.ppid
-  ||!isDeepStrictEqual(execution.logicalContract,snapshot.contract)||execution.output!==snapshot.output
-  ||!isDeepStrictEqual(absolute(contract.batch),snapshot.batch)
-  ||!isDeepStrictEqual(batch.cohort,snapshot.cohort))
-  throw Error('Snapshot lacks the live parent claim/root binding');
+const registeredIn=root=>pin=>root.inputs.some(item=>isDeepStrictEqual(absolute(item),pin));
 // Guard installation happens before tsx, frozen engine, source AST readers or edge helpers.
-await import('../owner/node-guard.mjs');
-const compiler=await import(pathToFileURL(config.tsx.path).href);
-compiler.register();
-process.env.W50_OWNER_LIVE_NODE_PID=String(process.pid);
-const {executeRequest}=await import('./bridge.ts');
-const report=await executeRequest(request);
-process.stdout.write(JSON.stringify(report)+'\n');
+async function bridge() {
+  await import('../owner/node-guard.mjs');
+  const compiler=await import(pathToFileURL(config.tsx.path).href);
+  compiler.register();
+  process.env.W50_OWNER_LIVE_NODE_PID=String(process.pid);
+  return import('./bridge.ts');
+}
+if(Object.keys(request).sort().join(',')==='batch,config,root') {
+  // The pre-marker intrinsic request (second pre-seal review P1): the frozen engine on a gate's or
+  // an exposure's intrinsic records, before any marker. It reads no snapshot, claim or capture
+  // and answers admission alone; the Python seam binds root and batch through its environment.
+  if(!isDeepStrictEqual(request.config,configPin)
+    ||request.root.sha256!==process.env.W50_OWNER_LIVE_ROOT_SHA256
+    ||request.batch.sha256!==process.env.W50_OWNER_LIVE_BATCH_SHA256
+    ||'W50_OWNER_LIVE_SNAPSHOT' in process.env||'W50_OWNER_LIVE_SNAPSHOT_SHA256' in process.env)
+    throw Error('Intrinsic request was not bound by the live owner admission');
+  const root=read(request.root),batch=read(request.batch),registered=registeredIn(root);
+  if(root.repo!==ROOT||!registered(configPin)||!registered(config.runtimeClosure)
+    ||!['gate','exposure'].includes(batch.phase))
+    throw Error('Intrinsic request lacks its live root binding');
+  const {checkIntrinsicRecords}=await bridge();
+  process.stdout.write(JSON.stringify(checkIntrinsicRecords(request))+'\n');
+} else {
+  if(Object.keys(request).sort().join(',')!=='config,snapshot'||!isDeepStrictEqual(request.config,configPin)
+    ||request.snapshot.sha256!==process.env.W50_OWNER_LIVE_SNAPSHOT_SHA256)
+    throw Error('Request was not bound by the live snapshot writer');
+  const snapshot=read(request.snapshot),root=read(snapshot.executionRoot),claim=read(snapshot.claim);
+  const contract=read(snapshot.contract),batch=read(snapshot.batch),execution=read(snapshot.executionClaim);
+  const registered=registeredIn(root);
+  if(snapshot.schema!=='w50-owner-live-capture-union-1'||snapshot.phase!=='exposure'
+    ||snapshot.executionRoot.sha256!==process.env.W50_OWNER_LIVE_ROOT_SHA256
+    ||contract.executionRootSha256!==snapshot.executionRoot.sha256||root.repo!==ROOT
+    ||!registered(configPin)||!registered(config.runtimeClosure)||!isDeepStrictEqual(snapshot.config,configPin)
+    ||claim.phase!=='exposure'||claim.output!==snapshot.output
+    ||claim.contractSha256!==snapshot.contract.sha256||claim.batchSha256!==snapshot.batch.sha256
+    ||request.snapshot.path!==resolve(claim.output,'owner-candidate.snapshot.json')
+    ||snapshot.claim.path!==snapshot.contract.path+'.started.json'
+    // The logical claim is whichever attempt first ran; the process binding is the analysis
+    // marker the parent was issued under, held by exactly this parent.
+    ||snapshot.executionClaim.path!==snapshot.contract.path+'.phase/analysis.started.json'
+    ||execution.schema!=='w50-live-analysis-claim-1'||execution.pid!==process.ppid
+    ||!isDeepStrictEqual(execution.logicalContract,snapshot.contract)||execution.output!==snapshot.output
+    ||!isDeepStrictEqual(absolute(contract.batch),snapshot.batch)
+    ||!isDeepStrictEqual(batch.cohort,snapshot.cohort))
+    throw Error('Snapshot lacks the live parent claim/root binding');
+  const {executeRequest}=await bridge();
+  const report=await executeRequest(request);
+  process.stdout.write(JSON.stringify(report)+'\n');
+}

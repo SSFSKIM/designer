@@ -268,7 +268,13 @@ class Store:
         """Checkpoint one completed native read (DL5n) under the one-shot marker.
 
         `recovered` names the later attempt's claim that finalises a 'durable' payload: the same
-        bytes, verified again, given the marker a crash withheld. That is not a replay."""
+        bytes, verified again, given the marker a crash withheld. That is not a replay.
+
+        The marker sits in the phase directory beside the contract, outside the quarantine, so it
+        pins the quarantined payload alone. The payload's own artifact list (the empty-support
+        witnesses among them, named by the cell they witness) stays inside it: the marker would
+        otherwise publish which DL5c cells read no native support before the judge marker (DL5k;
+        second pre-seal review P3). native_metadata checks those artifacts through the payload."""
         started=self.home/'native.started.json'
         if not started.exists():raise ValueError('Native subread was never started')
         artifacts=native_payload(payload)['artifacts']
@@ -278,16 +284,22 @@ class Store:
             if recovered is None or target.read_bytes()!=encode(payload):raise ValueError('Another native checkpoint payload exists')
             payload_pin=pin(target)
         else:payload_pin=write_once(target,payload)
-        value={'schema':'w50-live-native-checkpoint-1','logicalContract':pin(self.contract),'started':pin(started),
-            'payload':payload_pin,'artifacts':list(artifacts)}
+        value={'schema':'w50-live-native-checkpoint-2','logicalContract':pin(self.contract),'started':pin(started),
+            'payload':payload_pin}
         if recovered is not None:value['recoveredBy']=recovered
         return write_once(self.home/'native.complete.json',value)
     def native_metadata(self):
         p=self.home/'native.complete.json';m=read(p)
-        if m['logicalContract']!=pin(self.contract) or m['started']!=pin(self.home/'native.started.json'):
+        if m.get('schema')!='w50-live-native-checkpoint-2' or 'artifacts' in m or \
+                m['logicalContract']!=pin(self.contract) or m['started']!=pin(self.home/'native.started.json'):
             raise ValueError('Native checkpoint names another logical exposure')
-        checked(m['payload'])
-        for item in m['artifacts']:checked(item)
+        # The payload is the one canonical write of one completed read; its artifacts are checked
+        # through it, never listed beside it.
+        raw=checked(m['payload']).read_bytes()
+        try:payload=native_payload(json.loads(raw))
+        except ValueError:raise ValueError('Native checkpoint payload is not one completed read') from None
+        if encode(payload)!=raw:raise ValueError('Native checkpoint payload is not one completed read')
+        for item in payload['artifacts']:checked(item)
         return {**m,'checkpoint':pin(p)}
     def complete_union(self):
         rows=self.checkpoints();by_id={r['member']['id']:r for r in rows}

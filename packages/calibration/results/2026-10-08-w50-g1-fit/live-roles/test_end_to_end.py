@@ -107,6 +107,10 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(sorted((t['target'], t['scale'], t['status']) for t in report['targets']),
                          sorted((n, s, 'WITHIN') for n in ('C rest', 'F inactive', 'P') for s in (1, 2)))
 
+        # Owner: the frozen engine read the intrinsic records at the gate's creation and at each
+        # exposure admission (creation, before the native marker, before the analysis marker),
+        # always before any marker (second pre-seal review P1).
+        self.assertEqual(world.intrinsic_requests, ['gate', 'exposure', 'exposure', 'exposure'])
         # Owner: the referee ran once, on this union, and graded every owner key and aggregate.
         self.assertEqual(len(world.child), 1)
         self.assertEqual(world.child[0]['ownerUnionKeys'], world.dependencies['ownerUnionKeys'])

@@ -7,24 +7,28 @@ admit(context, config) at 'native-admission', read-only and before native.starte
 prepare(context, config) -> one completed read (lifecycle.native_payload, DL5n: ready or not,
 its stops metadata only), with an artifacts pin list. Measurement: evaluate(context, captures,
 config). Fit/judge: evaluate(context, evidence, config). Owner: admit(context, config) at
-'owner-admission', metadata-only, at the exposure's creation and before each of its one-shot
-markers; then evaluate(context, captures, config) in analysis. Fit also exports
+'owner-admission', metadata-only, at the gate's and the exposure's creation and before each of
+the exposure's one-shot markers; then evaluate(context, captures, config) in analysis. Fit also exports
 fit_record(root, completed), which the gate re-derives. Initializer remains a separate
 pre-render entrypoint behind verify_prefit.
 
 Operational stops (DL5k) are always preserved: an exception after an attempt's claim writes
 its failure record before propagating; a killed attempt is preserved by stop_stale_attempt
 once its process and its GPU lease are both gone. A capture role signals a census refusal by
-raising CensusRefused; a lost GPU lease is classified from the lock itself. Every entry that
-takes the GPU lease first releases a lease its dead holder left behind (_release_stale_lock),
-so no kill between a lock and a claim wedges the phase.
+raising CensusRefused; a lost GPU lease is classified from the lock itself. Every entry takes
+the GPU lease through _gpu_lease, which first releases a lease its dead holder left behind
+(_release_stale_lock), so no kill between a lock and a claim wedges the phase. The release and
+the O_EXCL acquisition run under one sidecar flock, so two dispatchers meeting the same dead
+token cannot remove each other's fresh lease (second pre-seal review P2).
 
 Protected payload access is instrument/API enforced plus the wave's role discipline.
 It is NOT OS isolation. No agent may open native/quarantine files directly before the
 complete-union measurement/judge marker. Every public execution result is allowlisted.
 """
 import calendar
+import contextlib
 import copy
+import fcntl
 import hashlib
 import json
 import os
@@ -42,6 +46,10 @@ _LEASE=None
 
 class CensusRefused(RuntimeError):
     """Raised by a live capture role when the classifying census refuses before a draw."""
+
+
+class LeaseHeld(FileExistsError):
+    """The GPU lock belongs to a live holder or another tool; it was not touched."""
 
 
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -164,14 +172,20 @@ def create_phase(root,batch_path,output,fit_record=None):
     if Path(str(target)+'.sha256').exists():raise ValueError('Logical phase slot already exists')
     interrupted=target.exists()
     if not interrupted and output.exists():raise ValueError('Logical phase needs fresh external output')
-    if phase=='exposure':
+    if phase in ('gate','exposure'):
         # The owner is first exercised after the exposure's analysis marker; its metadata-only
         # admission runs here first, so a drifted owner input seals nothing (pre-seal review P1).
-        _release_stale_lock()
-        with D.owned_gpu_lock():
-            _LEASE=D._LEASE
-            try:_admit_owner(root,(doc,{'phase':phase,**extra},batch_path,batch,expected,None),None,None)
-            finally:_ACTIVE=None;_LEASE=None
+        # At the gate's creation it already runs the frozen engine on the intrinsic records the
+        # exposure must reuse unchanged, so records it would refuse never freeze into a gate
+        # (second pre-seal review P1). Like the other two admission points, it runs inside the
+        # quarantine: its streams and errors go to a log beside the fresh output, never to the
+        # caller (second pre-seal review P3).
+        phase_data=(doc,{'phase':phase,**extra},batch_path,batch,expected,None)
+        with _gpu_lease():
+            try:ok,_=_CORE['Q'].run_private(_fresh_log(Path(str(output)+'.admission'),'owner-admission'),
+                lambda:_admit_owner(root,phase_data,None,None))
+            finally:_ACTIVE=None
+        if not ok:raise ValueError('Owner admission refused before the phase slot; details are quarantined')
     if interrupted:
         # A crash between the contract's two writes: its seal is completed only when the output this
         # call names is the one the unsealed contract claimed and its bytes are what is derived here.
@@ -200,14 +214,17 @@ def _gate_batch(doc,gate_contract):
 
 
 def _pinned(doc,item):
-    """A content pin in the form the owner resolves (owner-candidate/live.py, pinnedBytes with
-    the repository as its working directory): absolute, or relative to the repository."""
+    """A content pin in the form the owner's Node child compares it: its path resolved against the
+    repository LEXICALLY, as path.resolve(repo, pin.path) does (owner-candidate/union.ts
+    absolutePin; bridge.ts), never through symlinks. A realpath here would admit two spellings
+    of one file that the child, after the analysis marker, reads as different declarations
+    (second pre-seal review P3)."""
     if not isinstance(item,dict) or set(item)!={'path','sha256'} or not isinstance(item['path'],str) or \
             not isinstance(item['sha256'],str) or not re.fullmatch('[0-9a-f]{64}',item['sha256']):
         raise ValueError('Owner intrinsic record is not a content pin')
-    path=Path(item['path']) if Path(item['path']).is_absolute() else Path(doc['repo'])/item['path']
-    if not path.is_file() or sha(path)!=item['sha256']:raise ValueError('Owner intrinsic record pin does not resolve')
-    return (str(path.resolve()),item['sha256'])
+    path=os.path.normpath(os.path.join(doc['repo'],item['path']))
+    if not Path(path).is_file() or sha(path)!=item['sha256']:raise ValueError('Owner intrinsic record pin does not resolve')
+    return (path,item['sha256'])
 
 
 RECEDED_RECORDS=('beforeActive','beforeReceded','methods','activeEntries')
@@ -216,7 +233,9 @@ RECEDED_RECORDS=('beforeActive','beforeReceded','methods','activeEntries')
 def _intrinsic_records(doc,batch):
     """The owner's intrinsic inputs, structurally, before any marker (pre-seal review P1): its
     declarations are exactly the cohort, and both positions' receded records resolve. X76 reads a
-    missing record UNMEASURED, which DL5m (5) makes NEITHER; here it refuses while recoverable."""
+    missing record UNMEASURED, which DL5m (5) makes NEITHER; here it refuses while recoverable.
+    Their CONTENT is the frozen engine's to refuse; the owner admission at the gate's and the
+    exposure's creation runs it on these records (owner-candidate/live.intrinsic_probe)."""
     D=_CORE['C'].D;item=batch.get('ownerIntrinsicRecords')
     if not isinstance(item,dict) or set(item)!={'path','sha256'}:raise ValueError('Gate and exposure name their owner intrinsic records')
     records=D.load(D.checked(doc['repo'],item))
@@ -312,13 +331,16 @@ def require_native_admission(context):
 
 
 def require_owner_admission(context):
-    """Exposure-only, metadata-only owner admission (pre-seal review P1). The owner is first
-    exercised after the exposure's analysis marker, so its config, closure and pins are admitted
-    at the exposure's creation (no contract or claim yet: those context fields are None), before
-    the native marker and immediately before the analysis marker. Grants no payload, frame,
-    native or render access; those capabilities each refuse this stage."""
+    """Metadata-only owner admission (pre-seal review P1). The owner is first exercised after the
+    exposure's analysis marker, so its config, closure and pins are admitted at the exposure's
+    creation (no contract or claim yet: those context fields are None), before the native marker
+    and immediately before the analysis marker. The gate's creation admits it too, because the
+    gate batch freezes the intrinsic records the exposure must reuse (second pre-seal review P1);
+    a gate grants it at creation only. Grants no payload, frame, native or render access; those
+    capabilities each refuse this stage."""
     require_context(context)
-    if context['stage']!='owner-admission' or context['phase']!='exposure':raise ValueError('No live owner admission capability')
+    if context['stage']!='owner-admission' or not (context['phase']=='exposure' or
+            (context['phase']=='gate' and context['contract'] is None)):raise ValueError('No live owner admission capability')
     store=_ACTIVE['store']
     if store is not None and store.analysis_marker.exists():raise ValueError('Owner admission belongs before the analysis marker')
     return context
@@ -454,16 +476,55 @@ def _alive(pid,since):
 LEASE_TOKEN=re.compile(r'W50 pid=([1-9][0-9]*) owner=[0-9a-f]{32}\n')
 
 
+@contextlib.contextmanager
+def _lease_mutex():
+    """The sidecar mutex every LIVE lease entry holds from reading the lock's token through its
+    unlink and current3's O_EXCL create (second pre-seal review P2).
+
+    Without it two dispatchers that read the same dead token race: the first releases it and
+    takes its own lease, the second's unlink then removes that fresh lease. The mutex is an
+    fcntl.flock on a file beside the lock; it is never unlinked, so its inode is one for every
+    holder, and the kernel releases it when its holder exits. A tool that does not release
+    stale leases (current3, W49) never needs it: only a releaser unlinks another holder's lock."""
+    handle=os.open(str(_CORE['C'].D.GPU_LOCK)+'.mutex',os.O_RDWR|os.O_CREAT,0o600)
+    try:
+        fcntl.flock(handle,fcntl.LOCK_EX)
+        yield
+    finally:os.close(handle)
+
+
+@contextlib.contextmanager
+def _gpu_lease():
+    """The GPU lease for one LIVE entry: a stale lease released and current3's owned_gpu_lock
+    taken under one _lease_mutex, then held, with _LEASE bound, until the block ends. Yields
+    _release_stale_lock's result; a lock another holder owns refuses as LeaseHeld, untouched."""
+    global _LEASE
+    D=_CORE['C'].D
+    with contextlib.ExitStack() as stack:
+        with _lease_mutex():
+            released=_release_unlocked()
+            if released=='held':raise LeaseHeld(str(D.GPU_LOCK))
+            stack.enter_context(D.owned_gpu_lock())
+        _LEASE=D._LEASE
+        try:yield released
+        finally:_LEASE=None
+
+
 def _release_stale_lock():
-    """Release a GPU lease its dead holder left behind; every entry calls this before
-    owned_gpu_lock (pre-seal review P2).
+    """Release a GPU lease its dead holder left behind, under the lease mutex. Returns 'absent',
+    'held' or ('removed', token). Entries use _gpu_lease, which also acquires under the mutex."""
+    with _lease_mutex():return _release_unlocked()
+
+
+def _release_unlocked():
+    """_release_stale_lock's body; the caller holds _lease_mutex (pre-seal review P2).
 
     A process killed between taking the lock and writing (or finishing) the claim that names it
     leaves a lock that no claim can prove gone. Only a lock in current3 owned_gpu_lock's exact token
     form is considered; its pid must be dead (_alive, against the lock's own write time), and the
     file is unlinked only if it is still the same inode that was read. A live holder's or any other
     tool's lock is never touched. Orphaned renderer children are the census's to refuse, not the
-    lock's. Returns 'absent', 'held' or ('removed', token)."""
+    lock's."""
     lock=_CORE['C'].D.GPU_LOCK
     try:
         with open(lock) as handle:
@@ -488,7 +549,6 @@ def stop_stale_attempt(root,contract,code):
     """Preserve a killed attempt (claim without failure/completion) as an operational stop.
 
     Writes the failure record with its inventory, so prepare_attempt's reconciliation runs next."""
-    global _LEASE
     store=_phase(root,contract)[5];D=_CORE['C'].D;L=_CORE['L'];Q=_CORE['Q']
     prior=store._contracts()
     if not prior:raise ValueError('No attempt to preserve')
@@ -497,14 +557,12 @@ def stop_stale_attempt(root,contract,code):
         raise ValueError('Only a started, unstopped, incomplete attempt can be preserved as stale')
     claim=L.read(folder/'started.json')
     if _claim_alive(folder/'started.json'):raise ValueError('Claim process may still own its lease')
-    released=_release_stale_lock()
-    if released=='held':raise ValueError('GPU lock belongs to another lease; not touched')
-    lock='absent' if released=='absent' else 'removed-same-token' if released[1]==claim.get('gpuLease') else 'removed-dead-holder'
-    with D.owned_gpu_lock():
-        _LEASE=D._LEASE
-        try:store.stop(attempt,code,stale={'pid':claim['pid'],'gpuLease':claim['gpuLease'],'lock':lock,
-            'stopLease':_LEASE['token']})
-        finally:_LEASE=None
+    try:
+        with _gpu_lease() as released:
+            lock='absent' if released=='absent' else 'removed-same-token' if released[1]==claim.get('gpuLease') else 'removed-dead-holder'
+            store.stop(attempt,code,stale={'pid':claim['pid'],'gpuLease':claim['gpuLease'],'lock':lock,
+                'stopLease':_LEASE['token']})
+    except LeaseHeld:raise ValueError('GPU lock belongs to another lease; not touched') from None
     return Q.public_event(code,phase=store.batch['phase'],attempt=attempt['ordinal'])
 
 
@@ -605,11 +663,9 @@ def prepare_attempt(root,contract):
         done={r['member']['id'] for r in store.checkpoints()}
         orphans=[m for m in old['members'] if m['id'] not in done and Path(m['run']['captureRoot']).parent.exists()]
         if orphans:
-            _release_stale_lock()
-            with D.owned_gpu_lock():
-                _LEASE=D._LEASE
+            with _gpu_lease():
                 try:_reconcile(root,contract,data,store,prior[-1],failure_path,failure,orphans)
-                finally:_ACTIVE=None;_LEASE=None
+                finally:_ACTIVE=None
     if len(store.checkpoints())==len(store.population):
         # A crash after the last qualified cell may need only the existing attempt's final marker.
         old=L.read(prior[-1]);folder=prior[-1].parent
@@ -623,9 +679,7 @@ def execute_attempt(root,contract,attempt):
     data=_phase(root,contract);doc,body,batch_path,batch,expected,store=data
     D=_CORE['C'].D;L=_CORE['L'];Q=_CORE['Q']
     numerical=admission_module(doc).validate_numerical(doc,batch)
-    _release_stale_lock()
-    with D.owned_gpu_lock():
-        _LEASE=D._LEASE
+    with _gpu_lease():
         try:
             claim=store.start(attempt,_LEASE['token'])
             folder=store.attempts/f'{attempt["ordinal"]:06d}'
@@ -665,6 +719,8 @@ def execute_attempt(root,contract,attempt):
                         ctx=_context(root,contract,data,'native-admission',claim);native.admit(ctx,nconfig);require_context(ctx)
                         ctx=_context(root,contract,data,'owner-admission',claim);owner.admit(ctx,oconfig);require_context(ctx)
                         ctx=_context(root,contract,data,'native',claim)
+                        # The one-shot marker is written only under the lease this attempt claimed.
+                        if not D.lease_owned():raise ValueError('GPU lease lost before the one-shot native marker')
                         store.start_native(attempt)
                         payload=native.prepare(ctx,nconfig);require_context(ctx)
                         native.verify(ctx,payload,nconfig);require_context(ctx)
@@ -687,7 +743,7 @@ def execute_attempt(root,contract,attempt):
                 if not (folder/'failure.json').exists() and not (folder/'complete.json').exists():
                     store.stop(attempt,_stop_code(error))
                 raise
-        finally:_ACTIVE=None;_LEASE=None
+        finally:_ACTIVE=None
 
 
 def _result_value(contract,data,template,result,union):
@@ -736,9 +792,7 @@ def execute_analysis(root,contract):
     global _ACTIVE,_LEASE
     data=_phase(root,contract);doc,body,batch_path,batch,expected,store=data
     D=_CORE['C'].D;L=_CORE['L'];Q=_CORE['Q']
-    _release_stale_lock()
-    with D.owned_gpu_lock():
-        _LEASE=D._LEASE
+    with _gpu_lease():
         try:
             if store.analysis_marker.exists():return _seal_interrupted_result(root,contract,data)
             # Everything that can refuse is built before the one exclusive analysis marker; what
@@ -756,6 +810,8 @@ def execute_analysis(root,contract):
                     ctx=_activate(template,data,'owner-admission',None);roles['owner'][0].admit(ctx,roles['owner'][1]);require_context(ctx)
                 ok,_=Q.run_private(_fresh_log(store.output/'quarantine','owner-admission'),admit);_ACTIVE=None
                 if not ok:return Q.public_event('REFUSED',phase=body['phase'])
+            # The one exclusive marker is written only under the lease this invocation holds.
+            if not D.lease_owned():return Q.public_event('LEASE_LOST',phase=body['phase'])
             store.start_analysis(_LEASE['token'])
             claim=L.pin(store.analysis_marker)
             def work():
@@ -785,7 +841,7 @@ def execute_analysis(root,contract):
                     'captureReceipt':receipt,'repeatReceipt':D.repeat_artifact_pins(doc['repo'],captures)})
             ok,_=Q.run_private(store.output/'quarantine/analysis.log',work)
             return Q.public_event('ANALYSIS_COMPLETE' if ok else 'ANALYSIS_STOPPED',phase=body['phase'])
-        finally:_ACTIVE=None;_LEASE=None
+        finally:_ACTIVE=None
 
 
 def public_status(root,contract):

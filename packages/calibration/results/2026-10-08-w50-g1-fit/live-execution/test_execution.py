@@ -24,6 +24,9 @@ def module(name):
 class Fixture(unittest.TestCase):
     def setUp(self):
         t=tempfile.TemporaryDirectory();self.addCleanup(t.cleanup);self.repo=Path(t.name).resolve();self.output=self.repo/'outside'
+        # Phase outputs (and the creation admission's quarantine beside them) are outside the repo.
+        self.addCleanup(lambda repo=self.repo:[__import__('shutil').rmtree(p,ignore_errors=True)
+                                               for p in repo.parent.glob(repo.name+'-*')])
         self.D=module('dispatch');self.C=module('common');self.L=module('lifecycle');self.Q=module('quarantine')
         self.D._CORE={'C':self.C,'L':self.L,'Q':self.Q}
         self.oldlock=self.C.D.GPU_LOCK;self.C.D.GPU_LOCK=self.repo/'lease';self.addCleanup(setattr,self.C.D,'GPU_LOCK',self.oldlock)
@@ -379,11 +382,40 @@ class PreSeal(Fixture):
     # P1: the owner is admitted before every one-shot marker.
     def test_owner_refusal_at_exposure_creation_seals_nothing(self):
         slot=self.repo/self.C.D.SLOTS['exposure'];output=self.exposure_output()
-        self.owner.refuse.append('synthetic drifted owner input')
-        with self.assertRaisesRegex(ValueError,'drifted'):self.create(self.batch,output)
+        self.owner.refuse.append('synthetic drifted owner input NATIVE_SECRET_12345.875')
+        out=io.StringIO()
+        with contextlib.redirect_stdout(out),contextlib.redirect_stderr(out),\
+                self.assertRaisesRegex(ValueError,'quarantined') as refused:self.create(self.batch,output)
         self.assertFalse(slot.exists());self.assertFalse(output.exists());self.assertFalse(self.C.D.GPU_LOCK.exists())
-        self.create(self.batch,output)
+        # The admission's streams and its refusal are quarantined beside the fresh output.
+        self.assertNotIn('NATIVE_SECRET',out.getvalue()+str(refused.exception))
+        logs=sorted(Path(str(output)+'.admission').glob('owner-admission-*.log'))
+        self.assertIn('drifted',logs[0].read_text());self.assertIn('NATIVE_SECRET',logs[0].read_text())
+        with contextlib.redirect_stdout(out):self.create(self.batch,output)
+        self.assertEqual(len(list(Path(str(output)+'.admission').glob('*.log'))),2)
         self.assertEqual(self.owner.admits,[('owner-admission',False,False)]*2)
+    def test_owner_is_admitted_at_the_gate_creation_only(self):
+        """The gate batch freezes the intrinsic records, so the owner is admitted (and its refusal
+        quarantined) at the gate's creation; a gate grants owner admission at creation only."""
+        D=self.C.D;gate={**self.batch,'phase':'gate'};gate['runs']=[{k:v for k,v in self.batch['runs'][0].items() if k!='baselineCandidate'}]
+        self.D.result_for=lambda contract:{};one=[D.pin(self.repo,self.put('fit/one.json.result.json',{'synthetic':'fit result'}))]
+        self.fit.derived[:]=[{'schema':'w50-g1-fit-record-1','selected':[self.candidate]}]
+        record=self.put('fit-record.json',{**self.fit.derived[0],'completed':one})
+        slot=self.repo/D.SLOTS['gate'];output=self.exposure_output('-gate')
+        self.owner.refuse.append('synthetic refused intrinsic records')
+        with self.assertRaisesRegex(ValueError,'quarantined'):self.create(gate,output,gate_batch=gate,fit_record=record)
+        self.assertFalse(slot.exists());self.assertFalse(output.exists())
+        self.create(gate,output,gate_batch=gate,fit_record=record);self.assertTrue(slot.exists())
+        self.assertEqual(self.owner.admits,[('owner-admission',False,False)]*2)
+        with self.C.D.owned_gpu_lock():
+            self.D._LEASE=self.C.D._LEASE
+            try:
+                a=self.store.plan();claim=self.store.start(a,self.D._LEASE['token'])
+                self.L.write_once(Path(str(self.contract)+'.started.json'),{'numericalAdmission':None})
+                data=(self.doc,{**self.body,'phase':'gate'},self.batch_path,self.batch,[],self.store)
+                ctx=self.D._context(self.root,self.contract,data,'owner-admission',claim)
+                with self.assertRaisesRegex(ValueError,'No live owner'):self.D.require_owner_admission(ctx)
+            finally:self.D._ACTIVE=None;self.D._LEASE=None
     def test_owner_refusal_before_the_native_marker_is_a_recoverable_stop(self):
         self.owner.refuse.append('synthetic drifted owner input')
         a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
@@ -452,6 +484,23 @@ class PreSeal(Fixture):
         with self.assertRaisesRegex(ValueError,'frozen gate batch'):self.create(other_batch,self.exposure_output())
         self.assertFalse((self.repo/D.SLOTS['exposure']).exists());self.assertEqual(self.owner.admits,[])
 
+    def test_intrinsic_declarations_compare_as_the_owner_child_resolves_them(self):
+        """Second pre-seal review P3: the owner's Node child resolves pins lexically against the
+        repository (path.resolve), so a symlinked spelling of a cohort document is another
+        declaration there; it refuses here too, while a lexically equal spelling is admitted."""
+        D=self.C.D;(self.repo/'alias').symlink_to(self.repo);(self.repo/'sub').mkdir()
+        receded=json.loads((self.repo/'intrinsic.json').read_text())['recededRecords']
+        def batch(path):
+            declaration={'path':path,'sha256':self.candidate['sha256']}
+            records=D.pin(self.repo,self.put('intrinsic-'+path.replace('/','-')+'.json',
+                                             {'candidateDeclarations':[declaration],'recededRecords':receded}))
+            return {**self.batch,'ownerIntrinsicRecords':records}
+        linked=batch('alias/'+self.candidate['path'])
+        with self.assertRaisesRegex(ValueError,'differ from the candidate cohort'):
+            self.create(linked,self.exposure_output(),gate_batch=linked)
+        lexical=batch('sub/../'+self.candidate['path'])
+        self.create(lexical,self.exposure_output(),gate_batch=lexical)
+
     # P2: a lease its dead holder left behind is released by every entry, and only such a lease.
     def test_lock_left_by_a_killed_reconciliation_is_released_and_its_successor_adopts(self):
         self.orphan();failure=self.store.attempts/'000001/failure.json';pid=self.dead();token=self.token(pid)
@@ -491,6 +540,93 @@ class PreSeal(Fixture):
             lock.unlink();lock.write_text(successor);return original(pid,since)
         self.D._alive=swapped
         self.assertEqual(self.D._release_stale_lock(),'held');self.assertEqual(lock.read_text(),successor)
+
+    # Second pre-seal review P2: release and acquisition are one critical section.
+    RIVAL='''import json,sys,types
+from pathlib import Path
+def load(path,name):
+    m=types.ModuleType(name);m.__file__=path;sys.modules[name]=m
+    exec(compile(Path(path).read_bytes(),path,'exec'),m.__dict__);return m
+C=load(sys.argv[1]+'/common.py','rival_common');C.D.GPU_LOCK=Path(sys.argv[2])
+D=load(sys.argv[1]+'/dispatch.py','rival_dispatch');D._CORE={'C':C}
+if sys.argv[3]=='unguarded':
+    import contextlib;D._lease_mutex=contextlib.nullcontext
+try:
+    with D._gpu_lease() as released:
+        print(json.dumps(['acquired',released]),flush=True);sys.stdin.readline()
+except FileExistsError:print(json.dumps(['held']),flush=True)
+'''
+    def race(self,mode,full):
+        """This dispatcher (P2) reads a dead lease; in its stat-to-unlink window a rival process (P1)
+        runs its own release and acquisition. Returns P1's first line seen in the window, P2's
+        result, P1's final line and the lock's token afterwards."""
+        import select
+        lock=self.C.D.GPU_LOCK;lock.write_text(self.token(self.dead()));seen={}
+        rival=subprocess.Popen([sys.executable,'-I','-B','-c',self.RIVAL,str(H),str(lock),mode],
+                               stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True)
+        self.addCleanup(rival.kill)
+        real=os
+        class Window:
+            def __getattr__(self,name):return getattr(real,name)
+            def stat(self,path,*args,**kwargs):
+                value=real.stat(path,*args,**kwargs)
+                if 'line' not in seen:
+                    # The window: after this re-stat, before the unlink it licenses.
+                    ready,_,_=select.select([rival.stdout],[],[],1.0 if mode=='guarded' else 30)
+                    seen['line']=json.loads(rival.stdout.readline()) if ready else None
+                return value
+        self.D.os=Window();name=lambda released:released[0] if isinstance(released,tuple) else released
+        try:
+            if full:
+                with self.D._gpu_lease() as released:result=(name(released),lock.read_text())
+            else:result=(name(self.D._release_stale_lock()),None)
+        finally:self.D.os=real
+        after=lock.read_text() if lock.exists() else None
+        rest,_=rival.communicate('done\n',timeout=30)
+        final=[json.loads(line) for line in rest.splitlines()]
+        return seen['line'],result,final,after
+    def test_unguarded_stale_release_removes_a_rivals_fresh_lease(self):
+        """The reviewer's interleaving, without the mutex: the rival's fresh lease is deleted."""
+        window,result,_,after=self.race('unguarded',full=False)
+        self.assertEqual(window,['acquired',['removed',window[1][1]]])
+        self.assertEqual(result,('removed',None));self.assertIsNone(after)
+    def test_a_stale_release_never_removes_a_rivals_fresh_lease(self):
+        """With the mutex the rival waits for the whole release: it never acquires inside the
+        window, and afterwards it acquires only if this dispatcher took no lease, else it is held."""
+        window,result,final,after=self.race('guarded',full=False)
+        self.assertIsNone(window);self.assertEqual(result,('removed',None))
+        self.assertEqual(final,[['acquired','absent']])
+        window,result,final,after=self.race('guarded',full=True)
+        self.assertIsNone(window);self.assertEqual(result[0],'removed')
+        self.assertTrue(result[1].startswith(f'W50 pid={os.getpid()} '));self.assertEqual(final,[['held']])
+        self.assertFalse(self.C.D.GPU_LOCK.exists())
+    def test_a_lost_lease_writes_neither_one_shot_marker(self):
+        """Lease loss after the last capability check and before a one-shot marker writes no
+        marker: the attempt is a recoverable LEASE_LOST stop, the analysis a LEASE_LOST event."""
+        lock=self.C.D.GPU_LOCK;original=self.D._context
+        def native(root,contract,data,stage,*rest):
+            ctx=original(root,contract,data,stage,*rest)
+            if stage=='native':lock.unlink()
+            return ctx
+        self.D._context=native
+        a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'LEASE_LOST')
+        self.D._context=original
+        self.assertFalse((self.store.home/'native.started.json').exists());self.assertEqual(self.native.calls,0)
+        self.assertEqual(self.failure()['code'],'LEASE_LOST')
+        b=self.D.prepare_attempt(self.root,self.contract)
+        self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'ATTEMPT_COMPLETE')
+        self.assertEqual(self.native.calls,1)
+        run=self.Q.run_private
+        def admitted(log,callback):
+            value=run(log,callback)
+            if 'owner-admission' in str(log):lock.unlink()
+            return value
+        self.Q.run_private=admitted
+        try:event=self.D.execute_analysis(self.root,self.contract)
+        finally:self.Q.run_private=run
+        self.assertEqual(event,{'schema':'w50-live-public-event-1','code':'LEASE_LOST','phase':'exposure'})
+        self.assertFalse(self.store.analysis_marker.exists())
+        self.assertEqual(self.D.execute_analysis(self.root,self.contract)['code'],'ANALYSIS_STOPPED')
 
     # P3: a reused PID is not the claim's writer.
     def sleeper(self):

@@ -13,8 +13,10 @@ stage (pre-seal review P1): at the exposure's creation, before the one-shot nati
 before the analysis marker, so owner drift is an ordinary recoverable stop rather than an
 analysis that ends with no result. It holds LIVE's require_owner_admission grant and runs
 owner-candidate/live.preflight: every check evaluate makes before its snapshot, a hash of every
-transitive owner evidence pin and the Node closure's source-only probe. No execution claim is
-required (at the exposure's creation none exists) and nothing is written.
+transitive owner evidence pin, the Node closure's source-only probe and the frozen engine's
+reading of the batch's intrinsic records. No execution claim is required (at a creation none
+exists) and nothing is written. The gate's creation admits it too (second pre-seal review P1):
+the gate batch freezes the intrinsic records the exposure must reuse unchanged.
 """
 from pathlib import Path
 import types
@@ -49,8 +51,8 @@ def evaluate(context, captures, config):
 def admit(context, config):
     live = C.dispatcher(context, 'owner-admission')
     live.require_owner_admission(context)
-    if context.get('phase') != 'exposure' or context['batch'].get('phase') != 'exposure':
-        raise ValueError('Owner admission is exposure-only')
+    if context.get('phase') not in ('gate', 'exposure') or context['batch'].get('phase') != context['phase']:
+        raise ValueError('Owner admission belongs to a gate or an exposure')
     C.registered(context, live, config, SCHEMA)
     result = C.source(OWNER, 'w50_live_role_owner_admission').preflight(context, config)
     live.require_context(context)

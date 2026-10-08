@@ -139,11 +139,15 @@ class OwnerRole(unittest.TestCase):
 
     def setUp(self):
         """subprocess.run is the process boundary: the owner child (live-node.mjs) is self.child,
-        the Node closure's source-only probe (live-probe.mjs) answers PROBE (self.probe_stdout)."""
+        the Node closure's source-only probe (live-probe.mjs) answers PROBE (self.probe_stdout),
+        and live-node.mjs's pre-marker intrinsic request answers self.intrinsic."""
         self.child = Mock(return_value=child_result()); self.probes = []; self.probe_stdout = PROBE
+        self.intrinsics = []; self.intrinsic = child_result(stdout='{"intrinsic":"ADMITTED"}\n')
         def run(args, *rest, **kwargs):
             if str(args[-1]).endswith('owner-candidate/live-probe.mjs'):
                 self.probes.append(list(args)); return child_result(stdout=self.probe_stdout)
+            if set(json.loads(kwargs.get('input') or '{}')) == {'config', 'root', 'batch'}:
+                self.intrinsics.append(json.loads(kwargs['input'])); return self.intrinsic
             return self.child(args, *rest, **kwargs)
         patch.object(subprocess, 'run', side_effect=run).start()
         self.addCleanup(patch.stopall)
@@ -297,7 +301,7 @@ class OwnerRole(unittest.TestCase):
                 other = kit.pin(kit.put('other-config.json', json.loads(Path(kit.repo/self.config['path']).read_text())))
                 with self.assertRaisesRegex(ValueError, 'prospective root input'):
                     self.role.admit(context, other)
-        self.assertEqual(len(self.probes), 1)
+        self.assertEqual((len(self.probes), len(self.intrinsics)), (1, 1))
         self.child.assert_not_called()
         gate = self.build(phase='gate')
         with gate.lease():
@@ -305,6 +309,24 @@ class OwnerRole(unittest.TestCase):
             with gate.stage('owner-admission', claim) as context:
                 with self.assertRaisesRegex(ValueError, 'owner admission capability'):
                     self.role.admit(context, self.config)
+
+    def test_the_gates_creation_admits_the_owner_with_its_intrinsic_records(self):
+        """Second pre-seal review P1: at the gate's creation (no contract yet) the owner admission
+        runs the frozen engine on the gate batch's intrinsic records; its refusal refuses."""
+        gate = self.build(phase='gate')
+        data = (gate.doc, {'phase': 'gate'}, gate.batch_path, gate.batch, gate.expected, None)
+        for answer, refused in ((self.intrinsic, False), (child_result(1, '', 'Endpoint identity does not match'), True)):
+            with self.subTest(refused=refused), gate.lease():
+                self.intrinsic = answer
+                context = gate.D._context(gate.root, None, data, 'owner-admission', None)
+                try:
+                    if refused:
+                        with self.assertRaisesRegex(ValueError, 'refused the intrinsic records'):
+                            self.role.admit(context, self.config)
+                    else:self.assertEqual(self.role.admit(context, self.config), {'admitted': True})
+                finally:gate.D._ACTIVE = None
+        self.assertEqual([r['batch'] for r in self.intrinsics], [pin(gate.batch_path)]*2)
+        self.child.assert_not_called()
 
     def test_owner_drift_refuses_at_admission_not_after_a_marker(self):
         kit = self.build()

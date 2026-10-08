@@ -48,6 +48,20 @@ class Lifecycle(unittest.TestCase):
         self.store.complete_native(read(False))
         self.assertEqual(self.store.native_state(),'complete');self.assertFalse(self.store.native_metadata()['payload'] is None)
         self.assertEqual(L.read(self.store._native_payload())['stops'][0]['reason'],'NATIVE_SPREAD_EXCEEDS_ONE_CODE')
+    def test_the_public_native_marker_pins_the_quarantined_payload_alone(self):
+        """DL5k (second pre-seal review P3): the marker beside the contract lists no artifact, so
+        no empty-support witness name leaves the quarantine before the judge marker; the payload's
+        own artifact list is still checked through the payload."""
+        witness=self.output/'native-blind/empty-support'/('c'*64+'.json');witness.parent.mkdir(parents=True)
+        witness.write_text('{"pixels": 0}\n')
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a)
+        self.store.complete_native(read(artifacts=[L.pin(witness)]))
+        marker=(self.home/'phase.json.phase/native.complete.json').read_text()
+        self.assertEqual(set(json.loads(marker)),{'schema','logicalContract','started','payload'})
+        self.assertNotIn('c'*64,marker);self.assertNotIn('empty-support',marker)
+        self.assertEqual(self.store.native_metadata()['payload'],L.pin(self.store._native_payload()))
+        witness.write_text('{"pixels": 1}\n')
+        with self.assertRaisesRegex(ValueError,'Changed journal artifact'):self.store.native_metadata()
     def test_native_payload_admits_only_one_completed_read(self):
         stop={'cell':'p/s','statistic':'deep8','reason':'UNMEASURED_UNAUTHORISED_POPULATION'}
         L.native_payload(read());L.native_payload(read(False))

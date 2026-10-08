@@ -414,10 +414,15 @@ class LiveTests(unittest.TestCase):
             self.config = self.put('config.json', config)
         self.refresh()
 
-    def probe(self, stdout=None, returncode=0):
+    def probe(self, stdout=None, returncode=0, intrinsic=None):
+        """Fake both pre-marker launches: the source-only probe (live-probe.mjs) answers `stdout`,
+        the intrinsic request (live-node.mjs) answers `intrinsic` (admission by default)."""
         launches = []
         def run(args, **kwargs):
-            launches.append((list(args), kwargs['env']))
+            launches.append((list(args), kwargs['env'], kwargs.get('input')))
+            if str(args[-1]).endswith('live-node.mjs'):
+                code, out = intrinsic or (0, self.live.INTRINSIC_ADMITTED)
+                return type('Result', (), {'returncode': code, 'stderr': 'synthetic intrinsic refusal', 'stdout': out})()
             return type('Result', (), {'returncode': returncode, 'stderr': 'synthetic probe refusal',
                                        'stdout': self.PROBE if stdout is None else stdout})()
         patch.stopall()
@@ -447,13 +452,19 @@ class LiveTests(unittest.TestCase):
             self.assertEqual(self.live.preflight(context, self.config), expected)
         after = sorted((str(p), p.read_bytes()) for p in Path(self.temp.name).rglob('*') if p.is_file())
         self.assertEqual(before, after)
-        self.assertEqual(len(launches), 2)
-        for args, env in launches:
-            self.assertEqual(args, [self.read(self.config)['node']['path'], '--import',
-                                    str(self.here.parent/'owner/node-guard.mjs'), str(self.here/'live-probe.mjs')])
+        self.assertEqual(len(launches), 4)
+        node = self.read(self.config)['node']['path']
+        for (args, env, _), (intrinsic, ienv, request) in zip(launches[::2], launches[1::2]):
+            self.assertEqual(args, [node, '--import', str(self.here.parent/'owner/node-guard.mjs'), str(self.here/'live-probe.mjs')])
             self.assertEqual((env['W50_WEB_CLOSURE'], env['W50_WEB_CLOSURE_SHA256']),
                              (self.closure['path'], self.closure['sha256']))
             self.assertNotIn('W50_OWNER_LIVE_SNAPSHOT', env)
+            # The intrinsic request follows the probe: root and batch bound by content.
+            self.assertEqual(intrinsic, [node, str(self.here/'live-node.mjs')])
+            self.assertEqual(json.loads(request), {'config': self.config, 'root': self.root, 'batch': self.batch})
+            self.assertEqual((ienv['W50_OWNER_LIVE_ROOT_SHA256'], ienv['W50_OWNER_LIVE_BATCH_SHA256']),
+                             (self.root['sha256'], self.batch['sha256']))
+            self.assertNotIn('W50_OWNER_LIVE_SNAPSHOT', ienv)
 
     def test_preflight_refuses_owner_drift_before_any_marker(self):
         evidence = self.put('evidence.png', {'syntheticBytes': 5})
@@ -485,7 +496,7 @@ class LiveTests(unittest.TestCase):
                             self.live.preflight(context, self.config)
                     finally:
                         restore()
-                    self.assertFalse(any('live-node.mjs' in ' '.join(a) for a, _ in launches))
+                    self.assertFalse(any('live-node.mjs' in ' '.join(a) for a, *_ in launches))
         self.assertFalse((self.output/'owner-candidate.snapshot.json').exists())
 
     def test_preflight_rechecks_the_exposure_contract_once_it_exists(self):
@@ -500,6 +511,64 @@ class LiveTests(unittest.TestCase):
             self.assertEqual(self.live.preflight(context, self.config)['admitted'], True)
         path.write_bytes(raw)
         self.assertEqual(self.live.preflight(self.context, self.config)['admitted'], True)
+
+    def test_preflight_runs_the_intrinsic_request_at_the_gates_creation_and_refuses_on_it(self):
+        """Second pre-seal review P1: the frozen engine's refusal of the batch's intrinsic records
+        refuses the admission, at the gate's creation as at the exposure's; nothing is written."""
+        self.exercised()
+        gate = {**self.context, 'phase': 'gate', 'batchPath': self.gate_batch['path'], 'batch': self.read(self.gate_batch),
+                'gateResult': None, 'gateCaptures': None}
+        for context in (gate, self.context):
+            with self.subTest(phase=context['phase']):
+                launches = self.probe()
+                with self.creation_context() as created:
+                    created.update({k: context[k] for k in ('phase', 'batchPath', 'batch', 'gateResult', 'gateCaptures')})
+                    self.assertEqual(self.live.preflight(created, self.config)['admitted'], True)
+                    self.assertEqual(json.loads(launches[-1][2])['batch'], pin(Path(context['batchPath'])))
+                    for answer, message in (((1, ''), 'refused the intrinsic records'),
+                                            ((0, '{"intrinsic":{"X76":"within"}}\n'), 'no admission')):
+                        self.probe(intrinsic=answer)
+                        with self.assertRaisesRegex(ValueError, message):
+                            self.live.preflight(created, self.config)
+        launches = self.probe()
+        with self.creation_context() as created:
+            created.update(phase='fit', gateResult=None)
+            self.live.preflight(created, self.config)
+        self.assertFalse(any('live-node.mjs' in ' '.join(a) for a, *_ in launches))
+
+    def test_preflight_refuses_an_existing_exclusive_owner_output(self):
+        """Second pre-seal review P3: evaluate opens both files exclusively after the analysis
+        marker, so one already present refuses the admission before it."""
+        self.exercised(); self.probe()
+        for name in ('owner-candidate.snapshot.json', 'owner-candidate.report.json'):
+            with self.subTest(name=name):
+                path = self.output/name; path.symlink_to(self.output/'absent-target')
+                with self.assertRaisesRegex(ValueError, 'exclusive output already exists'):
+                    self.live.preflight(self.context, self.config)
+                path.unlink()
+        self.assertEqual(self.live.preflight(self.context, self.config)['admitted'], True)
+
+    def test_real_child_answers_the_intrinsic_request_only_when_bound(self):
+        """The real live-node.mjs bootstrap's intrinsic branch: it admits through the bridge's
+        checkIntrinsicRecords, carries the bridge's refusal, and refuses an unbound request."""
+        patch.stopall()
+        self.exercised()
+        (self.here/'bridge.ts').write_text('export const executeRequest = () => ({});\n'
+            'export function checkIntrinsicRecords(request: any) {\n'
+            '  if (process.env.W50_SYNTHETIC_REFUSE) throw Error("synthetic engine refusal");\n'
+            '  return {intrinsic: "ADMITTED"};\n}\n')
+        self.refresh()
+        config = self.read(self.config)
+        self.live.intrinsic_probe(config, self.config, self.root, self.batch)
+        env = self.live.live_environment(config, self.config)
+        env.update(W50_OWNER_LIVE_ROOT_SHA256=self.root['sha256'], W50_OWNER_LIVE_BATCH_SHA256='0'*64)
+        child = subprocess.run([config['node']['path'], str(self.here/'live-node.mjs')], text=True, capture_output=True,
+            input=json.dumps({'config': self.config, 'root': self.root, 'batch': self.batch}), env=env, cwd=self.repo)
+        self.assertNotEqual(child.returncode, 0); self.assertIn('not bound', child.stderr)
+        # The seam binds root and batch itself; the bridge's own refusal reaches the caller.
+        with patch.object(self.live, 'live_environment', lambda *a: {**env, 'W50_SYNTHETIC_REFUSE': '1'}):
+            with self.assertRaisesRegex(ValueError, 'synthetic engine refusal'):
+                self.live.intrinsic_probe(config, self.config, self.root, self.batch)
 
     def test_node_probe_reproduces_a_fresh_discovery_exercise(self):
         """The real live-probe.mjs, launched as preflight launches it, against a closure the real
