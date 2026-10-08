@@ -98,5 +98,53 @@ class DraftRoot(unittest.TestCase):
                     self.assertEqual(self.draft.role_inputs('owner', config), expected)
 
 
+class Successor(unittest.TestCase):
+    """supersede() on a synthetic chain: the draft names the newest sealed root, its introducing
+    commit and its ruling, and the authority admits it in memory at the successor's path."""
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup)
+        self.repo = Path(temp.name).resolve()/'repo'; self.fit = self.repo/REL; self.live = self.fit/'live-execution'
+        self.live.mkdir(parents=True); self.git('init', '-q'); self.git('commit', '-q', '--allow-empty', '-m', 'base')
+        self.draft = load(); self.A, self.D = self.draft.A, self.draft.D
+        for name, value in (('REPO', self.repo), ('FIT', self.fit)):
+            patcher = patch.object(self.draft, name, value); patcher.start(); self.addCleanup(patcher.stop)
+        self.one = self.seal(self.live/'execution-root.json', self.body())
+
+    def git(self, *args):
+        return subprocess.run(['git', '-C', str(self.repo), '-c', 'user.name=synthetic', '-c', 'user.email=synthetic@invalid',
+                               *args], check=True, capture_output=True, text=True).stdout.strip()
+
+    def body(self):
+        return {'schema': 'w50-g1-execution-root-1', 'lifecycle': 'logical-phase-attempts-1',
+                'quarantine': 'instrument-api-role-discipline-1', 'repo': str(self.repo), 'inputs': []}
+
+    def seal(self, path, doc):
+        self.D.write_sealed(path, doc); self.git('add', '-f', '-A'); self.git('commit', '-q', '-m', 'seal '+path.name)
+        commit = self.git('rev-parse', 'HEAD')
+        (self.live/'dl5o-ruling.txt').write_text(f'DL5o (synthetic; nothing executed under root `{commit[:9]}`).\n')
+        return path
+
+    def test_the_draft_supersedes_the_newest_sealed_root_and_validates_at_the_successor_path(self):
+        doc = self.body(); root = self.draft.supersede(doc)
+        self.assertEqual(root, self.live/'execution-root-2.json'); self.assertFalse(root.exists())
+        record = doc['supersedes']; ruling = self.D.pin(self.repo, self.live/'dl5o-ruling.txt')
+        self.assertEqual(record['root'], self.D.pin(self.repo, self.one))
+        self.assertEqual(record['sealingCommit'], self.git('rev-parse', 'HEAD'))
+        self.assertEqual(record['ruling'], {'id': 'DL5o', 'text': ruling}); self.assertIn(ruling, doc['inputs'])
+        self.assertEqual(self.A.predecessors(root, doc), [self.D.pin(self.repo, self.one),
+                                                         self.D.pin(self.repo, Path(str(self.one)+'.sha256'))])
+        # The draft of a root whose predecessor executed, or of a generation no ruling authorises, refuses.
+        gate = self.A.C.slot(self.one, 'gate'); gate.write_text('{}')
+        with self.assertRaisesRegex(ValueError, 'executed history'): self.A.predecessors(root, doc)
+        gate.unlink(); self.seal(root, doc)
+        with self.assertRaisesRegex(ValueError, 'No ruling authorises LIVE root generation 3'): self.draft.supersede(self.body())
+
+    def test_an_uncommitted_newest_root_has_no_sealing_commit(self):
+        self.D.write_sealed(self.live/'execution-root-2.json', {**self.body(), 'unsealed': True})
+        with patch.dict(self.draft.RULINGS, {3: ('DL9x', 'dl5o-ruling.txt')}), \
+                self.assertRaisesRegex(ValueError, 'no unique introducing commit'):
+            self.draft.supersede(self.body())
+
+
 if __name__ == '__main__':
     unittest.main()

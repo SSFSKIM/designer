@@ -1,4 +1,11 @@
-"""Assemble the LIVE root body as a DRAFT (live-execution/execution-root.draft.json); never seal.
+"""Assemble the SUCCESSOR LIVE root body as a DRAFT; never seal (W50 DL5o).
+
+The draft is the next generation of the live-execution chain (authority.predecessors): after
+the newest sealed root execution-root[-n].json it is execution-root-<n+1>.json, written as
+execution-root-<n+1>.draft.json. Its supersedes record (supersede) names the newest sealed root
+by content pin, the commit that introduced it, the ruling that authorises this generation
+(RULINGS; DL5o for generation 2, its verbatim text pinned among the root's inputs) and the
+statement that nothing executed under it, with the slot area that statement covers.
 
 Every field is derived from repository bytes and checked by the original source validators the
 seal will run again (authority.validate_body): G0 declaration selection, the DL5d dependency
@@ -6,7 +13,7 @@ table, the composed-current authority, the DL5a/b/c key enumerations, the DL5e o
 evidence, each registered role's interface and its config/input registration. A component whose
 files are absent keeps a named TODO slot, which instrument_shape refuses, so such a draft cannot
 be sealed by accident. A complete draft is then run through authority.validate_body in memory at
-the sealed root's pathname, without writing it. The closure is what the composite probe executes
+the successor's pathname, without writing it; that includes every chain link below it. The closure is what the composite probe executes
 now; it must be rediscovered when any source changes, which the seal (authority.seal_root) does
 and compares.
 
@@ -45,6 +52,31 @@ D = A.D
 
 
 def pin(path): return D.pin(REPO, path)
+
+
+# The ruling that authorises each successor generation, as a text in live-execution/.
+RULINGS = {2: ('DL5o', 'dl5o-ruling.txt')}
+
+
+def sealing_commit(path):
+    """The one commit that introduced a sealed root; authority.sealing_commit checks it again."""
+    relative = str(Path(path).resolve().relative_to(REPO))
+    found = subprocess.run(['git', '-C', str(REPO), 'log', '--diff-filter=A', '--format=%H', '--', relative],
+                           capture_output=True, text=True, check=True).stdout.split()
+    if len(found) != 1: raise ValueError('Sealed root has no unique introducing commit: '+relative)
+    return found[0]
+
+
+def supersede(doc):
+    """Make doc the successor of the newest sealed root beside it; return the successor's path."""
+    live = FIT/'live-execution'; newest = A.C.newest_root(live); D.sealed(newest)
+    n = A.C.generation(newest.name)+1
+    if n not in RULINGS: raise ValueError(f'No ruling authorises LIVE root generation {n}')
+    ruling, text = RULINGS[n][0], pin(live/RULINGS[n][1])
+    doc['supersedes'] = {'schema': A.SUPERSESSION, 'root': pin(newest), 'sealingCommit': sealing_commit(newest),
+                         'ruling': {'id': ruling, 'text': text}, 'unexecuted': A.unexecuted(REPO, newest)}
+    if text not in doc['inputs']: doc['inputs'].append(text)
+    return live/A.C.root_name(n)
 
 
 def todo(role, field, path, why):
@@ -240,14 +272,15 @@ def assemble():
 
 def main():
     doc, pending = assemble()
-    target = LIVE/'execution-root.draft.json'
+    root = supersede(doc)
+    target = root.with_name(root.name.removesuffix('.json')+'.draft.json')
     target.write_text(json.dumps(doc, indent=2, allow_nan=False)+'\n')
-    # The seal's own body validation, in memory, at the sealed root's pathname; nothing is
-    # written there. A draft with a pending slot cannot pass it (instrument_shape refuses).
-    body = 'PENDING' if pending else (A.validate_body(LIVE/'execution-root.json', doc) is doc and 'PASS')
-    print(json.dumps({'draft': str(target.relative_to(REPO)), 'sha256': D.sha(target), 'pending': pending,
-                      'inputs': len(doc['inputs']), 'closureSources': len(doc['closure']['sources']),
-                      'validateBody': body}))
+    # The seal's own body validation, in memory, at the successor's pathname; nothing is written
+    # there. A draft with a pending slot cannot pass it (instrument_shape refuses).
+    body = 'PENDING' if pending else (A.validate_body(root, doc) is doc and 'PASS')
+    print(json.dumps({'draft': str(target.relative_to(REPO)), 'sha256': D.sha(target), 'root': str(root.relative_to(REPO)),
+                      'supersedes': doc['supersedes']['root'], 'pending': pending, 'inputs': len(doc['inputs']),
+                      'closureSources': len(doc['closure']['sources']), 'validateBody': body}))
 
 
 if __name__ == '__main__':
