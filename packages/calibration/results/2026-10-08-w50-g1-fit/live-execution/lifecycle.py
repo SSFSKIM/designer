@@ -12,6 +12,9 @@ import os
 from pathlib import Path
 
 
+STOP_CODES={'INSTRUMENT_FAULT','CENSUS_REFUSED','LEASE_LOST'}
+
+
 def digest(raw):return hashlib.sha256(raw).hexdigest()
 def sha(path):return digest(Path(path).read_bytes())
 def read(path):return json.loads(Path(path).read_text())
@@ -22,6 +25,9 @@ def checked(item):
         raise ValueError('Changed journal artifact')
     return path
 
+OUTPUT_MARKER='phase-output.json'
+
+
 def write_once(path,value):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     raw=(json.dumps(value,sort_keys=True,allow_nan=False)+'\n').encode()
@@ -29,9 +35,21 @@ def write_once(path,value):
     return pin(path)
 
 
+def claim_output(output,contract):
+    """Create one phase's logical output exclusively, naming the contract that will own it.
+
+    The marker precedes the contract seal, which pins it, so a crash between the two burns
+    only an unsealed output directory, never a phase."""
+    output=Path(output);output.mkdir(parents=True,exist_ok=False)
+    return write_once(output/OUTPUT_MARKER,{'schema':'w50-live-phase-output-1','contract':str(Path(contract).resolve())})
+
+
 def members(batch):
     result=[]
     for index,run in enumerate(batch['runs']):
+        if batch['phase']=='exposure' and not isinstance(run.get('baselineCandidate'),dict):
+            # Exposure measures each cell against its same-render current lane (measurement/phase.py).
+            raise ValueError('Exposure run needs its registered same-cell baseline candidate')
         for scene in run['scenes']:
             lanes=[('candidate',run['candidate'])]
             if batch['phase']=='exposure':lanes.append(('current',run['baselineCandidate']))
@@ -134,10 +152,14 @@ class Store:
             'members':pending}
         write_once(self.attempts/f'{n:06d}'/'contract.json',a)
         return a
+    def _output_claim(self):
+        marker=read(self.contract).get('outputMarker')
+        if not isinstance(marker,dict) or checked(marker)!=self.output/OUTPUT_MARKER or \
+                read(self.output/OUTPUT_MARKER)!={'schema':'w50-live-phase-output-1','contract':str(self.contract)}:
+            raise ValueError('Logical output is not exclusively claimed by this phase contract')
     def start(self,a,lease):
         if self.analysis_marker.exists():raise ValueError('Analysis blocks capture restart')
-        folder=self._attempt_dir(a)
-        self.output.mkdir(parents=True,exist_ok=True)
+        folder=self._attempt_dir(a);self._output_claim()
         return write_once(folder/'started.json',{'attempt':pin(folder/'contract.json'),
             'logicalContract':pin(self.contract),'pid':os.getpid(),'gpuLease':lease,'output':str(self.output)})
     def checkpoint(self,a,member,payload,artifacts):
@@ -167,14 +189,19 @@ class Store:
         return write_once(folder/'recovered'/(member['id']+'.json'),{'schema':'w50-live-member-checkpoint-1',
             'member':member,'attempt':pin(folder/'contract.json'),'claim':pin(folder/'started.json'),
             'payload':payload_pin,'artifacts':artifacts,'revalidationClaim':revalidation})
-    def stop(self,a,code):
-        if code not in {'INSTRUMENT_FAULT','CENSUS_REFUSED','LEASE_LOST'}:raise ValueError('Not an operational stop')
+    def stop(self,a,code,stale=None):
+        """Preserve an operational stop. `stale` records that the claim's process and lease were
+        found gone afterwards (a kill), rather than the stop being written by the invocation."""
+        if code not in STOP_CODES:raise ValueError('Not an operational stop')
         folder=self._claim(a)
         if self.analysis_marker.exists():raise ValueError('Cannot recover scientific analysis')
+        if (folder/'complete.json').exists():raise ValueError('A completed attempt is not a stop')
         tree=self.output/'attempts'/f'{a["ordinal"]:06d}'
         inventory=[pin(p) for p in sorted(tree.rglob('*')) if p.is_file()]
-        return write_once(folder/'failure.json',{'schema':'w50-live-attempt-failure-1','code':code,
-            'attempt':pin(folder/'contract.json'),'claim':pin(folder/'started.json'),'inventory':inventory})
+        value={'schema':'w50-live-attempt-failure-1','code':code,
+            'attempt':pin(folder/'contract.json'),'claim':pin(folder/'started.json'),'inventory':inventory}
+        if stale is not None:value['stale']=stale
+        return write_once(folder/'failure.json',value)
     def finish(self,a):
         folder=self._claim(a)
         found={c['member']['id'] for c in self.checkpoints() if c['attempt']==pin(folder/'contract.json')}

@@ -7948,3 +7948,28 @@ registered batch even on direct invocation, and `audit/next_wave.py` seals and e
 imports. A next declaration must pin those contract/guard sources and give any reader subprocess
 its own import gate. Use the additive registered-batch guard for this frozen G0 tool; do not amend
 its old seal or infer permission for a new fit from its generic argument parser.
+
+
+## W50 LIVE `current_evidence` is tested only behind a patched `root_doc` (G1, 2026-10-09)
+
+*Independent review of the W50 live execution path, finding 7; logged rather than fixed under
+the fix wave's cost rule.* `fit/test_composed_current.py` reaches
+`live-execution/dispatch.py#current_evidence` with `root_doc`, `checked` and `load` patched, so the
+initializer's consumer test never drives the dispatcher's own root authentication. The
+evidence-to-composition comparison that authentication ends in is now covered directly
+(`authority.current_authority`, `test_authority.CurrentAuthority`: reordered, missing and extra
+`currentInstruments`/`currentResults`/`chainPins`, chain pins absent from the root's inputs, a
+flattened singular `currentInstrument`), and `validate_body`'s refusal of the root-level
+`currentInstrument`/`currentResults` aliases is tested.
+
+What stays untested is the unpatched path: `root_doc` → `_prepare` (root seal sidecar, bootstrap
+pin, every closure source, `guard.environment`, `guard.enforce`, `guard.discover`) →
+`validate_body` in full. In process this is not cheap. `guard.enforce` installs an audit hook and a
+`sys.setprofile` for the life of the interpreter, so it cannot run inside the unittest process, and
+`validate_body` needs a synthetic repository whose bootstrap files byte-equal current3's, sealed
+part one/two, a declared-inputs fixture, a completed current composition and owner contracts. The
+fix has this shape: a subprocess test (`-I -B`) that builds that synthetic repository once in a
+tempdir by copying the sealed source files, seals a synthetic root with `authority.seal_root`, and
+calls `current_evidence` for real, asserting the composed evidence pin and one refusal (a changed
+evidence byte). If the live root's own composite probe already exercises this at seal time, record
+that instead and close the entry.

@@ -62,16 +62,7 @@ def validate_body(path,doc):
     original=D.load(D.checked(repo,doc['references']));D.verify_phase_dependencies(doc,original['cells'])
     composition=C.source(C.CANONICAL3/'execution/composition.py','w50_live_actual_current_composition')
     current=composition.validate_completed_current(repo,doc['currentComposition'])
-    evidence=D.load(D.checked(repo,doc['currentEvidence']))
-    if (evidence.get('schema')!='w50-completed-current-evidence-2' or evidence.get('status')!='EVIDENCE_ONLY' or
-            evidence.get('currentComposition')!=doc['currentComposition'] or
-            evidence.get('currentInstruments')!=[r['pin'] for r in current['roots']] or
-            evidence.get('currentResults')!=[r['pin'] for r in current['resultDocuments']] or
-            evidence.get('chainPins')!=current['chainPins'] or
-            evidence.get('originals',{}).get('references')!=doc['references'] or
-            doc['baselineDocuments']!=current['candidates']):raise ValueError('Current evidence lacks genuine composed authority')
-    for item in [doc['currentComposition'],doc['currentEvidence'],*current['chainPins']]:
-        if item not in doc['inputs']:raise ValueError('Current composition/evidence chain omitted from root')
+    current_authority(doc,D.load(D.checked(repo,doc['currentEvidence'])),current)
     old=current['roots'][0]['document']
     if doc['repeatAdmission']!=old['repeatAdmission'] or doc['newBedHost']!=old['newBedHost']:
         raise ValueError('Live/current host or repeat policy differs')
@@ -86,6 +77,19 @@ def validate_body(path,doc):
         owner=C.source(path.parent/'owner_evidence.py','w50_live_owner_reference')
         owner.OwnerEvidence(repo,doc['ownerContracts'],D.owner_source(doc)).finish()
     return doc
+
+
+def current_authority(doc,evidence,current):
+    """The completed-current evidence names the validated composition's chains exactly, in order."""
+    if (evidence.get('schema')!='w50-completed-current-evidence-2' or evidence.get('status')!='EVIDENCE_ONLY' or
+            'currentInstrument' in evidence or evidence.get('currentComposition')!=doc['currentComposition'] or
+            evidence.get('currentInstruments')!=[r['pin'] for r in current['roots']] or
+            evidence.get('currentResults')!=[r['pin'] for r in current['resultDocuments']] or
+            evidence.get('chainPins')!=current['chainPins'] or
+            evidence.get('originals',{}).get('references')!=doc['references'] or
+            doc['baselineDocuments']!=current['candidates']):raise ValueError('Current evidence lacks genuine composed authority')
+    for item in [doc['currentComposition'],doc['currentEvidence'],*current['chainPins']]:
+        if item not in doc['inputs']:raise ValueError('Current composition/evidence chain omitted from root')
 
 
 def root_doc(path):return validate_body(path,D.sealed(path))

@@ -7,6 +7,11 @@ prepare(context, config) -> {ready: true, ...}, with an artifacts pin list. Meas
 evaluate(context, captures, config). Fit/judge/owner: evaluate(context, evidence, config).
 Initializer remains a separate pre-render entrypoint behind verify_prefit.
 
+Operational stops (DL5k) are always preserved: an exception after an attempt's claim writes
+its failure record before propagating; a killed attempt is preserved by stop_stale_attempt
+once its process and its GPU lease are both gone. A capture role signals a census refusal by
+raising CensusRefused; a lost GPU lease is classified from the lock itself.
+
 Protected payload access is instrument/API enforced plus the wave's role discipline.
 It is NOT OS isolation. No agent may open native/quarantine files directly before the
 complete-union measurement/judge marker. Every public execution result is allowlisted.
@@ -23,6 +28,10 @@ HERE=Path(__file__).resolve().parent
 _CORE=None
 _ACTIVE=None
 _LEASE=None
+
+
+class CensusRefused(RuntimeError):
+    """Raised by a live capture role when the classifying census refuses before a draw."""
 
 
 def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -92,7 +101,7 @@ def create_phase(root,batch_path,output,fit_record=None):
     root=Path(root).resolve();doc=root_doc(root);D=_CORE['C'].D;repo=Path(doc['repo'])
     batch=D.load(batch_path);phase=batch.get('phase')
     if phase not in ('fit','gate','exposure'):raise ValueError('Only scientific LIVE phases are admitted')
-    batch,_=D.validate_batch(doc,batch_path,phase)
+    batch,_=D.validate_batch(doc,batch_path,phase);_live_batch(doc,batch)
     if phase=='fit' and (root.parent/D.SLOTS['gate']).exists():raise ValueError('Gate already froze fitting')
     prefit=verify_prefit(root,doc);output=Path(output).resolve()
     if output.exists() or output.is_relative_to(repo):raise ValueError('Logical phase needs fresh external output')
@@ -108,14 +117,26 @@ def create_phase(root,batch_path,output,fit_record=None):
         if D.sealed(gate)['cohort']!=batch['cohort']:raise ValueError('Exposure changes frozen gate cohort')
         extra={'gateContract':D.pin(repo,gate),'gateResult':D.pin(repo,Path(str(gate)+'.result.json'))}
     target=root.parent/'fit'/f'{sha(batch_path)}.json' if phase=='fit' else root.parent/D.SLOTS[phase]
+    # Everything the journal derives from the contract is derived before anything is durable, so a
+    # malformed batch refuses here instead of burning a one-shot slot.
+    L=_CORE['L'];L.Store(target,batch,output)
+    if target.exists() or Path(str(target)+'.sha256').exists():raise ValueError('Logical phase slot already exists')
+    marker=L.claim_output(output,target)
     return D.write_sealed(target,{'schema':'w50-g1-phase-contract-1','executionRootSha256':sha(root),
         'phase':phase,'batch':D.pin(repo,batch_path),'cohort':batch['cohort'],'preFitEvidence':prefit,
-        'logicalOutput':str(output),**extra})
+        'logicalOutput':str(output),'outputMarker':marker,**extra})
+
+
+def _live_batch(doc,batch):
+    """LIVE's batch shape beyond the original admission, which treats a baseline as optional."""
+    if batch['phase']=='exposure' and any(run.get('baselineCandidate') not in doc['baselineDocuments'] for run in batch['runs']):
+        raise ValueError('Every exposure run needs its registered same-cell baseline candidate')
 
 
 def _phase(root,contract):
     doc=root_doc(root);D=_CORE['C'].D;body=D.sealed(contract);repo=Path(doc['repo'])
     phase=body['phase'];batch_path=D.checked(repo,body['batch']);batch,expected=D.validate_batch(doc,batch_path,phase)
+    _live_batch(doc,batch)
     target=Path(root).parent/'fit'/f'{sha(batch_path)}.json' if phase=='fit' else Path(root).parent/D.SLOTS[phase]
     if Path(contract).resolve()!=target.resolve() or body['executionRootSha256']!=sha(root) or body['cohort']!=batch['cohort']:
         raise ValueError('Wrong logical phase authority')
@@ -148,6 +169,11 @@ def require_render_admission(context,run,current=False):
     require_context(context)
     if context['stage']!='capture' or not any(m['run']==run and (m['lane']=='current')==current for m in _ACTIVE['members']):
         raise ValueError('Rendering is limited to this remaining capture member')
+    doc=_ACTIVE['doc']
+    if not current:
+        if _ACTIVE['numerical'] is None:raise ValueError('Candidate render has no numerical admission')
+        checked(doc['repo'],_ACTIVE['numerical'])
+    admission_module(doc).endpoints(doc,run['candidate'],current=current)
     return run
 
 
@@ -200,7 +226,10 @@ def _context(root,contract,phase_data,stage,claim,members=(),payloads=()):
     else:context.update(gateResult=None,gateCaptures=None,gateReport=None)
     hashes=[(context['executionRoot'],sha(root)),(str(contract),sha(contract)),(str(batch_path),sha(batch_path)),
         (claim['path'],claim['sha256']),(str(logical),sha(logical))]
-    _ACTIVE={'context':context,'snapshot':copy.deepcopy(context),'hashes':hashes,'doc':doc,'store':store,
+    numerical=L.read(logical).get('numericalAdmission')
+    for item in (numerical,context['gateResult']):
+        if item is not None:hashes.append((str(D.checked(doc['repo'],item)),item['sha256']))
+    _ACTIVE={'context':context,'snapshot':copy.deepcopy(context),'hashes':hashes,'doc':doc,'store':store,'numerical':numerical,
         'members':list(members),'payloads':list(payloads),
         'records':{r['member']['id']:L.read(L.checked(r['payload'])) for r in store.checkpoints()} if stage in ('analysis','qualification') else {}}
     sys.modules['w50_g1_dispatch']=sys.modules[__name__]
@@ -215,6 +244,10 @@ def _component(doc,role):
 def _record_artifacts(doc,member,record,declared):
     if any(record.get(k)!=member['run'].get(k) for k in ('profile','renderer','candidate')) or record.get('scene')!=member['scene'] or record.get('lane')!=member['lane']:
         raise ValueError('Captured receipt differs from admitted single member')
+    # The original pin collector skips a legacy-retained origin; a live draw has none (DL5h (b)).
+    if 'origin' in record:raise ValueError('A live member admits no legacy origin')
+    if any(not isinstance(record.get(k),dict) or not record[k].get('path') for k in ('repeatPair','repeatAdmission')):
+        raise ValueError('A live member needs both content-pinned repeat witnesses')
     pins=_CORE['C'].D.repeat_artifact_pins(doc['repo'],{'captures':[record]})
     artifacts=list(declared)
     for item in [*pins,*(record['artifacts'][k] for k in ('png','cell','report'))]:
@@ -225,16 +258,133 @@ def _record_artifacts(doc,member,record,declared):
     return artifacts
 
 
+def _alive(pid):
+    """A claim whose process cannot be signalled is gone; a reused PID reads alive (safe side)."""
+    if type(pid) is not int or pid<=0:raise ValueError('Claim has no process identity')
+    if pid==os.getpid():return True
+    try:os.kill(pid,0)
+    except ProcessLookupError:return False
+    except PermissionError:return True
+    return True
+
+
+def _release_stale_lease(claim):
+    """Prove a claim's process and lease are gone; remove the lock only if it is that lease's.
+
+    The lock is touched only when it still carries the claim's own token, read and unlinked as
+    the same file. A lock held under another token is another owner's and is never removed."""
+    token=claim.get('gpuLease')
+    if not isinstance(token,str) or f' pid={claim.get("pid")} ' not in token or _alive(claim.get('pid')):
+        raise ValueError('Claim process may still own its lease')
+    lock=_CORE['C'].D.GPU_LOCK
+    try:
+        with open(lock) as handle:
+            held=handle.read();identity=os.fstat(handle.fileno())
+    except FileNotFoundError:
+        return 'absent'
+    if held!=token:raise ValueError('GPU lock belongs to another lease; not touched')
+    now=os.stat(lock)
+    if (now.st_dev,now.st_ino)!=(identity.st_dev,identity.st_ino):raise ValueError('GPU lock changed while checked')
+    os.unlink(lock)
+    return 'removed-same-token'
+
+
+def stop_stale_attempt(root,contract,code):
+    """Preserve a killed attempt (claim without failure/completion) as an operational stop.
+
+    Writes the failure record with its inventory, so prepare_attempt's reconciliation runs next."""
+    global _LEASE
+    store=_phase(root,contract)[5];D=_CORE['C'].D;L=_CORE['L'];Q=_CORE['Q']
+    prior=store._contracts()
+    if not prior:raise ValueError('No attempt to preserve')
+    folder=prior[-1].parent;attempt=L.read(prior[-1])
+    if not (folder/'started.json').exists() or (folder/'failure.json').exists() or (folder/'complete.json').exists():
+        raise ValueError('Only a started, unstopped, incomplete attempt can be preserved as stale')
+    claim=L.read(folder/'started.json')
+    lock=_release_stale_lease(claim)
+    with D.owned_gpu_lock():
+        _LEASE=D._LEASE
+        try:store.stop(attempt,code,stale={'pid':claim['pid'],'gpuLease':claim['gpuLease'],'lock':lock})
+        finally:_LEASE=None
+    return Q.public_event(code,phase=store.batch['phase'],attempt=attempt['ordinal'])
+
+
+def _stop_code(error):
+    if not _CORE['C'].D.lease_owned():return 'LEASE_LOST'
+    if isinstance(error,CensusRefused):return 'CENSUS_REFUSED'
+    return 'INSTRUMENT_FAULT'
+
+
+def _classified(callback,stop):
+    def run():
+        try:return callback()
+        except BaseException as error:
+            stop['code']=_stop_code(error);raise
+    return run
+
+
+def _reconcile(root,contract,data,store,attempt_path,failure_path,failure,orphans):
+    """One numbered reconciliation of a stopped attempt's orphans under this process's lease.
+
+    A stopped reconciliation is preserved (claim, log pin, failure) and a successor names it; a
+    completed one is never repeated. Adopted members stay adopted by their own claim."""
+    global _ACTIVE
+    doc=data[0];L=_CORE['L'];Q=_CORE['Q'];digest=sha(failure_path);old=L.read(attempt_path)
+    base=store.home/'reconciliations'/digest
+    runs=sorted(p for p in base.glob('[0-9]'*6) if p.is_dir()) if base.exists() else []
+    if runs and (runs[-1]/'complete.json').exists():return
+    predecessor=None
+    if runs:
+        last=runs[-1];started=L.read(last/'started.json')
+        if not (last/'failure.json').exists():
+            # A killed reconciliation: this process holds the GPU lease, so only its PID remains.
+            if _alive(started.get('pid')):raise ValueError('Prior reconciliation may still be running')
+            log=store.output/'quarantine'/f'reconciliation-{digest}-{int(last.name):06d}.log'
+            L.write_once(last/'failure.json',{'schema':'w50-live-reconciliation-failure-1',
+                'claim':L.pin(last/'started.json'),'log':L.pin(log) if log.is_file() else None,'stale':True})
+        predecessor={'claim':L.pin(last/'started.json'),'failure':L.pin(last/'failure.json')}
+    n=len(runs)+1;home=base/f'{n:06d}'
+    log=store.output/'quarantine'/f'reconciliation-{digest}-{n:06d}.log'
+    claim=L.write_once(home/'started.json',{'schema':'w50-live-reconciliation-claim-1','logicalContract':L.pin(contract),
+        'failedAttempt':L.pin(attempt_path),'failure':L.pin(failure_path),'ordinal':n,
+        'predecessor':predecessor,'pid':os.getpid(),'gpuLease':_LEASE['token']})
+    def recover():
+        ctx=_context(root,contract,data,'qualification',claim,orphans)
+        capture,config=_component(doc,'capture')
+        admitted={(str(Path(p['path']).resolve()),p['sha256']) for p in failure['inventory']}
+        admitted|={(str((Path(doc['repo'])/p['path']).resolve()),p['sha256']) for p in doc['inputs']}
+        for member in orphans:
+            found=capture.recover(ctx,member,config);require_context(ctx)
+            if found is None:
+                if any(Path(member['run']['captureRoot']).rglob('repeat-admission__*.json')):
+                    raise ValueError('Source-qualified orphan cannot be silently rerendered')
+                continue
+            capture.verify(ctx,member,found['record'],config);require_context(ctx)
+            pins=_record_artifacts(doc,member,found['record'],found['artifacts'])
+            if any((str(Path(p['path']).resolve()),p['sha256']) not in admitted for p in pins):
+                raise ValueError('Recovery adopted files absent from the preserved failure/source inventory')
+            store.adopt(old,member,found['record'],pins,claim)
+    try:ok,_=Q.run_private(log,recover)
+    finally:_ACTIVE=None
+    if not ok:
+        L.write_once(home/'failure.json',{'schema':'w50-live-reconciliation-failure-1','claim':claim,'log':L.pin(log)})
+        raise ValueError('Source reconciliation stopped; protected details remain quarantined')
+    L.write_once(home/'complete.json',{'schema':'w50-live-reconciliation-complete-1','claim':claim,'log':L.pin(log)})
+
+
 def prepare_attempt(root,contract):
     global _ACTIVE,_LEASE
     data=_phase(root,contract);doc,body,batch_path,batch,expected,store=data
-    D=_CORE['C'].D;L=_CORE['L'];Q=_CORE['Q'];prior=store._contracts()
+    D=_CORE['C'].D;L=_CORE['L'];prior=store._contracts()
     if store.analysis_marker.exists():raise ValueError('Analysis already started')
     if (store.home/'native.started.json').exists() and not (store.home/'native.complete.json').exists():
         raise ValueError('Incomplete native subread cannot be replayed')
+    if prior and not (prior[-1].parent/'started.json').exists():
+        # Planned but never claimed: the same centrally derived attempt is still the next one.
+        return L.read(prior[-1])
     if prior:
         old=L.read(prior[-1]);failure_path=prior[-1].parent/'failure.json'
-        if not failure_path.exists():raise ValueError('Prior attempt is not a preserved stop')
+        if not failure_path.exists():raise ValueError('Prior attempt is not a preserved stop (see stop_stale_attempt)')
         failure=L.read(failure_path)
         for item in failure['inventory']:L.checked(item)
         done={r['member']['id'] for r in store.checkpoints()}
@@ -242,28 +392,7 @@ def prepare_attempt(root,contract):
         if orphans:
             with D.owned_gpu_lock():
                 _LEASE=D._LEASE
-                try:
-                    claim_path=store.home/'reconciliations'/(sha(failure_path)+'.started.json')
-                    claim=L.write_once(claim_path,{'schema':'w50-live-reconciliation-claim-1','logicalContract':L.pin(contract),
-                        'failedAttempt':L.pin(prior[-1]),'failure':L.pin(failure_path),'pid':os.getpid(),'gpuLease':_LEASE['token']})
-                    ctx=_context(root,contract,data,'qualification',claim,orphans)
-                    def recover():
-                        capture,config=_component(doc,'capture')
-                        admitted={(str(Path(p['path']).resolve()),p['sha256']) for p in failure['inventory']}
-                        admitted|={(str((Path(doc['repo'])/p['path']).resolve()),p['sha256']) for p in doc['inputs']}
-                        for member in orphans:
-                            found=capture.recover(ctx,member,config);require_context(ctx)
-                            if found is None:
-                                if any(Path(member['run']['captureRoot']).rglob('repeat-admission__*.json')):
-                                    raise ValueError('Source-qualified orphan cannot be silently rerendered')
-                                continue
-                            capture.verify(ctx,member,found['record'],config);require_context(ctx)
-                            pins=_record_artifacts(doc,member,found['record'],found['artifacts'])
-                            if any((str(Path(p['path']).resolve()),p['sha256']) not in admitted for p in pins):
-                                raise ValueError('Recovery adopted files absent from the preserved failure/source inventory')
-                            store.adopt(old,member,found['record'],pins,claim)
-                    ok,_=Q.run_private(store.output/'quarantine'/('reconciliation-'+sha(failure_path)+'.log'),recover)
-                    if not ok:raise ValueError('Source reconciliation stopped; protected details remain quarantined')
+                try:_reconcile(root,contract,data,store,prior[-1],failure_path,failure,orphans)
                 finally:_ACTIVE=None;_LEASE=None
     if len(store.checkpoints())==len(store.population):
         # A crash after the last qualified cell may need only the existing attempt's final marker.
@@ -282,43 +411,51 @@ def execute_attempt(root,contract,attempt):
         _LEASE=D._LEASE
         try:
             claim=store.start(attempt,_LEASE['token'])
-            logical=Path(str(contract)+'.started.json')
-            if not logical.exists():L.write_once(logical,{'contractSha256':sha(contract),'batchSha256':sha(batch_path),
-                'phase':body['phase'],'pid':os.getpid(),'gpuLease':_LEASE['token'],'output':str(store.output),
-                'numericalAdmission':numerical})
-            else:
-                started=L.read(logical)
-                if any(started.get(k)!=v for k,v in {'contractSha256':sha(contract),'batchSha256':sha(batch_path),
-                    'phase':body['phase'],'output':str(store.output),'numericalAdmission':numerical}.items()):
-                    raise ValueError('Logical phase starter authority changed')
-            def work():
-                capture,config=_component(doc,'capture')
-                retained=store.checkpoints()
-                if body['phase']=='exposure' and (store.home/'native.complete.json').exists():
-                    ctx=_context(root,contract,data,'qualification',claim,[r['member'] for r in retained])
-                    native,nconfig=_component(doc,'native');native.verify(ctx,qualification_native(ctx),nconfig);require_context(ctx)
-                if retained:
-                    ctx=_context(root,contract,data,'qualification',claim,[r['member'] for r in retained])
-                    for r in retained:
-                        capture.verify(ctx,r['member'],L.read(L.checked(r['payload'])),config)
-                        require_context(ctx)
-                if body['phase']=='exposure' and not (store.home/'native.complete.json').exists():
-                    store.start_native(attempt)
-                    ctx=_context(root,contract,data,'native',claim)
-                    native,nconfig=_component(doc,'native');payload=native.prepare(ctx,nconfig);require_context(ctx)
-                    native.verify(ctx,payload,nconfig);require_context(ctx)
-                    store.complete_native(payload,payload.get('artifacts',[]))
-                for member in attempt['members']:
-                    ctx=_context(root,contract,data,'capture',claim,[member])
-                    captured=capture.capture(ctx,member,config);require_context(ctx)
-                    capture.verify(ctx,member,captured['record'],config);require_context(ctx)
-                    record=captured['record']
-                    artifacts=_record_artifacts(doc,member,record,captured['artifacts'])
-                    store.checkpoint(attempt,member,record,artifacts)
-                store.finish(attempt)
-            ok,_=Q.run_private(store.output/'attempts'/f'{attempt["ordinal"]:06d}'/'quarantine/worker.log',work)
-            if not ok:store.stop(attempt,'INSTRUMENT_FAULT')
-            return Q.public_event('ATTEMPT_COMPLETE' if ok else 'INSTRUMENT_FAULT',phase=body['phase'],attempt=attempt['ordinal'])
+            folder=store.attempts/f'{attempt["ordinal"]:06d}'
+            try:
+                logical=Path(str(contract)+'.started.json')
+                if not logical.exists():L.write_once(logical,{'contractSha256':sha(contract),'batchSha256':sha(batch_path),
+                    'phase':body['phase'],'pid':os.getpid(),'gpuLease':_LEASE['token'],'output':str(store.output),
+                    'numericalAdmission':numerical})
+                else:
+                    started=L.read(logical)
+                    if any(started.get(k)!=v for k,v in {'contractSha256':sha(contract),'batchSha256':sha(batch_path),
+                        'phase':body['phase'],'output':str(store.output),'numericalAdmission':numerical}.items()):
+                        raise ValueError('Logical phase starter authority changed')
+                def work():
+                    capture,config=_component(doc,'capture')
+                    retained=store.checkpoints()
+                    if body['phase']=='exposure' and (store.home/'native.complete.json').exists():
+                        ctx=_context(root,contract,data,'qualification',claim,[r['member'] for r in retained])
+                        native,nconfig=_component(doc,'native');native.verify(ctx,qualification_native(ctx),nconfig);require_context(ctx)
+                    if retained:
+                        ctx=_context(root,contract,data,'qualification',claim,[r['member'] for r in retained])
+                        for r in retained:
+                            capture.verify(ctx,r['member'],L.read(L.checked(r['payload'])),config)
+                            require_context(ctx)
+                    if body['phase']=='exposure' and not (store.home/'native.complete.json').exists():
+                        store.start_native(attempt)
+                        ctx=_context(root,contract,data,'native',claim)
+                        native,nconfig=_component(doc,'native');payload=native.prepare(ctx,nconfig);require_context(ctx)
+                        native.verify(ctx,payload,nconfig);require_context(ctx)
+                        store.complete_native(payload,payload.get('artifacts',[]))
+                    for member in attempt['members']:
+                        ctx=_context(root,contract,data,'capture',claim,[member])
+                        captured=capture.capture(ctx,member,config);require_context(ctx)
+                        capture.verify(ctx,member,captured['record'],config);require_context(ctx)
+                        record=captured['record']
+                        artifacts=_record_artifacts(doc,member,record,captured['artifacts'])
+                        store.checkpoint(attempt,member,record,artifacts)
+                    store.finish(attempt)
+                stop={'code':'INSTRUMENT_FAULT'}
+                ok,_=Q.run_private(store.output/'attempts'/f'{attempt["ordinal"]:06d}'/'quarantine/worker.log',_classified(work,stop))
+                if not ok:store.stop(attempt,stop['code'])
+                return Q.public_event('ATTEMPT_COMPLETE' if ok else stop['code'],phase=body['phase'],attempt=attempt['ordinal'])
+            except BaseException as error:
+                # Whatever interrupts a claimed attempt outside the worker leaves a preserved stop.
+                if not (folder/'failure.json').exists() and not (folder/'complete.json').exists():
+                    store.stop(attempt,_stop_code(error))
+                raise
         finally:_ACTIVE=None;_LEASE=None
 
 

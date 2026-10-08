@@ -1,5 +1,8 @@
+import copy
+import hashlib
 import importlib.util
 from pathlib import Path
+import tempfile
 import unittest
 import types
 H=Path(__file__).resolve().parent
@@ -19,4 +22,52 @@ class Authority(unittest.TestCase):
         for field in ('entrypoint','config'):
             broken={**roles,'judge':{**roles['judge'],field:{'status':'PENDING'}}}
             with self.assertRaises(ValueError):A.instrument_shape(broken)
+    def test_root_refuses_singular_current_aliases_before_any_other_admission(self):
+        with tempfile.TemporaryDirectory() as t:
+            repo=Path(t).resolve()
+            path=repo/'packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root.json'
+            doc={'repo':str(repo),'schema':'w50-g1-execution-root-1','lifecycle':'logical-phase-attempts-1',
+                 'quarantine':'instrument-api-role-discipline-1'}
+            with self.assertRaisesRegex(ValueError,'live component'):A.validate_body(path,doc)
+            for alias in ('currentInstrument','currentResults'):
+                with self.subTest(alias=alias),self.assertRaisesRegex(ValueError,'Wrong live lifecycle root'):
+                    A.validate_body(path,{**doc,alias:{'path':'x','sha256':'a'*64}})
+
+
+def pin(name):return {'path':name,'sha256':hashlib.sha256(name.encode()).hexdigest()}
+
+
+class CurrentAuthority(unittest.TestCase):
+    def setUp(self):
+        roots=[{'pin':pin('current3-root'),'document':{}},{'pin':pin('canonical3-root'),'document':{}}]
+        results=[{'pin':pin('current3-result')},{'pin':pin('canonical3-result')}]
+        chain=[pin('chain-a'),pin('chain-b'),pin('chain-c')];baseline=[pin('baseline-025'),pin('baseline-05')]
+        self.current={'roots':roots,'resultDocuments':results,'chainPins':chain,'candidates':baseline}
+        self.doc={'currentComposition':pin('composition'),'currentEvidence':pin('evidence'),
+                  'references':pin('references'),'baselineDocuments':copy.deepcopy(baseline)}
+        self.doc['inputs']=[self.doc['currentComposition'],self.doc['currentEvidence'],*copy.deepcopy(chain)]
+        self.evidence={'schema':'w50-completed-current-evidence-2','status':'EVIDENCE_ONLY',
+            'currentComposition':self.doc['currentComposition'],'currentInstruments':[r['pin'] for r in roots],
+            'currentResults':[r['pin'] for r in results],'chainPins':copy.deepcopy(chain),
+            'originals':{'references':self.doc['references']}}
+    def test_exact_ordered_composition_is_admitted(self):
+        A.current_authority(self.doc,self.evidence,self.current)
+    def test_reordered_missing_or_extra_chain_entries_refuse(self):
+        for field in ('currentInstruments','currentResults','chainPins'):
+            for mutation in ('reordered','missing','extra'):
+                evidence=copy.deepcopy(self.evidence);value=evidence[field]
+                if mutation=='reordered':value.reverse()
+                elif mutation=='missing':value.pop()
+                else:value.append(pin('foreign'))
+                with self.subTest(field=field,mutation=mutation),self.assertRaisesRegex(ValueError,'composed authority'):
+                    A.current_authority(self.doc,evidence,self.current)
+    def test_chain_pin_absent_from_root_inputs_refuses(self):
+        for item in (self.doc['currentComposition'],self.doc['currentEvidence'],self.current['chainPins'][1]):
+            doc=copy.deepcopy(self.doc);doc['inputs'].remove(item)
+            with self.subTest(item=item['path']),self.assertRaisesRegex(ValueError,'omitted from root'):
+                A.current_authority(doc,self.evidence,self.current)
+    def test_flattened_singular_current_instrument_refuses(self):
+        evidence={**self.evidence,'currentInstrument':self.evidence['currentInstruments'][0]}
+        with self.assertRaisesRegex(ValueError,'composed authority'):A.current_authority(self.doc,evidence,self.current)
+
 if __name__=='__main__':unittest.main()

@@ -16,7 +16,8 @@ class Lifecycle(unittest.TestCase):
         self.batch={'phase':'exposure','cohort':[self.candidate],'runs':[{'id':'r','profile':'profile','renderer':'css',
             'sceneSource':'canonical','candidate':self.candidate,'baselineCandidate':{'path':'current.json','sha256':'b'*64},
             'scenes':['one','two'],'sets':['holdout'],'captureRoot':'unused','matrixPath':'unused'}]}
-        L.write_once(self.contract,{'phase':'exposure','batch':self.batch,'output':str(self.output)})
+        marker=L.claim_output(self.output,self.contract)
+        L.write_once(self.contract,{'phase':'exposure','batch':self.batch,'output':str(self.output),'outputMarker':marker})
         self.store=L.Store(self.contract,self.batch,self.output)
     def test_attempt_derives_exact_lanes_and_remaining_with_stable_phase(self):
         a=self.store.plan();self.assertEqual(len(a['members']),4)
@@ -82,5 +83,24 @@ class Lifecycle(unittest.TestCase):
         self.store.checkpoint(a,a['members'][0],{},[]);self.store.stop(a,'INSTRUMENT_FAULT')
         checkpoint=self.store.checkpoints()[0];Path(checkpoint['payload']['path']).write_text('changed')
         with self.assertRaises(ValueError):self.store.plan()
+    def test_exposure_run_without_its_baseline_refuses_as_a_shape_error(self):
+        broken=copy.deepcopy(self.batch);broken['runs'][0].pop('baselineCandidate')
+        with self.assertRaisesRegex(ValueError,'baseline'):L.Store(self.contract,broken,self.output)
+        fit={**copy.deepcopy(broken),'phase':'fit'}
+        self.assertEqual(len(L.Store(self.contract,fit,self.output).population),2)
+    def test_output_is_claimed_exclusively_by_one_contract(self):
+        with self.assertRaises(FileExistsError):L.claim_output(self.output,self.home/'other.json')
+        other=self.home/'other.json';L.write_once(other,{'phase':'exposure','outputMarker':L.pin(self.output/L.OUTPUT_MARKER)})
+        shared=L.Store(other,self.batch,self.output);a=shared.plan()
+        with self.assertRaisesRegex(ValueError,'exclusively'):shared.start(a,'lease')
+        unmarked=self.home/'unmarked.json';L.write_once(unmarked,{'phase':'exposure'})
+        loose=L.Store(unmarked,self.batch,self.home/'loose');b=loose.plan()
+        with self.assertRaisesRegex(ValueError,'exclusively'):loose.start(b,'lease')
+        self.store.start(self.store.plan(),'lease')
+    def test_completed_attempt_cannot_be_rewritten_as_a_stop(self):
+        a=self.store.plan();self.store.start(a,'lease');self.store.start_native(a);self.store.complete_native({'ready':True})
+        for m in a['members']:self.store.checkpoint(a,m,{'member':m['id']},[])
+        self.store.finish(a)
+        with self.assertRaises(ValueError):self.store.stop(a,'INSTRUMENT_FAULT')
 
 if __name__=='__main__':unittest.main()
