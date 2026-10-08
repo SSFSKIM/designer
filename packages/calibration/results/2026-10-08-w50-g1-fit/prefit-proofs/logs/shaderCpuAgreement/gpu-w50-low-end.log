@@ -1,0 +1,13 @@
+[WebServer] (node:57849) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:57932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:57938) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium-gpu] › e2e/gpu/w50-low-end.spec.ts:12:1 › @gpu W50 chart reaches pixels and preserves every old solve gate (593ms)
+  ✓  2 [chromium-gpu] › e2e/gpu/w50-low-end.spec.ts:40:1 › @gpu W50 production chart agrees with CPU within 0.001 encoded code (11.0s)
+
+  2 passed (13.0s)
