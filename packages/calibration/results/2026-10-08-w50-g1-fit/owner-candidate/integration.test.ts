@@ -36,7 +36,7 @@ test('exposure bridge evaluates untouched real candidate rows against sealed syn
     const inputs={declaration:decl,current:[current.input],references:[original.input],captures:{[key]:currentCapture},
       referenceCaptures:{},python:'/not-executed-in-this-cell'};
     const report=prepareCurrent(inputs).current;
-    const closurePath=resolve(repo,prefix+'source-closure.json'),closureBytes=readFileSync(closurePath);
+    const closurePath=resolve(repo,prefix+'r2/source-closure.json'),closureBytes=readFileSync(closurePath);
     const frozenSourceClosure={path:closurePath,sha256:hash(closureBytes)};
     const closure=JSON.parse(closureBytes.toString());
     const sourcePins=Object.fromEntries(closure.sources.filter((p:any)=>

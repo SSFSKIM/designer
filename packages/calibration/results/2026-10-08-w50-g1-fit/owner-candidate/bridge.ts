@@ -8,7 +8,7 @@ const KEY=['profile','renderer','scene','statistic'];
 const keyOf=(row:any)=>KEY.map(field=>row[field]);
 const sorted=(values:any[])=>values.map(value=>JSON.stringify(value)).sort();
 const equalSet=(a:any[],b:any[])=>isDeepStrictEqual(sorted(a),sorted(b));
-export const FROZEN_CLOSURE_SHA256='91517fa49cb753ecddfd67ec724ddca70825c2f3ba5b8343962ea5239ddbd1dd';
+export const FROZEN_CLOSURE_SHA256='84465e599c9b8f9c4b2355028085311c990c637f0a9849fc38d703bc6d8dd6d2';
 
 /** Pure authenticated-document consistency checks; live.py establishes the nonserializable
  * dispatcher capability before a snapshot can be written or this child invoked. */

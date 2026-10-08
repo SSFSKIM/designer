@@ -15,7 +15,7 @@ const prefix='packages/calibration/results/2026-10-08-w50-g1-fit/owner/';
 // Caller-confirmed source-closure metadata, not self-selected live file hashes.
 const hashes={
   'api.ts':'a80a4caea17002b88b5de44b5ac9abf7a88f9d90328041a2e8afde304b6b7a1a',
-  'referee.ts':'9ea8e26d8e49ee083de96d27e38135dce9a368aff0c4ab4ff349193779c32ba1',
+  'referee.ts':'67a81a735d662f02092401b3c7954e392ea37f2e6ed5b79a40b81385d6a9eefb',
   'intrinsic.ts':'052a18daa895311275196dfb72d109bc8b7fe3776a1b15b8953235e649ce13e7',
   'source.ts':'1aea30da0199b81d1c05e5c80ea377cfb257f8bd99774c5272d35612d5b2f51e',
 };

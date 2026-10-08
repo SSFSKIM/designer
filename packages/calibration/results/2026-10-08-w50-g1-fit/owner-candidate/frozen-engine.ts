@@ -45,7 +45,7 @@ export function createCandidateEngine(input:CandidateEngineInputs) {
     bindSource(source[name]!.text,source[name]!.pin.sha256,selectors,{exports:{},...bindings});
   const base=bind('referee.ts',[
     'OWNER_SOURCE_SHA256','X76_SOURCE_SHA256','C1_SCOPE','X1_SCOPE','L1_SCOPE',
-    'sha','identity','cellKey','position','value','na','unread','measured','standard',
+    'sha','identity','cellKey','position','value','ownerReading','na','unread','measured','standard',
     'loadContracts','pinnedBytes','documentRoles','assertDocumentPair','readMatrix','classifyCell',
     'coherenceOwnerScope','checkInheritance','checkOpacity','inheritanceMethods',
   ],{readFileSync,createHash,resolve,CAL,OWNER:resolve(CAL,'test/adopted-thresholds.test.ts'),
