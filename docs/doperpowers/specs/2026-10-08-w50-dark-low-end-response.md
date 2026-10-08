@@ -416,7 +416,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-The following four rulings are recorded verbatim (2026-10-08).
+DL1–DL5 are recorded verbatim (2026-10-08); DL5 precedes every G1 analytical read.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -438,6 +438,36 @@ under the classifying census and the W43 sitting tooling's protections.
 DL4 (parent). The family, the blind split and the fixed per-cell landing rule are approved as
 drafted. There is no post-gate amendment and no exception landing; failure is NEITHER. The
 W49b templates (the batch bound inside the renderer, transitive-import sealing) are required.
+
+DL5 (parent, 2026-10-08, before any analytical read or candidate gate). Pre-gate protocol repair.
+Defect verified: audit/render.py fixes ONE execution-contract.json that pre-fit-evidence must pin,
+and that contract seals ONE batch of ONE phase with content-pinned candidate documents, so the
+sealed lifecycle needs the candidate's bytes before the fit and cannot admit a later exposure
+batch. This is an execution-lifecycle defect, not a landing-rule question. Authorised: an
+ADDITIVE prospective G1 dispatcher, with no sealed G0 file, W49b tool or part 1/2 byte changed:
+(a) pre-fit: one sealed G1 execution root, pinned in the pre-fit evidence, binding part 2's
+domain, the source/import closure (adapter, fit, measurement, band readers) and three phase slots;
+(b) fit phase: scratch renders of content-pinned candidates, calibration/validation(/recorded/probe)
+only, refusing every withheld set;
+(c) gate phase: exactly one write-once contract whose candidate pin is the fit's single selected
+point, named by its fit record hash;
+(d) exposure phase: exactly one write-once contract, creatable only from a gate PASS record that
+names the same candidate bytes, membership exactly part 2's blind split + historical prediction
+checks; NEITHER makes it uncreatable.
+Tests refuse: a second gate/exposure contract, exposure before PASS or with other bytes, a changed
+batch, a bypassed wrapper, changed/new imported modules, a cell outside the batch, and a withheld
+set outside exposure. Independent reviewer-high review of the dispatcher before first use.
+DL4 is unchanged: no post-gate amendment, no second point, failure is NEITHER.
+
+DL5a (parent, same date, pre-read). On the neutral 128/224 span controls (family 'span', solid
+background) the structured rows references.py adds (far24 luma mean/median, full-silhouette T1)
+are REPORTED, B null, not gated; charter 59-69 / 289-293 scope the T1 growth clause to structured
+cells. far24 over an empty dot set equals deep8 by definition; that convention is written and
+tested. The additive G1 pre-fit checker keeps every original key and provenance, validates all
+measured values strictly, and exempts ONLY those enumerated row keys (listed by exact key in the
+G1 root, not matched by pattern) from the MEASURED/positive-B requirement; their values are still
+computed and recorded, and the two level rows per control gate normally. The sealed declare.py
+checker is unchanged historical machinery.
 
 ### DL2 — conditional X41 publication delta (ruled)
 
