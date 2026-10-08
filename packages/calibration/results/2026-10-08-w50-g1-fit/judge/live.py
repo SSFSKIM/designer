@@ -43,10 +43,13 @@ Routing decisions the charter text fixes and this module only maps:
   out-of-domain value is nulled by the measurement projection with its kind and side recorded
   (readingDefects), because the measurement snapshot is strict JSON and a refusal there would
   follow the analysis marker; a gated key's defect still refuses in the projection.
-* An owner axis passes when NOT_APPLICABLE, MEASURED within/reported, a named miss of an
-  EXISTING record, or UNMEASURED under a source-owned exception of the root's owner contracts
-  snapshot (owner_evidence.py's rule). A named outcome that would need a NEW owner record
-  (M2's wouldRequireNewOwnerRecord) widens an exclusion and fails (charter clause 4).
+* An owner axis passes when NOT_APPLICABLE, MEASURED within, MEASURED reported on an axis
+  whose owner adopts no per-cell bound (C1, E2, coherence), a named miss that an EXISTING
+  record of the root's owner contracts snapshot covers (named_record), or UNMEASURED under a
+  source-owned exception of that snapshot (owner_evidence.py's rule). A named outcome no
+  existing record covers would need a NEW owner record, widens an exclusion and fails (charter
+  clause 4; DL5m 2). That holds for an M2 named miss and an L1 named growth miss alike,
+  whatever flags the referee sets.
 
 Readings the text leaves open are marked DECISION below and listed in the G1 report.
 """
@@ -356,7 +359,61 @@ def _same(a, b):
     return json.dumps(a, sort_keys=True, allow_nan=False) == json.dumps(b, sort_keys=True, allow_nan=False)
 
 
-def axis(profile, scene, evidence, contract):
+# The owner's L1 growth-miss records: `GROWTH_MISSES` in the owner source the contracts snapshot
+# pins (adopted-thresholds.test.ts at its `ownerSource`), empty there. The owner excuses a named
+# growth miss only when that map records it ("the gate that seals a candidate adds the
+# entries"). The snapshot projects the ruled cells (`growthRuled`) but not the records, so their
+# declared state is this empty set and a named growth outcome always needs a NEW record.
+# judge/test_live.py grounds the emptiness on the pinned source.
+L1_GROWTH_RECORDS = frozenset()
+# The axes whose source owner adopts no per-cell bound, so a per-cell reading is reported.
+REPORTED_AXES = ('C1', 'E2', 'coherence')
+
+
+def _named(entries, profile, scene, statistic=None):
+    """Whether the owner's `texture / set / scene / profile[ :: statistic]` names hold this cell."""
+    suffix = f' :: {statistic}' if statistic else ''
+    for entry in entries if isinstance(entries, list) else []:
+        parts = entry.split(' / ') if isinstance(entry, str) else []
+        if len(parts) == 4 and parts[0] == 'texture' and parts[2:] == [scene, profile+suffix]:
+            return True
+    return False
+
+
+def named_record(name, profile, scene, evidence, contract):
+    """None when an EXISTING source-owned record of the contracts snapshot covers this named owner
+    outcome, else why not. A named outcome no record covers would need a new owner record, which
+    widens an exclusion and fails (charter clause 4; DL5m 2). The referee's flags are read beside
+    the records, never instead of them. Only M1, M2 and L1 carry named outcomes: X1's snapshot
+    records no named miss (`namedMisses` is empty), and C1, E2 and coherence grade each cell
+    within/failure or report it, so a named verdict there has no record to cover it."""
+    exclusions = contract.get('exclusions') if isinstance(contract.get('exclusions'), dict) else {}
+    cell = f'{profile}/{scene}'
+    if name == 'M1':
+        return None if _named(exclusions.get('namedKeys'), profile, scene, 'chromaStructureRatioR') \
+            else 'M1 named miss has no existing MISSED_27_ROWS record'
+    if name == 'M2':
+        verdict = evidence.get('structureVerdict')
+        if evidence.get('wouldRequireNewOwnerRecord') is not False or verdict not in ('named', 'failure'):
+            return 'Named outcome would require a new owner record (exclusion widened)'
+        if not _named(exclusions.get('namedKeys'), profile, scene, 'interiorStdDevStructureDelta'):
+            return 'M2 named miss has no existing MISSED_27_ROWS record'
+        if verdict == 'failure' and not _named(exclusions.get('ruledFailures'), profile, scene):
+            return 'M2 failure has no existing ruled-failure record'
+        return None
+    if name == 'L1':
+        clauses = (evidence.get('absolute'), evidence.get('growthVerdict'))
+        if any(c not in ('within', 'named') for c in clauses) or 'named' not in clauses:
+            return 'L1 named verdict without a named clause'
+        if clauses[0] == 'named' and cell not in (exclusions.get('absoluteMisses') or []):
+            return 'L1 named absolute miss has no existing MISSES record'
+        if clauses[1] == 'named' and cell not in L1_GROWTH_RECORDS:
+            return 'L1 named growth miss has no existing GROWTH_MISSES record (exclusion widened)'
+        return None
+    return name+' has no source-owned named-miss record'
+
+
+def axis(name, profile, scene, evidence, contract):
     """(status, reason) for one owner axis, using the snapshot's source-owned reading schema."""
     if not isinstance(evidence, dict):
         return 'UNMEASURED', 'Owner axis evidence absent'
@@ -386,12 +443,13 @@ def axis(profile, scene, evidence, contract):
     if missing:
         return 'UNMEASURED', 'Missing source-owned owner reading: '+','.join(missing)
     verdict = evidence.get('verdict')
-    if verdict in ('within', 'reported'):
+    if verdict == 'within' or (verdict == 'reported' and name in REPORTED_AXES):
         return 'PASS', verdict
+    if verdict == 'reported':
+        return 'UNMEASURED', 'A reported reading on an axis whose owner bounds each cell'
     if verdict == 'named-miss':
-        if evidence.get('wouldRequireNewOwnerRecord') is True:
-            return 'FAIL', 'Named outcome would require a new owner record (exclusion widened)'
-        return 'PASS', 'existing named owner record'
+        missing = named_record(name, profile, scene, evidence, contract)
+        return ('FAIL', missing) if missing else ('PASS', 'existing named owner record')
     if verdict == 'failure':
         return 'FAIL', 'Owner verdict failure'
     return 'UNMEASURED', 'Owner evidence carries no verdict'
@@ -402,7 +460,7 @@ def owner_cell(identity, axes, contracts):
     profile, _, scene = identity.split('/', 2)
     if not isinstance(axes, dict) or set(axes) != set(AXES):
         return {'status': 'UNMEASURED', 'axes': {}, 'reason': 'Owner cell lacks the seven original axes'}
-    results = {name: axis(profile, scene, axes[name], contracts['axes'][name]) for name in AXES}
+    results = {name: axis(name, profile, scene, axes[name], contracts['axes'][name]) for name in AXES}
     statuses = {s for s, _ in results.values()}
     status = 'FAIL' if 'FAIL' in statuses else 'UNMEASURED' if 'UNMEASURED' in statuses else 'PASS'
     return {'status': status, 'axes': {name: {'status': s, 'reason': r, 'state': axes[name].get('state'),
@@ -716,5 +774,5 @@ def public_summary(report):
 
 def source_probe():
     T.source_probe()
-    axis('p', 's', {'state': 'NOT_APPLICABLE', 'reason': 'probe'}, {'readingSchema': {}})
+    axis('M1', 'p', 's', {'state': 'NOT_APPLICABLE', 'reason': 'probe'}, {'readingSchema': {}})
     return {'status': 'SOURCE_ONLY'}

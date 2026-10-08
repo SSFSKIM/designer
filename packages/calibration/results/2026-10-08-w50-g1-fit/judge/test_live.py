@@ -12,6 +12,7 @@ import copy
 import hashlib
 import io
 import json
+import re
 from pathlib import Path
 import shutil
 import sys
@@ -47,6 +48,22 @@ M = source(FIT/'measurement/projection.py', 'w50_judge_live_test_projection')
 
 def sha_bytes(raw):
     return hashlib.sha256(raw).hexdigest()
+
+
+# Owner records in the snapshot's own shapes (owner/evidence-r2/contracts.json), synthetic cells.
+P05 = 'apple-macos-27.0-1x-dark-standard-glass0.5'
+GROWTH_RULED = 'photo__capsule-button__inactive-tint-orange'
+ABSOLUTE_MISS = 'impulse__capsule-button__inactive-tint-orange'
+OWNER_EXCLUSIONS = {
+    'M1': {'namedKeys': [f'texture / validation / photo__rrect-sm__inactive / {P1} :: chromaStructureRatioR']},
+    'M2': {'namedKeys': [f'texture / calibration / photo__rrect-md__rest / {P2} :: interiorStdDevStructureDelta',
+                         f'texture / calibration / photo__rrect-md__inactive / {P2} :: interiorStdDevStructureDelta'],
+           'ruledFailures': [f'texture / calibration / photo__rrect-md__inactive / {P2}'],
+           'newOwnerRecords': 'wouldRequireNewOwnerRecord remains explicit; no automatic W50 authorisation'},
+    'X1': {'namedMisses': [], 'compositesAndAccessibility': 'Outside the source population'},
+    'L1': {'namedMissingMeans': [f'{P1}/dark-solid__rrect-lg__inactive'],
+           'absoluteMisses': [f'{P05}/{ABSOLUTE_MISS}'], 'growthRuled': [f'{P05}/{GROWTH_RULED}']},
+}
 
 
 def key(item):
@@ -247,6 +264,8 @@ class World:
         axes['M1']['readingSchema']['requiredFinite'] = ['R']
         axes['L1']['readingSchema']['unmeasuredExceptions'] = [{'kind': 'named-cell', 'identity': 'profile/scene',
             'keys': [f'{P1}/dark-solid__rrect-lg__inactive'], 'evidenceEquals': {'namedExclusion': True}}]
+        for name, exclusions in OWNER_EXCLUSIONS.items():
+            axes[name]['exclusions'] = copy.deepcopy(exclusions)
         return {'schema': 'w50-owner-contracts-1', 'axes': axes}
 
     def empty_witnesses(self):
@@ -739,6 +758,123 @@ REPORTED_LUMA = (P1, 'webgpu', 'cell-grey-028-s128__rest', 'deep8-far24-luma-mea
 SPAN128_LEVEL = (P1, 'webgpu', 'cell-grey-028-s128__rest', 'deep8-channel-median')
 BLIND_T1 = (P1, 'webgpu', 'cell-grey-000-s224__inactive', 'T1-full-silhouette')
 BLIND_LEVEL = (P1, 'webgpu', 'cell-grey-000-s224__inactive', 'deep8-channel-median')
+
+
+def l1_named(absolute, growth):
+    """L1 evidence as referee.ts classifies a named outcome: verdict named-miss, the two clauses
+    beside it, and no new-record flag (the referee sets none on L1)."""
+    return {'state': 'MEASURED', 'verdict': 'named-miss', 'native': .1, 'candidate': .2, 'reference': .15,
+            'error': .1, 'referenceError': .05, 'growth': .05, 'absolute': absolute, 'growthVerdict': growth}
+
+
+def m2_named(structure, would_require=False, **flags):
+    evidence = {'state': 'MEASURED', 'verdict': 'named-miss', 'native': .1, 'candidate': .2, 'reference': .15,
+                'structureDeltaFraction': .3, 'structureVerdict': structure, **flags}
+    if would_require is not None:
+        evidence['wouldRequireNewOwnerRecord'] = would_require
+    return evidence
+
+
+class OwnerNamedRecordTests(unittest.TestCase):
+    """A named owner verdict passes only when an existing record of the contracts snapshot covers
+    it (charter clause 4; DL5m 2; second pre-seal review P1)."""
+
+    def setUp(self):
+        self.world = World(self)
+        self.world.install(self)
+        self.judge = self.world.judge
+        self.axes = self.world.contracts()['axes']
+
+    def grade(self, name, profile, scene, evidence):
+        return self.judge.axis(name, profile, scene, evidence, self.axes[name])
+
+    def test_a_named_l1_growth_miss_has_no_existing_record_and_fails(self):
+        # The reviewer's case: a GROWTH_RULED cell's growth past 0.005 is NAMED by the referee,
+        # and GROWTH_MISSES records nothing, so it would need a new record.
+        status, reason = self.grade('L1', P05, GROWTH_RULED, l1_named('within', 'named'))
+        self.assertEqual(status, 'FAIL')
+        self.assertIn('GROWTH_MISSES', reason)
+        # An existing absolute record does not cover the growth clause of the same cell.
+        self.assertEqual(self.grade('L1', P05, ABSOLUTE_MISS, l1_named('named', 'named'))[0], 'FAIL')
+        self.assertEqual(self.judge.L1_GROWTH_RECORDS, frozenset())
+
+    def test_a_named_l1_absolute_miss_passes_only_on_its_existing_record(self):
+        self.assertEqual(self.grade('L1', P05, ABSOLUTE_MISS, l1_named('named', 'within')),
+                         ('PASS', 'existing named owner record'))
+        for label, scene, evidence in (
+                ('unrecorded cell', GROWTH_RULED, l1_named('named', 'within')),
+                ('no named clause', ABSOLUTE_MISS, l1_named('within', 'within')),
+                ('a failing clause', ABSOLUTE_MISS, l1_named('named', 'failure')),
+                ('clauses absent', ABSOLUTE_MISS, {k: v for k, v in l1_named('named', 'within').items()
+                                                   if k not in ('absolute', 'growthVerdict')})):
+            with self.subTest(label):
+                self.assertEqual(self.grade('L1', P05, scene, evidence)[0], 'FAIL')
+
+    def test_an_m2_named_outcome_passes_only_on_its_existing_record(self):
+        self.assertEqual(self.grade('M2', P2, 'photo__rrect-md__rest', m2_named('named'))[0], 'PASS')
+        self.assertEqual(self.grade('M2', P2, 'photo__rrect-md__inactive', m2_named('failure'))[0], 'PASS')
+        for label, scene, evidence in (
+                # The referee's flag alone never passes: the snapshot must hold the record.
+                ('flag false, no record', 'photo__capsule-button__rest', m2_named('named')),
+                ('flag absent', 'photo__rrect-md__rest', m2_named('named', would_require=None)),
+                ('flag true on a recorded cell', 'photo__rrect-md__rest', m2_named('named', True)),
+                ('failure without a ruled record', 'photo__rrect-md__rest', m2_named('failure')),
+                ('no directional verdict', 'photo__rrect-md__rest', m2_named('within'))):
+            with self.subTest(label):
+                self.assertEqual(self.grade('M2', P2, scene, evidence)[0], 'FAIL')
+        # A record of the same scene on another profile does not cover this one.
+        self.assertEqual(self.grade('M2', P1, 'photo__rrect-md__rest', m2_named('named'))[0], 'FAIL')
+
+    def test_an_m1_named_miss_passes_only_on_its_existing_record(self):
+        named = {'state': 'MEASURED', 'verdict': 'named-miss', 'R': 1.6}
+        self.assertEqual(self.grade('M1', P1, 'photo__rrect-sm__inactive', named)[0], 'PASS')
+        self.assertEqual(self.grade('M1', P1, 'photo__rrect-sm__rest', named)[0], 'FAIL')
+        self.assertEqual(self.grade('M1', P2, 'photo__rrect-sm__inactive', named)[0], 'FAIL')
+
+    def test_axes_that_record_no_named_miss_fail_a_named_verdict(self):
+        for name in ('X1', 'C1', 'E2', 'coherence'):
+            with self.subTest(name):
+                status, reason = self.grade(name, P1, 'photo__rrect-md__rest', {'state': 'MEASURED', 'verdict': 'named-miss'})
+                self.assertEqual(status, 'FAIL')
+                self.assertIn('no source-owned named-miss record', reason)
+
+    def test_a_reported_reading_passes_only_where_the_owner_bounds_no_cell(self):
+        for name in self.judge.AXES:
+            with self.subTest(name):
+                status, _ = self.grade(name, P1, 'photo__rrect-md__rest',
+                                       {'state': 'MEASURED', 'verdict': 'reported', 'R': 1.0})
+                self.assertEqual(status, 'PASS' if name in ('C1', 'E2', 'coherence') else 'UNMEASURED')
+
+    def test_the_exposure_is_neither_on_a_named_growth_miss_and_pass_on_a_recorded_m2_miss(self):
+        def growth(report):
+            report['cells'][f'{P2}/webgpu/photo__rrect-md__rest']['L1'] = l1_named('within', 'named')
+        def recorded(report):
+            report['cells'][f'{P2}/webgpu/photo__rrect-md__rest']['M2'] = m2_named('named')
+        for label, mutate, status in (('growth', growth, 'NEITHER'), ('recorded M2', recorded, 'PASS')):
+            with self.subTest(label):
+                world = World(self); world.install(self)
+                context, report = world.exposure(world.qualified_gate(), owner=mutate)
+                self.assertEqual(report['status'], status)
+                world.validate(context, report)
+
+    def test_the_declared_growth_records_are_the_pinned_owner_sources(self):
+        # Grounds L1_GROWTH_RECORDS: the contracts snapshot the judge config pins names its owner
+        # source by hash, and that source's GROWTH_MISSES is empty. Source text only.
+        repo = HERE.parents[4]
+        config = json.loads((HERE/'config.json').read_bytes())
+        raw = (repo/config['ownerContracts']['path']).read_bytes()
+        self.assertEqual(sha_bytes(raw), config['ownerContracts']['sha256'])
+        contracts = json.loads(raw)
+        owner = Path(contracts['ownerSource']['path'])
+        text = owner.read_bytes()
+        self.assertEqual(sha_bytes(text), contracts['ownerSource']['sha256'])
+        records = re.search(rb'const GROWTH_MISSES: Readonly<Record<string, GrowthMiss>> = \{(.*?)\};', text, re.S)
+        self.assertIsNotNone(records)
+        self.assertEqual(records.group(1).strip(), b'')
+        self.assertTrue({f'{P05}/{GROWTH_RULED}', f'{P05.replace("-1x-", "-2x-")}/{GROWTH_RULED}'} <=
+                        set(contracts['axes']['L1']['exclusions']['growthRuled']))
+        self.assertNotIn('growthMisses', contracts['axes']['L1']['exclusions'])
+        self.assertEqual(contracts['axes']['X1']['exclusions']['namedMisses'], [])
 
 
 def missing(name, side):
