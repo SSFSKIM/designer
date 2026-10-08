@@ -121,7 +121,8 @@ class World:
         self.write('live/execution-root.json', self.root)
         self.active = None
         self.count = 0
-        self.native = {'ready': True, 'nativeExposure': {'emptySupportWitnesses': []}, 'artifacts': []}
+        self.native = {'ready': True, 'complete': True, 'stops': [], 'nativeExposure': {'emptySupportWitnesses': []},
+                       'artifacts': []}
         self.dispatcher = self.fake_dispatcher()
         self.empty_witnesses()
 
@@ -754,6 +755,104 @@ def computed_blind_t1_without_candidate(row):
     value.update(measurementStatus='UNMEASURED', nativeMeasurementStatus='MEASURED',
                  currentMeasurementStatus='MEASURED', candidateMeasurementStatus='UNMEASURED',
                  native=.25, current=.25, candidate=None, nativeSupportWitnesses=[])
+
+
+BLIND = (P1, 'webgpu', 'cell-grey-007-s096__rest', 'deep8-channel-median')
+SPREAD = 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'
+
+
+class NativeNotReadyTests(unittest.TestCase):
+    """DL5n: a completed native blind read that is not ready is a verdict, never a burned exposure."""
+
+    def setUp(self):
+        self.world = World(self)
+        self.world.install(self)
+
+    def stop(self, world, item=BLIND, reason=SPREAD):
+        world.native.update(ready=False, stops=[{'cell': f'{item[0]}/{item[2]}', 'statistic': item[3], 'reason': reason}])
+
+    def test_a_stopped_blind_key_is_unmeasured_and_the_exposure_neither(self):
+        for reason in ('NATIVE_SPREAD_EXCEEDS_ONE_CODE', 'UNMEASURED_UNAUTHORISED_POPULATION'):
+            with self.subTest(reason):
+                w = World(self); w.install(self)
+                gate = w.qualified_gate()
+                self.stop(w, reason=reason)
+                context, report = w.exposure(gate)
+                self.assertEqual(report['status'], 'NEITHER')
+                stopped = cell_of(report, *BLIND[:1], BLIND[2], BLIND[3])
+                # The route still reads WITHIN; the stop overrides it.
+                self.assertEqual(stopped['route']['status'], 'WITHIN')
+                self.assertEqual(stopped['status'], 'UNMEASURED')
+                self.assertEqual(stopped['cause'], {'kind': 'NATIVE_NOT_READY', 'reason': reason})
+                for name in ('native', 'current', 'candidate', 'value', 'fidelity', 'B'):
+                    self.assertIsNone(stopped[name])
+                self.assertEqual(report['nativeReadiness'], {'ready': False, 'stops': w.native['stops'],
+                                                             'stoppedKeys': [list(BLIND)]})
+                others = [c for c in report['cells'] if (c['profile'], c['renderer'], c['scene'], c['statistic']) != BLIND]
+                self.assertNotIn('UNMEASURED', {c['status'] for c in others})
+                summary = w.judge.public_summary(report)
+                self.assertEqual(summary['blockingKeys'], [list(BLIND)])
+                self.assertEqual(summary['nativeStops'], w.native['stops'])
+                w.validate(context, report)
+
+    def test_a_ready_read_still_passes(self):
+        w = self.world
+        context, report = w.exposure(w.qualified_gate())
+        self.assertEqual(report['status'], 'PASS')
+        self.assertEqual(report['nativeReadiness'], {'ready': True, 'stops': [], 'stoppedKeys': []})
+        w.validate(context, report)
+
+    def test_a_checkpoint_or_stop_off_its_shape_refuses(self):
+        reported = (P1, 'webgpu', 'cell-grey-000-s224__inactive', 'T1-full-silhouette')
+        gated = (P1, 'webgpu', 'cell-grey-004-s096__rest', 'deep8-channel-median')
+        absent = (P1, 'webgpu', 'cell-grey-099-s096__rest', 'deep8-channel-median')
+        def payload(change):
+            def apply(w): change(w.native)
+            return apply
+        cases = {
+            'ready with a stop': lambda w: (self.stop(w), w.native.update(ready=True)),
+            'not ready without a stop': payload(lambda n: n.update(ready=False)),
+            'not complete': payload(lambda n: n.update(complete=False)),
+            'no stops field': payload(lambda n: n.pop('stops')),
+            'unknown reason': lambda w: self.stop(w, reason='OTHER'),
+            'extra stop field': lambda w: (self.stop(w), w.native['stops'][0].update(repeat=[1, 2, 3])),
+            'non-blind key': lambda w: self.stop(w, gated),
+            'reported key': lambda w: self.stop(w, reported),
+            'no phase key': lambda w: self.stop(w, absent),
+        }
+        for label, change in cases.items():
+            with self.subTest(label):
+                w = World(self); w.install(self)
+                gate = w.qualified_gate()
+                change(w)
+                with self.assertRaises(ValueError):
+                    w.exposure(gate)
+
+    def test_the_validator_holds_the_cause_to_its_shape(self):
+        w = self.world
+        gate = w.qualified_gate()
+        self.stop(w)
+        context, report = w.exposure(gate)
+        w.validate(context, report)
+        def stopped(r):
+            return next(c for c in r['cells'] if (c['profile'], c['renderer'], c['scene'], c['statistic']) == BLIND)
+        mutations = {
+            'reads PASS': lambda r: stopped(r).update(status='PASS'),
+            'reads FAIL': lambda r: stopped(r).update(status='FAIL'),
+            'keeps a value': lambda r: stopped(r).update(native=25),
+            'on a PASS verdict': lambda r: r.update(status='PASS'),
+            'unlisted stop': lambda r: r['nativeReadiness'].update(stoppedKeys=[]),
+            'cause off a stop': lambda r: stopped(r)['cause'].update(reason='OTHER'),
+            'cause on a gated key': lambda r: next(c for c in r['cells'] if c['scene'] == 'cell-grey-004-s096__rest'
+                                                   and c['statistic'] == 'deep8-channel-median' and c['renderer'] == 'webgpu'
+                                                   ).update(status='UNMEASURED', cause={'kind': 'NATIVE_NOT_READY', 'reason': SPREAD},
+                                                            **dict.fromkeys(('native', 'current', 'candidate', 'value', 'fidelity', 'B'))),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label):
+                changed = copy.deepcopy(report); mutate(changed)
+                with self.assertRaises(ValueError):
+                    w.validate(context, changed)
 
 
 class UnmeasuredReportedTests(unittest.TestCase):

@@ -25,6 +25,12 @@ current3's checked_gate_result calls its own validate_report by global name, so 
 gate a LIVE exposure reads is re-validated by checked_gate_result below, a copy of that function
 differing only in which validate_report it calls (test_report.py proves the copy by syntax
 tree). Errors carry field names and keys only (DL5k).
+
+DL5n: a completed native blind read that is not ready reaches the judge with its stops, and
+each stopped key's cell is UNMEASURED with null readings and the cause NATIVE_NOT_READY.
+current3 admits an UNMEASURED cell on a NEITHER verdict unchanged; check_native_not_ready only
+holds the cause to that shape: an exposure, a NEITHER verdict, a blind non-reported key, null
+readings, and exactly the report's own stoppedKeys.
 """
 import copy
 from pathlib import Path
@@ -48,6 +54,8 @@ DEFECTS=('NON_FINITE_READING','OUT_OF_DOMAIN_READING')
 SIDES=('native','current','candidate')
 NULL_FIELDS=SIDES+('value','fidelity','B')
 PASS_FIELDS=('joinIdentity','heldDifference','emptySupportWitness')
+NATIVE_NOT_READY='NATIVE_NOT_READY'
+NATIVE_STOPS=('UNMEASURED_UNAUTHORISED_POPULATION','NATIVE_SPREAD_EXCEEDS_ONE_CODE')
 
 
 def check_unmeasured_reported(doc,cell):
@@ -77,8 +85,31 @@ def check_unmeasured_reported(doc,cell):
         raise ValueError('UNMEASURED_REPORTED must carry null readings and no passable value')
 
 
+def check_native_not_ready(doc,report):
+    """DL5n: the NATIVE_NOT_READY cells are exactly the report's stopped keys, each an UNMEASURED
+    blind non-reported key with null readings, and only a NEITHER exposure carries them."""
+    cells=[c for c in report.get('cells',[]) if isinstance(c,dict) and
+           (c.get('cause') or {}).get('kind')==NATIVE_NOT_READY] if isinstance(report,dict) else []
+    readiness=report.get('nativeReadiness') if isinstance(report,dict) else None
+    if not cells and not (readiness or {}).get('stoppedKeys'):
+        return
+    roles={tuple(c[k] for k in D.KEY):c['role'] for c in D.load(D.checked(doc['repo'],doc['references']))['cells']}
+    reported={tuple(k) for k in doc['reportedKeys']}
+    keys=sorted(tuple(c.get(k) for k in D.KEY) for c in cells)
+    if report.get('phase')!='exposure' or report.get('status')!='NEITHER' or not isinstance(readiness,dict) or \
+            readiness.get('ready') is not False or [tuple(k) for k in readiness.get('stoppedKeys',[])]!=keys:
+        raise ValueError('NATIVE_NOT_READY is admitted only on the stopped keys of a NEITHER exposure')
+    for cell,identity in zip(cells,(tuple(c.get(k) for k in D.KEY) for c in cells)):
+        if cell.get('status')!='UNMEASURED' or roles.get(identity)!='blind' or identity in reported or \
+                set(cell['cause'])!={'kind','reason'} or cell['cause']['reason'] not in NATIVE_STOPS or \
+                any(name not in cell or cell[name] is not None for name in NULL_FIELDS) or \
+                any(name in cell for name in PASS_FIELDS):
+            raise ValueError('NATIVE_NOT_READY requires an UNMEASURED blind key with null readings')
+
+
 def presented(doc,report):
     """current3's view: each checked UNMEASURED_REPORTED cell as an accepted non-gating row."""
+    check_native_not_ready(doc,report)
     out=copy.deepcopy(report)
     for cell in out.get('cells',[]) if isinstance(out,dict) else []:
         if isinstance(cell,dict) and cell.get('status')==UNMEASURED_REPORTED:

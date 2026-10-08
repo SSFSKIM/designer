@@ -30,6 +30,11 @@ Routing decisions the charter text fixes and this module only maps:
   law at the join, carried by the G0 numerical referee the dispatcher admitted the cohort
   under (fixedJoinPass). The rendered candidate/current difference is recorded, not gated.
 * Missing evidence on a gated row is UNMEASURED and never a pass.
+* A completed native blind read that is not ready (DL5n) is admitted with its stops: every
+  phase key a stop names (on either tier) must be a required blind key, and its cell is
+  UNMEASURED with every reading field null and the cause {kind: NATIVE_NOT_READY, reason},
+  whatever it routed, so the verdict is NEITHER through the normal rule. A stopped key never
+  reads PASS or FAIL and never feeds a target aggregate; the stops are reported as metadata.
 * A DL5a/b/c reported key (the root's reportedKeys, which contain the DL5b/c emptySupportKeys)
   whose reading is incomplete, non-finite or out of domain is UNMEASURED_REPORTED with its
   cause, every reading field null. It never gates, so it does not change the verdict (DL5m 4);
@@ -526,18 +531,67 @@ def preflight(document, root, cut, targets):
     T.contracts(document, root['references'], cut, targets, {})
 
 
-def empty_witness(context, live, phase):
+NATIVE_STOPS = ('UNMEASURED_UNAUTHORISED_POPULATION', 'NATIVE_SPREAD_EXCEEDS_ONE_CODE')
+NATIVE_NOT_READY = 'NATIVE_NOT_READY'
+PASS_FIELDS = ('joinIdentity', 'heldDifference', 'emptySupportWitness')
+
+
+def native_checkpoint(context, live, phase):
+    """The exposure's native checkpoint, admitted ready or not (DL5n); none at the gate.
+
+    The native role's payload is {ready, complete, stops, nativeExposure, artifacts}. A COMPLETED
+    blind read whose sealed readiness is false is checkpointed with its stops as metadata (cell,
+    statistic, reason), and ready is true exactly when there are none."""
+    if phase != 'exposure':
+        return None
+    native = live.qualification_native(context)
+    if not isinstance(native, dict) or native.get('complete') is not True or \
+            type(native.get('ready')) is not bool or not isinstance(native.get('stops'), list) or \
+            native['ready'] != (native['stops'] == []) or not isinstance(native.get('nativeExposure'), dict):
+        raise ValueError('Exposure native checkpoint is not one complete preparation')
+    for stop in native['stops']:
+        if not isinstance(stop, dict) or set(stop) != {'cell', 'statistic', 'reason'} or \
+                stop['reason'] not in NATIVE_STOPS or not isinstance(stop['cell'], str) or \
+                stop['cell'].count('/') != 1 or not isinstance(stop['statistic'], str):
+            raise ValueError('Native checkpoint stop is not metadata on one required statistic')
+    return native
+
+
+def native_stops(native, rows, root):
+    """{key: reason} for every phase key a native stop names (DL5n), on either tier.
+
+    A stop names a REQUIRED blind statistic: each named key must be a blind row of this phase
+    and not a DL5a/b/c reported key, and a stop must name at least one phase key."""
+    stopped = {}
+    reported = {tuple(k) for k in root['reportedKeys']}
+    for stop in (native or {}).get('stops', []):
+        profile, scene = stop['cell'].split('/')
+        keys = {(profile, renderer, scene, stop['statistic']) for renderer in ('webgpu', 'css')} & set(rows)
+        if not keys or any(rows[k]['role'] != 'blind' or k in reported for k in keys):
+            raise ValueError('A native stop names no required blind key of this phase')
+        stopped.update(dict.fromkeys(keys, stop['reason']))
+    return stopped
+
+
+def native_not_ready(cell, reason):
+    """DL5n: a stopped key's cell is UNMEASURED whatever it routed, every reading field null.
+
+    A spread stop still has a native value, so even a routed WITHIN is overridden; the stopped
+    key never reads PASS or FAIL. Its readings stay in cell['readings'] as evidence."""
+    for name in PASS_FIELDS:
+        cell.pop(name, None)
+    cell.update(status='UNMEASURED', cause={'kind': NATIVE_NOT_READY, 'reason': reason}, **dict.fromkeys(NULL_FIELDS))
+    return cell
+
+
+def empty_witness(native):
     """DL5b exposed witnesses are the completed reference's; DL5c blind ones the exposure's.
 
-    The exposure's are the native role's checkpointed payload, {ready, nativeExposure:
-    exposure/prepare.py artifacts, artifacts}, whose emptySupportWitnesses name one zero-mask
-    witness per eligible (profile, scene), shared by both tiers' keys."""
-    native = live.qualification_native(context) if phase == 'exposure' else None
+    The exposure's are the native checkpoint's nativeExposure (exposure/prepare.py artifacts),
+    whose emptySupportWitnesses name one zero-mask witness per eligible (profile, scene),
+    shared by both tiers' keys."""
     witnesses = None
     if native is not None:
-        if not isinstance(native, dict) or native.get('ready') is not True or \
-                not isinstance(native.get('nativeExposure'), dict):
-            raise ValueError('Exposure native checkpoint is not one ready preparation')
         witnesses = {(w['profile'], w['scene']): w['pin']
                      for w in native['nativeExposure'].get('emptySupportWitnesses', [])}
     def lookup(item, row):
@@ -570,9 +624,13 @@ def evaluate(context, evidence, config_pin):
     preflight(document, root, cut, targets)
     rows = measurement(context, live, root, inventory, evidence['measurement'])
     admitted, join = join_identity(context, live, root)
-    lookup = empty_witness(context, live, phase)
+    native = native_checkpoint(context, live, phase)
+    stopped = native_stops(native, rows, root)
+    lookup = empty_witness(native)
     routed = dict(zip(rows, route(list(rows.values()), root)))
     fresh = {item: cell(item, rows[item], routed[item], root, join=join, witness=lookup) for item in rows}
+    for item, reason in stopped.items():
+        native_not_ready(fresh[item], reason)
     cohort = sorted(p['sha256'] for p in context['batch']['cohort'])
     dependencies = context['phaseDependencies']
     report = {'schema': REPORT, 'phase': phase, 'candidateSha256s': cohort,
@@ -612,13 +670,17 @@ def evaluate(context, evidence, config_pin):
         candidates = {}
         for value in cells:
             reading = value.get('readings', {}).get(T.STATISTIC)
-            if value['statistic'] == T.STATISTIC and value['renderer'] == 'webgpu' and reading is not None:
+            # A stopped key (DL5n) is UNMEASURED: a target member stays in its population unread.
+            if value['statistic'] == T.STATISTIC and value['renderer'] == 'webgpu' and reading is not None and \
+                    key(value) not in stopped:
                 candidates[key(value)] = reading
         contract = T.contracts(document, root['references'], cut, targets, candidates)
         target_checks = R.route_targets(contract, full_union=True)
         report.update(ownerChecks='FULL_UNION', pendingOwnerKeys=[], targetChecks='FULL_UNION',
                       targets=target_checks, gateResult=copy.deepcopy(context['gateResult']),
-                      owner={k: graded[k] for k in ('aggregates', 'intrinsic', 'context', 'report', 'snapshot')})
+                      owner={k: graded[k] for k in ('aggregates', 'intrinsic', 'context', 'report', 'snapshot')},
+                      nativeReadiness={'ready': native['ready'], 'stops': copy.deepcopy(native['stops']),
+                                       'stoppedKeys': sorted(list(k) for k in stopped)})
         failed = [c for c in cells if c['status'] not in wanted(key(c), phase, root)]
         failed += [t for t in target_checks if t['status'] != 'WITHIN']
         failed += [c for group in ('aggregates', 'intrinsic', 'context') for c in graded[group] if c['status'] != 'PASS']
@@ -646,6 +708,7 @@ def public_summary(report):
             'targetChecks': report['targetChecks'], 'cellCounts': dict(sorted(counts.items())),
             'blockingKeys': blocking,
             'targets': [{'target': t['target'], 'scale': t['scale'], 'status': t['status']} for t in report['targets']],
+            'nativeStops': [dict(s) for s in (report.get('nativeReadiness') or {}).get('stops', [])],
             'ownerUnion': {group: sorted(str(c.get('name', c.get('id')))+(':'+c['member'] if c.get('member') else '')
                                          for c in owner.get(group, []) if c['status'] != 'PASS')
                            for group in ('aggregates', 'intrinsic', 'context')}}
