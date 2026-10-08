@@ -48,9 +48,10 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   (stale-attempt recovery, repeat-admission bypass, successor reconciliation, exposure
   `baselineCandidate`, plus cheap P3s and two `judge/rules.py` hardening checks); the judge role,
   target-contract reader and fit-phase analysis (`judge/live.py`, `judge/targets.py`, `fit/live.py`);
-  ten of the twelve pre-fit proofs into `prefit-proofs/`. Next: capture/native/measurement/owner
-  role wrappers over `live/router.py`, `exposure/prepare.py`, `measurement/phase.py`,
-  `owner-candidate/live.py`; seal the LIVE root (`live-execution/execution-root.json`); the
+  the capture/native/measurement/owner role wrappers over `live/router.py`, `exposure/prepare.py`,
+  `measurement/phase.py`, `owner-candidate/live.py` (with a draft root body). Done since: the fix
+  wave (`a97dfa777`, `9ab03c54c`) and ten pre-fit proofs in `prefit-proofs/` (`574bcb462`,
+  `9b4f10471`; built by `build.py`, all pass `validate_proof`; they pin `live-inputs/`). Next: seal the LIVE root (`live-execution/execution-root.json`); the
   executionClosure and independentReview proofs (a reviewer-high-equivalent review of LIVE and the
   roles); `pre-fit-evidence.json` pinning the root; fit one point, gate, one exposure; hand back
   PASS or NEITHER. DL4 and DL5k bind every step; no agent opens the blind archive or checkpoint
