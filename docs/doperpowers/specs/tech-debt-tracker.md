@@ -7973,3 +7973,21 @@ tempdir by copying the sealed source files, seals a synthetic root with `authori
 calls `current_evidence` for real, asserting the composed evidence pin and one refusal (a changed
 evidence byte). If the live root's own composite probe already exercises this at seal time, record
 that instead and close the entry.
+
+## W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)
+
+*Logged rather than fixed: the final review of `4ffa48746..89e7b0d90` found no P0-P2; these P3s
+are real but small, or bounded by ruling.* (1) A blind cell whose stopped statistic was
+unmeasurable (an empty cut or an empty required silhouette) has no finite repeat bar, so under
+DL5h (ii) only a byte-identical repeat pair qualifies it; a persistently non-identical draw there
+would loop DL5k recaptures although the verdict is already NEITHER. Closing it needs a DL5h ruling
+that exempts stopped statistics from pair qualification, applied to both the capture helper and the
+archived replay. (2) The judge FAILs an L1 named growth miss on a `GROWTH_RULED` cell because
+`GROWTH_MISSES` is empty; the owner test would pass it once a seal adds an entry. This applies
+DL5m item 2's principle (a named miss needing a new owner record is FAIL) to L1, while the ruling
+names M2. (3) A candidate that closes a recorded miss (M1/M2 `MISSED_27_ROWS`, L1 `MISSES`) passes
+the judge, but the owner test's named/recorded set equality fails until the publication removes
+the record; that is G2 publication work. (4) `_lease_mutex` takes its `flock` without a timeout,
+so a suspended holder blocks other entries for its millisecond window rather than refusing them.
+(5) `_alive` treats a lock whose pid equals the current process's as held; a later invocation has
+a different pid, so this cannot wedge.
