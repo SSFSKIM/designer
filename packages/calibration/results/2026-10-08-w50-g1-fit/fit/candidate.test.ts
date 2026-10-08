@@ -157,6 +157,7 @@ for (const position of [.25, .5]) test(`identity candidate at ${position} carrie
       const result = checkRecordApplicability({ activeSha256: load(pin.path).endpoints['active.dark'].sha256,
         recededSha256: load(pin.path).endpoints['receded.dark'].sha256, activeResolved,
         beforeResolved: withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, beforeActive.patch),
+        beforePatch: beforeActive.patch, activePatch: active.patch,
         beforeEntries: beforeActive.entries, recededRecords: { endpointSha256:
           load(pin.path).endpoints['receded.dark'].sha256, methods: x76(before, pin).methods },
         activeRecords: { endpointSha256: load(pin.path).endpoints['active.dark'].sha256,
