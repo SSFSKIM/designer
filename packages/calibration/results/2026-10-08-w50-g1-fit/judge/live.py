@@ -408,6 +408,12 @@ def inputs(context, live, root, config_pin):
     return config, contracts, targets, cut
 
 
+def preflight(document, root, cut, targets):
+    """Build every target reference with no candidate, so membership, cut cross-binding and
+    Reference construction fail before the one exposure rather than inside it."""
+    T.contracts(document, root['references'], cut, targets, {})
+
+
 def empty_witness(context, live, phase):
     """DL5b exposed witnesses are the completed reference's; DL5c blind ones the exposure's.
 
@@ -449,9 +455,7 @@ def evaluate(context, evidence, config_pin):
     root = root_of(context, live)
     config, contracts, targets, cut = inputs(context, live, root, config_pin)
     document, inventory = originals(context, live, root)
-    # The target population is checked at every phase, so a declaration fault surfaces before
-    # the one exposure rather than inside it.
-    T.keys(document, cut, targets)
+    preflight(document, root, cut, targets)
     rows = measurement(context, live, root, inventory, evidence['measurement'])
     admitted, join = join_identity(context, live, root)
     lookup = empty_witness(context, live, phase)

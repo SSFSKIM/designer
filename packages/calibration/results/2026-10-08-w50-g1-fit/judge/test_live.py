@@ -105,6 +105,8 @@ class World:
             'emptySupportKeys': self.empty, 'ownerContracts': self.owner_contracts, 'partTwo': self.part_two,
             'phaseDependencies': self.dependencies, 'bootstrap': self.bootstrap,
             'baselineDocuments': self.baselines,
+            'instruments': {'judge': {'entrypoint': {'path': 'judge/live.py', 'sha256': '0'*64}, 'config': self.config},
+                            'fit': {'entrypoint': {'path': 'fit/live.py', 'sha256': '0'*64}, 'config': self.fit_config}},
             'inputs': [self.config, self.binding, self.targets, self.cut, self.fit_config, self.owner_contracts]}
         self.root_path = self.repo/'live/execution-root.json'
         self.write('live/execution-root.json', self.root)

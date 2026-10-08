@@ -27,6 +27,10 @@ candidate domain and is not a free coefficient.
 
 DECISION (id): a cohort's id is its two candidate document SHA-256s, sorted and joined by '+'.
 
+Before reading the measurement it also reads the registered judge's config, binding, target
+config and cut and builds every target reference, so a root wiring fault surfaces here and not
+inside the gate's one exclusive analysis.
+
 fit_record(execution_root, completed) builds the metadata-only w50-g1-fit-record-1 body that
 names the ONE completed fit result; the caller writes it exclusively and passes it to the
 gate contract. Nothing here prints, logs or formats a measured value (DL5k).
@@ -139,7 +143,12 @@ def evaluate(context, measured, config_pin):
     if part_two.get('selection') != SELECTION:
         raise ValueError('Declared selection order differs from the implemented order')
     domain = part_two['candidateDomain']
-    _, inventory = J.originals(context, live, root)
+    document, inventory = J.originals(context, live, root)
+    # The judge's own inputs and target references are read here first: a root that omits one
+    # of them fails this fit analysis instead of the gate's exclusive analysis.
+    judge = ((root.get('instruments') or {}).get('judge') or {}).get('config')
+    _, _, targets, cut = J.inputs(context, live, root, judge)
+    J.preflight(document, root, cut, targets)
     rows = J.measurement(context, live, root, inventory, measured)
     if any(row['role'] in J.WITHHELD for row in rows.values()):
         raise ValueError('Withheld cells never enter fit analysis or ranking')

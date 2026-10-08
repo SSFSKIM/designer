@@ -79,6 +79,18 @@ class FitTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.analyse(rows=blind)
 
+    def test_a_root_missing_a_judge_input_fails_the_fit_not_the_gate(self):
+        w = self.world
+        for missing in (w.cut, w.binding, w.targets):
+            with self.subTest(missing['path']):
+                w.root['inputs'] = [p for p in w.root['inputs'] if p != missing]
+                w.write('live/execution-root.json', w.root)
+                with self.assertRaises(ValueError):
+                    self.analyse()
+                w.root['inputs'].append(missing)
+                w.write('live/execution-root.json', w.root)
+        self.assertEqual(self.analyse()['status'], 'FIT_ANALYSIS_ONLY')
+
     def test_fit_record_names_exactly_one_completed_point_by_metadata(self):
         w = self.world
         analysis = self.analyse()
