@@ -1,14 +1,23 @@
-"""Internal source-owned I/O for additive live measurements, never native preparation or a verdict.
+"""Internal source-owned I/O for additive LIVE measurements, never native preparation or a verdict.
 
-Exposed NEWBED delegates to capture.measure_capture. Blind NEWBED uses the existing repeat
-reader's ACTUAL preparation-chain validator and the immutable pure native-support evaluator;
-no native statistic is remeasured and no role is relabelled. Canonical measurement consumes
-original published native/backdrop pins and frozen seven-run/reference evidence, not a new
-reference fit. All live pairs use both source report validators before first-image measurement.
+Exposed NEWBED runs capture.measure_capture's own checks and pure functions on the member's own
+derived run (measure_exposed). Blind NEWBED uses the existing repeat reader's ACTUAL
+preparation-chain validator and the immutable pure native-support evaluator; no native statistic
+is remeasured and no role is relabelled. Canonical measurement consumes original published
+native/backdrop pins and frozen seven-run/reference evidence, not a new reference fit. All live
+pairs use both source report validators before first-image measurement.
+
+LIVE stages its capabilities: render admission belongs to a remaining capture member, while this
+reader runs in the analysis stage over checkpointed members under read admission. The immutable
+helpers that authenticate through render admission (capture.measure_capture's batch-run lookup,
+the repeat helper's live verify_receipt, current3's blind_exposure) are therefore replaced here by
+their own checks over the member's run: the archived pair replay of live-roles/common.py and the
+mirrors below. No helper's numerical or admission rule changes.
 """
 import copy
 import gzip
 from pathlib import Path
+import re
 import sys
 import types
 
@@ -30,7 +39,7 @@ W = source(CURRENT3/'web/adapter.py', 'w50_phase_paired_newbed')
 C = source(CURRENT3/'canonical/adapter.py', 'w50_phase_paired_canonical')
 R = source(FIT/'references/canonical.py', 'w50_phase_original_canonical')
 B = source(CURRENT3/'repeat/sources.py', 'w50_phase_actual_blind_source')
-V = source(CURRENT3/'execution/blind_exposure.py', 'w50_phase_blind_completeness')
+L = source(FIT/'live-roles/common.py', 'w50_phase_live_role_common')
 
 
 def indexed(rows):
@@ -59,12 +68,17 @@ class PhaseSources:
         if root != self.dispatcher.sealed(context['executionRoot']):
             raise ValueError('Source reader root differs from the actual registered root')
         self.repo = Path(context['repo']); self.output = Path(context['output'])
+        # The root's own composed current evidence (authority.current_authority binds its ordered
+        # instrument/result chains at root admission); measured against these same native reads.
         current = self.registered(config['completedCurrentEvidence'])
-        if current.get('schema') != 'w50-completed-current-evidence-1' or current.get('status') != 'EVIDENCE_ONLY' \
-                or current.get('currentInstrument') != root['currentInstrument'] \
-                or current.get('currentResults') != root['currentResults'] \
-                or current.get('originals', {}).get('references') != root['references']:
-            raise ValueError('Current measurements differ from the root-bound completed instrument')
+        native = current.get('native') or {}
+        if config['completedCurrentEvidence'] != root.get('currentEvidence') \
+                or current.get('schema') != 'w50-completed-current-evidence-2' or current.get('status') != 'EVIDENCE_ONLY' \
+                or 'currentInstrument' in current or current.get('currentComposition') != root.get('currentComposition') \
+                or current.get('originals', {}).get('references') != root['references'] \
+                or current.get('originals', {}).get('scenes') != config['native']['scenes'] \
+                or native.get('batch') != config['native']['batch'] or native.get('reports') != config['native']['reports']:
+            raise ValueError('Current measurements differ from the root-bound composed current evidence')
         self.current = indexed(current['referenceEvidence'])
         canonical = self.registered(config['canonicalReferenceEvidence'])
         if canonical.get('schema') != 'w50-canonical-reference-evidence-1':
@@ -85,8 +99,15 @@ class PhaseSources:
         raw = path.read_bytes()
         return M._json(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
 
+    def verify_repeat(self, run, receipt):
+        """The archived DL5h pair replay: both retained images/reports through the transports' pure
+        validators and the member-owned proof's original statistic band."""
+        if not receipt.get('repeatPair') or not receipt.get('repeatAdmission'):
+            raise ValueError('Every new live measurement requires both retained repeat receipts')
+        return L.archived_pair(self.context, self.dispatcher, run, receipt, {'canonical': C, 'w50': W})
+
     def authenticate(self, run, receipt):
-        self.dispatcher.require_render_admission(self.context, run, current=receipt['lane'] == 'current')
+        self.dispatcher.require_read_admission(self.context, run, current=receipt['lane'] == 'current')
         if not receipt.get('repeatPair') or not receipt.get('repeatAdmission'):
             raise ValueError('Every new live measurement requires both retained repeat receipts')
         canonical = run['sceneSource'] == 'canonical'
@@ -108,7 +129,7 @@ class PhaseSources:
         if metadata.get('renderer') != run['renderer'] or metadata.get('colorSpace') != 'srgb' \
                 or f'declarationSha256={run["candidate"]["sha256"][:12]}' not in metadata.get('capturePath', ''):
             raise ValueError('Actual first-reading metadata differs from admitted candidate/tier')
-        M.verify_live_repeat(self.context, run, receipt, metadata)
+        self.verify_repeat(run, receipt)
         if canonical:
             matrix_pin = receipt['matrix']
             if matrix_pin['path'] != run['matrixPath']: raise ValueError('Canonical matrix aliases another run')
@@ -150,15 +171,16 @@ class PhaseSources:
             'scale': plan['dpr'], 'position': plan['position']}
 
     def measure_member(self, run, receipt, rows):
-        self.dispatcher.require_render_admission(self.context, run, current=receipt['lane'] == 'current')
+        self.dispatcher.require_read_admission(self.context, run, current=receipt['lane'] == 'current')
         if run['sceneSource'] == 'w50' and any(r['role'] == 'blind' for r in rows):
             return self.blind(run, receipt, rows)
         if run['sceneSource'] == 'w50':
             plan = W.scene_plan(run, self.context['phase'])
             spec = next(s for s in plan['scenes'] if s['scene'] == receipt['scene'])
             role = spec['role']; pin = self.config['native']['reports'][role]
-            measured = M.measure_capture(self.context, pin, receipt, self.config['native']['scenes'],
-                                        native_batch_pin=self.config['native']['batch'])
+            measured = measure_exposed(self.context, self.dispatcher, run, pin, receipt,
+                self.config['native']['scenes'], native_batch_pin=self.config['native']['batch'],
+                verify_repeat=self.verify_repeat)
             report = self.reports.setdefault(role, self.registered(pin))
             cell = M.R.unique(report['cells'], 'id', 'native cell')[receipt['profile']+'/'+receipt['scene']]
             _, _, _, evidence = self.authenticate(run, receipt)
@@ -212,8 +234,74 @@ class PhaseSources:
             'nativeExport': {'role': 'blind', 'root': artifact['export']['path'],
                              'indexSha256': artifact['export']['indexSha256']}}
 
+    def native_evidence(self, manifest):
+        module = source(CURRENT3/'execution/native_evidence.py', 'w50_phase_blind_native_evidence')
+        return module.NativeEvidence(self.context['repo'], manifest)
+
     def validate_blind_rows(self, rows):
-        return V.validate_blind_exposure(self.context, rows)
+        """current3 execution/blind_exposure.validate_blind_exposure (DL5g), check for check, except
+        that each lane is authenticated through its OWN checkpointed member: the receipt must equal
+        its checkpoint (resolve_capture_run) and the member run is read-admitted, where the original
+        render-admitted the batch run and its baseline_run derivative."""
+        context, live = self.context, self.dispatcher
+        live.require_context(context)
+        if context.get('phase') != 'exposure' or context.get('batch', {}).get('phase') != 'exposure':
+            raise ValueError('Blind evidence validation is exposure-only')
+        root = live.sealed(context['executionRoot'])
+        evidence = self.native_evidence(root['manifest'])
+        original = evidence.read(root['references'])
+        expected = {tuple(r[k] for k in KEY): r for r in original['cells'] if r['role'] == 'blind'}
+        if not isinstance(rows, list) or not expected:
+            raise ValueError('Blind exposure needs the full original reference population')
+        actual = []
+        for row in rows:
+            if not isinstance(row, dict) or any(k not in row for k in KEY): raise ValueError('Missing blind reference identity')
+            actual.append(tuple(row[k] for k in KEY))
+        if len(actual) != len(set(actual)) or set(actual) != set(expected):
+            raise ValueError('Blind exposure evidence must cover every original blind key exactly once')
+        cohort = context['batch']['cohort']; output = Path(context['output']).resolve()
+        for row in rows:
+            before = expected[tuple(row[k] for k in KEY)]
+            for key in ('role', 'support', 'nativeIdentity', 'referenceIdentity', 'currentGeneration', 'currentDocumentPair'):
+                if row.get(key) != before.get(key): raise ValueError('Blind exposure changed original provenance')
+            runs = [r for r in context['batch']['runs'] if r['profile'] == row['profile'] and
+                    r['renderer'] == row['renderer'] and row['scene'] in r['scenes']]
+            if len(runs) != 1: raise ValueError('Blind row is outside its exact exposure run')
+            run = runs[0]
+            if run['candidate'] not in cohort or run.get('baselineCandidate') not in root.get('baselineDocuments', []):
+                raise ValueError('Blind row needs same-cohort candidate and registered frozen-current baseline')
+            for field, lane in (('candidateCapture', 'candidate'), ('currentCapture', 'current')):
+                capture = row.get(field)
+                if not isinstance(capture, dict) or capture.get('lane') != lane:
+                    raise ValueError('Blind capture is missing or names another scene/material/lane')
+                live.require_read_admission(context, live.resolve_capture_run(context, capture), current=lane == 'current')
+            evidence.validate(row, row.get('nativeEvidence'), exposure=context)
+            scale = re.search(r'-([12])x-', row['profile'])
+            if not scale: raise ValueError('Blind profile lacks its declared scale')
+            dimensions = [512*int(scale[1]), 384*int(scale[1])]
+            for field, lane, candidate in (('currentCapture', 'current', run['baselineCandidate']),
+                                           ('candidateCapture', 'candidate', run['candidate'])):
+                capture = row.get(field)
+                if not isinstance(capture, dict) or capture.get('lane') != lane or capture.get('candidate') != candidate or any(
+                        capture.get(k) != row[k] for k in KEY[:3]):
+                    raise ValueError('Blind capture is missing or names another scene/material/lane')
+                evidence.check(candidate)
+                artifacts = capture.get('artifacts', {})
+                for key in ('png', 'cell', 'report'):
+                    target = evidence.check(artifacts.get(key))
+                    if not target.is_relative_to(output): raise ValueError('Blind capture is outside the single exposure output')
+                evidence.png(artifacts['png'], dimensions)
+                metadata = evidence.read(artifacts['cell']); page = evidence.read(artifacts['report']).get('page', {})
+                if (metadata.get('sceneId') != row['scene'] or metadata.get('renderer') != row['renderer'] or
+                        metadata.get('pixelSize') != dimensions or page.get('sceneId') != row['scene'] or
+                        page.get('requestedRenderer') != row['renderer'] or page.get('devicePixelRatio') != int(scale[1]) or
+                        page.get('materialMode') != 'candidate' or page.get('candidateDocument', {}).get('mode') != 'candidate' or
+                        page.get('candidateDocument', {}).get('declarationSha256') != candidate['sha256'][:12] or
+                        f'declarationSha256={candidate["sha256"][:12]}' not in metadata.get('capturePath', '')):
+                    raise ValueError('Blind capture metadata/report does not attest the same actual draw')
+        evidence.finish(); live.require_context(context)
+        return {'schema': 'w50-bound-blind-exposure-evidence-1', 'status': 'BOUND_BLIND_EVIDENCE',
+                'cells': len(rows), 'candidateSha256s': sorted(p['sha256'] for p in cohort)}
 
     def canonical_record(self, row):
         item = self.canonical[tuple(row[k] for k in KEY)]
@@ -317,6 +405,110 @@ class PhaseSources:
             'material': {'documentPair': pair(row['currentDocumentPair']),
                          'originalDocumentPair': copy.deepcopy(row['currentDocumentPair'])}}
         return statistic, evidence
+
+
+def measure_exposed(context, live, run, native_report_pin, receipt, scenes_pin, *, native_batch_pin, verify_repeat):
+    """capture.measure_capture, step for step, on the member's OWN derived run.
+
+    measure_capture finds its run in context['batch'] (or its baseline_run derivative) under
+    render admission and requires artifacts beneath THAT run's captureRoot; a LIVE member lives
+    beneath its own per-attempt root and is read under read admission. Every other check, pure
+    function and output field is capture.py's own. verify_repeat is the archived pair replay,
+    and every LIVE member carries a fresh pair, so no legacy true/zero attestation is admitted.
+    """
+    live.require_context(context)
+    if context['phase'] not in ('fit', 'gate', 'exposure'):
+        raise ValueError('Completed-current measurements require their separate evidence bootstrap')
+    if native_report_pin not in context['inputs'] or native_batch_pin not in context['inputs']:
+        raise ValueError('Native report/batch pins are not admitted root inputs')
+    if not all(receipt.get(k) == run[k] for k in ('profile', 'renderer', 'candidate')) \
+            or receipt.get('scene') not in run['scenes'] or receipt.get('lane') not in ('candidate', 'current'):
+        raise ValueError('Capture receipt differs from exact admitted run/candidate/member')
+    live.require_read_admission(context, run, current=receipt['lane'] == 'current')
+    if receipt.get('sceneSource') != 'w50' or run.get('sceneSource') != 'w50':
+        raise ValueError('Only the W50 512x384 scene source is supported')
+    plan = M.A.scene_plan(run, context['phase'])
+    spec = next(s for s in plan['scenes'] if s['scene'] == receipt['scene'])
+    if receipt.get('canvas') != plan['canvas'] or receipt.get('dpr') != plan['dpr']:
+        raise ValueError('Receipt canvas/scale differs from its declared profile')
+    doc = M._scene_document(context, scenes_pin, live)
+    raw = M._pin_bytes(native_report_pin, Path(context['repo']))
+    report = M._json(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
+    cell = M._native_cell(report, receipt, plan, spec, doc)
+    batch = M._json(M._pin_bytes(native_batch_pin, Path(context['repo'])))
+    if batch.get('schema') != 'w50-native-read-batch-1' or batch['inputs'].get('scenes') != scenes_pin \
+            or batch['inputs']['declaration']['sha256'] != report['declarationSha256']:
+        raise ValueError('Native batch scene/declaration pins differ from the report')
+    exports = [e for e in batch['exports'] if e['role'] == report['role']]
+    if len(exports) != 1 or exports[0]['indexSha256'] != report['indexSha256']:
+        raise ValueError('Native report index differs from its admitted role export')
+    export = Path(exports[0]['root'])
+    if not export.is_absolute() or export.is_symlink() or not export.is_dir():
+        raise ValueError('Native dependency requires the original ordinary role export root')
+    index = M._json(M._pin_bytes(dict(path='index.json', sha256=report['indexSha256']), export))
+    deps = M.R.unique(report['dependencies'], 'id', 'native dependency')
+    dependency = deps.get(cell['reference'])
+    if dependency is None or any(r['dependency'] != cell['reference'] for r in cell['runs']):
+        raise ValueError('Native cell lacks its original no-glass dependency')
+    evidence = dependency['evidence']
+    if index.get('schema') != 'w50-role-archive-1' or evidence not in index['files'] \
+            or evidence.get('cell') != cell['reference'] or evidence.get('roles') != [report['role']] \
+            or evidence.get('run') != 1 or evidence.get('kind') != 'frame':
+        raise ValueError('Original no-glass row differs from the pinned role report/export')
+    dependency_raw = M._pin_bytes(dict(path=evidence['path'], sha256=evidence['sha256']), export)
+    artifacts = receipt['artifacts']
+    blobs = {}
+    for name, filename in (('png', f'{receipt["scene"]}__{receipt["renderer"]}.png'),
+                           ('report', f'report__{receipt["renderer"]}.json'),
+                           ('cell', f'cell__{receipt["renderer"]}.json')):
+        expected = Path(run['captureRoot'])/receipt['scene']/filename
+        if artifacts[name].get('path') != str(expected):
+            raise ValueError('Artifact path differs from exact admitted capture member')
+        blobs[name] = M._pin_bytes(artifacts[name], Path(context['output']), external=True)
+    metadata = M._json(blobs['cell'])
+    if metadata.get('renderer') != run['renderer'] or metadata.get('colorSpace') != 'srgb' \
+            or f'declarationSha256={run["candidate"]["sha256"][:12]}' not in metadata.get('capturePath', ''):
+        raise ValueError('Capture metadata differs from admitted candidate/tier')
+    verify_repeat(run, receipt)
+    candidate = M.A.candidate_info(run['candidate'], plan['position'])
+    endpoint = candidate['endpoints'][spec['pose']+'.dark']
+    resolved = {**candidate['endpoints']['active.dark']['patch'], **endpoint['patch']}
+    abscissa = resolved.get('backdropToneAbscissa', 'source')
+    abscissa = 'silhouette' if isinstance(abscissa, dict) else abscissa
+    arguments = M.A.validate_report(M._json(blobs['report']), run, endpoint,
+                                    abscissa=abscissa, phase=context['phase'])
+    for argument in arguments:
+        M.N.validate_tone_values(argument)
+    png_raw = blobs['png']
+    pixels = (doc['canvas']['width']*plan['dpr'], doc['canvas']['height']*plan['dpr'])
+    if png_raw[:8] != b'\x89PNG\r\n\x1a\n' or len(png_raw) < 24 \
+            or tuple(int.from_bytes(png_raw[i:i+4], 'big') for i in (16, 20)) != pixels:
+        raise ValueError('Pinned web PNG dimensions differ from the native canvas/profile')
+    background = M.R.S.decode_png(dependency_raw)
+    web = M.R.S.decode_png(png_raw)
+    shape = (pixels[1], pixels[0], 3)
+    if background.shape != shape or web.shape != shape:
+        raise ValueError('Actual PNG dimensions differ from the declared native canvas/profile')
+    scene = next(s for s in doc['scenes'] if s['id'] == receipt['scene'])
+    masks = M.R.S.analytical_masks(doc['components'][scene['component']], doc['canvas'], plan['dpr'],
+        web.shape[:2], background=background, impulse=doc['backgrounds'][scene['background']]['kind'] == 'impulse')
+    if cell['family'] == 'uniform':
+        del masks['deep8_far24']
+    result = M.evaluate_native_supports(web, cell, masks, renderer=run['renderer'])
+    provenance = dict(nativeRead=copy.deepcopy(native_report_pin), nativeBatch=copy.deepcopy(native_batch_pin),
+        scenes=copy.deepcopy(scenes_pin), nativeDependency=copy.deepcopy(evidence),
+        capture=copy.deepcopy(artifacts['png']), report=copy.deepcopy(artifacts['report']),
+        cell=copy.deepcopy(artifacts['cell']), candidateDocument=copy.deepcopy(run['candidate']))
+    provenance.update(repeatAdmission=copy.deepcopy(receipt['repeatAdmission']),
+                      repeatPair=copy.deepcopy(receipt['repeatPair']), reading='first')
+    for argument in arguments:
+        argument['provenance'].update(report=copy.deepcopy(artifacts['report']),
+            capture=copy.deepcopy(artifacts['png']), sceneSource='w50', scenesSha256=scenes_pin['sha256'],
+            candidateDocument=copy.deepcopy(run['candidate']), baseline=receipt['lane'] == 'current',
+            endpoint={k: copy.deepcopy(v) for k, v in endpoint.items() if k != 'patch'})
+    result.update(evidence=provenance, arguments=arguments)
+    live.require_context(context)
+    return result
 
 
 def source_probe():

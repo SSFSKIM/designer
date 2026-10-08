@@ -4,6 +4,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import sys
 import tempfile
 import types
 import unittest
@@ -57,7 +58,7 @@ class SourceTests(unittest.TestCase):
         self.reader = S.PhaseSources.__new__(S.PhaseSources)
         self.reader.context = self.context; self.reader.output = self.output; self.reader.repo = self.base
         self.reader.root = {}; self.reader.config = {}; self.reader.canonical_cache = {}
-        self.reader.dispatcher = types.SimpleNamespace(require_render_admission=lambda *a, **k: None)
+        self.reader.dispatcher = types.SimpleNamespace(require_read_admission=lambda *a, **k: None)
         self.plan = {'dpr': 1, 'position': .25, 'canvas': self.canvas,
             'scenes': [{'scene': self.scene, 'pose': 'active', 'span': 48}]}
         self.spec = self.plan['scenes'][0]
@@ -113,9 +114,9 @@ class SourceTests(unittest.TestCase):
         metadata, candidate, page = self.authentication_fixture()
         with patch.object(S.W, 'scene_plan', return_value=self.plan), \
              patch.object(S.W, 'candidate_info', return_value=candidate), \
-             patch.object(S.M, 'verify_live_repeat', return_value={'reading': 'first'}) as verify:
+             patch.object(S.PhaseSources, 'verify_repeat', return_value={'reading': 'first'}) as verify:
             _, _, blobs, evidence = S.PhaseSources.authenticate(self.reader, self.run, self.receipt)
-        verify.assert_called_once_with(self.context, self.run, self.receipt, metadata)
+        verify.assert_called_once_with(self.run, self.receipt)
         self.assertEqual(S.M._json(blobs['cell']), metadata)
         self.assertEqual(evidence['capture'], self.receipt['artifacts']['png'])
         self.assertEqual(evidence['material']['reportedMaterial'], page['material'])
@@ -127,12 +128,12 @@ class SourceTests(unittest.TestCase):
         _, candidate, _ = self.authentication_fixture()
         with patch.object(S.W, 'scene_plan', return_value=self.plan), \
              patch.object(S.W, 'candidate_info', return_value=candidate), \
-             patch.object(S.M, 'verify_live_repeat', side_effect=ValueError('second-page source refusal')):
+             patch.object(S.PhaseSources, 'verify_repeat', side_effect=ValueError('second-page source refusal')):
             with self.assertRaisesRegex(ValueError, 'second-page'):
                 S.PhaseSources.authenticate(self.reader, self.run, self.receipt)
         Path(self.receipt['artifacts']['png']['path']).write_bytes(png(np.zeros_like(self.first)))
         with patch.object(S.W, 'scene_plan', return_value=self.plan), \
-             patch.object(S.M, 'verify_live_repeat') as verify:
+             patch.object(S.PhaseSources, 'verify_repeat') as verify:
             with self.assertRaisesRegex(ValueError, 'Changed'):
                 S.PhaseSources.authenticate(self.reader, self.run, self.receipt)
         verify.assert_not_called()
@@ -295,6 +296,266 @@ class SourceTests(unittest.TestCase):
         with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
             with self.assertRaisesRegex(ValueError, 'support'):
                 self.reader.canonical_member(self.run, self.receipt, [row])
+
+
+FIXTURES = source(HERE/'test_capture.py', 'w50_phase_source_capture_fixtures')
+CURRENT3 = HERE.parents[1]/'2026-10-08-w50-g1-current3'
+
+
+class LiveRepeatTests(unittest.TestCase):
+    def test_repeat_verification_is_the_archived_replay_over_both_paired_transports(self):
+        reader = S.PhaseSources.__new__(S.PhaseSources)
+        reader.context = {'synthetic': 'context'}; reader.dispatcher = types.SimpleNamespace()
+        receipt = {'repeatPair': {'path': '/p', 'sha256': 'a'*64}, 'repeatAdmission': {'path': '/q', 'sha256': 'b'*64}}
+        with patch.object(S.L, 'archived_pair', return_value={'reading': 'first'}) as replay:
+            self.assertEqual(reader.verify_repeat({'run': 1}, receipt), {'reading': 'first'})
+        replay.assert_called_once_with(reader.context, reader.dispatcher, {'run': 1}, receipt,
+                                       {'canonical': S.C, 'w50': S.W})
+        for field in ('repeatPair', 'repeatAdmission'):
+            with self.subTest(field=field), patch.object(S.L, 'archived_pair') as replay:
+                with self.assertRaisesRegex(ValueError, 'repeat receipts'):
+                    reader.verify_repeat({}, {k: v for k, v in receipt.items() if k != field})
+                replay.assert_not_called()
+
+
+class CurrentEvidenceTests(unittest.TestCase):
+    """The LIVE root names composed schema-2 current evidence; no singular current instrument."""
+    def setUp(self):
+        t = tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup)
+        self.repo = Path(t.name).resolve()
+        self.scenes = write(self.repo/'scenes.json', {'synthetic': 'scenes'})
+        self.manifest = write(self.repo/'manifest.json', {'synthetic': 'manifest'})
+        self.batch = write(self.repo/'batch.json', {'schema': 'w50-native-read-batch-1',
+            'inputs': {'scenes': self.scenes, 'manifest': self.manifest}})
+        self.reports = {r: write(self.repo/(r+'.json'), {'role': r}) for r in ('calibration', 'validation')}
+        self.references = write(self.repo/'references.json', {'cells': []})
+        self.composition = write(self.repo/'composition.json', {'synthetic': 'composition'})
+        self.canonical = write(self.repo/'canonical.json', {'schema': 'w50-canonical-reference-evidence-1', 'partitions': {}})
+        self.current_doc = {'schema': 'w50-completed-current-evidence-2', 'status': 'EVIDENCE_ONLY',
+            'currentComposition': self.composition, 'originals': {'references': self.references, 'scenes': self.scenes},
+            'native': {'batch': self.batch, 'reports': self.reports, 'instrument': {'path': 'i', 'sha256': 'c'*64}},
+            'referenceEvidence': []}
+        self.config = {'completedCurrentEvidence': None, 'canonicalReferenceEvidence': self.canonical,
+                       'native': {'batch': self.batch, 'scenes': self.scenes, 'reports': self.reports}}
+
+    def build(self, mutate=None, root_change=None):
+        doc = copy.deepcopy(self.current_doc)
+        if mutate: mutate(doc)
+        current = write(self.repo/'current.json', doc)
+        config = dict(self.config, completedCurrentEvidence=current)
+        inputs = [current, self.canonical, self.scenes, self.batch, *self.reports.values()]
+        root = {'inputs': inputs, 'references': self.references, 'manifest': self.manifest,
+                'currentEvidence': current, 'currentComposition': self.composition, **(root_change or {})}
+        context = {'repo': str(self.repo), 'output': str(self.repo), 'executionRoot': 'root', 'inputs': inputs}
+        live = types.SimpleNamespace(require_context=lambda c: None, sealed=lambda p: root,
+                                     checked=lambda repo, pin: Path(pin['path']))
+        with patch.dict(sys.modules, {'w50_g1_dispatch': live}):
+            return S.PhaseSources(context, root, config)
+
+    def test_composed_root_evidence_is_admitted(self):
+        self.assertEqual(self.build().current, {})
+
+    def test_singular_foreign_or_mismatched_current_evidence_refuses(self):
+        mutations = {
+            'schema1': lambda d: d.update(schema='w50-completed-current-evidence-1'),
+            'singular': lambda d: d.update(currentInstrument={'path': 'x', 'sha256': 'd'*64}),
+            'composition': lambda d: d.update(currentComposition=self.canonical),
+            'references': lambda d: d['originals'].update(references=self.canonical),
+            'scenes': lambda d: d['originals'].update(scenes=self.canonical),
+            'native-batch': lambda d: d['native'].update(batch=self.canonical),
+            'native-reports': lambda d: d['native']['reports'].update(validation=self.canonical),
+            'status': lambda d: d.update(status='PASS')}
+        for name, mutation in mutations.items():
+            with self.subTest(change=name), self.assertRaisesRegex(ValueError, 'composed current evidence'):
+                self.build(mutation)
+        with self.assertRaisesRegex(ValueError, 'composed current evidence'):
+            self.build(root_change={'currentEvidence': self.canonical})
+
+
+class ExposedEquivalenceTests(unittest.TestCase):
+    """measure_exposed is capture.measure_capture on the member's own run, nothing else."""
+    def setUp(self):
+        self.m = S.M
+        FIXTURES.CaptureTests.setUp(self)
+        folder = self.scratch/'captures'/FIXTURES.SCENE
+        self.receipt['repeatPair'] = FIXTURES.write_pin(folder/'repeat__webgpu.json', {'synthetic': 'pair'})
+        self.receipt['repeatAdmission'] = FIXTURES.write_pin(folder/'repeat-admission__webgpu.json', {'synthetic': 'proof'})
+        self.proof = {'schema': 'w50-repeat-admission-1', 'synthetic': True}
+        self.reads = []
+        self.live = types.SimpleNamespace(require_context=lambda c: None, sealed=self.dispatcher.sealed,
+            checked=self.dispatcher.checked,
+            require_read_admission=lambda c, run, current=False: self.reads.append((run['captureRoot'], current)))
+
+    def original(self):
+        with patch.object(S.M, 'verify_live_repeat', return_value=self.proof):
+            return S.M.measure_capture(self.context, self.native_report, self.receipt, self.scenes,
+                                       native_batch_pin=self.native_batch)
+
+    def live_read(self, run):
+        calls = []
+        result = S.measure_exposed(self.context, self.live, run, self.native_report, self.receipt, self.scenes,
+            native_batch_pin=self.native_batch, verify_repeat=lambda r, rc: calls.append((r, rc)) or self.proof)
+        self.assertEqual(calls, [(run, self.receipt)])
+        return result
+
+    def test_same_statistics_arguments_and_evidence_as_the_original_reader(self):
+        original = self.original()
+        self.assertEqual(self.live_read(copy.deepcopy(self.run)), original)
+        self.assertEqual(self.reads, [(self.run['captureRoot'], False)])
+        self.assertEqual(original['evidence']['repeatAdmission'], self.receipt['repeatAdmission'])
+
+    def test_a_per_member_root_is_unreadable_by_the_original_and_read_identically_here(self):
+        """LIVE's lifecycle gives each member its own captureRoot: why the original cannot be wrapped."""
+        expected = self.original()
+        member = dict(self.run, captureRoot=str(self.scratch/'attempts/000001/quarantine/member/captures'))
+        source_dir = self.scratch/'captures'/FIXTURES.SCENE
+        target = Path(member['captureRoot'])/FIXTURES.SCENE; target.mkdir(parents=True)
+        for name in ('png', 'report', 'cell'):
+            old = Path(self.artifacts[name]['path']); new = target/old.name
+            new.write_bytes(old.read_bytes()); self.artifacts[name] = dict(self.artifacts[name], path=str(new))
+        with self.assertRaisesRegex(ValueError, 'Artifact path differs'):
+            self.original()
+        result = self.live_read(member)
+        for key in ('capture', 'report', 'cell'):
+            expected['evidence'][key] = self.artifacts[{'capture': 'png'}.get(key, key)]
+        for argument in expected['arguments']:
+            argument['provenance'].update(report=self.artifacts['report'], capture=self.artifacts['png'])
+        self.assertEqual(result, expected)
+
+    def test_live_member_refusals_precede_any_pixel_decode(self):
+        changes = {'foreign-run': lambda run: dict(run, candidate={'path': 'other', 'sha256': 'f'*64}),
+                   'wrong-root': lambda run: dict(run, captureRoot=str(self.scratch/'elsewhere')),
+                   'unregistered': None}
+        for name, change in changes.items():
+            with self.subTest(change=name), \
+                    patch.object(S.M.R.S, 'decode_png', side_effect=AssertionError('decode')):
+                inputs = self.context['inputs']
+                if change is None: self.context['inputs'] = []
+                with self.assertRaises(ValueError):
+                    self.live_read((change or (lambda r: r))(copy.deepcopy(self.run)))
+                self.context['inputs'] = inputs
+        with patch.object(S.M.R.S, 'decode_png', side_effect=AssertionError('decode')):
+            with self.assertRaisesRegex(ValueError, 'verification'):
+                S.measure_exposed(self.context, self.live, self.run, self.native_report, self.receipt, self.scenes,
+                    native_batch_pin=self.native_batch,
+                    verify_repeat=lambda *a: (_ for _ in ()).throw(ValueError('pair verification refused')))
+
+
+class FakeEvidence:
+    """Stand-in for current3 NativeEvidence: only the identity calls DL5g's loop makes."""
+    log = []
+    def __init__(self, repo, manifest): self.repo = Path(repo); FakeEvidence.log.append(('init', manifest['path']))
+    def path(self, pin):
+        if not isinstance(pin, dict): raise ValueError('Missing synthetic pin')
+        path = Path(pin['path']); path = path if path.is_absolute() else self.repo/path
+        if hashlib.sha256(path.read_bytes()).hexdigest() != pin['sha256']: raise ValueError('Changed synthetic pin')
+        return path.resolve()
+    def read(self, pin): return json.loads(self.path(pin).read_text())
+    def check(self, pin): return self.path(pin)
+    def png(self, pin, dimensions): FakeEvidence.log.append(('png', dimensions))
+    def validate(self, row, pin, exposure=None): FakeEvidence.log.append(('validate', row['statistic']))
+    def finish(self): FakeEvidence.log.append(('finish',))
+
+
+class FakeNativeModule(types.ModuleType):
+    NativeEvidence = property(lambda self: FakeEvidence)
+
+
+class BlindCompletenessTests(unittest.TestCase):
+    """validate_blind_rows is current3's DL5g check over the members' own runs."""
+    PROFILE = 'apple-macos-27.0-1x-dark-standard-glass0.25'
+
+    def setUp(self):
+        t = tempfile.TemporaryDirectory(); self.addCleanup(t.cleanup)
+        base = Path(t.name).resolve(); self.repo = base/'repo'; self.output = base/'output'
+        self.repo.mkdir(); self.output.mkdir()
+        self.candidate = write(self.repo/'candidate.json', {'synthetic': 'candidate'})
+        self.baseline = write(self.repo/'baseline.json', {'synthetic': 'baseline'})
+        self.manifest = write(self.repo/'manifest.json', {'synthetic': 'manifest'})
+        statistics = ('deep8-channel-median', 'T1-full-silhouette')
+        provenance = {'role': 'blind', 'support': 'Original prose.', 'nativeIdentity': self.PROFILE+'/blind',
+            'referenceIdentity': self.PROFILE+'/ref', 'currentGeneration': 'g', 'currentDocumentPair': {'active.dark': 'a'*64}}
+        self.cells = [dict(profile=self.PROFILE, renderer='webgpu', scene='blind', statistic=name, **provenance)
+                      for name in statistics]
+        self.references = write(self.repo/'references.json', {'cells': self.cells})
+        self.root = {'manifest': self.manifest, 'references': self.references, 'baselineDocuments': [self.baseline]}
+        self.run = {'id': 'r', 'profile': self.PROFILE, 'renderer': 'webgpu', 'sceneSource': 'w50', 'scenes': ['blind'],
+            'sets': ['holdout'], 'candidate': self.candidate, 'baselineCandidate': self.baseline,
+            'captureRoot': str(self.output/'unused'), 'matrixPath': str(self.output/'unused.json')}
+        self.context = {'repo': str(self.repo), 'output': str(self.output), 'phase': 'exposure', 'executionRoot': 'root',
+            'batch': {'phase': 'exposure', 'runs': [self.run], 'cohort': [self.candidate]}}
+        self.receipts = {lane: self.receipt(lane, self.candidate if lane == 'candidate' else self.baseline)
+                         for lane in ('candidate', 'current')}
+        self.rows = [dict(cell, nativeEvidence={'path': 'native.json', 'sha256': 'e'*64},
+                          candidateCapture=copy.deepcopy(self.receipts['candidate']),
+                          currentCapture=copy.deepcopy(self.receipts['current'])) for cell in self.cells]
+        FakeEvidence.log = []
+
+    def receipt(self, lane, candidate):
+        folder = self.output/'attempts/000001/quarantine'/lane/'captures/blind'
+        metadata = {'sceneId': 'blind', 'renderer': 'webgpu', 'pixelSize': [512, 384],
+                    'capturePath': 'declarationSha256='+candidate['sha256'][:12]}
+        page = {'sceneId': 'blind', 'requestedRenderer': 'webgpu', 'devicePixelRatio': 1, 'materialMode': 'candidate',
+                'candidateDocument': {'mode': 'candidate', 'declarationSha256': candidate['sha256'][:12]}}
+        return {'profile': self.PROFILE, 'renderer': 'webgpu', 'scene': 'blind', 'lane': lane, 'candidate': candidate,
+            'sceneSource': 'w50', 'artifacts': {'png': write(folder/'blind__webgpu.png', b'png'),
+                'cell': write(folder/'cell__webgpu.json', metadata), 'report': write(folder/'report__webgpu.json', {'page': page})}}
+
+    def original(self):
+        V = source(CURRENT3/'execution/blind_exposure.py', 'w50_test_original_blind_exposure')
+        D = source(CURRENT3/'execution/dispatch.py', 'w50_test_original_dispatch_baseline')
+        permissive = types.SimpleNamespace(require_context=lambda c: None, sealed=lambda p: self.root,
+            require_render_admission=lambda *a, **k: None, baseline_run=D.baseline_run)
+        with patch.dict(sys.modules, {'w50_g1_dispatch': permissive}), \
+                patch.object(V.importlib.util, 'module_from_spec', lambda spec: FakeNativeModule('w50_fake_native')):
+            return V.validate_blind_exposure(self.context, self.rows)
+
+    def live(self):
+        reads = []
+        def resolve(context, receipt):
+            if receipt != self.receipts.get(receipt.get('lane')): raise ValueError('Receipt is not a source-bound complete-union member')
+            member = dict(self.run, scenes=['blind'], candidate=receipt['candidate']); member.pop('baselineCandidate')
+            return member
+        reader = S.PhaseSources.__new__(S.PhaseSources)
+        reader.context = self.context
+        reader.dispatcher = types.SimpleNamespace(require_context=lambda c: None, sealed=lambda p: self.root,
+            resolve_capture_run=resolve, require_read_admission=lambda c, run, current=False: reads.append((run['candidate'], current)))
+        reader.native_evidence = lambda manifest: FakeEvidence(self.context['repo'], manifest)
+        result = reader.validate_blind_rows(self.rows)
+        self.assertEqual(reads, [(self.candidate, False), (self.baseline, True)]*len(self.rows))
+        return result
+
+    def test_same_bound_evidence_as_the_original_check(self):
+        original = self.original(); original_log = FakeEvidence.log; FakeEvidence.log = []
+        self.assertEqual(self.live(), original)
+        self.assertEqual(FakeEvidence.log, original_log)
+        self.assertEqual(original['status'], 'BOUND_BLIND_EVIDENCE')
+
+    def test_each_original_refusal_refuses_identically(self):
+        mutations = {
+            'provenance': lambda rows: rows[0].update(support='changed'),
+            'missing-row': lambda rows: rows.pop(),
+            'duplicate-row': lambda rows: rows.append(copy.deepcopy(rows[0])),
+            'lane': lambda rows: rows[0]['candidateCapture'].update(lane='current'),
+            'material': lambda rows: rows[0]['currentCapture'].update(candidate=self.candidate),
+            'scene': lambda rows: rows[0]['candidateCapture'].update(scene='other'),
+            'outside': lambda rows: rows[0]['candidateCapture']['artifacts'].update(png=self.references),
+            'cohort': lambda rows: self.context['batch'].update(cohort=[self.baseline]),
+            'baseline': lambda rows: self.root.update(baselineDocuments=[])}
+        for name, mutation in mutations.items():
+            with self.subTest(change=name):
+                saved = (copy.deepcopy(self.rows), copy.deepcopy(self.context), copy.deepcopy(self.root))
+                mutation(self.rows)
+                with self.assertRaises(ValueError): self.original()
+                with self.assertRaises(ValueError): self.live()
+                self.rows, self.context, self.root = saved
+
+    def test_a_receipt_differing_from_its_checkpoint_refuses_before_native_evidence(self):
+        self.receipts['candidate'] = dict(self.receipts['candidate'], artifacts={})
+        with self.assertRaisesRegex(ValueError, 'source-bound'): self.live()
+        self.assertNotIn(('validate', self.cells[0]['statistic']), FakeEvidence.log)
+        self.context['phase'] = 'gate'
+        with self.assertRaisesRegex(ValueError, 'exposure-only'): self.live()
 
 
 if __name__ == '__main__':

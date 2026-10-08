@@ -1,14 +1,19 @@
 """Authenticated fit/gate/exposure measurement evidence, not a phase or owner verdict.
 
-Only the actual CURRENT3 dispatcher capability can invoke this reader. Fixed config and
-completed-reference/current/canonical reports are prospective root inputs; future candidate
-artifacts belong to this invocation's content-bound batch/output. Every fresh pair is replayed
-through the root's live source validator, and only its FIRST image is measured.
+Only the registered LIVE dispatcher's analysis stage can invoke this reader: it runs after the
+exclusive full-union analysis marker, over the complete capture union. Each receipt is bound to
+its OWN member run (dispatcher.resolve_capture_run: the receipt must equal its immutable member
+checkpoint) under read admission; LIVE issues render admission to capture members only. Fixed
+config and completed-reference/current/canonical reports are prospective root inputs; candidate
+artifacts belong to this logical phase's members. Every fresh pair is replayed through the
+root-bound DL5h helper and the transports' pure report validators, and only its FIRST image is
+measured.
 
 Snapshots are exclusive scratch evidence beneath context.output, never execution seals. A
 failed read retains its directory and cannot silently run again. Original rows, adopted
 budgets and history remain unchanged beside additive readings. Owner rows are opaque pointers;
 any gate pending annotation is disposition metadata, not a measured result or owner evaluation.
+The phase body and every keyed row name the analysis claim (executionClaim) they were read under.
 """
 import copy
 import hashlib
@@ -58,6 +63,8 @@ def inputs(context, dispatcher, config_pin):
     native = config['native']
     if set(native) != {'batch', 'scenes', 'reports'} or set(native['reports']) != {'calibration', 'validation'}:
         raise ValueError('Measurement needs exactly the original exposed native inputs')
+    if config['completedCurrentEvidence'] != root.get('currentEvidence'):
+        raise ValueError('Measurement current evidence is not the root-bound composed current evidence')
     for pin in (config['completedCurrentEvidence'], config['canonicalReferenceEvidence'],
                 native['batch'], native['scenes'], *native['reports'].values()):
         registered(pin)
@@ -78,30 +85,31 @@ def inputs(context, dispatcher, config_pin):
 
 
 def members(context, captures, dispatcher, root):
+    """Bind every receipt to its own logical member run; population and lanes stay exact."""
     dispatcher.admission_module(root).validate_captures(context['batch'], captures, context['output'])
-    admitted = []
+    expected = set()
     for run in context['batch']['runs']:
-        admitted.append((run, False))
+        lanes = ['candidate']
         if context['phase'] == 'exposure':
             if run.get('baselineCandidate') not in context['baselineDocuments']:
                 raise ValueError('Exposure measurement requires its registered same-cell baseline')
-            admitted.append((dispatcher.baseline_run(run), True))
-    result = {}; expected = set()
-    for run, baseline in admitted:
-        dispatcher.require_render_admission(context, run, current=baseline)
-        lane = 'current' if baseline else 'candidate'
+            lanes.append('current')
         for scene in run['scenes']:
-            expected.add((run['profile'], run['renderer'], scene, lane))
+            for lane in lanes:
+                expected.add((run['profile'], run['renderer'], scene, lane))
+    result = {}
     for receipt in captures['captures']:
-        matches = [(r, current) for r, current in admitted if
-            all(receipt.get(k) == r[k] for k in ('profile', 'renderer', 'candidate', 'sceneSource'))
-            and receipt.get('scene') in r['scenes']
-            and receipt.get('lane') == ('current' if current else 'candidate')]
-        if len(matches) != 1 or not receipt.get('repeatPair') or not receipt.get('repeatAdmission'):
+        if not receipt.get('repeatPair') or not receipt.get('repeatAdmission'):
             raise ValueError('Measurement needs one original member with both fresh repeat pins')
+        # The member's own derived run (per-member captureRoot/matrixPath, baseline lane already
+        # carrying its baseline candidate); a receipt differing from its checkpoint refuses.
+        run = dispatcher.resolve_capture_run(context, receipt)
+        dispatcher.require_read_admission(context, run, current=receipt['lane'] == 'current')
+        if receipt.get('sceneSource') != run.get('sceneSource'):
+            raise ValueError('Measurement receipt differs from its member scene source')
         key = tuple(receipt[k] for k in KEY[:3]) + (receipt['lane'],)
         if key in result: raise ValueError('Duplicate measurement capture member')
-        result[key] = (matches[0][0], receipt)
+        result[key] = (run, receipt)
     if set(result) != expected: raise ValueError('Measurement capture population differs from phase batch')
     return result
 
@@ -110,6 +118,8 @@ def measure_phase(context, captures, config_pin):
     dispatcher = sys.modules.get('w50_g1_dispatch')
     if dispatcher is None: raise ValueError('Phase measurement requires the registered live dispatcher')
     dispatcher.require_context(context)
+    if context.get('stage') != 'analysis':
+        raise ValueError('Phase measurement runs only after the full-union analysis marker')
     phase = context.get('phase')
     if phase not in ('fit', 'gate', 'exposure') or context['batch'].get('phase') != phase:
         raise ValueError('Only matching live fit/gate/exposure phases may be measured')
@@ -131,7 +141,8 @@ def measure_phase(context, captures, config_pin):
         'referenceInventory': copy.deepcopy(root['references']),
         'completedReferences': copy.deepcopy(config['completedReferences']),
         'expectedKeys': [list(k) for k in sorted(expected)], 'rows': [],
-        'gateResult': copy.deepcopy(context.get('gateResult'))}
+        'gateResult': copy.deepcopy(context.get('gateResult')),
+        'executionClaim': copy.deepcopy(context['executionClaim'])}
     for name, field in (('executionRoot', 'executionRoot'), ('contract', 'contract'), ('batch', 'batchPath')):
         body[name] = {'path': context[field], 'sha256': dispatcher.sha(context[field])}
     backend = S.PhaseSources(context, root, config)
@@ -190,7 +201,8 @@ def measure_phase(context, captures, config_pin):
                 'phase': phase, 'executionRoot': body['executionRoot'], 'contract': body['contract'],
                 'batch': body['batch'], 'cohort': body['cohort'], 'referenceInventory': body['referenceInventory'],
                 'completedReferences': body['completedReferences'], 'config': body['config'],
-                'gateResult': body['gateResult'], 'row': copy.deepcopy(row)}
+                'gateResult': body['gateResult'], 'executionClaim': body['executionClaim'],
+                'row': copy.deepcopy(row)}
             row['evidence'] = write_once(destination/(Q.digest(list(key))+'.json'), row_body)
             body['rows'].append(row)
     blind = [r for r in body['rows'] if r['role'] == 'blind']

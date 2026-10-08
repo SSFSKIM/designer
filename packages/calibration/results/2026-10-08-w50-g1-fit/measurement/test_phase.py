@@ -1,4 +1,9 @@
-"""Synthetic phase capability/config/membership checks; no native or web data is used."""
+"""Synthetic phase capability/config/membership checks; no native or web data is used.
+
+The dispatcher is the REAL LIVE dispatch module with an installed analysis-stage capability
+(context, snapshot, hashes, members derived by the real lifecycle, checkpoint records), so
+member binding meets LIVE's actual resolve_capture_run/require_read_admission semantics.
+"""
 import copy
 import gzip
 import hashlib
@@ -23,7 +28,10 @@ def source(path, name):
 
 
 P = source(HERE/'phase.py', 'w50_test_phase')
-D = source(CURRENT3/'execution/dispatch.py', 'w50_test_phase_dispatch')
+LIVE = FIT/'live-execution'
+D = source(LIVE/'dispatch.py', 'w50_test_phase_live_dispatch')
+CORE = source(LIVE/'common.py', 'w50_test_phase_live_common')
+LIFECYCLE = source(LIVE/'lifecycle.py', 'w50_test_phase_live_lifecycle')
 
 
 def sha(path):
@@ -79,12 +87,13 @@ class PhaseTests(unittest.TestCase):
         inputs = [self.config, self.completed, self.current_report, self.canonical_report,
                   self.native_batch, self.scenes, self.calibration, self.validation]
         self.root = {'references': self.original, 'inputs': inputs, 'manifest': self.scenes,
-            'currentInstrument': self.current_report, 'currentResults': [self.current_report],
+            'currentEvidence': self.current_report, 'currentComposition': self.current_report,
             'reportedKeys': [], 'emptySupportKeys': [], 'repeatAdmission': {'synthetic': True}}
         self.root_path = self.repo/'root.json'; write(self.root_path, self.root)
         self.context = {'repo': str(self.repo), 'executionRoot': str(self.root_path),
             'contract': str(self.contract_path), 'batchPath': str(self.batch_path), 'batch': self.batch,
-            'phase': 'fit', 'output': str(self.output), 'inputs': inputs, 'gateResult': None,
+            'phase': 'fit', 'stage': 'analysis', 'output': str(self.output), 'inputs': inputs, 'gateResult': None,
+            'executionClaim': {'path': str(self.repo/'contract.json.phase/analysis.started.json'), 'sha256': 'f'*64},
             'baselineDocuments': [self.baseline], 'repeatAdmission': self.root['repeatAdmission'],
             'expectedCells': [{k: self.row[k] for k in KEY}]}
         self.receipt = {'profile': self.profile, 'renderer': 'webgpu', 'scene': 'cell',
@@ -100,22 +109,40 @@ class PhaseTests(unittest.TestCase):
             current_measurement=self.current_measurement, blind_envelope=self.blind_envelope,
             validate_blind_rows=lambda rows: self.blind_validated.extend(rows),
             authenticate=lambda *a: None)
+        D._CORE = {'C': CORE, 'L': LIFECYCLE}
         self.install_active()
         self.addCleanup(lambda: setattr(D, '_ACTIVE', None))
         patches = [patch.dict(sys.modules, {'w50_g1_dispatch': D}),
-            patch.object(D, 'lease_owned', return_value=True),
-            patch.object(D, 'sealed', side_effect=lambda path:
+            patch.object(CORE.D, 'lease_owned', return_value=True),
+            patch.object(CORE.D, 'sealed', side_effect=lambda path:
                 self.root if Path(path) == self.root_path else self.contract),
-            patch.object(D, 'admission_module', return_value=types.SimpleNamespace(
+            patch.object(CORE.D, 'admission_module', return_value=types.SimpleNamespace(
                 endpoints=lambda *a, **kw: .25, validate_captures=self.validate_captures)),
             patch.object(P.S, 'PhaseSources', return_value=self.backend)]
         for item in patches:
             item.start(); self.addCleanup(item.stop)
 
+    def members(self):
+        """The logical members exactly as the real lifecycle derives them (per-member runs)."""
+        store = LIFECYCLE.Store(self.contract_path, self.batch, self.output)
+        return [store._member(m, 1) for m in store.population]
+
+    def member_run(self, lane):
+        return next(m['run'] for m in self.members() if m['lane'] == lane)
+
     def install_active(self):
+        """LIVE's analysis-stage capability: members and their immutable checkpoint records."""
         write(self.root_path, self.root)
-        D._ACTIVE = (self.context, copy.deepcopy(self.context), sha(self.contract_path),
-                     sha(self.batch_path), True, self.root, self.config)
+        members = self.members(); records = {}
+        for member in members:
+            for receipt in self.captures['captures']:
+                if all(receipt.get(k) == member['run'][k] for k in ('profile', 'renderer', 'candidate')) \
+                        and receipt.get('scene') == member['scene'] and receipt.get('lane') == member['lane']:
+                    records[member['id']] = copy.deepcopy(receipt)
+        D._ACTIVE = {'context': self.context, 'snapshot': copy.deepcopy(self.context),
+            'hashes': [(str(self.contract_path), sha(self.contract_path)), (str(self.batch_path), sha(self.batch_path))],
+            'doc': self.root, 'store': None, 'numerical': None, 'members': members,
+            'payloads': [], 'records': records}
 
     def phase(self, value):
         self.context['phase'] = value; self.batch['phase'] = value
@@ -144,7 +171,7 @@ class PhaseTests(unittest.TestCase):
             'nativeRuns': [{'run': n, 'sha256': str(n)*64} for n in (1, 2, 3)]}
 
     def measure_member(self, run, receipt, rows):
-        D.require_render_admission(self.context, run, current=receipt['lane'] == 'current')
+        D.require_read_admission(self.context, run, current=receipt['lane'] == 'current')
         self.produced.append((run, receipt, rows))
         value = [12, 22, 32] if receipt['lane'] == 'current' else [11, 21, 31]
         return {'statistics': {'deep8-channel-median': self.statistic(value)},
@@ -200,8 +227,10 @@ class PhaseTests(unittest.TestCase):
         self.assertEqual((reading['native'], reading['current'], reading['candidate']),
                          ([10, 20, 30], [12, 22, 32], [11, 21, 31]))
         self.assertEqual([receipt['lane'] for _, receipt, _ in self.produced], ['candidate', 'current'])
-        self.assertIs(self.produced[0][0], self.run)
-        self.assertEqual(self.produced[1][0], D.baseline_run(self.run))
+        self.assertEqual(self.produced[0][0], self.member_run('candidate'))
+        self.assertEqual(self.produced[1][0], self.member_run('current'))
+        self.assertEqual(self.produced[1][0]['candidate'], self.baseline)
+        self.assertNotIn('baselineCandidate', self.produced[1][0])
         self.assertEqual(self.blind_validated, [row])
         self.assertEqual(row['candidateCapture'], self.receipt)
         self.assertEqual(row['currentCapture'], self.captures['captures'][1])
@@ -341,6 +370,49 @@ class PhaseTests(unittest.TestCase):
             P.measure_phase(self.context, self.captures, self.config)
         self.assertTrue((self.output/'measurement').is_dir())
         with self.assertRaises(FileExistsError): P.measure_phase(self.context, self.captures, self.config)
+
+    def test_only_the_analysis_stage_measures(self):
+        for stage in ('capture', 'qualification', 'native'):
+            with self.subTest(stage=stage):
+                self.context['stage'] = stage; self.install_active()
+                with self.assertRaisesRegex(ValueError, 'analysis marker'):
+                    P.measure_phase(self.context, self.captures, self.config)
+                self.assertEqual(self.produced, []); self.assertFalse((self.output/'measurement').exists())
+        self.context['stage'] = 'analysis'; self.install_active()
+
+    def test_each_receipt_is_bound_to_its_own_member_and_its_unchanged_checkpoint(self):
+        result = P.measure_phase(self.context, self.captures, self.config)
+        run = self.produced[0][0]
+        self.assertEqual(run, self.member_run('candidate'))
+        self.assertEqual(run['scenes'], ['cell']); self.assertNotEqual(run['captureRoot'], self.run['captureRoot'])
+        self.assertEqual(result['rows'][0]['candidateCapture'], self.receipt)
+        import shutil; shutil.rmtree(self.output/'measurement'); self.produced.clear()
+        for change in ('relabelled', 'scene-source'):
+            with self.subTest(change=change):
+                saved = copy.deepcopy(self.receipt)
+                if change == 'relabelled': self.receipt['artifacts']['png'] = {'path': '/foreign.png', 'sha256': 'f'*64}
+                else: self.receipt['sceneSource'] = 'canonical'
+                with self.assertRaises(ValueError): P.measure_phase(self.context, self.captures, self.config)
+                self.assertEqual(self.produced, [])
+                self.receipt.clear(); self.receipt.update(saved)
+        self.install_active()
+        self.receipt['sceneSource'] = 'canonical'; self.install_active()
+        with self.assertRaisesRegex(ValueError, 'scene source'):
+            P.measure_phase(self.context, self.captures, self.config)
+
+    def test_phase_and_every_keyed_row_carry_the_analysis_claim(self):
+        result = P.measure_phase(self.context, self.captures, self.config)
+        self.assertEqual(result['executionClaim'], self.context['executionClaim'])
+        saved = json.loads(Path(result['snapshot']['path']).read_bytes())
+        self.assertEqual(saved['executionClaim'], self.context['executionClaim'])
+        keyed = json.loads(Path(result['rows'][0]['evidence']['path']).read_bytes())
+        self.assertEqual(keyed['executionClaim'], self.context['executionClaim'])
+
+    def test_current_evidence_must_be_the_root_bound_composed_evidence(self):
+        self.root['currentEvidence'] = self.canonical_report; self.install_active()
+        with self.assertRaisesRegex(ValueError, 'composed current evidence'):
+            P.measure_phase(self.context, self.captures, self.config)
+        self.assertEqual(self.produced, [])
 
 
 if __name__ == '__main__':
