@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5i are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5j are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -555,6 +555,10 @@ WebGPU; CSS must carry the same law, with level-error growth <= 1 code on the pr
 against its own current and its coherence contract passing (clause 4); CSS absolute errors are
 reported. Canonical T1 regression stays WebGPU-only per the inventory; new-bed structured T1 growth
 <= B applies to both tiers as declared.
+
+DL5j (parent, before any candidate read). Input 64 is reported as a diagnostic on both tiers.
+Numerical identity to the current law at 64 is required on both tiers, so a candidate that moves
+the join fails. There is no separate CSS growth gate at 64.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
