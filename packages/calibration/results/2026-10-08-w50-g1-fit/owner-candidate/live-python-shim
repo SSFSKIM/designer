@@ -1,0 +1,3 @@
+#!/bin/sh
+# Node binds this lexical venv launch to the pinned target and pyvenv.cfg. Do not resolve it.
+exec "${W50_OWNER_LIVE_PYTHON:?live pinned interpreter required}" -I -B "$(dirname "$0")/live-python.py" "$@"
