@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import childProcess from 'node:child_process';
 import {Server} from 'node:net';
+import {createHash} from 'node:crypto';
 import {syncBuiltinESMExports} from 'node:module';
 import {join,isAbsolute} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -79,20 +80,46 @@ if(route.startsWith('browser-')) {
     const scene='dark-solid__rrect-md__rest';
     const set=Object.entries(sceneDoc.split).find(([,ids])=>ids.includes(scene))[0];
     const background=sceneDoc.scenes.find(s=>s.id===scene).background;
-    fs.writeFileSync(join(process.env.VITREA_FIXTURES,'manifest.json'),JSON.stringify({
-      backgrounds:{[`${background}@1x`]:'synthetic-background.png'},caveats:['SOURCE ONLY: no image files'],
+    const profile='apple-macos-27.0-1x-dark-standard-glass0.25';
+    const fixtureRoot=join(scratch,'original-native-tree');
+    fs.mkdirSync(join(fixtureRoot,profile),{recursive:true});
+    const manifestPath=join(fixtureRoot,'manifest.json');
+    fs.writeFileSync(manifestPath,JSON.stringify({
+      backgrounds:{[`${background}@1x`]:'synthetic-background.png'},caveats:['SOURCE ONLY: generated synthetic PNG, no reference image'],
       profiles:[{profileKey:'apple-macos-27.0-1x-dark-standard-glass0.25',colorScheme:'dark',
-        a11yMode:'standard',display:{actualBackingScale:1},fixtures:[{sceneId:scene,file:'synthetic-native.png',
+        a11yMode:'standard',display:{actualBackingScale:1},fixtures:[{sceneId:scene,file:`${profile}/${scene}.png`,
           fixtureSet:set,captureMethod:'synthetic-source-probe',materialRendered:true}]}],
     }));
+    const {PNG}=await import('pngjs');
+    const image=new PNG({width:2,height:2});image.data.fill(128);
+    for(let i=3;i<image.data.length;i+=4)image.data[i]=255;
+    const nativeBytes=PNG.sync.write(image);
+    const nativePath=join(fixtureRoot,profile,scene+'.png');
+    fs.writeFileSync(nativePath,nativeBytes,{flag:'wx'});
+    const request={profile,scenes:[scene],sets:[set],
+      fixtures:{path:fixtureRoot,manifest:{path:manifestPath,
+        sha256:createHash('sha256').update(fs.readFileSync(manifestPath)).digest('hex')}},
+      native:[{scene,path:nativePath,sha256:createHash('sha256').update(nativeBytes).digest('hex')}]};
+    const requestBytes=JSON.stringify(request);
+    const requestPath=join(scratch,'native-request.json'),receiptPath=join(scratch,'native-receipt.json');
+    fs.writeFileSync(requestPath,requestBytes,{flag:'wx'});
+    process.env.W50_NATIVE_REQUEST_SHA256=createHash('sha256').update(requestBytes).digest('hex');
     childProcess.spawnSync=(command,args)=>{
+      const receipt=JSON.parse(fs.readFileSync(receiptPath,'utf8'));
+      if(receipt.status!=='ADMITTED' || receipt.requestSha256!==process.env.W50_NATIVE_REQUEST_SHA256 ||
+        JSON.stringify(receipt.native)!==JSON.stringify(request.native))throw Error('Synthetic native receipt differs');
+      if(process.env.VITREA_FIXTURES!==fs.realpathSync(fixtureRoot) ||
+        JSON.stringify(receipt.fixtures)!==JSON.stringify(request.fixtures))throw Error('Original synthetic tree not inherited');
+      event('ORIGINAL_SYNTHETIC_TREE_INHERITED',{path:process.env.VITREA_FIXTURES});
+      event('SYNTHETIC_NATIVE_RECEIPT_VERIFIED',{receipt:receiptPath,status:receipt.status});
       event('COMPARE_STOP_BEFORE_CHILD',{command,args});
       throw Error('W50 source discovery: compare stopped before capture subprocess');
     };
     syncBuiltinESMExports();
-    process.argv=[process.execPath,join(CAL,'cli/compare.ts'),'--profile','apple-macos-27.0-1x-dark-standard-glass0.25',
-      '--renderer','webgpu','--candidate-document',candidate25.path,'--set',set,'--scene',scene,
-      '--alpha','--allow-colourless-tints','--out-matrix',process.env.VITREA_MATRIX_PATH];
-    await import(pathToFileURL(join(CAL,'cli/compare.ts')).href);
+    const wrapper=join(HERE,'../canonical/compare.ts');
+    process.argv=[process.execPath,wrapper,'--admission',requestPath,'--receipt',receiptPath,'--',
+      '--profile',request.profile,'--renderer','webgpu','--candidate-document',candidate25.path,
+      '--set',set,'--scene',scene,'--alpha','--out-matrix',process.env.VITREA_MATRIX_PATH];
+    await import(pathToFileURL(wrapper).href);
   }
 }

@@ -60,12 +60,25 @@ test('builder exercises both real Node entrypoints and both Vite scene graphs wi
       'packages/calibration/web/vite.config.ts','apps/reference-apple/scenes.json',
       'packages/renderer-webgpu/src/renderer.ts','packages/platform-web/src/css-tier.ts',
       'packages/calibration/cli/measure.ts',
+      'packages/calibration/results/2026-10-08-w50-g1-fit/canonical/compare.ts',
+      'packages/calibration/results/2026-10-08-w50-g1-fit/canonical/native-admission.ts',
       'packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json',
       'packages/calibration/package.json','package.json','pnpm-lock.yaml'])assert.ok(paths.has(path),path);
     for(const route of proposal.routes) {
       assert.equal(route.browserLaunched,false);
       assert.equal(route.realMeasurementDataRead,false);
     }
+    const receipt=JSON.parse(readFileSync(join(out,'compare-canonical/native-receipt.json'),'utf8'));
+    assert.equal(receipt.status,'ADMITTED');
+    assert.equal(receipt.scope,'selected-run-only');
+    assert.equal(receipt.native.length,1);
+    assert.ok(receipt.native[0].path.startsWith(join(out,'compare-canonical/original-native-tree/')));
+    assert.ok(receipt.fixtures.path.endsWith('/compare-canonical/original-native-tree'));
+    assert.ok(receipt.native[0].path.endsWith(`/${receipt.profile}/${receipt.native[0].scene}.png`));
+    const compare=proposal.routes.find(r=>r.route==='compare-canonical');
+    assert.ok(compare.events.some(e=>e.kind==='SYNTHETIC_NATIVE_RECEIPT_VERIFIED'));
+    assert.ok(compare.events.some(e=>e.kind==='ORIGINAL_SYNTHETIC_TREE_INHERITED'));
+    assert.ok(!compare.events.some(e=>e.kind==='SYNTHETIC_FIXTURE_REDIRECT'));
     const again=spawnSync(process.execPath,[script,out],{encoding:'utf8'});
     assert.notEqual(again.status,0);assert.match(again.stderr,/fresh scratch/);
   } finally {rmSync(root,{recursive:true,force:true});}

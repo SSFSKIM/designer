@@ -21,7 +21,7 @@
           "kind": "CAPTURE_STARTUP_VARIANT",
           "scene": "dark-solid__rrect-md__rest",
           "candidate": {
-            "path": "/private/tmp/w50-web-source-proposal.fZi33O/proposed/capture-canonical/current025/candidate.json",
+            "path": "/private/tmp/w50-web-source-original-tree.mPGS0Y/proposed/capture-canonical/current025/candidate.json",
             "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
           },
           "renderer": "css",
@@ -35,7 +35,7 @@
           "kind": "CAPTURE_STARTUP_VARIANT",
           "scene": "dark-solid__rrect-md__inactive",
           "candidate": {
-            "path": "/private/tmp/w50-web-source-proposal.fZi33O/proposed/capture-canonical/current050/candidate.json",
+            "path": "/private/tmp/w50-web-source-original-tree.mPGS0Y/proposed/capture-canonical/current050/candidate.json",
             "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
           },
           "renderer": "webgpu",
@@ -47,8 +47,8 @@
         }
       ],
       "observations": {
-        "path": "/tmp/w50-web-source-proposal.fZi33O/proposed/capture-canonical/observed.json",
-        "sha256": "a92bcfc21903826bac5a8f88f57fed899471beea573596544a0f163eecf63e73"
+        "path": "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/capture-canonical/observed.json",
+        "sha256": "90a9b3e004687a84f70c42e4983d34c61dc1e3eb84ec091d32548f3b9d402b65"
       }
     },
     {
@@ -64,7 +64,7 @@
           "kind": "CAPTURE_STARTUP_VARIANT",
           "scene": "cell-grey-004-s096__rest",
           "candidate": {
-            "path": "/private/tmp/w50-web-source-proposal.fZi33O/proposed/capture-w50/current025/candidate.json",
+            "path": "/private/tmp/w50-web-source-original-tree.mPGS0Y/proposed/capture-w50/current025/candidate.json",
             "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
           },
           "renderer": "css",
@@ -78,7 +78,7 @@
           "kind": "CAPTURE_STARTUP_VARIANT",
           "scene": "cell-grey-004-s096__inactive",
           "candidate": {
-            "path": "/private/tmp/w50-web-source-proposal.fZi33O/proposed/capture-w50/current050/candidate.json",
+            "path": "/private/tmp/w50-web-source-original-tree.mPGS0Y/proposed/capture-w50/current050/candidate.json",
             "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
           },
           "renderer": "webgpu",
@@ -90,8 +90,8 @@
         }
       ],
       "observations": {
-        "path": "/tmp/w50-web-source-proposal.fZi33O/proposed/capture-w50/observed.json",
-        "sha256": "fb51d8687cca205b89a8629f080c51e0f47d8fbdcd039c8c81b81cf80f88d164"
+        "path": "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/capture-w50/observed.json",
+        "sha256": "9981907870e7c23b0e1c9f7623fdbcca0477bcd34bce4897877282bd543c5a55"
       }
     },
     {
@@ -102,6 +102,15 @@
       "events": [
         {
           "kind": "BROWSER_STUB_INSTALLED"
+        },
+        {
+          "kind": "ORIGINAL_SYNTHETIC_TREE_INHERITED",
+          "path": "/private/tmp/w50-web-source-original-tree.mPGS0Y/proposed/compare-canonical/original-native-tree"
+        },
+        {
+          "kind": "SYNTHETIC_NATIVE_RECEIPT_VERIFIED",
+          "receipt": "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/compare-canonical/native-receipt.json",
+          "status": "ADMITTED"
         },
         {
           "kind": "COMPARE_STOP_BEFORE_CHILD",
@@ -117,16 +126,16 @@
             "--scale",
             "1",
             "--out",
-            "/tmp/w50-web-source-proposal.fZi33O/proposed/compare-canonical/captures/apple-macos-27.0-1x-dark-standard-glass0.25",
+            "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/compare-canonical/captures/apple-macos-27.0-1x-dark-standard-glass0.25",
             "--candidate-document",
-            "/private/tmp/w50-web-source-proposal.fZi33O/proposed/compare-canonical/current025/candidate.json",
+            "/private/tmp/w50-web-source-original-tree.mPGS0Y/proposed/compare-canonical/current025/candidate.json",
             "--alpha"
           ]
         }
       ],
       "observations": {
-        "path": "/tmp/w50-web-source-proposal.fZi33O/proposed/compare-canonical/observed.json",
-        "sha256": "a4930c27c714ba35dcd5f9cd5fa3c6a5adf63db6f7d6890d2264831b7d1081d4"
+        "path": "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/compare-canonical/observed.json",
+        "sha256": "cb34eca7138d1c5ec47b2d95e2c26cc51bf189eb025435d759b5e697ad012225"
       }
     },
     {
@@ -268,8 +277,8 @@
         }
       ],
       "observations": {
-        "path": "/tmp/w50-web-source-proposal.fZi33O/proposed/browser-canonical/observed.json",
-        "sha256": "a27d07bd7cad978429c85bdcf1e48761015e368bdb110d664aa6b2d59be6f8a0"
+        "path": "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/browser-canonical/observed.json",
+        "sha256": "2a8cab442df38e44ac722943fada8fe5eb5b90c22a87185d256845984c782615"
       }
     },
     {
@@ -411,8 +420,8 @@
         }
       ],
       "observations": {
-        "path": "/tmp/w50-web-source-proposal.fZi33O/proposed/browser-w50/observed.json",
-        "sha256": "d419f3ec4097f6f1fdce0456fee40a5fd302adcff2ae206e98ed403807066230"
+        "path": "/tmp/w50-web-source-original-tree.mPGS0Y/proposed/browser-w50/observed.json",
+        "sha256": "45be5d7c7f802870a1a32d805aa6dc1a8f2c24092fcf146122893ee40aefd052"
       }
     }
   ],
@@ -515,6 +524,26 @@
       ]
     },
     {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/compare.ts",
+      "sha256": "9fbdf59f503d77b813086bc143054d063b8b15e0c7eaa88f146a2b02a7348802",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/native-admission.ts",
+      "sha256": "4543d7575df16a4913692ab78f53f2e72427ddefd73519534c52b0d7e6296acd",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
+    },
+    {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/current.ts",
       "sha256": "d745509bf31aa49f516def418e9886be91e923e2624c0d4d0f0f02783d97f3f2",
       "via": [
@@ -528,7 +557,7 @@
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discover.mjs",
-      "sha256": "183828a3fadb38db9926e1ed9e8cf892f037842e3491bbb709ec0ff4e7d87521",
+      "sha256": "c66392e7f3f857087164d6998d2a12fbc9b373af2840b24b82c7d7743b8112e6",
       "via": [
         "instrument"
       ],
@@ -542,7 +571,7 @@
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discovery-child.mjs",
-      "sha256": "0154e7026c8ed758d33d5dbb953347a85fe553ae314f801b5a517a086bcfbf9f",
+      "sha256": "0c8ca498cd588db36b5b041716c9d59e88e7ce457dffce8f4b30aeeb3dfe1eb5",
       "via": [
         "node-import",
         "instrument"
@@ -557,7 +586,7 @@
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discovery-common.mjs",
-      "sha256": "cce7e5da7016d503360c46682060898643f0dc684843dce16a2feb1d21893805",
+      "sha256": "4901ad5125445b1bf5f11e8d1bef194b7cc121f166d719ae316c87e06c10a94b",
       "via": [
         "instrument"
       ],
@@ -3404,9 +3433,9 @@
     }
   ],
   "limitations": [
-    "No browser or native render, fixture image, screenshot statistic, GPU adaptation or draw was executed.",
+    "No browser/native render, real fixture image/metadata, screenshot statistic, GPU adaptation or draw was executed.",
     "Browser dependencies were exercised by Vite transformation, including statically resolved dynamic imports; computed imports are not guessed.",
-    "Capture startup stops before server listen; compare startup stops before its capture subprocess, using synthetic fixture metadata.",
+    "Capture startup stops before server listen; canonical wrapper admits a generated synthetic PNG and manifest before production compare stops at its capture subprocess.",
     "Runtime admission still requires a reviewed root-pinned exact source closure; this proposal supplies no execution capability."
   ]
 }

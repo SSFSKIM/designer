@@ -20,8 +20,10 @@ export function inside(path,root) {
 }
 export function assertDataPath(path,scratch) {
   if(typeof path!=='string' && !(path instanceof URL))return;
-  const absolute=resolve(path instanceof URL?fileURLToPath(path):path);
-  if(inside(absolute,resolve(scratch)))return;
+  const requested=resolve(path instanceof URL?fileURLToPath(path):path);
+  const absolute=existsSync(requested)?realpathSync(requested):requested;
+  const scratchRoot=existsSync(scratch)?realpathSync(scratch):resolve(scratch);
+  if(inside(absolute,scratchRoot))return;
   if(/\.(png|jpe?g|webp|tiff?|heic|zip|tar|gz)$/i.test(absolute) ||
     /\/(fixtures|web-captures[^/]*|generations|superseded)\//.test(absolute) ||
     /\/matrix\.json$/.test(absolute))throw Error(`Discovery refuses real measurement data: ${absolute}`);

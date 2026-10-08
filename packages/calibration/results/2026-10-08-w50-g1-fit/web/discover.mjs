@@ -36,6 +36,9 @@ export function discover(destination) {
     }
     if(route.startsWith('capture-') && report.events.filter(e=>e.kind===expected).length!==2)
       throw Error('Capture discovery did not exercise both candidate startup variants');
+    if(route==='compare-canonical' && ['SYNTHETIC_NATIVE_RECEIPT_VERIFIED','ORIGINAL_SYNTHETIC_TREE_INHERITED']
+      .some(kind=>!report.events.some(e=>e.kind===kind)))
+      throw Error('Canonical discovery skipped selected-native wrapper admission');
     routes.push({route,exitCode:result.status,browserLaunched:false,realMeasurementDataRead:false,
       events:report.events,observations:{path:join(scratch,'observed.json'),sha256:hash(readFileSync(join(scratch,'observed.json')))}});
     for(const pin of report.sources) {
@@ -52,9 +55,9 @@ export function discover(destination) {
     repo:ROOT,environment:{node:process.version,executable:process.execPath},routes,
     sources:[...sources.values()].sort((a,b)=>a.path.localeCompare(b.path)),
     limitations:[
-      'No browser or native render, fixture image, screenshot statistic, GPU adaptation or draw was executed.',
+      'No browser/native render, real fixture image/metadata, screenshot statistic, GPU adaptation or draw was executed.',
       'Browser dependencies were exercised by Vite transformation, including statically resolved dynamic imports; computed imports are not guessed.',
-      'Capture startup stops before server listen; compare startup stops before its capture subprocess, using synthetic fixture metadata.',
+      'Capture startup stops before server listen; canonical wrapper admits a generated synthetic PNG and manifest before production compare stops at its capture subprocess.',
       'Runtime admission still requires a reviewed root-pinned exact source closure; this proposal supplies no execution capability.',
     ]};
   writeFileSync(join(output,'proposal.json'),JSON.stringify(proposal,null,2)+'\n',{flag:'wx'});

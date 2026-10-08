@@ -3,948 +3,3013 @@
   "authorization": "Only a separately sealed instrument root authorizes these exact pins.",
   "proposal": {
     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/web-source-proposal.json",
-    "sha256": "2be7841c7d3cf2e36657055c5611d229fb010777024d0f30edb43615f14640f9"
+    "sha256": "3415ef7137ccb34708af65c8f47d1afb71c430bb40849b6a52e4e343076c2135"
   },
   "sources": [
     {
       "path": "apps/reference-apple/scenes.json",
-      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8"
+      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "via": [
+        "declared-scene-input",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "compare-canonical",
+        "browser-canonical"
+      ]
     },
     {
       "path": "package.json",
-      "sha256": "a1adbf1f0f7d99fe15db9f09c5f43b3e0dbe1f121be2fc570438b7709dac6f2a"
+      "sha256": "a1adbf1f0f7d99fe15db9f09c5f43b3e0dbe1f121be2fc570438b7709dac6f2a",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/cli/compare.ts",
-      "sha256": "129cc172f8493394356b7cc0691f03954bf1636f66bbd061568c643c4b69e3f1"
+      "sha256": "129cc172f8493394356b7cc0691f03954bf1636f66bbd061568c643c4b69e3f1",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/cli/gates.ts",
-      "sha256": "5caeabe3c0cb560d15ab5622b1cf6451bc9135245c612ed1c955150869ded06f"
+      "sha256": "5caeabe3c0cb560d15ab5622b1cf6451bc9135245c612ed1c955150869ded06f",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/cli/measure.ts",
-      "sha256": "e3e5a5d1896c48c129ac7e905589bcc601e42b99f280e64123cb7eca92c73842"
+      "sha256": "e3e5a5d1896c48c129ac7e905589bcc601e42b99f280e64123cb7eca92c73842",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/cli/scene-geometry.ts",
-      "sha256": "f9cc5b7724c9500fea9f368f3b6e32ada388f80ddc45e81d2ce70b133eed6e73"
+      "sha256": "f9cc5b7724c9500fea9f368f3b6e32ada388f80ddc45e81d2ce70b133eed6e73",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/package.json",
-      "sha256": "3a8aad0604873205d2a65aaed532eead63014f0d2a6be02edfd879865ee6f1a1"
+      "sha256": "3a8aad0604873205d2a65aaed532eead63014f0d2a6be02edfd879865ee6f1a1",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
-      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b",
+      "via": [
+        "declared-scene-input",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-w50",
+        "browser-w50"
+      ]
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/compare.ts",
+      "sha256": "9fbdf59f503d77b813086bc143054d063b8b15e0c7eaa88f146a2b02a7348802",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/native-admission.ts",
+      "sha256": "4543d7575df16a4913692ab78f53f2e72427ddefd73519534c52b0d7e6296acd",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/current.ts",
-      "sha256": "d745509bf31aa49f516def418e9886be91e923e2624c0d4d0f0f02783d97f3f2"
+      "sha256": "d745509bf31aa49f516def418e9886be91e923e2624c0d4d0f0f02783d97f3f2",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discover.mjs",
-      "sha256": "183828a3fadb38db9926e1ed9e8cf892f037842e3491bbb709ec0ff4e7d87521"
+      "sha256": "c66392e7f3f857087164d6998d2a12fbc9b373af2840b24b82c7d7743b8112e6",
+      "via": [
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discovery-child.mjs",
-      "sha256": "0154e7026c8ed758d33d5dbb953347a85fe553ae314f801b5a517a086bcfbf9f"
+      "sha256": "0c8ca498cd588db36b5b041716c9d59e88e7ce457dffce8f4b30aeeb3dfe1eb5",
+      "via": [
+        "node-import",
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discovery-common.mjs",
-      "sha256": "cce7e5da7016d503360c46682060898643f0dc684843dce16a2feb1d21893805"
+      "sha256": "4901ad5125445b1bf5f11e8d1bef194b7cc121f166d719ae316c87e06c10a94b",
+      "via": [
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discovery-hooks.mjs",
-      "sha256": "50343bc0fdbb8d6b4fe760736995802d70355a1a339a5219b0ffe0ffbedc685b"
+      "sha256": "50343bc0fdbb8d6b4fe760736995802d70355a1a339a5219b0ffe0ffbedc685b",
+      "via": [
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/discovery-vite.mjs",
-      "sha256": "93a5c8a1b869788e5cecec5b016cb6d49a937680ff2646c2618632c81bb7003b"
+      "sha256": "93a5c8a1b869788e5cecec5b016cb6d49a937680ff2646c2618632c81bb7003b",
+      "via": [
+        "node-import",
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/node-guard.mjs",
-      "sha256": "f145227b0f27292a7fadc8534d5c0a77327d84b5a494ec76db04e3d8c7e46f05"
+      "sha256": "f145227b0f27292a7fadc8534d5c0a77327d84b5a494ec76db04e3d8c7e46f05",
+      "via": [
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/results/2026-10-08-w50-g1-fit/web/vite-guard.mjs",
-      "sha256": "eb06fe7b3bb15d6e3f35c915687e887089a9c7be7a2435a7bd0b06647c7e2afa"
+      "sha256": "eb06fe7b3bb15d6e3f35c915687e887089a9c7be7a2435a7bd0b06647c7e2afa",
+      "via": [
+        "instrument"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/scripts/candidate-document.ts",
-      "sha256": "4fa446e827ee4ecd69b53dd06099b486ac0effa803242b9a6d0c237f5b659c8b"
+      "sha256": "4fa446e827ee4ecd69b53dd06099b486ac0effa803242b9a6d0c237f5b659c8b",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/scripts/capture-web.ts",
-      "sha256": "4a5a0bd3383a7a88d41f280d79533c15075f54233d7ccda1b755833a61694e28"
+      "sha256": "4a5a0bd3383a7a88d41f280d79533c15075f54233d7ccda1b755833a61694e28",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50"
+      ]
     },
     {
       "path": "packages/calibration/scripts/material-profile-file.ts",
-      "sha256": "fe933d756f9f900073bc93922ba8b9c1528b11f02fbbdf3c5fda7e4f42c626b4"
+      "sha256": "fe933d756f9f900073bc93922ba8b9c1528b11f02fbbdf3c5fda7e4f42c626b4",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/scripts/tsconfig.json",
-      "sha256": "34f3b21ba49a8f3a1ba6059f8997de5881f9f55a177e4cba8591dad14b103f0b"
+      "sha256": "34f3b21ba49a8f3a1ba6059f8997de5881f9f55a177e4cba8591dad14b103f0b",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/src/backdrop-probe.ts",
-      "sha256": "5425686539f9a43e8a2c8eebc39c3e09e039c5d659b283ac1e7b9503d3939810"
+      "sha256": "5425686539f9a43e8a2c8eebc39c3e09e039c5d659b283ac1e7b9503d3939810",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/src/color.ts",
-      "sha256": "5331c4145ce59e6f069fba9e5951e39db6e6b34cb9392d3fc1f83b59933b9742"
+      "sha256": "5331c4145ce59e6f069fba9e5951e39db6e6b34cb9392d3fc1f83b59933b9742",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/component-region.ts",
-      "sha256": "ca76a1cf84aefc18ac3929700c194c907c0260b0109a37d17873804175c29784"
+      "sha256": "ca76a1cf84aefc18ac3929700c194c907c0260b0109a37d17873804175c29784",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/src/document-position.ts",
-      "sha256": "5d6ba2feaa84a6730c942df4d8131d3224341e3dd15e204f204f1ce71119b2de"
+      "sha256": "5d6ba2feaa84a6730c942df4d8131d3224341e3dd15e204f204f1ce71119b2de",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/errors.ts",
-      "sha256": "e5c66523a9621d62c7d89c5c73ca3dd96260857a5a926e6bc8e8658124247b28"
+      "sha256": "e5c66523a9621d62c7d89c5c73ca3dd96260857a5a926e6bc8e8658124247b28",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/src/generation-stage.ts",
-      "sha256": "3d6ac7aaf26c125533cf5851612365a86ab041740e7483e9a8b5dc4e11794a88"
+      "sha256": "3d6ac7aaf26c125533cf5851612365a86ab041740e7483e9a8b5dc4e11794a88",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/image.ts",
-      "sha256": "604765765ceaf9cd15ceb10963567f223a384de2001de24a7eb6f5244484cfe8"
+      "sha256": "604765765ceaf9cd15ceb10963567f223a384de2001de24a7eb6f5244484cfe8",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/index.ts",
-      "sha256": "7c383f0352c097c6251365307782e2c7127e153f4918973fd9f5ce6c236e5fb4"
+      "sha256": "7c383f0352c097c6251365307782e2c7127e153f4918973fd9f5ce6c236e5fb4",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/material-selection.ts",
-      "sha256": "0e56f12e29c3e0c51957a4e2af9b7ee053d32651d273980853c86046ba90dd45"
+      "sha256": "0e56f12e29c3e0c51957a4e2af9b7ee053d32651d273980853c86046ba90dd45",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/src/matrix-store.ts",
-      "sha256": "6df4943e17f6dc3912c8d7496cbb6d890c6597ec8af392d0aa0f208bac151406"
+      "sha256": "6df4943e17f6dc3912c8d7496cbb6d890c6597ec8af392d0aa0f208bac151406",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/matrix-write-guard.ts",
-      "sha256": "46b341dd3a0cacff1b998f1a4d2d5191d7446bf75310b1066312d8adb77051bf"
+      "sha256": "46b341dd3a0cacff1b998f1a4d2d5191d7446bf75310b1066312d8adb77051bf",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/metrics/chroma.ts",
-      "sha256": "f9c6fd82f682620d6589481c3fe3e0187abc3859a5fb6b12434f41da7297d26f"
+      "sha256": "f9c6fd82f682620d6589481c3fe3e0187abc3859a5fb6b12434f41da7297d26f",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/metrics/material.ts",
-      "sha256": "aa93d523abd8026f69b0aefa3a3254b499609783bd9a5238ba1505e935196e28"
+      "sha256": "aa93d523abd8026f69b0aefa3a3254b499609783bd9a5238ba1505e935196e28",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/metrics/motion.ts",
-      "sha256": "659599e671c284572000c7bae6935803b2584ae9b511143e2c12a9ce3ccc841f"
+      "sha256": "659599e671c284572000c7bae6935803b2584ae9b511143e2c12a9ce3ccc841f",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/metrics/perceptual.ts",
-      "sha256": "1f3364375c6ed1409b1d9aaf44a6665b3c641cda1acae311658f828f1afc76c2"
+      "sha256": "1f3364375c6ed1409b1d9aaf44a6665b3c641cda1acae311658f828f1afc76c2",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/metrics/shadow.ts",
-      "sha256": "241b01382428359080da58df1047bcae60980bb288e6e228e339c10d9a738c08"
+      "sha256": "241b01382428359080da58df1047bcae60980bb288e6e228e339c10d9a738c08",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/metrics/shape.ts",
-      "sha256": "5008fdb00781fd5cd12ee1302312a1813ea9d3b7fc123d4f6e2333ca58601bbc"
+      "sha256": "5008fdb00781fd5cd12ee1302312a1813ea9d3b7fc123d4f6e2333ca58601bbc",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/plurality.ts",
-      "sha256": "ca1d1135963a4ca2e4aebff8d9467ea1dd2c2e62a5652f1430cda63494ed248c"
+      "sha256": "ca1d1135963a4ca2e4aebff8d9467ea1dd2c2e62a5652f1430cda63494ed248c",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/profile.ts",
-      "sha256": "25a44c6d5e6314d4c94a3f3eb2e69416b9943827f322059ca255eb31aabd2adc"
+      "sha256": "25a44c6d5e6314d4c94a3f3eb2e69416b9943827f322059ca255eb31aabd2adc",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/src/report.ts",
-      "sha256": "2f3cc032002ca72eef65b92cf8ffb52b465a868b8b5a17c6b5f2485003a2aee8"
+      "sha256": "2f3cc032002ca72eef65b92cf8ffb52b465a868b8b5a17c6b5f2485003a2aee8",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/run-provenance.ts",
-      "sha256": "9799d249c47461b403046bb64c5322968d8478eec1c0bf31743dcb65894f94ba"
+      "sha256": "9799d249c47461b403046bb64c5322968d8478eec1c0bf31743dcb65894f94ba",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/silhouette.ts",
-      "sha256": "586a68d734296153b5ca0dc286aa38ac032acd6e9b534ad0c504a7a402105473"
+      "sha256": "586a68d734296153b5ca0dc286aa38ac032acd6e9b534ad0c504a7a402105473",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/src/stats.ts",
-      "sha256": "a2cdba0a825312fc5ff0259e07381ca1718a91cf7113664b5b781d22f6af49cb"
+      "sha256": "a2cdba0a825312fc5ff0259e07381ca1718a91cf7113664b5b781d22f6af49cb",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/calibration/tsconfig.json",
-      "sha256": "e81b194f96f35e0d1e9e8069998a30740b08703e085bb7d0f92922d7b6d06193"
+      "sha256": "e81b194f96f35e0d1e9e8069998a30740b08703e085bb7d0f92922d7b6d06193",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/web/index.html",
-      "sha256": "293a67f03595b73d292a5be385da712bd5b501c7c73637aa4c09dcb48d2bd69f"
+      "sha256": "293a67f03595b73d292a5be385da712bd5b501c7c73637aa4c09dcb48d2bd69f",
+      "via": [
+        "vite-html",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/web/scene.ts",
-      "sha256": "9db7f350a755edbde587ab091264ee125b87cb595e6da3e79687f139c0d381da"
+      "sha256": "9db7f350a755edbde587ab091264ee125b87cb595e6da3e79687f139c0d381da",
+      "via": [
+        "vite-load",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/web/scenes.ts",
-      "sha256": "983bee2f14d76e0332f7b012c639b1a732f3a7cbee99185193ad9e8b18f4f043"
+      "sha256": "983bee2f14d76e0332f7b012c639b1a732f3a7cbee99185193ad9e8b18f4f043",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/web/tsconfig.json",
-      "sha256": "1d516375a66dbdd92ee72091909207163b924a5b41d81ea153cb305b7a1f9c8d"
+      "sha256": "1d516375a66dbdd92ee72091909207163b924a5b41d81ea153cb305b7a1f9c8d",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/calibration/web/vite.config.ts",
-      "sha256": "3f3be83a35c0a24843df4886003f4c73c8fc6291008ee059e12ae6e4677f89d6"
+      "sha256": "3f3be83a35c0a24843df4886003f4c73c8fc6291008ee059e12ae6e4677f89d6",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/dist/chunk-IOTISK2R.js",
-      "sha256": "32f440b9b6b2eeeb96449ebb590b104baef35bd6f379d4e2f743f4c7ba2ce74f"
+      "sha256": "32f440b9b6b2eeeb96449ebb590b104baef35bd6f379d4e2f743f4c7ba2ce74f",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/core/dist/index.js",
-      "sha256": "bef532c521b3f1b8c456005137a4f29580c870ea5860f10d2a0d1a2a8fc865c1"
+      "sha256": "bef532c521b3f1b8c456005137a4f29580c870ea5860f10d2a0d1a2a8fc865c1",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/core/package.json",
-      "sha256": "ab62af66c546e4aa2f1b05a17067d0d37ab6747d5ec8ca1b1a578a05013a5639"
+      "sha256": "ab62af66c546e4aa2f1b05a17067d0d37ab6747d5ec8ca1b1a578a05013a5639",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/accessibility.ts",
-      "sha256": "8e26e432389e96be5cd10e521783de1cea3b11b90d587038814dc0ddb259f977"
+      "sha256": "8e26e432389e96be5cd10e521783de1cea3b11b90d587038814dc0ddb259f977",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/backdrop-hint.ts",
-      "sha256": "4e440e6b1ecff7be0bb6d0cdb8fda5c6cdebca823f21b0f2ed7bdc686b8312e5"
+      "sha256": "4e440e6b1ecff7be0bb6d0cdb8fda5c6cdebca823f21b0f2ed7bdc686b8312e5",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/capability.ts",
-      "sha256": "3fec0247ae75c3fa1b4e6f4ca94f03444b390fb35e761b672b7272053f13dda2"
+      "sha256": "3fec0247ae75c3fa1b4e6f4ca94f03444b390fb35e761b672b7272053f13dda2",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/diagnostics.ts",
-      "sha256": "235a13b1fbf9f4871e92477fb9e487d95f5c8de164babefb768434078f5a6a1a"
+      "sha256": "235a13b1fbf9f4871e92477fb9e487d95f5c8de164babefb768434078f5a6a1a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/foreground.ts",
-      "sha256": "3ecb04947aacd14553dee985a507ef39c1d68312573e490c9a3e921e385e0c4a"
+      "sha256": "3ecb04947aacd14553dee985a507ef39c1d68312573e490c9a3e921e385e0c4a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/frame.ts",
-      "sha256": "0c2c95e7462c0940aeb1beb7b53e362647d9a3d5f998a2cfb8a5dceddf63fd33"
+      "sha256": "0c2c95e7462c0940aeb1beb7b53e362647d9a3d5f998a2cfb8a5dceddf63fd33",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/index.ts",
-      "sha256": "863d67dc602c8ea4afd40d9f4c72141032638796d3c8421e6a81b0c22a0a0a20"
+      "sha256": "863d67dc602c8ea4afd40d9f4c72141032638796d3c8421e6a81b0c22a0a0a20",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/material.ts",
-      "sha256": "3b7baa0842fbb0c4312ef3fc9ef58e8b1b366dbb93c56d5ab5a5d9159472a802"
+      "sha256": "3b7baa0842fbb0c4312ef3fc9ef58e8b1b366dbb93c56d5ab5a5d9159472a802",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/planes.ts",
-      "sha256": "d1d162b3a77b923a24300179fbbecb8d315d26136913a8c021665349f7f842cb"
+      "sha256": "d1d162b3a77b923a24300179fbbecb8d315d26136913a8c021665349f7f842cb",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/renderer-seam.ts",
-      "sha256": "90fbfb6c8da9b2b13d58f0c94e0e9c9b6aec7cca5720b092dacd42c0239adb27"
+      "sha256": "90fbfb6c8da9b2b13d58f0c94e0e9c9b6aec7cca5720b092dacd42c0239adb27",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/scene.ts",
-      "sha256": "d588451769f0fbd4ee3582474c69f2ececccf8bebf59d169ba5ff592408aed11"
+      "sha256": "d588451769f0fbd4ee3582474c69f2ececccf8bebf59d169ba5ff592408aed11",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/scheduler.ts",
-      "sha256": "be808203325c2829383532078519e094600a7fc47cdcc88c11593d2b54ddd20e"
+      "sha256": "be808203325c2829383532078519e094600a7fc47cdcc88c11593d2b54ddd20e",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/src/state.ts",
-      "sha256": "b07a5190135e34ac75c89ce8f9667c9f09e30f11d40db07d82766a75cff84fc3"
+      "sha256": "b07a5190135e34ac75c89ce8f9667c9f09e30f11d40db07d82766a75cff84fc3",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/core/tsconfig.json",
-      "sha256": "ffd9a87236657bcb305afd1ba90973de10ff5bb359481739715b8a110b145b0d"
+      "sha256": "ffd9a87236657bcb305afd1ba90973de10ff5bb359481739715b8a110b145b0d",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/dist/apple.js",
-      "sha256": "33f8cea0c32948633e50df96a927c843b0b343eee75b7318ff80c87ac03f1f33"
+      "sha256": "33f8cea0c32948633e50df96a927c843b0b343eee75b7318ff80c87ac03f1f33",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/channels.js",
-      "sha256": "c4a6aff7b36a5306e3f83d39c8a0f6543f9cdff066dcd50d03c2b183e30a2fdb"
+      "sha256": "c4a6aff7b36a5306e3f83d39c8a0f6543f9cdff066dcd50d03c2b183e30a2fdb",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/coefficients.js",
-      "sha256": "b551538c72b0b3872349ea4b2f05bebedc623bb39969d4896a4f31d893351c0e"
+      "sha256": "b551538c72b0b3872349ea4b2f05bebedc623bb39969d4896a4f31d893351c0e",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/concentric.js",
-      "sha256": "1187805194708a23040fb35ff9d19d5c63e5f30908301bb596b266f7ccf5f7e3"
+      "sha256": "1187805194708a23040fb35ff9d19d5c63e5f30908301bb596b266f7ccf5f7e3",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/contour.js",
-      "sha256": "bf2f01d0f3fa9ef5aa6eeaa14d0baf0a45fa568af9bc90bb118bd512617beddd"
+      "sha256": "bf2f01d0f3fa9ef5aa6eeaa14d0baf0a45fa568af9bc90bb118bd512617beddd",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/corner.js",
-      "sha256": "ce6b506744e0bf353a04004687198002beced6a0a4c7b58bf28c37a81614a6d1"
+      "sha256": "ce6b506744e0bf353a04004687198002beced6a0a4c7b58bf28c37a81614a6d1",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/errors.js",
-      "sha256": "42de04676fb947bd083ad99294e6fd7bce970c3d427346008bdb590420dbb508"
+      "sha256": "42de04676fb947bd083ad99294e6fd7bce970c3d427346008bdb590420dbb508",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/field.js",
-      "sha256": "ba0fae93c40bd05da9b0a16763e62870698f1eb3344866b15198d0b6544cc46a"
+      "sha256": "ba0fae93c40bd05da9b0a16763e62870698f1eb3344866b15198d0b6544cc46a",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/index.js",
-      "sha256": "bc601ff758e4b6d36ab5c268d5afd0e398db444cbd219aabb548c5cef4306a80"
+      "sha256": "bc601ff758e4b6d36ab5c268d5afd0e398db444cbd219aabb548c5cef4306a80",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/morph.js",
-      "sha256": "2a70b2df32bccc8cd875ee9c3b0779f60ece97203b3b364416cfb062b4133d62"
+      "sha256": "2a70b2df32bccc8cd875ee9c3b0779f60ece97203b3b364416cfb062b4133d62",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/shape.js",
-      "sha256": "832f7b020989cbdb662f97b7892cdd9a34dce4a4ef8223243ee12fc7b9b578fa"
+      "sha256": "832f7b020989cbdb662f97b7892cdd9a34dce4a4ef8223243ee12fc7b9b578fa",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/union.js",
-      "sha256": "b95df6fa004e671486bd3719ae0911f77cb5847eaf86f0f941fb2c57def4a189"
+      "sha256": "b95df6fa004e671486bd3719ae0911f77cb5847eaf86f0f941fb2c57def4a189",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/dist/wgsl.js",
-      "sha256": "6f4c7b084e7955b61e2755c5ad46311417fa1055aa88a25545348b53e9ee75e4"
+      "sha256": "6f4c7b084e7955b61e2755c5ad46311417fa1055aa88a25545348b53e9ee75e4",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/geometry/package.json",
-      "sha256": "96f4a1ab987f6d7e99a411368813db18714de0a86ce002f9c856a416f862a904"
+      "sha256": "96f4a1ab987f6d7e99a411368813db18714de0a86ce002f9c856a416f862a904",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/apple.ts",
-      "sha256": "a16fbd9738835992d28eb3fbe6b9c45ee76290c645b70b3809a58e17fdf7c593"
+      "sha256": "a16fbd9738835992d28eb3fbe6b9c45ee76290c645b70b3809a58e17fdf7c593",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/channels.ts",
-      "sha256": "a3ce10fc274f15f62f1222840fe7f630de7e00ea9f53c8dd74dd1bd70d2211d6"
+      "sha256": "a3ce10fc274f15f62f1222840fe7f630de7e00ea9f53c8dd74dd1bd70d2211d6",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/coefficients.ts",
-      "sha256": "c4b60fae4ab0efe0e4866a216062952037e7e04fba0abe8e812df10bc5d3a140"
+      "sha256": "c4b60fae4ab0efe0e4866a216062952037e7e04fba0abe8e812df10bc5d3a140",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/concentric.ts",
-      "sha256": "b243633246e03f62059a4670024d35d81e4cd5270d120c142bca9030acf83730"
+      "sha256": "b243633246e03f62059a4670024d35d81e4cd5270d120c142bca9030acf83730",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/contour.ts",
-      "sha256": "9c2bca7c12bfca6c75e29b7bbf3ca39b54d3899e6bc30e4bcfde4b4164cbf36e"
+      "sha256": "9c2bca7c12bfca6c75e29b7bbf3ca39b54d3899e6bc30e4bcfde4b4164cbf36e",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/corner.ts",
-      "sha256": "555560a9b353c53dfef4e9199521172adf1887fc0c2ee40d938faec8971b2a54"
+      "sha256": "555560a9b353c53dfef4e9199521172adf1887fc0c2ee40d938faec8971b2a54",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/errors.ts",
-      "sha256": "e18bd18b17bdf9bcf653dfdce12f99ed947ca10570de69ca09d39105a38f8d8f"
+      "sha256": "e18bd18b17bdf9bcf653dfdce12f99ed947ca10570de69ca09d39105a38f8d8f",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/field.ts",
-      "sha256": "6f4cb5c8604377e9cc188629f0d19ba1e6135cec274e5b87ccdd4aa3a457e08a"
+      "sha256": "6f4cb5c8604377e9cc188629f0d19ba1e6135cec274e5b87ccdd4aa3a457e08a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/index.ts",
-      "sha256": "fbb865fdd89305b09e440ed9b87a927eb662e9c25416750d270a8af55d44a8a4"
+      "sha256": "fbb865fdd89305b09e440ed9b87a927eb662e9c25416750d270a8af55d44a8a4",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/morph.ts",
-      "sha256": "a38ccd2b8460fdb04a74507caa10017c7db0307ecba2803a12ea7c62fc825c93"
+      "sha256": "a38ccd2b8460fdb04a74507caa10017c7db0307ecba2803a12ea7c62fc825c93",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/shape.ts",
-      "sha256": "5b9c9c385b7251402b0c13b349a1d3ac2fcd9059db06d936d06e87a22c104c6e"
+      "sha256": "5b9c9c385b7251402b0c13b349a1d3ac2fcd9059db06d936d06e87a22c104c6e",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/union.ts",
-      "sha256": "270466b0ff6da5865359b13611cd9d7d6a10ca1e24facd60228a1a8a22869e6b"
+      "sha256": "270466b0ff6da5865359b13611cd9d7d6a10ca1e24facd60228a1a8a22869e6b",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/src/wgsl.ts",
-      "sha256": "c832cb0e6d15c16974258bbbbad48d122a0ca8b3a6d9bfdd44d71937529c4390"
+      "sha256": "c832cb0e6d15c16974258bbbbad48d122a0ca8b3a6d9bfdd44d71937529c4390",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/geometry/tsconfig.json",
-      "sha256": "fea9cfcb057785994121b5c0768b9912cbcae898ce8c2c6c3ff57dd78ae99ee5"
+      "sha256": "fea9cfcb057785994121b5c0768b9912cbcae898ce8c2c6c3ff57dd78ae99ee5",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/dist/channels.js",
-      "sha256": "a0d1b848b6857f64d3d1db5a036fc2771860129a75828316a501bebfd4989b00"
+      "sha256": "a0d1b848b6857f64d3d1db5a036fc2771860129a75828316a501bebfd4989b00",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/driver.js",
-      "sha256": "64c49ef403510daae4cd451fb0c7f861d9e44aacba1af0cc971b280424745e20"
+      "sha256": "64c49ef403510daae4cd451fb0c7f861d9e44aacba1af0cc971b280424745e20",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/create.js",
-      "sha256": "45b33c016e52fd937c041d8b21e5a9cc2fd05f1e14dbdf7f95b6802725505901"
+      "sha256": "45b33c016e52fd937c041d8b21e5a9cc2fd05f1e14dbdf7f95b6802725505901",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/ease.js",
-      "sha256": "545fa59fe7833fdbd46a957c71f431eefa6d44fd2f74760f20149db7f0f46df0"
+      "sha256": "545fa59fe7833fdbd46a957c71f431eefa6d44fd2f74760f20149db7f0f46df0",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/exponential.js",
-      "sha256": "f3cae982ac6027da8a0d01f21a911312721738f079ecaf786ea3afcd0ab075f9"
+      "sha256": "f3cae982ac6027da8a0d01f21a911312721738f079ecaf786ea3afcd0ab075f9",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/low-pass.js",
-      "sha256": "78a65f8cb09161bfbc5b0528fb903720c8f48d199cb2b71dd1b1e777a5802f17"
+      "sha256": "78a65f8cb09161bfbc5b0528fb903720c8f48d199cb2b71dd1b1e777a5802f17",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/spring.js",
-      "sha256": "f79db553475eed5746d3e6e676687f49e7c68b5b57fd7f8a730d8dd2f67bb8dc"
+      "sha256": "f79db553475eed5746d3e6e676687f49e7c68b5b57fd7f8a730d8dd2f67bb8dc",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/step.js",
-      "sha256": "c5eb01a96e9bafaed8c6df84daeed3d1fec06fb3382653b618b422f9dc47a046"
+      "sha256": "c5eb01a96e9bafaed8c6df84daeed3d1fec06fb3382653b618b422f9dc47a046",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/drivers/threshold-crossfade.js",
-      "sha256": "270dda2093015145a82cad684cf1852bad61dc3f3d5e487ad6c27b88be92e71f"
+      "sha256": "270dda2093015145a82cad684cf1852bad61dc3f3d5e487ad6c27b88be92e71f",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/easing.js",
-      "sha256": "b7da633baa7198aa72e86bdc368f7400854343cb7e7af3f51eae856ad58c08e8"
+      "sha256": "b7da633baa7198aa72e86bdc368f7400854343cb7e7af3f51eae856ad58c08e8",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/frame.js",
-      "sha256": "fa0b5e6095c983bcc22cc509bd3391da6ad041b12f9135fa4e08eaa277675d8e"
+      "sha256": "fa0b5e6095c983bcc22cc509bd3391da6ad041b12f9135fa4e08eaa277675d8e",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/index.js",
-      "sha256": "3a7ef7e32c02a1f6d00721a0060fb542a07eefd764131d35aa370c7df772a212"
+      "sha256": "3a7ef7e32c02a1f6d00721a0060fb542a07eefd764131d35aa370c7df772a212",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/machine.js",
-      "sha256": "bed1c378fe16df20e285067311aa1b34fa798a5b8b7a99db78b84b3f56ce7410"
+      "sha256": "bed1c378fe16df20e285067311aa1b34fa798a5b8b7a99db78b84b3f56ce7410",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/reduced-motion.js",
-      "sha256": "1bb4e1ed04862637c5bbb724ec39468cf287d2037b2c106b99f61a697f10f286"
+      "sha256": "1bb4e1ed04862637c5bbb724ec39468cf287d2037b2c106b99f61a697f10f286",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/states.js",
-      "sha256": "07f797a6e154f0242f8e92c979f64e68638ea04e295a3dcd4ec183fd5c92d098"
+      "sha256": "07f797a6e154f0242f8e92c979f64e68638ea04e295a3dcd4ec183fd5c92d098",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/dist/tunables.js",
-      "sha256": "289cdda65ac9333ab399facc66db691650390e2e8a0ec782a18d2cf6bb97a2c6"
+      "sha256": "289cdda65ac9333ab399facc66db691650390e2e8a0ec782a18d2cf6bb97a2c6",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/motion/package.json",
-      "sha256": "875ea250c15b6ac4f45fc63dc384f3c23d286e6b93ec501558b0e6b9658fd846"
+      "sha256": "875ea250c15b6ac4f45fc63dc384f3c23d286e6b93ec501558b0e6b9658fd846",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/channels.ts",
-      "sha256": "74e44d3b962ece595996c545868fc31b0a54a8964e0aced016d94b1ae324d3c8"
+      "sha256": "74e44d3b962ece595996c545868fc31b0a54a8964e0aced016d94b1ae324d3c8",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/create.ts",
-      "sha256": "9e7ca0ffc183183a24f3ee04fca62bc42a16f936f3cecb561eaf542c9552c9f6"
+      "sha256": "9e7ca0ffc183183a24f3ee04fca62bc42a16f936f3cecb561eaf542c9552c9f6",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/ease.ts",
-      "sha256": "a7a71c6f104fd32e42819a16d8001ae51d4aa17e2da0044348a56868b0471fce"
+      "sha256": "a7a71c6f104fd32e42819a16d8001ae51d4aa17e2da0044348a56868b0471fce",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/exponential.ts",
-      "sha256": "0223a70270ac16b5f9ac91988acb93e2fc11f28050086841828a4d69689e65a2"
+      "sha256": "0223a70270ac16b5f9ac91988acb93e2fc11f28050086841828a4d69689e65a2",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/low-pass.ts",
-      "sha256": "c3d1f3f809dec01cd676fdc1bbb507b96da54313f4e323cf372e2525bda02a98"
+      "sha256": "c3d1f3f809dec01cd676fdc1bbb507b96da54313f4e323cf372e2525bda02a98",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/spring.ts",
-      "sha256": "ec5ddc555a2e9d48fb4620ec9ca5439ef929576df73b87c9e0c575077bc94ae8"
+      "sha256": "ec5ddc555a2e9d48fb4620ec9ca5439ef929576df73b87c9e0c575077bc94ae8",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/step.ts",
-      "sha256": "3bb918d3ce8c60a3db891c3c2a96764c1e49e695b8335370f78ef3aa4e2b277c"
+      "sha256": "3bb918d3ce8c60a3db891c3c2a96764c1e49e695b8335370f78ef3aa4e2b277c",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/drivers/threshold-crossfade.ts",
-      "sha256": "f95453a2ed8901112a4a5448dd4fb6c3d7b700c290bdbe4086e247ec67a2301f"
+      "sha256": "f95453a2ed8901112a4a5448dd4fb6c3d7b700c290bdbe4086e247ec67a2301f",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/easing.ts",
-      "sha256": "e0027e28d16cf0141ffddce06358076299c890a76add00e03fefae8316809657"
+      "sha256": "e0027e28d16cf0141ffddce06358076299c890a76add00e03fefae8316809657",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/frame.ts",
-      "sha256": "da1203c4b1b178f4aeb35a7ebd5ab29a03a0d4eeec39fc90a9ed68f8f43444de"
+      "sha256": "da1203c4b1b178f4aeb35a7ebd5ab29a03a0d4eeec39fc90a9ed68f8f43444de",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/index.ts",
-      "sha256": "7ad4c559e650eea3c73409c2bdba6020fb0dd407d49bf65d1c58d0031ae725a4"
+      "sha256": "7ad4c559e650eea3c73409c2bdba6020fb0dd407d49bf65d1c58d0031ae725a4",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/machine.ts",
-      "sha256": "fa50fe8167679162a838c9bfb41e2a91c2304d9b775d67247dbf992c9b939ba0"
+      "sha256": "fa50fe8167679162a838c9bfb41e2a91c2304d9b775d67247dbf992c9b939ba0",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/reduced-motion.ts",
-      "sha256": "9af5a8f769fcd5c234552e895d91991f7f20b8ce11578964faf03a09ecff411e"
+      "sha256": "9af5a8f769fcd5c234552e895d91991f7f20b8ce11578964faf03a09ecff411e",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/states.ts",
-      "sha256": "176f6db51aede9dd87941e545c7fa37571a858348a787b986bf870f2cac21176"
+      "sha256": "176f6db51aede9dd87941e545c7fa37571a858348a787b986bf870f2cac21176",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/src/tunables.ts",
-      "sha256": "954288f9c468c651f976aaac2ee535906f9922227ea54893b4b61ece6bb36129"
+      "sha256": "954288f9c468c651f976aaac2ee535906f9922227ea54893b4b61ece6bb36129",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/motion/tsconfig.json",
-      "sha256": "fea9cfcb057785994121b5c0768b9912cbcae898ce8c2c6c3ff57dd78ae99ee5"
+      "sha256": "fea9cfcb057785994121b5c0768b9912cbcae898ce8c2c6c3ff57dd78ae99ee5",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/dist/index.js",
-      "sha256": "27244fd91484b4ecb400243aac439482c76575fd373c94a0f869ebe22b5ab54a"
+      "sha256": "27244fd91484b4ecb400243aac439482c76575fd373c94a0f869ebe22b5ab54a",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/platform-web/package.json",
-      "sha256": "d9b5ebcc656a482e46a7c552a1c694f93535a928f6b81a5c6a2a45673fc0f2ba"
+      "sha256": "d9b5ebcc656a482e46a7c552a1c694f93535a928f6b81a5c6a2a45673fc0f2ba",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/backdrop-proxy.ts",
-      "sha256": "231d2f7829fc3e2eeb65876f4b06b0724b16a6d5bf62ff16510214a6447fcded"
+      "sha256": "231d2f7829fc3e2eeb65876f4b06b0724b16a6d5bf62ff16510214a6447fcded",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/backdrop-stack.ts",
-      "sha256": "4aebd6aa03ed7b29ae23017a8e656527275d73d24c16e0029717641ec1f32fdd"
+      "sha256": "4aebd6aa03ed7b29ae23017a8e656527275d73d24c16e0029717641ec1f32fdd",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/backdrop-tone.ts",
-      "sha256": "2fcbce58b28ad371aebe0b390b7b0fa82cdfc5fe5cfc7181274c8f30841f341b"
+      "sha256": "2fcbce58b28ad371aebe0b390b7b0fa82cdfc5fe5cfc7181274c8f30841f341b",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/channels.ts",
-      "sha256": "d9bcbc7a73a025a29bda637a70f6862852926dc87f275bcf72c2abed284593d3"
+      "sha256": "d9bcbc7a73a025a29bda637a70f6862852926dc87f275bcf72c2abed284593d3",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/color-scheme.ts",
-      "sha256": "54bc178e8488b669c89d1cef43fce8f4b426fe19de9cdfea9256a9e3d9a827ea"
+      "sha256": "54bc178e8488b669c89d1cef43fce8f4b426fe19de9cdfea9256a9e3d9a827ea",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/css-tier-layers.ts",
-      "sha256": "78fd8fb2b41126f79a671e3a7fd721cc79c16f708c41e2b0571fb222c9533799"
+      "sha256": "78fd8fb2b41126f79a671e3a7fd721cc79c16f708c41e2b0571fb222c9533799",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/css-tier-shadow.ts",
-      "sha256": "d0debe636198bd1b0f791077576100b5c64d3158111f956518b15cdaced70123"
+      "sha256": "d0debe636198bd1b0f791077576100b5c64d3158111f956518b15cdaced70123",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/css-tier.ts",
-      "sha256": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a"
+      "sha256": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/dark-profile.ts",
-      "sha256": "e9d4c349ca82dd088c26884b7aef4a6822df99aca968b4742e2ba0ec03e00e75"
+      "sha256": "e9d4c349ca82dd088c26884b7aef4a6822df99aca968b4742e2ba0ec03e00e75",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/diagnostics.ts",
-      "sha256": "c107192eaa588d5a4438e1ff5e8e4a8450623f3555b31ca56435e57be52a3e78"
+      "sha256": "c107192eaa588d5a4438e1ff5e8e4a8450623f3555b31ca56435e57be52a3e78",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/geometry-sync.ts",
-      "sha256": "c3648735a8adcec8eb4a1eb02c507ef212b739b6189e0b12b845d8fa7ff7c1bb"
+      "sha256": "c3648735a8adcec8eb4a1eb02c507ef212b739b6189e0b12b845d8fa7ff7c1bb",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/group-state.ts",
-      "sha256": "dfe57e778d6876af81d6c3a12a9f93de3d216455b794e508202dec584de14618"
+      "sha256": "dfe57e778d6876af81d6c3a12a9f93de3d216455b794e508202dec584de14618",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/host.ts",
-      "sha256": "66d23a59046d283346b163aa19c1649431e5bc717ca68340721f0282352bfa8a"
+      "sha256": "66d23a59046d283346b163aa19c1649431e5bc717ca68340721f0282352bfa8a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/index.ts",
-      "sha256": "7d1ad33802beec9fa27f4bd07aa096403c10cab47a59def0cc2794a61c6120b4"
+      "sha256": "7d1ad33802beec9fa27f4bd07aa096403c10cab47a59def0cc2794a61c6120b4",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/ink-stylesheet.ts",
-      "sha256": "073df7f2b8058694911e20ea43207fe8556d07f92479e39f6ee4c83365e5fd6c"
+      "sha256": "073df7f2b8058694911e20ea43207fe8556d07f92479e39f6ee4c83365e5fd6c",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/layer-model.ts",
-      "sha256": "684428a8783a4b8d6fe61d9f05034994da0852fc674a14bccdf6723f1f7a295c"
+      "sha256": "684428a8783a4b8d6fe61d9f05034994da0852fc674a14bccdf6723f1f7a295c",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/macos27-glass025-profile.ts",
-      "sha256": "991d74ac446a450a0c8ad3d34a4960e4febb481230e52e910bad80409ef80241"
+      "sha256": "991d74ac446a450a0c8ad3d34a4960e4febb481230e52e910bad80409ef80241",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/macos27-profile.ts",
-      "sha256": "ab953bfe1e06e38a7eb405b96cfbab506dc0e93b9dbfc65f056f22557b4878a2"
+      "sha256": "ab953bfe1e06e38a7eb405b96cfbab506dc0e93b9dbfc65f056f22557b4878a2",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/material-document.ts",
-      "sha256": "ce9396dcb804f70eba7af30a6714b29d694fff6e9b0228bdd792f264083aef49"
+      "sha256": "ce9396dcb804f70eba7af30a6714b29d694fff6e9b0228bdd792f264083aef49",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/measure.ts",
-      "sha256": "242adc5075307594f7b7d180192522f94ce1a802c39852a12d4ac8d88bec720b"
+      "sha256": "242adc5075307594f7b7d180192522f94ce1a802c39852a12d4ac8d88bec720b",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/media-policy.ts",
-      "sha256": "ef08388f9a2bef32dee0837f1df35c640dabb3aeb78ade2ad212226696e345c6"
+      "sha256": "ef08388f9a2bef32dee0837f1df35c640dabb3aeb78ade2ad212226696e345c6",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/optics.ts",
-      "sha256": "c18419bfd3ad282f665a6992e813fb5d867ab339f6dbcd72dc443f3684ef3303"
+      "sha256": "c18419bfd3ad282f665a6992e813fb5d867ab339f6dbcd72dc443f3684ef3303",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/planes.ts",
-      "sha256": "19122645501fb84bea5b09cd942f2819c4ea52fa97e6c3ce3e3a8d13e32c2f58"
+      "sha256": "19122645501fb84bea5b09cd942f2819c4ea52fa97e6c3ce3e3a8d13e32c2f58",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/probe/backdrop-root.ts",
-      "sha256": "cb007fb27a96f67e15d4a865778957efb0c91a4c3d5d700f92a459dfceba59a2"
+      "sha256": "cb007fb27a96f67e15d4a865778957efb0c91a4c3d5d700f92a459dfceba59a2",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/probe/conformance-table.ts",
-      "sha256": "222dde1c8a288d0a40e6eb56b9a627efb8fc5bc1c04d383b36db8c87a3fa58e3"
+      "sha256": "222dde1c8a288d0a40e6eb56b9a627efb8fc5bc1c04d383b36db8c87a3fa58e3",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/probe/engine-defects.ts",
-      "sha256": "41e71115ab683edecd70c3aaecf02e49080c07bc64ddb6cad21aac0ba319e77a"
+      "sha256": "41e71115ab683edecd70c3aaecf02e49080c07bc64ddb6cad21aac0ba319e77a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/probe/index.ts",
-      "sha256": "607fe6a847b34ce2f509b87cde85c137a4dfa92371beaa7e2370a93f7230e55a"
+      "sha256": "607fe6a847b34ce2f509b87cde85c137a4dfa92371beaa7e2370a93f7230e55a",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/probe/support-gate.ts",
-      "sha256": "820275ef1f9c71a903f168df4a549bf47960874485dc6f7b01ff856a2205b8cb"
+      "sha256": "820275ef1f9c71a903f168df4a549bf47960874485dc6f7b01ff856a2205b8cb",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/proxy-geometry.ts",
-      "sha256": "23138ff7d8936379a8c41397c14b994053580140f95d392ce1e62e548f4c5494"
+      "sha256": "23138ff7d8936379a8c41397c14b994053580140f95d392ce1e62e548f4c5494",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/receded-profile.ts",
-      "sha256": "245ed3484f92278c68db5b680b4b984753da255511a1fa5d5b59760e9d7d7bf0"
+      "sha256": "245ed3484f92278c68db5b680b4b984753da255511a1fa5d5b59760e9d7d7bf0",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/refraction.ts",
-      "sha256": "31e6a7249602bce69fa5ae046d96f07fc9dbfa663da6c65ea5701a45298f5ece"
+      "sha256": "31e6a7249602bce69fa5ae046d96f07fc9dbfa663da6c65ea5701a45298f5ece",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/renderer-bridge.ts",
-      "sha256": "79e7e726ad818a4d03ad1cf16a1c691ebab15ade157eed00d20f256352ce5ec3"
+      "sha256": "79e7e726ad818a4d03ad1cf16a1c691ebab15ade157eed00d20f256352ce5ec3",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/root.ts",
-      "sha256": "1432f4eb0a0b8a259192ead6a5d04b8ba01fc52ac88f1c585b0ad74c62f32ad5"
+      "sha256": "1432f4eb0a0b8a259192ead6a5d04b8ba01fc52ac88f1c585b0ad74c62f32ad5",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/tint.ts",
-      "sha256": "55ede850cfdb1c05e358ae5dcabcd245f022616633b836e8de8f3493bb3b3195"
+      "sha256": "55ede850cfdb1c05e358ae5dcabcd245f022616633b836e8de8f3493bb3b3195",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/vibrancy.ts",
-      "sha256": "d6fef8ada88a18754e000851e40bb73e70ed3dc6a0ca256935ddec74675a8a21"
+      "sha256": "d6fef8ada88a18754e000851e40bb73e70ed3dc6a0ca256935ddec74675a8a21",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/webgpu.ts",
-      "sha256": "8897ee578f68312bf0f6d82f0ab32a919bf8ac019c5eee0379a6d0d1aee90fe0"
+      "sha256": "8897ee578f68312bf0f6d82f0ab32a919bf8ac019c5eee0379a6d0d1aee90fe0",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/src/window-activation.ts",
-      "sha256": "240efd99f8c1c61626c0f9033728b85827e7f11034083ed81e4f4abbbe383333"
+      "sha256": "240efd99f8c1c61626c0f9033728b85827e7f11034083ed81e4f4abbbe383333",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/platform-web/tsconfig.json",
-      "sha256": "f7432ad493a1b26092d69619bba085b79373879f311928b2743c59db4ded2668"
+      "sha256": "f7432ad493a1b26092d69619bba085b79373879f311928b2743c59db4ded2668",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/policy/dist/index.js",
-      "sha256": "3e64255b210115061dc946fa6f75018091084a3a9134a3662af526d530608b33"
+      "sha256": "3e64255b210115061dc946fa6f75018091084a3a9134a3662af526d530608b33",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/policy/dist/refraction.js",
-      "sha256": "6ce24ad5bfe658ed43d6105624c81e170333a05590e96df42818224f2e1748a8"
+      "sha256": "6ce24ad5bfe658ed43d6105624c81e170333a05590e96df42818224f2e1748a8",
+      "via": [
+        "node-import",
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/policy/package.json",
-      "sha256": "7d32e1b6041eb2ae09522e38b56fd42170b1ea495e709e33d498e1d71a18a46b"
+      "sha256": "7d32e1b6041eb2ae09522e38b56fd42170b1ea495e709e33d498e1d71a18a46b",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/policy/tsconfig.json",
-      "sha256": "fea9cfcb057785994121b5c0768b9912cbcae898ce8c2c6c3ff57dd78ae99ee5"
+      "sha256": "fea9cfcb057785994121b5c0768b9912cbcae898ce8c2c6c3ff57dd78ae99ee5",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/analysis.js",
-      "sha256": "e8d2811c578722cfc29b391251a10ef1858b504969cf161652c1541232e0d6ee"
+      "sha256": "e8d2811c578722cfc29b391251a10ef1858b504969cf161652c1541232e0d6ee",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/backdrop-fit.js",
-      "sha256": "17a176a837fdcb95df4f094777419a525eff0989a7abca4fc5f24724e5bfeb9e"
+      "sha256": "17a176a837fdcb95df4f094777419a525eff0989a7abca4fc5f24724e5bfeb9e",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/backdrop.js",
-      "sha256": "69a5f20f1f9b31b7ee441a7d6ad0877874459b1e8b48537964d1b4096d658f4a"
+      "sha256": "69a5f20f1f9b31b7ee441a7d6ad0877874459b1e8b48537964d1b4096d658f4a",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/color.js",
-      "sha256": "0a59f954fbc97e72cd08f04885b511354c01eba09ce5a075a5a720e0f7790d68"
+      "sha256": "0a59f954fbc97e72cd08f04885b511354c01eba09ce5a075a5a720e0f7790d68",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/device.js",
-      "sha256": "27fd5aa24e05cf81cc8678c54a7e3c57cf7a053d654410f5b70d3403b136c0ae"
+      "sha256": "27fd5aa24e05cf81cc8678c54a7e3c57cf7a053d654410f5b70d3403b136c0ae",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/errors.js",
-      "sha256": "ebdebff9cd5da07abada836721dd7b806c679d6f8cec1b0b41dedd13a3734861"
+      "sha256": "ebdebff9cd5da07abada836721dd7b806c679d6f8cec1b0b41dedd13a3734861",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/governor.js",
-      "sha256": "93d7d9eb714fd7d137272505f8705b78952fcac460f8f500d481b71d26ca336b"
+      "sha256": "93d7d9eb714fd7d137272505f8705b78952fcac460f8f500d481b71d26ca336b",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/gpu-context.js",
-      "sha256": "682988cbedb9155d5be3a1e79c3a5670c9f9350e053e80736f5bc94d1f737769"
+      "sha256": "682988cbedb9155d5be3a1e79c3a5670c9f9350e053e80736f5bc94d1f737769",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/index.js",
-      "sha256": "19ebe1ad92fb4a331ad3882cc28323d3dc8a11f911e37f5d05f74e4d102b9926"
+      "sha256": "19ebe1ad92fb4a331ad3882cc28323d3dc8a11f911e37f5d05f74e4d102b9926",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/instances.js",
-      "sha256": "0ef8ba923ab704cfe403a92f478e17aa8647150630f64019407175600deeca45"
+      "sha256": "0ef8ba923ab704cfe403a92f478e17aa8647150630f64019407175600deeca45",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/material.js",
-      "sha256": "c700d0211bbe9930ff2fede03fb494c8b3dc858c5703da21866fd89877fa1de7"
+      "sha256": "c700d0211bbe9930ff2fede03fb494c8b3dc858c5703da21866fd89877fa1de7",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/passes.js",
-      "sha256": "5b2977cf88ef2875d1b41ed7f422388a5092bf77e4d75bab8725cd263527ef97"
+      "sha256": "5b2977cf88ef2875d1b41ed7f422388a5092bf77e4d75bab8725cd263527ef97",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/pipeline-cache.js",
-      "sha256": "a55d5500c4881cbb1c3dc60d18da7210d785995f5694b3c07e9ba2a72e1ab6a1"
+      "sha256": "a55d5500c4881cbb1c3dc60d18da7210d785995f5694b3c07e9ba2a72e1ab6a1",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/pyramid-plan.js",
-      "sha256": "90e00cefe23ecf680942166ce5e5685f13f3ad98f52ec5e4bf7ff55a98e22fdb"
+      "sha256": "90e00cefe23ecf680942166ce5e5685f13f3ad98f52ec5e4bf7ff55a98e22fdb",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/pyramid.js",
-      "sha256": "ab98c989660b4d308c03a44db17a2279380cdfec3f5d04d17c763e74fa6b3667"
+      "sha256": "ab98c989660b4d308c03a44db17a2279380cdfec3f5d04d17c763e74fa6b3667",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/rebuild-ledger.js",
-      "sha256": "8eecfccf1b72ad8adbfd85c1968300ba47a8f7275380f60b920a7fbb3611dc96"
+      "sha256": "8eecfccf1b72ad8adbfd85c1968300ba47a8f7275380f60b920a7fbb3611dc96",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/render-model.js",
-      "sha256": "afc9117964b7c09307ed5c52ae95eeb1910cff5b8ffba955cb6c50c747db86db"
+      "sha256": "afc9117964b7c09307ed5c52ae95eeb1910cff5b8ffba955cb6c50c747db86db",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/renderer.js",
-      "sha256": "21576cb676f551dce50876654301af6e51e2645f87683e949b66cb9765152f2b"
+      "sha256": "21576cb676f551dce50876654301af6e51e2645f87683e949b66cb9765152f2b",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/silhouette-tone.js",
-      "sha256": "334c865073e1ebb4920232cacdde6bcc2744333626bbb14bd7a2cb77da0e1391"
+      "sha256": "334c865073e1ebb4920232cacdde6bcc2744333626bbb14bd7a2cb77da0e1391",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/texture-pool.js",
-      "sha256": "7ee74d5c07eaaac8fb6970a78e17118f092c59b617d55344d5f12ea530e360c7"
+      "sha256": "7ee74d5c07eaaac8fb6970a78e17118f092c59b617d55344d5f12ea530e360c7",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/timing.js",
-      "sha256": "d28e8455554eee983d1589bcbf7ff5b3694e75a2610caf7d7c9c7b61e2c66c91"
+      "sha256": "d28e8455554eee983d1589bcbf7ff5b3694e75a2610caf7d7c9c7b61e2c66c91",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/analysis.js",
-      "sha256": "2eed065a49dd830400b03e6f8bb93395758ab6b4fd9578d15a89def14db7d263"
+      "sha256": "2eed065a49dd830400b03e6f8bb93395758ab6b4fd9578d15a89def14db7d263",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/backdrop.js",
-      "sha256": "b91b605458851ffa730557080085c84378a0de6e6a34a3d8a5a0194725b32f30"
+      "sha256": "b91b605458851ffa730557080085c84378a0de6e6a34a3d8a5a0194725b32f30",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/cross-check.js",
-      "sha256": "48e7466afbee18d88d8449af49311c4e8e634b62dbf7fa0ac8b6a65dcb820b2b"
+      "sha256": "48e7466afbee18d88d8449af49311c4e8e634b62dbf7fa0ac8b6a65dcb820b2b",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/field.js",
-      "sha256": "8ec4b11e98be1a2df8a4cbb1f08e3912a873aa3b3ab9e95fa32933236495c1c1"
+      "sha256": "8ec4b11e98be1a2df8a4cbb1f08e3912a873aa3b3ab9e95fa32933236495c1c1",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/highlight.js",
-      "sha256": "8945a8d2ffdbcd61a1174b6e7619b8f5908e1b0d30813eab14921b237840b770"
+      "sha256": "8945a8d2ffdbcd61a1174b6e7619b8f5908e1b0d30813eab14921b237840b770",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/index.js",
-      "sha256": "1e35cb5660d4d21fe01f5c09721ed24057939ecdf28bb45b8fc2bca9a21480cc"
+      "sha256": "1e35cb5660d4d21fe01f5c09721ed24057939ecdf28bb45b8fc2bca9a21480cc",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/optics.js",
-      "sha256": "87e64971afe439ace4e3d6e7af20a951f9363ac5f1302d96f2933a552c73e969"
+      "sha256": "87e64971afe439ace4e3d6e7af20a951f9363ac5f1302d96f2933a552c73e969",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/prelude.js",
-      "sha256": "0744944adda37fa34d922a4ec239544f1cd896596f55c4665db42c7b1194b6f2"
+      "sha256": "0744944adda37fa34d922a4ec239544f1cd896596f55c4665db42c7b1194b6f2",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/dist/wgsl/silhouette-tone.js",
-      "sha256": "d0902d5c945f435eeb0f985f25176ac606074bbe2726ccfde6754e88b1dfd2c8"
+      "sha256": "d0902d5c945f435eeb0f985f25176ac606074bbe2726ccfde6754e88b1dfd2c8",
+      "via": [
+        "node-import"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/package.json",
-      "sha256": "9cc2706900ace5176edba692ffec252b1ac2ff2e117f7262888bb0a9a3f9238f"
+      "sha256": "9cc2706900ace5176edba692ffec252b1ac2ff2e117f7262888bb0a9a3f9238f",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/analysis.ts",
-      "sha256": "7354f9b2700c09d8a26a66091a94cb0e94884af6d4a24c46be5ebf8eda0680ff"
+      "sha256": "7354f9b2700c09d8a26a66091a94cb0e94884af6d4a24c46be5ebf8eda0680ff",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/backdrop-fit.ts",
-      "sha256": "1dfa57e0a20e6aab26e64400a26eb710fec3ef6ced4a37b608edb38681e64d54"
+      "sha256": "1dfa57e0a20e6aab26e64400a26eb710fec3ef6ced4a37b608edb38681e64d54",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/backdrop.ts",
-      "sha256": "0f30a434c25fc2cc07f26bae6ced2bf8b8c5c813ca3fd5b9096f052e2ed7b97a"
+      "sha256": "0f30a434c25fc2cc07f26bae6ced2bf8b8c5c813ca3fd5b9096f052e2ed7b97a",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/color.ts",
-      "sha256": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a"
+      "sha256": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/device.ts",
-      "sha256": "196db857fa7070da666d5aa254c8e7ea8bf4ace299b4369b6a49d21e3a8391fa"
+      "sha256": "196db857fa7070da666d5aa254c8e7ea8bf4ace299b4369b6a49d21e3a8391fa",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/errors.ts",
-      "sha256": "0d43be3782cf274f995a0fb15efc12967753259c350937763b1c751d7298b510"
+      "sha256": "0d43be3782cf274f995a0fb15efc12967753259c350937763b1c751d7298b510",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/governor.ts",
-      "sha256": "92ce3c2332f08584415448ba515474cfd03536eeffbeed28b1118aaaaf544ff5"
+      "sha256": "92ce3c2332f08584415448ba515474cfd03536eeffbeed28b1118aaaaf544ff5",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/gpu-context.ts",
-      "sha256": "e258c382774107049c9380e6be5db008bdfd51ff59a83054f8f098aa264403aa"
+      "sha256": "e258c382774107049c9380e6be5db008bdfd51ff59a83054f8f098aa264403aa",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/index.ts",
-      "sha256": "c7c9d41b2b8d737de085e309fbe014202b364e314d7cb3faf3a5470196c0ee74"
+      "sha256": "c7c9d41b2b8d737de085e309fbe014202b364e314d7cb3faf3a5470196c0ee74",
+      "via": [
+        "vite-import-edge",
+        "vite-load",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/instances.ts",
-      "sha256": "474733181df23d8a421def4c8c3c3efa31a429f00e0d5498319aea34568fb3d2"
+      "sha256": "474733181df23d8a421def4c8c3c3efa31a429f00e0d5498319aea34568fb3d2",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/material.ts",
-      "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+      "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/passes.ts",
-      "sha256": "ff13f2521ce9988a63daafce7752381aafbd056dc7f8b0d1ecd843fc6b4ff958"
+      "sha256": "ff13f2521ce9988a63daafce7752381aafbd056dc7f8b0d1ecd843fc6b4ff958",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/pipeline-cache.ts",
-      "sha256": "ba6c401286cf1dd8bacb7c0366b7ae381ff88061c7e932d344b0c3a5018d1dcf"
+      "sha256": "ba6c401286cf1dd8bacb7c0366b7ae381ff88061c7e932d344b0c3a5018d1dcf",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/pyramid-plan.ts",
-      "sha256": "ad051a77663bae7116a065b994a4164d1bced0b0a45ea592fa0957d2a3314ac2"
+      "sha256": "ad051a77663bae7116a065b994a4164d1bced0b0a45ea592fa0957d2a3314ac2",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/pyramid.ts",
-      "sha256": "db11378e6d1cff459e914dbee7466c6809606cbba1994187a8c8713312d935e6"
+      "sha256": "db11378e6d1cff459e914dbee7466c6809606cbba1994187a8c8713312d935e6",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/rebuild-ledger.ts",
-      "sha256": "78cf7c30e45076acfae498da9baff073b14f9d96c0c2b315b196ef6017e73886"
+      "sha256": "78cf7c30e45076acfae498da9baff073b14f9d96c0c2b315b196ef6017e73886",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/render-model.ts",
-      "sha256": "2edca16d4d7e92bac6443eeb14d77b12028fb3036aea21e4e3c4ce1a67a552ec"
+      "sha256": "2edca16d4d7e92bac6443eeb14d77b12028fb3036aea21e4e3c4ce1a67a552ec",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/renderer.ts",
-      "sha256": "147179f39a976ff2669c14051f2aa288940cd028d1f25a658ea52fef4e483177"
+      "sha256": "147179f39a976ff2669c14051f2aa288940cd028d1f25a658ea52fef4e483177",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/silhouette-tone.ts",
-      "sha256": "aa8d144c8903cc9cafdc1e23bcffb384390838cac1e047b4de7b4bca05d5733e"
+      "sha256": "aa8d144c8903cc9cafdc1e23bcffb384390838cac1e047b4de7b4bca05d5733e",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/texture-pool.ts",
-      "sha256": "19d666d9ea02611e5767f76efd83db079f1c9d06dbefefee88c951501280486b"
+      "sha256": "19d666d9ea02611e5767f76efd83db079f1c9d06dbefefee88c951501280486b",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/timing.ts",
-      "sha256": "c88a2d9493f4985dfa92b4ea79b7d141fe81afe0a798f0fa0a754a32daf85226"
+      "sha256": "c88a2d9493f4985dfa92b4ea79b7d141fe81afe0a798f0fa0a754a32daf85226",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/analysis.ts",
-      "sha256": "60d3a49228d446db683fbb76b463a0e64807bba61f9308bd8f58c5f6ca0e772a"
+      "sha256": "60d3a49228d446db683fbb76b463a0e64807bba61f9308bd8f58c5f6ca0e772a",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/backdrop.ts",
-      "sha256": "676323120b90dbcd8bfe7176d33a48e6dc3d94782b5310b6507dec406f035c66"
+      "sha256": "676323120b90dbcd8bfe7176d33a48e6dc3d94782b5310b6507dec406f035c66",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/cross-check.ts",
-      "sha256": "fa4904c1f5e02e7cc67ee0bcb6cb4d5d4a6b070a75c13dacf2bcfdb5e616b500"
+      "sha256": "fa4904c1f5e02e7cc67ee0bcb6cb4d5d4a6b070a75c13dacf2bcfdb5e616b500",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/field.ts",
-      "sha256": "2c18f5eb405db0795460ed872ce8dfd6ff2ea4cc9baf69b55ffa5f3d834a9a1c"
+      "sha256": "2c18f5eb405db0795460ed872ce8dfd6ff2ea4cc9baf69b55ffa5f3d834a9a1c",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/highlight.ts",
-      "sha256": "917fc0dbecd3aa2036f6204ba92d304e8187ed9a24eeeb1cd206ce3c99b8831c"
+      "sha256": "917fc0dbecd3aa2036f6204ba92d304e8187ed9a24eeeb1cd206ce3c99b8831c",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/index.ts",
-      "sha256": "e2d9185d7f1785b2b5eeda13dd8a26ee116bc3915ff2dbdc97de80b6ff535073"
+      "sha256": "e2d9185d7f1785b2b5eeda13dd8a26ee116bc3915ff2dbdc97de80b6ff535073",
+      "via": [
+        "vite-load",
+        "vite-import-edge",
+        "vite-transform"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/optics.ts",
-      "sha256": "247e49336cb3a7194e89e1dc1c9a8a7654dcfb3311bbc678d220c99fb503f673"
+      "sha256": "247e49336cb3a7194e89e1dc1c9a8a7654dcfb3311bbc678d220c99fb503f673",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/prelude.ts",
-      "sha256": "beb2fb3c03c61e00f6a24d1c1dee55c22b63830dc415e1e95d34a43a6e8981f6"
+      "sha256": "beb2fb3c03c61e00f6a24d1c1dee55c22b63830dc415e1e95d34a43a6e8981f6",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/src/wgsl/silhouette-tone.ts",
-      "sha256": "65e66f70d2ce855b69173c260de7b870e3e3c97c175abe2043fad8adb65a7c56"
+      "sha256": "65e66f70d2ce855b69173c260de7b870e3e3c97c175abe2043fad8adb65a7c56",
+      "via": [
+        "vite-load",
+        "vite-transform",
+        "vite-import-edge"
+      ],
+      "routes": [
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "packages/renderer-webgpu/tsconfig.json",
-      "sha256": "41e00f4a4361e0aef594f923471165a443b117439a1f51f8a7ea1eec25e32855"
+      "sha256": "41e00f4a4361e0aef594f923471165a443b117439a1f51f8a7ea1eec25e32855",
+      "via": [
+        "resolution-metadata"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "c869fd1d93b428ffebbb381a810dc4603a9acb1bfc92622a938c424fc6a7d170"
+      "sha256": "c869fd1d93b428ffebbb381a810dc4603a9acb1bfc92622a938c424fc6a7d170",
+      "via": [
+        "anchor"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     },
     {
       "path": "tsconfig.base.json",
-      "sha256": "fd98620ed117cea27d18a092f4faed75da1349cc948423ce7e8e67ac688f6eec"
+      "sha256": "fd98620ed117cea27d18a092f4faed75da1349cc948423ce7e8e67ac688f6eec",
+      "via": [
+        "anchor"
+      ],
+      "routes": [
+        "capture-canonical",
+        "capture-w50",
+        "compare-canonical",
+        "browser-canonical",
+        "browser-w50"
+      ]
     }
   ]
 }
