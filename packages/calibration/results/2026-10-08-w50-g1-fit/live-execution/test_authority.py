@@ -1,8 +1,12 @@
+import ast
 import copy
 import hashlib
 import importlib.util
+import inspect
 from pathlib import Path
+import re
 import tempfile
+import textwrap
 import unittest
 import types
 H=Path(__file__).resolve().parent
@@ -46,6 +50,32 @@ class Authority(unittest.TestCase):
                     A.validate_body(path,{**doc,alias:{'path':'x','sha256':'a'*64}})
 
 
+class Rebound(ast.NodeTransformer):
+    """A LIVE copy's body as the original's: D.x read as x, each live expression as the original's."""
+    def __init__(self,**expressions):
+        self.map={ast.dump(ast.parse(k,mode='eval').body):ast.parse(v,mode='eval').body for k,v in expressions.items()}
+    def visit(self,node):
+        if ast.dump(node) in self.map:return ast.copy_location(copy.deepcopy(self.map[ast.dump(node)]),node)
+        node=self.generic_visit(node)
+        if isinstance(node,ast.Attribute) and isinstance(node.value,ast.Name) and node.value.id=='D':
+            return ast.copy_location(ast.Name(node.attr,node.ctx),node)
+        return node
+
+
+def body(function):
+    node=ast.parse(textwrap.dedent(inspect.getsource(function))).body[0];node.name='f'
+    if isinstance(node.body[0],ast.Expr) and isinstance(node.body[0].value,ast.Constant):node.body=node.body[1:]
+    return node
+
+
+class PrefitCopy(unittest.TestCase):
+    def test_live_verify_prefit_is_current3s_with_only_the_evidence_slot_rebound(self):
+        """DL5o: each root reads and pins its own pre-fit evidence; nothing else differs."""
+        live=Rebound(**{"C.slot(path, 'prefit')":"directory / 'pre-fit-evidence.json'"}).visit(body(A._verify_prefit))
+        self.assertEqual(ast.dump(live),ast.dump(body(A.D.verify_prefit)))
+        self.assertIs(A._verify_prefit.__globals__['C'],A.C)
+
+
 def pin(name):return {'path':name,'sha256':hashlib.sha256(name.encode()).hexdigest()}
 
 
@@ -84,25 +114,36 @@ class CurrentAuthority(unittest.TestCase):
 
 
 class PrefitLineage(unittest.TestCase):
-    """Second pre-seal review P2, on the committed proofs and supersession records: the ten
-    standing proofs and the r2 inventory pass; each superseded proof, the superseded inventory
-    and a completion that names another inventory refuse. Only proof and record JSON is read."""
+    """Second pre-seal review P2, on the committed proofs and supersession records: the newest
+    generation of each of the ten standing proofs, and the inventory its referenceCompletion
+    completes, pass; every older generation of a rebuilt proof, the superseded inventory and a
+    completion that names another inventory refuse. Generations are read from the tree
+    (prefit-proofs, prefit-proofs-r2, ...), so a later cascade (DL5o's r3) is held to the same
+    statement. Only proof and record JSON is read."""
     REPO=H.parents[4];FIT='packages/calibration/results/2026-10-08-w50-g1-fit/'
-    STANDING={**{k:'prefit-proofs' for k in ('nativeArchive','identityDigestsGoldens','negativeNeutralDiagnostic',
-                 'newBedRendererAdapter','numericalRehearsal','shaderCpuAgreement')},
-              **{k:'prefit-proofs-r2' for k in ('referenceCompletion','repeatBar','dark05Bands','active05ScratchBaselines')}}
+    KINDS=[k for k in A.D.PROOFS if k not in ('executionClosure','independentReview')]
+    def folders(self,kind):
+        found=[p for p in (self.REPO/self.FIT).glob('prefit-proofs*/'+kind+'.json') if re.fullmatch(r'prefit-proofs(-r[0-9]+)?',p.parent.name)]
+        return [p.parent.name for p in sorted(found,key=lambda p:int(p.parent.name.rpartition('-r')[2] or 1) if '-r' in p.parent.name else 1)]
     def proof(self,folder,kind):return A.D.pin(self.REPO,self.REPO/self.FIT/folder/(kind+'.json'))
     def evidence(self,**folders):
-        proofs={k:self.proof(folders.get(k,v),k) for k,v in self.STANDING.items()}
-        completion=A.D.load(self.REPO/self.FIT/'prefit-proofs-r2/referenceCompletion.json')
-        references=next(p for p in completion['sources'] if p['path'].endswith('live-inputs/completed-references-r2.json'))
+        proofs={k:self.proof(folders.get(k,self.folders(k)[-1]),k) for k in self.KINDS}
+        # The inventory the NEWEST completion completes, whichever generation a case substitutes.
+        completion=A.D.load(self.REPO/self.proof(self.folders('referenceCompletion')[-1],'referenceCompletion')['path'])
+        [references]=[p for p in completion['sources'] if re.search(r'live-inputs/completed-references(-r[0-9]+)?\.json$',p['path'])]
         return {'evidence':proofs,'references':references,'sources':[]}
     def test_the_rebuilt_proofs_and_their_inventory_pass(self):
+        self.assertEqual(sorted(self.KINDS),sorted(['nativeArchive','repeatBar','referenceCompletion','dark05Bands',
+            'active05ScratchBaselines','identityDigestsGoldens','numericalRehearsal','shaderCpuAgreement',
+            'negativeNeutralDiagnostic','newBedRendererAdapter']))
+        self.assertTrue(all(self.folders(k) for k in self.KINDS))
         A.prefit_lineage(self.REPO,self.evidence())
     def test_each_superseded_proof_refuses(self):
-        for kind in ('referenceCompletion','repeatBar','dark05Bands','active05ScratchBaselines'):
-            with self.subTest(kind=kind),self.assertRaisesRegex(ValueError,kind+' pins evidence a recorded recovery superseded'):
-                A.prefit_lineage(self.REPO,self.evidence(**{kind:'prefit-proofs'}))
+        older=[(k,f) for k in self.KINDS for f in self.folders(k)[:-1]]
+        self.assertTrue({'referenceCompletion','repeatBar','dark05Bands','active05ScratchBaselines'}<={k for k,_ in older})
+        for kind,folder in older:
+            with self.subTest(kind=kind,folder=folder),self.assertRaisesRegex(ValueError,kind+' pins evidence a recorded recovery superseded'):
+                A.prefit_lineage(self.REPO,self.evidence(**{kind:folder}))
     def test_the_superseded_inventory_and_another_inventory_refuse(self):
         old=A.D.load(self.REPO/self.FIT/'prefit-proofs/repeatBar.json')
         stale=next(p for p in old['sources'] if p['path'].endswith('live-inputs/completed-references.json'))
@@ -110,7 +151,7 @@ class PrefitLineage(unittest.TestCase):
             A.prefit_lineage(self.REPO,{**self.evidence(),'references':stale})
         with self.assertRaisesRegex(ValueError,'superseded'):
             A.prefit_lineage(self.REPO,{**self.evidence(),'sources':[{'path':self.FIT+'completion/registered/run.py','sha256':'0'*64}]})
-        other={'path':self.FIT+'live-inputs/completed-references-r3.json','sha256':'1'*64}
+        other={'path':self.FIT+'live-inputs/completed-references-r9.json','sha256':'1'*64}
         with self.assertRaisesRegex(ValueError,'own inventory'):A.prefit_lineage(self.REPO,{**self.evidence(),'references':other})
 
 if __name__=='__main__':unittest.main()

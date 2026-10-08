@@ -23,8 +23,18 @@ refuses a root otherwise), so reportedKeys is the exact admitted set.
 
 current3's checked_gate_result calls its own validate_report by global name, so the qualified
 gate a LIVE exposure reads is re-validated by checked_gate_result below, a copy of that function
-differing only in which validate_report it calls (test_report.py proves the copy by syntax
-tree). Errors carry field names and keys only (DL5k).
+differing only in which validate_report it calls and in reading the gate from its root's own slot
+(test_report.py proves the copy by syntax tree). Errors carry field names and keys only (DL5k).
+
+The LIVE root chain (DL5o). A successor root is sealed BESIDE the root it supersedes, as
+execution-root-<n>.json (n >= 2) after execution-root.json, and only the newest generation of a
+directory is ever admitted (superseded; authority.predecessors validates each link). Each root's
+phase slots and pre-fit evidence are its own, named by its stem (slot). Fit contracts stay in
+the shared fit/ directory because the fit role (fit/live.fit_record) and the initializer
+(fit/execution._bootstrap) bind fit/ and the sibling dispatcher to the root's directory, so a
+directory per root would break both. slot_area names every file a root's slots, and the shared
+slots of the dispatcher that sealed generation 1, could have written; a successor is sealed only
+while it is empty.
 
 DL5n: a completed native blind read that is not ready reaches the judge with its stops, and
 each stopped key's cell is UNMEASURED with null readings and the cause NATIVE_NOT_READY.
@@ -36,7 +46,9 @@ expected keys, each stop naming at least one; and the NATIVE_NOT_READY cells are
 keys, each an UNMEASURED blind non-reported key with null readings.
 """
 import copy
+import os
 from pathlib import Path
+import re
 import sys
 import types
 HERE=Path(__file__).resolve().parent
@@ -50,6 +62,64 @@ def source(path,name):
     return m
 
 D=source(CURRENT3/'execution/dispatch.py','w50_live_immutable_mechanics')
+
+# A chain root's name, or its sidecar's; dispatch.ROOT_CHAIN is the same pattern (test_chain).
+ROOT_CHAIN=re.compile(r'execution-root(?:-([2-9]|[1-9][0-9]+))?\.json(?:\.sha256)?')
+SLOT_NAMES={'gate':D.SLOTS['gate'],'exposure':D.SLOTS['exposure'],'prefit':'pre-fit-evidence.json'}
+
+
+def generation(name):
+    """A chain root's generation from its file name (or its sidecar's); None off the chain."""
+    match=ROOT_CHAIN.fullmatch(name)
+    return None if match is None else int(match.group(1) or 1)
+
+
+def root_name(n):return 'execution-root.json' if n==1 else f'execution-root-{n}.json'
+
+
+def _names(folder):return os.listdir(folder) if Path(folder).is_dir() else []
+
+
+def superseded(path):
+    """Whether a later generation of the chain, its document or its sidecar alone, exists beside
+    this chain root. A torn successor seal supersedes too: the safe side."""
+    path=Path(path).resolve();own=generation(path.name)
+    return own is not None and any((generation(n) or 0)>own for n in _names(path.parent))
+
+
+def newest_root(directory):
+    """The newest chain root of a directory, the only one any entry admits."""
+    found=[g for g in map(generation,_names(directory)) if g is not None]
+    if not found:raise ValueError('No LIVE root in this directory')
+    return Path(directory).resolve()/root_name(max(found))
+
+
+def slot(root,phase,batch_sha256=None):
+    """This root's own slot: a fit contract (named by its batch's hash), the gate or exposure
+    contract, or the pre-fit evidence ('prefit'). Every journal file of a contract extends its
+    name (.sha256, .started.json, .phase/, .result.json)."""
+    root=Path(root).resolve();stem=root.name.removesuffix('.json')
+    if phase=='fit':
+        if not isinstance(batch_sha256,str) or not re.fullmatch('[0-9a-f]{64}',batch_sha256):
+            raise ValueError('A fit slot is named by its batch hash')
+        return root.parent/D.SLOTS['fit']/f'{stem}.{batch_sha256}.json'
+    return root.parent/f'{stem}.{SLOT_NAMES[phase]}'
+
+
+def slot_area(root):
+    """(directory, name pattern) pairs covering every file this root's slots could hold, and the
+    shared slots (fit/<batch>.json, gate-contract.json, exposure-contract.json,
+    pre-fit-evidence.json) of the dispatcher that sealed generation 1, which nothing writes now."""
+    root=Path(root).resolve();stem=re.escape(root.name.removesuffix('.json'))
+    names='(?:'+'|'.join(re.escape(SLOT_NAMES[k]) for k in ('gate','exposure','prefit'))+')'
+    fit=root.parent/D.SLOTS['fit']
+    return [(fit,stem+r'\..*'),(root.parent,stem+r'\.'+names+'.*'),(fit,r'[0-9a-f]{64}\.json.*'),(root.parent,names+'.*')]
+
+
+def slot_entries(root):
+    """Every existing file or directory in this root's slot area."""
+    return [Path(folder)/name for folder,pattern in slot_area(root) for name in sorted(_names(folder))
+            if re.fullmatch(pattern,name)]
 
 UNMEASURED_REPORTED='UNMEASURED_REPORTED'
 CAUSES=('INCOMPLETE_READING','NON_FINITE_READING','OUT_OF_DOMAIN_READING')
@@ -150,7 +220,7 @@ def validate_report(doc,batch,expected,report,gate_result=None):
 
 
 def checked_gate_result(path, doc):
-    gate = Path(path).resolve().parent / D.SLOTS['gate']
+    gate = slot(path, 'gate')
     if not gate.is_file() or not Path(str(gate)+'.result.json').is_file():
         raise ValueError('Exposure requires a completed qualified gate success')
     contract = D.sealed(gate)

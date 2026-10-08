@@ -24,6 +24,11 @@ token cannot remove each other's fresh lease (second pre-seal review P2).
 Protected payload access is instrument/API enforced plus the wave's role discipline.
 It is NOT OS isolation. No agent may open native/quarantine files directly before the
 complete-union measurement/judge marker. Every public execution result is allowlisted.
+
+Every entry serves only the newest root of its directory's chain (DL5o): _prepare refuses a
+superseded root before it reads or executes anything else, a process already serving a root
+included. Each root's phase slots are its own (common.slot): fit/<root stem>.<batch>.json,
+<root stem>.gate-contract.json and <root stem>.exposure-contract.json beside the root.
 """
 import calendar
 import contextlib
@@ -39,6 +44,9 @@ import sys
 import types
 
 HERE=Path(__file__).resolve().parent
+# common.ROOT_CHAIN, read here before any other repository source executes (test_chain proves
+# the two agree).
+ROOT_CHAIN=re.compile(r'execution-root(?:-([2-9]|[1-9][0-9]+))?\.json(?:\.sha256)?')
 _CORE=None
 _ACTIVE=None
 _LEASE=None
@@ -81,6 +89,17 @@ def _write_sealed(path,value):
     return _CORE['C'].D.write_sealed(path,value)
 
 
+def _generation(name):
+    match=ROOT_CHAIN.fullmatch(name)
+    return None if match is None else int(match.group(1) or 1)
+
+
+def _superseded(path):
+    """common.superseded: a later chain generation, document or sidecar, exists beside the root."""
+    own=_generation(path.name);folder=path.parent
+    return own is not None and any((_generation(n) or 0)>own for n in (os.listdir(folder) if folder.is_dir() else ()))
+
+
 def source(path,name):
     m=types.ModuleType(name);m.__file__=str(path);sys.modules[name]=m
     exec(compile(Path(path).read_bytes(),str(path),'exec',dont_inherit=True),m.__dict__)
@@ -89,7 +108,9 @@ def source(path,name):
 
 def _prepare(path):
     global _CORE
-    path=Path(path).resolve();doc=load(path);repo=Path(doc['repo']).resolve()
+    path=Path(path).resolve()
+    if _superseded(path):raise ValueError('Superseded LIVE root: a later generation exists beside it')
+    doc=load(path);repo=Path(doc['repo']).resolve()
     if _CORE is not None:
         if _CORE['root']!=str(path) or _CORE['sha']!=sha(path):raise ValueError('A process may serve only its unchanged registered root')
         return _CORE
@@ -144,11 +165,11 @@ def result_for(contract):
 
 def create_phase(root,batch_path,output,fit_record=None):
     global _ACTIVE,_LEASE
-    root=Path(root).resolve();doc=root_doc(root);D=_CORE['C'].D;repo=Path(doc['repo'])
+    root=Path(root).resolve();doc=root_doc(root);C=_CORE['C'];D=C.D;repo=Path(doc['repo'])
     batch=D.load(batch_path);phase=batch.get('phase')
     if phase not in ('fit','gate','exposure'):raise ValueError('Only scientific LIVE phases are admitted')
     batch,expected=D.validate_batch(doc,batch_path,phase)
-    if phase=='fit' and (root.parent/D.SLOTS['gate']).exists():raise ValueError('Gate already froze fitting')
+    if phase=='fit' and C.slot(root,'gate').exists():raise ValueError('Gate already froze fitting')
     prefit=verify_prefit(root,doc);output=Path(output).resolve()
     if output.is_relative_to(repo):raise ValueError('Logical phase needs fresh external output')
     extra={};gate_batch=None
@@ -159,13 +180,13 @@ def create_phase(root,batch_path,output,fit_record=None):
         D.validate_fit_record(root,doc,batch['cohort'],fit_record);_one_fit_point(root,doc,fit_record)
         extra['fitRecord']=D.pin(repo,fit_record)
     if phase=='exposure':
-        result_for(root.parent/D.SLOTS['gate'])
+        result_for(C.slot(root,'gate'))
         gate,result=_CORE['C'].checked_gate_result(root,doc)
         if D.sealed(gate)['cohort']!=batch['cohort']:raise ValueError('Exposure changes frozen gate cohort')
         extra={'gateContract':D.pin(repo,gate),'gateResult':D.pin(repo,Path(str(gate)+'.result.json'))}
         gate_batch=_gate_batch(doc,extra['gateContract'])
     _live_batch(doc,batch,gate_batch)
-    target=root.parent/'fit'/f'{sha(batch_path)}.json' if phase=='fit' else root.parent/D.SLOTS[phase]
+    target=C.slot(root,'fit',sha(batch_path)) if phase=='fit' else C.slot(root,phase)
     # Everything the journal derives from the contract is derived before anything is durable, so a
     # malformed batch refuses here instead of burning a one-shot slot.
     L=_CORE['L'];L.Store(target,batch,output)
@@ -264,14 +285,14 @@ def _live_batch(doc,batch,gate_batch=None):
 
 
 def _phase(root,contract):
-    doc=root_doc(root);D=_CORE['C'].D;body=D.sealed(contract);repo=Path(doc['repo'])
+    doc=root_doc(root);C=_CORE['C'];D=C.D;body=D.sealed(contract);repo=Path(doc['repo'])
     phase=body['phase'];batch_path=D.checked(repo,body['batch']);batch,expected=D.validate_batch(doc,batch_path,phase)
     _live_batch(doc,batch,_gate_batch(doc,body['gateContract']) if phase=='exposure' else None)
-    target=Path(root).parent/'fit'/f'{sha(batch_path)}.json' if phase=='fit' else Path(root).parent/D.SLOTS[phase]
+    target=C.slot(root,'fit',sha(batch_path)) if phase=='fit' else C.slot(root,phase)
     if Path(contract).resolve()!=target.resolve() or body['executionRootSha256']!=sha(root) or body['cohort']!=batch['cohort']:
         raise ValueError('Wrong logical phase authority')
     if body['preFitEvidence']!=verify_prefit(root,doc):raise ValueError('Pre-fit evidence changed')
-    if phase=='fit' and (Path(root).parent/D.SLOTS['gate']).exists():raise ValueError('Gate froze fitting')
+    if phase=='fit' and C.slot(root,'gate').exists():raise ValueError('Gate froze fitting')
     if phase=='gate':
         fit_record=D.checked(repo,body['fitRecord'])
         D.validate_fit_record(root,doc,batch['cohort'],fit_record);_one_fit_point(root,doc,fit_record)

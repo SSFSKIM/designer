@@ -32,12 +32,24 @@ class Unqualify(ast.NodeTransformer):
         return node
 
 
+class Restore(ast.NodeTransformer):
+    """Replace each occurrence of one expression by another (both given as source text)."""
+    def __init__(self,live,original):
+        self.live=ast.dump(ast.parse(live,mode='eval').body);self.original=ast.parse(original,mode='eval').body
+    def visit(self,node):
+        if ast.dump(node)==self.live:return ast.copy_location(copy.deepcopy(self.original),node)
+        return super().visit(node)
+
+
 class Wiring(unittest.TestCase):
-    def test_gate_result_check_is_current3s_own_with_only_the_validator_rebound(self):
+    def test_gate_result_check_is_current3s_own_with_only_the_validator_and_slot_rebound(self):
         original=function(inspect.getsource(R.D.checked_gate_result))
         live=Unqualify().visit(function(inspect.getsource(R.checked_gate_result)))
+        # The one textual difference: the gate is this root's own slot (DL5o), not the shared name.
+        live=Restore("slot(path, 'gate')","Path(path).resolve().parent / SLOTS['gate']").visit(live)
         self.assertEqual(ast.dump(live),ast.dump(original))
         self.assertIs(R.checked_gate_result.__globals__['validate_report'],R.validate_report)
+        self.assertIs(R.checked_gate_result.__globals__['slot'],R.slot)
 
     def test_every_live_report_validation_goes_through_the_live_validator(self):
         tree=ast.parse((H/'dispatch.py').read_text())

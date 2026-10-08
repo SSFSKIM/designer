@@ -333,7 +333,7 @@ class Execution(Fixture):
         self.assertEqual(self.D.execute_attempt(self.root,self.contract,b)['code'],'INSTRUMENT_FAULT')
         self.assertEqual(self.store.status()['retained'],1)
     def test_malformed_exposure_contract_refuses_before_its_one_shot_slot_is_sealed(self):
-        slot=self.repo/self.C.D.SLOTS['exposure'];output=self.repo.parent/(self.repo.name+'-exposure')
+        slot=self.C.slot(self.root,'exposure');output=self.repo.parent/(self.repo.name+'-exposure')
         self.addCleanup(lambda:__import__('shutil').rmtree(output,ignore_errors=True))
         broken=copy.deepcopy(self.batch);broken['runs'][0].pop('baselineCandidate')
         with self.assertRaisesRegex(ValueError,'baseline'):self.create(broken,output)
@@ -355,6 +355,32 @@ class Execution(Fixture):
         capture.capture=changed
         a=self.store.plan();self.assertEqual(self.D.execute_attempt(self.root,self.contract,a)['code'],'INSTRUMENT_FAULT')
         self.assertEqual(self.store.status()['retained'],0)
+
+
+class PerRootSlots(Fixture):
+    """DL5o: the real create_phase writes each root's contracts into that root's own slots, so a
+    successor beside its predecessor never shares, or is frozen by, another root's phase."""
+    def test_two_roots_beside_each_other_never_share_a_slot(self):
+        one=self.put('execution-root.json',{});two=self.put('execution-root-2.json',{})
+        fit={**self.batch,'phase':'fit'};fit['runs']=[{k:v for k,v in self.batch['runs'][0].items() if k!='baselineCandidate'}]
+        other=json.loads(json.dumps(fit));other['runs'][0]['id']='another fit'
+        output=lambda name:self.repo.parent/(self.repo.name+'-'+name)
+        def created(root,batch,name):
+            self.root=root;contract=Path(self.create(batch,output(name)))
+            return [contract,Path(str(contract)+'.sha256')]
+        mine=created(two,fit,'fit-two');self.assertEqual(self.C.slot_entries(one),[])
+        self.assertEqual(mine[0],self.C.slot(two,'fit',self.C.D.sha(self.repo/'fit-batch.json')))
+        # The same batch under the other root is that root's own fit, not an existing slot.
+        theirs=created(one,fit,'fit-one');self.assertEqual(theirs[0].parent,mine[0].parent);self.assertNotEqual(theirs,mine)
+        # A gate freezes fitting under its own root only.
+        self.C.slot(one,'gate').write_text('{}')
+        self.root=one
+        with self.assertRaisesRegex(ValueError,'froze fitting'):self.create(other,output('fit-one-again'))
+        mine+=created(two,other,'fit-two-again')
+        mine+=created(two,self.batch,'exposure-two')
+        self.assertEqual(mine[-2],self.C.slot(two,'exposure'))
+        self.assertEqual(sorted(self.C.slot_entries(two)),sorted(mine))
+        self.assertEqual(sorted(self.C.slot_entries(one)),sorted(theirs+[self.C.slot(one,'gate')]))
 
 
 STOP={'cell':'apple-macos-27.0-1x-dark-standard-glass0.25/one','statistic':'deep8','reason':'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}
@@ -381,7 +407,7 @@ class PreSeal(Fixture):
 
     # P1: the owner is admitted before every one-shot marker.
     def test_owner_refusal_at_exposure_creation_seals_nothing(self):
-        slot=self.repo/self.C.D.SLOTS['exposure'];output=self.exposure_output()
+        slot=self.C.slot(self.root,'exposure');output=self.exposure_output()
         self.owner.refuse.append('synthetic drifted owner input NATIVE_SECRET_12345.875')
         out=io.StringIO()
         with contextlib.redirect_stdout(out),contextlib.redirect_stderr(out),\
@@ -401,7 +427,7 @@ class PreSeal(Fixture):
         self.D.result_for=lambda contract:{};one=[D.pin(self.repo,self.put('fit/one.json.result.json',{'synthetic':'fit result'}))]
         self.fit.derived[:]=[{'schema':'w50-g1-fit-record-1','selected':[self.candidate]}]
         record=self.put('fit-record.json',{**self.fit.derived[0],'completed':one})
-        slot=self.repo/D.SLOTS['gate'];output=self.exposure_output('-gate')
+        slot=self.C.slot(self.root,'gate');output=self.exposure_output('-gate')
         self.owner.refuse.append('synthetic refused intrinsic records')
         with self.assertRaisesRegex(ValueError,'quarantined'):self.create(gate,output,gate_batch=gate,fit_record=record)
         self.assertFalse(slot.exists());self.assertFalse(output.exists())
@@ -475,14 +501,14 @@ class PreSeal(Fixture):
             for name,mutate in cases.items():
                 batch=json.loads(json.dumps({**self.batch,'phase':phase}));mutate(batch)
                 gate=batch if phase=='gate' else None
-                output=self.exposure_output('-'+phase);slot=self.repo/D.SLOTS[phase]
+                output=self.exposure_output('-'+phase);slot=self.C.slot(self.root,phase)
                 self.fit.derived[:]=[{'schema':'record'}];record=self.put('fit-record.json',{'schema':'record','completed':[]})
                 with self.subTest(phase=phase,case=name),self.assertRaises(ValueError):
                     self.create(batch,output,gate_batch=gate,fit_record=record if phase=='gate' else None)
                 self.assertFalse(slot.exists());self.assertFalse(output.exists())
         other=records();other_batch={**self.batch,'ownerIntrinsicRecords':other}
         with self.assertRaisesRegex(ValueError,'frozen gate batch'):self.create(other_batch,self.exposure_output())
-        self.assertFalse((self.repo/D.SLOTS['exposure']).exists());self.assertEqual(self.owner.admits,[])
+        self.assertFalse(self.C.slot(self.root,'exposure').exists());self.assertEqual(self.owner.admits,[])
 
     def test_intrinsic_declarations_compare_as_the_owner_child_resolves_them(self):
         """Second pre-seal review P3: the owner's Node child resolves pins lexically against the
@@ -691,7 +717,7 @@ except FileExistsError:print(json.dumps(['held']),flush=True)
         result=self.put('fit/one.json.result.json',{'synthetic':'fit result'});second=self.put('fit/two.json.result.json',{'other':1})
         self.D.result_for=lambda contract:{}
         one=[D.pin(self.repo,result)];self.fit.derived[:]=[{'schema':'w50-g1-fit-record-1','selected':[self.candidate]}]
-        slot=self.repo/D.SLOTS['gate']
+        slot=self.C.slot(self.root,'gate')
         for name,record in (('two completed',{**self.fit.derived[0],'completed':one+[D.pin(self.repo,second)]}),
                             ('not derived',{**self.fit.derived[0],'completed':one,'selection':'chosen elsewhere'}),
                             ('no completion',{**self.fit.derived[0]})):
@@ -739,7 +765,7 @@ except FileExistsError:print(json.dumps(['held']),flush=True)
         marker=json.loads((self.store.home/'native.complete.json').read_text())
         self.assertEqual(marker['recoveredBy'],self.L.pin(self.store.attempts/'000002/started.json'))
     def test_contract_written_before_its_sidecar_completes_its_seal(self):
-        D=self.C.D;original=D.write_sealed;output=self.exposure_output();slot=self.repo/D.SLOTS['exposure']
+        D=self.C.D;original=D.write_sealed;output=self.exposure_output();slot=self.C.slot(self.root,'exposure')
         def killed(path,value):D.write_once(path,value);raise RuntimeError('killed before sidecar')
         D.write_sealed=killed
         with self.assertRaisesRegex(RuntimeError,'killed'):self.create(self.batch,output)
