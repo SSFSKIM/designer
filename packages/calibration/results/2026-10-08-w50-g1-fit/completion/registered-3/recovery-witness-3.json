@@ -1,0 +1,579 @@
+{
+ "schema": "w50-owner-recovery-witness-3",
+ "ruling": "DL5o (a), recovered in DL5l's pattern; DL5m item 5",
+ "fix": "owner/intrinsic.ts admits a historical family-keyed X76 entry verbatim as that family's hold when no moved leaf falls under it; owner/witness.ts's X76 contract names that admission",
+ "owner": {
+  "closure": {
+   "sources": 180,
+   "differing": [
+    "sources/14/sha256",
+    "sources/21/sha256"
+   ]
+  },
+  "contracts": {
+   "differing": [
+    "intrinsic/X76/exclusions/familyKeyedHistory",
+    "intrinsic/X76/sourceSelectors",
+    "readerSources/intrinsic.ts/sha256",
+    "readerSources/witness.ts/sha256"
+   ]
+  },
+  "prepare": {
+   "cells": 745,
+   "byteIdentical": true
+  }
+ },
+ "projection": {
+  "rows": 640,
+  "rowValuesIdentical": "every row differs only in reportPin/contractsPin and its copy of the X76 contract",
+  "indexRows": 640
+ },
+ "reads": {
+  "contracts": {
+   "instrument": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/contracts-instrument.json",
+    "sha256": "77f29e6f50220da8848e218a2a82e3fe84e47a19bbe5edab3048809f3cd8a595"
+   },
+   "fieldsMoved": [
+    "closure",
+    "output",
+    "request"
+   ],
+   "requestFieldsMoved": [],
+   "dispatchLog": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/contracts-dispatch.log",
+    "sha256": "30947e1d3ee41f20fd779b9f324732f86db931aa6607a45bcc342c22ddca99a6"
+   },
+   "output": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/contracts.json",
+    "sha256": "c203e3c1ca3413bcd15aba440224d8bba6b98485d82a00983e0439b70055612b"
+   }
+  },
+  "prepare": {
+   "instrument": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/prepare-instrument.json",
+    "sha256": "173fe8a0c1a167bc7d65e5bdaf1a640bcedeae94fe96d6a0e8ca9c83687ac2cc"
+   },
+   "fieldsMoved": [
+    "closure",
+    "output",
+    "request"
+   ],
+   "requestFieldsMoved": [],
+   "dispatchLog": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/prepare-dispatch.log",
+    "sha256": "050e8ec3abaf0ce0a64029460258581eaafdffd9134bb5ac42532d0db2aaf101"
+   },
+   "output": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/prepare.json",
+    "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+   }
+  },
+  "projection": {
+   "instrument": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/projection-instrument.json",
+    "sha256": "51bd69216a3b0687c5dbf84b96cfbdf1fdd8966bd42fbf00e8ae56d88aaf07f4"
+   },
+   "fieldsMoved": [
+    "closure",
+    "output",
+    "request"
+   ],
+   "requestFieldsMoved": [
+    "completedReferencesPin",
+    "contractsPin"
+   ],
+   "dispatchLog": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/projection-dispatch.log",
+    "sha256": "a9d8b5b9acf27f4fda7a02d1024cbcc5c6e05ffe81d1d93a3aa0152b2239e6e2"
+   },
+   "output": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/projection.json",
+    "sha256": "abc2789748c26386d0151c158adecff0b85efdff3e751036131fd8ff89e4bc81"
+   }
+  }
+ },
+ "evidenceArchive": {
+  "copies": [
+   "contracts.json",
+   "prepare.json"
+  ],
+  "archiveFiles": 642,
+  "archiver": {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/index.py",
+   "sha256": "ffd95c66583dbc00a53c98226e1b2ea9dc5d8b60aa959901d54dc2a3b0bd8640"
+  }
+ },
+ "assembly": {
+  "bindingFieldsMoved": [
+   "ownerContracts",
+   "ownerIndex",
+   "sourcePins"
+  ],
+  "bindingSourcePinsMoved": [
+   "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/run.py",
+   "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/run.py"
+  ],
+  "bundleFieldsMoved": [
+   "artifactRoot",
+   "artifacts",
+   "binding",
+   "inputs",
+   "sourcePins"
+  ],
+  "bundleNote": "artifacts and artifactRoot move with the fresh root; inputs with the owner pins; binding and sourcePins with the binding; the completed inventory is witnessed below"
+ },
+ "inventory": {
+  "rows": 3527,
+  "byteIdenticalRows": 1255,
+  "ownerRows": 640,
+  "differingLeavesByKind": {
+   "artifact directory emptySupportWitness": 24,
+   "artifact directory nativeEvidence": 1632,
+   "owner ownerEvidence": 1280
+  }
+ },
+ "artifacts": {
+  "files": 828,
+  "namesAndBytesIdentical": true
+ },
+ "ownerSelfcheck": {
+  "r2": {
+   "status": "PASS",
+   "counts": {
+    "cells": 745,
+    "ownerCells": 640,
+    "contextCells": 105,
+    "aggregates": 5
+   },
+   "statuses": {
+    "ownerCells": {
+     "PASS": 640
+    },
+    "contextCells": {
+     "PASS": 105
+    },
+    "aggregates": {
+     "PASS": 5
+    }
+   },
+   "intrinsicNotGraded": {
+    "UNMEASURED": 4
+   },
+   "notPassing": []
+  },
+  "r3": {
+   "status": "PASS",
+   "counts": {
+    "cells": 745,
+    "ownerCells": 640,
+    "contextCells": 105,
+    "aggregates": 5
+   },
+   "statuses": {
+    "ownerCells": {
+     "PASS": 640
+    },
+    "contextCells": {
+     "PASS": 105
+    },
+    "aggregates": {
+     "PASS": 5
+    }
+   },
+   "intrinsicNotGraded": {
+    "UNMEASURED": 4
+   },
+   "notPassing": []
+  },
+  "graded": {
+   "status": "PASS",
+   "counts": {
+    "cells": 745,
+    "ownerCells": 640,
+    "contextCells": 105,
+    "aggregates": 5
+   },
+   "statuses": {
+    "ownerCells": {
+     "PASS": 640
+    },
+    "contextCells": {
+     "PASS": 105
+    },
+    "aggregates": {
+     "PASS": 5
+    },
+    "intrinsic": {
+     "PASS": 14
+    }
+   },
+   "familyHolds": {
+    "0.25": {
+     "activeAdmitted": [],
+     "activeRefused": [],
+     "recededAdmitted": [],
+     "recededRefused": [],
+     "heldByFamily": {},
+     "missing": []
+    },
+    "0.5": {
+     "activeAdmitted": [
+      "backdropToneAdaptation",
+      "backdropToneResponse",
+      "bodyChromaRetention",
+      "cssTierBlur",
+      "outerShadow",
+      "outerShadowSpanGraded",
+      "rim",
+      "scatter",
+      "scatterScaleSelectivity"
+     ],
+     "activeRefused": [],
+     "recededAdmitted": [
+      "backdropToneResponse",
+      "bodyChromaRetention",
+      "outerShadow"
+     ],
+     "recededRefused": [],
+     "heldByFamily": {
+      "backdropToneAnchorX": "backdropToneResponse",
+      "outerShadow.liftAmplitude": "outerShadow",
+      "outerShadow.thinOcclusionDark": "outerShadow"
+     },
+     "missing": []
+    }
+   },
+   "identityCandidate": {
+    "records": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity/records/owner-intrinsic-records.json",
+     "sha256": "d63e552a7105330cd0ec70e9aa507def2f06f1d794914ed5eef377c8805e7560"
+    },
+    "cohort": [
+     {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity/glass025/candidate.json",
+      "sha256": "8a6eed1ce3d43a23e898ac408365d9fbcb370fc7fa611c2d5d30ec49df8e21e5"
+     },
+     {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity/glass05/candidate.json",
+      "sha256": "59ed35f03a8b71671d190a09e1bc1b31787aa7c3a9d056577382c0707406da39"
+     }
+    ],
+    "builder": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity.py",
+     "sha256": "abf0388d07f4a08d3e3858a9421dbf991d3923fd37eb621a180dbe2d24a4a01a"
+    }
+   },
+   "notPassing": [],
+   "intrinsic": [
+    {
+     "name": "X75",
+     "member": "apple-macos-26.5/dark/active",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-26.5/dark/receded",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-26.5/light/active",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-26.5/light/receded",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.25/dark/active",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.25/dark/receded",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.25/light/active",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.25/light/receded",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.5/dark/active",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.5/dark/receded",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.5/light/active",
+     "status": "PASS"
+    },
+    {
+     "name": "X75",
+     "member": "apple-macos-27.0-glass0.5/light/receded",
+     "status": "PASS"
+    },
+    {
+     "name": "X76",
+     "member": "0.25",
+     "status": "PASS"
+    },
+    {
+     "name": "X76",
+     "member": "0.5",
+     "status": "PASS"
+    }
+   ],
+   "ownerConfig": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner-config.json",
+    "sha256": "2c40a7464687343b2592f9a239aae8edfefc581a20aa4f94bb80fb89ecc2ca64"
+   }
+  }
+ },
+ "prefitProofs": {
+  "rebuilt": {
+   "active05ScratchBaselines": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/active05ScratchBaselines.json",
+     "sha256": "409cc610b8d1cbaf47c0784971fa438c8434d27c4a572b8e48aa958b06b85218"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/active05ScratchBaselines.json",
+     "sha256": "9fe7e11fa75d98f80d1589c7d5d489e45610c02014587db62f45aa340a8664d1"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json"
+    ]
+   },
+   "dark05Bands": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+     "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/dark05Bands.json",
+     "sha256": "7957e91543c7b4e16c804c430959ac81bbb2dbfbad58415aabc5a102066d27a8"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json"
+    ]
+   },
+   "referenceCompletion": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+     "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/referenceCompletion.json",
+     "sha256": "bbd827bae87a31f1088e26557113d458d281c38273ee25bd666d3371f5f8b4c3"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/archive.json",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/artifacts.tar.gz",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/completed-references.json.gz",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/run.py",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json"
+    ]
+   },
+   "repeatBar": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+     "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/repeatBar.json",
+     "sha256": "878697807e68bbafde49b0266c33281bf3ec26445bfa44b2330a8c14fd2b62f6"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json"
+    ]
+   }
+  },
+  "standing": {
+   "identityDigestsGoldens": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/identityDigestsGoldens.json",
+     "sha256": "eb4ca92cfc5a67093b09f815c3214257fb3aad240ea2702d403c455bc95b15cf"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "nativeArchive": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/nativeArchive.json",
+     "sha256": "ed59ff9f07a8173252bdcb350ac65ff413b2844f009d41472cd31f710fe601c1"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "negativeNeutralDiagnostic": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/negativeNeutralDiagnostic.json",
+     "sha256": "19bbe7c3c296b0ebfdb9b5e6959367548d78858a2db1cc0bbd1aff9fd671628a"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "newBedRendererAdapter": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/newBedRendererAdapter.json",
+     "sha256": "dab68bff11b5fee31125ce3831b22097a05dbe25211acb8615fca04e89bb6a4e"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "numericalRehearsal": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/numericalRehearsal.json",
+     "sha256": "c75c2b79664040fcaa40c606a559255de3f10bb68df19f87440e3d8a154acd88"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "shaderCpuAgreement": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/shaderCpuAgreement.json",
+     "sha256": "9df2b3ec0e238332503f0bf6e1dd62da56a55abe9c1e240e5cc85c2b6688cfd6"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   }
+  }
+ },
+ "pins": {
+  "superseded": {
+   "closure": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/source-closure.json",
+    "sha256": "84465e599c9b8f9c4b2355028085311c990c637f0a9849fc38d703bc6d8dd6d2"
+   },
+   "contracts": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/contracts.json",
+    "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
+   },
+   "prepare": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/prepare.json",
+    "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+   },
+   "projection": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r2/projection.json",
+    "sha256": "822cf915e09cc5550e4a829c1ccdf605f0582db83ef3c5432f48cc0aa076ec52"
+   },
+   "projectionIndex": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/projection-index.json",
+    "sha256": "1819348e00701f84c344970ea4dcd5ef396ddf7cf251ada54733f5b071e52e3f"
+   },
+   "binding": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+    "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+   },
+   "bundle": {
+    "path": "/Users/new/vitrea-w50/g1-completion-r2/bundle.json",
+    "sha256": "fa5ceb669047caea642543f1e367efa1858064e7e8a09e2a837d14dce2046e10"
+   },
+   "completedReferences": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+    "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558"
+   }
+  },
+  "r3": {
+   "closure": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/source-closure.json",
+    "sha256": "0ec83188db5e7fd3a46a241ec5e37e15fa1d25967a613775130a83fc88470e39"
+   },
+   "contracts": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/contracts.json",
+    "sha256": "c203e3c1ca3413bcd15aba440224d8bba6b98485d82a00983e0439b70055612b"
+   },
+   "prepare": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/prepare.json",
+    "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+   },
+   "projection": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r3/projection.json",
+    "sha256": "abc2789748c26386d0151c158adecff0b85efdff3e751036131fd8ff89e4bc81"
+   },
+   "projectionIndex": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/projection-index.json",
+    "sha256": "b0c41e0c41ff5a16ecedd8849148f85b63be870e767ec13475111d68a234a4c5"
+   },
+   "binding": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/binding.json",
+    "sha256": "6548d289c6fd932a90e549a07ae2519dddb9a84def7a3874d14e553d588ad2de"
+   },
+   "bundle": {
+    "path": "/Users/new/vitrea-w50/g1-completion-r3/bundle.json",
+    "sha256": "53a42b6d7de3a261864ceabeb94fa9f95267861fbf9f1b660e5aae34c77b5320"
+   },
+   "completedReferences": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+    "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d"
+   }
+  }
+ },
+ "priorWitness": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/recovery-witness-2.json",
+  "sha256": "08acba93cf67396d2e8dcf6b5e4910947121b5a9b7acc250d7eb063aa45ff1c5"
+ },
+ "admitted": {
+  "artifact pin directory": 1656,
+  "artifacts byte-identical": 1,
+  "binding ownerIndex/ownerContracts/run.py source pin": 1,
+  "bundle artifacts: same names and documents under the fresh root": 1,
+  "bundle binding and sources are the r3 binding's": 1,
+  "bundle fields": 1,
+  "bundle inputs: owner index, contracts and batch": 1,
+  "closure intrinsic.ts and witness.ts": 1,
+  "contracts X76: the four DL5o selectors and familyKeyedHistory": 1,
+  "contracts readerSources intrinsic.ts and witness.ts": 1,
+  "dispatch log: the r3 instrument's output at its actual hash": 3,
+  "index membership/order": 1,
+  "index row evidence pin (directory and content pins)": 640,
+  "index schema and source pin": 1,
+  "instrument: only request, closure and output replaced, each its r3 file": 3,
+  "inventory membership/order": 1,
+  "inventory metadata": 1,
+  "owner row ownerEvidence pin": 1280,
+  "prepare byte-identical": 1,
+  "prior witness: r2 recorded only ruled differences": 1,
+  "projection contractsPin": 1282,
+  "projection membership/order": 1,
+  "projection reportPin": 641,
+  "projection row X76 contract: the r3 contracts' own": 1280,
+  "r3 evidence: index.py's archive of the logged projection output": 1,
+  "r3 evidence: the logged contracts and prepare outputs": 1,
+  "rebuilt proof pins no superseded artefact": 4,
+  "rebuilt proof replaces a moved pin": 4,
+  "request: unchanged but the projection's two read pins": 3,
+  "self-check: r2 and r3 pass ungraded; r3 passes with X75 (12) and X76 (0.25, 0.5) graded": 1,
+  "standing proof pins no superseded artefact": 6
+ },
+ "unexpected": [],
+ "status": "ONLY_RULED_DIFFERENCES",
+ "builder": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/witness.py",
+  "sha256": "cbed0a4929315cd5ffc652ea57ed633cf8fc142728647cea98d41226d703b9ee"
+ }
+}
