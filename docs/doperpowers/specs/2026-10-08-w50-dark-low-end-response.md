@@ -525,3 +525,15 @@ or release changed, and the main checkout was not edited.
 - G0 assembled seal — part1 `bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86`;
   part2 `bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85`. Native plan and ten
   numerical tests pass again after sealing, using the authorized runtime path rather than discovery.
+
+- G1a attempt 1 — The sealed driver stopped at the first opening bridge. Both operational
+  control frames attest `presentedActive:false` although active was requested; neither was
+  admitted. The identifying bed and its blind cells were not reached. The unchanged harness
+  reports that the session denied activation. `UserNotificationCenter` was already frontmost
+  before launch and retained focus throughout; read-only inspection found its non-shareable,
+  on-screen layer-8 alert. No system process or protected dialog was operated. Slider0.5 and
+  display mode68 were restored, and the failed run is retained under
+  `/Users/new/vitrea-w50/native-g1a/open-x0.5-1x-active/QUARANTINE-run-1-1791422534597505000`.
+  This is an environmental admission failure, not a material verdict or permission to amend a
+  seal. After the human clears the alert and an ordinary app is frontmost, a fresh-root retry
+  uses the same sealed protocol; the refused frames remain quarantined and are never relabelled.

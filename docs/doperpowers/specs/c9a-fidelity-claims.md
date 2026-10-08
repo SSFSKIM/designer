@@ -50362,3 +50362,26 @@ invoked native entrypoint verifies its registered plan:1,600 frames,40 launches,
 The additive pre-fit seal remains absent by design; native capture authorization is not fitting
 readiness or a material verdict. The G1 data, custom web adapter, complete path/T1 references and
 measured arguments still have to satisfy that separate gate without moving either operational seal.
+
+### 7. G1a opening attempt refused; no identifying data acquired
+
+The driver started from `c123c79a5` under the two seals above and stopped on its first opening
+bridge. Both `dark-solid__rrect-lg__rest` and `impulse__rrect-lg__rest` at dark0.5/1x were captured
+by ScreenCaptureKit but attest `presentedActive:false`. The requested active argv was correct;
+the unchanged harness explicitly reports activation denied by the session. Admission refused
+before any bridge comparison or identifying pass. There are **zero admitted frames, two quarantined
+operational frames, zero identifying frames and zero blind frames**. No `w50-archive` was created.
+
+`session-before.json` already named `com.apple.UserNotificationCenter` as frontmost; every watchdog
+sample retained it. Read-only LaunchServices/CoreGraphics inspection found PID8754's on-screen
+window816380, layer8, bounds1150/288/260/192, with sharing state0. The GUI session is on-console,
+logged in and unlocked. This is a non-shareable system alert holding focus, not an absent capture
+grant and not evidence about the new material. Its content was not read and it was not dismissed
+or killed. The human must resolve it; an ordinary front app and the positive grant must be verified
+before another attempt. No sealed source was changed and no automatic retry was performed.
+
+`results/2026-10-08-w50-g1-sitting/attempt-01.json` binds the two frame hashes, launch, manifest,
+front-app diagnosis and restoration. The full quarantined run remains outside the checkout under
+`/Users/new/vitrea-w50/native-g1a/`. The driver exited1 and positively restored the as-found slider0.5
+and display mode68. A fresh-root retry can use the unchanged declared protocol after the environment
+is corrected; it cannot reuse these rejected frames or call them receded measurements instead.
