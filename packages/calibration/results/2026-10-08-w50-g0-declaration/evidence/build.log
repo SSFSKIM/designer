@@ -1,0 +1,216 @@
+Scope: 9 of 10 workspace projects
+[36mpackages/geometry[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[35mpackages/motion[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[34mpackages/policy[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[34mpackages/policy[39m [96mbuild[39m: Done
+[35mpackages/motion[39m [96mbuild[39m: Done
+[36mpackages/geometry[39m [96mbuild[39m: Done
+[33mpackages/renderer-webgpu[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[33mpackages/renderer-webgpu[39m [96mbuild[39m: Done
+[32mpackages/core[39m [96mbuild[39m$ tsup
+[32mpackages/core[39m [96mbuild[39m: CLI Building entry: src/index.ts
+[32mpackages/core[39m [96mbuild[39m: CLI Using tsconfig: tsconfig.json
+[32mpackages/core[39m [96mbuild[39m: CLI tsup v8.5.1
+[32mpackages/core[39m [96mbuild[39m: CLI Using tsup config: /Users/new/vitrea-w50/g0/packages/core/tsup.config.ts
+[32mpackages/core[39m [96mbuild[39m: [90m(node:92186) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[32mpackages/core[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[32mpackages/core[39m [96mbuild[39m: CLI Target: es2022
+[32mpackages/core[39m [96mbuild[39m: CLI Cleaning output folder
+[32mpackages/core[39m [96mbuild[39m: ESM Build start
+[32mpackages/core[39m [96mbuild[39m: [90m(node:92186) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[32mpackages/core[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[32mpackages/core[39m [96mbuild[39m: DTS Build start
+[32mpackages/core[39m [96mbuild[39m: ESM dist/chunk-IOTISK2R.js     19.40 KB
+[32mpackages/core[39m [96mbuild[39m: ESM dist/dist-FCF62Z3S.js      400.68 KB
+[32mpackages/core[39m [96mbuild[39m: ESM dist/index.js              43.17 KB
+[32mpackages/core[39m [96mbuild[39m: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
+[32mpackages/core[39m [96mbuild[39m: ESM dist/index.js.map          174.44 KB
+[32mpackages/core[39m [96mbuild[39m: ESM dist/dist-FCF62Z3S.js.map  1.01 MB
+[32mpackages/core[39m [96mbuild[39m: ESM ⚡️ Build success in 240ms
+[32mpackages/core[39m [96mbuild[39m: DTS ⚡️ Build success in 1293ms
+[32mpackages/core[39m [96mbuild[39m: DTS dist/index.d.ts 276.13 KB
+[32mpackages/core[39m [96mbuild[39m: Done
+[31mpackages/platform-web[39m [96mbuild[39m$ tsup
+[31mpackages/platform-web[39m [96mbuild[39m: CLI Building entry: src/index.ts
+[31mpackages/platform-web[39m [96mbuild[39m: CLI Using tsconfig: tsconfig.json
+[31mpackages/platform-web[39m [96mbuild[39m: CLI tsup v8.5.1
+[31mpackages/platform-web[39m [96mbuild[39m: CLI Using tsup config: /Users/new/vitrea-w50/g0/packages/platform-web/tsup.config.ts
+[31mpackages/platform-web[39m [96mbuild[39m: [90m(node:92307) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[31mpackages/platform-web[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[31mpackages/platform-web[39m [96mbuild[39m: CLI Target: es2022
+[31mpackages/platform-web[39m [96mbuild[39m: CLI Cleaning output folder
+[31mpackages/platform-web[39m [96mbuild[39m: ESM Build start
+[31mpackages/platform-web[39m [96mbuild[39m: [90m(node:92307) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[31mpackages/platform-web[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[31mpackages/platform-web[39m [96mbuild[39m: DTS Build start
+[31mpackages/platform-web[39m [96mbuild[39m: ESM dist/index.js     323.62 KB
+[31mpackages/platform-web[39m [96mbuild[39m: ESM dist/index.js.map 1.23 MB
+[31mpackages/platform-web[39m [96mbuild[39m: ESM ⚡️ Build success in 267ms
+[31mpackages/platform-web[39m [96mbuild[39m: DTS ⚡️ Build success in 944ms
+[31mpackages/platform-web[39m [96mbuild[39m: DTS dist/index.d.ts 401.12 KB
+[31mpackages/platform-web[39m [96mbuild[39m: Done
+[36mpackages/calibration[39m [96mbuild[39m$ tsc -p tsconfig.build.json
+[35mpackages/react[39m [96mbuild[39m$ tsup
+[35mpackages/react[39m [96mbuild[39m: CLI Building entry: src/index.ts
+[35mpackages/react[39m [96mbuild[39m: CLI Using tsconfig: tsconfig.json
+[35mpackages/react[39m [96mbuild[39m: CLI tsup v8.5.1
+[35mpackages/react[39m [96mbuild[39m: CLI Using tsup config: /Users/new/vitrea-w50/g0/packages/react/tsup.config.ts
+[35mpackages/react[39m [96mbuild[39m: [90m(node:92455) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[35mpackages/react[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[35mpackages/react[39m [96mbuild[39m: CLI Target: es2022
+[35mpackages/react[39m [96mbuild[39m: CLI Cleaning output folder
+[35mpackages/react[39m [96mbuild[39m: ESM Build start
+[35mpackages/react[39m [96mbuild[39m: [90m(node:92455) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[35mpackages/react[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[35mpackages/react[39m [96mbuild[39m: ESM dist/index.js     101.91 KB
+[35mpackages/react[39m [96mbuild[39m: ESM dist/index.js.map 417.10 KB
+[35mpackages/react[39m [96mbuild[39m: ESM ⚡️ Build success in 183ms
+[35mpackages/react[39m [96mbuild[39m: DTS Build start
+[36mpackages/calibration[39m [96mbuild[39m: Done
+[35mpackages/react[39m [96mbuild[39m: DTS ⚡️ Build success in 1199ms
+[35mpackages/react[39m [96mbuild[39m: DTS dist/index.d.ts 68.28 KB
+[35mpackages/react[39m [96mbuild[39m: Done
+[34mapps/demo[39m [96mbuild[39m$ vite build
+[34mapps/demo[39m [96mbuild[39m: [90m(node:92717) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.[39m
+[34mapps/demo[39m [96mbuild[39m: [90m(Use `node --trace-warnings ...` to show where the warning was created)[39m
+[34mapps/demo[39m [96mbuild[39m: [90m(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./report" without a file extension (../../packages/calibration/src/matrix-store.ts:10:57). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./profile" without a file extension (../../packages/calibration/src/material-selection.ts:30:33). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/matrix-store.ts:11:36). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./generation-stage" without a file extension (../../packages/calibration/src/matrix-write-guard.ts:9:35). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./errors" without a file extension (../../packages/calibration/src/report.ts:23:34). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./metrics/chroma" without a file extension (../../packages/calibration/src/report.ts:24:44). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./metrics/shape" without a file extension (../../packages/calibration/src/report.ts:25:67). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./metrics/material" without a file extension (../../packages/calibration/src/report.ts:33:8). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./metrics/motion" without a file extension (../../packages/calibration/src/report.ts:34:54). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./metrics/shadow" without a file extension (../../packages/calibration/src/report.ts:35:60). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/generation-stage.ts:6:57). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./matrix-store" without a file extension (../../packages/calibration/src/generation-stage.ts:8:58). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./metrics/perceptual" without a file extension (../../packages/calibration/src/report.ts:41:8). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./report" without a file extension (../../packages/calibration/src/generation-stage.ts:9:57). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./profile" without a file extension (../../packages/calibration/src/report.ts:42:69). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./material-selection" without a file extension (../../packages/calibration/src/generation-stage.ts:10:68). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./document-position" without a file extension (../../packages/calibration/src/generation-stage.ts:11:59). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90m  - import "./material-selection" without a file extension (../../packages/calibration/src/document-position.ts:26:8). Add the file extension[39m
+[34mapps/demo[39m [96mbuild[39m: [90mSet `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.[39m
+[34mapps/demo[39m [96mbuild[39m: vite v8.2.2 building client environment for production...
+[34mapps/demo[39m [96mbuild[39m: transforming...
+[34mapps/demo[39m [96mbuild[39m: [32m✓[0m 1427 modules transformed.
+[34mapps/demo[39m [96mbuild[39m: rendering chunks...
+[34mapps/demo[39m [96mbuild[39m: computing gzip size...
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/park-trails/index.html                                [0m[1;2m    1.35 kB[0m[2m │ gzip:   0.62 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/planetarium/index.html                                [0m[1;2m    1.36 kB[0m[2m │ gzip:   0.67 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/terminal/index.html                                   [0m[1;2m    1.44 kB[0m[2m │ gzip:   0.68 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/transit-ops/index.html                                [0m[1;2m    1.44 kB[0m[2m │ gzip:   0.70 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/exhibition/index.html                                 [0m[1;2m    1.47 kB[0m[2m │ gzip:   0.73 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/music-player/index.html                               [0m[1;2m    1.53 kB[0m[2m │ gzip:   0.74 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/photo-review/index.html                               [0m[1;2m    1.56 kB[0m[2m │ gzip:   0.73 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/start-page/index.html                                 [0m[1;2m    1.57 kB[0m[2m │ gzip:   0.76 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/chronograph/index.html                                [0m[1;2m    1.57 kB[0m[2m │ gzip:   0.67 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mindex.html                                                    [0m[1;2m    1.63 kB[0m[2m │ gzip:   0.66 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mlaws/index.html                                               [0m[1;2m    1.65 kB[0m[2m │ gzip:   0.77 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mplayground/index.html                                         [0m[1;2m    1.66 kB[0m[2m │ gzip:   0.70 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/index.html                                            [0m[1;2m    1.68 kB[0m[2m │ gzip:   0.83 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/film-festival/index.html                              [0m[1;2m    1.88 kB[0m[2m │ gzip:   0.87 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[32mgallery/product-launch/index.html                             [0m[1;2m    1.91 kB[0m[2m │ gzip:   0.81 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms07-working-metal-t-DS4VYCBO.jpg                       [0m[1;2m   18.17 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms11-horseshoe-t-8ybSf55b.jpg                           [0m[1;2m   18.90 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms06-hammer-strike-t-CJv3cuAw.jpg                       [0m[1;2m   20.60 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms08-hot-rod-t-D8I00-LC.jpg                             [0m[1;2m   25.17 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms09-mask-and-iron-t-Cf7s00Hf.jpg                       [0m[1;2m   25.72 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms05-anvil-hook-t-CD4V2ggW.jpg                          [0m[1;2m   25.84 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms04-mallet-t-T1-MgmQD.jpg                              [0m[1;2m   28.44 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms02-brick-hearth-t-4p1E_YyC.jpg                        [0m[1;2m   31.64 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms03-at-the-forge-t-ByWi_iHK.jpg                        [0m[1;2m   36.48 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms01-shop-interior-t-C2yt3dvS.jpg                       [0m[1;2m   37.71 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mcam-31-kingsway-ninth-CC0EL8EC.jpg                     [0m[1;2m  104.35 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mstars-DbIq9L8v.bin                                     [0m[1;2m  127.34 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32msensor-BYxKge4X.jpg                                    [0m[1;2m  128.39 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mcam-14-victoria-bridge-Cno3617p.jpg                    [0m[1;2m  133.59 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mdusk-tramonto-a-montichiello-D07-TYe4.webp             [0m[1;2m  134.10 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mfinish-nickel-BbDFgYAE.jpg                             [0m[1;2m  147.86 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mlens-28-hMiLnpeW.jpg                                   [0m[1;2m  190.50 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms07-working-metal-3QVqc-Vu.jpg                         [0m[1;2m  207.18 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mlens-45-t_pqhKlW.jpg                                   [0m[1;2m  225.44 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mrelief-BImnAfai.bin                                    [0m[1;2m  235.17 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mhaar-shore-CT00P2tJ.jpg                                [0m[1;2m  240.43 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mlens-90-6dZah2k0.jpg                                   [0m[1;2m  253.49 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mfinish-graphite-3zVtKNQ5.jpg                           [0m[1;2m  277.01 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mmilky-way-2020-celestial-4k-DdDfDqqE.webp              [0m[1;2m  279.90 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mdawn-layers-of-light-CMVI52T_.webp                     [0m[1;2m  295.07 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mrelief-C7b8W-7h.webp                                   [0m[1;2m  356.89 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms09-mask-and-iron-BiGE9GNn.jpg                         [0m[1;2m  366.96 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mnight-site-transitoire-Cm9teviT.webp                   [0m[1;2m  405.90 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms11-horseshoe-D4fKvN2O.jpg                             [0m[1;2m  442.62 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mheade-eHUVHWua.jpg                                     [0m[1;2m  490.26 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mday-montichiello-BLKp5r5N.webp                         [0m[1;2m  493.81 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mconstellation-figures-2020-celestial-8k-AMRhOdaw.webp  [0m[1;2m  495.00 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms06-hammer-strike-D8BZDnBZ.jpg                         [0m[1;2m  503.50 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mironai-crossing-DBzhjyfM.jpg                           [0m[1;2m  506.03 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms02-brick-hearth-Cy70-LCz.jpg                          [0m[1;2m  514.49 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms03-at-the-forge-DkxT9jF0.jpg                          [0m[1;2m  543.37 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mcole-z8HMkIS8.jpg                                      [0m[1;2m  547.65 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mmonet-CJAAhZ8x.jpg                                     [0m[1;2m  550.71 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms04-mallet-BnQ6DT7P.jpg                                [0m[1;2m  554.73 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mruisdael-UH_rYwn_.jpg                                  [0m[1;2m  558.51 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mhero-body-DnuKnrnO.jpg                                 [0m[1;2m  560.41 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mavercamp-BUZh5M0F.jpg                                  [0m[1;2m  565.14 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mvangogh-DPGp4cWM.jpg                                   [0m[1;2m  573.93 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mcaillebotte-C_Kpys9R.jpg                               [0m[1;2m  580.47 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mhomer-CLcqcDE7.jpg                                     [0m[1;2m  589.56 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms05-anvil-hook-DQMiBruu.jpg                            [0m[1;2m  593.98 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms08-hot-rod-v2eVDe1K.jpg                               [0m[1;2m  726.43 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32ms01-shop-interior-DI1nHigx.jpg                         [0m[1;2m  756.55 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mpark-panorama-B5BeQtHw.jpg                             [0m[1;2m  852.19 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32micehouse-BMD1GH2s.jpg                                  [0m[1;2m1,087.60 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[32mslow-thaw-DyC6Y_6n.jpg                                 [0m[1;2m1,256.46 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mlaws-_ZxSrlgO.css                                      [0m[1;2m    0.96 kB[0m[2m │ gzip:   0.43 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-Cs76s70z.css                                   [0m[1;2m    1.65 kB[0m[2m │ gzip:   0.60 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-chronograph-ct8-5CuU.css                       [0m[1;2m    6.13 kB[0m[2m │ gzip:   1.97 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-exhibition-DhEJWnWg.css                        [0m[1;2m    8.64 kB[0m[2m │ gzip:   2.42 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mplayground-C6LzDn36.css                                [0m[1;2m    8.96 kB[0m[2m │ gzip:   2.59 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-photo-review-DsVOsBvW.css                      [0m[1;2m    9.04 kB[0m[2m │ gzip:   2.58 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-terminal-D2XLaruj.css                          [0m[1;2m    9.29 kB[0m[2m │ gzip:   2.57 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-planetarium-BoyGhnnw.css                       [0m[1;2m   10.24 kB[0m[2m │ gzip:   2.62 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-music-player-BqXQtafa.css                      [0m[1;2m   10.56 kB[0m[2m │ gzip:   2.84 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-start-page-Dr-fuY3X.css                        [0m[1;2m   11.94 kB[0m[2m │ gzip:   2.98 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-transit-ops-Cd1AFDeZ.css                       [0m[1;2m   12.53 kB[0m[2m │ gzip:   3.18 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-park-trails-UHArOzJo.css                       [0m[1;2m   12.64 kB[0m[2m │ gzip:   3.33 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-film-festival-DyfM2FLU.css                     [0m[1;2m   12.69 kB[0m[2m │ gzip:   3.20 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35mgallery-product-launch-B-7Aq-WG.css                    [0m[1;2m   13.05 kB[0m[2m │ gzip:   3.22 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[35msite-CuaKctqy.css                                      [0m[1;2m   15.83 kB[0m[2m │ gzip:   3.92 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mglass-document-BiyQlIJc.js                             [0m[1;2m    1.21 kB[0m[2m │ gzip:   0.68 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mActionsMenu-D112rzji.js                                [0m[1;2m    2.12 kB[0m[2m │ gzip:   1.04 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36msegmented-control-BWTocOvh.js                          [0m[1;2m    3.37 kB[0m[2m │ gzip:   1.57 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mStageBackdrop-B1WLQATT.js                              [0m[1;2m    4.24 kB[0m[2m │ gzip:   1.90 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mbutton-DuvbOkfZ.js                                     [0m[1;2m    5.26 kB[0m[2m │ gzip:   2.39 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mconcentric-BgsgBp7x.js                                 [0m[1;2m    8.08 kB[0m[2m │ gzip:   3.40 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-DlNJLLQ5.js                                    [0m[1;2m    9.70 kB[0m[2m │ gzip:   3.76 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mmorph-o7nH6yAr.js                                      [0m[1;2m    9.79 kB[0m[2m │ gzip:   3.61 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mplayground-DNoJlBHA.js                                 [0m[1;2m   19.92 kB[0m[2m │ gzip:   6.24 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-music-player-C4ONndug.js                       [0m[1;2m   23.70 kB[0m[2m │ gzip:   8.65 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-film-festival-DP_7gh9u.js                      [0m[1;2m   32.35 kB[0m[2m │ gzip:  11.28 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mlaws-p---E1sV.js                                       [0m[1;2m   34.37 kB[0m[2m │ gzip:  10.69 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-product-launch-Du9Hl9er.js                     [0m[1;2m   34.58 kB[0m[2m │ gzip:  12.17 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-start-page-BG5qyGv5.js                         [0m[1;2m   34.74 kB[0m[2m │ gzip:  11.88 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-exhibition-C5vKpmX9.js                         [0m[1;2m   35.05 kB[0m[2m │ gzip:  13.04 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-chronograph-BKVFuHww.js                        [0m[1;2m   38.60 kB[0m[2m │ gzip:  13.56 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-photo-review-8n7n-Dh-.js                       [0m[1;2m   40.24 kB[0m[2m │ gzip:  14.13 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-park-trails-DSylzn4-.js                        [0m[1;2m   42.18 kB[0m[2m │ gzip:  14.10 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-transit-ops-k1B-N5x-.js                        [0m[1;2m   62.65 kB[0m[2m │ gzip:  21.17 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36museTreeState-Ca6oyf2I.js                               [0m[1;2m   87.36 kB[0m[2m │ gzip:  28.30 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-planetarium-qwaBtjW-.js                        [0m[1;2m  138.22 kB[0m[2m │ gzip:  52.78 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36msurface-CEdC5q0M.js                                    [0m[1;2m  187.25 kB[0m[2m │ gzip:  61.00 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mclient-BHx9D2TA.js                                     [0m[1;2m  190.79 kB[0m[2m │ gzip:  60.09 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36msrc-BHzkCPWi.js                                        [0m[1;2m  247.67 kB[0m[2m │ gzip:  80.49 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mgallery-terminal-Bfwladwy.js                           [0m[33;1m  699.52 kB[0m[2m │ gzip: 202.18 kB[0m
+[34mapps/demo[39m [96mbuild[39m: [2mdist/[0m[2massets/[0m[36mindex-6AppUBZq.js                                      [0m[33;1m  967.40 kB[0m[2m │ gzip:  92.57 kB[0m
+[34mapps/demo[39m [96mbuild[39m: ✓ built in 975ms
+[34mapps/demo[39m [96mbuild[39m: [90m[plugin builtin:vite-reporter] [33;1m[39m
+[34mapps/demo[39m [96mbuild[39m: [90m(!) Some chunks are larger than 500 kB after minification. Consider:[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Using dynamic import() to code-split the application[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting[39m
+[34mapps/demo[39m [96mbuild[39m: [90m- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[0m[39m
+[34mapps/demo[39m [96mbuild[39m: Done
+(node:91926) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

@@ -1,0 +1,13 @@
+../platform-web/src/optics.ts(525,23): error TS2339: Property 'lowEndStrength' does not exist on type 'MaterialProfilePatch'.
+../platform-web/src/optics.ts(535,25): error TS7053: Element implicitly has an 'any' type because expression of type '"lowEnd44" | "lowEnd96" | "lowEnd160"' can't be used to index type 'MaterialProfilePatch'.
+  Property 'lowEnd44' does not exist on type 'MaterialProfilePatch'.
+../platform-web/src/optics.ts(542,7): error TS2322: Type 'any[]' is not assignable to type 'readonly [number, number, number, number]'.
+  Target requires 4 element(s) but source may have fewer.
+/Users/new/vitrea-w50/g0/packages/renderer-webgpu:
+[41m[31m[[39m[49m[41m[30mERR_PNPM_RECURSIVE_RUN_FIRST_FAIL[39m[49m[41m[31m][39m[49m [31m@vitrea/renderer-webgpu@0.0.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json`[39m
+[31mExit status 2[39m
+(node:71463) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[2m$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json[22m
+(node:71538) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
