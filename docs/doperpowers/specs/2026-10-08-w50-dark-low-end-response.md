@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5e are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5f are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -502,6 +502,17 @@ limits, not cell-bar statistics. Each carries hash-bound owner evidence naming i
 limit, exclusions and measured value, and the full existing owner referee gates them under DL5d
 timing. They GATE; this is not an exemption. No owner bound is added or dropped. Every other
 measured row keeps a positive scalar B.
+
+DL5f (parent, before any candidate). The first current-only batch (f28a2dc42 root 9f7e413c…) stopped
+at exact geometry admission: the shipped source-abscissa CSS host is content-box (scene.ts 848-862),
+so CSS draws 122x46 for a declared 120x44. This is the tracked harness debt "The source-profile CSS
+harness retains its historical content-box sizing" (tracker, §5.145), whose stated correction is
+border-box geometry for the source-profile bed. Ruled: an additive W50 NEW-BED-only border-box host
+setup (wave-local entry; canonical scene.ts semantics and all G0 pins untouched); admission is NOT
+relaxed. The burned attempt and its 43 artefacts are retained as failed evidence. A replacement
+current-only instrument is sealed as attempt 2 naming attempt 1 and this ruling, and must prove
+the 42 GPU cells already captured re-render byte-identical under the new host before its CSS cells
+count. Canonical draws keep canonical semantics. Candidate and current read the same new-bed host.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
@@ -648,3 +659,30 @@ or release changed, and the main checkout was not edited.
   so the12 observed native measurements correspond to24 exact reference keys. Evidence is under
   `results/2026-10-08-w50-g1-fit/identification/`; its compressed full and per-role reports reproduce
   the read exactly. G1 pre-fit readiness, numerical fitting and the gate are still pending.
+
+- G1 current-only readiness — The additive lifecycle and its original-identity, numerical-cohort,
+  complete-capture and owner-generation bindings were independently reviewed before use. The
+  canonical route's review found that production compare scanned tint fixtures before filtering;
+  its bounded wrapper now checks only the admitted native pins, and gives compare and its child
+  the ORIGINAL fixture tree rather than the worktree copy. Candidate capture labels follow the
+  production path spelling. Synthetic discovery exercises237 Node/Vite pins and10 Python sources,
+  including that wrapper and its original-tree handoff, without opening real fixtures.
+  Current root `9f7e413c7ae02125ef8932de4a66b4ca0759d936f1814ccef4d9e2851497dd2a` and both
+  contracts were committed at `f28a2dc42` before launch. They admit672 exposed512-canvas draws
+  and127 canonical draws:115 mandatory numerical-argument cells plus12 missing default T1
+  baselines. Every physical scene is outside DL5d's closed population. The separate gate0 read
+  subsequently stopped as recorded below; no completion, fitted point, pre-fit PASS or candidate
+  verdict is claimed here.
+  Its two result chains must be pinned by the later live root; the current instrument cannot be
+  promoted to candidate phases. The original G0 seals still verify as SEALED/native, NOT_READ.
+
+
+- G1 current-only attempt1 stopped — After42 WebGPU captures in the first run, the first CSS
+  cell's reported border box was122×46 instead of its declared120×44. Exact geometry admission
+  refused it; the process exited1 and released its GPU lease. No successful batch result exists,
+  the canonical sibling was not launched, and the contract stays burned. The43 raw reports and
+  all301 attempt artifacts are hash-inventoried in
+  `results/2026-10-08-w50-g1-fit/evidence/current-attempt1/failure.json`; no partial capture is
+  promoted to completed reference evidence. DL5f authorises an additive new-bed-only host and a
+  separately named attempt2, with the42 GPU byte identities as a prerequisite before CSS.
+  All112 new blind native cells remain closed; no coefficient fit or candidate render occurred.

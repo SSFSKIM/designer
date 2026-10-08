@@ -2976,6 +2976,14 @@ are deliberately unchanged, proved by eight before/after capture pairs in
 correction should declare border-box geometry for the source-profile bed and rescore that bed in
 scratch. The runtime must not silently change an application's box sizing to repair a harness.
 
+**2026-10-08 — W50 DL5f:** W50's new512×384 bed is the first source-profile bed declared
+border-box, through a wave-local host used by both current and candidate materials. Its first
+current-only attempt stopped at this exact122×46-versus120×44 admission mismatch; the burned
+contract and43 raw reports remain failed evidence. The replacement instrument must reproduce
+its42 completed GPU cells byte-identically before any CSS cell counts. The canonical harness
+keeps its existing semantics and the canonical border-box rescore remains open; no application
+box-sizing behavior or runtime material is changed by this declaration.
+
 ## Silhouette locality beyond the native-size inactive bed remains unmeasured (2026-09-14, §5.145)
 
 The new GPU reduction reads imported mip zero. The canonical input check has no downscaled source,

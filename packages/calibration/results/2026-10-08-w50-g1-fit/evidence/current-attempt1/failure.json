@@ -1,0 +1,1551 @@
+{
+  "schema": "w50-current-attempt-failure-1",
+  "status": "STOPPED_INCOMPLETE_NO_RETRY",
+  "candidateVerdict": "NOT_READ",
+  "root": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/execution/current-instrument-root.json",
+    "sha256": "9f7e413c7ae02125ef8932de4a66b4ca0759d936f1814ccef4d9e2851497dd2a"
+  },
+  "contract": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/execution/current-instrument/d4601b8b2a2776893a6fc3de91b4d196cfc11e5989e0085785f40961abf1b196.json",
+    "sha256": "4577d9c85721f8992a470cd120c90dfc1deb02bf974bd5436516e1528ed3db5e"
+  },
+  "claim": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/execution/current-instrument/d4601b8b2a2776893a6fc3de91b4d196cfc11e5989e0085785f40961abf1b196.json.started.json",
+    "sha256": "291b2abc32cb401741de4c3486725f4f6c81b044b2bdeea8c0cd5574ad4d5dec"
+  },
+  "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/evidence/current-attempt1/dispatch.log",
+    "sha256": "a4900c726ed7fbba4b2bd984e19d4b11c894194d9f79cbeffa7010e58174a7c4"
+  },
+  "exitCode": 1,
+  "tree": "/Users/new/vitrea-w50/g1-baselines/current-512",
+  "files": [
+    {
+      "path": "captures/glass025-1x-active-css/capture-cell-grey-000-s044__rest.log",
+      "sha256": "9af2622e24b687a59ce7b8a57cd376fbbb013ef44f33650e2ac2f8ecd0ce0b25",
+      "bytes": 691
+    },
+    {
+      "path": "captures/glass025-1x-active-css/cell-grey-000-s044__rest/cell-grey-000-s044__rest__css.png",
+      "sha256": "903c3bf58e070bb15fa8cddbd494ea058d6f74fcea559cf695f302a2a4d14d32",
+      "bytes": 2360
+    },
+    {
+      "path": "captures/glass025-1x-active-css/cell-grey-000-s044__rest/cell__css.json",
+      "sha256": "79f5ed3b1a19baab74c0242096234c68a42eaf4ce341c3d6be6e3a45af108f09",
+      "bytes": 806
+    },
+    {
+      "path": "captures/glass025-1x-active-css/cell-grey-000-s044__rest/report__css.json",
+      "sha256": "47836e47a711325e70301589f86c5b983de4c1d21ce5cb53e66971256af1bc61",
+      "bytes": 6127
+    },
+    {
+      "path": "captures/glass025-1x-active-css/census-cell-grey-000-s044__rest.json",
+      "sha256": "615f2c22993558ac2acc9131b186f05520cba6fd41fcde445675ce9266002a01",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-css/request-cell-grey-000-s044__rest.json",
+      "sha256": "23529b743d67ded01e1ca38d8ebdbf51d0738e6cbdd1077f302f0d64e3629cf6",
+      "bytes": 12781
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-000-s044__rest.log",
+      "sha256": "51cf82145bbc52f39c3c77f0089daa28eb7890031871a5b74d9a4f33336e87bd",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-000-s096__rest.log",
+      "sha256": "1eca4bdddb2482e87aa3ef523e26dd29358e2eaeec5e6f326109cc1ffb950627",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-000-s128__rest.log",
+      "sha256": "ae3a8ea0c449f25b19c714f3c88be79557001594e5ed0d0141e81e3650cf65fc",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-000-s160__rest.log",
+      "sha256": "5898e47e3720ca6f3361df58ad44b8b3ad6104e0bc19041f8d14864d94c71a5d",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-001-s044__rest.log",
+      "sha256": "e2a064ea65c6accfd24c705d337d59153e42659863941156af1bf3361ac16d96",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-001-s096__rest.log",
+      "sha256": "bcb86a3cd77a7ecdf81570e6f7c69b2b9e96aa87b51218a95d1000251809d9af",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-001-s160__rest.log",
+      "sha256": "126eb1c31dc0d85e3245d5747fae3d4cc7821d2de1da00423636348d26315f18",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-002-s044__rest.log",
+      "sha256": "065ea15b7180614f1f2a024753c62bfc15c3147b07b4ca70f4f76aa72843a7e2",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-002-s096__rest.log",
+      "sha256": "8dda8f852f8d9b2ed78f7d380bec5fd59d29f7de93377d899745e5d0e7b234e6",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-002-s160__rest.log",
+      "sha256": "98219cc715da46438624dd336cd24c8c8a655922465108f12884a7e7b5aaa54d",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-003-s044__rest.log",
+      "sha256": "7a3a7a31ed6c7a837a2d29a76790867d347f6e41b383da7be2e8ba69d0c02aa9",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-003-s096__rest.log",
+      "sha256": "442db91474481c34875319b4c85dcc7737462aef10d885c33387a2637bffcfb0",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-003-s160__rest.log",
+      "sha256": "428217ce20642cb41f3f137655996307d21680306221c53237c8552d8bda873c",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-004-s044__rest.log",
+      "sha256": "2c9981885a7fe89646f7477e59f033108c5cb66316eb339501514292561883cf",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-004-s096__rest.log",
+      "sha256": "10f1d8984be6641c930d7d00d46a1d31cf6b4327ccc0653c1ca89731f90df7ec",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-004-s128__rest.log",
+      "sha256": "007052fcc1bd88bc297bacd9dd6a8f8457ad212b084afde94b61e5e924f19913",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-004-s160__rest.log",
+      "sha256": "0a9449b0590af19b33c7537caffb4a421d28801e4a8f8aebec71ec46aeb61dec",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-005-s044__rest.log",
+      "sha256": "681fe33028905af44c0ed3f1ef9f6608cbe26fca3b45110656f167d031493317",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-005-s096__rest.log",
+      "sha256": "1f9f06e8f83a6cf38bd5e48ca424a54434ad06df937911a032c2cdbd5b3004e9",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-005-s160__rest.log",
+      "sha256": "b3e0fa8e53865d40d329c6f1cf2722e20dc0bbb571a932208656bf26ab367e88",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-006-s044__rest.log",
+      "sha256": "0c2db8bf967610005e4bc051788c1c3ed9ea083b225736347663d7e540c293f0",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-006-s096__rest.log",
+      "sha256": "2c63e3d4a6ecba5c54fb20fec8db52d81d1aa05f71f18575d84a3a74a714a9fd",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-006-s160__rest.log",
+      "sha256": "66e81e5456983adc6c054f4a3e28a469386bb11484a7a779c6eb638fe0afa6de",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-008-s044__rest.log",
+      "sha256": "485be5064b322f53ec3a706ed90a5ae495481f7e4d9e52b272ca8216cf4dba7f",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-008-s096__rest.log",
+      "sha256": "c26697afb44132792795aa0a68e14133d53b232fc089e25ca556e7e019f397df",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-008-s160__rest.log",
+      "sha256": "352010f5fbd0d7267362ab9eee9929ae34953e2be8e761ee6e5b06424c137d69",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-012-s044__rest.log",
+      "sha256": "77ffb6a3d662e6016d5f78a7c1c6c0e3d469386bdf13ed9356dcf0845480ade6",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-012-s096__rest.log",
+      "sha256": "6846fadcaa3edb9951f9e6fefab2da8fc93e949e06347051fb60c1654e0cce89",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-012-s160__rest.log",
+      "sha256": "982d652cdcbd235e00a33df98fa7d81d696fb4b88ad544b161087080bb9b0fc5",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-028-s044__rest.log",
+      "sha256": "b447c9131be811f3e06b471a2a92b1124b9fa8e99e5ffd9811e63fcee3cab713",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-028-s096__rest.log",
+      "sha256": "3c116acb6267df3dc257cefabe5c56ac64dd5180b94ee322514d10e063c886b4",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-028-s128__rest.log",
+      "sha256": "d49e457886caa791e037f121e33b68506c15b7ff231943cbae5d141ffc74bed1",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-028-s160__rest.log",
+      "sha256": "ddd649cd613a735d1b8b14ac42f99c255587e529758e343fa1f29be3df06ad56",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-040-s044__rest.log",
+      "sha256": "51338fd7e6cff8214fad0ed823ed7c55ef59ad23b9bef31547d8a3e8a28ef381",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-040-s096__rest.log",
+      "sha256": "901e5656562b7b60fe62346295a8826caa85f9048db14ce1575b568aa336236f",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-040-s160__rest.log",
+      "sha256": "8f91bc3b1c22342abb5c6ad33c3716471d144b1294eff164f09b0d030483ab0e",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-064-s044__rest.log",
+      "sha256": "b2772c4ae1ccde22666ecb2f1026b679498e8e29ebc05e5130b14dc4de4f05dd",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-064-s096__rest.log",
+      "sha256": "0d9509d0147c109e755b9f44cfaa26b770b7e2785a9dccf140e0c489abae3b1a",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-064-s128__rest.log",
+      "sha256": "447a96aba9c93d68fad6ca674475d246dbb19b21f671751e66c30ced3a246aa1",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-grey-064-s160__rest.log",
+      "sha256": "56e434a5cfaabefa85901f0d0af081df11bbd5e2d231658e0613d767eb11e555",
+      "bytes": 696
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-impulse-sparse-s096__rest.log",
+      "sha256": "94bc61e714f9e08d4e94564fc65d454cd7487cd0da54bc52f0a5e8e18a7a7779",
+      "bytes": 708
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/capture-cell-impulse-sparse-s160__rest.log",
+      "sha256": "36fdf98103aa846206584a1c869685eb9d6b2cc58bf114ae8bc22004f3dfd42a",
+      "bytes": 708
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s044__rest/cell-grey-000-s044__rest__webgpu.png",
+      "sha256": "485c259814216879148f1b0e1ce7bcc55488d14667072d5a13a544169ba313ed",
+      "bytes": 2530
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s044__rest/cell__webgpu.json",
+      "sha256": "fdbccddcb3e580520c4c916e5a25207359954ddb3624a467b1f11a7a0a20de87",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s044__rest/report__webgpu.json",
+      "sha256": "0a27ccac0dee5a3606659653d37219fbc9b836857873e19efeeb39e2e1ada45b",
+      "bytes": 6068
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s044__rest/w50-capture.json",
+      "sha256": "2c3f8e651d56638100524a9c016be959806fbd80968e055a9cc73ba7cbaeaddc",
+      "bytes": 3859
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s096__rest/cell-grey-000-s096__rest__webgpu.png",
+      "sha256": "6b1b2e7503c357e04b48681d176b094aab10fbe3df663b96fe9650a5aa804632",
+      "bytes": 2603
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s096__rest/cell__webgpu.json",
+      "sha256": "6edaef3383249d2382afe6c9dd0c70332e271c2bb7f32087b7bda8ba2abc3c50",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s096__rest/report__webgpu.json",
+      "sha256": "773d993d075a7d480236314065773fa5a070504d6b2c576838df2b8c879c173f",
+      "bytes": 6081
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s096__rest/w50-capture.json",
+      "sha256": "9bfe1c923332271aa9b5347899cf447aa28d5a8d7541eb60078aa8c04773c968",
+      "bytes": 3859
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s128__rest/cell-grey-000-s128__rest__webgpu.png",
+      "sha256": "ccbf40ad0c889d78c19479bf93d31b2640a6e8a50222d4236f80c633ea16a214",
+      "bytes": 3031
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s128__rest/cell__webgpu.json",
+      "sha256": "db147f86291bbb5324608ae40b2a3816b1bfb195f3d87dfcc86b4297f72341e6",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s128__rest/report__webgpu.json",
+      "sha256": "b28da4cc7e4cae44728ff9bac5dfdf0c4e400552baf144599f9ce2fbd6d4164a",
+      "bytes": 6082
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s128__rest/w50-capture.json",
+      "sha256": "3792cc5d12ba6d1dd39237d6b20dc53910916ce5778d908b8b323287044074f9",
+      "bytes": 3859
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s160__rest/cell-grey-000-s160__rest__webgpu.png",
+      "sha256": "3475b7662f2a75f1851e62102271072ebe3e1dd624d729ccda080716e2fc7c85",
+      "bytes": 3364
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s160__rest/cell__webgpu.json",
+      "sha256": "bc07f233337edde3dd789471ac4ac1acf1306840f27081bda2b7f8c4f1b96abf",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s160__rest/report__webgpu.json",
+      "sha256": "6dc7e9b221382da872e8c54c62bdb747c2bab9e9391b9264811a9ca77e844aca",
+      "bytes": 6080
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-000-s160__rest/w50-capture.json",
+      "sha256": "f5e12cbfb3c1104329c99b1cf2ad98911654eabb7a54184bb9729866d20cf6ac",
+      "bytes": 3860
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s044__rest/cell-grey-001-s044__rest__webgpu.png",
+      "sha256": "b6649ba7b43859bdf66bcfc050989d5cbaf4c53de99c8940633527961e8e85e6",
+      "bytes": 2563
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s044__rest/cell__webgpu.json",
+      "sha256": "d1ce8e70d916e4cfc5584216d4db386a7ea67b34ecacb06737411fb33343b336",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s044__rest/report__webgpu.json",
+      "sha256": "b35e55f6632e6ff8c8f86dfa0aa2a23d8c5f55a8aa866ede367f9ace97137b92",
+      "bytes": 6168
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s044__rest/w50-capture.json",
+      "sha256": "558c49f5c46b1df07969aaab8c9741532c2b14a626c6ac82d6d89ced0f8cea0d",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s096__rest/cell-grey-001-s096__rest__webgpu.png",
+      "sha256": "0edde47e33041d434c8e754b88dfa0bc903facec8aefef86722f9c5642905d7e",
+      "bytes": 2646
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s096__rest/cell__webgpu.json",
+      "sha256": "6b9f5191e224e6e424c13538861b08b8c0735072f0f4029f72ff485addcc4ac0",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s096__rest/report__webgpu.json",
+      "sha256": "f027fd7a79bf22d924a17c8fd290b466131a05b772e238c1be6766856133a8af",
+      "bytes": 6181
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s096__rest/w50-capture.json",
+      "sha256": "e32c28183de59d1b573128b1e37daae61d4de7fb8949adbb1a01165122a67a4d",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s160__rest/cell-grey-001-s160__rest__webgpu.png",
+      "sha256": "c5447414489521fee58f474d85abc8e3f615d8db0d150150c3bf1aab9656c8a6",
+      "bytes": 3478
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s160__rest/cell__webgpu.json",
+      "sha256": "b33cd5c30b30b70987e7c1f39618a65c4aba1454920aa8fdf45c96f63cf19147",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s160__rest/report__webgpu.json",
+      "sha256": "0c9c820bb8fb2de69ace407adb07847bcae11d9c45e21b8871e298586509f424",
+      "bytes": 6180
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-001-s160__rest/w50-capture.json",
+      "sha256": "09bd195c924cd6f6bc69f125c6d941b3f9e9c5ac6ca23d3b6325387255533586",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s044__rest/cell-grey-002-s044__rest__webgpu.png",
+      "sha256": "576199b79062bdb9c4a2c9e184d3a7521c9d16ab237461ebd14a85ba913a746f",
+      "bytes": 2564
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s044__rest/cell__webgpu.json",
+      "sha256": "b57b810890eb6143a0f671715540863088a1291250f6f09fc8b7c10e9749d666",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s044__rest/report__webgpu.json",
+      "sha256": "8b1ac9400dd8ef76ef567622a8b350d021e38920fbc017205de0b8e12a31a441",
+      "bytes": 6168
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s044__rest/w50-capture.json",
+      "sha256": "3321387289c74f3ff4d1b82f67cbee887862a06fec4e04598640ba64f38366a1",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s096__rest/cell-grey-002-s096__rest__webgpu.png",
+      "sha256": "54bf69bc137daf8391ad7e93104e36f5f2e14ee5661e227266e4cc968696d0ae",
+      "bytes": 2691
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s096__rest/cell__webgpu.json",
+      "sha256": "8fb9e39f14d4d0c2d78077d7920463a09a155e595855970b5a05205942257452",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s096__rest/report__webgpu.json",
+      "sha256": "4c8046e653121b859330ef4f9d89ed4ee0b1df53175498f87c82416dc227bd88",
+      "bytes": 6181
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s096__rest/w50-capture.json",
+      "sha256": "1942826c5834d43f7ddadcb901ec80f4695902bb1d852138f270663572959438",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s160__rest/cell-grey-002-s160__rest__webgpu.png",
+      "sha256": "8c194ba29119a2cac6a3a7d0de2a7c23af7b4a2949a658f86a7d8d3baf482182",
+      "bytes": 3628
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s160__rest/cell__webgpu.json",
+      "sha256": "ee13b1c303d12dae42cdbf5a8c11e9c8dfd445e43f9b1c08026b45dc0d4aa2b1",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s160__rest/report__webgpu.json",
+      "sha256": "31f2e51affa904394e1919375673f263230d6c4a3d0740072804e347ea446c07",
+      "bytes": 6180
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-002-s160__rest/w50-capture.json",
+      "sha256": "346a04963eaf00f98ed1705c8cfadb74ae0edb2584663efda9ca6ef144ac2c01",
+      "bytes": 3977
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s044__rest/cell-grey-003-s044__rest__webgpu.png",
+      "sha256": "48ac1de12313d21f655099e0579154eb030912432e531c3cd8ea634b06182db0",
+      "bytes": 2688
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s044__rest/cell__webgpu.json",
+      "sha256": "70453abda6588bf83c569579ca38dfa03b470d3fd265ca94066202bc6def018e",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s044__rest/report__webgpu.json",
+      "sha256": "5b145232a9a0391ae00c8f64aaa55a6d9b74bd13da2a684d4c23e4d4a66900c3",
+      "bytes": 6168
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s044__rest/w50-capture.json",
+      "sha256": "bc4c2c8cfa8f586045d5481a8ebe6661ac9b1ba2ea59691cb25a81336774092e",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s096__rest/cell-grey-003-s096__rest__webgpu.png",
+      "sha256": "98b799076c9ac071ca111f13153f78bc68713e29f995f837f4be061a0440fde9",
+      "bytes": 2721
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s096__rest/cell__webgpu.json",
+      "sha256": "512a30f9bee59463a108fe732374fca98959e2d11bbacf442be1e3ee2146d81a",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s096__rest/report__webgpu.json",
+      "sha256": "c5693f001722336dcd7c1f2a25b602d5d9188baa5b79a753efb7bd7bb763f914",
+      "bytes": 6181
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s096__rest/w50-capture.json",
+      "sha256": "6f6e818519b33ecfc8b45f3f216016c19c1a470e0966883cb10bcc3fdd805f58",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s160__rest/cell-grey-003-s160__rest__webgpu.png",
+      "sha256": "c770bbf40d875d36fb5f390123e11a11cd06e0ba581ae045d6f04dc19f7df957",
+      "bytes": 3613
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s160__rest/cell__webgpu.json",
+      "sha256": "8609d4e24362db089208013fe38914e4127405561c94a3339c40ab3885751112",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s160__rest/report__webgpu.json",
+      "sha256": "6ba888b198f14b1f1042938c5e342ca19f1e09de5da84ed3e2fc494127361513",
+      "bytes": 6180
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-003-s160__rest/w50-capture.json",
+      "sha256": "f55f4b2d2d030a0cb42372d898b8be7ed753bae2d3f902ab4f5c09a54530ee49",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s044__rest/cell-grey-004-s044__rest__webgpu.png",
+      "sha256": "0b32121d3b8c12ccf8ee8fae2d858bfb451de9447e93adb24cc5a4289f0a7383",
+      "bytes": 2663
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s044__rest/cell__webgpu.json",
+      "sha256": "4dfaa8e85a1ba337db917ca245da6abe0be417715856b2afd557ebf03065c3ad",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s044__rest/report__webgpu.json",
+      "sha256": "c761ae89e1c07e38405007ced43382718c56f83a03ed4045e5c515f1cd9f18a9",
+      "bytes": 6168
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s044__rest/w50-capture.json",
+      "sha256": "87d7fd6c2592c1acc1c69e1b9862f52aed99a0d10cab3a2af1c58742756fb444",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+      "sha256": "71acd5a517a127cf77c1f086d1c7c78aa7944e5b3a9b947a1bd5285ad054e06c",
+      "bytes": 2605
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s096__rest/cell__webgpu.json",
+      "sha256": "ff2ee5decea01123edb2f3daed43bb4fd2e6bf6999607cfd5e9effc5358ce329",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s096__rest/report__webgpu.json",
+      "sha256": "60721558ae78cf4ab4371bfde8c6e01f36c0485145704c99b00bdb8bee524cbd",
+      "bytes": 6181
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s096__rest/w50-capture.json",
+      "sha256": "55f0e46f6a7ef3a206f6c35e95744b08f8ff9cc3825ae3bd3809c190160bf76f",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s128__rest/cell-grey-004-s128__rest__webgpu.png",
+      "sha256": "314afd7dc5cd36bc970b1e403cd7cd14957cd8fed9eb123621e07c58fb653dbf",
+      "bytes": 3079
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s128__rest/cell__webgpu.json",
+      "sha256": "ba8ab91b0eea915b92ddef0f1fa066ffead69aa66705ae15e3a335cbb3940676",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s128__rest/report__webgpu.json",
+      "sha256": "c357f7922ab78608c6c6e21152b50587085dc6ffb0ec5039444a00ce500c29b4",
+      "bytes": 6182
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s128__rest/w50-capture.json",
+      "sha256": "9c02de07b35f1e0457e9e0634439e25c7402607bc236ce4acd3eab3871cee8c8",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s160__rest/cell-grey-004-s160__rest__webgpu.png",
+      "sha256": "2dfb3300a6ee1249577f3f661998590f926d33708847179ab79d1ef48d4f91c4",
+      "bytes": 3438
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s160__rest/cell__webgpu.json",
+      "sha256": "5d9dce9b5fcd312a8a3d04f4d39a20c1d149d596a034123ba6e66ccc111d2cc2",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s160__rest/report__webgpu.json",
+      "sha256": "43cac04a0864e3c86351caa8629138f4be133b6e744fd10fd4a41d50e7574147",
+      "bytes": 6180
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-004-s160__rest/w50-capture.json",
+      "sha256": "00624da45c03da03c80bf8a3e58eb4cae4d06aa9f6751db6dd3f4afa33a37f18",
+      "bytes": 3977
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s044__rest/cell-grey-005-s044__rest__webgpu.png",
+      "sha256": "5cbb140bbccbb55a9b45f9c7ab079490959d31b811ca283467ba16108496618c",
+      "bytes": 2552
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s044__rest/cell__webgpu.json",
+      "sha256": "8be0f320f2a1c2973eafe4d3c9011257690c09dbdca9b7f51e0b59f1bd051234",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s044__rest/report__webgpu.json",
+      "sha256": "62b0c592b01f7193d69dfae3d8e8d4f006ec4832ccac2d9a039449e3eb2c9c53",
+      "bytes": 6164
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s044__rest/w50-capture.json",
+      "sha256": "83e177932a59393ab64ad128413892974907cf6622ba71c1cd48f1fdccd593c7",
+      "bytes": 3971
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s096__rest/cell-grey-005-s096__rest__webgpu.png",
+      "sha256": "286183d71ed0c6a2ddf5ca93905d7c4f6201ca893dd82ac7677f6e062b20a894",
+      "bytes": 2615
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s096__rest/cell__webgpu.json",
+      "sha256": "fc1a088c3e7119217dc3e1abbd621b3b74029fb4a1d046544911b5991fd7a93e",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s096__rest/report__webgpu.json",
+      "sha256": "6cc8ebc86b01a5cb10af7d66aa76d8ba72ed86dee1196a9198d11b7f1dd7ce1d",
+      "bytes": 6177
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s096__rest/w50-capture.json",
+      "sha256": "07d1da59f3efbe6a842d4be96bebe13e37946ed797703c1983ea5b398dada388",
+      "bytes": 3971
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s160__rest/cell-grey-005-s160__rest__webgpu.png",
+      "sha256": "5cc0272a39e789c4a736434d4b160680f5ed5d61a977aa25e626ec923cf8cf9c",
+      "bytes": 3579
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s160__rest/cell__webgpu.json",
+      "sha256": "00050a031a89fcc093a8772637b7a8586167cf16f8dde8a1855adae4f9f0768f",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s160__rest/report__webgpu.json",
+      "sha256": "dec5cebd1611c3c6985afd761b7eb99d9cc00168b8133583dc8bce0f78ee6db3",
+      "bytes": 6176
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-005-s160__rest/w50-capture.json",
+      "sha256": "5e4593695cfdd343dc95c803ee70da264d49b42c98faa5541d5ae4b5b779bdbb",
+      "bytes": 3972
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s044__rest/cell-grey-006-s044__rest__webgpu.png",
+      "sha256": "96bf4d150323628fe49a52700b9d623b981fac6296ee93bbd95a2844674bf7b7",
+      "bytes": 2548
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s044__rest/cell__webgpu.json",
+      "sha256": "baf7174b78e8250bd6eb1eb9b45a4c409d671cba7a885ce52e694635cc8ecc2b",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s044__rest/report__webgpu.json",
+      "sha256": "fdf6a08110ac1a9d7d0ded4deea0bc88a8ef102f9b28e94fcc58e14bcd217a5c",
+      "bytes": 6168
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s044__rest/w50-capture.json",
+      "sha256": "0dfe9686739db82fcc88e0197677ac4592d0041fd4d066b08d87775bacc5ae1a",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s096__rest/cell-grey-006-s096__rest__webgpu.png",
+      "sha256": "c599a66a722bc8f4d3af97fd7ffa8d5d2641c8ddab1c46a031e545a17f9cb2f0",
+      "bytes": 2704
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s096__rest/cell__webgpu.json",
+      "sha256": "b17b4303fb3da8e7fcf0d67398bfa2e5d4a3e51acd965a27dd90b7ad11fdafd5",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s096__rest/report__webgpu.json",
+      "sha256": "e626d04ff74839e94251f08dda9325b3a15be34bc714bb3eecbd769d76606745",
+      "bytes": 6181
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s096__rest/w50-capture.json",
+      "sha256": "0600be84566e56966d4decd59792ce4feeeddd3f5efe515995c67b38a8a2850b",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s160__rest/cell-grey-006-s160__rest__webgpu.png",
+      "sha256": "c9cd4375b6708f76049441d9b10afa41f3b0626c5a4cbbabe1254194b834a5c2",
+      "bytes": 3744
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s160__rest/cell__webgpu.json",
+      "sha256": "60968d8e17bd1ae597276064ce95b57d06f602afb54e1597fb23479e786f65e3",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s160__rest/report__webgpu.json",
+      "sha256": "f058ebfe8082893ecfe7013335fc98de0ad06acc2f5063439a463e4d823b3384",
+      "bytes": 6180
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-006-s160__rest/w50-capture.json",
+      "sha256": "c08b13efc9791de59d36af608b6e870e82491cff37678d1b6457c83c68f6c35c",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s044__rest/cell-grey-008-s044__rest__webgpu.png",
+      "sha256": "7d423b4508f626757a805fde70318ce0963d5ead5ce8c04f4d2a9baeea0a1005",
+      "bytes": 2582
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s044__rest/cell__webgpu.json",
+      "sha256": "39f6c82c0e0d241d4fa01c8826ab13569ee17c63eaed479d67c46035bcefc100",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s044__rest/report__webgpu.json",
+      "sha256": "dfd732caf28b89a5431f14f9a89a7391ae011b56d1730d63677d474c5b7f1855",
+      "bytes": 6168
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s044__rest/w50-capture.json",
+      "sha256": "1c6c2d136e9448f3ca343f10f20651881961d1b49f699a284eaeb0b31f0c11ef",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s096__rest/cell-grey-008-s096__rest__webgpu.png",
+      "sha256": "5001494d0611fa79820f8818dca8cfd88a30136d5dd7399754afa5a3ce48c43e",
+      "bytes": 2606
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s096__rest/cell__webgpu.json",
+      "sha256": "adb30190ae80c5ec39e323f0b8414b43c9bd3d2d2bdb7b00bc747f9439c5735f",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s096__rest/report__webgpu.json",
+      "sha256": "7a694af02a2dc32e61d39e1111751685eb259625e6a8071ec2ce1848c4e659c2",
+      "bytes": 6181
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s096__rest/w50-capture.json",
+      "sha256": "eae0201d00f941193c2d61fcda4469186afa2782b2f119a968f0f254387a58ad",
+      "bytes": 3975
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s160__rest/cell-grey-008-s160__rest__webgpu.png",
+      "sha256": "98799494ca4441b6b0174f58c538953120c1e5be3d9aeb1599e5e3be95c73a8b",
+      "bytes": 3755
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s160__rest/cell__webgpu.json",
+      "sha256": "3fafa48cf8128bcc03a439509e78dabb0f0d40a5efc6c1a00fe5afaf6024cbde",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s160__rest/report__webgpu.json",
+      "sha256": "697768dac38ed1194ca7ceb1e01380013790656f7ececd45ac7d8f4c0470ca4a",
+      "bytes": 6180
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-008-s160__rest/w50-capture.json",
+      "sha256": "714a34fc3a7423967d99271613db0b919fe8d31ca92e7a3231e3c9c1fcf5bd93",
+      "bytes": 3976
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s044__rest/cell-grey-012-s044__rest__webgpu.png",
+      "sha256": "70004fcdc21d68df9b0b28ce68ddd17b7da495925f4a69e4a25631204f86c24f",
+      "bytes": 2605
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s044__rest/cell__webgpu.json",
+      "sha256": "fef7162873e2064ff54852e0a81d27b13c4a2e07833f675e47d3ba731d26715b",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s044__rest/report__webgpu.json",
+      "sha256": "0f36aafa45fbb32d4ef20973dd477a454632897b197dc330069836f576822571",
+      "bytes": 6162
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s044__rest/w50-capture.json",
+      "sha256": "8784ae4164de74b9b2e95e20de9d6c80eefbcdbd2e092f2551dc27bf618b0b6a",
+      "bytes": 3969
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s096__rest/cell-grey-012-s096__rest__webgpu.png",
+      "sha256": "e2b214024d7536ee2acf06f94c9a10503eed1498eb4cea0f2ecd3421a046bf38",
+      "bytes": 2559
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s096__rest/cell__webgpu.json",
+      "sha256": "f5b7f10f816eae731b1cfb53554ef4d5325c821834951c0874a6e1388f1afd4b",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s096__rest/report__webgpu.json",
+      "sha256": "163ee070e9a0e2211da3465a0e3205e813e9a6b8df52d624ee2bfb97583faa7b",
+      "bytes": 6175
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s096__rest/w50-capture.json",
+      "sha256": "4267f64c11d87950581278f65094a08cea029d9b61c15477329b9ef64958c037",
+      "bytes": 3969
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s160__rest/cell-grey-012-s160__rest__webgpu.png",
+      "sha256": "547c085024a1013836bf18cf936def3c8475a8e3cdd33d8a98dd5c5d89ac9525",
+      "bytes": 3812
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s160__rest/cell__webgpu.json",
+      "sha256": "5948751b881775f7b6510e2d9c7a0b99dfd14e0ad2fa947a14787a64e213c568",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s160__rest/report__webgpu.json",
+      "sha256": "27a475b29fd4ab91cae9e9af9df72070c1422b0a2ba84418acd5a34e1533d73f",
+      "bytes": 6174
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-012-s160__rest/w50-capture.json",
+      "sha256": "8ec0e4b3a6a3477bb1f22b88cb44cf8bfaf56b74e3d646e8b90786ab53d335dc",
+      "bytes": 3970
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s044__rest/cell-grey-028-s044__rest__webgpu.png",
+      "sha256": "9d8c1d38b88a1c25378bd8d1b72ee9030ee9e87f82c3cc621a2cab8fb0e1b34d",
+      "bytes": 2589
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s044__rest/cell__webgpu.json",
+      "sha256": "ece524db9eb9ceda65225796d2a0932b234d806b4dbf0649e4f6563aa8225d82",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s044__rest/report__webgpu.json",
+      "sha256": "0c4138f296d197e01d61c3589c59d373a3b755d52bf55566140407c49ffa46bb",
+      "bytes": 6163
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s044__rest/w50-capture.json",
+      "sha256": "0909c49705ecdcc3cfbcebca2df303dd83872bd2b566d10f55bb01bcec8f1d25",
+      "bytes": 3970
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s096__rest/cell-grey-028-s096__rest__webgpu.png",
+      "sha256": "2970812535700bc1fba8bf774a30962ba6b742a4d890d28a3af932a41d09603d",
+      "bytes": 2681
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s096__rest/cell__webgpu.json",
+      "sha256": "d1a226560d90157783e948efb79edc79150e015bd235173c744e3888ccae5c30",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s096__rest/report__webgpu.json",
+      "sha256": "f4d9cbf13d1be5c7607e018989fd26105d2afa3440be695400805d723c3c6c08",
+      "bytes": 6176
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s096__rest/w50-capture.json",
+      "sha256": "6e06b11f16c59742d5b01a2dd4c5e0d293202b386ef2f02d7d89445ff6667ab1",
+      "bytes": 3970
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s128__rest/cell-grey-028-s128__rest__webgpu.png",
+      "sha256": "bded6d8f2d9866a947d58eb0f83342ce942095c7992618f64cb36f4f7fa8eb70",
+      "bytes": 3454
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s128__rest/cell__webgpu.json",
+      "sha256": "925b7233de5ff5ba189109b19672c2820679c205d2ebbb2eeea4aa9ad245e10e",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s128__rest/report__webgpu.json",
+      "sha256": "70d928c135c6f6ccb18be019b6df7695b5c47fa4b9f5647614435f282a7da7c2",
+      "bytes": 6177
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s128__rest/w50-capture.json",
+      "sha256": "c65d7be7ebad578814693f3c05bbe4ffe9da674274620d0ee93ce8030c974bd1",
+      "bytes": 3970
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s160__rest/cell-grey-028-s160__rest__webgpu.png",
+      "sha256": "17cfb3f2853341c34923db603e3305dad4b4e1b7b3db9debd5b48093b7f4663d",
+      "bytes": 4203
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s160__rest/cell__webgpu.json",
+      "sha256": "e7db5f01468402381f6d181d3429f2114ba1f02b1bbc27d8c6d59f84c60455ea",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s160__rest/report__webgpu.json",
+      "sha256": "7cb4f7429c447beeaadbd40a90f46b4fc87aaac06b102d63f239a38f7cc1f008",
+      "bytes": 6175
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-028-s160__rest/w50-capture.json",
+      "sha256": "65c7d0e2dcca95cabf6efb9afad71f04d43b60f20c0f2da4a9eccf48bc8af03c",
+      "bytes": 3971
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s044__rest/cell-grey-040-s044__rest__webgpu.png",
+      "sha256": "2fe8018b3afd817e3d0075b28d13281f3cf080ac9e20ef0727a25eee49ac28bb",
+      "bytes": 2493
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s044__rest/cell__webgpu.json",
+      "sha256": "33964435b95a7564e1d973894c7e85c24e1eb9c84b3c4fd35cd9b51b1dff415e",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s044__rest/report__webgpu.json",
+      "sha256": "dded4149fa6140860a4e14c78eedac63d1c9071ff56fe0911c5b6a696ed82dab",
+      "bytes": 6163
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s044__rest/w50-capture.json",
+      "sha256": "ef0ef32e81a29021f832ff98d1238559c160a1b42407a322414f16e2ed1dea64",
+      "bytes": 3969
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s096__rest/cell-grey-040-s096__rest__webgpu.png",
+      "sha256": "5acf0966276819034b00fe6198c31a31ae26d71d1cdede7ecc2ecc3c7d38ca3a",
+      "bytes": 2852
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s096__rest/cell__webgpu.json",
+      "sha256": "ab0788caf67e485838cf47427e28900d07f68a8a998398c4f548d3f4b2ce20c6",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s096__rest/report__webgpu.json",
+      "sha256": "7920d4d26d605a44e8c27fa50d56714c929a55d8d5b3b46042791bc5e85e8061",
+      "bytes": 6176
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s096__rest/w50-capture.json",
+      "sha256": "6c9d91e8b58564022db9996906a7fd96e393ba43f2a6c0aa17aa6ff210daca4d",
+      "bytes": 3969
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s160__rest/cell-grey-040-s160__rest__webgpu.png",
+      "sha256": "d6785efd42af3c15247b7053741970bb13d98da23128adfa26fa73883ca490b0",
+      "bytes": 4607
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s160__rest/cell__webgpu.json",
+      "sha256": "adebed0fb91f7f3cf2880adc1e4e3c4c7e8b919adfd8ca5346330b2ae1f2e179",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s160__rest/report__webgpu.json",
+      "sha256": "82588eac659f0581a253b1533f94d284b6d229765bac50a3911f17f8392fbd73",
+      "bytes": 6175
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-040-s160__rest/w50-capture.json",
+      "sha256": "5459a060a07d0663c65b1cebf4b15b3a007a7f86cf9227bd04ba8aa2ae2b751a",
+      "bytes": 3970
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s044__rest/cell-grey-064-s044__rest__webgpu.png",
+      "sha256": "be4a2e200c1e51d292e681be20b1b601183881ea5f9fdfd5c5e64e2487fa524b",
+      "bytes": 2546
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s044__rest/cell__webgpu.json",
+      "sha256": "2ed73303958385e5767013e017506630901ee98b342b783f9035df0a2f87b00c",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s044__rest/report__webgpu.json",
+      "sha256": "38bc6e179f4ee3f123cca56ce45c59df6297cdf3835bd689cc0358e2e14369fc",
+      "bytes": 6158
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s044__rest/w50-capture.json",
+      "sha256": "d27612d80b505736885190d939e84949de48fc724458d91eb365bbf340d5abd5",
+      "bytes": 3964
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s096__rest/cell-grey-064-s096__rest__webgpu.png",
+      "sha256": "584b1e73e66270a715dd0fb4c93d70897866a46b792f61b7c8e139ff90187a5e",
+      "bytes": 2842
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s096__rest/cell__webgpu.json",
+      "sha256": "47a33158daf17b3086d6e4deab759d96d99b726bedc9341a3427c6115c345829",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s096__rest/report__webgpu.json",
+      "sha256": "befeb4407197a365e54bffd72768d713620924cde3854f1f4c4a563247eb7b82",
+      "bytes": 6171
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s096__rest/w50-capture.json",
+      "sha256": "7aaabee57ed40b9744d04aae3693443634adde5822e420715f5655f57ad390e3",
+      "bytes": 3964
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s128__rest/cell-grey-064-s128__rest__webgpu.png",
+      "sha256": "60a3b51692305afc3ad0c76f3e6bb261a8c682c6d8d6ce3a4b9a966ab5723419",
+      "bytes": 3841
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s128__rest/cell__webgpu.json",
+      "sha256": "921ad54f4a5bf871b39c096da16e87982971c48845dfefa9416d371eb2dded07",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s128__rest/report__webgpu.json",
+      "sha256": "fa9c29c1cd74f90d803217b9dde5065e154773c4ba316ad5260c079e6c0ec4c2",
+      "bytes": 6172
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s128__rest/w50-capture.json",
+      "sha256": "daba36051e88636d7d6f1ae20eb2d7096f2b02f74cea5869640e4217bf91e22d",
+      "bytes": 3964
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s160__rest/cell-grey-064-s160__rest__webgpu.png",
+      "sha256": "acf468e78978ae3ddcf229f7bab50fedf0641aa64f6cafaae715011c5059689e",
+      "bytes": 4902
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s160__rest/cell__webgpu.json",
+      "sha256": "360ffa81b92172dbde78c50b2edf55c4bd4b644d2c24e1bf20c526925de9247c",
+      "bytes": 808
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s160__rest/report__webgpu.json",
+      "sha256": "06ba1dea00faba981f26b0f973ffa1371ca74f1cae778ef367794c074ec6cadb",
+      "bytes": 6170
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-grey-064-s160__rest/w50-capture.json",
+      "sha256": "20c0d1ef098ae292124e4f6303c723eec428a16bd60b631300dfb82757ea504b",
+      "bytes": 3965
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s096__rest/cell-impulse-sparse-s096__rest__webgpu.png",
+      "sha256": "9ab6e67d3e7537899c83bb2cff6644399a7509756918d46bc360908abbf40519",
+      "bytes": 2974
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s096__rest/cell__webgpu.json",
+      "sha256": "51322d2f73e349349164b6841d4ab0c0a1c89e13600ef148b8077ba27966894d",
+      "bytes": 814
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s096__rest/report__webgpu.json",
+      "sha256": "a85639aee831d7d7cb2400acd8352017f35bd53d9f397f0e62c8c779cae4d7df",
+      "bytes": 6200
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s096__rest/w50-capture.json",
+      "sha256": "9b807e8352a2d11f4fe6952d3052061593fd2e15528a53dfad2d04637893c05a",
+      "bytes": 4050
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s160__rest/cell-impulse-sparse-s160__rest__webgpu.png",
+      "sha256": "738197eddf30e8e42b5ea0ace6f68cbfb0c979c83adb43b9ca39a851155db61c",
+      "bytes": 4699
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s160__rest/cell__webgpu.json",
+      "sha256": "fe4213d91bac75ce7f816c94eea37ef6caac208b42eda841c48ce6d59bb081e1",
+      "bytes": 814
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s160__rest/report__webgpu.json",
+      "sha256": "9295e85015be210d3573aa947c8704adcfa9146bec189ec62c10407482f10781",
+      "bytes": 6199
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/cell-impulse-sparse-s160__rest/w50-capture.json",
+      "sha256": "aed5f407931b07028abe740d44755a0838996d8594685f304ea595c2c8490024",
+      "bytes": 4050
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-000-s044__rest.json",
+      "sha256": "37f04972e574c320c6b5c3fecc846f768c40035057d4d602950a29a0f9e90f53",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-000-s096__rest.json",
+      "sha256": "baf7d1f9004ee50b568a99239210921b730e8fb89028f8987767c73a3d2f9895",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-000-s128__rest.json",
+      "sha256": "59259508e0fede4f98c0fe6ecfded812ea39a0bc796737ae9ee65e4043ce36ff",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-000-s160__rest.json",
+      "sha256": "d0f182144ecf816654043efbdddc216d0ce7b0cd320ef2c4a086e48cc57de6c7",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-001-s044__rest.json",
+      "sha256": "3347b3f84e25b4c5dd58b0f8e7e65b967d36bd359e80a20dc841973fba35c7e2",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-001-s096__rest.json",
+      "sha256": "73e7b06da32d2ee17b58732b8bc5c4fb24b2c8ab2f1e9078ac20b93c8da51d29",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-001-s160__rest.json",
+      "sha256": "4bff02ed3d33ed8850ee30c67b43cb94dd451222d9efb59ea2dbbb0254b304c4",
+      "bytes": 409
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-002-s044__rest.json",
+      "sha256": "9520f5c0558608301e1e3a2c73a7efb8f869328e104adfb674590eb056cd2c91",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-002-s096__rest.json",
+      "sha256": "9b294f1b920b32c8137b149240ba43c9ba44bb79382d22de7b5251ade0777654",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-002-s160__rest.json",
+      "sha256": "1b4279dd1156af8ceb92905c4389b89cae2212244a33b5478306d4599b16c83f",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-003-s044__rest.json",
+      "sha256": "09c9c7ae96e48f1cc63d08fa9092469bbd229567a5278d50a621e72cded0e0f4",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-003-s096__rest.json",
+      "sha256": "b6e8fa3ae0f9b74326cc2c00716cb908b855ec4de6a531fd2dee9599b3497d9a",
+      "bytes": 407
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-003-s160__rest.json",
+      "sha256": "781621de7b3849fc8fa9dd5e0893b45d04f8daf9a15129aab9e4d60a6c2f3c45",
+      "bytes": 408
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-004-s044__rest.json",
+      "sha256": "905aecf427f9b0a911f4d6f2a815a81497231d217b1627cadc9e45d0cf280cc2",
+      "bytes": 407
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-004-s096__rest.json",
+      "sha256": "d364308f464cd29fcb4e7ee6ce48e00e4735c3f2d2a31be4bdcf41ef325294b1",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-004-s128__rest.json",
+      "sha256": "f1463b6a3589c229f40ed34b3f9832da24e773e7518c01a7946e4cc9ad8b0690",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-004-s160__rest.json",
+      "sha256": "880e18bd0b1be3810cef1f411c55caa4c5105736e0fd98485bb29f86297adcde",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-005-s044__rest.json",
+      "sha256": "6f4b312872112f65b76c1dc7c27dd2b5b5ec5a0cc730bee18cb61bca2b428adf",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-005-s096__rest.json",
+      "sha256": "0e090547ddfc214ee8504750e7c2aea9b3a228b6299f54279943a7ac3e942fb5",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-005-s160__rest.json",
+      "sha256": "2d8d5b5f570f2204ca04b0fcec0f5851542fa3c2907ca01c7e43c85f5e113bb7",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-006-s044__rest.json",
+      "sha256": "a7a8efc29718f9bc4d333b525b95a7f319926cc50f919d7d854b2e6809e21b25",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-006-s096__rest.json",
+      "sha256": "78aeb745e6080ea64c8e9eb4949e80e24e8d812b8c847550d79f423cf8aa6baf",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-006-s160__rest.json",
+      "sha256": "f75e0c7648e9ab768456d656deb4d517bf72d88365cd5c9904b9d8473788d195",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-008-s044__rest.json",
+      "sha256": "1c41e5068f761410e0033b7f8c5865201fac62fba858a7e35bf5371e45e40b44",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-008-s096__rest.json",
+      "sha256": "71d70bfee5af717435498bd09632da6e8730d37cdac350f7079f2e3fb0d5e880",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-008-s160__rest.json",
+      "sha256": "9f636e6ebfecc801a7f8de4a253cc00b7b7036388b1e8cb05fc2e6834e4c1e06",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-012-s044__rest.json",
+      "sha256": "db5903cc08f125db80eb1bcf6dd6f5e9e0c5afe5f79ba1c8216af822ee8b5664",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-012-s096__rest.json",
+      "sha256": "e80c7a09f5068c5e0610b28e58cdc645d6d043ae8b421ebd1e8d2553ff4f5905",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-012-s160__rest.json",
+      "sha256": "6d6d15e475a9c42b59661f14f3347de710327c929ae2922b39cc0f7a31af022c",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-028-s044__rest.json",
+      "sha256": "5886f371e388f64105dabaffb535fe5edeaf3c5af8324e1486a1d915f12bd09f",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-028-s096__rest.json",
+      "sha256": "062111f4278452db220aa6450bb5050a47f5b769dee9867020a0efe404245cf6",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-028-s128__rest.json",
+      "sha256": "25fcb71e5d255ad7b600c5853e168ec2fae2c890c7ef6d7f4c8af973265039d8",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-028-s160__rest.json",
+      "sha256": "982d4d7b4f1a09f845708d14f50cb8072ea0ded720becc60940f156ada53f02c",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-040-s044__rest.json",
+      "sha256": "f47503c2a2d99982066d6927d52f0044e53f3020727cdd29f377d6d9487a6fb3",
+      "bytes": 408
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-040-s096__rest.json",
+      "sha256": "e1fbf32fa2826d56ded8ed3947f311a4f20f5ba2f19e75a7a49ec09a2fb7f9f7",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-040-s160__rest.json",
+      "sha256": "79369919d3e2108950c249a1f01a69d19a58c6bac9a9086b0c1cc5b075d792fe",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-064-s044__rest.json",
+      "sha256": "8643834006a112b313e99b2c5c019488e2e5031e93f6a16d0690f3042afdd246",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-064-s096__rest.json",
+      "sha256": "6e996df3efc02c0311e469ae022baf7f6b957eb86686eb483f2c6cb440ab070b",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-064-s128__rest.json",
+      "sha256": "4ce0b19f92b4a2c0513017113f10a2df3105a374a2c5853071586fd62b99045b",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-grey-064-s160__rest.json",
+      "sha256": "b4279716255a520b4de4fcbeb1008039dab3a853faa620d41d8f0454dcf35955",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-impulse-sparse-s096__rest.json",
+      "sha256": "7c4675ba7bb96ee2ab87c6745b9da427366a54c1ed05d7fd73d5fe3974974f07",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/census-cell-impulse-sparse-s160__rest.json",
+      "sha256": "0fe0d21b3cb5044f43e68484748d7c77bc022b98c22c6a71bc3a24edd73090be",
+      "bytes": 410
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-000-s044__rest.json",
+      "sha256": "7b64828b9e437295e299185004835b064660a53257e62618e5c15434e766cc19",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-000-s096__rest.json",
+      "sha256": "79928914dfec4a5407994bb4285ed4e62c68dbcea4ba8700b8dc949c5d8a2d41",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-000-s128__rest.json",
+      "sha256": "5dcd777fdc7605a506e30b1c9a751a7e0e18482a837d7c9c72cb335e7bc4b678",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-000-s160__rest.json",
+      "sha256": "2926fe3ef0bf1d9206f82a040ced36e97ebef92b8aaacde7db6dbdd974ae8306",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-001-s044__rest.json",
+      "sha256": "eac1f43977d401f5577a1bf5e8cbcf0456c584a185dfee78551d25ed670eb4bf",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-001-s096__rest.json",
+      "sha256": "d4a99c06c90654871a5ee9dd41af0a940b8c0316de404b09decd79900bdc290e",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-001-s160__rest.json",
+      "sha256": "98c6dd38a48f219d26ca3ceccb1f503c4ca5d84711291b6f4b037f6649b6ba38",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-002-s044__rest.json",
+      "sha256": "bdbec3a43c658da0df3a3db4a62e74bf79a21243766a5826584609e1349716f2",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-002-s096__rest.json",
+      "sha256": "04279a0fd5cb95281ae0cbe310932dcb799aa422a4423f2311472e881290f6ed",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-002-s160__rest.json",
+      "sha256": "b351200559637fc32cd1649034c05d23ac3c312aae9359ad6b9ca6d17fcd67d6",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-003-s044__rest.json",
+      "sha256": "81c4c57c0fc71deeed1e406018ef18d281b2bb61fa8556703ce4f5808c09ffda",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-003-s096__rest.json",
+      "sha256": "0277a1f3c11f83cab87c7f55ce8abf0312eb6f3daeeca3b7c8511cc79d64731c",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-003-s160__rest.json",
+      "sha256": "2fcc759ed7c46e7aee376b7d5dc62280daecc3f686697be287dc454a1334f73e",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-004-s044__rest.json",
+      "sha256": "fa54f0aeab59bb53ce9335b2cdadd191e8e78b2a0fb9e8c4ae1a954563f5e2dd",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-004-s096__rest.json",
+      "sha256": "5f54741d10d2ebf38832f6d27ae10ad9e76c8c6a9501796658ac3ad43376c666",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-004-s128__rest.json",
+      "sha256": "a7d70434d9d245d489b635924687df1c94e481778d144748de22cc885ec61229",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-004-s160__rest.json",
+      "sha256": "7d4ef666db14fa7ceab4d5bd3f230e312dabe91be2837f220f85b8f598f9403f",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-005-s044__rest.json",
+      "sha256": "edad0d13c40e104bfa51c305f016c4a3c7ee8ac882d606f47276684d9c1afbea",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-005-s096__rest.json",
+      "sha256": "fc263702283d754ee31990309ee53cb4454c8ab073c211a236102e8e7615b9d5",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-005-s160__rest.json",
+      "sha256": "eb73866cb93f7b718fbe68980b2d799a0c41aa871a2bc132bd768eb67bcda043",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-006-s044__rest.json",
+      "sha256": "78f84586f3ad6fc783de6dce9490f988afec1f89f7f655d33a2cfa92b743a0eb",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-006-s096__rest.json",
+      "sha256": "91319daf7147f1d90dc179c08ce7f65e6593a4d0b403a38579a4ccf15cfc3889",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-006-s160__rest.json",
+      "sha256": "b99e0315c7194e1dbdd6eb22406117380e3214c6586a1b817d7913ae10938927",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-008-s044__rest.json",
+      "sha256": "f58665f4e43b22abb9c00d05f12e4c6881b1e5b43651b49c5b91ba928e5830ee",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-008-s096__rest.json",
+      "sha256": "fe5b70a0065738fa26ae93a5094460bc4361393a1899f69474dfd8ebdc171fea",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-008-s160__rest.json",
+      "sha256": "c826c1247d7dc0a3acc88e17a24b639fcfb11dc06afb647935b649fe3d492162",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-012-s044__rest.json",
+      "sha256": "b6106987d0447551fa60bb17a10d3c5f91299a9c33dc6fb9eaccc78e950b682d",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-012-s096__rest.json",
+      "sha256": "49d8afa5a478f63cfddbc016a82556be3d8f9f14b8f5cd30e5eb20285004f0cb",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-012-s160__rest.json",
+      "sha256": "83d192278665cdcb18045320be09634aacaa7113e1c8053201988e1890e93641",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-028-s044__rest.json",
+      "sha256": "27d43d15c9e8ca0b82e70af3d61464e4d9e171ae34b253e43b6b17112553d910",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-028-s096__rest.json",
+      "sha256": "c7660acca9f043a7a5bf419505d9b47b78a5e1ad216c78a510d9cf785754c56c",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-028-s128__rest.json",
+      "sha256": "bc25fec1a90d9a9986cae244ff04bee571f90a9be3c39e393170e5ca67dad2e3",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-028-s160__rest.json",
+      "sha256": "d7b27ddf3f6038babb2b61326985496ebe8594eb7c6f43e7fd64ca295244d826",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-040-s044__rest.json",
+      "sha256": "80a95ac881510af0cc86b687e57a26c982cccb25761d54c277f314b9080c3881",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-040-s096__rest.json",
+      "sha256": "e2d6e932c975a81bf299845e1f14d8f4e5c6c4e452f83ca87f8cf8fb84ab308f",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-040-s160__rest.json",
+      "sha256": "80c13fb2204fac749b6afc76bb5e61401bacd60423057acaa70510de0cd7bf9a",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-064-s044__rest.json",
+      "sha256": "5c38750c0d8838997144c4e285491ff2532790b7db831eeabcf4fd296e9f0172",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-064-s096__rest.json",
+      "sha256": "5aecfee950d92eefca1d13ca8b9e99f5334e1463eb92234825daeaa76f845207",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-064-s128__rest.json",
+      "sha256": "0ec4fb8c045e1f089ed2f62960361024b3cd169b3ff3191551f9588ecc9c33f9",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-grey-064-s160__rest.json",
+      "sha256": "4403d810fb31bbb19ca9acf825b913d537dfacc9a93f1a3b974c7a1041728882",
+      "bytes": 12787
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-impulse-sparse-s096__rest.json",
+      "sha256": "4fecbe0a40f48ab335db440cda86ab08d02bda3460e8fde190eb327f4cbb15b2",
+      "bytes": 12793
+    },
+    {
+      "path": "captures/glass025-1x-active-webgpu/request-cell-impulse-sparse-s160__rest.json",
+      "sha256": "ebc1745ad529b3193102a24109769554b8689206451495dbbaca278ea796b1f9",
+      "bytes": 12793
+    },
+    {
+      "path": "indexes/glass025-1x-active-webgpu.json",
+      "sha256": "61a81d0e1096811b7638ab0618d5a248b09a123d57f1efca3ed5f7753e10f80b",
+      "bytes": 181263
+    }
+  ],
+  "reportCount": 43,
+  "successfulBatchResult": false,
+  "failure": {
+    "scene": "cell-grey-000-s044__rest",
+    "renderer": "css",
+    "reason": "Wrong surface population or actual placement",
+    "declaredBounds": {
+      "x": 196,
+      "y": 170,
+      "width": 120,
+      "height": 44
+    },
+    "actualBounds": {
+      "x": 196,
+      "y": 170,
+      "width": 122,
+      "height": 46
+    },
+    "sourceReason": "Production source-abscissa path retains content-box; CSS transparent border adds one pixel per side"
+  },
+  "recovery": "Parent ruling required; original root, batch, claim, raw tree and G0 pins retained unchanged"
+}
