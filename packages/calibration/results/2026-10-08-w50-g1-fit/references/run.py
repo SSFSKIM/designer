@@ -122,8 +122,17 @@ def batch_metadata(path):
         raise ValueError('Caller-selected/withheld reference subset differs from exact G0 canonical keys')
     config = load(CONFIG)
     if config.get('schema') != 'w50-canonical-reference-config-1' \
-            or set(config)-{'currentCompletion'} != {'schema', 'scenes', 'publishedManifest', 'fixtureRoot', 'w29', 'w43'}:
-        raise ValueError('Unknown canonical reference source config')
+            or set(config)-{'currentCompletion','currentComposition'} != \
+                {'schema', 'scenes', 'publishedManifest', 'fixtureRoot', 'w29', 'w43'} \
+            or {'currentCompletion','currentComposition'} <= set(config):
+        raise ValueError('Unknown or mutually conflicting canonical reference source config')
+    composition = config.get('currentComposition')
+    if 'currentComposition' in config:
+        if not isinstance(composition,dict) or set(composition) != {'path','sha256'} or \
+                not isinstance(composition.get('path'),str) or Path(composition['path']).is_absolute() or \
+                '..' in Path(composition['path']).parts or \
+                not re.fullmatch('[0-9a-f]{64}',composition.get('sha256','')):
+            raise ValueError('Current composition needs one same-repository full content pin')
     completion = config.get('currentCompletion')
     if completion is not None:
         if not isinstance(completion, dict) or set(completion) != {'instrument', 'results'} \
@@ -149,8 +158,12 @@ def batch_metadata(path):
 def dry_exercise():
     source('w50_reference_probe_reader', HERE/'canonical.py').source_probe()
     config = load(CONFIG) if CONFIG.is_file() else {}
-    source('w50_reference_probe_completion', HERE/'completion.py').source_probe(
-        config.get('currentCompletion'), repo=ROOT)
+    if config.get('currentComposition') is not None:
+        source('w50_reference_probe_composed_completion', HERE/'composed_completion.py').source_probe(
+            config['currentComposition'], repo=ROOT)
+    else:
+        source('w50_reference_probe_completion', HERE/'completion.py').source_probe(
+            config.get('currentCompletion'), repo=ROOT)
 
 
 def sealed_sidecar(path):
@@ -179,7 +192,8 @@ def bootstrap(batch, root_hash):
             or contract['guardSources'] != {Path(k).name: v for k, v in guards.items()}:
         raise ValueError('Reference source closure/entrypoint binding mismatch')
     for name, wanted in expected.items(): checked({'path': name, 'sha256': wanted})
-    for p in (Path(__file__), PROBE, HERE/'canonical.py', HERE/'statistics.py', HERE/'completion.py',
+    completion_source = HERE/('composed_completion.py' if config.get('currentComposition') is not None else 'completion.py')
+    for p in (Path(__file__), PROBE, HERE/'canonical.py', HERE/'statistics.py', completion_source,
               HERE.parent/'native/statistics.py', HERE.parents[1]/'2026-10-03-w44-g0-declaration/port/interior.py',
               HERE.parents[1]/'2026-10-01-w43-g0-declaration/bed/sitting/w43_archive.py'):
         if relative(p) not in contract['closure']['sources']:
@@ -227,6 +241,11 @@ def execute(doc, config, rows, root_doc, root_hash, out):
     if config.get('currentCompletion') is not None:
         completion = source('w50_bound_current_completion', HERE/'completion.py')
         projection = completion.complete_current_projection(ROOT, rows, config['currentCompletion'],
+            scenes=reader.json_pin(config['scenes']))
+        rows = projection['rows']
+    elif config.get('currentComposition') is not None:
+        completion = source('w50_bound_composed_completion', HERE/'composed_completion.py')
+        projection = completion.complete_current_projection(ROOT, rows, config['currentComposition'],
             scenes=reader.json_pin(config['scenes']))
         rows = projection['rows']
     report = reader.read_references(rows, config)

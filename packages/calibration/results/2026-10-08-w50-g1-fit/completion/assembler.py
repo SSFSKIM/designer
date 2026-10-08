@@ -256,7 +256,8 @@ def assemble(original, current, canonical, owner_index, owner_batch, owner_docum
     remains the authority on the assembled rows and their materialized evidence.
     """
     groups=partition(original)
-    if current.get('schema') != 'w50-completed-current-evidence-1' or current.get('status') != 'EVIDENCE_ONLY':
+    if current.get('schema') not in ('w50-completed-current-evidence-1','w50-completed-current-evidence-2') \
+            or current.get('status') != 'EVIDENCE_ONLY':
         raise ValueError('Only completed current-analysis evidence can be assembled')
     same_pin(current.get('originals',{}).get('references'),provenance['original'],repo)
     if canonical.get('schema') != 'w50-canonical-reference-evidence-1' or \

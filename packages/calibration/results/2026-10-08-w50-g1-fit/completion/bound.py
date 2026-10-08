@@ -77,6 +77,90 @@ def producer_sources(repo, expected, actual):
     for name,digest in expected.items(): read_pin(repo,{'path':name,'sha256':digest})
 
 
+def composed_anchors(repo, composition_pin):
+    """Reconstruct ordered metadata anchors, not an execution root or capture admission.
+
+    The registered analysis/reference producers own both-report admission. This boundary
+    checks their content-pinned descriptor and every actual chain byte, including sidecars,
+    so neither producer can silently name a different root/result population.
+    """
+    composition=document(repo,composition_pin)
+    chains=composition.get('chains',[])
+    if set(composition) != {'schema','originalInstrument','chains'} or \
+            composition.get('schema') != 'w50-completed-current-composition-1' or \
+            not isinstance(chains,list) or len(chains) != 2 or any(
+                not isinstance(c,dict) or set(c) != {'instrument','batch','contract','result'} for c in chains) or \
+            composition['originalInstrument'] != chains[0]['instrument'] or \
+            chains[0]['instrument'] == chains[1]['instrument']:
+        raise ValueError('Composition requires its two ordered actual completed chains')
+    pins=[copy.deepcopy(composition_pin)]
+    def actual_pin(path):
+        path=path_of(repo,str(path))
+        if not path.is_file():raise ValueError('Missing actual composition chain file')
+        raw=path.read_bytes()
+        name=str(path) if Path(composition_pin['path']).is_absolute() else str(path.relative_to(repo))
+        return {'path':name,'sha256':sha(raw)}
+    def add(item):
+        read_pin(repo,item)
+        if item not in pins:pins.append(copy.deepcopy(item))
+    for chain in chains:
+        root=document(repo,chain['instrument'])
+        root_path=path_of(repo,chain['instrument']['path'])
+        contract_path=root_path.parent/'current-instrument'/(chain['batch']['sha256']+'.json')
+        if root.get('schema') != 'w50-g1-current-instrument-root-1' or \
+                chain['batch'] not in root.get('currentBatches',[]):
+            raise ValueError('Composition batch differs from its actual root')
+        if path_of(repo,chain['contract']['path']) != contract_path or \
+                path_of(repo,chain['result']['path']) != Path(str(contract_path)+'.result.json'):
+            raise ValueError('Composition names a different actual phase contract/result')
+        contract=document(repo,chain['contract'])
+        if contract.get('schema') != 'w50-g1-phase-contract-1' or contract.get('phase') != 'current' or \
+                contract.get('batch') != chain['batch'] or \
+                contract.get('executionRootSha256') != chain['instrument']['sha256']:
+            raise ValueError('Composition phase contract differs from its root/batch')
+        for item in (chain['instrument'],chain['batch'],chain['result']):add(item)
+        for path,target in ((Path(str(root_path)+'.sha256'),chain['instrument']),
+                            (contract_path,None),(Path(str(contract_path)+'.sha256'),chain['contract']),
+                            (Path(str(contract_path)+'.started.json'),None),
+                            (Path(str(contract_path)+'.result.json.sha256'),chain['result'])):
+            item=actual_pin(path)
+            if target is not None and read_pin(repo,item) != \
+                    f'{target["sha256"]}  {Path(target["path"]).name}\n'.encode():
+                raise ValueError('Composition chain sidecar differs from actual content pin')
+            add(item)
+        inputs=root.get('inputs')
+        if not isinstance(inputs,list):raise ValueError('Missing actual root input pins')
+        for item in inputs:add(item)
+    return dict(currentComposition=copy.deepcopy(composition_pin),
+        currentInstruments=[copy.deepcopy(c['instrument']) for c in chains],
+        currentResults=[copy.deepcopy(c['result']) for c in chains],chainPins=pins)
+
+
+def composed_projection(canonical, anchors, a):
+    projection=canonical.get('currentArtifactProjection')
+    if not isinstance(projection,dict) or \
+            projection.get('schema') != 'w50-admitted-current-reference-projection-2' or \
+            'currentInstrument' in projection or any(projection.get(k) != v for k,v in anchors.items()) or \
+            projection.get('originalRows') != canonical.get('originalReferences'):
+        raise ValueError('Canonical projection differs from the admitted analysis composition/chains')
+    originals=projection['originalRows'];rows=projection.get('rows')
+    if not isinstance(rows,list) or len(rows) != len(originals):
+        raise ValueError('Canonical projection changed original row population')
+    completed=[]
+    for original,row in zip(originals,rows,strict=True):
+        if set(original) != set(row):raise ValueError('Canonical projection changed original row fields')
+        changed=[]
+        for name,value in original.items():
+            if row[name] == value:continue
+            if name not in ('currentEvidence','currentMetadata') or value is not None or \
+                    row[name] is None or original.get('role') != 'gate':
+                raise ValueError('Canonical projection changed a nonnull/numeric/role/history field')
+            changed.append(name)
+        if changed:completed.append(list(a.key(original)))
+    if projection.get('completedKeys') != completed:
+        raise ValueError('Canonical projection completion keys differ from original null artifact fills')
+
+
 def registered_inputs(repo, binding):
     """Only later, after explicit parent registration; no pixel or statistical computation."""
     a=check_sources(repo,binding)
@@ -84,7 +168,7 @@ def registered_inputs(repo, binding):
     a.same_pin(original.get('inputs',{}).get('bed'),binding['manifest'],repo)
     current_root=document(repo,binding['currentAnalysisRoot'])
     canonical_root=document(repo,binding['canonicalReferencesRoot'])
-    if current_root.get('schema') != 'w50-completed-current-root-1' or \
+    if current_root.get('schema') not in ('w50-completed-current-root-1','w50-completed-current-root-2') or \
             canonical_root.get('schema') != 'w50-reference-instrument-root-1':
         raise ValueError('Unregistered upstream evidence producer root kind')
     config=document(repo,current_root['config'])
@@ -93,10 +177,23 @@ def registered_inputs(repo, binding):
     if current.get('instrumentRootSha256') != binding['currentAnalysisRoot']['sha256'] \
             or current.get('config') != current_root['config'] \
             or path_of(repo,config['output']) != path_of(repo,binding['currentAnalysis']['path']) \
-            or current.get('currentInstrument') != config['current']['instrument'] \
-            or current.get('currentResults') != config['current']['results'] \
             or current.get('originals') != config['originals'] or current.get('native') != config['native']:
         raise ValueError('Current-analysis output differs from its registered producer/config/input identity')
+    if current_root['schema'] == 'w50-completed-current-root-1':
+        if current.get('schema') != 'w50-completed-current-evidence-1' or \
+                current.get('currentInstrument') != config['current']['instrument'] or \
+                current.get('currentResults') != config['current']['results']:
+            raise ValueError('Current-analysis output differs from its registered current chain')
+    else:
+        if set(config) != {'schema','currentComposition','native','originals','output'} or \
+                config.get('schema') != 'w50-composed-current-config-1' or \
+                current.get('schema') != 'w50-completed-current-evidence-2' or \
+                current.get('status') != 'EVIDENCE_ONLY' or 'currentInstrument' in current:
+            raise ValueError('Composed analysis requires schema2 without a virtual current instrument')
+        anchors=composed_anchors(repo,config['currentComposition'])
+        if any(current.get(k) != v for k,v in anchors.items()):
+            raise ValueError('Composed analysis differs from its ordered actual chain anchors')
+        composed_projection(canonical,anchors,a)
     producer_sources(repo,current_root['closure']['sources'],current.get('sourcePins'))
     if canonical.get('instrumentRootSha256') != binding['canonicalReferencesRoot']['sha256'] \
             or canonical.get('inputs') != canonical_root['inputs'] \
