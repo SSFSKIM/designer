@@ -455,7 +455,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5m are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5n are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -655,6 +655,18 @@ DL5m (parent, 2026-10-09, before the LIVE root seal). The judge's six DECISION p
    every role), each cell against its G0 `fidelity.reference` (d0219 W48), epsilon the W49a cut's
    code, never B; the current-as-candidate self-check reading all six WITHIN is the expected
    witness.
+
+DL5n (parent, 2026-10-09, before the LIVE seal). A COMPLETED native blind read whose sealed
+readiness is false (a required blind statistic unmeasurable, or native spread past the sealed G0
+stop) is checkpointed with its stops as metadata only; the affected required rows reach the judge
+as UNMEASURED, and the verdict is NEITHER through the normal path (DL4; missing evidence is
+UNMEASURED). A deterministic property of the blind data yields a verdict, never a burned
+exposure. Transport, disk or integrity faults remain operational stops under DL5k. The sealed G0
+readiness criteria are unchanged. Also accepted: the owner referee port's absent-field fix
+(`namedExclusion` on omitted means; the pre-seal review's P0, which made every exposure NEITHER
+on eight dark inactive dark-solid context cells) is a DL5l-type pre-fit reference recovery, with
+a current-as-candidate owner self-check (every owner cell, context cell and aggregate PASS) added
+as the owner counterpart of DL5m item 6. Every pre-seal must-fix check moves before its marker.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
