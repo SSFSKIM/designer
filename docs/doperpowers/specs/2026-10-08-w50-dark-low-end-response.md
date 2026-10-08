@@ -35,24 +35,27 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 - [x] G1 exposed native identification:336 calibration/validation cells, required repeats ready; blind unopened.
 - [ ] G1 reference/current-render completion and additive pre-fit gate.
 
-  **Handoff note (2026-10-09; branch `w50-g1-fit`; worktree `/Users/new/vitrea-w50/g0`).**
-  Sealed: the current generation, 799 members on two genuine chains (`…-w50-g1-current3` root
-  `dbe20abc…`, 672; `…-w50-g1-canonical3` root `849e137f…`, 127; composition `a0a19b92…`). The
-  composed current analysis (`…-w50-g1-fit/current-analysis-composed`, root `0b140dfd…`) ran once;
-  its output `10381e74…` is archived exactly in `evidence/`; never rerun it. Reference read
-  attempt 1 (`…/references`, root `e16bda56…`) is burned on a reader defect and recorded in
-  `references-r2/attempt1-failure.json`; `references-r2` (root `604041d2…`) is its sealed
-  replacement. Running: the r2 read, once, into `/Users/new/vitrea-w50/g1-canonical-references-r2/`
-  (`read.log` ends with its exit code; never restart it), and an opus fix wave on the
-  live-execution review findings (stale-attempt recovery, repeat-admission bypass, successor
-  reconciliation, exposure `baselineCandidate`, shared outputs, render admission, `validate_body`
-  tests) plus two judge `rules.py` hardening items. Next: verify the r2 read (exit 0, the 397 rows
-  attempt 1 measured identical) and record its hash; assemble the 3,527 references with
-  `completion/bound.assemble_registered` (composed analysis + r2 read + owner context) and build
-  the twelve pre-fit proofs (`current3/execution/prefit.py` `PROOFS`); implement the live role
-  wrappers (capture, native, measurement, owner, judge, target-contract reader, fit); seal the
-  LIVE root; fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind
-  every step; no agent opens the blind archive or checkpoint before the judge marker.
+  **Handoff note (2026-10-09 03:00; branch `w50-g1-fit`; worktree `/Users/new/vitrea-w50/g0`).**
+  Sealed and done: current generation 799 members (current3 `dbe20abc…` + canonical3 `849e137f…`,
+  composition `a0a19b92…`); composed current analysis (root `0b140dfd…`, output `10381e74…`,
+  archived, never rerun); reference read attempt 1 burned (`references-r2/attempt1-failure.json`),
+  r2 read (root `604041d2…`) ran once, 423/423 MEASURED, 397 rows byte-identical to attempt 1,
+  archived (`references-r2/evidence/`; DL5l); the 3,527-row assembly executed once from
+  `completion/registered/binding.json` and passed `validate_registered` (inventory `a85ef80a…`,
+  archived in `completion/registered/evidence/`). `live-inputs/` (gitignored) holds byte-identical
+  copies of the completed inventory and current evidence, because LIVE pins inputs repo-relative;
+  restore them from the archives if absent. Running (opus workers): the live-execution fix wave
+  (stale-attempt recovery, repeat-admission bypass, successor reconciliation, exposure
+  `baselineCandidate`, plus cheap P3s and two `judge/rules.py` hardening checks); the judge role,
+  target-contract reader and fit-phase analysis (`judge/live.py`, `judge/targets.py`, `fit/live.py`);
+  ten of the twelve pre-fit proofs into `prefit-proofs/`. Next: capture/native/measurement/owner
+  role wrappers over `live/router.py`, `exposure/prepare.py`, `measurement/phase.py`,
+  `owner-candidate/live.py`; seal the LIVE root (`live-execution/execution-root.json`); the
+  executionClosure and independentReview proofs (a reviewer-high-equivalent review of LIVE and the
+  roles); `pre-fit-evidence.json` pinning the root; fit one point, gate, one exposure; hand back
+  PASS or NEITHER. DL4 and DL5k bind every step; no agent opens the blind archive or checkpoint
+  before the judge marker.
+
 - [ ] G1 fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
 
