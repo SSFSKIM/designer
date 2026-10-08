@@ -575,6 +575,22 @@ owner's process. A recovery never changes membership, candidate bytes, rule or r
 never computes a statistic on a partial phase. The worker applies this without a new ruling and
 reports each use.
 
+DL5k boundary (parent): 'statistic' means candidate-phase scoring. Recovery is allowed until the
+exclusive measurement/judge-start marker. A completed native reference subread, DL5h pair
+qualification and quarantined transport compare artefacts do not count; the completed native
+subread is retained under the same logical exposure contract and never repeated, and its values
+stay sealed (not printed or inspected) until the judge marker. A native read started without a
+complete checkpoint stops; it is not replayed automatically. No partial-phase score or selection,
+ever.
+
+DL5k enforcement boundary (parent): the instrument API, logs and output enforce the barrier,
+beside the existing role boundary. Value-bearing payloads are quarantined; public output is built
+only from metadata allowlists; analytical readers refuse before the authenticated full-union
+marker. Canary tests cover stdout, stderr, errors and status. No agent working on this wave may
+open the plaintext blind archive or checkpoint with Read or Bash before that marker. This last
+restriction holds by role discipline, not by OS isolation. No host-level broker or permission
+change is part of this wave.
+
 ### DL5 — separate current-material instrument (parent confirmation)
 
 The pre-fit current-only instrument is separate from the later single live-fit root, as G0
