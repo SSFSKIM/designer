@@ -1,0 +1,94 @@
+{
+  "recordedAt": "2026-10-08T15:39:33.519458+00:00",
+  "x6": {
+    "passes": false,
+    "facts": {
+      "reduceTransparency": true,
+      "increaseContrast": true,
+      "NSGlassTintAmount": true,
+      "foreignProcessCountZero": false,
+      "idleAtLeast60Seconds": true
+    },
+    "idleSeconds": 45511.541012083,
+    "refusals": [
+      "foreignProcessCountZero"
+    ]
+  },
+  "refuse": [
+    {
+      "pid": "6975",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "6989",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "7121",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "7149",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86017",
+      "command": "/Users/new/.nvm/versions/node/v24.18.0/bin/node /Users/new/.nvm/versions/node/v24.18.0/lib/node_modules/@playwright/cli/node_modules/playwright/cli.js run-cli-server --daemon-session=/Users/new/Librar",
+      "why": "a Playwright CLI while a Playwright browser is up"
+    },
+    {
+      "pid": "86031",
+      "command": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86034",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86043",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process --g",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86045",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86049",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86051",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "86054",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "89522",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    },
+    {
+      "pid": "90567",
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "why": "a Playwright-launched Google Chrome (automation flags)"
+    }
+  ],
+  "annotate": [],
+  "refusals": [
+    "captureProcessPresent"
+  ],
+  "passes": false
+}
