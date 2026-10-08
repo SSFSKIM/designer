@@ -1,0 +1,77 @@
+{
+  "schema": "w50-initializer-attempt-preservation-1",
+  "status": "REFUSED_DURING_ARGUMENT_BINDING",
+  "root": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.json",
+    "sha256": "2e6f4c990f4cd38810994549b95804333ea883a0ea886320648d9f88d0853dd5"
+  },
+  "files": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+      "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+      "bytes": 20630
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+      "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31",
+      "bytes": 14516
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89",
+      "bytes": 867
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+      "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395",
+      "bytes": 28326
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+      "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7",
+      "bytes": 13196
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.dark.json",
+      "sha256": "3cc4ed0d9d22d71d7c289e7041bb3034b897fca1f23ddc1f012ce43194bcdd68",
+      "bytes": 34206
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.light.json",
+      "sha256": "a217b7f7d2a72c6ec2282caebf5b897b2cc07fb55050bdb8f64371862a1be780",
+      "bytes": 37759
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3",
+      "bytes": 866
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.dark.json",
+      "sha256": "0ab7b8aebdb0a66285c30f81731cf35401dbbaca7fbc0152e63a4cc8ac6a7b49",
+      "bytes": 22418
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.light.json",
+      "sha256": "83e2156ba37924041e65d8cb8308c94d311b4e8bf57b9dab287a628bc7d76071",
+      "bytes": 15759
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+      "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710",
+      "bytes": 722599
+    }
+  ],
+  "reason": "Measured argument has changed or withheld reference identity",
+  "stage": "assemble completed; bind_arguments refused before numerical referee; no fit/gate/exposure executed",
+  "logs": [
+    {
+      "path": "/Users/new/vitrea-w50/g1-live/operator/000001-initialize.log",
+      "sha256": "23bb571a198b810ea0582750ad0a33ae9851bbcc10ddbcef4c3fc6e36ced685c"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g1-live/operator/000001-initialize.result.json",
+      "sha256": "263914ef7117750e32e226185ccfd962a01f2b8411f3891b9b797cc4f0d0b131"
+    }
+  ]
+}
