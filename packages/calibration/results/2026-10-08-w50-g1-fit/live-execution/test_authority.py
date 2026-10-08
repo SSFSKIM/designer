@@ -51,29 +51,65 @@ class Authority(unittest.TestCase):
 
 
 class Rebound(ast.NodeTransformer):
-    """A LIVE copy's body as the original's: D.x read as x, each live expression as the original's."""
+    """A LIVE copy's body as the original's: D.x read as x, each live expression as the original's.
+    `rewrites` counts, per live expression, the occurrences replaced, so a proof can require that
+    every one was."""
     def __init__(self,**expressions):
-        self.map={ast.dump(ast.parse(k,mode='eval').body):ast.parse(v,mode='eval').body for k,v in expressions.items()}
+        self.map={ast.dump(ast.parse(k,mode='eval').body):(k,ast.parse(v,mode='eval').body) for k,v in expressions.items()}
+        self.rewrites=dict.fromkeys(expressions,0)
     def visit(self,node):
-        if ast.dump(node) in self.map:return ast.copy_location(copy.deepcopy(self.map[ast.dump(node)]),node)
+        if ast.dump(node) in self.map:
+            live,original=self.map[ast.dump(node)];self.rewrites[live]+=1
+            return ast.copy_location(copy.deepcopy(original),node)
         node=self.generic_visit(node)
         if isinstance(node,ast.Attribute) and isinstance(node.value,ast.Name) and node.value.id=='D':
             return ast.copy_location(ast.Name(node.attr,node.ctx),node)
         return node
 
 
-def body(function):
-    node=ast.parse(textwrap.dedent(inspect.getsource(function))).body[0];node.name='f'
+def body_of(source):
+    node=ast.parse(textwrap.dedent(source)).body[0];node.name='f'
     if isinstance(node.body[0],ast.Expr) and isinstance(node.body[0].value,ast.Constant):node.body=node.body[1:]
     return node
+
+
+def body(function):return body_of(inspect.getsource(function))
+
+
+SHARED='pre-fit-evidence.json';SITE="C.slot(path, 'prefit')";ORIGINAL="directory / '"+SHARED+"'"
+
+
+def rebound_prefit(source):
+    """The live _verify_prefit as current3's, once every occurrence is proven rebound. Comparing
+    trees after the rewrite is one-sided: a site that still holds the ORIGINAL expression (a partial
+    revert) compares equal whatever the rewrite did. So the live copy must name no shared file
+    before the rewrite, and the rewrite must have met both sites, the read and the returned pin."""
+    live=body_of(source)
+    if any(isinstance(n,ast.Constant) and n.value==SHARED for n in ast.walk(live)):
+        raise AssertionError('The live copy still names the shared '+SHARED)
+    rebound=Rebound(**{SITE:ORIGINAL});live=rebound.visit(live)
+    if rebound.rewrites[SITE]!=2:raise AssertionError(f'The evidence slot was rebound at {rebound.rewrites[SITE]} sites, not 2')
+    return live
 
 
 class PrefitCopy(unittest.TestCase):
     def test_live_verify_prefit_is_current3s_with_only_the_evidence_slot_rebound(self):
         """DL5o: each root reads and pins its own pre-fit evidence; nothing else differs."""
-        live=Rebound(**{"C.slot(path, 'prefit')":"directory / 'pre-fit-evidence.json'"}).visit(body(A._verify_prefit))
+        live=rebound_prefit(inspect.getsource(A._verify_prefit))
         self.assertEqual(ast.dump(live),ast.dump(body(A.D.verify_prefit)))
         self.assertIs(A._verify_prefit.__globals__['C'],A.C)
+    def test_a_site_reverted_to_the_shared_name_is_caught_though_the_trees_still_compare_equal(self):
+        source=inspect.getsource(A._verify_prefit)
+        for site in ("D.sealed("+SITE+")","D.pin(repo, "+SITE+")"):
+            reverted=source.replace(site,site.replace(SITE,ORIGINAL));self.assertNotEqual(reverted,source)
+            with self.subTest(site=site):
+                # What the one-sided comparison accepted: the surviving site is rebound, the reverted one already matches.
+                rebound=Rebound(**{SITE:ORIGINAL});live=rebound.visit(body_of(reverted))
+                self.assertEqual(ast.dump(live),ast.dump(body(A.D.verify_prefit)));self.assertEqual(rebound.rewrites[SITE],1)
+                with self.assertRaisesRegex(AssertionError,'still names the shared'):rebound_prefit(reverted)
+    def test_a_rewrite_that_misses_a_site_is_caught_by_the_count_alone(self):
+        source=inspect.getsource(A._verify_prefit)
+        with self.assertRaisesRegex(AssertionError,'at 1 sites, not 2'):rebound_prefit(source.replace("D.pin(repo, "+SITE+")","D.pin(repo, path)"))
 
 
 def pin(name):return {'path':name,'sha256':hashlib.sha256(name.encode()).hexdigest()}

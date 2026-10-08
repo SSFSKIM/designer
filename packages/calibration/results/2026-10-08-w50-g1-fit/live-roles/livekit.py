@@ -13,6 +13,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import sys
 import tempfile
 import uuid
@@ -191,6 +192,22 @@ VENV = Path('/Users/new/vitrea-w49/py')
 PROBE_STDOUT = '{"exercise":"synthetic source-only","pixels":"NONE"}\n'
 OWNER_AGGREGATES = ('C1', 'M1/0.25/dark/rest')
 INTRINSIC_RECORDS = ('beforeActive', 'beforeReceded', 'methods', 'activeEntries')
+
+# A chain root's draft (live-roles/draft_root.py): generation 1 is execution-root.draft.json and a
+# successor n >= 2 is execution-root-<n>.draft.json, the same numbering rule as common.ROOT_CHAIN.
+DRAFT_ROOT = re.compile(r'execution-root(?:-([2-9]|[1-9][0-9]+))?\.draft\.json')
+
+
+def newest_draft(live_execution):
+    """The newest generation's draft root in a live-execution directory, chosen by generation
+    number (so -10 outranks -2), never by name order or by the generation-1 file alone. The
+    synthetic repositories copy the Python closure of this draft, which is the one the next seal
+    will exercise; the committed generation-1 draft stops being it once a successor is drafted."""
+    found = {int(m.group(1) or 1): p for p in Path(live_execution).iterdir()
+             if (m := DRAFT_ROOT.fullmatch(p.name)) and p.is_file()}
+    if not found: raise FileNotFoundError(f'No draft root in {live_execution}')
+    return found[max(found)]
+
 
 STANDIN_COMMON = r'''
 import hashlib, json, sys, types
@@ -685,7 +702,7 @@ class EndToEnd:
     # sources ---------------------------------------------------------------------------------
     def copy_sources(self):
         """Every Python source the draft root's composite probe executes, byte for byte."""
-        draft = json.loads((REAL_REPO/REL_FIT/'live-execution/execution-root.draft.json').read_text())
+        draft = json.loads(newest_draft(REAL_REPO/REL_FIT/'live-execution').read_text())
         self.copied = sorted(draft['closure']['sources'])
         for relative in self.copied:
             target = self.repo/relative; target.parent.mkdir(parents=True, exist_ok=True)

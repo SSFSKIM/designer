@@ -275,7 +275,7 @@ class TransportConformance(unittest.TestCase):
         if source == 'canonical':
             run['nativeManifest'] = {'path': str(external/'native/manifest.json'), 'sha256': sha(b'{}\n')}
         kit = K.Kit(self, phase='exposure', runs=[run], cohort=[pins['candidate']])
-        draft = read(REAL_REPO/FIT/'live-execution/execution-root.draft.json')['closure']['sources']
+        draft = read(K.newest_draft(REAL_REPO/FIT/'live-execution'))['closure']['sources']
         transports = [str(CURRENT3/rel) for rel in ('web/adapter.py', 'canonical/adapter.py', 'repeat/admission.py')]
         for relative in sorted({*draft, *transports}):
             target = kit.repo/relative; target.parent.mkdir(parents=True, exist_ok=True)

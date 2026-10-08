@@ -33,23 +33,51 @@ class Unqualify(ast.NodeTransformer):
 
 
 class Restore(ast.NodeTransformer):
-    """Replace each occurrence of one expression by another (both given as source text)."""
+    """Replace each occurrence of one expression by another (both given as source text), counting them."""
     def __init__(self,live,original):
-        self.live=ast.dump(ast.parse(live,mode='eval').body);self.original=ast.parse(original,mode='eval').body
+        self.live=ast.dump(ast.parse(live,mode='eval').body);self.original=ast.parse(original,mode='eval').body;self.count=0
     def visit(self,node):
-        if ast.dump(node)==self.live:return ast.copy_location(copy.deepcopy(self.original),node)
+        if ast.dump(node)==self.live:
+            self.count+=1;return ast.copy_location(copy.deepcopy(self.original),node)
         return super().visit(node)
+
+
+SITE="slot(path, 'gate')";SHARED_GATE="SLOTS['gate']";ORIGINAL="Path(path).resolve().parent / "+SHARED_GATE
+
+
+def restored_gate_check(source):
+    """The live checked_gate_result as current3's, once its one rebound site is proven rebound.
+    Comparing trees after the rewrite is one-sided: a site that still reads the shared gate name
+    (a partial revert, D.SLOTS['gate'] once unqualified) compares equal whatever the rewrite did.
+    So the live copy must hold no SLOTS['gate'] before the rewrite, and the rewrite must have met
+    exactly the one site."""
+    live=Unqualify().visit(function(source));shared=ast.dump(ast.parse(SHARED_GATE,mode='eval').body)
+    if any(ast.dump(n)==shared for n in ast.walk(live)):raise AssertionError('The live copy still reads the shared '+SHARED_GATE)
+    restore=Restore(SITE,ORIGINAL);live=restore.visit(live)
+    if restore.count!=1:raise AssertionError(f'The gate slot was rebound at {restore.count} sites, not 1')
+    return live
 
 
 class Wiring(unittest.TestCase):
     def test_gate_result_check_is_current3s_own_with_only_the_validator_and_slot_rebound(self):
         original=function(inspect.getsource(R.D.checked_gate_result))
-        live=Unqualify().visit(function(inspect.getsource(R.checked_gate_result)))
         # The one textual difference: the gate is this root's own slot (DL5o), not the shared name.
-        live=Restore("slot(path, 'gate')","Path(path).resolve().parent / SLOTS['gate']").visit(live)
+        live=restored_gate_check(inspect.getsource(R.checked_gate_result))
         self.assertEqual(ast.dump(live),ast.dump(original))
         self.assertIs(R.checked_gate_result.__globals__['validate_report'],R.validate_report)
         self.assertIs(R.checked_gate_result.__globals__['slot'],R.slot)
+
+    def test_a_site_reverted_to_the_shared_name_is_caught_though_the_trees_still_compare_equal(self):
+        source=inspect.getsource(R.checked_gate_result);reverted=source.replace(SITE,ORIGINAL.replace(SHARED_GATE,'D.'+SHARED_GATE))
+        self.assertNotEqual(reverted,source)
+        # What the one-sided comparison accepted: nothing is left to rewrite, and the site already matches.
+        restore=Restore(SITE,ORIGINAL);live=restore.visit(Unqualify().visit(function(reverted)))
+        self.assertEqual(ast.dump(live),ast.dump(function(inspect.getsource(R.D.checked_gate_result))));self.assertEqual(restore.count,0)
+        with self.assertRaisesRegex(AssertionError,'still reads the shared'):restored_gate_check(reverted)
+
+    def test_a_rewrite_that_misses_the_site_is_caught_by_the_count(self):
+        with self.assertRaisesRegex(AssertionError,'at 0 sites, not 1'):
+            restored_gate_check(inspect.getsource(R.checked_gate_result).replace(SITE,'Path(path)'))
 
     def test_every_live_report_validation_goes_through_the_live_validator(self):
         tree=ast.parse((H/'dispatch.py').read_text())

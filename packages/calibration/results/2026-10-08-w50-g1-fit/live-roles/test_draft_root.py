@@ -17,9 +17,9 @@ HERE = Path(__file__).resolve().parent
 REL = Path('packages/calibration/results/2026-10-08-w50-g1-fit')
 
 
-def load():
-    path = HERE/'draft_root.py'
-    module = types.ModuleType('w50_draft_root_under_test'); module.__file__ = str(path)
+def load(file='draft_root.py', name='w50_draft_root_under_test'):
+    path = HERE/file
+    module = types.ModuleType(name); module.__file__ = str(path)
     exec(compile(path.read_bytes(), str(path), 'exec', dont_inherit=True), module.__dict__)
     return module
 
@@ -103,6 +103,38 @@ class DraftRoot(unittest.TestCase):
                         self.draft.role_inputs('owner', config)
                 else:
                     self.assertEqual(self.draft.role_inputs('owner', config), expected)
+
+
+class NewestDraft(unittest.TestCase):
+    """livekit.newest_draft on a synthetic live-execution directory: the highest generation's draft
+    is read by number, and nothing that is not a draft root (a sealed root, a sidecar, a leading
+    zero, a temporary file, a directory) is one."""
+    NOT_DRAFTS = ('execution-root.json', 'execution-root.json.sha256', 'execution-root-7.json', 'execution-root-9.draft.json.tmp',
+                  'execution-root-01.draft.json', 'execution-root-0.draft.json', 'execution-root-1.draft.json',
+                  'execution-root-12.draft.json.sha256', 'dl5o-ruling.txt')
+
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory(); self.addCleanup(temp.cleanup)
+        self.folder = Path(temp.name); self.kit = load('livekit.py', 'w50_newest_draft_kit')
+        for name in self.NOT_DRAFTS: (self.folder/name).write_text('{}')
+        (self.folder/'execution-root-13.draft.json').mkdir()
+
+    def newest(self, *drafts):
+        for name in drafts: (self.folder/name).write_text('{}')
+        return self.kit.newest_draft(self.folder).name
+
+    def test_generation_one_alone_is_the_committed_draft(self):
+        self.assertEqual(self.newest('execution-root.draft.json'), 'execution-root.draft.json')
+
+    def test_a_successor_draft_outranks_generation_one(self):
+        self.assertEqual(self.newest('execution-root.draft.json', 'execution-root-2.draft.json'), 'execution-root-2.draft.json')
+
+    def test_generations_compare_by_number_not_by_name(self):
+        names = ('execution-root.draft.json', 'execution-root-2.draft.json', 'execution-root-10.draft.json', 'execution-root-3.draft.json')
+        self.assertEqual(self.newest(*names), 'execution-root-10.draft.json')
+
+    def test_no_draft_refuses_rather_than_falling_back(self):
+        with self.assertRaises(FileNotFoundError): self.kit.newest_draft(self.folder)
 
 
 class Successor(unittest.TestCase):

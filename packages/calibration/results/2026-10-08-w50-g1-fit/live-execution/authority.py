@@ -233,8 +233,12 @@ BASE=('owner/r2/supersedes.json','completion/registered-2/supersedes.json')
 
 def supersession_records(repo):
     """Every supersession record of the pre-fit lineage, by series and generation. A series runs
-    without a gap from its lowest record to its highest, and the r2 base is present, so removing
-    one record cannot readmit what it superseded."""
+    without a gap from its lowest record to its highest, and the r2 base records are present, so
+    deleting a record from inside a series, or an r2 base record, refuses. Deleting a series'
+    NEWEST record is not detectable from the tree: the generations left are still contiguous and
+    nothing here records how many there should be, so this check alone does not keep what that
+    record superseded from being readmitted. A series with no record at all is likewise accepted
+    unless its r2 record is among BASE."""
     fit=Path(repo)/FIT_REL;found=[]
     for series in SERIES:
         head,tail=series.split('{}')
