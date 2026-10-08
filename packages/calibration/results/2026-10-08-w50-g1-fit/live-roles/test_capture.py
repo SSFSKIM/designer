@@ -88,6 +88,8 @@ def sha(path): return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def pin(path): return dict(path=str(path), sha256=sha(path))
 def read_json(path): return json.loads(Path(path).read_text())
 read = read_json
+def torn(path, value):
+    text = json.dumps(value, indent=2)+'\n'; Path(path).write_text(text[:len(text)//2])
 def write_new(path, value):
     with Path(path).open('x') as stream: stream.write(json.dumps(value, indent=2)+'\n')
 write = write_new
@@ -189,8 +191,12 @@ def _capture_run(context, run, *, current):
         if switch.get('fail') == 'after-admission': raise ValueError('Crash after admission '+switch.get('print', ''))
         if switch.get('rawExtra'):
             write_new(folder/'w50-capture.json', {**record, 'extra': 1}); raise ValueError('Crash after raw record')
+        if switch.get('rawTorn'):
+            torn(folder/'w50-capture.json', record); raise ValueError('Killed mid raw record')
         write_new(folder/'w50-capture.json', record); records.append(record)
         if switch.get('returnExtra'): record = records[-1] = {**record, 'extra': 1}
+    if switch.get('indexTorn'):
+        torn(matrix, dict(schema='w50-web-capture-index-1', captures=records)); raise ValueError('Killed mid run index')
     write_new(matrix, dict(schema='w50-web-capture-index-1', captures=records))
     return records
 '''
@@ -270,6 +276,9 @@ def capture_run(context, run, *, current=False):
         record['repeatPair'] = pin(folder/f'repeat__{tier}.json')
         record['repeatAdmission'] = web.admit_repeat(context, run, record)
         records.append(record)
+    if switch.get('completeTorn'):
+        text = json.dumps(dict(status='CAPTURED', captures=records), indent=2)
+        (captures/'complete.json').write_text(text[:len(text)//2]); raise ValueError('Killed mid completion')
     write(captures/'complete.json', dict(status='CAPTURED', captures=records, matrixSha256=sha(matrix)))
     return records
 '''
@@ -420,6 +429,23 @@ class Capture(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'quarantined'):
                     self.kit.D.prepare_attempt(self.kit.root, self.kit.contract)
                 self.assertEqual((self.kit.store.status()['retained'], len(self.kit.store._contracts())), (0, 1))
+
+    def test_a_raw_write_torn_by_a_kill_is_read_as_absent_and_its_member_adopted(self):
+        """Second pre-seal review P3: the transport writes its raw record, run index and canonical
+        completion after admission; a kill mid-write leaves an unparseable file that every
+        reconciliation would refuse. It is read as absent, never adopted: the member's record is
+        rebuilt from its source files, and no second draw is made."""
+        for source, switch in (('w50', 'rawTorn'), ('w50', 'indexTorn'), ('canonical', 'completeTorn')):
+            with self.subTest(switch=switch):
+                self.build(source=source, scenes=('one',)); self.control(**{switch: True})
+                self.assertEqual(self.attempt()[1]['code'], 'INSTRUMENT_FAULT')
+                (self.kit.repo/'control.json').unlink()
+                ready = self.kit.D.prepare_attempt(self.kit.root, self.kit.contract)
+                self.assertEqual(ready['schema'], 'w50-live-capture-ready-1')
+                rows = self.kit.store.checkpoints()
+                self.assertEqual([('revalidationClaim' in r) for r in rows], [True])
+                record = json.loads(Path(rows[0]['payload']['path']).read_text())
+                self.assertNotIn('extra', record); self.assertEqual(self.draws(), [f'{self.PROFILE}|one|candidate'])
 
     def test_a_returned_record_that_differs_from_its_source_is_never_checkpointed(self):
         self.build(scenes=('one',)); self.control(returnExtra=True)

@@ -24,18 +24,36 @@ error message; any other failure is the dispatcher's INSTRUMENT_FAULT or LEASE_L
 The config (schema w50-live-capture-config-1) pins the two transports by content. Their paths
 are fixed to CURRENT3's DL5h transports, so a config cannot route a member elsewhere.
 
-One seam of the role's own W50 transport instance changes (W50 DL5n). After a completed native
-read that is not ready, the root-bound DL5h helper's sealed blind_cell refuses the checkpoint,
-so every NON-identical blind pair at capture would be an instrument fault. The helper is loaded
-by the transport's load_source(path, 'w50_repeat_admission'). The role wraps that loader so the
-loaded helper's sources resolve blind_cell to measurement/readiness.checkpointed_blind_cell.
-That function has the sealed signature and takes readiness from LIVE's checkpoint. A ready
-checkpoint reads exactly as the sealed function does; a not-ready one only with its own stops.
-A pair is then admitted by its cell's finite native repeat bar, unchanged; a pair with no finite
-bar still needs byte identity (DL5h (ii)). Byte-identical pairs never reach it, and no other
-loader call, transport or helper function changes.
+Two seams of the role's own W50 transport instance change (W50 DL5n). After a completed native
+read that is not ready, the root-bound DL5h helper's sealed sources refuse it: blind_cell refuses
+the checkpoint, and the sealed native evaluator (measurement/capture.evaluate_native_supports,
+through sources.native_statistics) raises on a stopped required statistic whose support is
+empty and on a reported T1 empty in only some runs. The helper is loaded by the transport's
+load_source(path, 'w50_repeat_admission'); the role wraps that loader so the loaded helper's
+sources resolve
+* blind_cell to measurement/readiness.blind_cell with readiness from LIVE's checkpoint (the
+  sealed signature, as readiness.checkpointed_blind_cell), and
+* the evaluator native_statistics calls to measurement/readiness.evaluate_supports, with the
+  checkpoint's stops for that cell that leave a statistic unreadable (second pre-seal review P3).
+A ready checkpoint reads exactly as the sealed functions do; a not-ready one only with its own
+stops. A spread stop is not passed: its statistic has its native value and its own finite bar,
+so DL5h (c) admits its pair by that bar as before; the stop decides the verdict (the judge reads
+the key UNMEASURED), not the pair's qualification. Any other stop names a statistic the read
+could not measure; evaluate_supports does not compute it, so it has no finite bar and its pair
+needs byte identity (DL5h (ii)). A non-identical pair there, and on a reported T1 that some runs
+read empty, is the helper's IdentityRequired fault, recorded in its fault receipt and recovered
+as an instrument fault, never the sealed evaluator's refusal of the checkpoint. Byte-identical
+pairs never reach either seam, and no other loader call, transport or helper function changes.
+
+Every record the role returns is rebuilt from the member's source files. The transport writes its
+raw record and run index (w50-capture.json and the scratch matrix; canonical complete.json) after
+admission, so a kill can tear them; such a file is evidence of the interrupted write, read as
+absent and never adopted, while a complete one must equal the reconstruction (second pre-seal
+review P3).
 """
+import json
 from pathlib import Path
+import sys
 import types
 
 HERE = Path(__file__).resolve().parent
@@ -56,6 +74,7 @@ TRANSPORTS = {'canonical': str((C.CURRENT3/'canonical/adapter.py').relative_to(R
 
 READINESS = C.FIT/'measurement/readiness.py'
 REPEAT_HELPER = 'w50_repeat_admission'
+SPREAD = 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'
 
 
 def checkpointed(transport):
@@ -65,11 +84,31 @@ def checkpointed(transport):
     def loader(path, name):
         module = load_source(path, name)
         if name == REPEAT_HELPER:
-            readiness = C.source(READINESS, 'w50_live_capture_readiness')
-            module.S.blind_cell = readiness.checkpointed_blind_cell
+            rebind(module.S, C.source(READINESS, 'w50_live_capture_readiness'))
         return module
     transport.load_source = loader
     return transport
+
+
+def rebind(sources, readiness):
+    """The helper instance's two seams (module docstring). newbed_pair reads a blind cell through
+    blind_cell before native_statistics evaluates it, so the stops blind_cell read from the
+    checkpoint for that cell are the ones its evaluation applies; a non-blind cell has none."""
+    stops = {}
+    def checkpointed_blind_cell(context, run, row, scenes):
+        live = sys.modules.get('w50_g1_dispatch')
+        if live is None: raise sources.C.InstrumentFault('Blind repeat source requires live exposure')
+        live.require_context(context)
+        state = readiness.native_readiness(context, live); identity = row['profile']+'/'+row['scene']
+        stops[identity] = frozenset(s['statistic'] for s in state['stops']
+                                    if s['cell'] == identity and s['reason'] != SPREAD)
+        return readiness.blind_cell(context, run, row, scenes, state)
+    def evaluate_native_supports(rgb, native_cell, analytical_masks, *, renderer):
+        stopped = stops.get(native_cell['profile']+'/'+native_cell['scene'], frozenset())
+        return readiness.evaluate_supports(rgb, native_cell, analytical_masks, renderer=renderer, stopped=stopped)
+    measurement = types.ModuleType(sources.M.__name__); measurement.__dict__.update(vars(sources.M))
+    measurement.evaluate_native_supports = evaluate_native_supports
+    sources.blind_cell, sources.M = checkpointed_blind_cell, measurement
 
 
 def transports(context, live, config):
@@ -151,6 +190,19 @@ def _closure(context, transport, run):
     for source in C.read(transport.pin_file(item))['sources']: transport.pin_file(source)
 
 
+ABSENT = object()
+
+
+def written(path):
+    """A transport's after-admission write, as one complete JSON document or ABSENT (module
+    docstring): missing, or torn by a kill mid-write, which no complete write can be."""
+    try: raw = Path(path).read_bytes()
+    except FileNotFoundError: return ABSENT
+    def invalid(value): raise ValueError('Nonfinite JSON')
+    try: return json.loads(raw, parse_constant=invalid)
+    except ValueError: return ABSENT
+
+
 def _w50(context, member, run, web):
     """The W50 transport's record, from its retained request/census/report (as _capture_run)."""
     current = member['lane'] == 'current'; scene = member['scene']; tier = run['renderer']
@@ -189,11 +241,11 @@ def _w50(context, member, run, web):
         background=next(b for b in fixture['backgrounds'] if b['key'] == f'{spec["background"]}@{plan["dpr"]}x'))
     record['repeatPair'] = C.pin(folder/f'repeat__{tier}.json')
     record['repeatAdmission'] = C.pin(folder/f'repeat-admission__{tier}.json')
-    raw = folder/'w50-capture.json'
-    # The raw record and run index are written after admission; a crash may precede either.
-    if raw.exists() and C.read(raw) != record: raise ValueError('Raw record differs from its source reconstruction')
-    matrix = Path(run['matrixPath']).resolve()
-    if matrix.exists() and C.read(matrix) != {'schema': 'w50-web-capture-index-1', 'captures': [record]}:
+    # The raw record and run index are written after admission; a crash may precede or tear either.
+    raw = written(folder/'w50-capture.json')
+    if raw is not ABSENT and raw != record: raise ValueError('Raw record differs from its source reconstruction')
+    index = written(Path(run['matrixPath']).resolve())
+    if index is not ABSENT and index != {'schema': 'w50-web-capture-index-1', 'captures': [record]}:
         raise ValueError('Member run index differs from its source reconstruction')
     return record
 
@@ -241,8 +293,8 @@ def _canonical(context, member, run, canonical, web):
             'MEASURED' if row.get('coherence') is not None else 'UNMEASURED'))
     record['repeatPair'] = C.pin(folder/f'repeat__{tier}.json')
     record['repeatAdmission'] = C.pin(receipt)
-    raw = captures/'complete.json'
-    if raw.exists() and C.read(raw) != {'status': 'CAPTURED', 'captures': [record], 'matrixSha256': C.sha(matrix)}:
+    raw = written(captures/'complete.json')
+    if raw is not ABSENT and raw != {'status': 'CAPTURED', 'captures': [record], 'matrixSha256': C.sha(matrix)}:
         raise ValueError('Raw completion differs from its source reconstruction')
     return record
 
