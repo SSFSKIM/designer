@@ -227,7 +227,8 @@ def execution_closure(layout, doc, root_pins):
         found = layout.discover(layout.repo, layout.repo/doc['probe']['path'], doc['closure']['sources'])
         require(found == doc['closure'], 'A fresh discovery differs from root.closure')
         return {'equal': True, 'sources': len(found['sources']), 'probeSha256': found.get('probeSha256')}
-    proof.function('root-seal', 'The root is the sealed live-execution/execution-root.json and its sidecar names its bytes.', root_seal)
+    proof.function('root-seal', 'The root is the newest sealed root of the LIVE chain (common.newest_root) and its '
+                   'sidecar names its bytes.', root_seal)
     proof.function('validate-body', 'authority.validate_body admits the sealed root.', validate_body)
     proof.function('fresh-discovery', 'A fresh guard.discover of the root probe equals root.closure (sources and environment).',
                    fresh_discovery)
