@@ -50,8 +50,11 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
   (`34882e9db`) and checkpointed repeat helper (`4ffa48746`). Two re-reviews of
   `a2d1bfbb9..4ffa48746` found two P1s (owner intrinsic-record content first checked after the
   analysis marker; an L1 named growth miss grading PASS) and two P2s (stale-lock release race;
-  pre-fit evidence not bound to the rebuilt proofs). Running: FW-A (LIVE/roles/owner-candidate)
-  and FW-B (judge, witness, readiness, native empty-cut stop). Next: re-run `live-roles/draft_root.py`; all suites;
+  pre-fit evidence not bound to the rebuilt proofs), fixed by FW-A (`5e84465d6`, `1bfa3f30a`) and
+  FW-B (`fe98fc970`, `5e0f65575`, `b8e5f5325`). Draft root regenerated on the registered-2 binding
+  (`89e7b0d90`, sha `3923669a…`, validate_body PASS); all suites green. Running: a final review of
+  `4ffa48746..89e7b0d90`, and the operator tooling in `live-run/` (pre-fit evidence builder, batch
+  builders, run CLI). Next (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
   a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
   executionClosure and independentReview proofs and `pre-fit-evidence.json` pinning the root;
   fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind every step.
