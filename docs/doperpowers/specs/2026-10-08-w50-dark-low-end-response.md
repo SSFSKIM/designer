@@ -31,7 +31,8 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 - [x] Parent/user rulings DL1–DL4: scope/default freeze, native sitting, family and fixed rule.
 - [x] G0 declaration/instrument/bed, independent reviews and assembled seals completed before native capture.
 - [x] Inert two-tier implementation and identity proofs; no material document moved.
-- [ ] G1 native sitting/identification, fit, frozen gate and one exposure.
+- [x] G1a native sitting:1,600 admitted frames; all opening/closing bridges agree; restoration verified.
+- [ ] G1 identification, fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
 
 ## Proposed landing rule — fixed before the first candidate gate
@@ -537,3 +538,26 @@ or release changed, and the main checkout was not edited.
   This is an environmental admission failure, not a material verdict or permission to amend a
   seal. After the human clears the alert and an ordinary app is frontmost, a fresh-root retry
   uses the same sealed protocol; the refused frames remain quarantined and are never relabelled.
+
+- G1a attempt 2 — After the human cleared the system alert, the worker independently verified
+  Finder frontmost, an unlocked session and the unchanged .w39 bundle's positive auth2/signing
+  requirement. The fresh root `/Users/new/vitrea-w50/native-g1a-run2` completed under the SAME
+  two operational seals, from source head `37598d0dd21a8054ab5872990ca7394d8e2858e6`, with
+  driver exit0,40 admitted runs and1,600 frames. All16 opening/closing bridge reports agree:
+  18 control comparisons by bytes,14 by regions. Slider0.5 and display mode68 were restored;
+  the process-scoped wake assertion ended with the driver. No identifying/blind pixels or
+  statistics were opened. The admitted archive and separate attempt1 quarantine were packed
+  and locally verified by SHA-256; §5.217 §8 and the G1 sitting record name both assets.
+  The new archive wrapper binds the existing operational reports without redefining the sealed
+  closing stop:false policy. Eleven synthetic tests and independent medium review pass.
+
+- G1a archive publication — `w50-archive` now retains both hash-named assets and their combined
+  `SHA256SUMS`, targeting sealed G0 merge `f608255abc7182dd3f69b0fe7e4d8fcd7e72f057`.
+  Release notes identify wrapper/evidence commit `7c4869eaf`, its source SHA-256 and the pack
+  metadata hash; the wrapper lands on main with G1. Both assets were downloaded into a fresh
+  directory and checksum-verified. The admitted asset replay again verifies1,600 frames and
+  all bridges, with reads of BOTH raw roots and BOTH local archive trees denied by a process
+  sandbox; each denial was positively tested. `release-verification.json` records that proof.
+  No identifying/blind statistic was opened. Acquisition and archival are complete; native
+  analysis, complete reference evidence, the512×384 web adapter and the additive pre-fit gate
+  still precede fitting. No material document or matrix generation changed.

@@ -50385,3 +50385,62 @@ front-app diagnosis and restoration. The full quarantined run remains outside th
 `/Users/new/vitrea-w50/native-g1a/`. The driver exited1 and positively restored the as-found slider0.5
 and display mode68. A fresh-root retry can use the unchanged declared protocol after the environment
 is corrected; it cannot reuse these rejected frames or call them receded measurements instead.
+
+### 8. G1a completed under the same seals; archive prepared before analysis
+
+After the human cleared the alert, an independent read-only check found Finder frontmost and
+an unlocked session, and positively verified auth2 and the unchanged .w39 signing requirement.
+Attempt2 used a fresh root and source head `37598d0dd21a8054ab5872990ca7394d8e2858e6`; neither
+operational seal changed. The driver exited0 with40 admitted runs and all1,600 declared frames:
+1,344 identifying frames,128 no-glass frames,96 sentinels and32 original-canvas bridge controls.
+All16 opening/closing bridge reports agree, comprising18 byte and14 region agreements. Both
+slider0.5 and display mode68 were positively restored; the owned, process-scoped wake assertion
+also exited0. No identifying/blind pixels, thumbnails or statistics have been opened. Acquisition
+is complete, not identification or a material verdict; the additive pre-fit gate remains absent.
+
+`results/2026-10-08-w50-g1-sitting/attempt-02-complete.json` binds the40 admission and16 bridge
+reports, restoration, console, operational seals and both archive assets. The admitted archive
+contains2,624 files, is4,125,721 bytes compressed and has SHA-256
+`a8b735af3b1d939cda36e0f985c6c12ded6a3cd860c4ee2a090f270ce2260448`;
+its index is `71d16c69de2f170e8b491c08d94e305eb8baf6e5c3621813649bffe3ff908191`.
+The local compressed-asset replay verifies all1,600 admissions and reports `bridged`, with no
+unbridged closing pass. Calibration/validation exports follow the declared roles; no blind export
+was created or read. Attempt1 is retained separately, without touching its raw root, in the asset
+`w50-failed-attempt1-86463a73ac86b1e4cbae198295ce0bf024c9632e33cafd38ee896acdcba0d560.tar.zst`.
+That hash covers its two quarantined operational frames and the failed-attempt records, never
+admitted or relabelled as receded evidence. Remote publication/verification follows this local
+provenance commit; it is not asserted by the local replay alone.
+
+The new G1 archive wrapper lives outside the sealed G0 directory. It checks the existing source
+pins, complete admission, restoration and file membership, and binds every bridge report's bytes,
+identity, cell population and verdicts to admission and the declared references. A stopping
+comparison disagreement refuses. The sealed closing bridges explicitly use stop:false: a closing
+disagreement would remain admitted but be reported as unbridged in both packaging and replay.
+That distinction is preserved, not tightened after capture; none of this sitting's closes disagree.
+The bounded bridge-binding fix and independent medium review pass11 synthetic tests, including
+27 invalid-evidence cases and accepted/reported non-stopping disagreement. The worker reran all11
+successfully before actual packaging. No pixel/statistic recomputation is part of this wrapper.
+The unchanged26.5 and X41 witnesses again read1,818 and911 entries respectively.
+
+### 9. G1a archive published and remotely replayed without the source trees
+
+[Release `w50-archive`](https://github.com/SSFSKIM/designer/releases/tag/w50-archive) now contains
+both §8 assets and their combined `SHA256SUMS`. Its target is sealed G0 merge
+`f608255abc7182dd3f69b0fe7e4d8fcd7e72f057`; notes bind the finished-sitting wrapper/evidence
+branch commit `7c4869eaf`, wrapper SHA-256 and pack metadata SHA-256, explicitly stating that the
+wrapper lands on main with G1. The capture itself ran from the earlier source head §8 records.
+
+Both release assets were downloaded to a new directory and match their local SHA-256 values.
+The rejected-attempt asset also passes compressed-stream integrity. The admitted download
+replays all1,600 admissions and2,624 indexed files, reports `bridged` and no unbridged closing
+passes, while a process sandbox denies reads of `native-g1a`, `native-g1a-run2`, the local pack
+and the first local verified tree. Each of those four directory reads was positively proved
+DENIED before replay. The verifier ran with isolated Python from the source checkout outside
+all extraction directories. `results/2026-10-08-w50-g1-sitting/release-verification.json` records
+remote asset identities, source hashes, exact deny policy and the replay result. Neither raw
+root was modified to establish this proof; attempt1 remains intact and remotely findable.
+
+This completes acquisition and archival only. No identifying/blind pixels, thumbnails or
+statistics were opened; no native analytical reading, candidate, fitted document, new matrix
+generation, relaxed bound or product release is claimed. Complete native/reference evidence,
+the512×384 web adapter and the additive pre-fit admission remain the next G1 work.
