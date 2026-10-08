@@ -96,9 +96,21 @@ def _original_operands(row, name, inventory):
                 capture.get('key') != list(_key(row)) or capture.get('original') != original or \
                 capture.get('inventory', {}).get('sha256') != inventory:
             raise ValueError('Original operand evidence is not the exact frozen inventory record')
+    current_pair = row['currentDocumentPair']
+    if source['evidence']['current']['numericIdentity'].get('documentPair') != {
+            'activeSha256': current_pair['active.dark'], 'recededSha256': current_pair['receded.dark']}:
+        raise ValueError('Frozen current operand names another full current document pair')
     for field in ('units', 'support', 'code', 'bar', 'B', 'nativeRepeat', 'nativeSupportWitnesses'):
         if source.get(field) != diagnostic.get(field):
             raise ValueError('Fresh source code/bar/support diagnostics were changed or rebased')
+    # The authoritative candidate is the diagnostic's own first capture: same capture identity,
+    # same rendered document pair and, for the canonical T1-low read, the same value.
+    primary, fresh = source['evidence']['candidate'], diagnostic['evidence']['candidate']
+    if primary.get('captureIdentity') != fresh.get('captureIdentity') or \
+            primary['numericIdentity'].get('documentPair') != fresh['numericIdentity'].get('documentPair'):
+        raise ValueError('Authoritative candidate names another capture or document pair than its diagnostic')
+    if name == 'T1-low' and source['candidate'] != diagnostic['candidate']:
+        raise ValueError('Canonical T1-low candidate differs from its unchanged source reading')
     estimator, producer, field = (
         ('PRODUCTION_TS_INTERIOR_LEVEL', 'packages/calibration/src/metrics/material.ts#interiorLevel',
          'material.interiorStdDevWeb') if name == 'T1-full-silhouette' else

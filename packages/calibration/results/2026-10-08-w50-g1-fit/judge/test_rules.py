@@ -292,6 +292,42 @@ class RulesTests(unittest.TestCase):
         primary['candidateEstimator']='UNATTESTED_RECOMPUTATION'
         with self.assertRaises(ValueError):self.route(item)
 
+    def test_frozen_primary_candidate_and_current_keep_their_actual_document_pairs(self):
+        def frozen(name):
+            item=row(name,source='canonical',family='texture',input_code=None,
+                     scene='hc-text-7__rrect-lg__rest',native=.125,current=.25,candidate=.25)
+            item['originalReference']['B']=item['reference']['B']=.03125
+            item['readings'][name]['originalBudgetB']=.03125
+            if name=='T1-low':item['readings']['T1-fine']=reading('T1-fine',.01,.02,.02)
+            frozen_operands(item)
+            return item,item['readings'][name]
+        for name in ('T1-low','T1-full-silhouette'):
+            item,_=frozen(name);self.assertEqual(self.route(item)['status'],'WITHIN')
+            # The primary candidate's numeric document pair must be its diagnostic's pair.
+            item,value=frozen(name)
+            value['evidence']['candidate']['numericIdentity']['documentPair']={'activeSha256':'9'*64,'recededSha256':'0'*64}
+            with self.assertRaises(ValueError):self.route(item)
+            # So must its whole capture identity, not only the PNG pin.
+            item,value=frozen(name)
+            value['evidence']['candidate']['captureIdentity']['extra']='relabelled'
+            with self.assertRaises(ValueError):self.route(item)
+            # The frozen current operand belongs to the row's own current document pair.
+            item,value=frozen(name)
+            value['evidence']['current']['numericIdentity']['documentPair']={'activeSha256':'9'*64,'recededSha256':'b'*64}
+            with self.assertRaises(ValueError):self.route(item)
+
+    def test_frozen_t1_low_candidate_value_equals_its_source_diagnostic(self):
+        item=row('T1-low',source='canonical',family='texture',input_code=None,
+                 scene='hc-text-7__rrect-lg__rest',native=.125,current=.25,candidate=.25)
+        item['originalReference']['B']=item['reference']['B']=.03125
+        primary=item['readings']['T1-low'];primary['originalBudgetB']=.03125
+        item['readings']['T1-fine']=reading('T1-fine',.01,.02,.02)
+        frozen_operands(item)
+        self.assertEqual(self.route(item)['status'],'WITHIN')
+        primary['candidate']=.25+1/1024
+        primary['evidence']['candidate']['productionStatistic']['value']=primary['candidate']
+        with self.assertRaises(ValueError):self.route(item)
+
     def test_exact_reported_keys_only_and_empty_T1_retains_three_zero_witnesses_not_zero_value(self):
         item=row('T1-full-silhouette',family='span',scene='cell-grey-000-s128__inactive',input_code=0)
         v=item['readings']['T1-full-silhouette']
