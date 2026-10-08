@@ -1,0 +1,27 @@
+{
+  "schema": "w50-composed-current-archive-1",
+  "status": "EXACT_BYTES_ARCHIVED",
+  "original": {
+    "path": "/Users/new/vitrea-w50/g1-current-analysis/completed-current.json",
+    "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+    "bytes": 137796292
+  },
+  "archive": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz",
+    "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50",
+    "encoding": "gzip level9 mtime0",
+    "decompressedSha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+  },
+  "instrumentRootSha256": "0b140dfda703b8d352f2567a490ce644892c361f72845700901a8d14a6b943c3",
+  "readLog": {
+    "path": "/Users/new/vitrea-w50/g1-current-analysis/read.log",
+    "sha256": "30ce3a27cdb2d6df2d8005bc5f7c9a2e2f2589f8f9d586e42a9f93c07813182d"
+  },
+  "summary": {
+    "referenceEvidenceRows": 1632,
+    "numericalArguments": 787,
+    "canonicalMissingT1Routes": 12,
+    "actualRoots": 2
+  },
+  "boundary": "Current/reference evidence only; exposed calibration/validation native roles only; no candidate, fit, gate, exposure or blind value."
+}
