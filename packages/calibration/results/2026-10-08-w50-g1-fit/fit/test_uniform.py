@@ -66,6 +66,37 @@ class UniformFitTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             U.fit([dict(inputCode=0, span=44, value=20, role='calibration')], joins=[])
 
+    def test_joint_initializer_shares_worst_bound_and_preserves_mean_multiplicity(self):
+        endpoints = ('active.dark.0.25', 'receded.dark.0.25', 'active.dark.0.5', 'receded.dark.0.5')
+        readings = [dict(endpoint=e, inputCode=0, span=44, value=v, role='calibration')
+                    for e, values in zip(endpoints, ((20, 24), (10, 10, 10, 12), (5,), (5,)))
+                    for v in values]
+        joins = [dict(endpoint=e, span=44, value=90) for e in endpoints]
+        result = U.fit_joint(readings, joins=joins)
+        self.assertEqual(set(result['endpoints']), set(endpoints))
+        self.assertEqual(result['observations'], 8)
+        self.assertAlmostEqual(result['worstErrorCodes'], 2, places=5)
+        self.assertAlmostEqual(result['meanAbsoluteErrorCodes'], .75, places=5)
+        # The second endpoint's own minimax would choose11. Its shared-bound mean optimum is10.
+        self.assertAlmostEqual(result['endpoints'][endpoints[1]][0][0] * 255, 10, places=4)
+        self.assertEqual(result['kind'], 'joint-analytical-initializer-not-rendered-verdict')
+        for bad in (readings[:-1], [{**readings[0], 'endpoint': 'other'}] + readings[1:]):
+            with self.assertRaises(ValueError): U.fit_joint(bad, joins=joins)
+        with self.assertRaises(ValueError): U.fit_joint(readings, joins=joins[:-1])
+
+    def test_pure_score_keeps_each_channel_and_observation_and_never_claims_gate_pass(self):
+        rows = {e: [[.1, .2, .3, .4]]*3 for e in U.ENDPOINTS}
+        readings = [dict(endpoint=e, inputCode=0, span=44, role='calibration',
+                         channel=c, statistic='central8-channel-median', value=v)
+                    for e in U.ENDPOINTS for c,v in zip(('R','G','B'),(23.5,25.5,27.5))]
+        score=U.score_joint(readings,rows)
+        self.assertEqual(score['observations'],12)
+        self.assertAlmostEqual(score['worstErrorCodes'],2)
+        self.assertAlmostEqual(score['meanAbsoluteErrorCodes'],4/3)
+        self.assertEqual([r['errorCodes'] for r in score['residuals'][:3]],[2,0,2])
+        self.assertNotIn('passes',score)
+        self.assertEqual(score['status'],'ANALYTICAL_SCORE_ONLY')
+
     def test_mean_error_breaks_worst_error_tie(self):
         readings = [dict(inputCode=0, span=44, value=v, role='calibration') for v in (20, 24)]
         readings += [dict(inputCode=0, span=160, value=30, role='validation') for _ in range(3)]
