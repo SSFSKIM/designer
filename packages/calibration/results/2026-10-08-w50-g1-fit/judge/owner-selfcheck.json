@@ -1,0 +1,68 @@
+{
+ "schema": "w50-owner-selfcheck-1",
+ "status": "PASS",
+ "counts": {
+  "cells": 745,
+  "ownerCells": 640,
+  "contextCells": 105,
+  "aggregates": 5
+ },
+ "statuses": {
+  "ownerCells": {
+   "PASS": 640
+  },
+  "contextCells": {
+   "PASS": 105
+  },
+  "aggregates": {
+   "PASS": 5
+  }
+ },
+ "aggregates": [
+  {
+   "name": "C1",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.25/dark/inactive",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.25/dark/rest",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.5/dark/inactive",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.5/dark/rest",
+   "status": "PASS"
+  }
+ ],
+ "notPassing": [],
+ "intrinsicNotGraded": {
+  "UNMEASURED": 4
+ },
+ "config": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/config.json",
+  "sha256": "6d2ed32d2a79fc45af1bca7fa9ae2564f0de4878e3762d9f3bf756c25caa306e"
+ },
+ "preparedReport": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/prepare.json",
+  "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+ },
+ "ownerContracts": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/contracts.json",
+  "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
+ },
+ "inventory": {
+  "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+  "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+ },
+ "grader": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py",
+  "sha256": "2e7875a3306f9f25585b7c3c82ef1e81830238e4febd2edcb0441fb08aecb4f7",
+  "function": "grade_owner_report"
+ }
+}
