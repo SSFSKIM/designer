@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5g are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5h are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -526,6 +526,27 @@ reading;
 (4) the new-bed native three-run evidence goes into a typed, content-pinned envelope that keeps the
 original support text.
 Every field, budget, role and non-blind capture pin is preserved; no landing rule changes.
+
+DL5h (parent, before any further current launch, candidate or exposure). Current attempt 2 (root
+b775ce5f…) stopped at draw 502 (glass0.25/2x/receded/CSS cell-grey-064-s160__inactive):
+deterministic:false, repeatNoise 1.9073e-6 (6 channel-code units over the frame); the second load
+was not retained. Ruled, prospectively and for EVERY W50 web phase alike (current, fit, gate,
+exposure, so a one-shot read cannot be lost to transport):
+(a) attempt 2 is preserved as burned evidence; a separately sealed current recovery (attempt 3)
+keeps attempt 2's 501 validated draws by content hash and recaptures the failed cell plus every
+unfinished fixed member; no other draw is re-rendered or relabelled;
+(b) every web draw retains BOTH repeat images;
+(c) admission stays byte identity by default. A non-identical repeat is admitted only if both
+images pass the unchanged geometry/source/numerical checks AND every declared statistic of that
+cell (levels and T1 where it has them), computed on each image, agrees within 0.1 B (0.05 code at
+the 0.5-code floor). The reading is the first image's; the pair difference is recorded per cell.
+A repeat outside that band stops the run as an instrument fault, never a verdict.
+DL5h clarifications (parent): (i) the band is 0.1 x the cell statistic's native repeat bar (0.05 code
+at the 0.5-code floor), not 0.1 B; (ii) a cell with no finite source-bound repeat budget for every
+declared statistic (e.g. owner-only, B null) keeps byte-identity admission, no new statistic is
+invented; (iii) attempt 2's 501 draws stand as legacy byte-identical pairs: one preserved PNG plus
+production's original equality attestation, never a manufactured second image; every new draw keeps
+both PNGs and reports.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
@@ -717,3 +738,18 @@ or release changed, and the main checkout was not edited.
   pre-fit schema contradictions exposed by integration: blind evidence must stay null until its
   exposure, typed T1 fidelity labels are not numeric readings, and low-band regression rows need
   their own fine-band fidelity. No bound, historical cap, role or known value changes.
+
+
+- G1 current-only attempt2 stopped — Draw502, the2x receded0.25 CSS uniform64/span160 cell,
+  reported non-identical loads with mean absolute RGBA difference1.9073486328125e-6 codes: six
+  total channel-code units over1024×768×4. Its second image was not retained, so no location or
+  maximum per-pixel difference is inferred. The original exact-identity admission refused it;
+  the process exited1 and released its lease. The43-report first attempt and this502-report
+  second attempt remain burned evidence. Attempt2's501 validated draws retain their original
+  equality attestations; no second image is manufactured for them. Its3526 raw files and exact
+  failure are inventoried under `results/2026-10-08-w50-g1-current2/evidence/current-attempt2/`.
+  DL5h authorises a separately sealed recovery of the failed and unfinished members only, and
+  prospectively retains both repeats for every fresh W50 draw. The clarified band is0.1 times
+  the NATIVE REPEAT BAR, not the landing B:0.05 code at the0.5-code bar floor. Cells without
+  finite source-bound budgets retain byte-identity admission. No coefficient or candidate has
+  been read, and no incomplete current result is promoted to reference readiness.

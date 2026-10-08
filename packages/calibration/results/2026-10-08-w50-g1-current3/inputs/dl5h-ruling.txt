@@ -1,0 +1,20 @@
+DL5h (parent, before any further current launch, candidate or exposure). Current attempt 2 (root
+b775ce5f…) stopped at draw 502 (glass0.25/2x/receded/CSS cell-grey-064-s160__inactive):
+deterministic:false, repeatNoise 1.9073e-6 (6 channel-code units over the frame); the second load
+was not retained. Ruled, prospectively and for EVERY W50 web phase alike (current, fit, gate,
+exposure, so a one-shot read cannot be lost to transport):
+(a) attempt 2 is preserved as burned evidence; a separately sealed current recovery (attempt 3)
+keeps attempt 2's 501 validated draws by content hash and recaptures the failed cell plus every
+unfinished fixed member; no other draw is re-rendered or relabelled;
+(b) every web draw retains BOTH repeat images;
+(c) admission stays byte identity by default. A non-identical repeat is admitted only if both
+images pass the unchanged geometry/source/numerical checks AND every declared statistic of that
+cell (levels and T1 where it has them), computed on each image, agrees within 0.1 B (0.05 code at
+the 0.5-code floor). The reading is the first image's; the pair difference is recorded per cell.
+A repeat outside that band stops the run as an instrument fault, never a verdict.
+DL5h clarifications (parent): (i) the band is 0.1 x the cell statistic's native repeat bar (0.05 code
+at the 0.5-code floor), not 0.1 B; (ii) a cell with no finite source-bound repeat budget for every
+declared statistic (e.g. owner-only, B null) keeps byte-identity admission, no new statistic is
+invented; (iii) attempt 2's 501 draws stand as legacy byte-identical pairs: one preserved PNG plus
+production's original equality attestation, never a manufactured second image; every new draw keeps
+both PNGs and reports.
