@@ -91,7 +91,10 @@ def validate_matrix(matrix,run,candidate):
     keys=[(r['key']['profileKey'],r['key']['web']['renderer'],r['key']['sceneId']) for r in rows]
     expected={(run['profile'],run['renderer'],s) for s in run['scenes']}
     if len(keys)!=len(expected) or set(keys)!=expected: raise ValueError('Measured membership differs from run')
-    stamp=f'candidateDocument={candidate} declarationSha256={run["candidate"]["sha256"][:12]}'
+    # Match capture-web.ts candidateLabel's exact relative-path spelling.
+    shown=os.path.relpath(candidate,ROOT)
+    if shown.startswith('..'): shown=str(candidate)
+    stamp=f'candidateDocument={shown} declarationSha256={run["candidate"]["sha256"][:12]}'
     for row in rows:
         capture=row['key']['web'].get('capturePath','')
         if stamp not in capture or 'crossPosition=' in capture or row['fixtureSet'] not in run['sets']:
@@ -165,6 +168,8 @@ def launch_cells(context,run,argv,env,captures):
         observed=census.observe(); write(captures/f'census-{scene}.json',observed)
         if observed.get('passes') is not True: raise ValueError('Classifying census refused')
         command=list(argv); command[command.index('--scene')+1]=scene
+        if '--receipt' in command:
+            command[command.index('--receipt')+1]=str(captures/f'native-admission-{scene}.json')
         write(captures/f'request-{scene}.json',dict(argv=command))
         with (captures/f'compare-{scene}.log').open('x') as log:
             result=subprocess.run(command,cwd=CAL,env=env,stdout=log,stderr=subprocess.STDOUT)
@@ -180,6 +185,23 @@ def validate_destinations(output,captures,matrix):
         raise ValueError('Fresh disjoint scratch paths inside claimed invocation required')
 
 
+def native_request(context,run,dispatcher):
+    # The root owns the original inventory; no caller-supplied replacement native pins.
+    root=read(context['executionRoot'])
+    inventory=read(dispatcher.checked(ROOT,root['references']))
+    pins=[]
+    for scene in run['scenes']:
+        matching=[r for r in inventory['cells'] if (r['profile'],r['renderer'],r['scene'])==
+                  (run['profile'],run['renderer'],scene)]
+        evidence=[r.get('nativeEvidence') for r in matching]
+        if not evidence or any(not p or p!=evidence[0] for p in evidence):
+            raise ValueError('Missing or conflicting original selected native pins')
+        p=evidence[0]
+        # Do not hash or open PNGs here: the bounded Node preflight owns those selected reads.
+        pins.append(dict(scene=scene,path=str((ROOT/p['path']).resolve()),sha256=p['sha256']))
+    return dict(profile=run['profile'],scenes=run['scenes'],sets=run['sets'],native=pins)
+
+
 def capture_run(context,run,*,current=False):
     dispatcher=require(context)
     dispatcher.require_render_admission(context,run,current=current)
@@ -192,18 +214,23 @@ def capture_run(context,run,*,current=False):
     closure=read(closure_path)
     pins={p['path']:p['sha256'] for p in closure['sources']}
     required=[SCENES,ROOT/'pnpm-lock.yaml',CAL/'package.json',CAL/'cli/compare.ts',CAL/'scripts/capture-web.ts',
-              CAL/'web/vite.config.ts',WEB/'node-guard.mjs',WEB/'vite-guard.mjs']
+              CAL/'web/vite.config.ts',WEB/'node-guard.mjs',WEB/'vite-guard.mjs',
+              HERE/'compare.ts',HERE/'native-admission.ts']
     for p in required:
         if pins.get(str(p.relative_to(ROOT)))!=sha(p): raise ValueError(f'Missing closure input {p}')
     for p in closure['sources']: dispatcher.checked(ROOT,p)
     captures,matrix=web.external(run['captureRoot']),web.external(run['matrixPath'])
     validate_destinations(context['output'],captures,matrix)
     captures.mkdir(parents=True,exist_ok=False); matrix.parent.mkdir(parents=True,exist_ok=True)
-    argv=['node','--import','tsx',str(CAL/'cli/compare.ts'),'--profile',run['profile'],
+    admission=captures/'native-request.json'
+    write(admission,native_request(context,run,dispatcher))
+    argv=['node','--import','tsx',str(HERE/'compare.ts'),'--admission',str(admission),
+          '--receipt',str(captures/'native-admission.json'),'--','--profile',run['profile'],
           '--renderer',run['renderer'],'--candidate-document',candidate['path'],
           '--set',','.join(run['sets']),'--scene',','.join(run['scenes']),
           '--alpha','--write-partial','--out-matrix',str(matrix)]
     env=capture_environment(ROOT,closure_path,closure_pin['sha256'],captures,matrix,WEB/'node-guard.mjs')
+    env['W50_NATIVE_REQUEST_SHA256']=sha(admission)
     write(captures/'request.json',dict(argv=argv,run=run,phase=context['phase'],lane='current' if current else 'candidate',
         contractSha256=sha(context['contract']),batchSha256=sha(context['batchPath']),scenesSha256=sha(SCENES)))
     launch_cells(context,run,argv,env,captures)
@@ -222,7 +249,8 @@ def capture_run(context,run,*,current=False):
         artifacts['transport']=[dict(path=str(p),sha256=sha(p)) for p in (
             captures/f'census-{scene["id"]}.json',captures/f'request-{scene["id"]}.json',
             captures/f'exit-{scene["id"]}.json',captures/f'compare-{scene["id"]}.log',
-            captures/'request.json')]
+            captures/'request.json',captures/'native-request.json',
+            captures/f'native-admission-{scene["id"]}.json')]
         records.append(dict(profile=run['profile'],renderer=tier,scene=scene['id'],sceneSource='canonical',
             lane='current' if current else 'candidate',candidate=run['candidate'],endpoint=endpoint,
             matrix=dict(path=str(matrix),sha256=sha(matrix)),row=row,artifacts=artifacts,

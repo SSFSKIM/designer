@@ -133,6 +133,40 @@ class CanonicalTests(unittest.TestCase):
             captures.mkdir()
             with self.assertRaises(ValueError): self.a.validate_destinations(output,captures,matrix)
 
+    def test_native_request_uses_original_inventory_pins_without_opening_pngs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp); inventory=root/'references.json'; execution=root/'root.json'
+            pin={'path':str(root/'NEVER_OPEN.png'),'sha256':'f'*64}
+            rows=[dict(profile=self.run['profile'],renderer='webgpu',scene=s,nativeEvidence=pin)
+                  for s in self.run['scenes']]
+            inventory.write_text(json.dumps({'cells':rows}))
+            execution.write_text(json.dumps({'references':{'path':str(inventory),'sha256':self.a.sha(inventory)}}))
+            class Dispatcher:
+                def checked(self,repo,item):
+                    if self_outer.a.sha(item['path'])!=item['sha256']: raise ValueError('Changed original reference')
+                    return Path(item['path'])
+            self_outer=self
+            context={'executionRoot':str(execution)}
+            request=self.a.native_request(context,self.run,Dispatcher())
+            self.assertEqual(request['native'][0],{'scene':'pressed',**pin,'path':str(Path(pin['path']).resolve())})
+            self.assertFalse(Path(pin['path']).exists())
+            rows.append({**rows[0],'nativeEvidence':{**pin,'sha256':'e'*64}})
+            inventory.write_text(json.dumps({'cells':rows}))
+            execution.write_text(json.dumps({'references':{'path':str(inventory),'sha256':self.a.sha(inventory)}}))
+            with self.assertRaisesRegex(ValueError,'conflicting'):
+                self.a.native_request(context,self.run,Dispatcher())
+
+    def test_real_production_label_admits_repository_relative_candidate(self):
+        import os
+        result=subprocess.run(['node','--import','tsx','--test',str(HERE/'native-admission.test.ts')],
+            cwd=self.a.CAL,env={**os.environ,'W50_TEST_REPO':str(self.a.ROOT)},capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr+result.stdout)
+        label=next(line.split('PRODUCTION_LABEL=',1)[1] for line in result.stdout.splitlines() if 'PRODUCTION_LABEL=' in line)
+        run={**self.run,'scenes':['pressed']}
+        matrix={'schemaVersion':5,'cells':[dict(key=dict(profileKey=run['profile'],sceneId='pressed',
+            web=dict(renderer='webgpu',capturePath=label)),fixtureSet='calibration')]}
+        self.a.validate_matrix(matrix,run,self.a.ROOT/'candidate.json')
+
     def test_matrix_membership_and_candidate_stamp_are_exact(self):
         run={**self.run,'scenes':['pressed']}
         web=dict(renderer='webgpu',capturePath='candidateDocument=/candidate.json declarationSha256='+ 'a'*12)
