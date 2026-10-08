@@ -34,6 +34,25 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 - [x] G1a native sitting:1,600 admitted frames; all opening/closing bridges agree; restoration verified.
 - [x] G1 exposed native identification:336 calibration/validation cells, required repeats ready; blind unopened.
 - [ ] G1 reference/current-render completion and additive pre-fit gate.
+
+  **Handoff note (2026-10-09; branch `w50-g1-fit`; worktree `/Users/new/vitrea-w50/g0`).**
+  Sealed: the current generation, 799 members on two genuine chains (`…-w50-g1-current3` root
+  `dbe20abc…`, 672; `…-w50-g1-canonical3` root `849e137f…`, 127; composition `a0a19b92…`). The
+  composed current analysis (`…-w50-g1-fit/current-analysis-composed`, root `0b140dfd…`) ran once;
+  its output `10381e74…` is archived exactly in `evidence/`; never rerun it. Reference read
+  attempt 1 (`…/references`, root `e16bda56…`) is burned on a reader defect and recorded in
+  `references-r2/attempt1-failure.json`; `references-r2` (root `604041d2…`) is its sealed
+  replacement. Running: the r2 read, once, into `/Users/new/vitrea-w50/g1-canonical-references-r2/`
+  (`read.log` ends with its exit code; never restart it), and an opus fix wave on the
+  live-execution review findings (stale-attempt recovery, repeat-admission bypass, successor
+  reconciliation, exposure `baselineCandidate`, shared outputs, render admission, `validate_body`
+  tests) plus two judge `rules.py` hardening items. Next: verify the r2 read (exit 0, the 397 rows
+  attempt 1 measured identical) and record its hash; assemble the 3,527 references with
+  `completion/bound.assemble_registered` (composed analysis + r2 read + owner context) and build
+  the twelve pre-fit proofs (`current3/execution/prefit.py` `PROOFS`); implement the live role
+  wrappers (capture, native, measurement, owner, judge, target-contract reader, fit); seal the
+  LIVE root; fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind
+  every step; no agent opens the blind archive or checkpoint before the judge marker.
 - [ ] G1 fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
 
