@@ -1,0 +1,244 @@
+{
+  "schema": "w50-live-review-records-1",
+  "subject": "The LIVE dispatcher (live-execution/), its seven registered roles and the sealed root they bind (charter DL5: an independent review of the dispatcher before first use).",
+  "basis": "Rounds pre-seal-1 and pre-seal-2 are seeded from the fix commits' messages and the charter handoff notes (git log 98dfef53a..89e7b0d90). Reconcile each against the review reports before sealing the proof; a finding the reports carry and the commits do not must be added with its disposition.",
+  "severity": {
+    "P0": "blocks every exposure or corrupts a verdict",
+    "P1": "loses the one-shot read or admits a wrong verdict",
+    "P2": "a recoverable fault or race on a real path",
+    "P3": "hardening, documentation or a narrow edge"
+  },
+  "rounds": [
+    {
+      "id": "pre-seal-1",
+      "range": {
+        "base": "98dfef53af5d0f4688c98938a8dd7d9aff9ac71e",
+        "head": "a2d1bfbb9d94b85c7723296a2d2dae228bcb8b11"
+      },
+      "reviewers": [
+        "opus read-only review: LIVE dispatcher with capture/native roles",
+        "opus read-only review: judge, targets, fit and measurement",
+        "opus read-only review: measurement/owner roles and root wiring"
+      ],
+      "findings": [
+        {
+          "severity": "P0",
+          "summary": "Owner referee read an absent L1 interior mean as not-null, so eight dark inactive dark-solid context cells graded UNMEASURED and every exposure would be NEITHER (DL5n owner-port recovery).",
+          "disposition": "fixed",
+          "fixedBy": [
+            "7e621f34400288ca57636ccb814daa7ce2f701ce",
+            "081c5ee2ac98509d1de1f3a1c8751bb9d8ad4a0c",
+            "b29074c3382c52d9aa3ac843697c9a01cf39e634"
+          ]
+        },
+        {
+          "severity": "P1",
+          "summary": "Owner config, Node closure and intrinsic inputs were first exercised after the exposure analysis marker; a metadata-only owner admission now runs before every marker.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6",
+            "776404448079397a7129f597fbcd3fcfed413ab6"
+          ]
+        },
+        {
+          "severity": "P1",
+          "summary": "Gate and exposure batches did not name the owner intrinsic records before any marker.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P1",
+          "summary": "Draft root registered no owner runtime closure when it sat outside the repository.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "021ee4dab32ae53a466f67f7cccebe6290265664"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "A lease left by a dead holder wedged the phase; stale-lease release.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "Capture source reconstruction was only compared with synthetic transports; conformance with the real CURRENT3 transports.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "243cf147ff0b5e077d80e975cabad5bdf9b39720"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "Native admit checked extracted members by name and stat only; it now hashes every frame before the marker.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "bd099ae2c11ae0d85163246faaaef14a80973ff3"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "PID reuse could read a dead claim as alive (ps lstart against the claim time).",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Recovered payload path did not carry its reconciliation ordinal.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Stage contexts could refuse after their marker; template split.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Gate did not re-derive the one fit point from the registered fit role.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Crash windows between a write and its sidecar or marker.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "prepare_attempt had no capture-ready or phase-complete state.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "44fe213cbe0de389116cedd659a4225a725935d6"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "live-inputs copies were not checked against their committed archives.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "021ee4dab32ae53a466f67f7cccebe6290265664"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pre-seal-2",
+      "range": {
+        "base": "a2d1bfbb9d94b85c7723296a2d2dae228bcb8b11",
+        "head": "4ffa487466b283423b90f6308f13f9dec39aaa2f"
+      },
+      "reviewers": [
+        "independent re-review 1 of the pre-seal fix waves",
+        "independent re-review 2 of the pre-seal fix waves"
+      ],
+      "findings": [
+        {
+          "severity": "P1",
+          "summary": "Owner intrinsic-record content was first checked after the analysis marker; the frozen engine now reads it at the gate's creation.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "5e84465d67b72ea730fbcaa36c9e56d21264c0fc"
+          ]
+        },
+        {
+          "severity": "P1",
+          "summary": "An L1 named growth miss graded PASS; named owner verdicts now pass only on an existing record.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "fe98fc970a0c47d6ff38b0db6948277b95d16aac"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "Stale-lock release raced a second dispatcher's fresh lease; one sidecar flock.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "5e84465d67b72ea730fbcaa36c9e56d21264c0fc"
+          ]
+        },
+        {
+          "severity": "P2",
+          "summary": "Pre-fit evidence was not bound to the rebuilt proofs; prefit_lineage.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "5e84465d67b72ea730fbcaa36c9e56d21264c0fc"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Creation-time owner admission ran outside the quarantine; lexical declaration compare; owner output files absent; check_native_not_ready.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "5e84465d67b72ea730fbcaa36c9e56d21264c0fc"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "native.complete.json pinned more than the quarantined payload.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "5e84465d67b72ea730fbcaa36c9e56d21264c0fc"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Torn raw capture writes wedged reconciliation; the helper evaluator read the sealed native path.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "1bfa3f30a0135394f8fee30164f7e9f0e021523c"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "The r2 owner-recovery witness admitted any sha256 on a moved pin and skipped two links.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "5e0f655756a1bb004c784b61de6a57b03c06bbd9"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "An empty analytical cut raised after the native marker instead of a checkpointed stop; readiness docstring.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "b8e5f5325e92f397575ea32cfdb5121f56f8c6c8"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "Owner self-check witness pinned a stale grader.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "fe98fc970a0c47d6ff38b0db6948277b95d16aac"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "final",
+      "range": {
+        "base": "4ffa487466b283423b90f6308f13f9dec39aaa2f",
+        "head": "TODO: the last reviewed commit"
+      },
+      "reviewers": "TODO: the final review of 4ffa48746..89e7b0d90 is still running; name its reviewers",
+      "findings": "TODO: its findings by severity and dispositions with fixing commits. Every byte the sealed root binds must be at or before the LAST round's head (prefit.py root-bound-reviewed): the DL5o successor-root changes (fit/, owner/, owner-candidate/, live-execution/) land after 89e7b0d90, so a round must cover them before the successor root's proof can be written."
+    }
+  ]
+}
