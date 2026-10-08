@@ -416,7 +416,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5 are recorded verbatim (2026-10-08); DL5 precedes every G1 analytical read.
+DL1–DL5a are recorded verbatim (2026-10-08); DL5 and DL5a precede every G1 analytical read.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
