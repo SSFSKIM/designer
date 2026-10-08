@@ -296,15 +296,9 @@ def _capture(context, *, current):
 
 def _capture_run(context, run, *, current):
     _require(context, ('current','fit','gate','exposure'))
-    admitted = [(r,context['phase']=='current') for r in context['batch']['runs']]
-    if context['phase']=='exposure':
-        for r in context['batch']['runs']:
-            if r.get('baselineCandidate') in context['baselineDocuments']:
-                admitted.append(({**r,'candidate':r['baselineCandidate'],
-                    'captureRoot':str(Path(r['captureRoot'])/'baseline'),
-                    'matrixPath':str(Path(r['matrixPath']).with_name(Path(r['matrixPath']).stem+'-baseline.json'))},True))
-    if (run,current) not in admitted:
-        raise ValueError('Capture request is outside the registered immutable batch/lane')
+    # The dispatcher owns the complete-cohort numerical admission and one GPU lease;
+    # a baseline derivative is authorised there without opening a second exposure.
+    sys.modules['w50_g1_dispatch'].require_render_admission(context,run,current=current)
     plan = scene_plan(run,context['phase'])
     candidate = candidate_info(run['candidate'],plan['position'],current=current)
     fixture = fixture_info(run,plan)

@@ -143,6 +143,20 @@ class AdapterTests(unittest.TestCase):
             run={**request(),'fixtures':dict(path=str(root),manifestSha256=A.sha(root/'manifest.json'),backgrounds={})}
             with self.assertRaises(ValueError): A.fixture_info(run,A.scene_plan(run))
 
+    def test_render_admission_refusal_precedes_any_scene_or_candidate_read(self):
+        import sys
+        import types
+        from unittest.mock import patch
+        def refuse(context, run, current=False):
+            raise ValueError('central render admission refused')
+        dispatcher=types.SimpleNamespace(require_context=lambda context:None,
+                                         require_render_admission=refuse)
+        run={'synthetic':'not a scene request'}
+        context={'phase':'fit','batch':{'runs':[run]}}
+        with patch.dict(sys.modules,{'w50_g1_dispatch':dispatcher}):
+            with self.assertRaisesRegex(ValueError,'central render admission refused'):
+                A._capture_run(context,run,current=False)
+
     def test_direct_call_cannot_launch(self):
         with self.assertRaises(ValueError): A.execute({})
 

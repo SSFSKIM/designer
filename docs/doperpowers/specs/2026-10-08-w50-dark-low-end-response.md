@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5c are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5e are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -483,6 +483,33 @@ neutral span-224 REPORTED T1 keys are pre-enumerated as ELIGIBLE for UNMEASURED_
 admitted only if the one exposure's own zero-support witness (zero pixels, mask hash) proves it;
 otherwise they are computed and reported. They never gate. Their level rows gate normally, and an
 unmeasurable level row remains a block. No other key gains the status.
+
+DL5d (parent, before any fit/gate). The six W46 referee scenes (x2 scales x2 positions) carry a
+T1 historical-prediction-check role while owner-contract rows on the same physical captures gate
+(24 WebGPU + 18 paired CSS = 42 keys; identification/phase-dependency-census.json). The charter
+keeps those referees out of exploration with one frozen render. Ruled: a prospective physical
+dependency-closure table binds every profile+scene that carries any withheld statistic, with its
+opposite-tier pair, to the ONE exposure. Every original key, role and budget is kept; only
+execution timing moves. The gate's PASS record is "PASS on exposed cells, owner rows pending" and
+is what admits the exposure contract. The final verdict is PASS only if every gate row and every
+pending owner row passes on the complete same-candidate gate+exposure union; aggregate or paired
+owner checks (C1, coherence, etc.) are evaluated only on that union, never declared on a partial
+population. Any failure there is NEITHER (DL4).
+
+DL5e (parent, before any coefficient fit). The 640 enumerated `owner-contracts` reference rows
+carry B null: they are owner laws (M1/M2/C1/X1/L1/E2/coherence/X75/X76) with their own units and
+limits, not cell-bar statistics. Each carries hash-bound owner evidence naming its source-owned
+limit, exclusions and measured value, and the full existing owner referee gates them under DL5d
+timing. They GATE; this is not an exemption. No owner bound is added or dropped. Every other
+measured row keeps a positive scalar B.
+
+### DL5 — separate current-material instrument (parent confirmation)
+
+The pre-fit current-only instrument is separate from the later single live-fit root, as G0
+README requires. Its fixed batches refuse every profile/scene in the DL5d exposure closure
+as well as the new blind split. Its instrument and results are pinned by hash in the later
+live root before any candidate render. It has no fit, gate or exposure authority and cannot
+stand in for a placeholder judge or fitter.
 
 ### DL2 — conditional X41 publication delta (ruled)
 
