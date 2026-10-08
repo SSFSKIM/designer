@@ -178,7 +178,9 @@ class PrefitLineage(unittest.TestCase):
         older=[(k,f) for k in self.KINDS for f in self.folders(k)[:-1]]
         self.assertTrue({'referenceCompletion','repeatBar','dark05Bands','active05ScratchBaselines'}<={k for k,_ in older})
         for kind,folder in older:
-            with self.subTest(kind=kind,folder=folder),self.assertRaisesRegex(ValueError,kind+' pins evidence a recorded recovery superseded'):
+            # A record that names the proof file itself refuses it as the evidence's own pin (r3's
+            # prefit-proofs-r3/supersedes.json); one that names only what it pins refuses it as the proof's.
+            with self.subTest(kind=kind,folder=folder),self.assertRaisesRegex(ValueError,'(evidence|'+kind+') pins evidence a recorded recovery superseded'):
                 A.prefit_lineage(self.REPO,self.evidence(**{kind:folder}))
     def test_the_superseded_inventory_and_another_inventory_refuse(self):
         old=A.D.load(self.REPO/self.FIT/'prefit-proofs/repeatBar.json')
