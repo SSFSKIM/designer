@@ -16,6 +16,8 @@ import types
 import unittest
 from unittest.mock import patch
 
+import numpy as np
+
 HERE = Path(__file__).resolve().parent
 FIT = HERE.parent
 G0 = FIT.parent/'2026-10-08-w50-g0-declaration'
@@ -104,6 +106,14 @@ def capture(context,member,config):
  return {'record':record,'artifacts':list(artifacts.values())}
 def recover(context,member,config):return None
 def verify(context,member,record,config):pass
+'''
+
+# LIVE runs the owner's metadata-only admission before the native marker (pre-seal review P1);
+# the owner role itself is exercised in test_owner.py.
+OWNER = '''import sys
+def admit(context,config):
+ sys.modules['w50_g1_dispatch'].require_owner_admission(context);return {'admitted':True}
+def evaluate(context,captures,config):raise ValueError('synthetic owner is admission-only')
 '''
 
 
@@ -292,7 +302,19 @@ class NativeRole(unittest.TestCase):
             payload = self.role.prepare(context, self.config)
             forged = copy.deepcopy(payload); forged['artifacts'].pop()
             with self.assertRaisesRegex(ValueError, 'pins differ'): self.role.verify(context, forged, self.config)
-            with self.assertRaisesRegex(ValueError, 'ready'): self.role.verify(context, dict(payload, ready=False), self.config)
+            with self.assertRaisesRegex(ValueError, 'readiness differs'):
+                self.role.verify(context, dict(payload, ready=False), self.config)
+            with self.assertRaisesRegex(ValueError, 'one complete preparation'):
+                self.role.verify(context, dict(payload, complete=False), self.config)
+            stop = {'cell': fixture.PROFILE+'/cell-grey-007-s044__rest', 'statistic': 'deep8-channel-median',
+                    'reason': 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'}
+            with self.assertRaisesRegex(ValueError, 'readiness differs'):
+                self.role.verify(context, dict(payload, stops=[stop]), self.config)
+            # A stop the read does not carry, even with a consistent readiness, is refused.
+            forged = copy.deepcopy(payload); forged.update(ready=False, stops=[stop])
+            forged['nativeExposure']['ready'] = False
+            with self.assertRaisesRegex(ValueError, 'another preparation layout|differs'):
+                self.role.verify(context, forged, self.config)
             fixture_root = Path(next(iter(payload['nativeExposure']['fixtures'].values()))['path'])
             (fixture_root/'manifest.json').write_text('{"changed": true}\n')
             with self.assertRaisesRegex(ValueError, 'changed'): self.role.verify(context, payload, self.config)
@@ -302,6 +324,8 @@ class NativeRole(unittest.TestCase):
         kit = self.kit
         capture = kit.repo/'synthetic-capture.py'; capture.write_text(CAPTURE)
         kit.register('capture', capture, kit.pin(capture))
+        owner = kit.repo/'synthetic-owner.py'; owner.write_text(OWNER)
+        kit.register('owner', owner, kit.pin(owner))
         calls = {'prepare': 0, 'verify': []}
         prepare, verify = self.role.prepare, self.role.verify
         def counted_prepare(context, config):
@@ -309,7 +333,7 @@ class NativeRole(unittest.TestCase):
         def counted_verify(context, payload, config):
             calls['verify'].append(context['stage']); return verify(context, payload, config)
         self.role.prepare, self.role.verify = counted_prepare, counted_verify
-        if wrap: wrap(self.role.P)
+        if wrap: wrap(self.role)
         return calls
 
     def test_execute_attempt_prepares_once_and_a_later_attempt_only_verifies_without_public_values(self):
@@ -334,11 +358,11 @@ class NativeRole(unittest.TestCase):
 
     def test_a_noisy_failing_native_read_is_quarantined_and_never_replayed(self):
         kit = self.kit
-        def wrap(P):
-            measure = P._measure_blind
+        def wrap(role):
+            measure = role._measure_blind
             def noisy(*args):
                 measure(*args); print(CANARY); raise ValueError({'native': CANARY})
-            P._measure_blind = noisy
+            role._measure_blind = noisy
         calls = self.execute(wrap)
         out = io.StringIO()
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
@@ -373,8 +397,14 @@ class NativeRole(unittest.TestCase):
         def foreign_config():
             kit.components['native'] = (native, dict(config, sha256='0'*64))
             return lambda: kit.components.__setitem__('native', (native, config))
+        blind = next(self.archive/r['path'] for r in self.rows if r['roles'] == ['blind'])
+        frame = blind.read_bytes()
+        def corrupt_frame(): blind.write_bytes(frame[:-1]+bytes([frame[-1] ^ 1])); return lambda: blind.write_bytes(frame)
+        def partial_extraction():
+            aside = kit.base/'frame-aside'; blind.rename(aside); return lambda: aside.rename(blind)
         cases = [(missing_asset, 'archive asset hash mismatch'), (changed_index, 'Archive root hash differs'),
-                 (stray_file, 'Archive membership mismatch'), (foreign_config, 'not pinned')]
+                 (stray_file, 'Archive membership mismatch'), (foreign_config, 'not pinned'),
+                 (corrupt_frame, 'Archive hash mismatch'), (partial_extraction, 'Archive hash mismatch')]
         out = io.StringIO()
         with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
             for ordinal, (break_environment, message) in enumerate(cases, 1):
@@ -396,27 +426,31 @@ class NativeRole(unittest.TestCase):
         self.assertEqual(calls, {'prepare': 1, 'verify': ['native']})
         self.assertTrue(kit.store.status()['nativeComplete']); self.assertEqual(kit.store.status()['remaining'], 0)
 
-    def test_admit_is_metadata_only_opens_no_frame_and_writes_nothing(self):
+    def test_admit_hashes_every_member_decodes_no_frame_and_writes_nothing(self):
+        """The pre-marker admission reads the bytes prepare will read, through the archive's own
+        verify_archive (pre-seal review P2), and stops there: no decode, statistic or write."""
         kit = self.kit; opened = []
         real = io.open
         def recording(file, *args, **kwargs):
             if isinstance(file, (str, Path)): opened.append(Path(file).resolve())
             return real(file, *args, **kwargs)
-        forbidden = AssertionError('frame or payload read')
+        forbidden = AssertionError('frame decoded or payload read')
         with kit.lease():
             attempt, claim = kit.attempt_claim()
             with kit.stage('native-admission', claim) as context:
                 before = self.tree(kit.base)
                 with patch('builtins.open', recording), patch('io.open', recording), \
-                        patch.object(self.role.P.A, 'verify_archive', side_effect=forbidden), \
+                        patch.object(self.role.P.R, 'read_verified_frame', side_effect=forbidden), \
+                        patch.object(self.role.P.R.S, 'read_frame', side_effect=forbidden), \
+                        patch.object(self.role.P.R.S, 'decode_png', side_effect=forbidden), \
                         patch.object(self.role.P, '_copy_fixtures', side_effect=forbidden), \
-                        patch.object(self.role.P, '_measure_blind', side_effect=forbidden):
+                        patch.object(self.role, '_measure_blind', side_effect=forbidden):
                     self.assertEqual(self.role.admit(context, self.config), {'admitted': True})
                 self.assertEqual(self.tree(kit.base), before)
                 archive = self.archive.resolve()
-                self.assertIn(archive/'index.json', opened)
                 self.assertEqual({p for p in opened if p.is_relative_to(archive)},
-                                 {archive/'index.json', archive/'index.sha256'})
+                                 {archive/'index.json', archive/'index.sha256'} |
+                                 {(archive/r['path']).resolve() for r in self.rows})
                 self.assertIn(self.asset.resolve(), opened)
                 member = attempt['members'][0]
                 for name, call in (('payload', lambda: kit.D.require_payload(context, {'path': str(self.asset)})),
@@ -445,6 +479,128 @@ class NativeRole(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'native admission capability'):
                     role.admit(context, self.config)
         self.assertFalse((fit.output/'native-blind.started.json').exists())
+
+    # DL5m item 4 and DL5n: what may and may not stop a started read --------------------------
+    @contextlib.contextmanager
+    def readings(self, frames=(), silhouettes=()):
+        """Synthetic blind data properties at the role's own reading seam. `frames` maps
+        (cell, run) to a change of the decoded frame; `silhouettes` maps (cell, run) to the
+        detected-silhouette mask that run reads instead (its real read_support on that frame)."""
+        R = self.role.P.R; frames, silhouettes = dict(frames), dict(silhouettes); last = {}
+        verified, read_frame = R.read_verified_frame, R.S.read_frame
+        def changed_frame(root, row, canvas, scale):
+            rgb = verified(root, row, canvas, scale); last['key'] = (row['cell'], row['run'])
+            return frames[last['key']](rgb) if last['key'] in frames else rgb
+        def changed_reading(rgb, *args, **kwargs):
+            out = read_frame(rgb, *args, **kwargs)
+            if last['key'] in silhouettes:
+                support = R.S.read_support(rgb, silhouettes[last['key']](rgb.shape[:2]), retain_mask=True)
+                out['supports']['full-silhouette'] = support
+                out['statistics']['T1-full-silhouette'] = {'status': support['status'], 'support': 'full-silhouette',
+                    'units': 'linear-luma', 'value': support.get('linearLumaStdDev')}
+            return out
+        with patch.object(R, 'read_verified_frame', changed_frame), patch.object(R.S, 'read_frame', changed_reading):
+            yield
+
+    def sealed_policy(self, context, artifacts):
+        """The sealed prepare._measure_blind over the same export (the pre-seal finding's referee)."""
+        P = self.role.P; settings = json.loads((self.kit.repo/self.config['path']).read_text())
+        export = Path(artifacts['export']['path'])
+        index = P.A.verify_archive(export, artifacts['export']['indexSha256'])
+        _, _, rows = P.selected_rows(index, self.manifest, self.scenes, settings['partOne']['sha256'])
+        return P._measure_blind(context, self.runs[0], export, artifacts['export']['indexSha256'], rows,
+                                self.manifest, self.scenes, settings['partOne']['sha256'])
+
+    def test_incomplete_reported_keys_are_recorded_with_a_metadata_cause_never_a_stop(self):
+        """DL5m item 4: a REPORTED blind T1 that reads nothing (a non-eligible key with an empty
+        silhouette) or an eligible key empty in only some runs is UNMEASURED_REPORTED with its
+        cause; the read stays ready. The sealed policy stopped or raised on both."""
+        profile = fixture.PROFILE
+        reported = profile+'/cell-grey-028-s224__rest'   # DL5a, active: not DL5c-eligible
+        control = profile+'/cell-grey-000-s224__inactive'  # DL5c-eligible, empty in runs 1-2 only
+        def block(shape): mask = np.zeros(shape, bool); mask[180:200, 240:270] = True; return mask
+        flat = {(reported, n): (lambda rgb: np.full_like(rgb, 28)) for n in (1, 2, 3)}
+        with self.native_stage() as context, self.readings(flat, {(control, 3): block}):
+            payload = self.role.prepare(context, self.config)
+            self.role.verify(context, payload, self.config)
+            with self.assertRaisesRegex(ValueError, 'three real zero native silhouettes'):
+                self.sealed_policy(context, payload['nativeExposure'])
+        self.assertEqual((payload['ready'], payload['complete'], payload['stops']), (True, True, []))
+        report = json.loads(Path(payload['nativeExposure']['nativeRead']['path']).read_text())
+        self.assertEqual((report['ready'], report['stops']), (True, []))
+        cells = {c['id']: c for c in report['cells']}
+        for identity, unread, eligible in ((reported, [1, 2, 3], False), (control, [1, 2], True)):
+            t1 = cells[identity]['statistics']['T1-full-silhouette']
+            self.assertEqual((t1['status'], t1['value'], t1['B'], t1['required']), ('UNMEASURED_REPORTED', None, None, False))
+            self.assertEqual(t1['cause'], {'kind': 'INCOMPLETE_READING', 'side': 'native',
+                                           'unmeasuredRuns': unread, 'eligibleEmptySupport': eligible})
+        self.assertEqual(payload['nativeExposure']['emptySupportWitnesses'], [])
+        self.assertEqual({s['status'] for c in report['cells'] for n, s in c['statistics'].items()
+                          if c['id'] not in (reported, control) or n != 'T1-full-silhouette'}, {'MEASURED', 'REPORTED'})
+
+    def test_the_sealed_policy_stops_a_non_eligible_empty_reported_key(self):
+        """The finding reproduced alone: the sealed policy turns a REPORTED key into a stop."""
+        reported = fixture.PROFILE+'/cell-grey-028-s224__rest'
+        flat = {(reported, n): (lambda rgb: np.full_like(rgb, 28)) for n in (1, 2, 3)}
+        with self.native_stage() as context, self.readings(flat):
+            payload = self.role.prepare(context, self.config)
+            sealed = self.sealed_policy(context, payload['nativeExposure'])
+        self.assertEqual(payload['stops'], [])
+        self.assertEqual([(s['cell'], s['statistic'], s['reason']) for s in sealed['stops']],
+                         [(reported, 'T1-full-silhouette', 'UNMEASURED_UNAUTHORISED_POPULATION')])
+
+    REQUIRED = [(fixture.PROFILE+'/cell-grey-007-s044__rest', 'central8-channel-median', 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'),
+                (fixture.PROFILE+'/cell-grey-007-s044__rest', 'deep8-channel-median', 'NATIVE_SPREAD_EXCEEDS_ONE_CODE'),
+                (fixture.PROFILE+'/cell-impulse-sparse-s224__rest', 'T1-full-silhouette', 'UNMEASURED_UNAUTHORISED_POPULATION')]
+
+    def required_stops(self):
+        """A required spread past one code (uniform, run 3 three codes up) and a required T1 with
+        no silhouette (structured, body drawn at its own black backdrop)."""
+        uniform, structured = self.REQUIRED[0][0], self.REQUIRED[2][0]
+        up = lambda rgb: (rgb.astype(np.int16)+3).clip(0, 255).astype(np.uint8)
+        return self.readings({(uniform, 3): up, **{(structured, n): np.zeros_like for n in (1, 2, 3)}})
+
+    def test_a_required_stop_completes_the_read_not_ready_with_metadata_stops(self):
+        """DL5n: the read completes and is returned not ready; its stops are cell, statistic and
+        reason only, equal to the read's own stops without their repeat values."""
+        with self.native_stage() as context, self.required_stops():
+            payload = self.role.prepare(context, self.config)
+            self.role.verify(context, payload, self.config)
+            for forged, message in ((dict(payload, stops=payload['stops'][1:]), 'stops differ'),
+                                    (dict(payload, stops=[dict(s, repeat=None) for s in payload['stops']]), 'metadata'),
+                                    (dict(payload, stops=payload['stops'][:1]*2), 'metadata'),
+                                    (dict(payload, ready=True), 'readiness differs')):
+                with self.subTest(message=message), self.assertRaisesRegex(ValueError, message):
+                    self.role.verify(context, forged, self.config)
+        self.assertEqual((payload['ready'], payload['complete'], payload['nativeExposure']['ready']), (False, True, False))
+        self.assertEqual([(s['cell'], s['statistic'], s['reason']) for s in payload['stops']], self.REQUIRED)
+        report = json.loads(Path(payload['nativeExposure']['nativeRead']['path']).read_text())
+        self.assertFalse(report['ready'])
+        self.assertEqual([{k: s[k] for k in ('cell', 'statistic', 'reason')} for s in report['stops']], payload['stops'])
+        self.assertTrue(report['stops'][0]['repeat']['spreadCodes'])
+        self.assertTrue(all(set(s) == {'cell', 'statistic', 'reason'} for s in payload['stops']))
+
+    def test_a_not_ready_read_is_checkpointed_once_and_later_verified_without_public_values(self):
+        """Through LIVE: the not-ready payload is the native checkpoint (DL5n), never a stop, and a
+        later attempt verifies it at qualification; stdout, events and status carry no value."""
+        kit = self.kit; calls = self.execute()
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(out):
+            with self.required_stops():
+                first = kit.D.execute_attempt(kit.root, kit.contract, kit.store.plan())
+            status = kit.store.status()
+            second = kit.D.execute_attempt(kit.root, kit.contract, kit.D.prepare_attempt(kit.root, kit.contract))
+        self.assertEqual((first['code'], second['code']), ('INSTRUMENT_FAULT', 'ATTEMPT_COMPLETE'))
+        self.assertTrue(status['nativeComplete'])
+        self.assertEqual(calls, {'prepare': 1, 'verify': ['native', 'qualification']})
+        checkpoint = json.loads((kit.output/'native-blind/quarantine/checkpoint.json').read_text())
+        self.assertEqual((checkpoint['ready'], checkpoint['complete']), (False, True))
+        self.assertEqual([(s['cell'], s['statistic'], s['reason']) for s in checkpoint['stops']], self.REQUIRED)
+        report = json.loads((kit.output/'native-blind/native-read.json').read_text())
+        spreads = {repr(v) for s in report['stops'] if s['repeat'] for v in s['repeat']['spreadCodes']}
+        self.assertTrue(spreads)
+        public = out.getvalue()+str(first)+str(second)+str(status)+str(kit.store.status())+json.dumps(checkpoint)
+        self.assertFalse([v for v in spreads if v in public])
 
     def test_source_probe_is_source_only(self):
         role = K.module(HERE/'native.py', 'w50_native_role_probe')
