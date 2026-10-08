@@ -1,0 +1,25 @@
+{
+  "schema": "w50-reference-assembly-supersession-1",
+  "ruling": "DL5o (a), recovered in DL5l's pattern; DL5m item 5 (X75/X76 records at both positions)",
+  "superseded": {
+    "binding": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+      "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+    },
+    "run": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/run.py",
+      "sha256": "107a0724b6ac8c51b6f9418be89ce5b338c39613c4bf8a18a312dc4f29cfcb59"
+    },
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/archive.json",
+      "sha256": "3d699f8c27c8530d33748afab99b60e45e28b151901ebd138c93c70a146ef10b"
+    },
+    "status": "retained unedited; its completed inventory is recorded evidence"
+  },
+  "changedFields": [
+    "ownerContracts",
+    "ownerIndex",
+    "sourcePins"
+  ],
+  "owner": "owner/r3/supersedes.json names the superseded owner reads and evidence"
+}
