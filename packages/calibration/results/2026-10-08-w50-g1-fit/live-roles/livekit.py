@@ -186,6 +186,11 @@ OWNER_RUNTIME = ('owner-candidate/live.py', 'owner-candidate/live-node.mjs', 'ow
                  'owner-candidate/live-python-shim', 'owner-candidate/bridge.ts', 'owner/node-guard.mjs',
                  'web/node-guard.mjs', 'web/vite-guard.mjs', 'execution/guard.py', 'owner-candidate/live-probe.mjs')
 VENV = Path('/Users/new/vitrea-w49/py')
+# The owner Node closure's source-only probe answers this at the process boundary; the synthetic
+# runtime closure records its hash as the exercise the owner preflight must reproduce.
+PROBE_STDOUT = '{"exercise":"synthetic source-only","pixels":"NONE"}\n'
+OWNER_AGGREGATES = ('C1', 'M1/0.25/dark/rest')
+INTRINSIC_RECORDS = ('beforeActive', 'beforeReceded', 'methods', 'activeEntries')
 
 STANDIN_COMMON = r'''
 import hashlib, json, sys, types
@@ -546,10 +551,17 @@ class PhaseSources:
         return self.statistic(row, value, copy.deepcopy(value['current'])), evidence
 
     def blind(self, run, receipt, rows, evidence):
+        """A statistic the completed read stopped (DL5n) or recorded UNMEASURED_REPORTED
+        (DL5m 4) is not computed: it reaches the judge UNMEASURED, native side null."""
         if self.context['phase'] != 'exposure' or any(r['role'] != 'blind' for r in rows):
             raise ValueError('Original blind population may only be measured inside exposure')
-        artifacts = self.live.qualification_native(self.context)['nativeExposure']
+        payload = self.live.qualification_native(self.context)
+        artifacts = payload['nativeExposure']
+        stops = {(s['cell'], s['statistic']): s['reason'] for s in payload['stops']}
         native = read(artifacts['nativeRead']['path'])
+        if native['ready'] is not payload['ready'] or \
+                {(s['cell'], s['statistic']): s['reason'] for s in native['stops']} != stops:
+            raise ValueError('Native read stops differ from the checkpoint payload')
         cells = [c for c in native['cells'] if (c['profile'], c['scene']) == (receipt['profile'], receipt['scene'])]
         if len(cells) != 1: raise ValueError('Blind member has no unique native cell')
         cell = cells[0]
@@ -561,14 +573,18 @@ class PhaseSources:
             support, units = LEVELS[name]
             witnesses = [dict(run=r['run'], **{k: r['readings']['supports'][support][k]
                               for k in ('pixels', 'maskShape', 'maskPackedBitsSha256')}) for r in cell['runs']]
-            complete = value.get('value') is not None
+            unread = (cell['id'], name) in stops or value.get('status') == 'UNMEASURED_REPORTED'
+            complete = value.get('value') is not None and not unread
             key = (receipt['profile'], receipt['renderer'], receipt['scene'], name)
             reading = shifted(value['value'], self.offset(key, receipt['lane'])) if complete else None
-            statistic = dict(status='UNMEASURED_EMPTY_SUPPORT' if not complete else 'REPORTED' if not value['required']
-                             else 'MEASURED', measurementStatus='MEASURED' if complete else 'UNMEASURED_EMPTY_SUPPORT',
+            status = 'UNMEASURED' if unread else 'UNMEASURED_EMPTY_SUPPORT' if not complete else \
+                'REPORTED' if not value['required'] else 'MEASURED'
+            statistic = dict(status=status, measurementStatus='MEASURED' if complete else
+                             'UNMEASURED' if unread else 'UNMEASURED_EMPTY_SUPPORT',
                              required=value['required'], support=support, units=units, value=reading,
                              runValues=[reading]*3, aggregation='coordinatewise-median-of-three-run-statistics',
-                             nativeValue=copy.deepcopy(value['value']), nativeRepeat=copy.deepcopy(value['repeat']),
+                             nativeValue=None if unread else copy.deepcopy(value['value']),
+                             nativeRepeat=None if unread else copy.deepcopy(value['repeat']),
                              nativeSupportWitnesses=witnesses)
             if not value['required']: statistic['B'] = None
             statistic['nativeRuns'] = [copy.deepcopy(r['evidence']) for r in cell['runs']]
@@ -620,7 +636,10 @@ def _axes(reason='synthetic owner referee'):
 class EndToEnd:
     """One synthetic world: a sealed root, three batches and the real dispatcher (see above)."""
 
-    def __init__(self, case, *, offsets=None):
+    def __init__(self, case, *, offsets=None, levels=None):
+        """offsets: candidate-lane reading shifts by key (synthetic/control.json). levels: native
+        frame levels by (cell id, run), overriding the archive's defaults (a blind data property)."""
+        self.levels = dict(levels or {})
         temp = tempfile.TemporaryDirectory(); case.addCleanup(temp.cleanup)
         self.case = case; self.base = Path(temp.name).resolve()
         self.repo = self.base/'repo'; self.repo.mkdir()
@@ -635,11 +654,14 @@ class EndToEnd:
         self.build_root()
         self.build_batches()
         self.put('synthetic/control.json', {'offsets': offsets or {}})
-        self.child = []
+        self.child = []; self.probes = []
         real = subprocess.run
         def run(args, *a, **kw):
             if isinstance(args, (list, tuple)) and len(args) == 2 and str(args[1]).endswith('owner-candidate/live-node.mjs'):
                 return self.owner_child(args, kw)
+            if isinstance(args, (list, tuple)) and str(args[-1]).endswith('owner-candidate/live-probe.mjs'):
+                self.probes.append(list(args))
+                return subprocess.CompletedProcess(args, 0, stdout=PROBE_STDOUT, stderr='')
             return real(args, *a, **kw)
         from unittest import mock
         patcher = mock.patch.object(subprocess, 'run', side_effect=run); patcher.start(); case.addCleanup(patcher.stop)
@@ -753,7 +775,8 @@ class EndToEnd:
                 -30 if spec.get('pose') == 'receded' else 20
             for run in ([1] if is_ref else [1, 2, 3]):
                 role = 'blind' if is_ref and 'blind' in spec['roles'] else spec.get('role', 'calibration')
-                row, raw = self.reader.fixture_row(spec, run, self.scenes, role, level=level)
+                row, raw = self.reader.fixture_row(spec, run, self.scenes, role,
+                                                   level=self.levels.get((spec['id'], run), level))
                 row['roles'] = spec['roles'] if is_ref else [spec['role']]
                 row['declarationSha256'] = declaration
                 if spec['scene'].endswith('inactive'):
@@ -858,8 +881,13 @@ class EndToEnd:
             'inventory': self.references, 'cut': self.cut, 'currentGeneration': CURRENT_GENERATION,
             'w48Generation': W48_GENERATION})
         configs = {}
+        # The prepared current owner report's membership (judge/live.owner_membership): every owner
+        # union cell the referee stand-in reports, and its aggregates.
+        self.owner_report = self.put('synthetic/owner-current-report.json', {'synthetic': 'prepared current owner report'})
+        union = {'report': self.owner_report, 'aggregates': sorted(OWNER_AGGREGATES),
+                 'cells': sorted({'/'.join(k[:3]) for k in self.dependencies['ownerUnionKeys']})}
         configs['judge'] = self.put(ROLE_FILES['judge'][1], {'schema': 'w50-judge-config-1', 'references': self.references,
-            'binding': self.binding, 'ownerContracts': self.owner_contracts, 'targets': self.targets})
+            'binding': self.binding, 'ownerContracts': self.owner_contracts, 'targets': self.targets, 'ownerUnion': union})
         configs['fit'] = self.put(ROLE_FILES['fit'][1], {'schema': 'w50-fit-analysis-config-1', 'partTwo': self.two,
                                                          'references': self.references})
         self.composition = self.put('synthetic/completed-current-composition.json', {'synthetic': 'composition'})
@@ -885,12 +913,19 @@ class EndToEnd:
                                                                        'references': self.references})
         self.host = self.pin(self.text('synthetic/new-bed-host.mjs', '// synthetic new-bed host\n'))
         self.web_closure = self.put('synthetic/web-source-closure.json', {'sources': [self.host]})
-        self.intrinsic = self.put('synthetic/owner-intrinsic.json', {'syntheticRecords': []})
+        # LIVE checks the owner's intrinsic records structurally before any marker: declarations
+        # exactly the cohort, and both positions' receded records resolving by hash.
+        receded = {position: {name: self.pin(self.text(f'synthetic/intrinsic/{position}-{name}.json',
+                                                        json.dumps({'synthetic': name, 'position': position})+'\n'))
+                              for name in INTRINSIC_RECORDS} for position in ('0.25', '0.5')}
+        self.intrinsic = self.put('synthetic/owner-intrinsic.json', {'candidateDeclarations': self.cohort,
+                                                                     'recededRecords': receded})
         node = self.absolute(shutil.which('node'))
         tsx = self.absolute(REAL_REPO/'packages/calibration/node_modules/tsx/dist/esm/api/index.mjs')
         owner_runtime = self.put('synthetic/owner-runtime.json', {'schema': 'w50-owner-candidate-runtime-1',
             'sources': [self.pin(self.fit_dir/p) for p in OWNER_RUNTIME], 'exercise': 'synthetic source-only',
-            'probe': self.absolute(self.fit_dir/'owner-candidate/live-probe.mjs'), 'toolchain': {'node': node, 'tsx': tsx}})
+            'probe': self.absolute(self.fit_dir/'owner-candidate/live-probe.mjs'), 'toolchain': {'node': node, 'tsx': tsx},
+            'exerciseSha256': hashlib.sha256(PROBE_STDOUT.encode()).hexdigest()})
         configs['owner'] = self.put(ROLE_FILES['owner'][1], {'schema': 'w50-owner-candidate-config-1',
             'ownerInputs': self.absolute(self.text('synthetic/owner-inputs.json', '{}\n')),
             'completedOwnerReferences': self.absolute(self.text('synthetic/owner-references.json', '{}\n')),
@@ -992,8 +1027,7 @@ class EndToEnd:
         request = json.loads(kwargs['input'])
         snapshot = json.loads(Path(request['snapshot']['path']).read_text())
         cells = {'/'.join(k[:3]): _axes() for k in snapshot['ownerUnionKeys']}
-        report = {'cells': cells, 'aggregates': {'C1': {'state': 'MEASURED', 'verdict': 'within'},
-                                                 'M1/0.25/dark/rest': {'state': 'MEASURED', 'verdict': 'within'}},
+        report = {'cells': cells, 'aggregates': {name: {'state': 'MEASURED', 'verdict': 'within'} for name in OWNER_AGGREGATES},
                   'intrinsic': {'X75': {f'endpoint-{i:02}': {'state': 'MEASURED', 'verdict': 'within'} for i in range(12)},
                                 'X76': {p: {'state': 'MEASURED', 'verdict': 'within'} for p in ('0.25', '0.5')}},
                   'provenance': {'synthetic': 'owner referee stand-in'}, 'noNewTrade': 'synthetic',

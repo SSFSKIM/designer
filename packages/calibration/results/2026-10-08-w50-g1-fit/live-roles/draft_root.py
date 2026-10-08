@@ -69,15 +69,16 @@ def role_inputs(name, config):
     judge/fit: judge/live.inputs reads its config, binding, target config and that config's cut
     through `registered` (root AND context inputs), and fit/live.evaluate reads its own config the
     same way and then the judge's, so a missing pin fails the fit analysis before the gate. The
-    inventory, owner snapshot and part two the configs also name are read by pin; they are
-    registered too, so the root binds every pin either config names.
+    inventory, owner snapshot, owner-union report and part two the configs also name are read by
+    pin; they are registered too, so the root binds every pin either config names.
     initializer: fit/execution._state registers its config, the runtime closure (_runtime_spec),
     completedCurrent (= root.currentEvidence) and that evidence's scenes and native batch, and
     initialize registers the two exposed native reports."""
     doc = D.load(config)
     if name == 'judge':
         targets = D.load(D.checked(REPO, doc['targets']))
-        return [doc['references'], doc['binding'], doc['ownerContracts'], doc['targets'], targets['cut']]
+        union = [doc['ownerUnion']['report']] if 'ownerUnion' in doc else []
+        return [doc['references'], doc['binding'], doc['ownerContracts'], doc['targets'], targets['cut'], *union]
     if name == 'fit':
         return [doc['partTwo'], doc['references']]
     if name == 'initializer':

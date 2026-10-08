@@ -279,9 +279,16 @@ def admit(context, config):
     sys.modules['w50_g1_dispatch'].require_native_admission(context)
 def prepare(context, config):
     sys.modules['w50_g1_dispatch'].require_native_preparation(context)
-    return {'ready': True, 'artifacts': []}
+    return {'ready': True, 'complete': True, 'stops': [], 'artifacts': []}
 def verify(context, payload, config):
-    assert payload == {'ready': True, 'artifacts': []}
+    assert payload == {'ready': True, 'complete': True, 'stops': [], 'artifacts': []}
+'''
+# LIVE admits the owner, metadata only, before the native marker (pre-seal review P1).
+OWNER = '''import sys
+def admit(context, config):
+    sys.modules['w50_g1_dispatch'].require_owner_admission(context); return {'admitted': True}
+def evaluate(context, captures, config):
+    raise ValueError('synthetic owner is admission-only')
 '''
 
 
@@ -319,6 +326,8 @@ class Capture(unittest.TestCase):
         self.role = kit.register('capture', HERE/'capture.py', self.config)
         native = kit.repo/'native_role.py'; native.write_text(NATIVE)
         kit.register('native', native, kit.pin(kit.repo/'repeat-config.json'))
+        owner = kit.repo/'owner_role.py'; owner.write_text(OWNER)
+        kit.register('owner', owner, kit.pin(owner))
         self.kit = kit
         return kit
 

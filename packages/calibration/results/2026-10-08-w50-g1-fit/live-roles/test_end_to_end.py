@@ -14,6 +14,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+import unittest.mock
 
 HERE = Path(__file__).resolve().parent
 spec = importlib.util.spec_from_file_location('w50_end_to_end_kit', HERE/'livekit.py')
@@ -167,6 +168,49 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(cell['cause']['sides'], ['candidate'])
         self.assertEqual([cell[k] for k in ('native', 'current', 'candidate', 'B')], [None]*4)
         self.validate(world, exposure, exposed)
+
+    def test_an_empty_reported_native_silhouette_is_unmeasured_reported_and_still_passes(self):
+        """DL5m item 4 through the real native role: a non-eligible reported T1 whose native
+        silhouette reads nothing (the span-224 body drawn at its own grey-028 backdrop) is
+        recorded, never a stop; the read stays ready and the exposure still PASSes."""
+        cell = K.P5+'/cell-grey-028-s224__rest'
+        world = K.EndToEnd(self, levels={(cell, n): -22 for n in (1, 2, 3)})
+        self.fit_and_gate(world)
+        exposure, exposed = world.phase('exposure')
+        checkpoint = json.loads((Path(str(exposure)+'.phase')/'native.complete.json').read_text())
+        payload = json.loads(Path(checkpoint['payload']['path']).read_text())
+        self.assertEqual((payload['ready'], payload['stops']), (True, []))
+        report = exposed['report']
+        self.assertEqual(report['status'], 'PASS')
+        for renderer in ('webgpu', 'css'):
+            item = next(c for c in report['cells'] if key(c) == (K.P5, renderer, 'cell-grey-028-s224__rest', 'T1-full-silhouette'))
+            self.assertEqual(item['status'], 'UNMEASURED_REPORTED')
+            self.assertEqual(item['cause']['kind'], 'INCOMPLETE_READING')
+            self.assertIn('native', item['cause']['sides'])
+        self.validate(world, exposure, exposed)
+
+    def test_a_fault_inside_the_native_read_stops_and_is_never_replayed(self):
+        """DL5k/DL5n boundary: a disk or integrity fault after native.started.json is an
+        operational stop with no checkpoint and no verdict, and the read is never replayed."""
+        world = K.EndToEnd(self)
+        self.fit_and_gate(world)
+        contract = Path(world.D.create_phase(world.root, world.batches['exposure'], world.outputs['exposure']))
+        attempt = world.D.prepare_attempt(world.root, contract)
+        read = Path.read_bytes
+        def faulty(path):
+            if 'native-blind/role-export/' in str(path) and path.suffix == '.png':
+                raise OSError('synthetic disk fault')
+            return read(path)
+        with unittest.mock.patch.object(Path, 'read_bytes', faulty):
+            event = world.D.execute_attempt(world.root, contract, attempt)
+        home = Path(str(contract)+'.phase')
+        self.assertEqual(event['code'], 'INSTRUMENT_FAULT')
+        self.assertTrue((home/'native.started.json').is_file())
+        self.assertFalse((home/'native.complete.json').exists())
+        self.assertIn('synthetic disk fault', (world.outputs['exposure']/'attempts/000001/quarantine/worker.log').read_text())
+        with self.assertRaisesRegex(ValueError, 'cannot be replayed'):
+            world.D.prepare_attempt(world.root, contract)
+        self.assertFalse(Path(str(contract)+'.result.json').exists())
 
     def test_a_failing_gate_row_is_neither_and_admits_no_exposure(self):
         world = K.EndToEnd(self, offsets={'|'.join(GATED): 10})
