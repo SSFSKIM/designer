@@ -419,7 +419,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5j are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5k are recorded verbatim (2026-10-08); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -563,6 +563,17 @@ reported. Canonical T1 regression stays WebGPU-only per the inventory; new-bed s
 DL5j (parent, before any candidate read). Input 64 is reported as a diagnostic on both tiers.
 Numerical identity to the current law at 64 is required on both tiers, so a candidate that moves
 the join fails. There is no separate CSS growth gate at 64.
+
+DL5k (parent, standing; after canonical attempt 3 stopped on a census refusal of a foreign
+Playwright Chrome, since exited). An OPERATIONAL stop (census refusal, transport/admission fault,
+lease loss) before a phase's result exists and before any statistic of that phase is computed is
+recovered, in every W50 web phase including the one exposure, by: preserving the burned attempt
+with its claim/log/artifact hashes; sealing a recovery naming it and this ruling, which keeps the
+already-validated draws by content hash and captures only the remaining fixed members under the
+unchanged admission (DL5h); launching only when the census reads clean, never by touching another
+owner's process. A recovery never changes membership, candidate bytes, rule or reference, and
+never computes a statistic on a partial phase. The worker applies this without a new ruling and
+reports each use.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
@@ -769,3 +780,28 @@ or release changed, and the main checkout was not edited.
   the NATIVE REPEAT BAR, not the landing B:0.05 code at the0.5-code bar floor. Cells without
   finite source-bound budgets retain byte-identity admission. No coefficient or candidate has
   been read, and no incomplete current result is promoted to reference readiness.
+
+- G1 current-only attempt3 — Root `dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44`
+  and both fixed contracts were committed at `c722c3bce` before launch. Its35-Python/241-web-source
+  closure was exercised and enforced;151 synthetic tests passed. The independent high consumer
+  review found no material findings (static review, not an independent test pass). The recovery
+  keeps exactly501 original draws and admits171 fresh new-bed plus127 canonical draws; canonical
+  execution requires the first batch's completed result. Fresh pairs retain both images and both
+  source-validated reports; archived readers authenticate their completed chain and shared pure
+  repeat proof without inventing a live capability. The new-bed recovery was launched; this
+  entry records its prospective authority, not pre-fit readiness. DL5j keeps input64 diagnostic
+  on both tiers while requiring numerical identity there; DL5d's full-union timing includes the
+  six unchanged W48 T1 target aggregates. No candidate or exposure has been read.
+
+- G1 attempt3 results — The new-bed batch completed with result SHA
+  `20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d`:672 logical captures,
+  comprising501 unchanged legacy draws and171 fresh draws (170 byte-identical, one admitted
+  under its own native repeat band). The canonical prerequisite verifier accepted that result.
+  Canonical execution then stopped at the second cell's census on another owner's Playwright
+  Chrome. One raw canonical cell had produced a retained pair and transport compare row, but
+  no adapter repeat admission, completed run or phase result existed. No statistics were read
+  from that partial transport output. Its20 files, claim and log are preserved under
+  `results/2026-10-08-w50-g1-current3/evidence/current-canonical-attempt3/`; failure SHA
+  `bd14e087d15ef009271eff425a9058a3446159b17dea6925fa1ed7675ea02495`. The lease was released;
+  the foreign processes were not touched. DL5k authorises an additive canonical recovery while
+  preserving the completed new-bed chain. Full current/reference completion remains pending.
