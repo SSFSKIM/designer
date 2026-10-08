@@ -63,7 +63,7 @@ else if (request.operation === 'build') {
   const destination = resolve(request.output);
   const fitDirectory = dirname(self);
   if (!destination.startsWith(fitDirectory+'/')) throw Error('Candidate destination is outside fitting scratch');
-  output = await bridge.assembleCandidate(baseline, request.charts, destination);
+  output = await bridge.assembleCandidate(baseline, request.charts, destination, request.provenance);
 } else throw Error('Unknown bounded runtime operation');
 for (const [path, sha256] of Object.entries(sources)) {
   if (hash(inside(path).absolute) !== sha256) throw Error('Runtime source changed during arithmetic');

@@ -245,17 +245,33 @@ def _write_once(path, value):
         stream.flush(); os.fsync(stream.fileno())
 
 
+def _provenance(state, result, digest):
+    """The method lines DL5o's fitted chart records carry: pins and digests only, no value."""
+    reports = result['nativeReports']
+    return ['W50 G1 analytical initializer (fit/execution.py initialize, fit/uniform.py fit_joint): '
+            f'initializer proposal digest {digest}',
+            f"part 2 sha256 {state['root']['partTwo']['sha256']}; pre-fit evidence "
+            f"{result['preFitEvidence']['path']} sha256 {result['preFitEvidence']['sha256']}",
+            'native reports ' + '; '.join(f"{role} {reports[role]['path']} sha256 {reports[role]['sha256']}"
+                                         for role in sorted(reports)),
+            f"observations sha256 {result['observationIdentitySha256']}; fixed64 joins sha256 "
+            f"{result['fixedJoinsSha256']}"]
+
+
 def assemble(execution_root):
-    """Build exactly the initializer proposal through the production builder, not a seal."""
+    """Build exactly the initializer proposal through the production builder, not a seal.
+    Each candidate carries DL5o's X76 records, the fitted ones naming this proposal."""
     result = initialize(execution_root)
     state = _state(execution_root)
-    destination = state['output']/'candidates'/state['inputs'].digest(result)
+    digest = state['inputs'].digest(result)
+    destination = state['output']/'candidates'/digest
     cohort = []
     for baseline in result['capturedCohort']:
         position = baseline['position']
         charts = {pose: result['endpoints'][f'{pose}.dark.{position}'] for pose in ('active','receded')}
         item = _bridge(state, 'build', baseline={k:baseline[k] for k in ('path','sha256')},
-                       charts=charts, output=str(destination/str(position)))
+                       charts=charts, output=str(destination/str(position)),
+                       provenance=_provenance(state, result, digest))
         cohort.append(dict(position=position, **_pin(state['repo'], Path(item['path']))))
     _write_once(destination/'initializer.json', result)
     return dict(status='UNSEALED_ANALYTICAL_CANDIDATE', cohort=cohort,

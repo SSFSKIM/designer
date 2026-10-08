@@ -102,8 +102,9 @@ export async function proveTransfer(captured: Pin, evaluation: Pin) {
     cssTierMappingSha256: before.parsed.cssTierMappingSha256 };
 }
 
-/** The existing builder owns document composition/digests; no parallel implementation. */
-export async function assembleCandidate(baseline: Pin, charts: unknown, output: string) {
+/** The existing builder owns document composition/digests and DL5o's X76 records; no parallel
+ * implementation. */
+export async function assembleCandidate(baseline: Pin, charts: unknown, output: string, provenance: unknown) {
   const { builder } = await production();
-  return builder.buildCandidate(baseline, charts, output);
+  return builder.buildCandidate(baseline, charts, output, provenance);
 }

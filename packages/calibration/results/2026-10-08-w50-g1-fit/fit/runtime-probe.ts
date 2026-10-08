@@ -51,6 +51,7 @@ const charts = {
   active: [[.05,.1,.15,.2],[.06,.11,.16,.21],[.07,.12,.17,.22]],
   receded: [[.04,.09,.14,.19],[.05,.1,.15,.2],[.06,.11,.16,.21]],
 };
+const provenance = ['synthetic runtime probe point; no W50 observation'];
 const branches = { fixedJoinEndpoints: 0, builtCandidates: 0, heldTransfers: 0, heldMutationRefusals: 0 };
 for (const position of [.25,.5]) {
   const before = baseline(position, 'before');
@@ -62,7 +63,7 @@ for (const position of [.25,.5]) {
     assert.ok(values.every(r => Number.isFinite(r.value)));
     branches.fixedJoinEndpoints++;
   }
-  const candidate = await assembleCandidate(before, charts, resolve(scratch, `built-${position}`));
+  const candidate = await assembleCandidate(before, charts, resolve(scratch, `built-${position}`), provenance);
   branches.builtCandidates++;
   const proof = await proveTransfer(before, candidate);
   assert.equal(proof.position, position);
@@ -70,7 +71,7 @@ for (const position of [.25,.5]) {
   assert.equal(proof.evaluationCandidate.sha256, candidate.sha256);
   branches.heldTransfers++;
   const different = baseline(position, 'changed-sampling', true);
-  const changed = await assembleCandidate(different, charts, resolve(scratch, `changed-${position}`));
+  const changed = await assembleCandidate(different, charts, resolve(scratch, `changed-${position}`), provenance);
   await assert.rejects(proveTransfer(before, changed), /held material\/sampling/);
   branches.heldMutationRefusals++;
 }
