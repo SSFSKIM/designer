@@ -25,10 +25,12 @@ All eleven files are preserved unchanged with `fit/live-initializer/attempt-1-re
 (`6d36b7fbd`). No numerical referee, fit render, gate or exposure ran. Do NOT rerun initialize
 or change the candidate. Diagnosis found 115 canonical roles using fixtureSet instead of G0 gate;
 all other checks and all 787 identities agree. DL5p is approved and recorded below (`03a8bb004`).
-Running: binder normalisation with frozen-G0 positive/negative tests; root-3 succession admitting
-only root 2's exact committed pre-fit evidence; bind-only operator recovery retaining all eleven
-candidate/initializer files and root-2 provenance. Next: review, successor-root seal and its pre-fit
-evidence; bind-only, numerical referee, fit, fit record, gate. Report the gate verdict to the
+Landed: binder normalisation (`5ba0d668a`; frozen-G0 positive/negative tests), exact-history root-3
+succession (`a260582b6`), bind-only operator recovery (`42a4d6160`). Root-3 draft
+`execution-root-3.draft.json` (`d50cf054…`, `6e56a2cad`) validates with 72 inputs and 75 sources.
+Running: independent read-only review of `d223c8663..6e56a2cad`. Next: fill the DL5p review record,
+seal root 3 and build its pre-fit evidence; `live-run/run.py recover-bind` (never initialize),
+numerical referee, fit, fit record, gate. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
 
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
