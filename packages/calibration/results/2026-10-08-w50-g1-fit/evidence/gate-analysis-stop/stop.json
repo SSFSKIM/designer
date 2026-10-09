@@ -1,0 +1,16 @@
+{
+  "schema": "w50-gate-analysis-stop-1",
+  "status": "ANALYSIS_STOPPED_NO_VERDICT",
+  "gateCaptures": 1341,
+  "captureUnion": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.phase/captures.complete.json",
+    "sha256": "a3022525cc9111a98999eb3d1c8f1ab4dcb888ebf25495f0e2ede71974f5f0cf"
+  },
+  "failure": "Frozen candidate needs its named source-owned first-image producer",
+  "source": "measurement/projection.py:frozen_primary",
+  "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-stop/analysis.log",
+    "sha256": "ea937baaf74281fa02b87876905ea6453add8e9f85f0b322fce3e17bab1f98b6"
+  },
+  "boundary": "Gate analysis marker exists; no replay, no candidate edit, no exposure. Read-only diagnosis pending coordinator decision."
+}
