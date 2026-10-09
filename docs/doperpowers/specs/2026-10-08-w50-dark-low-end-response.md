@@ -43,10 +43,13 @@ recovery chain and the derived single-point fit record are committed. The gate b
 records are committed: 1,341 cells in 24 runs. A power outage stopped gate attempt 1 after 630
 members. After reboot, the sealed journal verifier rechecked all 630 member identities, ownership,
 payload and artifact hashes successfully; no analysis marker exists and no member was repaired or
-discarded. Gate contract/journal committed `00711dac5`; 711 members remain. Running: cold-boot
-readiness audit (accessibility, display state, real Chromium GPU). Next: fresh census and same-contract
-successor attempt 2 via `live-run/run.py --work /Users/new/vitrea-w50/g1-live run gate`; report its
-verdict BEFORE creating any exposure batch. DL5k recovery and DL5q remain in effect. The coordinator permits these recoveries and requests
+discarded. Gate contract/journal committed `00711dac5`; 711 members remain. Cold-boot checks pass:
+accessibility off, recorded display dimensions/scale/mode/profile name and Chromium hardware adapter
+match. Exact ICC byte continuity is unproven (no preboot hash); that limit and current hash are in
+`evidence/gate-postboot-readiness/`. Fresh census passes. Running: same-contract successor via
+`live-run/run.py --work /Users/new/vitrea-w50/g1-live run gate`, output
+`/Users/new/vitrea-w50/g1-live-gate-resume-2.out`. Report verdict BEFORE any exposure batch.
+DL5k recovery and DL5q remain in effect. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
