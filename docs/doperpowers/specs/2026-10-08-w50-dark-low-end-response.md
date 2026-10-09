@@ -29,10 +29,12 @@ Landed: binder normalisation (`5ba0d668a`; frozen-G0 positive/negative tests), e
 succession (`a260582b6`), bind-only operator recovery (`42a4d6160`). Root-3 draft
 `execution-root-3.draft.json` (`d50cf054…`, `6e56a2cad`) validates with 72 inputs and 75 sources.
 Review closed after the test-only post-seal P1 fix (`73e22ce3f`); root 3 is SEALED
-(`29bc57288`, hash `d50cf054…`). The review record includes the clean closure round. Running:
-root-3 `prefit` via `live-run/run.py`, output `/Users/new/vitrea-w50/g1-live-prefit-root3.out`.
-Next: commit its evidence/proofs, then `recover-bind` (never initialize), numerical referee,
-fit, fit record, gate. Report the gate verdict to the
+(`29bc57288`, hash `d50cf054…`). Root-3 pre-fit evidence is committed (`bdb0f3fef`). Bind-only
+recovery succeeded, numerical referee PASS (`545f4326e`), and all eleven preserved files still
+hash identically. The fit batch is declared in `live-execution/run/fit-batch.json`. Running:
+`live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit`; output
+`/Users/new/vitrea-w50/g1-live-fit.out`. The launch checks the clean census first. Next: preserve
+phase evidence, fit record, gate batch, gate. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
 
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
