@@ -1,0 +1,17 @@
+{
+  "schema": "w50-dl5s-preflight-refusal-1",
+  "status": "READ_ONLY_PREFLIGHT_REFUSED",
+  "actualAttempt2Invoked": false,
+  "refusal": "Read-only preflight forbids writable opens",
+  "site": "attempt2_preflight.py:44",
+  "operation": "platform.platform -> uname -p subprocess opens /dev/null with O_RDWR",
+  "stdoutBytes": 0,
+  "stderr": {
+    "path": "/Users/new/vitrea-w50/g1-live-gate-analysis-2-attempt-2-preflight.log",
+    "sha256": "5b2a7a04224d61b3b274c9e79c2cf0294e6ffb06f35dc7befdb73365030a75c3",
+    "bytes": 4492
+  },
+  "attempt2OutputExists": false,
+  "gatePayloadRead": false,
+  "next": "Await coordinator clarification; no retry or source change."
+}

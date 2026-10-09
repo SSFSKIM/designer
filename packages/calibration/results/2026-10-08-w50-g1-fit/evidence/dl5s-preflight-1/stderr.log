@@ -1,0 +1,62 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 361, in <module>
+    if __name__ == '__main__': sys.exit(main())
+                                        ~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 351, in main
+    print(W.encode(preflight()).decode(), end='')
+                   ~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 294, in preflight
+    return P.prepare(sys.modules[__name__])["proof"]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 138, in prepare
+    root, view, contract, batch, manifest, authority, guard = A.verify_seal()
+                                                              ~~~~~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_authority.py", line 147, in verify_seal
+    if guard.environment() != closure['environment']: raise ValueError('Interpreter changed')
+       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py", line 30, in environment
+    'platform': platform.platform(), 'isolated': True,
+                ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 1354, in platform
+    system, node, release, version, machine, processor = uname()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 959, in __iter__
+    (self.processor,)
+     ^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/functools.py", line 1126, in __get__
+    val = self.func(instance)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 954, in processor
+    return _unknown_as_blank(_Processor.get())
+                             ~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 886, in get
+    return func() or ''
+           ~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 922, in from_subprocess
+    return subprocess.check_output(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        ['uname', '-p'],
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        encoding="utf8",
+        ^^^^^^^^^^^^^^^^
+    ).strip()
+    ^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1005, in __init__
+    errread, errwrite) = self._get_handles(stdin, stdout, stderr)
+                         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1774, in _get_handles
+    errwrite = self._get_devnull()
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1149, in _get_devnull
+    self._devnull = os.open(os.devnull, os.O_RDWR)
+                    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 44, in audit
+    raise ValueError('Read-only preflight forbids writable opens')
+ValueError: Read-only preflight forbids writable opens
