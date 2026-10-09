@@ -34,11 +34,14 @@ recovery succeeded, numerical referee PASS (`545f4326e`), and all eleven preserv
 hash identically. The fit batch is declared in `live-execution/run/fit-batch.json`. Fit attempt 1 stopped before its first draw with CENSUS_REFUSED (foreign College Playwright
 sessions `vis` and `default`, never touch); journal preserved, zero checkpoints and no analysis
 marker. The coordinator closed those browsers with the user's approval; a fresh census passed.
-Attempt 2 retained 56/840 verified member checkpoints, then stopped on a new foreign Playwright
-session; no analysis marker exists. Its journal is committed. Running: bounded three-minute census
-watch; on clean, resume the SAME fit contract (784 remaining members), never redraw the 56.
-Attempt-2 output is `/Users/new/vitrea-w50/g1-live-fit-resume-2.out`. Repeated DL5k recoveries are
-authorised; report the foreign-browser cause only if it persists about two hours. The coordinator permits these recoveries and requests
+Attempt 2 retained 56 members. Attempt 3 retained another 494 before the host restart killed its
+child without a completion event. `Store.checkpoints` verified all 550 member identities, ownership,
+payload and artifact hashes; none needed rejection and no analysis marker exists. The interrupted
+journal is committed (`fdf263465`). A fresh census passed. Running: same-contract stale-attempt
+recovery and successor 4 via `live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit`, output
+`/Users/new/vitrea-w50/g1-live-fit-resume-4.out` (unbuffered); 290 members remain before possible
+orphan adoption. Retained members are requalified by the existing capture verifier before draws.
+Repeated DL5k recovery and DL5q remain authorised; report persistent blockage after two hours. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
