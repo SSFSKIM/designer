@@ -82,8 +82,13 @@ Reviewer-high `a8b530c885acc4748` clears historical authentication and the share
 read-only admission plan with no material findings. Exact-source clearance and attempt2 authority
 are sealed/committed (87 sources). Running: `attempt2_run.py preflight`, stdout
 `/Users/new/vitrea-w50/g1-live-gate-analysis-2-attempt-2-preflight.json`, stderr sibling `.log`.
-This is the required real read-only admission, with no marker/claim/write or old-payload parsing.
-Preserve only a CLEAN proof before the single real attempt2 invocation. Any attempt-2 refusal or post-marker fault is
+That diagnostic refused before historical admission: stdlib environment discovery opened `/dev/null`
+O_RDWR for `uname -p`, blocked by the no-write guard. No actual attempt2 invocation, output,
+marker, claim or payload read occurred; evidence in `evidence/dl5s-preflight-1/`.
+DL5s clarification 2 now makes preflight failures diagnostic, permits identity/type-checked
+`/dev/null`, and authorises further bounded recovery-tooling API repairs while preserving payload
+and write denials. Running: diagnostic repair and complete preflight, with prior preparation seals
+retained. One final reviewer-high pass must cover the CLEAN preflight/tooling before the real run. Any attempt-2 refusal or post-marker fault is
 final NEITHER; no further recovery. Original 634 and all 1,341 captures still hash-match.
 No old payloads may be parsed during development. Candidate/fit/captures/rules and the 634-file
 witness are unchanged. Report verdict BEFORE any exposure batch. This checkpoint supersedes the
