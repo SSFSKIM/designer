@@ -1,0 +1,345 @@
+{
+  "schema": "w50-dl5s-historical-pin-exceptions-1",
+  "ruling": "DL5s clarification 1",
+  "historicalCommit": "bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0",
+  "historicalEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.pre-fit-evidence.json",
+    "sha256": "93093d5c64cf37a64ab3f6b94c42d42188ddb1b900c17e85cf9b394047b740da"
+  },
+  "uniquePaths": 17,
+  "occurrenceCount": 20,
+  "paths": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+      "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+      "bytes": 137796292,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "COMMITTED_GZIP_BLOB_DECOMPRESSION",
+      "archive": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz",
+        "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50"
+      },
+      "archiveCommit": "bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "bytes": 283946703,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "COMMITTED_GZIP_BLOB_DECOMPRESSION",
+      "archive": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/evidence/completed-references.json.gz",
+        "sha256": "9307e6e495908a7cad76ab40a1498a414a28c31bb14644c6e579da971442ccc1"
+      },
+      "archiveCommit": "bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/active05ScratchBaselines/scratch-raster-identity.log",
+      "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c",
+      "bytes": 83,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-canonical-tests.log",
+      "sha256": "f450b2093e664d6bfe625de3c5cc92af764ab00c551ab4d5151cc6b5c022455b",
+      "bytes": 110,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-completion-tests.log",
+      "sha256": "8a39456c59bfb992eccc288521cd3d52b0d466f3e1684360bb00184c8c8c2cca",
+      "bytes": 105,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-composed_completion-tests.log",
+      "sha256": "f87328d2097f624fd37af633e57a8f10d66c20229f815a43f24dfb99bcd50d0e",
+      "bytes": 106,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-run-tests.log",
+      "sha256": "d8d5f1b5a5fd396acb7eefe5da6920c79e6b54bce500f8877e385dc9e069d768",
+      "bytes": 108,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-run_composed-tests.log",
+      "sha256": "372ae5fb1c463ea2634e24d964e27892629cdc0cf08a893eb49a16bc687f6958",
+      "bytes": 102,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-statistics-tests.log",
+      "sha256": "7508879d45a5044a12c6a1f4893369e84654d4586a3823c358a41978a48f9b07",
+      "bytes": 104,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-assembler-tests.log",
+      "sha256": "85ca96fb207a9acf727b042ed3fd6fdb6890b8cc0d45810393b27db424a95d19",
+      "bytes": 110,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-bound-tests.log",
+      "sha256": "41855a6380634e4d5ef6e6b8a4b4afa9f891b191414433c9328dff783b38b91c",
+      "bytes": 102,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-bound_composed-tests.log",
+      "sha256": "9bd9a087ab7d96ca2894b1754eb64f95395af1e66cc7580b847b7a0e4b5493ab",
+      "bytes": 104,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-validator-tests.log",
+      "sha256": "8fb7c0050b03ef803e8819d7a13002f014f5486222a6e1735d7415084264e70e",
+      "bytes": 100,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/canonical-statistics-tests.log",
+      "sha256": "6c799e05befe53a65a3d6e2fe9a29f05651433ae6c547ee3ac06cbd84b49e6a9",
+      "bytes": 104,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-bootstrap-tests.log",
+      "sha256": "fa264e38954882e6cacfa72e4ceda7e694780d869fc4d30e5c38a76afaf3325d",
+      "bytes": 111,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-reader-tests.log",
+      "sha256": "97222407753d26e4af297ebe54aeb47d7ff8efdb6fa20a6ca6ae73c70fdc9396",
+      "bytes": 109,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-statistics-tests.log",
+      "sha256": "711877988b5c316f8dc19d0e4db77e7a9eba2640715bdfae8f61eaba09751fd0",
+      "bytes": 109,
+      "blobExistedAtHistoricalCommit": false,
+      "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION"
+    }
+  ],
+  "occurrences": [
+    {
+      "proof": "repeatBar",
+      "section": "sources",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+        "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+      }
+    },
+    {
+      "proof": "repeatBar",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-statistics-tests.log",
+      "sha256": "711877988b5c316f8dc19d0e4db77e7a9eba2640715bdfae8f61eaba09751fd0",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+        "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+      }
+    },
+    {
+      "proof": "repeatBar",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-reader-tests.log",
+      "sha256": "97222407753d26e4af297ebe54aeb47d7ff8efdb6fa20a6ca6ae73c70fdc9396",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+        "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+      }
+    },
+    {
+      "proof": "repeatBar",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-bootstrap-tests.log",
+      "sha256": "fa264e38954882e6cacfa72e4ceda7e694780d869fc4d30e5c38a76afaf3325d",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+        "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+      }
+    },
+    {
+      "proof": "repeatBar",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/canonical-statistics-tests.log",
+      "sha256": "6c799e05befe53a65a3d6e2fe9a29f05651433ae6c547ee3ac06cbd84b49e6a9",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+        "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+      }
+    },
+    {
+      "proof": "referenceCompletion",
+      "section": "sources",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+        "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+      }
+    },
+    {
+      "proof": "referenceCompletion",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-assembler-tests.log",
+      "sha256": "85ca96fb207a9acf727b042ed3fd6fdb6890b8cc0d45810393b27db424a95d19",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+        "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+      }
+    },
+    {
+      "proof": "referenceCompletion",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-bound-tests.log",
+      "sha256": "41855a6380634e4d5ef6e6b8a4b4afa9f891b191414433c9328dff783b38b91c",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+        "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+      }
+    },
+    {
+      "proof": "referenceCompletion",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-bound_composed-tests.log",
+      "sha256": "9bd9a087ab7d96ca2894b1754eb64f95395af1e66cc7580b847b7a0e4b5493ab",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+        "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+      }
+    },
+    {
+      "proof": "referenceCompletion",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-validator-tests.log",
+      "sha256": "8fb7c0050b03ef803e8819d7a13002f014f5486222a6e1735d7415084264e70e",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+        "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "sources",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-statistics-tests.log",
+      "sha256": "7508879d45a5044a12c6a1f4893369e84654d4586a3823c358a41978a48f9b07",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-canonical-tests.log",
+      "sha256": "f450b2093e664d6bfe625de3c5cc92af764ab00c551ab4d5151cc6b5c022455b",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-completion-tests.log",
+      "sha256": "8a39456c59bfb992eccc288521cd3d52b0d466f3e1684360bb00184c8c8c2cca",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-composed_completion-tests.log",
+      "sha256": "f87328d2097f624fd37af633e57a8f10d66c20229f815a43f24dfb99bcd50d0e",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-run-tests.log",
+      "sha256": "d8d5f1b5a5fd396acb7eefe5da6920c79e6b54bce500f8877e385dc9e069d768",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "dark05Bands",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-run_composed-tests.log",
+      "sha256": "372ae5fb1c463ea2634e24d964e27892629cdc0cf08a893eb49a16bc687f6958",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+        "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+      }
+    },
+    {
+      "proof": "active05ScratchBaselines",
+      "section": "sources",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/active05ScratchBaselines.json",
+        "sha256": "409cc610b8d1cbaf47c0784971fa438c8434d27c4a572b8e48aa958b06b85218"
+      }
+    },
+    {
+      "proof": "active05ScratchBaselines",
+      "section": "outputs",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/active05ScratchBaselines/scratch-raster-identity.log",
+      "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/active05ScratchBaselines.json",
+        "sha256": "409cc610b8d1cbaf47c0784971fa438c8434d27c4a572b8e48aa958b06b85218"
+      }
+    },
+    {
+      "proof": "newBedRendererAdapter",
+      "section": "sources",
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+      "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+      "historicalProof": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/newBedRendererAdapter.json",
+        "sha256": "dab68bff11b5fee31125ce3831b22097a05dbe25211acb8615fca04e89bb6a4e"
+      }
+    }
+  ],
+  "statement": "No git blob existed at the historical commit for these exact 17 paths. Fifteen logs are preserved late without regeneration; their raw bytes match the SHA256 already committed in the historical proofs. Two JSON byte streams match decompression of the commit-pinned gzip archives. No scientific payload JSON was parsed."
+}
