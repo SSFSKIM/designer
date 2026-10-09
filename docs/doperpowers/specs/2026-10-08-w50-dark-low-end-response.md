@@ -811,6 +811,27 @@ a3022525…, leaves every capture pin unchanged, and refuses symlinks or any pat
 outside that root. It exposes no capture, fit or exposure method and is covered by reviewer-high.
 The captureOutput-parameter alternative is declined because it changes more production code.
 
+DL5r clarification 2 (parent). Both seams the worker found are granted:
+  1. the read-only `_pin_bytes` backend field set to the pinned original root;
+  2. the original root3/contract/batch pins passed to receipt_binding only, before an unchanged
+     verify_pair_semantics.
+They generalise clarification 1 into a standing principle for this recovery:
+  - READ-side authentication of an ORIGINAL capture or its retained proof uses the ORIGINAL
+    root and capture-authority pins, because that is the provenance the evidence was issued
+    under.
+  - Every WRITE and every new claim names the SUCCESSOR.
+The worker applies this at further seams without asking, under four conditions. Each use is
+listed in the adapter and covered by reviewer-high. The union, path and symlink guards hold.
+No arithmetic, sealed source or pin changes. Ask the parent only if a WRITE, a non-capture
+input (candidate, fit, contract cells, rules, references) or the witness projection would need
+anything other than this principle.
+
+Clarification 2 implementation form confirmed by the coordinator: one instance-local `_pin_bytes`
+read adapter redirects only when `external=True`, the read root equals the fresh successor output,
+and the unchanged pin is an exact artifact of the original union; all other calls delegate
+unchanged. This is gate-only; native and exposure paths are excluded.
+
+
 ### DL5 — separate current-material instrument (parent confirmation)
 
 The pre-fit current-only instrument is separate from the later single live-fit root, as G0
