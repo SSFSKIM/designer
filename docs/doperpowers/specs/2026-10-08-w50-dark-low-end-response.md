@@ -51,8 +51,18 @@ The complete union is 1,341 captures, but gate analysis STOPPED after its irreve
 `measurement/projection.py:frozen_primary` refused “Frozen candidate needs its named source-owned
 first-image producer”. No result or verdict exists. Journal and constant traceback are preserved
 in `22e442bcb`, including `evidence/gate-analysis-stop/`. Do NOT retry analysis, alter the point,
-fit record or gate population, or create exposure. Running: read-only cause and post-marker-output
-audit for the coordinator's recovery ruling; no candidate statistics are to be opened during it. The coordinator permits these recoveries and requests
+fit record or gate population, or create exposure. Read-only diagnosis is complete: canonical
+companion references overwrite an already-bound full-T1 statistic with the path row's broad
+reading dictionary, dropping `productionStatistic`. Eight gate-only impulse lg/ml T1 keys are
+affected (both scales, rest/inactive, WebGPU dark0.25); the source metrics exist.
+634 keyed measurement files were written before refusal, but neither worker saw numeric readings.
+The helper initially parsed only identity fields, then ceased all payload reads on instruction.
+Raw manifest `95295607…` is committed (`85ec9d038`); payloads stay unread in place. None of the
+eight affected keys is in the saved prefix. The proposed source-fixed comparison removes ONLY
+four top-level fields (`executionRoot`, `executionClaim`, `contract`, `batch`), retains every other
+field, and compares sorted-key, indent-2 strict JSON plus newline for all 634 with no exemptions.
+Coordinator has the complete diagnosis and proposed minimal binding-preservation diff; awaiting
+an explicit successor-analysis ruling. Nothing is replayed under ordinary DL5k authority. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
