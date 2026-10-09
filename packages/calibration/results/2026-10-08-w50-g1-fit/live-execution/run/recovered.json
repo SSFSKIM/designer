@@ -1,0 +1,36 @@
+{
+  "schema": "w50-live-run-dl5p-recovery-1",
+  "executionRootSha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882",
+  "declaration": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/dl5p-recovery.json",
+    "sha256": "e1ba493c9fcfd60c3c5f0a381b5ab067573395ed0ff1df1bd6d2466d2f5d9675"
+  },
+  "cohort": [
+    {
+      "position": 0.25,
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "position": 0.5,
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "initializer": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+    "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710"
+  },
+  "numericalCohort": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/cohort.json",
+    "sha256": "8134e7f37f45533c96e8cb7ad9b1ea75da9353bd0310df2ad8ad35b6a103c6ba"
+  },
+  "argumentManifest": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/arguments.json",
+    "sha256": "5cb5da437bfd25a0e3e7d689781b0c070d60ca4dc9d5b7ba4243754efb0b09ba"
+  },
+  "preFitEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.pre-fit-evidence.json",
+    "sha256": "93093d5c64cf37a64ab3f6b94c42d42188ddb1b900c17e85cf9b394047b740da"
+  }
+}

@@ -1,0 +1,673 @@
+{
+  "schema": "w50-measured-tone-argument-1",
+  "id": "apple-macos-27.0-1x-dark-standard-glass0.25|css|cell-grey-005-s096__rest",
+  "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+  "renderer": "css",
+  "scene": "cell-grey-005-s096__rest",
+  "variant": "regular",
+  "pose": "active",
+  "position": 0.25,
+  "dpr": 1,
+  "span": 96,
+  "role": "validation",
+  "candidateSha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89",
+  "encodedLuminance": 0.019607843137238574,
+  "linearLuminance": 0.001517634917742249,
+  "rgb": [
+    0.001517634917742249,
+    0.001517634917742249,
+    0.001517634917742249
+  ],
+  "provenance": {
+    "kind": "source",
+    "level": 0.0015176349177429237,
+    "operation": "srgb_encode(recorded decoded encoded-mean level)",
+    "capture": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.25/cell-grey-005-s096__rest/css/cell-grey-005-s096__rest__css.png",
+      "sha256": "8d94652151104cb4c3c1c7a5b88bb76fa46ee9377ca6acc34284acebc8123b48"
+    },
+    "report": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.25/cell-grey-005-s096__rest/css/report__css.json",
+      "sha256": "40e2412b72c7efd53c5b409e9d6e1be2321357a661d5ebc5f3a6104324188302"
+    },
+    "cell": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.25/cell-grey-005-s096__rest/css/cell__css.json",
+      "sha256": "31e4a895f93794f19f611962e1fade91f4d51669e414c4574ef7b92b9153ccce"
+    },
+    "candidateDocument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+      "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+    },
+    "originalDocumentPair": {
+      "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+      "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+    },
+    "result": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.result.json",
+      "sha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d"
+    },
+    "contract": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json",
+      "sha256": "6f6be35b1a8a25b78e9c0c787a5f0a532440c4408923a11fa84ec5aff0f46d55"
+    },
+    "claim": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.started.json",
+      "sha256": "69073f2486f572cc04852bfa4e9245714df9f5d1120aaf5f31ca135d08bec229"
+    },
+    "sceneSource": "w50",
+    "scenesSha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b",
+    "endpoint": {
+      "$comment": [
+        "The macOS 27 dark standard material at the Glass",
+        "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a PATCH over the unmoved runtime",
+        "default \u2014 W43 Decision Log 6; it is not a difference over the 0.5 document.",
+        "",
+        "W48 G1, claims \u00a75.213: the span-graded dark transmission and the receded fine term over",
+        "d0219cd684bf (two operators, the tone ordinates held), fitted in two stages in scratch under the hashed part 2 on the dark",
+        "WebGPU fit cells at both scales, T1 read against Apple's texture. The light 0.25 pair, the 0.5",
+        "generations and the 26.5 rows did not move (X60). It supersedes the document named in",
+        "`supersedes`; `entries` keeps the snapshot's record for every leaf W48 left where it was and",
+        "records each leaf W48 moved with its previous and 0.5 values. By X64 and X67 it may name",
+        "sizeScatterFloor2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar2x, sizeHeavySecondShareFar2x, sizeOcclusionGain, sizeScatterSpanMax, sizeScatterSpanMax2x, tintAlphaFar1x and tintAlphaFar2x beside its 0.5 twin's leaves (X44 narrowed)."
+      ],
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+      "schemaVersion": 1,
+      "recordedAt": "2026-10-06",
+      "recordedBy": "W48 G1",
+      "colorSpace": "srgb",
+      "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+      "glassTintAmount": 0.25,
+      "twin": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+        "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+      },
+      "derivedFromCandidate": {
+        "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+        "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
+        "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/active.dark.json",
+        "endpointSha256": "72c7157a9c8eda7559f2d551e8a9455d5666d60c1af0fe9350d926156a939f91"
+      },
+      "supersedes": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+        "sha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+        "resolvedMaterialSha256": "b074fc6913a91c66",
+        "generation": "packages/calibration/results/generations/d0219cd684bf.json"
+      },
+      "resolvedMaterialSha256": "791cde91d97acbc7",
+      "resolvedMaterialSha256Rule": 2,
+      "measurement": {
+        "gate": "W48 G1, claims \u00a75.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
+        "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (\u00a75.199); T1's bar from those runs (\u00a75.202 \u00a72)",
+        "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
+        "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
+        "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
+        "cuts": null
+      },
+      "entries": {
+        "backdropToneResponseThick": {
+          "status": "measured",
+          "value": [
+            0.031,
+            0.0414,
+            0.173,
+            0.196
+          ],
+          "previous": [
+            0.031,
+            0.035,
+            0.169,
+            0.196
+          ],
+          "method": [
+            "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
+            "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
+            "(Decision Log 7 item 3: only the thick row moves in dark)."
+          ]
+        },
+        "sizeOcclusionGain": {
+          "status": "materialised",
+          "value": 0.05,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "sizeScatterFloor2x": {
+          "status": "materialised",
+          "value": 1,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "sizeScatterRampStartThin1x": {
+          "status": "materialised",
+          "value": 0.72,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "sizeScatterRampStartThin2x": {
+          "status": "materialised",
+          "value": 0.46,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "optics.regular.tintAlpha": {
+          "status": "measured",
+          "value": 0.7,
+          "previous": 0.9,
+          "previousAt05": 0.9,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+          ]
+        },
+        "sizeScatterScaleGain": {
+          "status": "measured",
+          "value": -0.5,
+          "previous": -2,
+          "previousAt05": -2,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
+          ]
+        },
+        "sizeScatterSpanMax": {
+          "status": "measured",
+          "value": 160,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax = 160)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax = 160)"
+          ]
+        },
+        "sizeScatterSpanMax2x": {
+          "status": "measured",
+          "value": 160,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax2x = 160)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax2x = 160)"
+          ]
+        },
+        "tintAlphaFar1x": {
+          "status": "measured",
+          "value": 0.2,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar1x = 0.2)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar1x = 0.2)"
+          ]
+        },
+        "tintAlphaFar2x": {
+          "status": "measured",
+          "value": 0.2,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar2x = 0.2)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar2x = 0.2)"
+          ]
+        },
+        "held": {
+          "status": "held",
+          "families": {
+            "rimAndHighlight": "every rim and highlight leaf holds its 0.5 value (Decision Log 7 item 6)",
+            "outerShadow": "every outerShadow leaf holds, the receded zeros included (item 7); C1 reads identically to the pre-fit render on every cell",
+            "lens": "every lens leaf holds (the geometry did not move, \u00a75.200 \u00a74)",
+            "bodyChromaRetention": "held (item 4): M1 passes on the candidate, so the retention does not move",
+            "tintShade": "held (item 5): no tint cell misses a gate; the light receded tint reads +0.023 OKLab L light on average, a named gap",
+            "darkScatter": "held at the 0.5 values (item 2): the dark probes c01d / c01g and c02's step found no net gain on the calibration set",
+            "accessibility": "the accessibility leaves carry the 0.5 values, unmeasured at 0.25 (Decision Log 2 (b))"
+          }
+        }
+      },
+      "cssTierMapping": {
+        "blurSigmaScale": 2.2
+      },
+      "source": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+        "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+      },
+      "candidateEndpoint": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/active.dark.json",
+        "sha256": "bbee073f93e5884f33ffba743d399a4e019b9bb1db824b805d112c4319ee2104"
+      }
+    },
+    "evidenceKind": "completed-current-gate0",
+    "baseline": true,
+    "repeatAdmission": {
+      "schema": "w50-legacy-byte-identical-1",
+      "mode": "legacy-byte-identical",
+      "reading": "first",
+      "first": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell-grey-005-s096__rest__css.png",
+        "sha256": "8d94652151104cb4c3c1c7a5b88bb76fa46ee9377ca6acc34284acebc8123b48"
+      },
+      "originalEqualityAttestation": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell__css.json",
+        "sha256": "31e4a895f93794f19f611962e1fade91f4d51669e414c4574ef7b92b9153ccce"
+      },
+      "deterministic": true,
+      "repeatNoise": 0,
+      "secondRetained": false
+    },
+    "reading": "first",
+    "origin": {
+      "kind": "retained-attempt2",
+      "ordinal": 61,
+      "priorRoot": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument-root.json",
+        "sha256": "b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0"
+      },
+      "priorClaim": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument/ac706781a6d8e45d36f2ef3ddd2e7ee44069916ddbc90231bb5cf9926a8af3df.json.started.json",
+        "sha256": "9e35bfbd3237c43483d8d72f7fc8954c1b902f04b3763d555880b46ee94c2c14"
+      },
+      "priorFailure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current2/evidence/current-attempt2/failure.json",
+        "sha256": "1149befb06effa02ee02c56ceb11aa5cfe3e101f8b5240b000b9e4980e6f5303"
+      },
+      "originalArtifacts": {
+        "png": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell-grey-005-s096__rest__css.png",
+          "sha256": "8d94652151104cb4c3c1c7a5b88bb76fa46ee9377ca6acc34284acebc8123b48"
+        },
+        "cell": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell__css.json",
+          "sha256": "31e4a895f93794f19f611962e1fade91f4d51669e414c4574ef7b92b9153ccce"
+        },
+        "report": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/report__css.json",
+          "sha256": "40e2412b72c7efd53c5b409e9d6e1be2321357a661d5ebc5f3a6104324188302"
+        }
+      },
+      "originalEvidence": {
+        "record": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/w50-capture.json",
+          "sha256": "0b750aba26cc62762adcff3432478e7c056d4abb30c11b5a66aefbfd81e8ca7f"
+        },
+        "index": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/indexes/glass025-1x-active-css.json",
+          "sha256": "6fd693ddfeb9b2164303b5ffba7a368e0fd6be003606a2dd12ad4a18e2b05145"
+        },
+        "request": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/request-cell-grey-005-s096__rest.json",
+          "sha256": "bd0268d2110bb886327a75831046beebdcdcaa6027b871a72f7cf50756c27afa"
+        },
+        "census": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/census-cell-grey-005-s096__rest.json",
+          "sha256": "743e98ee6642ccbabf8cc5f9135fdb53e730573fc8df12a75f58bc5bfa12cbd6"
+        },
+        "log": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/capture-cell-grey-005-s096__rest.log",
+          "sha256": "442b5747e4d1892c5ae622580dfe522dbde8b717523c7cb70a56fbbf9fe77022"
+        }
+      }
+    },
+    "currentComposition": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+      "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+    },
+    "instrument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json",
+      "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44"
+    },
+    "batch": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/current-512-batch.json",
+      "sha256": "d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698"
+    }
+  },
+  "evaluationCandidateSha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89",
+  "capturedCandidateSha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411",
+  "currentCandidate": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+    "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+  },
+  "capturedArgument": {
+    "id": "apple-macos-27.0-1x-dark-standard-glass0.25|css|cell-grey-005-s096__rest",
+    "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+    "renderer": "css",
+    "scene": "cell-grey-005-s096__rest",
+    "variant": "regular",
+    "pose": "active",
+    "position": 0.25,
+    "dpr": 1,
+    "span": 96,
+    "role": "validation",
+    "candidateSha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411",
+    "encodedLuminance": 0.019607843137238574,
+    "linearLuminance": 0.001517634917742249,
+    "rgb": [
+      0.001517634917742249,
+      0.001517634917742249,
+      0.001517634917742249
+    ],
+    "provenance": {
+      "kind": "source",
+      "level": 0.0015176349177429237,
+      "operation": "srgb_encode(recorded decoded encoded-mean level)",
+      "capture": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.25/cell-grey-005-s096__rest/css/cell-grey-005-s096__rest__css.png",
+        "sha256": "8d94652151104cb4c3c1c7a5b88bb76fa46ee9377ca6acc34284acebc8123b48"
+      },
+      "report": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.25/cell-grey-005-s096__rest/css/report__css.json",
+        "sha256": "40e2412b72c7efd53c5b409e9d6e1be2321357a661d5ebc5f3a6104324188302"
+      },
+      "cell": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.25/cell-grey-005-s096__rest/css/cell__css.json",
+        "sha256": "31e4a895f93794f19f611962e1fade91f4d51669e414c4574ef7b92b9153ccce"
+      },
+      "candidateDocument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+        "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+      },
+      "originalDocumentPair": {
+        "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+        "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+      },
+      "result": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.result.json",
+        "sha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d"
+      },
+      "contract": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json",
+        "sha256": "6f6be35b1a8a25b78e9c0c787a5f0a532440c4408923a11fa84ec5aff0f46d55"
+      },
+      "claim": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.started.json",
+        "sha256": "69073f2486f572cc04852bfa4e9245714df9f5d1120aaf5f31ca135d08bec229"
+      },
+      "sceneSource": "w50",
+      "scenesSha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b",
+      "endpoint": {
+        "$comment": [
+          "The macOS 27 dark standard material at the Glass",
+          "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a PATCH over the unmoved runtime",
+          "default \u2014 W43 Decision Log 6; it is not a difference over the 0.5 document.",
+          "",
+          "W48 G1, claims \u00a75.213: the span-graded dark transmission and the receded fine term over",
+          "d0219cd684bf (two operators, the tone ordinates held), fitted in two stages in scratch under the hashed part 2 on the dark",
+          "WebGPU fit cells at both scales, T1 read against Apple's texture. The light 0.25 pair, the 0.5",
+          "generations and the 26.5 rows did not move (X60). It supersedes the document named in",
+          "`supersedes`; `entries` keeps the snapshot's record for every leaf W48 left where it was and",
+          "records each leaf W48 moved with its previous and 0.5 values. By X64 and X67 it may name",
+          "sizeScatterFloor2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar2x, sizeHeavySecondShareFar2x, sizeOcclusionGain, sizeScatterSpanMax, sizeScatterSpanMax2x, tintAlphaFar1x and tintAlphaFar2x beside its 0.5 twin's leaves (X44 narrowed)."
+        ],
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "schemaVersion": 1,
+        "recordedAt": "2026-10-06",
+        "recordedBy": "W48 G1",
+        "colorSpace": "srgb",
+        "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+        "glassTintAmount": 0.25,
+        "twin": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+        },
+        "derivedFromCandidate": {
+          "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+          "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
+          "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/active.dark.json",
+          "endpointSha256": "72c7157a9c8eda7559f2d551e8a9455d5666d60c1af0fe9350d926156a939f91"
+        },
+        "supersedes": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+          "sha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "resolvedMaterialSha256": "b074fc6913a91c66",
+          "generation": "packages/calibration/results/generations/d0219cd684bf.json"
+        },
+        "resolvedMaterialSha256": "791cde91d97acbc7",
+        "resolvedMaterialSha256Rule": 2,
+        "measurement": {
+          "gate": "W48 G1, claims \u00a75.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
+          "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (\u00a75.199); T1's bar from those runs (\u00a75.202 \u00a72)",
+          "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
+          "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
+          "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
+          "cuts": null
+        },
+        "entries": {
+          "backdropToneResponseThick": {
+            "status": "measured",
+            "value": [
+              0.031,
+              0.0414,
+              0.173,
+              0.196
+            ],
+            "previous": [
+              0.031,
+              0.035,
+              0.169,
+              0.196
+            ],
+            "method": [
+              "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
+              "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
+              "(Decision Log 7 item 3: only the thick row moves in dark)."
+            ]
+          },
+          "sizeOcclusionGain": {
+            "status": "materialised",
+            "value": 0.05,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "sizeScatterFloor2x": {
+            "status": "materialised",
+            "value": 1,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "sizeScatterRampStartThin1x": {
+            "status": "materialised",
+            "value": 0.72,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "sizeScatterRampStartThin2x": {
+            "status": "materialised",
+            "value": 0.46,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "optics.regular.tintAlpha": {
+            "status": "measured",
+            "value": 0.7,
+            "previous": 0.9,
+            "previousAt05": 0.9,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+            ]
+          },
+          "sizeScatterScaleGain": {
+            "status": "measured",
+            "value": -0.5,
+            "previous": -2,
+            "previousAt05": -2,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
+            ]
+          },
+          "sizeScatterSpanMax": {
+            "status": "measured",
+            "value": 160,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax = 160)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax = 160)"
+            ]
+          },
+          "sizeScatterSpanMax2x": {
+            "status": "measured",
+            "value": 160,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax2x = 160)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax2x = 160)"
+            ]
+          },
+          "tintAlphaFar1x": {
+            "status": "measured",
+            "value": 0.2,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar1x = 0.2)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar1x = 0.2)"
+            ]
+          },
+          "tintAlphaFar2x": {
+            "status": "measured",
+            "value": 0.2,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar2x = 0.2)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar2x = 0.2)"
+            ]
+          },
+          "held": {
+            "status": "held",
+            "families": {
+              "rimAndHighlight": "every rim and highlight leaf holds its 0.5 value (Decision Log 7 item 6)",
+              "outerShadow": "every outerShadow leaf holds, the receded zeros included (item 7); C1 reads identically to the pre-fit render on every cell",
+              "lens": "every lens leaf holds (the geometry did not move, \u00a75.200 \u00a74)",
+              "bodyChromaRetention": "held (item 4): M1 passes on the candidate, so the retention does not move",
+              "tintShade": "held (item 5): no tint cell misses a gate; the light receded tint reads +0.023 OKLab L light on average, a named gap",
+              "darkScatter": "held at the 0.5 values (item 2): the dark probes c01d / c01g and c02's step found no net gain on the calibration set",
+              "accessibility": "the accessibility leaves carry the 0.5 values, unmeasured at 0.25 (Decision Log 2 (b))"
+            }
+          }
+        },
+        "cssTierMapping": {
+          "blurSigmaScale": 2.2
+        },
+        "source": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+          "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+        },
+        "candidateEndpoint": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/active.dark.json",
+          "sha256": "bbee073f93e5884f33ffba743d399a4e019b9bb1db824b805d112c4319ee2104"
+        }
+      },
+      "evidenceKind": "completed-current-gate0",
+      "baseline": true,
+      "repeatAdmission": {
+        "schema": "w50-legacy-byte-identical-1",
+        "mode": "legacy-byte-identical",
+        "reading": "first",
+        "first": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell-grey-005-s096__rest__css.png",
+          "sha256": "8d94652151104cb4c3c1c7a5b88bb76fa46ee9377ca6acc34284acebc8123b48"
+        },
+        "originalEqualityAttestation": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell__css.json",
+          "sha256": "31e4a895f93794f19f611962e1fade91f4d51669e414c4574ef7b92b9153ccce"
+        },
+        "deterministic": true,
+        "repeatNoise": 0,
+        "secondRetained": false
+      },
+      "reading": "first",
+      "origin": {
+        "kind": "retained-attempt2",
+        "ordinal": 61,
+        "priorRoot": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument-root.json",
+          "sha256": "b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0"
+        },
+        "priorClaim": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument/ac706781a6d8e45d36f2ef3ddd2e7ee44069916ddbc90231bb5cf9926a8af3df.json.started.json",
+          "sha256": "9e35bfbd3237c43483d8d72f7fc8954c1b902f04b3763d555880b46ee94c2c14"
+        },
+        "priorFailure": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-current2/evidence/current-attempt2/failure.json",
+          "sha256": "1149befb06effa02ee02c56ceb11aa5cfe3e101f8b5240b000b9e4980e6f5303"
+        },
+        "originalArtifacts": {
+          "png": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell-grey-005-s096__rest__css.png",
+            "sha256": "8d94652151104cb4c3c1c7a5b88bb76fa46ee9377ca6acc34284acebc8123b48"
+          },
+          "cell": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/cell__css.json",
+            "sha256": "31e4a895f93794f19f611962e1fade91f4d51669e414c4574ef7b92b9153ccce"
+          },
+          "report": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/report__css.json",
+            "sha256": "40e2412b72c7efd53c5b409e9d6e1be2321357a661d5ebc5f3a6104324188302"
+          }
+        },
+        "originalEvidence": {
+          "record": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/cell-grey-005-s096__rest/w50-capture.json",
+            "sha256": "0b750aba26cc62762adcff3432478e7c056d4abb30c11b5a66aefbfd81e8ca7f"
+          },
+          "index": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/indexes/glass025-1x-active-css.json",
+            "sha256": "6fd693ddfeb9b2164303b5ffba7a368e0fd6be003606a2dd12ad4a18e2b05145"
+          },
+          "request": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/request-cell-grey-005-s096__rest.json",
+            "sha256": "bd0268d2110bb886327a75831046beebdcdcaa6027b871a72f7cf50756c27afa"
+          },
+          "census": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/census-cell-grey-005-s096__rest.json",
+            "sha256": "743e98ee6642ccbabf8cc5f9135fdb53e730573fc8df12a75f58bc5bfa12cbd6"
+          },
+          "log": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-css/capture-cell-grey-005-s096__rest.log",
+            "sha256": "442b5747e4d1892c5ae622580dfe522dbde8b717523c7cb70a56fbbf9fe77022"
+          }
+        }
+      },
+      "currentComposition": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+        "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+      },
+      "instrument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json",
+        "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44"
+      },
+      "batch": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/current-512-batch.json",
+        "sha256": "d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698"
+      }
+    }
+  },
+  "capturedArgumentSha256": "f738ca7693d02b9b050dc12f80b7e13339056d7e535f57be916be96c11c5c09c",
+  "originalCurrentEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+    "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+  },
+  "heldSamplingProof": {
+    "schema": "w50-held-sampling-proof-1",
+    "position": 0.25,
+    "capturedCandidate": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+      "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+    },
+    "evaluationCandidate": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    "heldMaterialSha256": "aa6647abddeb46c023b1d0778369c6fd121bbf49b42f99658ff7898b47ab5ab0",
+    "lightEndpointSha256s": [
+      "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31",
+      "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+    ],
+    "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+  },
+  "argumentSemantics": "EVALUATED_CANDIDATE_USING_HELD_GATE0_SAMPLING"
+}

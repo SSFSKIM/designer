@@ -1,0 +1,1193 @@
+{
+  "schema": "w50-measured-tone-argument-1",
+  "id": "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|cell-grey-004-s096__rest",
+  "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+  "renderer": "webgpu",
+  "scene": "cell-grey-004-s096__rest",
+  "variant": "regular",
+  "pose": "active",
+  "position": 0.5,
+  "dpr": 1,
+  "span": 96,
+  "role": "calibration",
+  "candidateSha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3",
+  "encodedLuminance": 0.015686274509791424,
+  "linearLuminance": 0.0012141079341972192,
+  "rgb": [
+    0.0012141079341972192,
+    0.0012141079341972192,
+    0.0012141079341972192
+  ],
+  "provenance": {
+    "kind": "source",
+    "level": 0.0012141079341943827,
+    "operation": "srgb_encode(recorded decoded encoded-mean level)",
+    "capture": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.5/cell-grey-004-s096__rest/webgpu/cell-grey-004-s096__rest__webgpu.png",
+      "sha256": "7268195e0919a01b2d6449cb8f5774b5901b06f1f6bc33296d97630264db096b"
+    },
+    "report": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.5/cell-grey-004-s096__rest/webgpu/report__webgpu.json",
+      "sha256": "34c7f00483c5b4a1e15d784ec0d596d0c819610f11289fcd59c470b2addf3b60"
+    },
+    "cell": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.5/cell-grey-004-s096__rest/webgpu/cell__webgpu.json",
+      "sha256": "a7960972932d9f3fffd59e6f9689a95c8b3d943574e328fccf70dfe1cf8c6e0e"
+    },
+    "candidateDocument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+      "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+    },
+    "originalDocumentPair": {
+      "active.dark": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "receded.dark": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+    },
+    "result": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.result.json",
+      "sha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d"
+    },
+    "contract": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json",
+      "sha256": "6f6be35b1a8a25b78e9c0c787a5f0a532440c4408923a11fa84ec5aff0f46d55"
+    },
+    "claim": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.started.json",
+      "sha256": "69073f2486f572cc04852bfa4e9245714df9f5d1120aaf5f31ca135d08bec229"
+    },
+    "sceneSource": "w50",
+    "scenesSha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b",
+    "endpoint": {
+      "$comment": [
+        "The macOS 27 dark-standard material: the difference document, in the same",
+        "relationship to the runtime default that apple-macos-26.5-1x-dark-standard.json",
+        "is in. It serves both dark profiles, at both scales.",
+        "",
+        "Read it against the 27 LIGHT document rather than against the 26.5 dark one for",
+        "what this child changed: the two schemes' refits are the same three laws at",
+        "different numbers, and the dark scheme keeps a thin/thick split at the bright end",
+        "of the response where the light scheme's rows converge.",
+        "",
+        "W29 G3b (claims \u00a75.154; Decision Log 6 (a)) refits the `outerShadow` block and",
+        "nothing else. The shadow is the one law G2 never read and G3 was therefore",
+        "forbidden to follow (\u00a75.153 \u00a75); it is read native-against-native in",
+        "`results/2026-09-19-w29-g3b-shadow-recede/` and the constants are fitted on the",
+        "departure the shadow axis measures. Every other key below is G3's, unchanged.",
+        "",
+        "W30 G3 (claims \u00a75.159; charter Decision Log 2 (b), 3 (c), 4 (b)) gives W30 G2's",
+        "eight inert operator leaves their values and refits the `outerShadow` block",
+        "jointly with them. The outer shadow's \u03c3 is now a function of the CASTING SPAN \u2014",
+        "macOS 27 blurs it wider under a wider surface \u2014 and the six occlusion anchors",
+        "and `liftAmplitude` are refitted beside it, because their values carried the",
+        "compensation for the one \u03c3 this document shipped. Nothing outside the",
+        "`outerShadow` block and the scatter's five leaves moves.",
+        "",
+        "W33 G1b, claims \u00a75.172; Decision Log 1 (a), ruled: liftAmplitude is DECLARED 0,",
+        "not fitted. Apple's macOS 27 backdrop-black exterior is zero on 67 light / 50 dark",
+        "cells and 1,546,726 / 1,099,348 backdrop-black pixels (\u00a75.170). The frozen macOS 26.5",
+        "material is nonzero on 39 of 125 cells and keeps its 0.01 / 0.0051 lifts and digests.",
+        "The three thick anchors take the rendered window-departure compensation (round B).",
+        "liftSpanMin and the lift's shape leaves stay, UNREAD at zero amplitude. The receded",
+        "difference already holds zero and is unchanged. No contour leaf or rim term moved",
+        "(W33 Decision Log 3, ruled); this is not a contour-stroke fit.",
+        "",
+        "W36 G1, claims \u00a75.179; Decision Log 5: the black branch alone.",
+        "Strength 1 carries the native span44 black ordinate, with thick explicitly equal to thin",
+        "as an unmeasured extrapolation. Support ends at encoded input 0.003, below the minimum",
+        "admitted packed impulse input 0.0031948897521942854. The middle and all old knots stay.",
+        "Both receded documents state their own black values over their active endpoint.",
+        "The separate receded colour-formula trial was declined at its frozen regression stops."
+      ],
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.500",
+      "schemaVersion": 1,
+      "recordedAt": "2026-09-19",
+      "recordedBy": "W29 G3",
+      "colorSpace": "srgb",
+      "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+      "supersedes": "apple-macos-26.5-1x-dark-standard",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "resolvedMaterialSha256Rule": 2,
+      "measurement": {
+        "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5 and -2x-, the W29 G1 bed at seven runs per cell, slider 0.5",
+        "cellsUsedForFitting": 54,
+        "fixtureSets": "calibration and probe; validation checked and never fitted; holdout read once at the sealed configuration",
+        "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3",
+        "objective": "as the light document's",
+        "objectiveBefore": 0.0807,
+        "objectiveAfter": 0.0228,
+        "reproduce": "python3 packages/calibration/results/2026-09-19-w29-g3-refit/fit.py render <label> apple-macos-27.0-1x-dark-standard-glass0.5 webgpu <document> --set calibration,probe",
+        "outerShadow": {
+          "gate": "W29 G3b, claims \u00a75.154",
+          "bar": "results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json, declared before the first 26.5 pair",
+          "objective": "shadow.meanDeparture{Native,Web}, linear light, over the whole exterior of the declared region",
+          "objectiveBefore": 0.006813,
+          "objectiveAfter": 0.000735,
+          "reproduce": "python3 results/2026-09-19-w29-g3b-shadow-recede/shadow-table.py shadow-base shadow-C"
+        }
+      },
+      "entries": {
+        "backdropToneAdaptation": {
+          "status": "measured",
+          "value": {
+            "backdropToneLow": 0,
+            "backdropToneHigh": 0.0001
+          },
+          "previous": {
+            "backdropToneLow": 0.02,
+            "backdropToneHigh": 0.055
+          },
+          "method": [
+            "The same reading as the light document's, and it is the same statement about",
+            "the material rather than about the scheme: over `dark-solid` the 27 dark",
+            "reference settles at 0.0419 against a backdrop of 0.011 linear, four times it,",
+            "and over `impulse` at 0.0356 against 0.0003. Nothing on this bed converges on",
+            "its backdrop, so the band that made the material converge stands down."
+          ]
+        },
+        "backdropToneResponse": {
+          "status": "measured",
+          "value": {
+            "backdropToneAnchorX": [
+              0.004,
+              0.11,
+              0.47,
+              0.95
+            ],
+            "backdropToneResponseThin": [
+              0.036,
+              0.042,
+              0.199,
+              0.464
+            ],
+            "backdropToneResponseThick": [
+              0.031,
+              0.035,
+              0.169,
+              0.196
+            ]
+          },
+          "previous": {
+            "backdropToneAnchorX": [
+              0.1104,
+              0.2706,
+              0.9505
+            ],
+            "backdropToneResponseThin": [
+              0.011,
+              0.0284,
+              0.1611
+            ],
+            "backdropToneResponseThick": [
+              0.0131,
+              0.0238,
+              0.1006
+            ]
+          },
+          "method": [
+            "Four knots, as the light document's, and the third at 0.47 rather than 0.425:",
+            "the dark bed's two structured backdrops sit at 0.425 and 0.500 and read within",
+            "0.04 of each other, so one knot between them carries both and the gated cells",
+            "are `photo` and `checkerboard`.",
+            "The ordinates are the reference's own levels, corrected once by the rendered",
+            "residual. The reference's dark level rose by about three times across the bed",
+            "\u2014 `photo__rrect-md__rest` 0.1887 against vitrea's 0.0415, `checkerboard`",
+            "0.1646 against 0.0498 \u2014 which is the same finding as the light scheme's, at a",
+            "scheme whose neutral is 0.05 rather than white.",
+            "Unlike the light scheme, the two rows do NOT converge at the bright end:",
+            "0.464 thin against 0.196 thick at 0.95, read off `light-solid__rrect-sm__rest`",
+            "(0.4721) and `light-solid__rrect-lg__rest` (0.2036). The dark material over a",
+            "bright backdrop still depends strongly on how thick the surface is."
+          ]
+        },
+        "rim": {
+          "status": "measured",
+          "value": {
+            "rimAlpha": 0.055,
+            "rimLevelGain": 0.44,
+            "rimWidth": 2.2
+          },
+          "previous": {
+            "rimAlpha": 0.0265,
+            "rimLevelGain": 2.334
+          },
+          "method": [
+            "The dark rim's amplitude law read the same way as the light one, and the",
+            "finding is in the GAIN: 2.334 was fitted on a body whose level ran 0.01 to 0.16,",
+            "and the 27 body runs 0.04 to 0.47, so the same gain would draw a rim four times",
+            "the reference's on the bright cells. The least-squares line through the five",
+            "backdrops' (level, wanted amplitude) pairs is 0.055 + 0.44 x \u2014 a larger",
+            "intercept and a fifth of the gain, which is the dark rim becoming much flatter",
+            "in the body's own level.",
+            "The width moves far less than the light scheme's: the dark reference's FWHM is",
+            "about 1.25 CSS px against vitrea's 1.0, so 2.2."
+          ]
+        },
+        "scatter": {
+          "status": "measured",
+          "value": {
+            "sizeScatterFloor": 0.34
+          },
+          "previous": {
+            "sizeScatterFloor": 0.4
+          },
+          "method": [
+            "The dark document names no heavy tap (`sizeHeavyTapSigma` 0 at both scales, and",
+            "that is unchanged), so the mix is the whole lever here. Fitted on the interior's",
+            "spread with the level already refitted: the bed-wide signed residual is \u22120.014",
+            "at 0.34, and the per-backdrop spread is inside \u00b10.05 on every backdrop but",
+            "`checkerboard-64`."
+          ]
+        },
+        "cssTierBlur": {
+          "status": "measured",
+          "value": {
+            "blurSigmaScale": 2.2
+          },
+          "previous": {
+            "blurSigmaScale": 1
+          },
+          "method": [
+            "The light document's constant, carried here so that one scheme's dom tier is",
+            "not blurred differently from the other's for want of a key. The dark dom tier",
+            "meets every adopted row at either value; it is set for coherence, not by a fit",
+            "of its own, and this entry says so."
+          ]
+        },
+        "outerShadow": {
+          "status": "measured and fitted (W29 G3b, Decision Log 6 (a))",
+          "method": [
+            "The dark bed reads the SAME geometry law as the light one \u2014 native falloff",
+            "sigma 1.52 / 8.87 / 13.42 / 17.43 CSS px at spans 44 / 96 / 128 / 160 against",
+            "the light bed's 1.84 / 8.80 / 13.10 / 17.30 \u2014 so sigmaPx takes the same 11.0.",
+            "It is a NEW key in this patch: the 26.5 dark document names no length at all",
+            "and inherited the default's 15.55, and a document that now differs from the",
+            "default there has to say so.",
+            "",
+            "The amplitude is where the two schemes part. On the light bed the shadow's",
+            "amplitude roughly halved between the beds; on the dark bed the native's own",
+            "falloff amplitude did NOT move (median 27/26.5 ratio 1.02) and the whole fall",
+            "in its departure is the sigma. So the dark thin regime goes 0.063 -> 0.032 and",
+            "the 96 anchor 0.278 -> 0.126, both solved from the departure at sigma 11 on",
+            "the four identified dark calibration cells (checkerboard and photo, capsule",
+            "and rrect-md, at both scales).",
+            "",
+            "thickOcclusionAt128 and thickOcclusionAt160 are UNFITTED and derived, because",
+            "the dark bed declares no calibration cell above span 96 \u2014 the same position",
+            "its 26.5 values were in. They carry the LIGHT document's fitted span shape",
+            "scaled to this document's 96 anchor (0.202/0.111 and 0.293/0.111), and the",
+            "native corroborates the shape: the dark native's amplitude ratio between",
+            "spans 160 and 96 is 2.46 and 2.55 on its two supported backdrops against the",
+            "light bed's 2.41.",
+            "",
+            "liftAmplitude 0.0051 -> 0.0005, carried at the light document's fitted ratio",
+            "(0.001/0.01) because the lift shows over a BRIGHT backdrop and the dark bed",
+            "declares none outside holdout and probe. Derived, not fitted, and named here",
+            "as such.",
+            "",
+            "reducedTransparencyOcclusion stays at its 26.5 value of 0.038. There is no",
+            "dark reduced-transparency profile on either bed, so the constant is",
+            "identified by nothing on 27 exactly as it was on 26.5, and moving it on a",
+            "scaled derivation would put an invented number where an unidentified one is",
+            "already honestly recorded."
+          ],
+          "value": {
+            "sigmaPx": 11,
+            "thinOcclusionMid": 0.032,
+            "thinOcclusionBright": 0.032,
+            "thickOcclusionAt96": 0.126,
+            "thickOcclusionAt128": 0.229,
+            "thickOcclusionAt160": 0.333,
+            "liftAmplitude": 0.0005
+          },
+          "previous": {
+            "sigmaPx": "(inherited from the default)",
+            "thinOcclusionMid": 0.063,
+            "thinOcclusionBright": 0.063,
+            "thickOcclusionAt96": 0.278,
+            "thickOcclusionAt128": 0.301,
+            "thickOcclusionAt160": 0.324,
+            "liftAmplitude": 0.0051
+          }
+        },
+        "outerShadowSpanGraded": {
+          "status": "measured",
+          "value": {
+            "sigmaPx": 9.04,
+            "sigmaSlopePerSpan": 0.134,
+            "sigmaSpanRefPx": 96,
+            "sigmaThinOffsetPx": -6.968,
+            "thinOcclusionMid": 0.0455,
+            "thinOcclusionBright": 0.0537,
+            "thickOcclusionAt96": 0.133,
+            "thickOcclusionAt128": 0.2263,
+            "thickOcclusionAt160": 0.3409,
+            "liftAmplitude": 0.0005
+          },
+          "previous": {
+            "sigmaPx": 11,
+            "thinOcclusionMid": 0.032,
+            "thinOcclusionBright": 0.032,
+            "thickOcclusionAt96": 0.126,
+            "thickOcclusionAt128": 0.229,
+            "thickOcclusionAt160": 0.333
+          },
+          "method": [
+            "W30 G3 (claims \u00a75.159) fits the \u03c3 law W30 G2 landed inert and refits the six",
+            "occlusion anchors and liftAmplitude jointly with it.",
+            "",
+            "THE LAW. sigma_css(span) = sigmaPx + max(sigmaThinOffsetPx,",
+            "sigmaSlopePerSpan * (span - sigmaSpanRefPx)), evaluated per CASTER on both",
+            "tiers. sigmaSpanRefPx is HELD at 96 (Decision Log 3 (c)) because the law has a",
+            "flat direction \u2014 shifting sigmaPx, sigmaThinOffsetPx and sigmaSpanRefPx",
+            "together leaves sigma unchanged at every span \u2014 and sigmaPx is refitted as the",
+            "sigma at span 96, which is the span every bed carries sixteen cells at and the",
+            "span thickOcclusionAt96 is keyed to.",
+            "",
+            "THE OBJECTIVE, and why it is not the departure. B1 is stated on the law's",
+            "closed form against each bed's median NATIVE sigma, so the law is solved from",
+            "W30 G0's cut before a candidate is rendered. Four objectives were computed",
+            "(results/2026-09-20-w30-g3-operators/shadow-law.txt) and the adopted one is the",
+            "point that maximises the smaller of B1's and B2's normalised slacks with the",
+            "slope held inside the range the served beds measure for themselves. An absolute",
+            "least squares lands the light document OUTSIDE B1's joint window, because a",
+            "squared absolute residual weights a span-160 observation four times a span-96",
+            "one and B1 is a relative clause; the window-constrained fit lands exactly on",
+            "the window's boundary.",
+            "",
+            "THE FLOOR is a DECLARED reading and not a fit (Decision Log 2 (b)):",
+            "sigmaThinOffsetPx is sigmaSlopePerSpan * (44 - 96) exactly, which puts the",
+            "derived knee at span 44 and the floor at the thick line's own value there. The",
+            "thin cells are a position on the instrument's valley \u2014 the (amplitude, sigma)",
+            "pair trades at a constant product and the thin sigma bifurcates on the author's",
+            "TINT, which the material's blur cannot depend on.",
+            "",
+            "THE ANCHORS are solved from the shadow axis's meanDeparture per regime,",
+            "anchor * (departure_native / departure_web), which is exact while the departure",
+            "is linear in the composited alpha at a fixed geometry. Three rounds; the",
+            "linearity holds to 2 % in every regime of both documents. thinOcclusionDark",
+            "stays exactly 0 (the native removes at most one or two of 255 codes over",
+            "dark-solid and impulse) and liftAmplitude does not move (the thick regimes",
+            "needed a scale, not a shape). thickOcclusionAt160 is FITTED here for the first",
+            "time, on the pitch ladder's ten span-160 rungs per standard bed \u2014 it was the",
+            "linear extrapolation from two anchors on 26.5 and on 27 until now.",
+            "",
+            "WHAT DOES NOT MOVE, and what it costs. reducedTransparencyOcclusion is outside",
+            "contract X3 and stays at its W29 G3b value, so the reduced-transparency and",
+            "coupled-contrast beds' shadow moves through sigma alone. offsetPx stays at 7.95",
+            "and is the residual the thin regime's read sigma is now dominated by: the",
+            "native offset is span-graded like the sigma was \u2014 3.0 to 4.5 CSS px at spans 32",
+            "and 44 against 7.5 to 8.0 at 96 and above \u2014 so at a thin caster vitrea's",
+            "exterior is dominated by a silhouette displaced about twice as far as Apple's.",
+            "That is the next span-graded length and \u00a75.159 names it."
+          ]
+        },
+        "scatterScaleSelectivity": {
+          "status": "measured-with-a-caveat",
+          "value": {
+            "sizeHeavySecondSigma": 0,
+            "sizeHeavySecondSigma2x": 0,
+            "sizeHeavySecondShare": 0,
+            "sizeScatterScaleGain": -2,
+            "sizeScatterScaleRef": 0.03
+          },
+          "previous": {
+            "sizeHeavySecondSigma": 0,
+            "sizeHeavySecondSigma2x": 0,
+            "sizeHeavySecondShare": 0,
+            "sizeScatterScaleGain": 0,
+            "sizeScatterScaleRef": 0
+          },
+          "method": [
+            "W30's scale-selective scatter (claims \u00a75.156 \u00a73, \u00a75.158 \u00a71, \u00a75.159 \u00a74), read",
+            "on the pitch ladder at a macOS 27 document for the first time \u2014 the reading W30",
+            "G0 could not have, because the macOS 27 generation of results/matrix.json",
+            "carried no probe row at all.",
+            "",
+            "Five probe rounds. Candidate (i), the second heavy tap, is DECLINED on both",
+            "documents and candidate (ii), the scale gain about a reference, is adopted on",
+            "the dark document and declined on the light one. Both declines are",
+            "measurements:",
+            "",
+            "- Candidate (i) cannot reach a pitch the FIRST heavy tap has already erased. A",
+            "  second tap at 30 CSS px against the first's 14, at a share of 0.5, moves the",
+            "  gated 16 px cell on 1x light by -0.0000. That is claims \u00a75.158 \u00a76's own trap,",
+            "  reproduced on the bed it was predicted for.",
+            "- A second tap NARROWER than the first adds mid-band structure, which is the",
+            "  wrong direction on the one bed in the whole capture that passes MORE",
+            "  structure than Apple does: 1x light goes 1.5670 -> 1.8247 on that cell.",
+            "- Candidate (ii)'s statistic is SCALE-INVARIANT by construction. The analysis",
+            "  reduction reads a fixed 64x64 grid off a mid-chain level, so one scene's edge",
+            "  density is the same number at both scales \u2014 measured 0.170 at dpr 1 against",
+            "  0.176 at dpr 2 on the dark bed's 16 px checkerboard. A per-source statistic",
+            "  that cannot tell the scales apart cannot act in opposite directions on them,",
+            "  which is what the light document's two beds need (1.567 and 0.425 on one",
+            "  cell). At a gain of +2 the light document's 1x bed lands inside B4's window",
+            "  and its 2x bed moves away from 1.0 by more; its two-bed ladder aggregate goes",
+            "  0.5781 -> 0.6271.",
+            "",
+            "The dark document takes -2 about 0.03, which moves both its beds toward 1.0 and",
+            "neither past it: the gated cell reads 0.7474 -> 0.9732 at 1x and 0.6367 ->",
+            "0.7665 at 2x. The reference is what keeps 1x below 1.0 \u2014 at a reference of 0",
+            "the same gain overshoots to 1.0222."
+          ]
+        },
+        "bodyChromaRetention": {
+          "status": "measured",
+          "value": {
+            "bodyChromaRetention": 0.336
+          },
+          "previous": {
+            "bodyChromaRetention": 0
+          },
+          "method": [
+            "W31's chroma retention (claims \u00a75.161 \u00a75, fitted in \u00a75.164 \u00a74). How much of",
+            "the blurred backdrop's CHROMATICITY the body restores, at the luma the tone",
+            "solve produced. Fitted per SCHEME and per POSE: this document is the",
+            "dark scheme's active endpoint and carries its own value, because the four",
+            "beds read 0.551 / 0.514 / 0.333 / 0.584 before the fit and are not one number.",
+            "",
+            "Objective: R = chromaStructureRatioWeb / chromaStructureRatioNative, web",
+            "against native on the same cell and never against 1, median over the untinted",
+            "`photo` cells of the four macOS 27 standard profiles at both scales \u2014 4 cells",
+            "on this bed \u2014 `calibration` + `validation`, WebGPU tier, holdout dropped by",
+            "construction in the fit loop's own reader. Bound 0.80 \u2264 median R \u2264 1.20 with a",
+            "per-cell floor of 0.60, two-sided because an over-fitted retention adds chroma",
+            "the reference does not have.",
+            "",
+            "Two rounds. Round A probed one point and measured the bed's slope; round B",
+            "solved it. R moves 0.3332 \u2192 0.9994 on this bed, inside the bound and",
+            "inside the instrument's own 1x-against-2x reproducibility (4.5 % light, 9.1 %",
+            "dark), which is why there is no round C: a third would be fitting noise.",
+            "",
+            "Both hard stops held with margin on every cell of the bed. The LEVEL stop \u2014",
+            "|interiorMeanWeb \u2212 interiorMeanNative| \u2264 0.055, growing by no more than 0.005",
+            "from its pre-fit value \u2014 reads a worst |\u0394| of 0.04932 and a worst growth of",
+            "+0.00006, eighty times inside the clause that binds, because the operator is",
+            "luma-preserving by construction. The STRUCTURE stop \u2014 interiorStdDevWeb within",
+            "2 % of its pre-fit value \u2014 reads a worst 1.317 %, on the bed's smallest",
+            "spread, and that residual is the capture's own 8-bit quantisation rather than",
+            "the operator: the movement scales inversely with the cell's spread.",
+            "",
+            "The CSS tier carries NOTHING of this constant. A derived term was written,",
+            "rendered and declined on the measurement (\u00a75.164 \u00a75): on the dark bed it",
+            "bought nothing at all, and on the light bed it broke both stops."
+          ]
+        }
+      },
+      "cssTierMapping": {
+        "blurSigmaScale": 2.2
+      },
+      "$comment-sha-history": [
+        "8439eb808495f5bf \u2014 sealed by W29 G3b (claims \u00a75.154 \u00a77). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 73a3fb119a81312b (claims \u00a75.158 \u00a73). This document is re-sealed at f3008c3e9033ed4c by W30 G3, which gives those leaves values (claims \u00a75.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay.",
+        "f3008c3e9033ed4c \u2014 the reading under rule 1 (the plain resolved fingerprint). Re-sealed at c61194f820d77280 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 \u2014 the digest rule lands (claims \u00a75.164)",
+        "c61194f820d77280 \u2014 the reading under rule 2 (the plain resolved fingerprint). Re-sealed at 8a43f54162606db4 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 \u2014 the chroma retention fitted into the four documents (claims \u00a75.164 \u00a74)",
+        "8a43f54162606db4 \u2014 the reading under rule 2 (the fingerprint of materialDigestInput(resolved) \u2014 the resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold their identities). Re-sealed at bd1814fac34f9b30 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W32 G1 \u2014 the outer shadow's exterior fitted as a whole: the outset per scheme, the six anchors re-solved against the 3-48 CSS px window, the dark document's \u03c3 slope inside B1, and the receded documents' amplitude stood down to 0 (claims \u00a75.168; W32 Decision Log 2)",
+        "bd1814fac34f9b30 \u2014 rule 2, SHA-256 of materialDigestInput(resolved). Re-sealed at e59f9106bcd7c966 under the same rule, W33 G1b (claims \u00a75.172; Decision Log 1 (a)): the lift stands down and only the three thick anchors take its compensation.",
+        "e59f9106bcd7c966 \u2014 rule 2, superseded by 2a4323f33df8d799, W36 G1 (\u00a75.179): black-only compact branch; all old leaves unchanged."
+      ],
+      "$comment-w30-g3b": "2026-09-20, W30 G3b \u2014 the rows read at THESE bytes were captured at a renderer that draws the thin regime whole. At a casting span of 44 CSS px this document's own \u03c3 law draws \u03c3 = 2.13, and the optics pass's shadow falloff returned NaN more than 10.06 \u03c3 inside the shadow's silhouette \u2014 f32's exp overflowing inside tanh \u2014 which left a strip of a 44 px surface undrawn and put 170 texture cells outside W20's adopted declaration conformance (claims \u00a75.159 \u00a76, diagnosed and fixed in \u00a75.159b, commit 35ce02b1). No constant of this document moved and no material moved: resolvedMaterialSha256 is unchanged and asserted unchanged by results/2026-09-20-w30-g3b-thin-strip/comment-generation.ts, which is what makes the re-read a generation of its own (charter Decision Log 5 (b)) rather than an overwrite of W30 G3's rows \u2014 those live in results/superseded/ by name.",
+      "$comment-sha-history-correction": "2026-09-21, W31 G3c (review closure; claims \u00a75.164 \u00a713, finding N9), written here at W32 G1 (claims \u00a75.168) because W31 G3c could not move this document's bytes (W31 Deferred item 14). A line of $comment-sha-history above reads \"the reading under rule 2 (the plain resolved fingerprint)\", and rule 2 is NOT the plain resolved fingerprint \u2014 it is the fingerprint of materialDigestInput(resolved), the material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold their declared identities (W31 Decision Log 1 (a)). The parenthetical belongs to rule 1 alone and seal.ts's template appended it whatever rule the previous reading was taken under. The DIGESTS in that line are correct and are not restated here; only the description of the function is wrong. The corrected template is results/2026-09-21-w31-g3c-accessibility-gate/seal.ts, which this gate ran.",
+      "source": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+        "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+      },
+      "candidateEndpoint": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/active.dark.json",
+        "sha256": "5a054ac5b49284382f5028811e13a88a4a4b03d2edd9bb0a26183c8142495312"
+      }
+    },
+    "evidenceKind": "completed-current-gate0",
+    "baseline": true,
+    "repeatAdmission": {
+      "schema": "w50-legacy-byte-identical-1",
+      "mode": "legacy-byte-identical",
+      "reading": "first",
+      "first": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+        "sha256": "7268195e0919a01b2d6449cb8f5774b5901b06f1f6bc33296d97630264db096b"
+      },
+      "originalEqualityAttestation": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell__webgpu.json",
+        "sha256": "a7960972932d9f3fffd59e6f9689a95c8b3d943574e328fccf70dfe1cf8c6e0e"
+      },
+      "deterministic": true,
+      "repeatNoise": 0,
+      "secondRetained": false
+    },
+    "reading": "first",
+    "origin": {
+      "kind": "retained-attempt2",
+      "ordinal": 183,
+      "priorRoot": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument-root.json",
+        "sha256": "b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0"
+      },
+      "priorClaim": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument/ac706781a6d8e45d36f2ef3ddd2e7ee44069916ddbc90231bb5cf9926a8af3df.json.started.json",
+        "sha256": "9e35bfbd3237c43483d8d72f7fc8954c1b902f04b3763d555880b46ee94c2c14"
+      },
+      "priorFailure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current2/evidence/current-attempt2/failure.json",
+        "sha256": "1149befb06effa02ee02c56ceb11aa5cfe3e101f8b5240b000b9e4980e6f5303"
+      },
+      "originalArtifacts": {
+        "png": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+          "sha256": "7268195e0919a01b2d6449cb8f5774b5901b06f1f6bc33296d97630264db096b"
+        },
+        "cell": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell__webgpu.json",
+          "sha256": "a7960972932d9f3fffd59e6f9689a95c8b3d943574e328fccf70dfe1cf8c6e0e"
+        },
+        "report": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/report__webgpu.json",
+          "sha256": "34c7f00483c5b4a1e15d784ec0d596d0c819610f11289fcd59c470b2addf3b60"
+        }
+      },
+      "originalEvidence": {
+        "record": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/w50-capture.json",
+          "sha256": "27f2f3cbcc731425d4dfc4790ee589473487d169aadfbefe446f065384546be0"
+        },
+        "index": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/indexes/glass05-1x-active-webgpu.json",
+          "sha256": "c5cdd826d181e57811a64bd12408dc0290ab7835482b89c23efe2ee3c57f64a1"
+        },
+        "request": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/request-cell-grey-004-s096__rest.json",
+          "sha256": "19d0099da3ec069caf04d76677ebbbb86f126d2cda9e4e63c52235251e9afa74"
+        },
+        "census": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/census-cell-grey-004-s096__rest.json",
+          "sha256": "37992c29f7fae5f2d9f08a84ad3ddd2e4bb6791b0ef65f036bf5778366b3388a"
+        },
+        "log": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/capture-cell-grey-004-s096__rest.log",
+          "sha256": "ff73841e8a2171d1440418b6676e0b789ef9a8ffb4b3b8c451811f15a70f7fdd"
+        }
+      }
+    },
+    "currentComposition": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+      "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+    },
+    "instrument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json",
+      "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44"
+    },
+    "batch": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/current-512-batch.json",
+      "sha256": "d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698"
+    }
+  },
+  "evaluationCandidateSha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3",
+  "capturedCandidateSha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319",
+  "currentCandidate": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+    "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+  },
+  "capturedArgument": {
+    "id": "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|cell-grey-004-s096__rest",
+    "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "renderer": "webgpu",
+    "scene": "cell-grey-004-s096__rest",
+    "variant": "regular",
+    "pose": "active",
+    "position": 0.5,
+    "dpr": 1,
+    "span": 96,
+    "role": "calibration",
+    "candidateSha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319",
+    "encodedLuminance": 0.015686274509791424,
+    "linearLuminance": 0.0012141079341972192,
+    "rgb": [
+      0.0012141079341972192,
+      0.0012141079341972192,
+      0.0012141079341972192
+    ],
+    "provenance": {
+      "kind": "source",
+      "level": 0.0012141079341943827,
+      "operation": "srgb_encode(recorded decoded encoded-mean level)",
+      "capture": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.5/cell-grey-004-s096__rest/webgpu/cell-grey-004-s096__rest__webgpu.png",
+        "sha256": "7268195e0919a01b2d6449cb8f5774b5901b06f1f6bc33296d97630264db096b"
+      },
+      "report": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.5/cell-grey-004-s096__rest/webgpu/report__webgpu.json",
+        "sha256": "34c7f00483c5b4a1e15d784ec0d596d0c819610f11289fcd59c470b2addf3b60"
+      },
+      "cell": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-512/retained-attempt2/apple-macos-27.0-1x-dark-standard-glass0.5/cell-grey-004-s096__rest/webgpu/cell__webgpu.json",
+        "sha256": "a7960972932d9f3fffd59e6f9689a95c8b3d943574e328fccf70dfe1cf8c6e0e"
+      },
+      "candidateDocument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+        "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+      },
+      "originalDocumentPair": {
+        "active.dark": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+        "receded.dark": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+      },
+      "result": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.result.json",
+        "sha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d"
+      },
+      "contract": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json",
+        "sha256": "6f6be35b1a8a25b78e9c0c787a5f0a532440c4408923a11fa84ec5aff0f46d55"
+      },
+      "claim": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698.json.started.json",
+        "sha256": "69073f2486f572cc04852bfa4e9245714df9f5d1120aaf5f31ca135d08bec229"
+      },
+      "sceneSource": "w50",
+      "scenesSha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b",
+      "endpoint": {
+        "$comment": [
+          "The macOS 27 dark-standard material: the difference document, in the same",
+          "relationship to the runtime default that apple-macos-26.5-1x-dark-standard.json",
+          "is in. It serves both dark profiles, at both scales.",
+          "",
+          "Read it against the 27 LIGHT document rather than against the 26.5 dark one for",
+          "what this child changed: the two schemes' refits are the same three laws at",
+          "different numbers, and the dark scheme keeps a thin/thick split at the bright end",
+          "of the response where the light scheme's rows converge.",
+          "",
+          "W29 G3b (claims \u00a75.154; Decision Log 6 (a)) refits the `outerShadow` block and",
+          "nothing else. The shadow is the one law G2 never read and G3 was therefore",
+          "forbidden to follow (\u00a75.153 \u00a75); it is read native-against-native in",
+          "`results/2026-09-19-w29-g3b-shadow-recede/` and the constants are fitted on the",
+          "departure the shadow axis measures. Every other key below is G3's, unchanged.",
+          "",
+          "W30 G3 (claims \u00a75.159; charter Decision Log 2 (b), 3 (c), 4 (b)) gives W30 G2's",
+          "eight inert operator leaves their values and refits the `outerShadow` block",
+          "jointly with them. The outer shadow's \u03c3 is now a function of the CASTING SPAN \u2014",
+          "macOS 27 blurs it wider under a wider surface \u2014 and the six occlusion anchors",
+          "and `liftAmplitude` are refitted beside it, because their values carried the",
+          "compensation for the one \u03c3 this document shipped. Nothing outside the",
+          "`outerShadow` block and the scatter's five leaves moves.",
+          "",
+          "W33 G1b, claims \u00a75.172; Decision Log 1 (a), ruled: liftAmplitude is DECLARED 0,",
+          "not fitted. Apple's macOS 27 backdrop-black exterior is zero on 67 light / 50 dark",
+          "cells and 1,546,726 / 1,099,348 backdrop-black pixels (\u00a75.170). The frozen macOS 26.5",
+          "material is nonzero on 39 of 125 cells and keeps its 0.01 / 0.0051 lifts and digests.",
+          "The three thick anchors take the rendered window-departure compensation (round B).",
+          "liftSpanMin and the lift's shape leaves stay, UNREAD at zero amplitude. The receded",
+          "difference already holds zero and is unchanged. No contour leaf or rim term moved",
+          "(W33 Decision Log 3, ruled); this is not a contour-stroke fit.",
+          "",
+          "W36 G1, claims \u00a75.179; Decision Log 5: the black branch alone.",
+          "Strength 1 carries the native span44 black ordinate, with thick explicitly equal to thin",
+          "as an unmeasured extrapolation. Support ends at encoded input 0.003, below the minimum",
+          "admitted packed impulse input 0.0031948897521942854. The middle and all old knots stay.",
+          "Both receded documents state their own black values over their active endpoint.",
+          "The separate receded colour-formula trial was declined at its frozen regression stops."
+        ],
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.500",
+        "schemaVersion": 1,
+        "recordedAt": "2026-09-19",
+        "recordedBy": "W29 G3",
+        "colorSpace": "srgb",
+        "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+        "supersedes": "apple-macos-26.5-1x-dark-standard",
+        "resolvedMaterialSha256": "2a4323f33df8d799",
+        "resolvedMaterialSha256Rule": 2,
+        "measurement": {
+          "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5 and -2x-, the W29 G1 bed at seven runs per cell, slider 0.5",
+          "cellsUsedForFitting": 54,
+          "fixtureSets": "calibration and probe; validation checked and never fitted; holdout read once at the sealed configuration",
+          "webCell": "chromium 151.0.7922.34, renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3",
+          "objective": "as the light document's",
+          "objectiveBefore": 0.0807,
+          "objectiveAfter": 0.0228,
+          "reproduce": "python3 packages/calibration/results/2026-09-19-w29-g3-refit/fit.py render <label> apple-macos-27.0-1x-dark-standard-glass0.5 webgpu <document> --set calibration,probe",
+          "outerShadow": {
+            "gate": "W29 G3b, claims \u00a75.154",
+            "bar": "results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json, declared before the first 26.5 pair",
+            "objective": "shadow.meanDeparture{Native,Web}, linear light, over the whole exterior of the declared region",
+            "objectiveBefore": 0.006813,
+            "objectiveAfter": 0.000735,
+            "reproduce": "python3 results/2026-09-19-w29-g3b-shadow-recede/shadow-table.py shadow-base shadow-C"
+          }
+        },
+        "entries": {
+          "backdropToneAdaptation": {
+            "status": "measured",
+            "value": {
+              "backdropToneLow": 0,
+              "backdropToneHigh": 0.0001
+            },
+            "previous": {
+              "backdropToneLow": 0.02,
+              "backdropToneHigh": 0.055
+            },
+            "method": [
+              "The same reading as the light document's, and it is the same statement about",
+              "the material rather than about the scheme: over `dark-solid` the 27 dark",
+              "reference settles at 0.0419 against a backdrop of 0.011 linear, four times it,",
+              "and over `impulse` at 0.0356 against 0.0003. Nothing on this bed converges on",
+              "its backdrop, so the band that made the material converge stands down."
+            ]
+          },
+          "backdropToneResponse": {
+            "status": "measured",
+            "value": {
+              "backdropToneAnchorX": [
+                0.004,
+                0.11,
+                0.47,
+                0.95
+              ],
+              "backdropToneResponseThin": [
+                0.036,
+                0.042,
+                0.199,
+                0.464
+              ],
+              "backdropToneResponseThick": [
+                0.031,
+                0.035,
+                0.169,
+                0.196
+              ]
+            },
+            "previous": {
+              "backdropToneAnchorX": [
+                0.1104,
+                0.2706,
+                0.9505
+              ],
+              "backdropToneResponseThin": [
+                0.011,
+                0.0284,
+                0.1611
+              ],
+              "backdropToneResponseThick": [
+                0.0131,
+                0.0238,
+                0.1006
+              ]
+            },
+            "method": [
+              "Four knots, as the light document's, and the third at 0.47 rather than 0.425:",
+              "the dark bed's two structured backdrops sit at 0.425 and 0.500 and read within",
+              "0.04 of each other, so one knot between them carries both and the gated cells",
+              "are `photo` and `checkerboard`.",
+              "The ordinates are the reference's own levels, corrected once by the rendered",
+              "residual. The reference's dark level rose by about three times across the bed",
+              "\u2014 `photo__rrect-md__rest` 0.1887 against vitrea's 0.0415, `checkerboard`",
+              "0.1646 against 0.0498 \u2014 which is the same finding as the light scheme's, at a",
+              "scheme whose neutral is 0.05 rather than white.",
+              "Unlike the light scheme, the two rows do NOT converge at the bright end:",
+              "0.464 thin against 0.196 thick at 0.95, read off `light-solid__rrect-sm__rest`",
+              "(0.4721) and `light-solid__rrect-lg__rest` (0.2036). The dark material over a",
+              "bright backdrop still depends strongly on how thick the surface is."
+            ]
+          },
+          "rim": {
+            "status": "measured",
+            "value": {
+              "rimAlpha": 0.055,
+              "rimLevelGain": 0.44,
+              "rimWidth": 2.2
+            },
+            "previous": {
+              "rimAlpha": 0.0265,
+              "rimLevelGain": 2.334
+            },
+            "method": [
+              "The dark rim's amplitude law read the same way as the light one, and the",
+              "finding is in the GAIN: 2.334 was fitted on a body whose level ran 0.01 to 0.16,",
+              "and the 27 body runs 0.04 to 0.47, so the same gain would draw a rim four times",
+              "the reference's on the bright cells. The least-squares line through the five",
+              "backdrops' (level, wanted amplitude) pairs is 0.055 + 0.44 x \u2014 a larger",
+              "intercept and a fifth of the gain, which is the dark rim becoming much flatter",
+              "in the body's own level.",
+              "The width moves far less than the light scheme's: the dark reference's FWHM is",
+              "about 1.25 CSS px against vitrea's 1.0, so 2.2."
+            ]
+          },
+          "scatter": {
+            "status": "measured",
+            "value": {
+              "sizeScatterFloor": 0.34
+            },
+            "previous": {
+              "sizeScatterFloor": 0.4
+            },
+            "method": [
+              "The dark document names no heavy tap (`sizeHeavyTapSigma` 0 at both scales, and",
+              "that is unchanged), so the mix is the whole lever here. Fitted on the interior's",
+              "spread with the level already refitted: the bed-wide signed residual is \u22120.014",
+              "at 0.34, and the per-backdrop spread is inside \u00b10.05 on every backdrop but",
+              "`checkerboard-64`."
+            ]
+          },
+          "cssTierBlur": {
+            "status": "measured",
+            "value": {
+              "blurSigmaScale": 2.2
+            },
+            "previous": {
+              "blurSigmaScale": 1
+            },
+            "method": [
+              "The light document's constant, carried here so that one scheme's dom tier is",
+              "not blurred differently from the other's for want of a key. The dark dom tier",
+              "meets every adopted row at either value; it is set for coherence, not by a fit",
+              "of its own, and this entry says so."
+            ]
+          },
+          "outerShadow": {
+            "status": "measured and fitted (W29 G3b, Decision Log 6 (a))",
+            "method": [
+              "The dark bed reads the SAME geometry law as the light one \u2014 native falloff",
+              "sigma 1.52 / 8.87 / 13.42 / 17.43 CSS px at spans 44 / 96 / 128 / 160 against",
+              "the light bed's 1.84 / 8.80 / 13.10 / 17.30 \u2014 so sigmaPx takes the same 11.0.",
+              "It is a NEW key in this patch: the 26.5 dark document names no length at all",
+              "and inherited the default's 15.55, and a document that now differs from the",
+              "default there has to say so.",
+              "",
+              "The amplitude is where the two schemes part. On the light bed the shadow's",
+              "amplitude roughly halved between the beds; on the dark bed the native's own",
+              "falloff amplitude did NOT move (median 27/26.5 ratio 1.02) and the whole fall",
+              "in its departure is the sigma. So the dark thin regime goes 0.063 -> 0.032 and",
+              "the 96 anchor 0.278 -> 0.126, both solved from the departure at sigma 11 on",
+              "the four identified dark calibration cells (checkerboard and photo, capsule",
+              "and rrect-md, at both scales).",
+              "",
+              "thickOcclusionAt128 and thickOcclusionAt160 are UNFITTED and derived, because",
+              "the dark bed declares no calibration cell above span 96 \u2014 the same position",
+              "its 26.5 values were in. They carry the LIGHT document's fitted span shape",
+              "scaled to this document's 96 anchor (0.202/0.111 and 0.293/0.111), and the",
+              "native corroborates the shape: the dark native's amplitude ratio between",
+              "spans 160 and 96 is 2.46 and 2.55 on its two supported backdrops against the",
+              "light bed's 2.41.",
+              "",
+              "liftAmplitude 0.0051 -> 0.0005, carried at the light document's fitted ratio",
+              "(0.001/0.01) because the lift shows over a BRIGHT backdrop and the dark bed",
+              "declares none outside holdout and probe. Derived, not fitted, and named here",
+              "as such.",
+              "",
+              "reducedTransparencyOcclusion stays at its 26.5 value of 0.038. There is no",
+              "dark reduced-transparency profile on either bed, so the constant is",
+              "identified by nothing on 27 exactly as it was on 26.5, and moving it on a",
+              "scaled derivation would put an invented number where an unidentified one is",
+              "already honestly recorded."
+            ],
+            "value": {
+              "sigmaPx": 11,
+              "thinOcclusionMid": 0.032,
+              "thinOcclusionBright": 0.032,
+              "thickOcclusionAt96": 0.126,
+              "thickOcclusionAt128": 0.229,
+              "thickOcclusionAt160": 0.333,
+              "liftAmplitude": 0.0005
+            },
+            "previous": {
+              "sigmaPx": "(inherited from the default)",
+              "thinOcclusionMid": 0.063,
+              "thinOcclusionBright": 0.063,
+              "thickOcclusionAt96": 0.278,
+              "thickOcclusionAt128": 0.301,
+              "thickOcclusionAt160": 0.324,
+              "liftAmplitude": 0.0051
+            }
+          },
+          "outerShadowSpanGraded": {
+            "status": "measured",
+            "value": {
+              "sigmaPx": 9.04,
+              "sigmaSlopePerSpan": 0.134,
+              "sigmaSpanRefPx": 96,
+              "sigmaThinOffsetPx": -6.968,
+              "thinOcclusionMid": 0.0455,
+              "thinOcclusionBright": 0.0537,
+              "thickOcclusionAt96": 0.133,
+              "thickOcclusionAt128": 0.2263,
+              "thickOcclusionAt160": 0.3409,
+              "liftAmplitude": 0.0005
+            },
+            "previous": {
+              "sigmaPx": 11,
+              "thinOcclusionMid": 0.032,
+              "thinOcclusionBright": 0.032,
+              "thickOcclusionAt96": 0.126,
+              "thickOcclusionAt128": 0.229,
+              "thickOcclusionAt160": 0.333
+            },
+            "method": [
+              "W30 G3 (claims \u00a75.159) fits the \u03c3 law W30 G2 landed inert and refits the six",
+              "occlusion anchors and liftAmplitude jointly with it.",
+              "",
+              "THE LAW. sigma_css(span) = sigmaPx + max(sigmaThinOffsetPx,",
+              "sigmaSlopePerSpan * (span - sigmaSpanRefPx)), evaluated per CASTER on both",
+              "tiers. sigmaSpanRefPx is HELD at 96 (Decision Log 3 (c)) because the law has a",
+              "flat direction \u2014 shifting sigmaPx, sigmaThinOffsetPx and sigmaSpanRefPx",
+              "together leaves sigma unchanged at every span \u2014 and sigmaPx is refitted as the",
+              "sigma at span 96, which is the span every bed carries sixteen cells at and the",
+              "span thickOcclusionAt96 is keyed to.",
+              "",
+              "THE OBJECTIVE, and why it is not the departure. B1 is stated on the law's",
+              "closed form against each bed's median NATIVE sigma, so the law is solved from",
+              "W30 G0's cut before a candidate is rendered. Four objectives were computed",
+              "(results/2026-09-20-w30-g3-operators/shadow-law.txt) and the adopted one is the",
+              "point that maximises the smaller of B1's and B2's normalised slacks with the",
+              "slope held inside the range the served beds measure for themselves. An absolute",
+              "least squares lands the light document OUTSIDE B1's joint window, because a",
+              "squared absolute residual weights a span-160 observation four times a span-96",
+              "one and B1 is a relative clause; the window-constrained fit lands exactly on",
+              "the window's boundary.",
+              "",
+              "THE FLOOR is a DECLARED reading and not a fit (Decision Log 2 (b)):",
+              "sigmaThinOffsetPx is sigmaSlopePerSpan * (44 - 96) exactly, which puts the",
+              "derived knee at span 44 and the floor at the thick line's own value there. The",
+              "thin cells are a position on the instrument's valley \u2014 the (amplitude, sigma)",
+              "pair trades at a constant product and the thin sigma bifurcates on the author's",
+              "TINT, which the material's blur cannot depend on.",
+              "",
+              "THE ANCHORS are solved from the shadow axis's meanDeparture per regime,",
+              "anchor * (departure_native / departure_web), which is exact while the departure",
+              "is linear in the composited alpha at a fixed geometry. Three rounds; the",
+              "linearity holds to 2 % in every regime of both documents. thinOcclusionDark",
+              "stays exactly 0 (the native removes at most one or two of 255 codes over",
+              "dark-solid and impulse) and liftAmplitude does not move (the thick regimes",
+              "needed a scale, not a shape). thickOcclusionAt160 is FITTED here for the first",
+              "time, on the pitch ladder's ten span-160 rungs per standard bed \u2014 it was the",
+              "linear extrapolation from two anchors on 26.5 and on 27 until now.",
+              "",
+              "WHAT DOES NOT MOVE, and what it costs. reducedTransparencyOcclusion is outside",
+              "contract X3 and stays at its W29 G3b value, so the reduced-transparency and",
+              "coupled-contrast beds' shadow moves through sigma alone. offsetPx stays at 7.95",
+              "and is the residual the thin regime's read sigma is now dominated by: the",
+              "native offset is span-graded like the sigma was \u2014 3.0 to 4.5 CSS px at spans 32",
+              "and 44 against 7.5 to 8.0 at 96 and above \u2014 so at a thin caster vitrea's",
+              "exterior is dominated by a silhouette displaced about twice as far as Apple's.",
+              "That is the next span-graded length and \u00a75.159 names it."
+            ]
+          },
+          "scatterScaleSelectivity": {
+            "status": "measured-with-a-caveat",
+            "value": {
+              "sizeHeavySecondSigma": 0,
+              "sizeHeavySecondSigma2x": 0,
+              "sizeHeavySecondShare": 0,
+              "sizeScatterScaleGain": -2,
+              "sizeScatterScaleRef": 0.03
+            },
+            "previous": {
+              "sizeHeavySecondSigma": 0,
+              "sizeHeavySecondSigma2x": 0,
+              "sizeHeavySecondShare": 0,
+              "sizeScatterScaleGain": 0,
+              "sizeScatterScaleRef": 0
+            },
+            "method": [
+              "W30's scale-selective scatter (claims \u00a75.156 \u00a73, \u00a75.158 \u00a71, \u00a75.159 \u00a74), read",
+              "on the pitch ladder at a macOS 27 document for the first time \u2014 the reading W30",
+              "G0 could not have, because the macOS 27 generation of results/matrix.json",
+              "carried no probe row at all.",
+              "",
+              "Five probe rounds. Candidate (i), the second heavy tap, is DECLINED on both",
+              "documents and candidate (ii), the scale gain about a reference, is adopted on",
+              "the dark document and declined on the light one. Both declines are",
+              "measurements:",
+              "",
+              "- Candidate (i) cannot reach a pitch the FIRST heavy tap has already erased. A",
+              "  second tap at 30 CSS px against the first's 14, at a share of 0.5, moves the",
+              "  gated 16 px cell on 1x light by -0.0000. That is claims \u00a75.158 \u00a76's own trap,",
+              "  reproduced on the bed it was predicted for.",
+              "- A second tap NARROWER than the first adds mid-band structure, which is the",
+              "  wrong direction on the one bed in the whole capture that passes MORE",
+              "  structure than Apple does: 1x light goes 1.5670 -> 1.8247 on that cell.",
+              "- Candidate (ii)'s statistic is SCALE-INVARIANT by construction. The analysis",
+              "  reduction reads a fixed 64x64 grid off a mid-chain level, so one scene's edge",
+              "  density is the same number at both scales \u2014 measured 0.170 at dpr 1 against",
+              "  0.176 at dpr 2 on the dark bed's 16 px checkerboard. A per-source statistic",
+              "  that cannot tell the scales apart cannot act in opposite directions on them,",
+              "  which is what the light document's two beds need (1.567 and 0.425 on one",
+              "  cell). At a gain of +2 the light document's 1x bed lands inside B4's window",
+              "  and its 2x bed moves away from 1.0 by more; its two-bed ladder aggregate goes",
+              "  0.5781 -> 0.6271.",
+              "",
+              "The dark document takes -2 about 0.03, which moves both its beds toward 1.0 and",
+              "neither past it: the gated cell reads 0.7474 -> 0.9732 at 1x and 0.6367 ->",
+              "0.7665 at 2x. The reference is what keeps 1x below 1.0 \u2014 at a reference of 0",
+              "the same gain overshoots to 1.0222."
+            ]
+          },
+          "bodyChromaRetention": {
+            "status": "measured",
+            "value": {
+              "bodyChromaRetention": 0.336
+            },
+            "previous": {
+              "bodyChromaRetention": 0
+            },
+            "method": [
+              "W31's chroma retention (claims \u00a75.161 \u00a75, fitted in \u00a75.164 \u00a74). How much of",
+              "the blurred backdrop's CHROMATICITY the body restores, at the luma the tone",
+              "solve produced. Fitted per SCHEME and per POSE: this document is the",
+              "dark scheme's active endpoint and carries its own value, because the four",
+              "beds read 0.551 / 0.514 / 0.333 / 0.584 before the fit and are not one number.",
+              "",
+              "Objective: R = chromaStructureRatioWeb / chromaStructureRatioNative, web",
+              "against native on the same cell and never against 1, median over the untinted",
+              "`photo` cells of the four macOS 27 standard profiles at both scales \u2014 4 cells",
+              "on this bed \u2014 `calibration` + `validation`, WebGPU tier, holdout dropped by",
+              "construction in the fit loop's own reader. Bound 0.80 \u2264 median R \u2264 1.20 with a",
+              "per-cell floor of 0.60, two-sided because an over-fitted retention adds chroma",
+              "the reference does not have.",
+              "",
+              "Two rounds. Round A probed one point and measured the bed's slope; round B",
+              "solved it. R moves 0.3332 \u2192 0.9994 on this bed, inside the bound and",
+              "inside the instrument's own 1x-against-2x reproducibility (4.5 % light, 9.1 %",
+              "dark), which is why there is no round C: a third would be fitting noise.",
+              "",
+              "Both hard stops held with margin on every cell of the bed. The LEVEL stop \u2014",
+              "|interiorMeanWeb \u2212 interiorMeanNative| \u2264 0.055, growing by no more than 0.005",
+              "from its pre-fit value \u2014 reads a worst |\u0394| of 0.04932 and a worst growth of",
+              "+0.00006, eighty times inside the clause that binds, because the operator is",
+              "luma-preserving by construction. The STRUCTURE stop \u2014 interiorStdDevWeb within",
+              "2 % of its pre-fit value \u2014 reads a worst 1.317 %, on the bed's smallest",
+              "spread, and that residual is the capture's own 8-bit quantisation rather than",
+              "the operator: the movement scales inversely with the cell's spread.",
+              "",
+              "The CSS tier carries NOTHING of this constant. A derived term was written,",
+              "rendered and declined on the measurement (\u00a75.164 \u00a75): on the dark bed it",
+              "bought nothing at all, and on the light bed it broke both stops."
+            ]
+          }
+        },
+        "cssTierMapping": {
+          "blurSigmaScale": 2.2
+        },
+        "$comment-sha-history": [
+          "8439eb808495f5bf \u2014 sealed by W29 G3b (claims \u00a75.154 \u00a77). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 73a3fb119a81312b (claims \u00a75.158 \u00a73). This document is re-sealed at f3008c3e9033ed4c by W30 G3, which gives those leaves values (claims \u00a75.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay.",
+          "f3008c3e9033ed4c \u2014 the reading under rule 1 (the plain resolved fingerprint). Re-sealed at c61194f820d77280 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 \u2014 the digest rule lands (claims \u00a75.164)",
+          "c61194f820d77280 \u2014 the reading under rule 2 (the plain resolved fingerprint). Re-sealed at 8a43f54162606db4 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 \u2014 the chroma retention fitted into the four documents (claims \u00a75.164 \u00a74)",
+          "8a43f54162606db4 \u2014 the reading under rule 2 (the fingerprint of materialDigestInput(resolved) \u2014 the resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold their identities). Re-sealed at bd1814fac34f9b30 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W32 G1 \u2014 the outer shadow's exterior fitted as a whole: the outset per scheme, the six anchors re-solved against the 3-48 CSS px window, the dark document's \u03c3 slope inside B1, and the receded documents' amplitude stood down to 0 (claims \u00a75.168; W32 Decision Log 2)",
+          "bd1814fac34f9b30 \u2014 rule 2, SHA-256 of materialDigestInput(resolved). Re-sealed at e59f9106bcd7c966 under the same rule, W33 G1b (claims \u00a75.172; Decision Log 1 (a)): the lift stands down and only the three thick anchors take its compensation.",
+          "e59f9106bcd7c966 \u2014 rule 2, superseded by 2a4323f33df8d799, W36 G1 (\u00a75.179): black-only compact branch; all old leaves unchanged."
+        ],
+        "$comment-w30-g3b": "2026-09-20, W30 G3b \u2014 the rows read at THESE bytes were captured at a renderer that draws the thin regime whole. At a casting span of 44 CSS px this document's own \u03c3 law draws \u03c3 = 2.13, and the optics pass's shadow falloff returned NaN more than 10.06 \u03c3 inside the shadow's silhouette \u2014 f32's exp overflowing inside tanh \u2014 which left a strip of a 44 px surface undrawn and put 170 texture cells outside W20's adopted declaration conformance (claims \u00a75.159 \u00a76, diagnosed and fixed in \u00a75.159b, commit 35ce02b1). No constant of this document moved and no material moved: resolvedMaterialSha256 is unchanged and asserted unchanged by results/2026-09-20-w30-g3b-thin-strip/comment-generation.ts, which is what makes the re-read a generation of its own (charter Decision Log 5 (b)) rather than an overwrite of W30 G3's rows \u2014 those live in results/superseded/ by name.",
+        "$comment-sha-history-correction": "2026-09-21, W31 G3c (review closure; claims \u00a75.164 \u00a713, finding N9), written here at W32 G1 (claims \u00a75.168) because W31 G3c could not move this document's bytes (W31 Deferred item 14). A line of $comment-sha-history above reads \"the reading under rule 2 (the plain resolved fingerprint)\", and rule 2 is NOT the plain resolved fingerprint \u2014 it is the fingerprint of materialDigestInput(resolved), the material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold their declared identities (W31 Decision Log 1 (a)). The parenthetical belongs to rule 1 alone and seal.ts's template appended it whatever rule the previous reading was taken under. The DIGESTS in that line are correct and are not restated here; only the description of the function is wrong. The corrected template is results/2026-09-21-w31-g3c-accessibility-gate/seal.ts, which this gate ran.",
+        "source": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+        },
+        "candidateEndpoint": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/active.dark.json",
+          "sha256": "5a054ac5b49284382f5028811e13a88a4a4b03d2edd9bb0a26183c8142495312"
+        }
+      },
+      "evidenceKind": "completed-current-gate0",
+      "baseline": true,
+      "repeatAdmission": {
+        "schema": "w50-legacy-byte-identical-1",
+        "mode": "legacy-byte-identical",
+        "reading": "first",
+        "first": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+          "sha256": "7268195e0919a01b2d6449cb8f5774b5901b06f1f6bc33296d97630264db096b"
+        },
+        "originalEqualityAttestation": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell__webgpu.json",
+          "sha256": "a7960972932d9f3fffd59e6f9689a95c8b3d943574e328fccf70dfe1cf8c6e0e"
+        },
+        "deterministic": true,
+        "repeatNoise": 0,
+        "secondRetained": false
+      },
+      "reading": "first",
+      "origin": {
+        "kind": "retained-attempt2",
+        "ordinal": 183,
+        "priorRoot": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument-root.json",
+          "sha256": "b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0"
+        },
+        "priorClaim": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-current2/execution/current-instrument/ac706781a6d8e45d36f2ef3ddd2e7ee44069916ddbc90231bb5cf9926a8af3df.json.started.json",
+          "sha256": "9e35bfbd3237c43483d8d72f7fc8954c1b902f04b3763d555880b46ee94c2c14"
+        },
+        "priorFailure": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-current2/evidence/current-attempt2/failure.json",
+          "sha256": "1149befb06effa02ee02c56ceb11aa5cfe3e101f8b5240b000b9e4980e6f5303"
+        },
+        "originalArtifacts": {
+          "png": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+            "sha256": "7268195e0919a01b2d6449cb8f5774b5901b06f1f6bc33296d97630264db096b"
+          },
+          "cell": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/cell__webgpu.json",
+            "sha256": "a7960972932d9f3fffd59e6f9689a95c8b3d943574e328fccf70dfe1cf8c6e0e"
+          },
+          "report": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/report__webgpu.json",
+            "sha256": "34c7f00483c5b4a1e15d784ec0d596d0c819610f11289fcd59c470b2addf3b60"
+          }
+        },
+        "originalEvidence": {
+          "record": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/cell-grey-004-s096__rest/w50-capture.json",
+            "sha256": "27f2f3cbcc731425d4dfc4790ee589473487d169aadfbefe446f065384546be0"
+          },
+          "index": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/indexes/glass05-1x-active-webgpu.json",
+            "sha256": "c5cdd826d181e57811a64bd12408dc0290ab7835482b89c23efe2ee3c57f64a1"
+          },
+          "request": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/request-cell-grey-004-s096__rest.json",
+            "sha256": "19d0099da3ec069caf04d76677ebbbb86f126d2cda9e4e63c52235251e9afa74"
+          },
+          "census": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/census-cell-grey-004-s096__rest.json",
+            "sha256": "37992c29f7fae5f2d9f08a84ad3ddd2e4bb6791b0ef65f036bf5778366b3388a"
+          },
+          "log": {
+            "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass05-1x-active-webgpu/capture-cell-grey-004-s096__rest.log",
+            "sha256": "ff73841e8a2171d1440418b6676e0b789ef9a8ffb4b3b8c451811f15a70f7fdd"
+          }
+        }
+      },
+      "currentComposition": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+        "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+      },
+      "instrument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json",
+        "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44"
+      },
+      "batch": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/current-512-batch.json",
+        "sha256": "d25a355d0944bccdefffb1c1829fa8dd0cf26cf1e7d9009a5174ae02e52bd698"
+      }
+    }
+  },
+  "capturedArgumentSha256": "9d9f6fb8985036f0b043fbcefdfafa36ca2911a0b1f7896a648fb802690b894c",
+  "originalCurrentEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+    "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+  },
+  "heldSamplingProof": {
+    "schema": "w50-held-sampling-proof-1",
+    "position": 0.5,
+    "capturedCandidate": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+      "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+    },
+    "evaluationCandidate": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    },
+    "heldMaterialSha256": "10f0ec74e1f5fb376a584754999bbf0dd326e12e0b455836b0eaecae2e0a3be7",
+    "lightEndpointSha256s": [
+      "a217b7f7d2a72c6ec2282caebf5b897b2cc07fb55050bdb8f64371862a1be780",
+      "83e2156ba37924041e65d8cb8308c94d311b4e8bf57b9dab287a628bc7d76071"
+    ],
+    "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+  },
+  "argumentSemantics": "EVALUATED_CANDIDATE_USING_HELD_GATE0_SAMPLING"
+}
