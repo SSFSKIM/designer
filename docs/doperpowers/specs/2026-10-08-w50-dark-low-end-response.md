@@ -870,6 +870,19 @@ waiver, DL4 intact.
   (e) A refusal of attempt 2 BEFORE its marker, or any fault after it, is final: NEITHER, with
       no further recovery.
 
+DL5s clarification 1 (parent). DL5s(a)'s purpose is authentication against the bytes the proof
+ATTESTED. A SHA-256 committed in the proof at bdb0f3fef attests those bytes as strongly as a git
+blob does. Granted as recommended:
+  - The two gitignored live-input JSONs are authenticated by decompressing their commit-pinned
+    gzip archive blobs.
+  - The 15 gitignored r3 test logs are authenticated by their current raw bytes against the
+    historical proof hashes committed at bdb0f3fef.
+  - The logs are then force-added now as late preservation, with a witness saying plainly that
+    no blob existed at bdb0f3fef.
+  - The exception (17 paths, 20 occurrences) is pinned by name in the attempt-2 authority.
+  - A log whose bytes do not match is a pre-marker refusal under DL5s(e). It must not be
+    regenerated.
+
 ### DL5 — separate current-material instrument (parent confirmation)
 
 The pre-fit current-only instrument is separate from the later single live-fit root, as G0
