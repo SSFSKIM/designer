@@ -1,0 +1,727 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "executionClosure",
+ "status": "PASS",
+ "establishes": "The sealed LIVE root admits its body, its probe still exercises exactly root.closure, and every LIVE-related suite passes on the sealed tree (charter DL5 (a); DL5 review requirement before first use).",
+ "boundary": "Source and synthetic-suite checks only; no capture, candidate, native read or statistic.",
+ "builtFrom": {
+  "gitHead": "cf76d4b9de8506cada984e9b15e6805bfedd2b5c",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "root-seal",
+   "status": "PASS",
+   "verifies": "The root is the newest sealed root of the LIVE chain (common.newest_root) and its sidecar names its bytes.",
+   "function": "root_seal",
+   "summary": {
+    "root": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+    "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/root-seal.json",
+    "sha256": "9527aa2b4244476fc2e92efe9e136c2a7f002fd3da38f3210d07af29a962c292"
+   }
+  },
+  {
+   "id": "validate-body",
+   "status": "PASS",
+   "verifies": "authority.validate_body admits the sealed root.",
+   "function": "validate_body",
+   "summary": {
+    "status": "PASS",
+    "inputs": 72,
+    "closureSources": 75,
+    "instruments": [
+     "capture",
+     "fit",
+     "initializer",
+     "judge",
+     "measurement",
+     "native",
+     "owner"
+    ]
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/validate-body.json",
+    "sha256": "0613d5653f227d76356e492e07a398fd6ea99558eac5f4ac28b33e3e8af0b7fb"
+   }
+  },
+  {
+   "id": "fresh-discovery",
+   "status": "PASS",
+   "verifies": "A fresh guard.discover of the root probe equals root.closure (sources and environment).",
+   "function": "fresh_discovery",
+   "summary": {
+    "equal": true,
+    "sources": 75,
+    "probeSha256": "2a9d2af183ae8f3f371eb854bc59c0866b2d1e15a9305eda8a36e649289121aa"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/fresh-discovery.json",
+    "sha256": "311bb49f2439ee13c83907cd5d3adcf383474b2fb8b134583bd431dd7c891764"
+   }
+  },
+  {
+   "id": "suite-live-execution",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/live-execution suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution",
+   "exitCode": 0,
+   "tests": 133,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-live-execution.log",
+    "sha256": "304d644ebaa34967fef75cd9d0174f4791b25596497ced451ec8be4cbe64bd85"
+   }
+  },
+  {
+   "id": "suite-live-roles",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/live-roles suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles",
+   "exitCode": 0,
+   "tests": 80,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-live-roles.log",
+    "sha256": "c71e0b63c00909fb66ea528a2ff02e88a260dc6c9821d97f7baed09b735613c0"
+   }
+  },
+  {
+   "id": "suite-judge",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/judge suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/judge",
+   "exitCode": 0,
+   "tests": 90,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-judge.log",
+    "sha256": "b1ec488b08f1f0c556ef619f93fe212e22bfd40c374df90948a1a58558e0349f"
+   }
+  },
+  {
+   "id": "suite-fit",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/fit suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/fit",
+   "exitCode": 0,
+   "tests": 44,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-fit.log",
+    "sha256": "9a3880a96f6ada7f952d95cd86016536940d60186f8000938b6591e19a0f8828"
+   }
+  },
+  {
+   "id": "suite-measurement",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/measurement suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement",
+   "exitCode": 0,
+   "tests": 92,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-measurement.log",
+    "sha256": "e633108f9a7262aef65cdf2e73f08390125652aa38da5ea4e3c6951c29a21217"
+   }
+  },
+  {
+   "id": "suite-completion",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/completion suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/completion",
+   "exitCode": 0,
+   "tests": 45,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-completion.log",
+    "sha256": "acdef1eae8252fed2b2b4515f97cd47b350acdbaaca6631c0f39c6a6d346603c"
+   }
+  },
+  {
+   "id": "suite-references-r2",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/references-r2 suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "tests": 45,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-references-r2.log",
+    "sha256": "fb8732ead076390877100835545d665a0b47c44839c3198b7a0c76a0772f9e19"
+   }
+  },
+  {
+   "id": "suite-owner",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/owner suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-q",
+    "-p",
+    "test_*.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/owner",
+   "exitCode": 0,
+   "tests": 41,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-owner.log",
+    "sha256": "500fa6a88f9811c24ea9d57b578935ca70d63cfa3af3c5a3426d6a6d1f85048a"
+   }
+  },
+  {
+   "id": "suite-owner-candidate-live-test",
+   "status": "PASS",
+   "verifies": "The packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "live-test.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate",
+   "exitCode": 0,
+   "tests": 27,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-owner-candidate-live-test.log",
+    "sha256": "a59b92570b6449a750577853c47e4554ee08fbaa7559890722011bb614f45ac3"
+   }
+  },
+  {
+   "id": "node-owner",
+   "status": "PASS",
+   "verifies": "The packages/calibration suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+    "--import",
+    "tsx",
+    "--test",
+    "--test-reporter=tap",
+    "results/2026-10-08-w50-g1-fit/owner/api.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/batch.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/bounds.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/bridge.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/discovery.test.mjs",
+    "results/2026-10-08-w50-g1-fit/owner/guard.test.mjs",
+    "results/2026-10-08-w50-g1-fit/owner/intrinsic.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/referee.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/source.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner/witness.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "tests": 63,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/node-owner.log",
+    "sha256": "5891c8041541b22597285f467c047cb6bc86854dd38fed7841024c41f26d9d5e"
+   }
+  },
+  {
+   "id": "node-owner-candidate",
+   "status": "PASS",
+   "verifies": "The packages/calibration suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+    "--import",
+    "tsx",
+    "--test",
+    "--test-reporter=tap",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/bridge.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/frozen-engine.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/identity.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/integration.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/intrinsic-request.test.ts",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/live-discovery.test.mjs",
+    "results/2026-10-08-w50-g1-fit/owner-candidate/union.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "tests": 37,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/node-owner-candidate.log",
+    "sha256": "c26df4ff486a60b3c94d564d385302ffd1fea296fab35f416904c7cd2f1ce44f"
+   }
+  },
+  {
+   "id": "node-fit",
+   "status": "PASS",
+   "verifies": "The packages/calibration suite passes on the tree the root seals.",
+   "command": [
+    "/Users/new/.nvm/versions/node/v24.18.0/bin/node",
+    "--import",
+    "tsx",
+    "--test",
+    "--test-reporter=tap",
+    "results/2026-10-08-w50-g1-fit/fit/candidate.test.ts",
+    "results/2026-10-08-w50-g1-fit/fit/runtime-bridge.test.ts",
+    "results/2026-10-08-w50-g1-fit/fit/runtime-discovery.test.mjs",
+    "results/2026-10-08-w50-g1-fit/fit/uniform-oracle.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "tests": 12,
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/node-fit.log",
+    "sha256": "e13d19757dd6fae013a7057df19447509f452a15e4031115672322a373a51563"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit.py",
+   "sha256": "451df4fd0faa28e552d9c6cdc7109a294fed98248b091d422c2169fc1f304c59"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+   "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json.sha256",
+   "sha256": "4f865cf62266e559eb7307ac2f3d3815ae4ea95fc0188184fd4b7dc5ce3eda8a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py",
+   "sha256": "13bf3e967b3a8504c5b05cd2fc4934a6b80602d5d6a37efcf1b652c68d4627fc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py",
+   "sha256": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/probe.py",
+   "sha256": "2a9d2af183ae8f3f371eb854bc59c0866b2d1e15a9305eda8a36e649289121aa"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_authority.py",
+   "sha256": "9c89ba5c500b19220bee50f9689e038caae37b10375a62f22d71977fb3f0bf99"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_chain.py",
+   "sha256": "fc9b9cf819a84ac42f28484385e5b74d26d84717e70ee7c99a9f090c924e85b6"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_dispatch.py",
+   "sha256": "5877b8e5237e0c97eed616863af43e87a9520eb124708055b48cb0bc4c6486e9"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_execution.py",
+   "sha256": "7e7b7954e42c403866949955b7e792f3c2fae85c144470d629208840c8b6d946"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_lifecycle.py",
+   "sha256": "29e2490c29039d06c0b26e0a7891245effaf4466b5376bf716de9ef31da1be98"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_quarantine.py",
+   "sha256": "44781c5313af6c41aab55a94f396f4b19acbcdc40a7a456483e1630be827d98a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/test_report.py",
+   "sha256": "cdda855c627a19dfa6f8f94b63f91270b1881dcbbd264de2643a936ccf2fdc0f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_capture.py",
+   "sha256": "3689403fc4adf763718392589ec9834e585cdcf8785f898a87819fc8eb60b5a3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_capture_conformance.py",
+   "sha256": "ce8074fad2b2cbbd62208e7f2f830c4e83b4da9037d31a05e279bac457f1d9df"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_capture_readiness.py",
+   "sha256": "47eab4a9bdb65ef972291a78dab53cf033b39e519f1ba0007ddda0a7b34cafe9"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_draft_root.py",
+   "sha256": "d7e1a83d39d2740b4d9d34c687e29d6e0e2df008aaa6f85bbe11322d5e9bdf54"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_end_to_end.py",
+   "sha256": "1a8b556a553756627b87483eb3f9edb5f4ea226c4963b1e5fcc40aca81febdde"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_measurement.py",
+   "sha256": "fe54647b124a75c8de2a7b6522aa2d99c85f94bb7c1e905caf24ccc0c2209f81"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_native.py",
+   "sha256": "b2f662682d867c891b4970de3852ec651004ba9eaa2bdfe1d6123804d6217c0e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/test_owner.py",
+   "sha256": "ee923a2752f28a19afb1b272124746bb1c318cb448d1fbc756d5be49ac0801d1"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/test_live.py",
+   "sha256": "361ad8d7bca26cd0ff55f18b50970a978fbad0464c13a4bb3daf741f92db3b2d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/test_measurement_boundary.py",
+   "sha256": "86e7035d807714a602bbd66a570ebe4e60c4f909ca1a710b3a05bd73c4c230ee"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/test_numerical.py",
+   "sha256": "41798aafe3e66ff5386ba734a79ac649425300893760034edc572bc1493aa29d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/test_owner_selfcheck.py",
+   "sha256": "9a92ea7ba69b196f503936aca4f982efc92d0d2d7f0f3fa7546c62fe177e91f0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/test_rules.py",
+   "sha256": "5b15e32ba097426ac72625d3393d5c43948151b3b20322aa1fba2027e833cfe6"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/test_composed_current.py",
+   "sha256": "91dbe362b029cd5a2cd11a9cbee668bcd658738551e0b921af6ae2a6c0ebe414"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/test_execution.py",
+   "sha256": "eee0dcdccf576c1c478f5e3170b71252414deb907d1a6165d1692401debb200f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/test_inputs.py",
+   "sha256": "323eb848f5085ab0bf0f0554804afaaa92f823559681a6b353d8b503edecd85b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/test_live.py",
+   "sha256": "99a6fd9ac56c4042a5848b5fd1946fdc913eccb3efb75415e39a9ec8aac76182"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/test_runtime_entry.py",
+   "sha256": "aba7aa67b50f5573bd907110fbea58270ad48b5cfc4e47325c799fd63fef7ecc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/test_uniform.py",
+   "sha256": "c0fa5b1f74998af3505aa14ab46b09805d97c53d3aaedf4c9be6a4a15d846ed1"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_capture.py",
+   "sha256": "3de8bfc41768516db3889563098b4074683e83acf3ab39b359e970542d4245a0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_frozen_t1.py",
+   "sha256": "fe3fe8754c0e25ce44762b22435ae319067f7ff1df1d17a89fcbe47dc14cbb6d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_phase.py",
+   "sha256": "c12d3776a6e4f5f166228c3839c4cd716d0627c02990f74095af557fe29b72e4"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_phase_sources.py",
+   "sha256": "f9415dc81b3a727221f3b0bad6e64633da537084376a2d4104abfad248e47d04"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_projection.py",
+   "sha256": "87b1aa4032b7c0852577faaa79d7a60527120abaf3da9c2928d24805cca59c56"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_readiness.py",
+   "sha256": "514e906bd11b2edac2e43070dc19ca1014470eaa4c371c394ebcb62f7459461d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_repeat.py",
+   "sha256": "37d1931b3d46ddc28ece405ef263e3bb366ccb985b8a425f354b45aeb9448380"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_assembler.py",
+   "sha256": "48d1b26dedc2cb1e5e066a201d3662e8747f7459366b5d9f7d32c96b7fe6632e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_bound.py",
+   "sha256": "4234a1e3402ae41a3709ad39624a84880e645c130a3265182283ff607e720863"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_bound_composed.py",
+   "sha256": "15b007a400c5253c3fa4535f4d2a8bda3c5220a272e9ecf2719be8f4cb00210e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_validator.py",
+   "sha256": "55b822ecf2369640798ccc7c4b15e629d393d54cd26e34b314cfc637ed5dff54"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_witness.py",
+   "sha256": "3ce9aa1114181b325fb7f6789519781c180a3acc47bc5841f99146fae436c60a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/test_witness_3.py",
+   "sha256": "64cf34dfe5250a73bc53eb721d07965c65b94feac87a74fbcd5b641aeff41602"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_canonical.py",
+   "sha256": "61b8a80909e09f3de6d88ec601a5aa00bbab7b5ef238d838e5a908a464c0c318"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_completion.py",
+   "sha256": "6aa7a5ad249d664b613fbb57ec70181b4572b73eca44f96c0313af449f80fe6a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_composed_completion.py",
+   "sha256": "9623a1e7068766e7f0658882f7b60c35cc5a81c077df5f6b3b4e65312c310c16"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_run.py",
+   "sha256": "7d5b31707b71baffb0f6d86cc0dba57e218021bed2a3925273e11e49ea4179fc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_run_composed.py",
+   "sha256": "367ece4459e5ced84448f61234aee3802e59a673b81fbcc70e62a425ded0668e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_statistics.py",
+   "sha256": "7ab65ad0a0e74bd77f417d02a31bb7986b6f1d6c159d6f9843ac027091abf34e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/test_byte_witness.py",
+   "sha256": "8383d61fd52ec75db0e55bda41e45562a797b7a4fe49ad3349fb3704dcbb117e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/test_edge.py",
+   "sha256": "dbf56acc024f1fab2e1bbfe7926463deed0bf025e94baecae80fd9d4d82bc99a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/test_environment.py",
+   "sha256": "d595be32d756d17a4e368f8af0e2a1a03237ec5c8651db28a15630299d7056dc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/test_metadata.py",
+   "sha256": "e1b724119e05d20cf73764e77c7063620efd3f2bc97160d1a85430f2a75e47ce"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/test_python_guard.py",
+   "sha256": "c4baeb6bb562f91402014ea4a8a530aca9dd1c87cd389e1f5fc18b67b9705f20"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/test_run.py",
+   "sha256": "2badd5e3564dd8711f7d1eaf2f6be5ee1c6aba26219526abaa465cc4f8e36f10"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/live-test.py",
+   "sha256": "952018cea32b4b37960abd49db4133dacc78dfcb99f105ab36ea8e0481a4e3bd"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/api.test.ts",
+   "sha256": "df7ca3acb997044b63814eb168fbb84a0e9552dee5205cbca3592db34e24d4be"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/batch.test.ts",
+   "sha256": "03b9ba91d3f4110f5b5d0c241a2666d7d5c9b24d3e50235665890538725e6e9c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/bounds.test.ts",
+   "sha256": "f9055dcb022f7ee000a3d50e7e2b84b0e08aaa3f0a8e7510ff01e648a6ed9d2c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/bridge.test.ts",
+   "sha256": "b8a3f86a7e5c84690c1ce8b83b887dc81d570f43d958fa150c7e3f1f081ce54f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/discovery.test.mjs",
+   "sha256": "4d9a24b4bf282b00b6c8cd01d4c840cb8d3c5edc0dd13f5cc5c5985042267b6b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/guard.test.mjs",
+   "sha256": "51cf7db2185ec2e11471e55e9ebe974392237d7b54ddf3063efd04428d18a717"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/intrinsic.test.ts",
+   "sha256": "8110625ac963345b41a11f46e5382c440915ee7740659ae33eaa940a05b22e9d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/referee.test.ts",
+   "sha256": "163489f74edc0f295f345eb779d436732eda3f6c383d34305d6b6548cef94202"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/source.test.ts",
+   "sha256": "e8e5787dd9a2ca29d1c540b199b8ad8ab3f905433ea70e05db62e3c427f4baaa"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/witness.test.ts",
+   "sha256": "c92936563b77e69c7e787d8b30c30815fcf6074c6ea3c68a6bb825fd51e3bf51"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/bridge.test.ts",
+   "sha256": "4210a165f6c55ee924d4504900698db76b3e8ad782a1d941ddc920c76366aa34"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/frozen-engine.test.ts",
+   "sha256": "3b795232343b414a79e645201d2f7718625fda544de8e77771c8c6477e1547a1"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/identity.test.ts",
+   "sha256": "e6c0c298241179c8dc7152ff6423b3af50697538d9d68824a8d3c82ef84e15e1"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/integration.test.ts",
+   "sha256": "9bf543bbfb94c051a6dec0c53e02662cf1d58d440a2ab6107025bb82f40ed5d0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/intrinsic-request.test.ts",
+   "sha256": "c6f0bef268574f0e79c3f1efcea9c4cd421fc88b0df757d87b15bbc530aab9d2"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/live-discovery.test.mjs",
+   "sha256": "2ecb2c13bc13d36cb117735e4eb5fc6505497f3f28bd74cf5f8be0cb12941e8c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/union.test.ts",
+   "sha256": "4e691705d8044b605289b763f80c10d06d886302f5e0cc40d43dce86cc6eb26c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/candidate.test.ts",
+   "sha256": "d3c011bd9a451f61f5b58aa0e070fb76f20cd4706547f12a99e0fb72543b6931"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/runtime-bridge.test.ts",
+   "sha256": "26a786e01581decd924f1934e652202fafc4271f151d4953788f7ab859eddc3a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/runtime-discovery.test.mjs",
+   "sha256": "f13323cd8a5d1c277b73f5256871ff51f5317b6b0506fa485c6bbf80b8eaa044"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/uniform-oracle.test.ts",
+   "sha256": "73f687804a94002f23c61a30c622ed010d858bccdad51e1a4a79efd30cef390b"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/root-seal.json",
+   "sha256": "9527aa2b4244476fc2e92efe9e136c2a7f002fd3da38f3210d07af29a962c292"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/validate-body.json",
+   "sha256": "0613d5653f227d76356e492e07a398fd6ea99558eac5f4ac28b33e3e8af0b7fb"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/fresh-discovery.json",
+   "sha256": "311bb49f2439ee13c83907cd5d3adcf383474b2fb8b134583bd431dd7c891764"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-live-execution.log",
+   "sha256": "304d644ebaa34967fef75cd9d0174f4791b25596497ced451ec8be4cbe64bd85"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-live-roles.log",
+   "sha256": "c71e0b63c00909fb66ea528a2ff02e88a260dc6c9821d97f7baed09b735613c0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-judge.log",
+   "sha256": "b1ec488b08f1f0c556ef619f93fe212e22bfd40c374df90948a1a58558e0349f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-fit.log",
+   "sha256": "9a3880a96f6ada7f952d95cd86016536940d60186f8000938b6591e19a0f8828"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-measurement.log",
+   "sha256": "e633108f9a7262aef65cdf2e73f08390125652aa38da5ea4e3c6951c29a21217"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-completion.log",
+   "sha256": "acdef1eae8252fed2b2b4515f97cd47b350acdbaaca6631c0f39c6a6d346603c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-references-r2.log",
+   "sha256": "fb8732ead076390877100835545d665a0b47c44839c3198b7a0c76a0772f9e19"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-owner.log",
+   "sha256": "500fa6a88f9811c24ea9d57b578935ca70d63cfa3af3c5a3426d6a6d1f85048a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/suite-owner-candidate-live-test.log",
+   "sha256": "a59b92570b6449a750577853c47e4554ee08fbaa7559890722011bb614f45ac3"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/node-owner.log",
+   "sha256": "5891c8041541b22597285f467c047cb6bc86854dd38fed7841024c41f26d9d5e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/node-owner-candidate.log",
+   "sha256": "c26df4ff486a60b3c94d564d385302ffd1fea296fab35f416904c7cd2f1ce44f"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/executionClosure/node-fit.log",
+   "sha256": "e13d19757dd6fae013a7057df19447509f452a15e4031115672322a373a51563"
+  }
+ ]
+}

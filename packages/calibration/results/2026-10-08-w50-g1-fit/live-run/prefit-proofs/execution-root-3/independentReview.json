@@ -1,0 +1,240 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "independentReview",
+ "status": "PASS",
+ "establishes": "Every LIVE review round is recorded with its range, reviewers, findings by severity and dispositions with fixing commits; the last round converged and reviewed every byte the root binds (charter DL5: an independent review of the dispatcher before first use).",
+ "boundary": "Git history and the committed review record only; no capture, candidate, native read or statistic.",
+ "builtFrom": {
+  "gitHead": "cf76d4b9de8506cada984e9b15e6805bfedd2b5c",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "record-shape",
+   "status": "PASS",
+   "verifies": "The review record is one complete, TODO-free document.",
+   "function": "shape",
+   "summary": {
+    "rounds": 6
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/record-shape.json",
+    "sha256": "220650d5d3011cc854f3fc4994ad2b95e3c378e2a07d706623cbcbd06b071a62"
+   }
+  },
+  {
+   "id": "round-pre-seal-1",
+   "status": "PASS",
+   "verifies": "Round pre-seal-1: range, reviewers, findings and fixing commits verify.",
+   "function": "check",
+   "summary": {
+    "base": "98dfef53af5d0f4688c98938a8dd7d9aff9ac71e",
+    "head": "a2d1bfbb9d94b85c7723296a2d2dae228bcb8b11",
+    "reviewers": 3,
+    "findings": {
+     "P0": 1,
+     "P1": 3,
+     "P2": 3,
+     "P3": 7
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-pre-seal-1.json",
+    "sha256": "31fa4c26f604302545e663c75ca90d88dc4ff8366cc05ef720feb1c584879436"
+   }
+  },
+  {
+   "id": "round-pre-seal-2",
+   "status": "PASS",
+   "verifies": "Round pre-seal-2: range, reviewers, findings and fixing commits verify.",
+   "function": "check",
+   "summary": {
+    "base": "a2d1bfbb9d94b85c7723296a2d2dae228bcb8b11",
+    "head": "4ffa487466b283423b90f6308f13f9dec39aaa2f",
+    "reviewers": 2,
+    "findings": {
+     "P0": 0,
+     "P1": 2,
+     "P2": 2,
+     "P3": 6
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-pre-seal-2.json",
+    "sha256": "3b17a39e08f5270cd0870bd5b8badb8a1f54a33cfcab3c94f9868fc10f44291a"
+   }
+  },
+  {
+   "id": "round-pre-seal-final",
+   "status": "PASS",
+   "verifies": "Round pre-seal-final: range, reviewers, findings and fixing commits verify.",
+   "function": "check",
+   "summary": {
+    "base": "4ffa487466b283423b90f6308f13f9dec39aaa2f",
+    "head": "89e7b0d901e9d14e8156b4e58b3e6dddca4ee5db",
+    "reviewers": 1,
+    "findings": {
+     "P0": 0,
+     "P1": 0,
+     "P2": 0,
+     "P3": 5
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-pre-seal-final.json",
+    "sha256": "115a7beb05c2a62c801dccc143165455b72b7d8eaf3b7012ae0a32afe3eff89e"
+   }
+  },
+  {
+   "id": "round-dl5o",
+   "status": "PASS",
+   "verifies": "Round dl5o: range, reviewers, findings and fixing commits verify.",
+   "function": "check",
+   "summary": {
+    "base": "dd73ebdc36a539ba1460b7a6eae6f433d1ceee72",
+    "head": "d223c86639ca3b90677b87c29b9ed8313bc1e685",
+    "reviewers": 2,
+    "findings": {
+     "P0": 0,
+     "P1": 0,
+     "P2": 3,
+     "P3": 16
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-dl5o.json",
+    "sha256": "48e27df604f9e3c008930e21c77df6bce363285befebcad172e242ce4e812fd8"
+   }
+  },
+  {
+   "id": "round-dl5p",
+   "status": "PASS",
+   "verifies": "Round dl5p: range, reviewers, findings and fixing commits verify.",
+   "function": "check",
+   "summary": {
+    "base": "d223c86639ca3b90677b87c29b9ed8313bc1e685",
+    "head": "6e56a2caded3ffa84705138f7a9ba233713843d5",
+    "reviewers": 1,
+    "findings": {
+     "P0": 0,
+     "P1": 1,
+     "P2": 0,
+     "P3": 4
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-dl5p.json",
+    "sha256": "16439a19ec0f0d71778e7b094ec7312d3f4c1108694dfb5b021157ad6f5e3efb"
+   }
+  },
+  {
+   "id": "round-dl5p-closure",
+   "status": "PASS",
+   "verifies": "Round dl5p-closure: range, reviewers, findings and fixing commits verify.",
+   "function": "check",
+   "summary": {
+    "base": "6e56a2caded3ffa84705138f7a9ba233713843d5",
+    "head": "49051d352222e2762507f4c9bc1f847caa61f0ee",
+    "reviewers": 1,
+    "findings": {
+     "P0": 0,
+     "P1": 0,
+     "P2": 0,
+     "P3": 0
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-dl5p-closure.json",
+    "sha256": "48f5fad1b9037802f1e66fb4f482bdcae622f8a54aecbe654a8ee35ed6de27e4"
+   }
+  },
+  {
+   "id": "converged",
+   "status": "PASS",
+   "verifies": "The rounds are contiguous (each starts at the previous head, or after a gap that moved no root-bound file), the last round found no P0/P1, and it reviewed every earlier round's fixes.",
+   "function": "converged",
+   "summary": {
+    "lastRound": "dl5p-closure",
+    "lastHead": "49051d352222e2762507f4c9bc1f847caa61f0ee",
+    "earlierFixesReviewed": 35,
+    "gapsWithoutRootBoundChange": 1
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/converged.json",
+    "sha256": "224aa57b7381ebb37191beba93d69db9c695b1c87883e950b6d583e61b083b76"
+   }
+  },
+  {
+   "id": "root-bound-reviewed",
+   "status": "PASS",
+   "verifies": "No closure source, instrument or tracked input changed after the last reviewed head (worktree included).",
+   "function": "covered",
+   "summary": {
+    "rootBoundFiles": 135,
+    "changedAfterLastHead": 0,
+    "lastHead": "49051d352222e2762507f4c9bc1f847caa61f0ee"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/root-bound-reviewed.json",
+    "sha256": "bc2992d21fe177528d5b89b3b2d8440e559a69415b9fb1fb96d81cfaca33eb8f"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit.py",
+   "sha256": "451df4fd0faa28e552d9c6cdc7109a294fed98248b091d422c2169fc1f304c59"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/review-records.json",
+   "sha256": "200446757785df627640cdcbdce9ac8b0a02216948624aed51200923ebf16e16"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+   "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json.sha256",
+   "sha256": "4f865cf62266e559eb7307ac2f3d3815ae4ea95fc0188184fd4b7dc5ce3eda8a"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/record-shape.json",
+   "sha256": "220650d5d3011cc854f3fc4994ad2b95e3c378e2a07d706623cbcbd06b071a62"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-pre-seal-1.json",
+   "sha256": "31fa4c26f604302545e663c75ca90d88dc4ff8366cc05ef720feb1c584879436"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-pre-seal-2.json",
+   "sha256": "3b17a39e08f5270cd0870bd5b8badb8a1f54a33cfcab3c94f9868fc10f44291a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-pre-seal-final.json",
+   "sha256": "115a7beb05c2a62c801dccc143165455b72b7d8eaf3b7012ae0a32afe3eff89e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-dl5o.json",
+   "sha256": "48e27df604f9e3c008930e21c77df6bce363285befebcad172e242ce4e812fd8"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-dl5p.json",
+   "sha256": "16439a19ec0f0d71778e7b094ec7312d3f4c1108694dfb5b021157ad6f5e3efb"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/round-dl5p-closure.json",
+   "sha256": "48f5fad1b9037802f1e66fb4f482bdcae622f8a54aecbe654a8ee35ed6de27e4"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/converged.json",
+   "sha256": "224aa57b7381ebb37191beba93d69db9c695b1c87883e950b6d583e61b083b76"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/execution-root-3/logs/independentReview/root-bound-reviewed.json",
+   "sha256": "bc2992d21fe177528d5b89b3b2d8440e559a69415b9fb1fb96d81cfaca33eb8f"
+  }
+ ]
+}
