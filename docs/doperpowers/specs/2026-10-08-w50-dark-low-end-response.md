@@ -68,10 +68,13 @@ UNMEASURED/NEITHER. Exact carry committed `02c0e5694` (three production lines); 
 differential retaining all diagnostics. Successor tooling is committed `77ae8da3a` under
 `gate-analysis-recovery/`. Reviewer-high `aec5c2d09c401b82b` found one terminal-publication P1:
 a late durability fault could revive a surviving success record. Fix `ae61a95c5` makes terminal
-bytes provisional, requires authenticated completion after cleanup and lets a permanent fault
-tombstone dominate; 29 synthetic tests pass. The same reviewer is checking closure. No authority
-seal, successor marker, real analysis or payload parse has run. After review: `gate-analysis-recovery/seal.py seal`, commit authority files, then the
-single `gate-analysis-recovery/run.py` invocation; report verdict before exposure.
+bytes provisional. Follow-up `3cf208904` moves completion eligibility to the final exclusive link,
+with conservative crash loss and fault dominance; all 33 synthetic tests pass. Reviewer-high closes
+with no material findings. The successor authority/root-view/contract are SEALED and committed,
+with `gate-analysis-recovery/review-clearance.json`. Running: the ONE authorised invocation,
+`gate-analysis-recovery/run.py run`, output `/Users/new/vitrea-w50/g1-live-gate-analysis-2.out`.
+Do not start it again or permit a third analysis. Read only terminal status/witness metadata when
+it finishes, preserve records and report the verdict before any exposure batch.
 No gate payload may be opened during development, no capture or candidate changes, no third
 analysis, and no exposure batch before reporting the verdict. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
