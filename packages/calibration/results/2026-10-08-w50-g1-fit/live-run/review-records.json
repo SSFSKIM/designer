@@ -431,14 +431,47 @@
       "id": "dl5p",
       "range": {
         "base": "d223c86639ca3b90677b87c29b9ed8313bc1e685",
-        "head": "TODO: the last commit the DL5p review read, at or after the bind-only recovery commit"
+        "head": "6e56a2caded3ffa84705138f7a9ba233713843d5"
       },
       "reviewers": [
-        "TODO: each DL5p reviewer, its model and the range it read, as the review reports state them"
+        "opus read-only review ac67d5a661cc4dbb1 of d223c8663..6e56a2cad: root 2's seal and pre-fit evidence, DL5p, the binder's role normalisation, root 3's succession over root 2's committed pre-fit history and the bind-only recovery"
       ],
-      "note": "DRAFT, no review has run. The round starts at round dl5o's head, so it covers everything root 3 binds that moved since: root 2's seal (ef68b07c6) and pre-fit evidence (a106c8d8d), the preserved refusal (6d36b7fbd), DL5p (03a8bb004), the binder's role normalisation (5ba0d668a, fit/inputs.py), root 3's succession over root 2's committed pre-fit history (a260582b6, live-execution/authority.py and common.py, live-roles/draft_root.py) and the bind-only recovery (live-run/recovery.py, dl5p-recovery.json, run.py recover-bind, child.py bind, prefit.py per-root proofs). Every TODO is filled from the review reports, never ahead of them; prefit refuses root 3's pre-fit evidence while any remains (review_ready).",
-      "findings": "TODO: every finding with its severity, summary and disposition (fixed with fixedBy, deferred or dismissed with a reason); an empty list only if the reports found nothing",
-      "sealedAfter": "TODO: root 3's path, sha256 and sealing commit once it is sealed after this round"
+      "note": "One opus reviewer, read-only. The round covers everything root 3 binds that moved since round dl5o's head: root 2's seal (ef68b07c6) and pre-fit evidence (a106c8d8d), the preserved refusal (6d36b7fbd), DL5p (03a8bb004), the binder's role normalisation (5ba0d668a, fit/inputs.py), root 3's succession (a260582b6, live-execution/authority.py and common.py, live-roles/draft_root.py), the bind-only recovery (42a4d6160) and root 3's draft (6e56a2cad). One P1, in a test and not in any root-bound file, fixed test-only; root 3's draft (d50cf054...) is unchanged. Every P3 is logged.",
+      "findings": [
+        {
+          "severity": "P1",
+          "summary": "live-execution/test_authority.py RootThreeSuccession's 'a history link at generation 2' subtest read its refusal through authority.predecessors on the real root 2; once root 3 is sealed beside it, the newest-only guard refuses first ('Superseded LIVE root'), so the suite would fail on the tree root 3's pre-fit proof runs it on. The subtest now reads the refusal at authority._link, and RootThreeSuccessionAfterSeal runs every case with root 3 and its sidecar listed.",
+          "disposition": "fixed",
+          "fixedBy": [
+            "73e22ce3f07bbf81107344ee8c993aaff340fec5"
+          ]
+        },
+        {
+          "severity": "P3",
+          "summary": "live-run/recovery.py binds DL5p's charter paragraph by the SHA-256 of its live text, so the paragraph must not be edited while the run is open.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "run.py _numerical labels its error stops step 'initialize' even under recover-bind.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "A crash between the bind child's numerical cohort write and run/recovered.json leaves a bound cohort with no record (the existing logged window's shape).",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)'."
+        },
+        {
+          "severity": "P3",
+          "summary": "No test drives the recovery through fit/execution.py bind_arguments against the real history root, and none asserts initialize's refusal under root 3.",
+          "disposition": "deferred",
+          "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)'."
+        }
+      ],
+      "sealedAfter": "not yet sealed: root 3's path, sha256 and sealing commit are recorded here once it is sealed after this round"
     }
   ]
 }

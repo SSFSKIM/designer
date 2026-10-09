@@ -8017,6 +8017,23 @@ manual inspection. In the same shape, a crash in the instant between a successfu
 child and `run/initialized.json` leaves the result only in the child's result file under
 `<work>/operator/`.
 
+## W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)
+
+*Logged rather than fixed: the DL5p review of `d223c8663..6e56a2cad` (opus, read-only) found one
+P1, a RootThreeSuccession subtest that would fail once root 3 is sealed, fixed test-only in
+`73e22ce3f`. These four P3s are real but small, and none can change a verdict of root 3.*
+(1) `live-run/recovery.py` binds DL5p's charter paragraph by the SHA-256 of its live text
+(`ruling_sha`), so editing that paragraph while the run is open refuses the recovery. Treat the
+paragraph as frozen until the run closes; a correction goes beside it, not into it.
+(2) `run.py#_numerical` raises its `TOOL_MISSING` / `REFUSED` stops with `step='initialize'`, so a
+numerical-referee failure under `recover-bind` reports the wrong step. Passing the calling step
+through closes it. (3) A crash between the bind child's write of the numerical cohort directory and
+`run/recovered.json` leaves a bound cohort with no record, in the same shape as the DL5o entry's
+(12); it needs manual inspection before a retry. (4) No test drives the recovery end to end through
+`fit/execution.py#bind_arguments` against the real history root, and none asserts that
+`initialize` refuses under root 3 or once `recovered.json` exists; those paths are held by reading
+and by the unit cases around them only.
+
 ## W50 composed current reader checks argument identity but not role (G1, 2026-10-09)
 
 *Logged under DL5p (d); the seam is repaired prospectively in the binder, and the sealed reader
