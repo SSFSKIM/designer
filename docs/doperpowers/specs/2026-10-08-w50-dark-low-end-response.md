@@ -31,10 +31,13 @@ succession (`a260582b6`), bind-only operator recovery (`42a4d6160`). Root-3 draf
 Review closed after the test-only post-seal P1 fix (`73e22ce3f`); root 3 is SEALED
 (`29bc57288`, hash `d50cf054…`). Root-3 pre-fit evidence is committed (`bdb0f3fef`). Bind-only
 recovery succeeded, numerical referee PASS (`545f4326e`), and all eleven preserved files still
-hash identically. The fit batch is declared in `live-execution/run/fit-batch.json`. Running:
-`live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit`; output
-`/Users/new/vitrea-w50/g1-live-fit.out`. The launch checks the clean census first. Next: preserve
-phase evidence, fit record, gate batch, gate. No second point or initializer run is admitted. Report the gate verdict to the
+hash identically. The fit batch is declared in `live-execution/run/fit-batch.json`. Fit attempt 1 stopped before its first draw with CENSUS_REFUSED (foreign College Playwright
+sessions `vis` and `default`, never touch); journal preserved, zero checkpoints and no analysis
+marker. Running: a bounded census watch every three minutes, up to two hours. On clean, resume
+`live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit` on the SAME contract as a DL5k
+successor; repeat after later interruptions. The coordinator permits these recoveries and requests
+a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
+gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
 
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
