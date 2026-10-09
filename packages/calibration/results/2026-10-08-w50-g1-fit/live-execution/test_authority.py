@@ -239,9 +239,12 @@ class RootThreeSuccession(unittest.TestCase):
                 ('another commit',self.doc(history={**history,'commit':A.PERMITTED[3]['sealingCommit']}),'misstates the permitted history'),
                 ('a narrowed area',self.doc(history={**history,'slots':history['slots'][:1]}),'misstates the permitted history'),
                 ('an unexecuted field',self.doc(unexecuted={}),'exact supersedes'),
-                ('another ruling',self.doc(ruling={'id':'DL5o','text':self.pin(self.LIVE/'dl5o-ruling.txt')}),'does not name the root'),
-                ('a history link at generation 2',self.doc(n=2),'No ruling permits pre-fit history')):
-            with self.subTest(name):self.refuses(pattern,doc,self.two if name.endswith('generation 2') else None)
+                ('another ruling',self.doc(ruling={'id':'DL5o','text':self.pin(self.LIVE/'dl5o-ruling.txt')}),'does not name the root')):
+            with self.subTest(name):self.refuses(pattern,doc)
+        # The link itself, not predecessors: once root 3 is sealed beside root 2, predecessors(root 2)
+        # refuses first on the newest-only guard, so the generation-2 refusal is read at _link.
+        with self.subTest('a history link at generation 2'),self.assertRaisesRegex(ValueError,'No ruling permits pre-fit history'):
+            A._link(self.REPO,self.LIVE,2,self.doc(n=2))
     def test_changed_bytes_or_an_extra_entry_refuse(self):
         entry=A.PERMITTED[3]
         for name,entries,pattern in (
@@ -251,5 +254,22 @@ class RootThreeSuccession(unittest.TestCase):
                 ('an absent entry',{**entry['entries'],'execution-root-2.gate-contract.json':'2'*64},'not the bytes its commit introduced')):
             with self.subTest(name),unittest.mock.patch.dict(A.PERMITTED,{3:{**entry,'entries':entries}}):
                 self.refuses(pattern,self.doc())
+
+
+class RootThreeSuccessionAfterSeal(RootThreeSuccession):
+    """DL5p review P1: the same cases with root 3 and its sidecar listed beside root 2, as the
+    directory reads once root 3 is sealed. Only the chain helper's listing is posed; nothing is
+    written, and a tree that already holds root 3 lists it once."""
+    ADDED=('execution-root-3.json','execution-root-3.json.sha256')
+    def setUp(self):
+        super().setUp();real=A.C._names
+        def names(folder):
+            found=list(real(folder))
+            return found+[n for n in self.ADDED if n not in found] if Path(folder).resolve()==self.LIVE else found
+        patcher=unittest.mock.patch.object(A.C,'_names',names);patcher.start();self.addCleanup(patcher.stop)
+    def test_the_listing_reads_as_sealed(self):
+        self.assertEqual(A.C.newest_root(self.LIVE),self.path)
+        self.assertTrue(A.C.superseded(self.two))
+        self.refuses('Superseded LIVE root',self.doc(n=2),self.two)
 
 if __name__=='__main__':unittest.main()
