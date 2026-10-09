@@ -1,0 +1,2392 @@
+{
+  "schema": "w50-g1-batch-1",
+  "phase": "fit",
+  "cohort": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "runs": [
+    {
+      "id": "fit-1x-glass025-css-canonical",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-1x-glass025-webgpu-canonical",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-1x-glass05-css-canonical",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-1x-glass05-webgpu-canonical",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-2x-glass025-css-canonical",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-2x-glass025-webgpu-canonical",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-2x-glass05-css-canonical",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-2x-glass05-webgpu-canonical",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "canonical",
+      "scenes": [
+        "checkerboard__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "checkerboard__capsule-button__rest",
+        "checkerboard__capsule-button__rest-tint-orange",
+        "checkerboard__rrect-md__inactive",
+        "checkerboard__rrect-md__rest",
+        "dark-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive-tint-orange",
+        "dark-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest-tint-orange",
+        "dark-solid__rrect-md__inactive",
+        "dark-solid__rrect-md__rest",
+        "impulse__capsule-button__inactive",
+        "impulse__capsule-button__rest",
+        "light-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "photo__capsule-button__inactive-tint-orange",
+        "photo__capsule-button__rest",
+        "photo__capsule-button__rest-tint-orange",
+        "photo__rrect-md__inactive",
+        "photo__rrect-md__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "nativeManifest": {
+        "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/manifest.json",
+        "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+      }
+    },
+    {
+      "id": "fit-1x-glass025-css-w50-active",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/active"
+      }
+    },
+    {
+      "id": "fit-1x-glass025-css-w50-receded",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/receded"
+      }
+    },
+    {
+      "id": "fit-1x-glass025-webgpu-w50-active",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/active"
+      }
+    },
+    {
+      "id": "fit-1x-glass025-webgpu-w50-receded",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/receded"
+      }
+    },
+    {
+      "id": "fit-1x-glass05-css-w50-active",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/active"
+      }
+    },
+    {
+      "id": "fit-1x-glass05-css-w50-receded",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/receded"
+      }
+    },
+    {
+      "id": "fit-1x-glass05-webgpu-w50-active",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/active"
+      }
+    },
+    {
+      "id": "fit-1x-glass05-webgpu-w50-receded",
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@1x": {
+            "path": "backgrounds/grey-000@1x.png",
+            "sha256": "bdefae0703a9303044edc5ba9d1fd4428d1f1d6eae39457d4f694de8457ab9d6"
+          },
+          "grey-001@1x": {
+            "path": "backgrounds/grey-001@1x.png",
+            "sha256": "46e7beab63c2b29bee9d5a3f4bc6401327a6a5e4ea138c51410719567adf6edb"
+          },
+          "grey-002@1x": {
+            "path": "backgrounds/grey-002@1x.png",
+            "sha256": "c9ce168cf01ffc53887f2cf0ca5989b604369e46178eee813e7ac2d232a8f5a9"
+          },
+          "grey-003@1x": {
+            "path": "backgrounds/grey-003@1x.png",
+            "sha256": "16b79a341e6b9d4d6dc8fc9fc3a0aed22a233e5af4be175baf52014638d2320e"
+          },
+          "grey-004@1x": {
+            "path": "backgrounds/grey-004@1x.png",
+            "sha256": "614069b93e79bf4b33c7e4942e62beba936ea744ef029ea8a23e2c7134575957"
+          },
+          "grey-005@1x": {
+            "path": "backgrounds/grey-005@1x.png",
+            "sha256": "602dbf1e574b75b21ff79028d66727a16c9d1a45980781c882945ec6be86ae7b"
+          },
+          "grey-006@1x": {
+            "path": "backgrounds/grey-006@1x.png",
+            "sha256": "c5790d2140002dea9cf83909e6908b534be6d8f25baaa19f10a74c3d60d3d8de"
+          },
+          "grey-008@1x": {
+            "path": "backgrounds/grey-008@1x.png",
+            "sha256": "001d3a714fd758e2d1a5040d840dbe93de88762e7d888c70d87101d2d25e6eb6"
+          },
+          "grey-012@1x": {
+            "path": "backgrounds/grey-012@1x.png",
+            "sha256": "fd1c67b0726cfbeb9ab8815b463ad4a090d70bce8e9e04726d65da96b46122da"
+          },
+          "grey-028@1x": {
+            "path": "backgrounds/grey-028@1x.png",
+            "sha256": "2c9ea6cd8ec2a3e7266b501f05f22d0617ba13415781f5e2ca8b9e711ce5fa05"
+          },
+          "grey-040@1x": {
+            "path": "backgrounds/grey-040@1x.png",
+            "sha256": "b66082f7935e547248e4d840ef13e6264f98902284b18bb232fe364e2459ca6e"
+          },
+          "grey-064@1x": {
+            "path": "backgrounds/grey-064@1x.png",
+            "sha256": "22cc9b4124185ceff505c15462bc38132d5347328ba727b1865abd2bf44b1f6c"
+          },
+          "impulse-sparse@1x": {
+            "path": "backgrounds/impulse-sparse@1x.png",
+            "sha256": "30b8947fb146922e559e31efab7d294eea0eb03e23123eb4cae0bcf52b370c3c"
+          }
+        },
+        "manifestSha256": "07807c82b139fb26a97761f29477a1a1f38c49802f5d1e9d2b9b6fb3fd4bc397",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/receded"
+      }
+    },
+    {
+      "id": "fit-2x-glass025-css-w50-active",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/active"
+      }
+    },
+    {
+      "id": "fit-2x-glass025-css-w50-receded",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/receded"
+      }
+    },
+    {
+      "id": "fit-2x-glass025-webgpu-w50-active",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/active"
+      }
+    },
+    {
+      "id": "fit-2x-glass025-webgpu-w50-receded",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/receded"
+      }
+    },
+    {
+      "id": "fit-2x-glass05-css-w50-active",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/active"
+      }
+    },
+    {
+      "id": "fit-2x-glass05-css-w50-receded",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "css",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/receded"
+      }
+    },
+    {
+      "id": "fit-2x-glass05-webgpu-w50-active",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__rest",
+        "cell-grey-000-s096__rest",
+        "cell-grey-000-s128__rest",
+        "cell-grey-000-s160__rest",
+        "cell-grey-001-s044__rest",
+        "cell-grey-001-s096__rest",
+        "cell-grey-001-s160__rest",
+        "cell-grey-002-s044__rest",
+        "cell-grey-002-s096__rest",
+        "cell-grey-002-s160__rest",
+        "cell-grey-003-s044__rest",
+        "cell-grey-003-s096__rest",
+        "cell-grey-003-s160__rest",
+        "cell-grey-004-s044__rest",
+        "cell-grey-004-s096__rest",
+        "cell-grey-004-s128__rest",
+        "cell-grey-004-s160__rest",
+        "cell-grey-005-s044__rest",
+        "cell-grey-005-s096__rest",
+        "cell-grey-005-s160__rest",
+        "cell-grey-006-s044__rest",
+        "cell-grey-006-s096__rest",
+        "cell-grey-006-s160__rest",
+        "cell-grey-008-s044__rest",
+        "cell-grey-008-s096__rest",
+        "cell-grey-008-s160__rest",
+        "cell-grey-012-s044__rest",
+        "cell-grey-012-s096__rest",
+        "cell-grey-012-s160__rest",
+        "cell-grey-028-s044__rest",
+        "cell-grey-028-s096__rest",
+        "cell-grey-028-s128__rest",
+        "cell-grey-028-s160__rest",
+        "cell-grey-040-s044__rest",
+        "cell-grey-040-s096__rest",
+        "cell-grey-040-s160__rest",
+        "cell-grey-064-s044__rest",
+        "cell-grey-064-s096__rest",
+        "cell-grey-064-s128__rest",
+        "cell-grey-064-s160__rest",
+        "cell-impulse-sparse-s096__rest",
+        "cell-impulse-sparse-s160__rest"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/active"
+      }
+    },
+    {
+      "id": "fit-2x-glass05-webgpu-w50-receded",
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "sceneSource": "w50",
+      "scenes": [
+        "cell-grey-000-s044__inactive",
+        "cell-grey-000-s096__inactive",
+        "cell-grey-000-s128__inactive",
+        "cell-grey-000-s160__inactive",
+        "cell-grey-001-s044__inactive",
+        "cell-grey-001-s096__inactive",
+        "cell-grey-001-s160__inactive",
+        "cell-grey-002-s044__inactive",
+        "cell-grey-002-s096__inactive",
+        "cell-grey-002-s160__inactive",
+        "cell-grey-003-s044__inactive",
+        "cell-grey-003-s096__inactive",
+        "cell-grey-003-s160__inactive",
+        "cell-grey-004-s044__inactive",
+        "cell-grey-004-s096__inactive",
+        "cell-grey-004-s128__inactive",
+        "cell-grey-004-s160__inactive",
+        "cell-grey-005-s044__inactive",
+        "cell-grey-005-s096__inactive",
+        "cell-grey-005-s160__inactive",
+        "cell-grey-006-s044__inactive",
+        "cell-grey-006-s096__inactive",
+        "cell-grey-006-s160__inactive",
+        "cell-grey-008-s044__inactive",
+        "cell-grey-008-s096__inactive",
+        "cell-grey-008-s160__inactive",
+        "cell-grey-012-s044__inactive",
+        "cell-grey-012-s096__inactive",
+        "cell-grey-012-s160__inactive",
+        "cell-grey-028-s044__inactive",
+        "cell-grey-028-s096__inactive",
+        "cell-grey-028-s128__inactive",
+        "cell-grey-028-s160__inactive",
+        "cell-grey-040-s044__inactive",
+        "cell-grey-040-s096__inactive",
+        "cell-grey-040-s160__inactive",
+        "cell-grey-064-s044__inactive",
+        "cell-grey-064-s096__inactive",
+        "cell-grey-064-s128__inactive",
+        "cell-grey-064-s160__inactive",
+        "cell-impulse-sparse-s096__inactive",
+        "cell-impulse-sparse-s160__inactive"
+      ],
+      "sets": [
+        "calibration",
+        "validation"
+      ],
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+        "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+      },
+      "numericalReferee": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+        "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+      },
+      "webSourceClosure": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-current3/inputs/web-source-closure.json",
+        "sha256": "5e5d38e93c145fdc4d0f87d51f355ec178d9e495a47c495aba4c2631e4d541d5"
+      },
+      "fixtures": {
+        "backgrounds": {
+          "grey-000@2x": {
+            "path": "backgrounds/grey-000@2x.png",
+            "sha256": "a031004b7e2619ff7ec6001015595418ae07ea4d491398062b24ccc126ca97fa"
+          },
+          "grey-001@2x": {
+            "path": "backgrounds/grey-001@2x.png",
+            "sha256": "d3406a004dcd3b1becdeb5e4a15dba6790f143aab5861ef785f3f6b4777e2124"
+          },
+          "grey-002@2x": {
+            "path": "backgrounds/grey-002@2x.png",
+            "sha256": "0f3ada9c53ca527636636b8b0fe3541c1414ec7e42094c79d65f824d9821eebf"
+          },
+          "grey-003@2x": {
+            "path": "backgrounds/grey-003@2x.png",
+            "sha256": "dc5788750d5beb8928ebb9446e56227bb6bed9fe734676fa8cda7a18631e4885"
+          },
+          "grey-004@2x": {
+            "path": "backgrounds/grey-004@2x.png",
+            "sha256": "d4442cdd0a84ace5e46a497d868fb28a137df734772a639ce348d4b70dde1ebd"
+          },
+          "grey-005@2x": {
+            "path": "backgrounds/grey-005@2x.png",
+            "sha256": "b6474d77b7f898cbc2df24a4709c4e819cada42092d9d26deb8155eb5184478c"
+          },
+          "grey-006@2x": {
+            "path": "backgrounds/grey-006@2x.png",
+            "sha256": "8a1905b87d31f8175e2cbe587b934403edc4fc82b1a8927b835d518c57243eb3"
+          },
+          "grey-008@2x": {
+            "path": "backgrounds/grey-008@2x.png",
+            "sha256": "1b8d01dbf0fd0cfcbcbd1bfda29ac1a3c3e0b184faf098940aa2252c3594d0fd"
+          },
+          "grey-012@2x": {
+            "path": "backgrounds/grey-012@2x.png",
+            "sha256": "b5130ebfa3281059f86c728caaa641d28f94546bb889e69310d410fc07d04469"
+          },
+          "grey-028@2x": {
+            "path": "backgrounds/grey-028@2x.png",
+            "sha256": "5d790e46bba81cccc347a95d37f95fa74705d37708aa87d0033a7ba6432c7822"
+          },
+          "grey-040@2x": {
+            "path": "backgrounds/grey-040@2x.png",
+            "sha256": "262e81d4aecae0dfa045b97ea0ca052734abf4b282ac09b1dcef7dc573f5e876"
+          },
+          "grey-064@2x": {
+            "path": "backgrounds/grey-064@2x.png",
+            "sha256": "3fd9a6d69e6507addcb26879f0898c3d72e535e83aa75475d199591bc520c4f7"
+          },
+          "impulse-sparse@2x": {
+            "path": "backgrounds/impulse-sparse@2x.png",
+            "sha256": "774b0f0fb7d6c8c17cb3c3cf038957fca072de59ff8428704fc944976e0f23b3"
+          }
+        },
+        "manifestSha256": "7a7a017758b3e863d06343959e8849ffdca32f49f587b3232c2aaecc21691d15",
+        "path": "/Users/new/vitrea-w50/g1-baselines/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/receded"
+      }
+    }
+  ]
+}
