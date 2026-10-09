@@ -15,9 +15,20 @@ import subprocess
 import sys
 
 
+class OriginText(str):
+    def __new__(cls, value, origin):
+        result = super().__new__(cls, value); result.origin = origin; return result
+
+
+class OriginBytes(bytes):
+    def __new__(cls, value, origin):
+        result = super().__new__(cls, value); result.origin = origin; return result
+
+
 class ReadOnly:
     def __init__(self, forbidden=()):
         self.forbidden = set(forbidden); self.active = False; self.originals = {}
+        self.metadata_pins = {}; self.payload_paths = set()
 
     def __enter__(self):
         null = os.lstat('/dev/null')
@@ -28,10 +39,21 @@ class ReadOnly:
         self.loads = json.loads
         def loads(raw, *args, **kwargs):
             value = raw.encode() if isinstance(raw, str) else bytes(raw)
-            if hashlib.sha256(value).hexdigest() in self.forbidden:
-                raise ValueError('Read-only preflight forbids numerical gate payload JSON parsing')
+            digest = hashlib.sha256(value).hexdigest()
+            if digest in self.forbidden:
+                origin = raw.origin if isinstance(raw, (OriginText, OriginBytes)) else None
+                if (origin in self.payload_paths or origin is None or
+                        self.metadata_pins.get(origin) != digest):
+                    raise ValueError('Read-only preflight forbids numerical gate payload JSON parsing')
             return self.loads(raw, *args, **kwargs)
         json.loads = loads
+        self.read_text, self.read_bytes = Path.read_text, Path.read_bytes
+        read_text, read_bytes = self.read_text, self.read_bytes
+        def text(path, *args, **kwargs):
+            return OriginText(read_text(path, *args, **kwargs), str(path.resolve()))
+        def binary(path, *args, **kwargs):
+            return OriginBytes(read_bytes(path, *args, **kwargs), str(path.resolve()))
+        Path.read_text, Path.read_bytes = text, binary
         def refuse(*args, **kwargs): raise ValueError('Read-only preflight forbids descriptor mutation')
         for name in ('write', 'writev', 'pwrite', 'ftruncate', 'fchmod', 'fchown'):
             if hasattr(os, name):
@@ -40,6 +62,7 @@ class ReadOnly:
 
     def __exit__(self, *_):
         self.active = False; json.loads = self.loads
+        Path.read_text, Path.read_bytes = self.read_text, self.read_bytes
         for name, value in self.originals.items(): setattr(os, name, value)
 
     def stdlib_caller(self, module, function):
@@ -170,7 +193,15 @@ def prepare(runner):
         boundary_guard.forbidden.update(item['sha256'] for item in manifest['files'])
         boundary_guard.forbidden.update(item['sha256'] for row in declared_union['members']
             for item in [row['payload'], *row['artifacts']] if Path(item['path']).suffix == '.json')
+        boundary_guard.payload_paths.update(str(Path(item['path']).resolve())
+            for row in declared_union['members'] for item in [row['payload'], *row['artifacts']])
+        boundary_guard.payload_paths.update(str(Path(item['path']).resolve()) for item in manifest['files'])
         root, view, contract, batch, manifest, authority, guard = A.verify_seal()
+        # A retained capture can copy a static config verbatim. Its hash is then not a
+        # sufficient provenance discriminator: only the independently root-pinned original
+        # pathname may parse those bytes; every capture pathname remains denied.
+        boundary_guard.metadata_pins.update({str((A.REPO/item['path']).resolve()): item['sha256']
+            for item in root['inputs'] if (A.REPO/item['path']).resolve().is_relative_to(A.REPO)})
         # Same source enforcement as the actual invocation. No source discovery or subprocess
         # instrument exercise is hidden behind a sealed preflight claim.
         guard.enforce(A.REPO, authority['closure']['sources'])

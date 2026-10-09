@@ -19,7 +19,7 @@ FIT, REPO, REL = OLD.FIT, OLD.REPO, OLD.REL
 ROOT, CONTRACT, MARKER, UNION, MANIFEST = OLD.ROOT, OLD.CONTRACT, OLD.MARKER, OLD.UNION, OLD.MANIFEST
 OLD_OUTPUT = OLD.OLD_OUTPUT
 OUTPUT = OLD.OUTPUT.with_name('gate-analysis-2-attempt-2')
-PREPARATION = 4
+PREPARATION = 5
 PREFIX = f'analysis-2-attempt-2.preparation-{PREPARATION}'
 AUTHORITY_PATH = HERE/(PREFIX+'.authority.json')
 VIEW_PATH = HERE/(PREFIX+'.root-view.json')
@@ -34,6 +34,7 @@ PREPARATION_RULING = 'b36acb5c92b99fd708ba52bdd2135e0c06530b5c'
 PREPARATION_ONE_COMMIT = 'd891fdcbbf65626dbd5c3027c1ea262a701b2a8e'
 DIAGNOSTIC_ONE_COMMIT = '566ea52d23ce67d8c2d5be5d6222623e38f5aacb'
 SEAMS = [
+    {'id': 'static-config-provenance', 'meaning': 'An independently root-pinned noncapture input may share raw bytes with a copied capture artifact. JSON admission retains read-path provenance, allows only that original registered path/hash, and still denies every capture path and unprovenanced matching payload.'},
     {'id': 'stdlib-interpreter-alias', 'meaning': 'The stdlib file probe may spell the identical resolved current interpreter through Homebrew intermediate aliases; file identity remains exact, not an arbitrary file grant.'},
     {'id': 'stdlib-platform-file', 'meaning': 'Only platform._syscmd_file may invoke file -b on the resolved current interpreter with LC_ALL=C for the unchanged architecture fingerprint; every other target/command refuses.'},
     {'id': 'stdlib-platform-devnull', 'meaning': 'Only stdlib subprocess _get_devnull may open the existing /dev/null character device after exact device/inode/type checks; every other writable open remains denied.'},

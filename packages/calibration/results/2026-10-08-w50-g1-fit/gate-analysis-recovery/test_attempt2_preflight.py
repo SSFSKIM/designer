@@ -43,6 +43,22 @@ class ReadOnlyTests(unittest.TestCase):
             self.assertEqual(json.loads('{"metadata": true}'), {'metadata': True})
         self.assertEqual(json.loads(raw), {'numeric': 12.125})
 
+    def test_identical_registered_config_does_not_authorize_capture_path(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp).resolve(); config = home/'config'; capture = home/'capture'
+            raw = b'{"schema": "static-config"}\n'
+            config.write_bytes(raw); capture.write_bytes(raw)
+            digest = hashlib.sha256(raw).hexdigest()
+            with P.ReadOnly({digest}) as boundary:
+                boundary.metadata_pins[str(config)] = digest
+                boundary.payload_paths.add(str(capture))
+                self.assertEqual(json.loads(config.read_text()), {'schema': 'static-config'})
+                self.assertEqual(json.loads(config.read_bytes()), {'schema': 'static-config'})
+                with self.assertRaises(ValueError): json.loads(capture.read_text())
+                with self.assertRaises(ValueError): json.loads(raw)
+                boundary.metadata_pins[str(capture)] = digest
+                with self.assertRaises(ValueError): json.loads(capture.read_bytes())
+
     def test_stdlib_environment_probe_can_use_identified_devnull(self):
         import platform
         import subprocess
@@ -102,7 +118,7 @@ class CompletePlanTests(unittest.TestCase):
                 def call(*args, **kwargs): calls.append(name); return result
                 return call
             guard = types.SimpleNamespace(enforce=called('closure', None))
-            a.verify_seal = called('seal', ({}, {}, {}, {}, manifest,
+            a.verify_seal = called('seal', ({'inputs': []}, {}, {}, {}, manifest,
                                   {'closure': {'sources': {}, 'environment': {}}}, guard))
             real_live, real_core = runner.modules()
             runner.A = a
