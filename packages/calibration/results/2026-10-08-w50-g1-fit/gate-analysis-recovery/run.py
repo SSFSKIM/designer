@@ -5,8 +5,9 @@
 
 There is no replay flag, output override, capture, fit, exposure or third-analysis operation.
 The only public result is status/count/hash metadata. Detailed reports stay quarantined.
-A marker without a complete terminal record means UNMEASURED/NEITHER on every later status
-or invocation. Nothing remeasures or reconstructs a result on restart.
+A terminal record is provisional until a separate completion pins it after all cleanup.
+A failure tombstone always dominates completion. An incomplete transaction means
+UNMEASURED/NEITHER on every later status or invocation; nothing reconstructs it on restart.
 """
 import argparse
 import copy
@@ -28,6 +29,9 @@ A = source(HERE/'authority.py', 'w50_analysis2_authority')
 W = A.W
 R = source(HERE/'reads.py', 'w50_analysis2_reads')
 TERMINAL = HERE/'analysis-2.terminal.json'
+COMPLETE = HERE/'analysis-2.complete.json'
+PENDING = HERE/'analysis-2.complete.pending.json'
+FAILED = HERE/'analysis-2.failed'
 LOGICAL = Path(str(A.CONTRACT_PATH)+'.started.json')
 
 
@@ -177,8 +181,48 @@ def analyze(live, core, data, union, manifest, boundary):
     return public
 
 
+def unmeasured():
+    return {'status': 'NEITHER', 'measurementStatus': 'UNMEASURED', 'analysis': 2}
+
+
+def fail_closed():
+    """Append a permanent, payload-free fault tombstone; never repair terminal evidence.
+
+    mkdir makes a known fault visible before any fsync can fail again. The tombstone is never
+    removed, and status needs only its existence, not a successfully written/parsed JSON body.
+    A repeated storage fault cannot turn the in-process failure back into a success.
+    """
+    if not os.path.lexists(FAILED):
+        try: FAILED.mkdir()
+        except FileExistsError: pass
+    try:
+        directory = os.open(FAILED.parent, os.O_RDONLY)
+        try: os.fsync(directory)
+        finally: os.close(directory)
+    except OSError:
+        # The failure is already recorded. Keep the tombstone even when its flush is refused.
+        pass
+    return unmeasured()
+
+
+def completion():
+    return {'schema': 'w50-dl5r-completion-1', 'analysis': 2,
+            'terminal': W.pin(TERMINAL), 'analysisClaim': W.pin(A.NEW_MARKER)}
+
+
 def status():
-    if TERMINAL.exists():
+    try: return terminal_status()
+    except BaseException: return fail_closed()
+
+
+def terminal_status():
+    if os.path.lexists(FAILED): return unmeasured()
+    if COMPLETE.exists():
+        # Only a fully flushed staging file is linked into COMPLETE, after the lease and
+        # quarantine have both exited. Provisional terminal/staging bytes alone grant nothing.
+        if (COMPLETE.is_symlink() or TERMINAL.is_symlink() or A.NEW_MARKER.is_symlink()
+                or W.parse(COMPLETE.read_bytes()) != completion()):
+            raise ValueError('Completion lost its pinned terminal or analysis marker')
         value = W.parse(TERMINAL.read_bytes())
         allowed = {'schema', 'analysis', 'status', 'sha256', 'witnessCount', 'witnessSha256', 'measurementStatus'}
         if not set(value) <= allowed or value.get('analysis') != 2 or value.get('status') not in (
@@ -197,8 +241,9 @@ def status():
         elif value['status'] != 'NEITHER' or value.get('measurementStatus') != 'UNMEASURED':
             raise ValueError('A successful terminal result requires a sealed payload')
         return value
-    if A.NEW_MARKER.exists() or A.OUTPUT.exists() or LOGICAL.exists():
-        return {'status': 'NEITHER', 'measurementStatus': 'UNMEASURED', 'analysis': 2}
+    if any(os.path.lexists(p) for p in (TERMINAL, COMPLETE, PENDING,
+                                       A.NEW_MARKER, A.OUTPUT, LOGICAL)):
+        return unmeasured()
     return {'status': 'NOT_STARTED', 'analysis': 2}
 
 
@@ -207,6 +252,11 @@ def run():
     # neither remeasures nor invokes a judge, and accepts no caller-supplied output/marker.
     previous = status()
     if previous['status'] != 'NOT_STARTED': return previous
+    try: return start()
+    except BaseException: return fail_closed()
+
+
+def start():
     root, view, old_contract, batch, manifest, authority, guard = A.verify_seal()
     guard.enforce(A.REPO, authority['closure']['sources'])
     live, core = modules()
@@ -230,10 +280,17 @@ def run():
                 live._ACTIVE = None
                 sys.modules.pop('w50_g1_dispatch', None)
     ok, result = core['Q'].run_private(A.OUTPUT/'quarantine/analysis.log', work)
-    if not ok:
-        result = {'status': 'NEITHER', 'measurementStatus': 'UNMEASURED', 'analysis': 2}
-        if not TERMINAL.exists(): W.write_once(TERMINAL, result)
-    return result
+    if not ok or result.get('measurementStatus') == 'UNMEASURED': return fail_closed()
+    if os.path.lexists(FAILED): return unmeasured()
+    # The terminal is not a commit. Authenticate it only after all potentially failing work,
+    # including lease release and quarantine stream restoration. Keep staging bytes as evidence;
+    # a failed write never installs COMPLETE, and any later fault appends FAILED instead.
+    W.write_once(PENDING, completion())
+    os.link(PENDING, COMPLETE)  # Exclusive installation; never overwrite an earlier record.
+    directory = os.open(COMPLETE.parent, os.O_RDONLY)
+    try: os.fsync(directory)
+    finally: os.close(directory)
+    return status()
 
 
 def main():
@@ -243,10 +300,7 @@ def main():
     # Even pre-marker refusals publish no exception text or values.
     try: result = run() if args.operation == 'run' else status()
     except BaseException:
-        result = {'status': 'NEITHER', 'measurementStatus': 'UNMEASURED', 'analysis': 2}
-        if (args.operation == 'run' and not TERMINAL.exists() and not A.OUTPUT.exists()
-                and not A.NEW_MARKER.exists() and not LOGICAL.exists()):
-            W.write_once(TERMINAL, result)
+        result = fail_closed()
     print(W.encode(result).decode(), end='')
     return 0 if result['status'] == 'PASS_EXPOSED_OWNER_PENDING' else 1
 

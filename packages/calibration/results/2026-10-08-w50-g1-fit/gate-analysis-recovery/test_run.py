@@ -1,5 +1,8 @@
 """Restart and capability checks against synthetic authority/output trees only."""
+import contextlib
 import copy
+import io
+import os
 from pathlib import Path
 import sys
 import tempfile
@@ -15,14 +18,189 @@ R = module
 
 
 class RunTests(unittest.TestCase):
+    @contextlib.contextmanager
+    def synthetic_run(self, cleanup_fault=False):
+        """Real runner, analyzer, writer and quarantine; only scientific inputs are synthetic."""
+        with tempfile.TemporaryDirectory() as tmp, contextlib.ExitStack() as stack:
+            home = Path(tmp)
+            for name in ('ROOT', 'CONTRACT', 'CONTRACT_PATH', 'AUTHORITY_PATH', 'UNION', 'MANIFEST'):
+                path = home/name.lower(); path.write_bytes(b'{}\n')
+                stack.enter_context(patch.object(R.A, name, path))
+            original_claim = Path(str(R.A.CONTRACT)+'.started.json')
+            original_claim.write_bytes(R.W.encode({'numericalAdmission': {}}))
+            for owner, name, path in ((R.A, 'NEW_MARKER', home/'marker'),
+                    (R.A, 'OUTPUT', home/'output'), (R.A, 'OLD_OUTPUT', home/'old-output'),
+                    (R.A, 'MARKER', home/'old-marker'), (R, 'LOGICAL', home/'logical'),
+                    (R, 'TERMINAL', home/'terminal'), (R, 'COMPLETE', home/'complete'),
+                    (R, 'PENDING', home/'pending'), (R, 'FAILED', home/'failed')):
+                stack.enter_context(patch.object(owner, name, path, create=True))
+            R.A.MARKER.write_bytes(b'{}\n')
+            batch_path = home/'batch'; batch_path.write_bytes(b'{}\n')
+            calls = {'measure': 0, 'judge': 0}
+            union = {'members': []}
+            store = types.SimpleNamespace(complete_union=lambda: union)
+            data = ({}, {}, batch_path, {'cohort': []}, [], store)
+            guard = types.SimpleNamespace(enforce=lambda *args: None)
+            stack.enter_context(patch.object(R.A, 'verify_seal', return_value=(
+                {}, {}, {}, {}, {}, {'closure': {'sources': []}}, guard)))
+
+            @contextlib.contextmanager
+            def lease():
+                yield
+                if cleanup_fault: raise OSError('Synthetic lease cleanup fault')
+
+            def evaluate_measure(*args):
+                calls['measure'] += 1
+                return {}
+
+            def evaluate_judge(*args):
+                calls['judge'] += 1
+                return {'status': 'PASS_EXPOSED_OWNER_PENDING'}
+
+            components = {'measurement': types.SimpleNamespace(evaluate=evaluate_measure),
+                          'judge': types.SimpleNamespace(evaluate=evaluate_judge)}
+            admission = types.SimpleNamespace(validate_captures=lambda *args: {})
+            live = types.SimpleNamespace(_LEASE={'token': 'synthetic'}, _gpu_lease=lease,
+                _component=lambda view, name: (components[name], {}),
+                admission_module=lambda view: admission, require_context=lambda ctx: None)
+            core = {'C': types.SimpleNamespace(D=None, validate_report=lambda *args, **kw: None),
+                    'L': types.SimpleNamespace(), 'Q': R.source(
+                        HERE.parent/'live-execution/quarantine.py', 'analysis2_run_quarantine')}
+
+            def activate(*args):
+                context = {'executionRoot': str(R.A.ROOT), 'contract': str(R.A.CONTRACT),
+                           'batchPath': str(batch_path), 'executionClaim': R.W.pin(R.A.NEW_MARKER)}
+                sys.modules['w50_g1_dispatch'] = types.SimpleNamespace(admission_module=lambda view: admission)
+                return context, {'captures': []}
+
+            stack.enter_context(patch.object(R, 'modules', return_value=(live, core)))
+            stack.enter_context(patch.object(R, 'admit', return_value=(data, union)))
+            stack.enter_context(patch.object(R, 'activate', side_effect=activate))
+            stack.enter_context(patch.object(R.R, 'Boundary', return_value=contextlib.nullcontext()))
+            stack.enter_context(patch.object(R.R, 'install'))
+            stack.enter_context(patch.object(R.W, 'compare', return_value={
+                'status': 'MATCH', 'count': 634, 'exemptions': [], 'sha256': 'a'*64}))
+            dispatcher = sys.modules.get('w50_g1_dispatch')
+            try: yield calls
+            finally:
+                if dispatcher is None: sys.modules.pop('w50_g1_dispatch', None)
+                else: sys.modules['w50_g1_dispatch'] = dispatcher
+
+    def assert_failed_without_replay(self, calls):
+        expected = {'status': 'NEITHER', 'measurementStatus': 'UNMEASURED', 'analysis': 2}
+        self.assertEqual(calls, {'measure': 1, 'judge': 1})
+        self.assertEqual(R.W.parse(R.TERMINAL.read_bytes())['status'],
+                         'PASS_EXPOSED_OWNER_PENDING')
+        terminal_bytes = R.TERMINAL.read_bytes()
+        result_bytes = (R.A.OUTPUT/'quarantine/result.json').read_bytes()
+        for _ in range(3):
+            self.assertEqual(R.status(), expected)
+            self.assertEqual(R.run(), expected)
+        for operation in ('status', 'run'):
+            output = io.StringIO()
+            with patch.object(sys, 'argv', ['analysis2-test', operation]), \
+                 contextlib.redirect_stdout(output):
+                self.assertEqual(R.main(), 1)
+            self.assertEqual(R.W.parse(output.getvalue()), expected)
+        self.assertEqual(calls, {'measure': 1, 'judge': 1})
+        self.assertEqual(R.TERMINAL.read_bytes(), terminal_bytes)
+        self.assertEqual((R.A.OUTPUT/'quarantine/result.json').read_bytes(), result_bytes)
+
+    def test_terminal_file_and_directory_fsync_faults_cannot_revive_success(self):
+        for kind in ('file', 'directory'):
+            with self.subTest(kind=kind), self.synthetic_run() as calls:
+                fsync = os.fsync
+                faults = []
+                def fail_finalization(fd):
+                    info = os.fstat(fd)
+                    target = R.TERMINAL if kind == 'file' else R.TERMINAL.parent
+                    if R.TERMINAL.exists() and info.st_ino == target.stat().st_ino:
+                        faults.append(kind)
+                        raise OSError('Synthetic terminal fsync fault')
+                    return fsync(fd)
+                with patch.object(R.os, 'fsync', side_effect=fail_finalization):
+                    self.assertEqual(R.run()['status'], 'NEITHER')
+                self.assertTrue(faults)
+                self.assert_failed_without_replay(calls)
+
+    def test_completion_fsync_faults_fail_closed_even_after_exclusive_installation(self):
+        for kind in ('file', 'staging-directory', 'commit-directory'):
+            with self.subTest(kind=kind), self.synthetic_run() as calls:
+                fsync = os.fsync
+                faults = []
+                def fail_completion(fd):
+                    info = os.fstat(fd)
+                    target = R.PENDING if kind == 'file' else R.PENDING.parent
+                    written = R.COMPLETE.exists() if kind == 'commit-directory' else R.PENDING.exists()
+                    if written and info.st_ino == target.stat().st_ino:
+                        faults.append(kind)
+                        raise OSError('Synthetic completion fsync fault')
+                    return fsync(fd)
+                with patch.object(R.os, 'fsync', side_effect=fail_completion):
+                    self.assertEqual(R.run()['status'], 'NEITHER')
+                self.assertTrue(faults)
+                self.assertTrue(R.FAILED.is_dir())
+                self.assertEqual(R.COMPLETE.exists(), kind == 'commit-directory')
+                self.assert_failed_without_replay(calls)
+
+    def test_failed_completion_authentication_stays_failed_if_bytes_later_reappear(self):
+        with self.synthetic_run() as calls:
+            self.assertEqual(R.run()['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            completion_bytes = R.COMPLETE.read_bytes()
+            R.COMPLETE.write_bytes(b'{}\n')  # Synthetic damage, not a scientific payload.
+            self.assertEqual(R.status()['measurementStatus'], 'UNMEASURED')
+            self.assertTrue(R.FAILED.is_dir())
+            R.COMPLETE.write_bytes(completion_bytes)
+            self.assert_failed_without_replay(calls)
+            # Fault dominance is checked before parsing even a surviving success record.
+            with patch.object(R.W, 'parse', side_effect=AssertionError('Failure must dominate')):
+                self.assertEqual(R.run()['measurementStatus'], 'UNMEASURED')
+
+    def test_quarantine_cleanup_fault_after_terminal_write_cannot_revive_success(self):
+        with self.synthetic_run() as calls:
+            _, core = R.modules()
+            run_private = core['Q'].run_private
+            def fail_after_quarantine(*args):
+                run_private(*args)
+                raise OSError('Synthetic quarantine cleanup fault')
+            with patch.object(core['Q'], 'run_private', side_effect=fail_after_quarantine):
+                self.assertEqual(R.run()['status'], 'NEITHER')
+            self.assert_failed_without_replay(calls)
+
+    def test_lease_cleanup_fault_after_terminal_write_cannot_revive_success(self):
+        with self.synthetic_run(cleanup_fault=True) as calls:
+            self.assertEqual(R.run()['status'], 'NEITHER')
+            self.assert_failed_without_replay(calls)
+
+    def test_success_bytes_without_independent_completion_are_unmeasured(self):
+        with self.synthetic_run() as calls:
+            live, core = R.modules()
+            data, union = R.admit(None, None, None, None, live, core)
+            R.analyze(live, core, data, union, {}, None)
+            self.assert_failed_without_replay(calls)
+
+    def test_successful_finalization_is_authenticated_and_never_reanalyzed(self):
+        with self.synthetic_run() as calls:
+            result = R.run()
+            self.assertEqual(result['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            self.assertTrue(R.COMPLETE.is_file())
+            self.assertFalse(R.FAILED.exists())
+            for _ in range(3):
+                self.assertEqual(R.status(), result)
+                self.assertEqual(R.run(), result)
+            self.assertEqual(calls, {'measure': 1, 'judge': 1})
+
     def test_marker_crash_and_output_claim_each_bar_second_and_third_invocation(self):
-        for tombstone in ('marker', 'output', 'logical'):
+        for tombstone in ('marker', 'output', 'logical', 'terminal', 'pending', 'complete', 'failed'):
             with self.subTest(tombstone=tombstone), tempfile.TemporaryDirectory() as tmp:
                 home = Path(tmp)
                 with patch.object(R.A, 'NEW_MARKER', home/'marker'), \
                      patch.object(R.A, 'OUTPUT', home/'output'), \
                      patch.object(R, 'LOGICAL', home/'logical'), \
                      patch.object(R, 'TERMINAL', home/'terminal'), \
+                     patch.object(R, 'PENDING', home/'pending'), \
+                     patch.object(R, 'COMPLETE', home/'complete'), \
+                     patch.object(R, 'FAILED', home/'failed'), \
                      patch.object(R.A, 'verify_seal', side_effect=AssertionError('No replay')):
                     path = home/tombstone
                     path.mkdir() if tombstone == 'output' else path.write_bytes(b'partial')
