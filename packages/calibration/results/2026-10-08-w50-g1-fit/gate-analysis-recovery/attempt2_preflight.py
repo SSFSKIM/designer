@@ -77,7 +77,8 @@ class ReadOnly:
             if (argv == ['uname', '-p'] and self.stdlib_caller(platform, 'from_subprocess')
                     and shutil.which('uname') == '/usr/bin/uname' and args[3] is None):
                 return
-            if (argv == ['file', '-b', str(Path(sys.executable).resolve())]
+            if (isinstance(argv, (list, tuple)) and len(argv) == 3 and list(argv[:2]) == ['file', '-b']
+                    and Path(argv[2]).resolve() == Path(sys.executable).resolve()
                     and self.stdlib_caller(platform, '_syscmd_file')
                     and shutil.which('file') == '/usr/bin/file'
                     and args[3] == dict(os.environ, LC_ALL='C')):

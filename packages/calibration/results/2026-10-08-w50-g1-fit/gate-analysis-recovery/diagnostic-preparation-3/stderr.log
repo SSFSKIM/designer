@@ -1,0 +1,52 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 370, in <module>
+    if __name__ == '__main__': sys.exit(main())
+                                        ~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 360, in main
+    print(W.encode(preflight()).decode(), end='')
+                   ~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 298, in preflight
+    return P.prepare(sys.modules[__name__])["proof"]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 172, in prepare
+    root, view, contract, batch, manifest, authority, guard = A.verify_seal()
+                                                              ~~~~~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_authority.py", line 207, in verify_seal
+    if guard.environment() != closure['environment']: raise ValueError('Interpreter changed')
+       ~~~~~~~~~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py", line 30, in environment
+    'platform': platform.platform(), 'isolated': True,
+                ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 1399, in platform
+    bits, linkage = architecture(sys.executable)
+                    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 806, in architecture
+    fileout = _syscmd_file(executable, '')
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/platform.py", line 755, in _syscmd_file
+    output = subprocess.check_output(['file', '-b', target],
+                                     stderr=subprocess.DEVNULL,
+                                     env=env)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 1858, in _execute_child
+    sys.audit("subprocess.Popen", executable, args, cwd, env)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 87, in audit
+    raise ValueError('Preflight permits only read-only git object commands')
+ValueError: Preflight permits only read-only git object commands
