@@ -1,0 +1,29 @@
+{
+  "schema": "w50-g1-fit-record-1",
+  "executionRootSha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882",
+  "selected": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "completed": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.result.json",
+      "sha256": "d2b82491d388b5cdf2bf48b6d0e6aedc1120f35c6d6c5a5e5050efb8bb1b7058"
+    }
+  ],
+  "selection": {
+    "order": [
+      "Minimum worst exposed low-end level error",
+      "Minimum mean absolute low-end level error",
+      "Minimum squared normalized coefficient distance from current over range[0,1]",
+      "Lexicographic candidate id"
+    ],
+    "candidateId": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3+af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+  }
+}
