@@ -3,6 +3,7 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+import tempfile
 import unittest
 
 spec = importlib.util.spec_from_file_location('w50_fit_inputs', Path(__file__).with_name('inputs.py'))
@@ -124,6 +125,166 @@ class BindingTests(unittest.TestCase):
             if mutation=='role': records[0]['role']='blind'
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
                 I.evaluation_arguments(records, required, captured, evaluation, proofs, pin('current-result.json'))
+
+
+
+GUARD = Path(__file__).resolve().parents[2]/'2026-10-08-w50-g0-declaration/audit/numerical_guard.py'
+guard_spec = importlib.util.spec_from_file_location('w50_frozen_numerical_guard', GUARD)
+G = importlib.util.module_from_spec(guard_spec)
+guard_spec.loader.exec_module(G)
+
+
+class CanonicalRoleBindingTests(unittest.TestCase):
+    """DL5p on records shaped like the completed current read, verified by the frozen G0 guard.
+
+    The canonical-scene rows carry their scenes.json split (calibration, probe) where G0 binds
+    gate; the W50-bed rows already carry G0's role. Synthetic values, real record shape.
+    """
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve(); self.pins = {}
+        runtime = [self.put(name, {'syntheticSource': name}) for name in G.REQUIRED_RUNTIME]
+        self.producer = next(p for p in runtime if p['path'] == G.PRODUCER)
+        self.runtime = runtime
+        self.put(G.CLOSURE, {'schema': 'w50-numerical-runtime-closure-1', 'sources': runtime})
+        self.pins.pop(G.CLOSURE)
+        self.evaluation, self.captured = [], []
+        for position in (0.25, 0.5):
+            endpoints = {}
+            for pose in ('active', 'receded'):
+                for scheme in ('light', 'dark'):
+                    name = f'candidate/{position}-{pose}-{scheme}.json'
+                    key = (f'apple-macos-27.0-1x-{scheme}-standard-glass{position:.3f}' +
+                           ('-receded' if pose == 'receded' else ''))
+                    item = self.put(name, {'profileKey': key,
+                                           'patch': {'lowEndStrength': 1 if scheme == 'dark' else 0}})
+                    endpoints[f'{pose}.{scheme}'] = {'path': Path(name).name, 'sha256': item['sha256']}
+            item = self.put(f'candidate/{position}.json', {'kind': 'vitrea-candidate-material-document',
+                'schemaVersion': 1, 'glassTintAmount': position, 'endpoints': endpoints})
+            self.evaluation.append({'position': position, **item})
+            self.captured.append(dict(position=position, **pin(f'gate0/{position}.json', '3' if position == .25 else '4')))
+        self.records, cells = [], []
+        for before in self.captured:
+            position = before['position']
+            for pose, suffix in (('active', 'rest'), ('receded', 'inactive')):
+                for scale in (1, 2):
+                    profile = f'apple-macos-27.0-{scale}x-dark-standard-glass{position}'
+                    split = 'calibration' if scale == 1 else 'probe'
+                    for scene, role, required, source in (
+                            (f'dark-solid__capsule-button__{suffix}', split, 'gate', 'canonical'),
+                            (f'cell-grey-008-s044__{suffix}', 'calibration', 'calibration', 'w50')):
+                        for renderer in ('webgpu', 'css'):
+                            identity = f'{profile}|{renderer}|{scene}'
+                            provenance = dict(sceneSource=source, candidateDocument={k: before[k] for k in ('path', 'sha256')},
+                                capture=pin('external/capture.png', '5'), report=pin('external/report.json', '6'))
+                            if source == 'canonical':
+                                provenance['originalRow'] = dict(fixtureSet=role, state=suffix, tier='dom')
+                            self.records.append(dict(id=identity, profile=profile, renderer=renderer,
+                                scene=scene, variant='regular', pose=pose, position=position, dpr=scale,
+                                span=44, role=role, candidateSha256=before['sha256'],
+                                encodedLuminance=0.01, linearLuminance=0.001, rgb=[0.001]*3,
+                                provenance=provenance))
+                            cells.append(dict(profile=profile, renderer=renderer, scene=scene, role=required,
+                                              statistic='mean'))
+        self.inventory = {'schema': 'w50-reference-inventory-1', 'cells': cells}
+        self.required = G.required_arguments(self.inventory)
+        self.proofs = [dict(schema='w50-held-sampling-proof-1', position=b['position'],
+            capturedCandidate={k: b[k] for k in ('path', 'sha256')},
+            evaluationCandidate={k: a[k] for k in ('path', 'sha256')},
+            heldMaterialSha256='e'*64, lightEndpointSha256s=['f'*64, '0'*64], cssTierMappingSha256='1'*64)
+            for b, a in zip(self.captured, self.evaluation)]
+
+    def put(self, name, data):
+        path = self.root/name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(data, sort_keys=True)+'\n')
+        self.pins[name] = {'path': name, 'sha256': G.sha(path)}
+        return self.pins[name]
+
+    def bind(self, records=None):
+        return I.evaluation_arguments(self.records if records is None else records, self.required,
+            self.captured, self.evaluation, self.proofs, pin('live-inputs/completed-current.json'))
+
+    def verify(self, wrapped):
+        """Persist as execution.bind_arguments does, then run the unchanged G0 verification."""
+        wrapped = copy.deepcopy(wrapped)
+        references = self.put(G.REFERENCES, self.inventory)
+        for index, record in enumerate(wrapped):
+            record['evidence'] = self.put(f'numerical/argument-{index:04}.json',
+                                          {'schema': 'w50-measured-tone-argument-1', **record})
+        hashes = sorted(c['sha256'] for c in self.evaluation)
+        ids = sorted(self.required)
+        manifest = self.put('numerical/arguments.json', {'schema': 'w50-structured-arguments-1',
+            'candidateSha256s': hashes, 'references': references, 'requiredIds': ids, 'records': wrapped})
+        cohort = self.put('numerical/cohort.json', {'schema': 'w50-numerical-cohort-1',
+            'candidates': self.evaluation, 'structuredArguments': manifest})
+        report = dict(producer=self.producer, runtimeSources=self.runtime, cohort=cohort,
+            argumentManifest=manifest, referenceInventory=references, candidateDocuments=self.evaluation,
+            candidateSha256s=hashes, requiredStructuredArgumentIds=ids, structuredArgumentIds=ids,
+            structuredArguments=[{k: r[k] for k in G.ARGUMENT_PROJECTION} for r in wrapped],
+            structuredCoverage=sorted(f'{p}:{pose}:{d}' for p in (0.25, 0.5)
+                                      for pose in ('active', 'receded') for d in (1, 2)),
+            negativeRequests=[], sources=list(self.pins.values()))
+        G.validate_provenance(report, hashes[0], self.root)
+
+    def test_frozen_guard_refuses_the_captured_split_role_unnormalised(self):
+        wrapped = self.bind()
+        for record in wrapped:
+            if 'roleBinding' in record:
+                record['role'] = record['roleBinding']['capturedRole']
+        with self.assertRaisesRegex(ValueError, 'Measured argument identity differs'):
+            self.verify(wrapped)
+
+    def test_frozen_guard_accepts_normalised_canonical_records_with_captured_bytes_kept(self):
+        original = copy.deepcopy(self.records)
+        wrapped = self.bind()
+        self.assertEqual(self.records, original)
+        self.verify(wrapped)
+        by_id = {r['id']: r for r in original}
+        normalised = [r for r in wrapped if 'roleBinding' in r]
+        self.assertEqual(len(normalised), 16)
+        self.assertEqual({r['roleBinding']['capturedRole'] for r in normalised}, {'calibration', 'probe'})
+        for record in wrapped:
+            source = by_id[record['id']]
+            self.assertEqual(record['role'], self.required[record['id']]['role'])
+            self.assertEqual(record['capturedArgument'], source)
+            self.assertEqual(record['capturedArgumentSha256'], I.digest(source))
+            self.assertEqual(record['provenance'], source['provenance'])
+            if source['provenance']['sceneSource'] == 'w50':
+                self.assertNotIn('roleBinding', record)
+            else:
+                self.assertEqual(record['roleBinding'], dict(capturedRole=source['role'], boundRole='gate',
+                    basis='provenance.originalRow.fixtureSet', ruling='DL5p'))
+                self.assertEqual(record['capturedArgument']['role'], source['role'])
+
+    def test_frozen_guard_refuses_a_holdout_or_historical_bound_role(self):
+        for role in ('holdout', 'historical-prediction-check', 'blind'):
+            wrapped = self.bind()
+            target = next(r for r in wrapped if 'roleBinding' in r)
+            target['role'] = role
+            with self.subTest(role=role), self.assertRaisesRegex(ValueError, 'Measured argument identity differs'):
+                self.verify(wrapped)
+
+    def test_binder_refuses_every_role_disagreement_outside_the_canonical_gate_seam(self):
+        def canonical(records):
+            return next(r for r in records if r['provenance']['sceneSource'] == 'canonical')
+        for mutation in ('holdout', 'historical', 'blind', 'fixtureSet', 'noOriginalRow', 'newbed',
+                         'requiredNotGate', 'requiredWithheld'):
+            records = copy.deepcopy(self.records); record = canonical(records)
+            required = self.required
+            if mutation in ('holdout', 'historical', 'blind'):
+                role = {'holdout': 'holdout', 'historical': 'historical-prediction-check'}.get(mutation, mutation)
+                record['role'] = role; record['provenance']['originalRow']['fixtureSet'] = role
+            if mutation == 'fixtureSet': record['provenance']['originalRow']['fixtureSet'] = (
+                'probe' if record['role'] == 'calibration' else 'calibration')
+            if mutation == 'noOriginalRow': record['provenance'].pop('originalRow')
+            if mutation == 'newbed': record['provenance']['sceneSource'] = 'w50'
+            if mutation in ('requiredNotGate', 'requiredWithheld'):
+                required = copy.deepcopy(self.required)
+                required[record['id']]['role'] = 'validation' if mutation == 'requiredNotGate' else 'blind'
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, 'withheld reference identity'):
+                I.evaluation_arguments(records, required, self.captured, self.evaluation, self.proofs,
+                                       pin('live-inputs/completed-current.json'))
 
 
 if __name__ == '__main__': unittest.main()

@@ -141,12 +141,40 @@ def _cohort(values):
     return out
 
 
+WITHHELD_ROLES = ('blind', 'historical-prediction-check', 'holdout')
+
+
+def bound_role(source, reference):
+    """The G0 role an argument is bound under, or ValueError (DL5p).
+
+    The canonical-scene current read recorded each argument's scenes.json fixture split
+    (calibration, probe, ...) where G0's reference inventory binds role gate. Only that
+    vocabulary seam is normalised: a canonical-scene record whose role is exactly its own
+    captured originalRow.fixtureSet, which is not holdout and not withheld, under a G0
+    reference that requires gate. Every other disagreement still refuses. The caller keeps
+    the original record unchanged inside capturedArgument.
+    """
+    role, required = source.get('role'), reference.get('role')
+    if role in WITHHELD_ROLES or required in WITHHELD_ROLES:
+        raise ValueError('Measured argument has changed or withheld reference identity')
+    if role == required:
+        return role
+    provenance = source.get('provenance') or {}
+    original = provenance.get('originalRow') or {}
+    if (provenance.get('sceneSource') == 'canonical' and isinstance(role, str) and role and
+            original.get('fixtureSet') == role and required == 'gate'):
+        return required
+    raise ValueError('Measured argument has changed or withheld reference identity')
+
+
 def evaluation_arguments(records, required, captured_cohort, evaluation_cohort, held_proofs, source_pin):
     """Label evaluated material separately from actually captured material.
 
     candidateSha256 is the unchanged G0 schema's evaluation-cohort field. Every original
     record stays intact inside capturedArgument with its original candidateSha256, report,
     capture and currentCandidate pins; no source record or PNG metadata is rewritten.
+    The wrapper's role is the G0 role it is bound under (bound_role); where that differs
+    from the captured role, roleBinding names both and capturedArgument keeps the original.
     Proofs here are pure inputs, not self-authenticating credentials. execution.py obtains
     them only by invoking the source-guarded production material bridge after prefit.
     """
@@ -173,9 +201,9 @@ def evaluation_arguments(records, required, captured_cohort, evaluation_cohort, 
     output = []
     for source in sorted(records, key=lambda r: r['id']):
         reference = required[source['id']]
-        if any(source.get(k) != reference.get(k) for k in ('profile', 'renderer', 'scene', 'role')) or \
-                source['role'] in ('blind', 'historical-prediction-check'):
+        if any(source.get(k) != reference.get(k) for k in ('profile', 'renderer', 'scene')):
             raise ValueError('Measured argument has changed or withheld reference identity')
+        role = bound_role(source, reference)
         position = source.get('position')
         before = captured.get(position)
         if before is None or source.get('candidateSha256') != before['sha256']:
@@ -198,5 +226,8 @@ def evaluation_arguments(records, required, captured_cohort, evaluation_cohort, 
             capturedArgument=copy.deepcopy(source), capturedArgumentSha256=digest(source),
             originalCurrentEvidence=copy.deepcopy(source_pin), heldSamplingProof=copy.deepcopy(proofs[position]),
             argumentSemantics='EVALUATED_CANDIDATE_USING_HELD_GATE0_SAMPLING')
+        if role != source['role']:
+            wrapped.update(role=role, roleBinding=dict(capturedRole=source['role'], boundRole=role,
+                basis='provenance.originalRow.fixtureSet', ruling='DL5p'))
         output.append(wrapped)
     return output

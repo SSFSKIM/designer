@@ -8016,3 +8016,22 @@ and the contract write leaves a claimed output with no contract; nothing reuses 
 manual inspection. In the same shape, a crash in the instant between a successful initializer
 child and `run/initialized.json` leaves the result only in the child's result file under
 `<work>/operator/`.
+
+## W50 composed current reader checks argument identity but not role (G1, 2026-10-09)
+
+*Logged under DL5p (d); the seam is repaired prospectively in the binder, and the sealed reader
+is not edited.* `current-analysis/analysis.py#argument_population`, which the sealed composed
+reader (`current-analysis-composed/analysis.py`) calls to build `completed-current.json`'s
+`arguments`, compares each record to G0's `required_arguments` on profile, renderer and scene only
+(`KEY[:3]`) and never on role. Canonical-scene arguments take their role from the scenes.json
+split (`spec role = scene['fixtureSet']`, line 375), while G0's reference inventory binds those
+cells as `gate`. So the completed read passed its own population check while 115 of its 787
+records (32 calibration, 83 probe; every canonical-scene record) carried a role G0 refuses, and
+the mismatch first surfaced at `fit/execution.py#bind_arguments`, after an initializer had already
+assembled a candidate (root 2's attempt-1 refusal). The W50-bed records (672) carry G0's own roles
+and were never affected. `fit/inputs.py#bound_role` now normalises exactly that seam (canonical
+scene source, role equal to its own `originalRow.fixtureSet`, not holdout or withheld, G0 role
+`gate`) and keeps the captured record and its SHA in `capturedArgument`. The fix in the reader has
+this shape: the next reader seal checks role against the G0 reference at population time, either
+refusing a disagreement or stating the bound role beside the captured split, so a vocabulary
+disagreement stops before any fit input is assembled rather than at binding.
