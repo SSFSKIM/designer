@@ -1,0 +1,388 @@
+TAP version 13
+# Subtest: coherence refuses absent twin and measures actual full-canvas disagreement
+ok 1 - coherence refuses absent twin and measures actual full-canvas disagreement
+  ---
+  duration_ms: 13.576417
+  type: 'test'
+  ...
+# Subtest: X1 recount catches one-code light even when metadata and all row metrics pass
+ok 2 - X1 recount catches one-code light even when metadata and all row metrics pass
+  ---
+  duration_ms: 515.944083
+  type: 'test'
+  ...
+# Subtest: C1 and M1 aggregates refuse incomplete required populations
+ok 3 - C1 and M1 aggregates refuse incomplete required populations
+  ---
+  duration_ms: 440.057042
+  type: 'test'
+  ...
+# Subtest: prepare/evaluate preserves original numeric reference and fixed-current evidence
+ok 4 - prepare/evaluate preserves original numeric reference and fixed-current evidence
+  ---
+  duration_ms: 459.4385
+  type: 'test'
+  ...
+# Subtest: capture rejects metadata sceneId swap
+ok 5 - capture rejects metadata sceneId swap
+  ---
+  duration_ms: 1.600459
+  type: 'test'
+  ...
+# Subtest: capture rejects metadata renderer swap
+ok 6 - capture rejects metadata renderer swap
+  ---
+  duration_ms: 1.010666
+  type: 'test'
+  ...
+# Subtest: capture rejects metadata samplingBackend swap
+ok 7 - capture rejects metadata samplingBackend swap
+  ---
+  duration_ms: 0.883833
+  type: 'test'
+  ...
+# Subtest: capture rejects metadata pixelSize swap
+ok 8 - capture rejects metadata pixelSize swap
+  ---
+  duration_ms: 1.142709
+  type: 'test'
+  ...
+# Subtest: capture requires full document hashes and equal native/backdrop dimensions
+ok 9 - capture requires full document hashes and equal native/backdrop dimensions
+  ---
+  duration_ms: 1.2695
+  type: 'test'
+  ...
+# Subtest: X1 refuses captures whose dimensions disagree with declared canvas and profile scale
+ok 10 - X1 refuses captures whose dimensions disagree with declared canvas and profile scale
+  ---
+  duration_ms: 1.251709
+  type: 'test'
+  ...
+# Subtest: C1 requires every declared span even when all remaining fixed counts match
+ok 11 - C1 requires every declared span even when all remaining fixed counts match
+  ---
+  duration_ms: 3.201667
+  type: 'test'
+  ...
+# Subtest: candidate native/backdrop bytes are bound to the same-cell frozen-current inventory
+ok 12 - candidate native/backdrop bytes are bound to the same-cell frozen-current inventory
+  ---
+  duration_ms: 57.456792
+  type: 'test'
+  ...
+# Subtest: C1 candidate report retains current numeric statistic beside slope arrays
+ok 13 - C1 candidate report retains current numeric statistic beside slope arrays
+  ---
+  duration_ms: 66.492792
+  type: 'test'
+  ...
+# Subtest: unadopted coherence still requires actual twin metrics, including inactive rows
+ok 14 - unadopted coherence still requires actual twin metrics, including inactive rows
+  ---
+  duration_ms: 27.466292
+  type: 'test'
+  ...
+# Subtest: UNMEASURED E2 survives the actual JSON completed-reference transport
+ok 15 - UNMEASURED E2 survives the actual JSON completed-reference transport
+  ---
+  duration_ms: 293.481209
+  type: 'test'
+  ...
+# Subtest: coherence owner presence metadata does not promote optional diagnostics
+ok 16 - coherence owner presence metadata does not promote optional diagnostics
+  ---
+  duration_ms: 28.248542
+  type: 'test'
+  ...
+# Subtest: batch derives every one of 640 identities from inventory, not caller selection
+ok 17 - batch derives every one of 640 identities from inventory, not caller selection
+  ---
+  duration_ms: 9.701333
+  type: 'test'
+  ...
+# Subtest: production batch refuses another inventory pin before opening inputs
+ok 18 - production batch refuses another inventory pin before opening inputs
+  ---
+  duration_ms: 0.266042
+  type: 'test'
+  ...
+# Subtest: 640 projections reuse one prepared context and retain unselected aggregate context
+ok 19 - 640 projections reuse one prepared context and retain unselected aggregate context
+  ---
+  duration_ms: 4506.20125
+  type: 'test'
+  ...
+# Subtest: inline owner assertion bounds are read structurally and ambiguity refuses
+ok 20 - inline owner assertion bounds are read structurally and ambiguity refuses
+  ---
+  duration_ms: 35.470458
+  type: 'test'
+  ...
+# Subtest: bridge refuses raw contexts and numeric reference maps
+ok 21 - bridge refuses raw contexts and numeric reference maps
+  ---
+  duration_ms: 0.561667
+  type: 'test'
+  ...
+# Subtest: bridge refuses unknown mode without opening any data
+ok 22 - bridge refuses unknown mode without opening any data
+  ---
+  duration_ms: 0.077125
+  type: 'test'
+  ...
+# Subtest: bridge exposes a JSON-native source contract snapshot without evidence inputs
+ok 23 - bridge exposes a JSON-native source contract snapshot without evidence inputs
+  ---
+  duration_ms: 3099.621584
+  type: 'test'
+  ...
+# Subtest: static discovery follows source imports without executing imported side effects
+ok 24 - static discovery follows source imports without executing imported side effects
+  ---
+  duration_ms: 16.217958
+  type: 'test'
+  ...
+# Subtest: discovery follows TypeScript import-equals without executing the required helper
+ok 25 - discovery follows TypeScript import-equals without executing the required helper
+  ---
+  duration_ms: 4.916625
+  type: 'test'
+  ...
+# Subtest: discovery refuses a nonliteral external import-equals expression
+ok 26 - discovery refuses a nonliteral external import-equals expression
+  ---
+  duration_ms: 1.52325
+  type: 'test'
+  ...
+# Subtest: discovery rejects data imported as modules rather than hashing measurements
+ok 27 - discovery rejects data imported as modules rather than hashing measurements
+  ---
+  duration_ms: 1.187125
+  type: 'test'
+  ...
+# Subtest: discovery refuses unresolved dynamic import instead of allowing a guessed closure
+ok 28 - discovery refuses unresolved dynamic import instead of allowing a guessed closure
+  ---
+  duration_ms: 1.189417
+  type: 'test'
+  ...
+# Subtest: discovery pins nested package and type configuration boundaries
+ok 29 - discovery pins nested package and type configuration boundaries
+  ---
+  duration_ms: 2.596375
+  type: 'test'
+  ...
+# Subtest: guard admits the fixed synthetic imported and AST-read sources
+ok 30 - guard admits the fixed synthetic imported and AST-read sources
+  ---
+  duration_ms: 68.993584
+  type: 'test'
+  ...
+# Subtest: guard admits synthetic TypeScript through the installed pinned compiler route
+ok 31 - guard admits synthetic TypeScript through the installed pinned compiler route
+  ---
+  duration_ms: 214.317083
+  type: 'test'
+  ...
+# Subtest: new import is refused before its module body side effect
+ok 32 - new import is refused before its module body side effect
+  ---
+  duration_ms: 66.553375
+  type: 'test'
+  ...
+# Subtest: new dynamic source reader file is refused before content is evaluated
+ok 33 - new dynamic source reader file is refused before content is evaluated
+  ---
+  duration_ms: 60.259042
+  type: 'test'
+  ...
+# Subtest: source or closure mutation is refused before entrypoint
+ok 34 - source or closure mutation is refused before entrypoint
+  ---
+  duration_ms: 119.754792
+  type: 'test'
+  ...
+# Subtest: a newly introduced module or type boundary is refused
+ok 35 - a newly introduced module or type boundary is refused
+  ---
+  duration_ms: 127.024375
+  type: 'test'
+  ...
+# Subtest: missing candidate declarations cannot certify intrinsic checks
+ok 36 - missing candidate declarations cannot certify intrinsic checks
+  ---
+  duration_ms: 0.568208
+  type: 'test'
+  ...
+# Subtest: active fitting inventory is applicable only to its endpoint and resolved values
+ok 37 - active fitting inventory is applicable only to its endpoint and resolved values
+  ---
+  duration_ms: 1189.119917
+  type: 'test'
+  ...
+# Subtest: changed active values require new fitting methods, not a historical measured status
+ok 38 - changed active values require new fitting methods, not a historical measured status
+  ---
+  duration_ms: 0.97125
+  type: 'test'
+  ...
+# Subtest: endpoint pair binding is role sensitive for both candidate and frozen-current rows
+ok 39 - endpoint pair binding is role sensitive for both candidate and frozen-current rows
+  ---
+  duration_ms: 0.275584
+  type: 'test'
+  ...
+# Subtest: before documents must name their own dark position and pose
+ok 40 - before documents must name their own dark position and pose
+  ---
+  duration_ms: 0.14775
+  type: 'test'
+  ...
+# Subtest: a family-keyed historical entry is admitted verbatim as its hold when no moved leaf falls under it
+ok 41 - a family-keyed historical entry is admitted verbatim as its hold when no moved leaf falls under it
+  ---
+  duration_ms: 0.542083
+  type: 'test'
+  ...
+# Subtest: a family containing a moved leaf needs per-leaf fitted records for every member
+ok 42 - a family containing a moved leaf needs per-leaf fitted records for every member
+  ---
+  duration_ms: 0.668334
+  type: 'test'
+  ...
+# Subtest: an admitted receded family holds its inherited members; a refused one needs per-leaf records
+ok 43 - an admitted receded family holds its inherited members; a refused one needs per-leaf records
+  ---
+  duration_ms: 1.753
+  type: 'test'
+  ...
+# Subtest: the shipped 0.5 pair reads X76 at identity once the two unrecorded inherited leaves are held
+ok 44 - the shipped 0.5 pair reads X76 at identity once the two unrecorded inherited leaves are held
+  ---
+  duration_ms: 5.567916
+  type: 'test'
+  ...
+# Subtest: the shipped 0.25 pair keeps the original leaf-keyed reading
+ok 45 - the shipped 0.25 pair keeps the original leaf-keyed reading
+  ---
+  duration_ms: 3.11
+  type: 'test'
+  ...
+# Subtest: M2 keeps directional named misses but refuses away and overshoot
+ok 46 - M2 keeps directional named misses but refuses away and overshoot
+  ---
+  duration_ms: 0.812208
+  type: 'test'
+  ...
+# Subtest: L1 missing fixed baseline is unmeasured, never a no-change reference
+ok 47 - L1 missing fixed baseline is unmeasured, never a no-change reference
+  ---
+  duration_ms: 6.232291
+  type: 'test'
+  ...
+# Subtest: M1 absolute misses cannot silently become named
+ok 48 - M1 absolute misses cannot silently become named
+  ---
+  duration_ms: 0.125
+  type: 'test'
+  ...
+# Subtest: matrix bytes and schema are checked before any rows become evidence
+ok 49 - matrix bytes and schema are checked before any rows become evidence
+  ---
+  duration_ms: 0.386125
+  type: 'test'
+  ...
+# Subtest: X76 refuses silently inherited active-fitted leaves and allows explicit held reading
+ok 50 - X76 refuses silently inherited active-fitted leaves and allows explicit held reading
+  ---
+  duration_ms: 462.177042
+  type: 'test'
+  ...
+# Subtest: X75 uses both tiers and both scale branches across the full integer span domain
+ok 51 - X75 uses both tiers and both scale branches across the full integer span domain
+  ---
+  duration_ms: 5.975875
+  type: 'test'
+  ...
+# Subtest: M2 keeps original ruled failure membership without calling it directional success
+ok 52 - M2 keeps original ruled failure membership without calling it directional success
+  ---
+  duration_ms: 0.193125
+  type: 'test'
+  ...
+# Subtest: M2 distinguishes a new directional record from an existing owner record
+ok 53 - M2 distinguishes a new directional record from an existing owner record
+  ---
+  duration_ms: 0.123583
+  type: 'test'
+  ...
+# Subtest: L1 named absent means do not excuse a missing original reference
+ok 54 - L1 named absent means do not excuse a missing original reference
+  ---
+  duration_ms: 0.150291
+  type: 'test'
+  ...
+# Subtest: L1 reads an absent mean as the owner test does: null, so the named exclusion holds
+ok 55 - L1 reads an absent mean as the owner test does: null, so the named exclusion holds
+  ---
+  duration_ms: 0.292375
+  type: 'test'
+  ...
+# Subtest: coherence source presence follows exact profiles and gated-bed exclusions
+ok 56 - coherence source presence follows exact profiles and gated-bed exclusions
+  ---
+  duration_ms: 541.842375
+  type: 'test'
+  ...
+# Subtest: source changes and omitted dependencies refuse before evaluation
+ok 57 - source changes and omitted dependencies refuse before evaluation
+  ---
+  duration_ms: 2170.97625
+  type: 'test'
+  ...
+# Subtest: only requested declarations execute, never source-level reads or test registration
+ok 58 - only requested declarations execute, never source-level reads or test registration
+  ---
+  duration_ms: 667.173709
+  type: 'test'
+  ...
+# Subtest: explicit test-local source declarations bind without executing the test
+ok 59 - explicit test-local source declarations bind without executing the test
+  ---
+  duration_ms: 586.751417
+  type: 'test'
+  ...
+# Subtest: source-owned snapshot and current projection round-trip without requiring baseline success
+ok 60 - source-owned snapshot and current projection round-trip without requiring baseline success
+  ---
+  duration_ms: 3597.415666
+  type: 'test'
+  ...
+# Subtest: rehashing a changed budget or numeric report does not make it source-owned
+ok 61 - rehashing a changed budget or numeric report does not make it source-owned
+  ---
+  duration_ms: 385.419542
+  type: 'test'
+  ...
+# Subtest: an actual unmeasured baseline cannot become completed owner evidence
+ok 62 - an actual unmeasured baseline cannot become completed owner evidence
+  ---
+  duration_ms: 220.385084
+  type: 'test'
+  ...
+# Subtest: an exact named absent mean is explicit evidence, never a fabricated scalar
+ok 63 - an exact named absent mean is explicit evidence, never a fabricated scalar
+  ---
+  duration_ms: 222.497
+  type: 'test'
+  ...
+1..63
+# tests 63
+# suites 0
+# pass 63
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6647.150792

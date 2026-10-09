@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: assembles complete held-material candidate at 0.25
+ok 1 - assembles complete held-material candidate at 0.25
+  ---
+  duration_ms: 578.105958
+  type: 'test'
+  ...
+# Subtest: assembles complete held-material candidate at 0.5
+ok 2 - assembles complete held-material candidate at 0.5
+  ---
+  duration_ms: 24.104792
+  type: 'test'
+  ...
+# Subtest: refuses malformed, foreign or changed inputs before creating candidate files
+ok 3 - refuses malformed, foreign or changed inputs before creating candidate files
+  ---
+  duration_ms: 0.886208
+  type: 'test'
+  ...
+# Subtest: identity candidate at 0.25 carries only the DL5o holds
+ok 4 - identity candidate at 0.25 carries only the DL5o holds
+  ---
+  duration_ms: 7.142709
+  type: 'test'
+  ...
+# Subtest: identity candidate at 0.5 carries only the DL5o holds
+ok 5 - identity candidate at 0.5 carries only the DL5o holds
+  ---
+  duration_ms: 6.499208
+  type: 'test'
+  ...
+# Subtest: only the admitted chart may differ when reusing captured tone arguments
+ok 6 - only the admitted chart may differ when reusing captured tone arguments
+  ---
+  duration_ms: 1.035083
+  type: 'test'
+  ...
+# Subtest: gate0 must be inert and evaluation rows must remain within the declared family
+ok 7 - gate0 must be inert and evaluation rows must remain within the declared family
+  ---
+  duration_ms: 0.151209
+  type: 'test'
+  ...
+# Subtest: separate runtime discovery exercises production joins, builder and held-material transfer
+ok 8 - separate runtime discovery exercises production joins, builder and held-material transfer
+  ---
+  duration_ms: 1016.77125
+  type: 'test'
+  ...
+# Subtest: composed neutral solve follows the chart rather than the old authority trough
+ok 9 - composed neutral solve follows the chart rather than the old authority trough
+  ---
+  duration_ms: 142.349
+  type: 'test'
+  ...
+# Subtest: join table covers every actual span and both scales without fitting the old law
+ok 10 - join table covers every actual span and both scales without fitting the old law
+  ---
+  duration_ms: 9.685375
+  type: 'test'
+  ...
+# Subtest: the existing fully collapsed thin state does not acquire chart authority
+ok 11 - the existing fully collapsed thin state does not acquire chart authority
+  ---
+  duration_ms: 0.241167
+  type: 'test'
+  ...
+# Subtest: the diagnostic refuses invalid endpoint or chart scope
+ok 12 - the diagnostic refuses invalid endpoint or chart scope
+  ---
+  duration_ms: 0.238458
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1509.579208

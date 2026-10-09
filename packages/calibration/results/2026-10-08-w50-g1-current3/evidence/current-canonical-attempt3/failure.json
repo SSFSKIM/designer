@@ -1,0 +1,151 @@
+{
+  "schema": "w50-current-attempt-failure-1",
+  "status": "STOPPED_INCOMPLETE_NO_RETRY",
+  "candidateVerdict": "NOT_READ",
+  "root": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument-root.json",
+    "sha256": "dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44"
+  },
+  "contract": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/f1a5b94660887ade676c67ea7f448371b605446b7c9f6cde6dd9868a75abe8f3.json",
+    "sha256": "1f38a774254921145f26508e6204636b34d105e4bd8b8c3fd3e4f441963230f2"
+  },
+  "claim": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-current3/execution/current-instrument/f1a5b94660887ade676c67ea7f448371b605446b7c9f6cde6dd9868a75abe8f3.json.started.json",
+    "sha256": "b9b51627371505f04d22fbc4cd7fa8c6626e3d5685610aeaa8956da63cf85fb1"
+  },
+  "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-current3/evidence/current-canonical-attempt3/dispatch.log",
+    "sha256": "37de6114b767012e7693a0efe9f26e1d414912beb55c29e36ef51892a6488690"
+  },
+  "tree": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-canonical",
+  "fileCount": 20,
+  "reportCount": 1,
+  "retainedPairCount": 1,
+  "repeatAdmissionCount": 0,
+  "validatedDrawCount": 0,
+  "successfulBatchResult": false,
+  "failure": {
+    "kind": "CLASSIFYING_CENSUS_REFUSAL",
+    "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+    "renderer": "css",
+    "scene": "dark-solid__capsule-button__rest",
+    "census": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/attempt3-current-canonical/captures/1x-dark-standard-glass025-css/census-dark-solid__capsule-button__rest.json",
+      "sha256": "1a35214db4cc161afc75d1f6b5321b4860e49df13c095f4db367871cea93f4de"
+    },
+    "refusals": [
+      "captureProcessPresent"
+    ],
+    "foreignPids": [
+      "74080",
+      "74081",
+      "74212",
+      "74226",
+      "74338"
+    ]
+  },
+  "scope": "One raw canonical cell produced paired images and a compare row. The run stopped at the next census before adapter repeat admission or a run/batch completion; no raw artifact is labelled a validated draw. Foreign processes were not touched. The separately completed new-bed result is unchanged.",
+  "files": [
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/cell__css.json",
+      "size": 817,
+      "sha256": "375699630d4692d153c55e35bd944f54862304d545e91dff2c9eea21a05b4355"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/dark-solid__capsule-button__inactive__css.png",
+      "size": 1184,
+      "sha256": "bb08f6440b82feb30eb50361819ec929d8ce7226c7993dfdd04a7c1ab809ac4a"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/dark-solid__capsule-button__inactive__css__alpha.png",
+      "size": 1466,
+      "sha256": "1e8f38101e0b2af27ed3a5a0d368cee4f73a773db79f382b28112865c5996b74"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/dark-solid__capsule-button__inactive__css__repeat.png",
+      "size": 1184,
+      "sha256": "bb08f6440b82feb30eb50361819ec929d8ce7226c7993dfdd04a7c1ab809ac4a"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/page__css__first.json",
+      "size": 6267,
+      "sha256": "3fb899eaf32f633dc149e7ac9ccd363c88b05057f4dcd258487c2f4fbd9ef07e"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/page__css__second.json",
+      "size": 6267,
+      "sha256": "3fb899eaf32f633dc149e7ac9ccd363c88b05057f4dcd258487c2f4fbd9ef07e"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/repeat__css.json",
+      "size": 1593,
+      "sha256": "dbbde5cf81e2235e504e4ed1073a6f88702e5e202f635e0b2a6d13be9740b0f5"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/report.cell__css.json",
+      "size": 22831,
+      "sha256": "b6aceba4d5c50d3a5e97f7942fe825db0c4ac3d9fbf74c0f08d1a4fda6480a9f"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/apple-macos-27.0-1x-dark-standard-glass0.25/dark-solid__capsule-button__inactive/report__css.json",
+      "size": 8898,
+      "sha256": "1c82c13d002a3a5db5cf562a47a921228cc49737432e37a4c4f0c25477226080"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/capture-dark-solid__capsule-button__inactive.log",
+      "size": 781,
+      "sha256": "51ebaa82c492f65de5ba69264759e683d18e39b1f4d189d2db859b89d035f04f"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/census-dark-solid__capsule-button__inactive.json",
+      "size": 410,
+      "sha256": "c3bdcb62c40364a3382d5e7abd2b70d81bbc9ee1198510ee5d50ddbe328cfd6b"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/census-dark-solid__capsule-button__rest.json",
+      "size": 1914,
+      "sha256": "1a35214db4cc161afc75d1f6b5321b4860e49df13c095f4db367871cea93f4de"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/compare-dark-solid__capsule-button__inactive.log",
+      "size": 5672,
+      "sha256": "5f783a902be097257c7de3b8d71a9e0c636120b01b70b9b71771cc1d7e47edd9"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/exit-dark-solid__capsule-button__inactive.json",
+      "size": 22,
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/fresh-dark-solid__capsule-button__inactive.json",
+      "size": 2367,
+      "sha256": "98863073ccc61541173f1977997af1d4e687a704bdc718c1038de4bdb4e61821"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/native-admission-dark-solid__capsule-button__inactive.json",
+      "size": 6783,
+      "sha256": "723ee5859d2f21963776524e8b9b93662a38d8344a223f9ad87e48a20ff7ab7c"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/native-request.json",
+      "size": 7291,
+      "sha256": "d702a6d0429c127b590985f76e7f465c504ccad0e3e166afd9a4f5a045b32094"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/request-dark-solid__capsule-button__inactive.json",
+      "size": 1688,
+      "sha256": "e51a9022cb33fbc612cd4f50cbc35ce7cd60cf6b29f74f969b192299c52ac618"
+    },
+    {
+      "path": "captures/1x-dark-standard-glass025-css/request.json",
+      "size": 3806,
+      "sha256": "b3cb0225931dc58a6ad9abbaec2bb418dedf186919da6023e6f994fbd339454b"
+    },
+    {
+      "path": "matrices/1x-dark-standard-glass025-css.json",
+      "size": 25930,
+      "sha256": "1b85f47ef68ce37c6cd1948544901cabe07be343b178360491365fa46f44a0fa"
+    }
+  ]
+}

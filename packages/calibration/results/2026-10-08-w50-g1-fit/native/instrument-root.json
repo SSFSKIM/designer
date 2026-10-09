@@ -1,0 +1,54 @@
+{
+  "schema": "w50-native-instrument-root-1",
+  "inputs": {
+    "declaration": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/declaration.json",
+      "sha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86"
+    },
+    "declarationSidecar": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/declaration.sha256",
+      "sha256": "5adb628a6b2cc2a61cd8847a46727c80134882a03bf4b9f93c34d542a9f7f8ec"
+    },
+    "fitDeclaration": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.json",
+      "sha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85"
+    },
+    "fitDeclarationSidecar": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.sha256",
+      "sha256": "c8cd75a6bc0c9af1dd1e05c34bc4c7ced7492513933145f95f5df7b2389fdc5f"
+    },
+    "manifest": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/manifest.json",
+      "sha256": "9423a102f38299c738bf8a6367bd0eca7857ebc94b7b931f749ff4da7958bfb5"
+    },
+    "scenes": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    },
+    "pack": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/pack.json",
+      "sha256": "73572d2225b4a763856e7518c7b6ee77c348cad51d54d1a2d67f9fe443bfa8b5"
+    }
+  },
+  "batch": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/read-batch.json",
+    "sha256": "f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628"
+  },
+  "contract": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/execution-contract.json",
+    "sha256": "571181d387e27a0d67b1cbc3d2f5de4480b18729c7f68bedabf437350d01f766"
+  },
+  "contractSidecar": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/execution-contract.json.sha256",
+    "sha256": "eadc03562914f3912ef8feeec474889bf68d9b4cc71e8648717cfc4ad8810b8b"
+  },
+  "sources": {
+    "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/native/probe.py": "cd27b7b74a26ff3e943c5bcffdd0d959cca98c48950780285e6d7a65a47630ce",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/native/reader.py": "881cb14dd69bb1034018676166774638ef3ebd0f70b345182689d002e6a79a33",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/native/run.py": "fa482c0ce2a9421718c56e350414764b710e266f81af7a0e1f59c8c465d13fcc",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/native/statistics.py": "d1fe736d99e7ca55b2121baf1137812887ee7d81b3249be8f5fe925d1f01c7f4",
+    "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+    "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/closure.py": "3d0837b87659012e1fb5e789145cc7172becbed750e3d039b55cd7ce028e8d9c"
+  }
+}

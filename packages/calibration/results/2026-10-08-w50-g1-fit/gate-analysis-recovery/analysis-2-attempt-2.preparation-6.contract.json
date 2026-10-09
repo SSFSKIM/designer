@@ -1,0 +1,39 @@
+{
+  "analysis": 2,
+  "attempt": 2,
+  "batch": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/gate-batch.json",
+    "sha256": "66d2f2886367445d47f2fe4ef338e85dcd2fafa31014443cec6fc9a73e782070"
+  },
+  "cohort": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "executionAuthority": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-6.authority.json",
+    "sha256": "267ec6e0e4300ff50d0113ef2eed17e5f404701450d3cfb8df6d2827bc5e0cd1"
+  },
+  "executionRootSha256": "c94b04ae28da29de2753362464b4bd48496b06f641d7e6ab357209d120c59ab5",
+  "fitRecord": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-record.json",
+    "sha256": "83ea6b1ea466fa4936b71331a214b1ed9525eb4c58df8e1a35737c63740e350b"
+  },
+  "logicalOutput": "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2",
+  "originalContract": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json",
+    "sha256": "5ca86014ce94815693dcd9ae1225d14453e46148ecc2091b64d34274b4cf364a"
+  },
+  "phase": "gate",
+  "preFitEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.pre-fit-evidence.json",
+    "sha256": "93093d5c64cf37a64ab3f6b94c42d42188ddb1b900c17e85cf9b394047b740da"
+  },
+  "preparation": 6,
+  "schema": "w50-dl5s-analysis-only-contract-1"
+}

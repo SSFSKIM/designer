@@ -1,0 +1,104 @@
+{
+  "schema": "w50-dl5r-terminal-audit-1",
+  "recordedAt": "2026-10-09T14:45:06.525903+00:00",
+  "verdict": "NEITHER",
+  "measurementStatus": "UNMEASURED",
+  "authorisedInvocation": 2,
+  "stopStage": "BEFORE_SUCCESSOR_MARKER",
+  "witnessStatus": "NOT_RUN",
+  "witnessCompared": null,
+  "witnessMismatches": null,
+  "judgeRan": false,
+  "successorNumericalPayloadFiles": 0,
+  "furtherAnalysisPermitted": false,
+  "exposureCreated": false,
+  "refusal": "Changed or missing pinned input: /Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_phase_sources.py",
+  "callChain": [
+    "gate-analysis-recovery/run.py:78 admit",
+    "live-execution/authority.py:262 verify_prefit",
+    "live-execution/authority.py:292 _verify_prefit",
+    "live-execution/prefit.py:254 validate_proof",
+    "live-execution/prefit.py:45 pin_path"
+  ],
+  "proof": "executionClosure",
+  "expectedTestSha256": "f9415dc81b3a727221f3b0bad6e64633da537084376a2d4104abfad248e47d04",
+  "currentTestSha256": "a2d870fe3e2462d0d0eafd07dc3f56b4d2e56924d5c634b8163e08f400fd18bf",
+  "testChangedAt": "02c0e5694bf9b579d2c3125a2ab60bf3684d5ea3",
+  "writtenFiles": [
+    {
+      "path": "/Users/new/vitrea-w50/g1-live/gate-analysis-2/quarantine/analysis.log",
+      "bytes": 1811,
+      "sha256": "ad5fbfd336f430deee7811386373290c83165ef437a3d54cfe52b366d3ac09d0"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.authority.json",
+      "bytes": 21689,
+      "sha256": "1e98915c3725d703857affdd8358cc3746d73c579a3fcc82f9d93098bdd29ead"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.authority.json.sha256",
+      "bytes": 92,
+      "sha256": "03167c0d89efd577a012cfa327e758f65cefa8e0216ae766755f870041f4bf56"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.contract.json",
+      "bytes": 1964,
+      "sha256": "27e1a88ce95ff8c6b6faedad477953386fb83c138ffe2ac060dd0e68558df864"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.contract.json.sha256",
+      "bytes": 91,
+      "sha256": "3e31d5c069396e93e418309024b2fd3bf1612c4a9ce6be766a025b2a30ff6dce"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.root-view.json",
+      "bytes": 1262073,
+      "sha256": "416c4a02fc8cb3dc20edbcd8d6ac18c320ac0d01b075b79b607f9f80b8eefd5b"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.root-view.json.sha256",
+      "bytes": 92,
+      "sha256": "8c19550b5d2338e31ea450ed5bfea0656a7ab93351029ab7019d68e55076473f"
+    }
+  ],
+  "failureTombstone": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.failed",
+    "exists": true,
+    "contents": []
+  },
+  "absent": [
+    "analysis-2.contract.json.started.json",
+    "analysis-2.contract.json.phase/analysis.started.json",
+    "analysis-2.terminal.json",
+    "analysis-2.complete.json",
+    "gate-analysis-2/measurement",
+    "gate-analysis-2/quarantine/result.json"
+  ],
+  "oldUnreadManifest": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-stop/unread-measurements-manifest.json",
+    "bytes": 160797,
+    "sha256": "95295607703bfa30ee4adea63b0182897c74a3a5085ada19a6b9625333983d49"
+  },
+  "oldUnreadFilesRawVerified": 634,
+  "oldPayloadsParsedByThisAudit": false,
+  "fitEvidence": {
+    "result": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.result.json",
+      "bytes": 32801540,
+      "sha256": "d2b82491d388b5cdf2bf48b6d0e6aedc1120f35c6d6c5a5e5050efb8bb1b7058"
+    },
+    "resultSidecar": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.result.json.sha256",
+      "bytes": 165,
+      "sha256": "f038a7f800bab95ae00dfa9fa8d0e21f9288d9f75ce2464d5516e52614fb94ec"
+    },
+    "fitRecord": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-record.json",
+      "bytes": 1433,
+      "sha256": "83ea6b1ea466fa4936b71331a214b1ed9525eb4c58df8e1a35737c63740e350b"
+    },
+    "committedBeforeCarry": "091e11e35a0158f0e71d66e9d0cd64b6752f6320",
+    "testSha256AtFitCommit": "f9415dc81b3a727221f3b0bad6e64633da537084376a2d4104abfad248e47d04",
+    "conclusion": "This refusal is later proof-source drift caused by the DL5r regression tests, not a defect affecting the completed fit analysis. The fit remains evidence for its declared population, not evidence that the gate passed."
+  }
+}

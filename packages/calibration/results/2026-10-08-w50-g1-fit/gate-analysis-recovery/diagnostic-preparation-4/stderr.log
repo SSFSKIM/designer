@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 370, in <module>
+    if __name__ == '__main__': sys.exit(main())
+                                        ~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 360, in main
+    print(W.encode(preflight()).decode(), end='')
+                   ~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 298, in preflight
+    return P.prepare(sys.modules[__name__])["proof"]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 179, in prepare
+    data, union = runner.admit(root, view, contract, batch, live, core)
+                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 77, in admit
+    authority.validate_body(A.ROOT, view)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py", line 224, in validate_body
+    current=composition.validate_completed_current(repo,doc['currentComposition'])
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/composition.py", line 36, in validate_completed_current
+    original_path=C.checked(repo,doc['originalInstrument']);original=C.D.root_doc(original_path)
+                                                                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 426, in root_doc
+    validate_repeat_registration(repo,path.parent,doc.get('repeatAdmission'),sources,doc['references'])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 345, in validate_repeat_registration
+    entry=checked(repo,registration['entrypoint']);config=load(checked(repo,registration['config']))
+                                                          ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 113, in load
+    return json.loads(Path(path).read_text(), parse_constant=invalid)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 32, in loads
+    raise ValueError('Read-only preflight forbids numerical gate payload JSON parsing')
+ValueError: Read-only preflight forbids numerical gate payload JSON parsing

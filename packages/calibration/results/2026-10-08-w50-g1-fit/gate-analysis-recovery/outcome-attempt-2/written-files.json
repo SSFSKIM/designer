@@ -1,0 +1,103 @@
+{
+  "controlMutex": {
+    "note": "The existing mutex is opened and flocked, not rewritten, by the sealed lease helper.",
+    "pin": {
+      "bytes": 0,
+      "path": "/private/tmp/w49-gpu.lock.mutex",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "predatesInvocation": true
+  },
+  "directories": [
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.failed",
+    "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2",
+    "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2/measurement",
+    "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2/quarantine"
+  ],
+  "ephemeralLease": {
+    "bytes": 53,
+    "claim": {
+      "bytes": 6385,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-8.contract.json.phase/analysis.started.json",
+      "sha256": "32afb4a0c0735f9348d0fef8e31f2fb55186bfcecec0ef60f04f36fe659f1ee5"
+    },
+    "hashEvidence": "DERIVED_FROM_THE_ANALYSIS_CLAIM_TOKEN_AND_SEALED_WRITER; NOT_RAW_HASHED_WHILE_PRESENT",
+    "path": "/tmp/w49-gpu.lock",
+    "sha256": "2e970e7ac8564eb13f39c623a30b3185ad17c9403bdbd65980cadc08e33adaf4",
+    "state": "REMOVED_AFTER_OWNED_LEASE"
+  },
+  "retainedFiles": [
+    {
+      "bytes": 1238,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.contract.json.started.json",
+      "sha256": "5e64893b10186f32708b8acfcddca292802188f29500ca5e84aab2b96b5908ba"
+    },
+    {
+      "bytes": 66,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.invocation.json",
+      "sha256": "8e0f30ade6badd57ea8ce64faacd5b01fcd93f3b32694523c3b9cae723416fff"
+    },
+    {
+      "bytes": 6385,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-8.contract.json.phase/analysis.started.json",
+      "sha256": "32afb4a0c0735f9348d0fef8e31f2fb55186bfcecec0ef60f04f36fe659f1ee5"
+    },
+    {
+      "bytes": 2643,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-8.review-clearance.json",
+      "sha256": "46b98d4f453cc9a88c8f0115e934a1a9b2e5a30ebacb58abe65d7a368736ec9c"
+    },
+    {
+      "bytes": 216,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.terminal.json",
+      "sha256": "89b324baf6aa8a25d39ca82158980432cbf96ca8048da610588e0014fb117809"
+    },
+    {
+      "bytes": 3517,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/audit.json",
+      "sha256": "bdcc43783b8a5ca19d65c68ebe4ad89d704b789f787421f123580fc9703f8a1b"
+    },
+    {
+      "bytes": 2,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/exit-status.txt",
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "bytes": 1556,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/public-verdict.json",
+      "sha256": "ef81618bd4711d19f4fc37b2a47630537524771998c3d473bbae59573c5f48d8"
+    },
+    {
+      "bytes": 4976,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/quarantine/analysis.log",
+      "sha256": "237431667f45230877d8d2d531031642bd0b6ba39a50dd94b3dc2b97e9ec283e"
+    },
+    {
+      "bytes": 1494,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/quarantine/result.json",
+      "sha256": "e46199ce7b7250aebe649f91438692c8631ec998b5729476a3e89b7e1e90f919"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 96,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/stdout.json",
+      "sha256": "b22be7c008c3c60a1f51f4d4dca4be573e6fc9d13d05864ab024b83cad3a7e55"
+    },
+    {
+      "bytes": 4976,
+      "path": "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2/quarantine/analysis.log",
+      "sha256": "237431667f45230877d8d2d531031642bd0b6ba39a50dd94b3dc2b97e9ec283e"
+    },
+    {
+      "bytes": 1494,
+      "path": "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2/quarantine/result.json",
+      "sha256": "e46199ce7b7250aebe649f91438692c8631ec998b5729476a3e89b7e1e90f919"
+    }
+  ],
+  "schema": "w50-dl5s-attempt-2-written-files-1",
+  "selfHash": "Reported outside this inventory to avoid a self-referential digest."
+}

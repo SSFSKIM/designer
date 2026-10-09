@@ -1,0 +1,336 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "identityDigestsGoldens",
+ "status": "PASS",
+ "establishes": "Light endpoints and the frozen 26.5 pair remain identical; all ten digests and all goldens are identical at the new gate's identity (landing rule 5; \u00a75.217 \u00a72).",
+ "boundary": "GPU goldens render the shipped material at identity only; no candidate was rendered.",
+ "builtFrom": {
+  "gitHead": "9ab03c54cb9c0d47c7ae88f714281e112dbc3ab9",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "runtime-unchanged-since-g0",
+   "status": "PASS",
+   "verifies": "No runtime, profile, generation, fixture or owner test byte changed since the sealed G0 merge (working tree included), so G0's identity witnesses describe the current bytes.",
+   "function": "runtime_unchanged_since_g0",
+   "summary": {
+    "since": "f608255abc7182dd3f69b0fe7e4d8fcd7e72f057",
+    "paths": [
+     "packages/core",
+     "packages/platform-web",
+     "packages/renderer-webgpu",
+     "packages/react",
+     "packages/policy",
+     "packages/geometry",
+     "packages/motion",
+     "packages/calibration/src",
+     "packages/calibration/test",
+     "packages/calibration/profiles",
+     "packages/calibration/scripts",
+     "packages/calibration/results/generations",
+     "apps/reference-apple/scenes.json",
+     "apps/reference-apple/fixtures",
+     "pnpm-lock.yaml"
+    ],
+    "changedFiles": 0,
+    "worktreeIncluded": true
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/runtime-unchanged-since-g0.json",
+    "sha256": "9c719dab044677bf14a263398a53bc9ede0fb53e3d5fb6e27df25f1d7575f8f5"
+   }
+  },
+  {
+   "id": "digest-records",
+   "status": "PASS",
+   "verifies": "All ten shipped profile documents are byte-identical to G0's digest record, whose recorded and recomputed fingerprints agree.",
+   "function": "digest_records",
+   "summary": {
+    "documents": 10,
+    "recordedEqualsActual": true
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/digest-records.json",
+    "sha256": "88cae675df3cc8f00f508306b2acd06caad6da09e18a55b99b57a1d024063445"
+   }
+  },
+  {
+   "id": "calibration-identity-suite",
+   "status": "PASS",
+   "verifies": "Digest pins and identity proofs recomputed from the live documents (tuned-profiles, W30/W31 identity, gate groups, macOS27 export, tier coherence, material selection).",
+   "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/tuned-profiles.test.ts",
+    "test/w30-operator-identity.test.ts",
+    "test/w31-identity-table.test.ts",
+    "test/macos27-profile-export.test.ts",
+    "test/tier-coherence.test.ts",
+    "test/material-selection.test.ts"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "Tests  196 passed",
+    "Test Files  6 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/calibration-identity-suite.log",
+    "sha256": "c12010402187ac093bed7aae8e528d492b6e1c9b478e0be0f6640e5ccf8adc48"
+   }
+  },
+  {
+   "id": "renderer-gate-groups",
+   "status": "PASS",
+   "verifies": "Each identity-table gate-group drops as one unit, the W50 chart included.",
+   "command": [
+    "pnpm",
+    "exec",
+    "vitest",
+    "run",
+    "test/w31-gate-groups.test.ts"
+   ],
+   "cwd": "packages/renderer-webgpu",
+   "exitCode": 0,
+   "matched": [
+    "Tests  28 passed",
+    "Test Files  1 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/renderer-gate-groups.log",
+    "sha256": "e4ace5af70d726bb0892966321dd770a4e27bfa26421f305383121032f0e2d96"
+   }
+  },
+  {
+   "id": "renderer-goldens",
+   "status": "PASS",
+   "verifies": "All renderer goldens pass on a hardware adapter at the new gate's identity (G0 recorded 34).",
+   "command": [
+    "pnpm",
+    "run",
+    "test:golden"
+   ],
+   "cwd": "packages/renderer-webgpu",
+   "exitCode": 0,
+   "matched": [
+    "\n  34 passed"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/renderer-goldens.log",
+    "sha256": "519032661f85f24cce0b08bc563f334e47230aa5c2f38b966dcff3d80fc62b97"
+   }
+  },
+  {
+   "id": "raster-witnesses",
+   "status": "PASS",
+   "verifies": "verify-identity.py: the 43 renderer raster witnesses equal W49b's and the retained scratch controls hash to their records; prior-capture cells are raw-RGBA identical to the canonical tree (read-only).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/verify-identity.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence",
+   "exitCode": 0,
+   "matched": [
+    "43 renderer witnesses exact; WebGPU (24, 4), CSS (21, 7)"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/raster-witnesses.log",
+    "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c"
+   }
+  },
+  {
+   "id": "freeze-1818",
+   "status": "PASS",
+   "verifies": "The macOS 26.5 freeze witness is intact.",
+   "command": [
+    "python3.12",
+    "results/2026-09-16-w29-freeze/freeze.py",
+    "verify"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "26.5 freeze intact: 1818 entries"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/freeze-1818.log",
+    "sha256": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36"
+   }
+  },
+  {
+   "id": "x41-911",
+   "status": "PASS",
+   "verifies": "The X41 0.5-generation witness is intact.",
+   "command": [
+    "pnpm",
+    "exec",
+    "tsx",
+    "results/2026-10-01-w43-g0-declaration/x41/x41.ts",
+    "verify"
+   ],
+   "cwd": "packages/calibration",
+   "exitCode": 0,
+   "matched": [
+    "intact: 911 entries"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/x41-911.log",
+    "sha256": "61d1f0eccb7ceeae4aa61b096e725c88b2608447363e0d14c30e306a89cf3683"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+   "sha256": "70d23fee4fdbb514f107d746fbc425286d13b5b1bf8f7004458aaada34291f46"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/digests.json",
+   "sha256": "05c9bf4589e2d5f5ef3422ecba13335e85058af9bc6f06a2498c0fa288274d6a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/identity-proof.json",
+   "sha256": "f7c6948c729eef9e3ad85ac940cab2fdc1a73dc32f7a47cd2c953d2794a3b9cc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/raw-identity.json",
+   "sha256": "d662626f5ce0a58cdf204800ca1564e37b698a3865c29a2b5c15cc6e2fa48cda"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/verify-identity.py",
+   "sha256": "89b467142d2a64684be5ebdacf7f4d1ccd8f245fe63127acde1359c15c1220a9"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls-complete.json",
+   "sha256": "2584128c6747ba0452d36418aa3bf7fd85d3d29991cca335e9940df95816a4f0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls-css.json",
+   "sha256": "03b9ac916a0ef99518412e4e471ff19488f4d17b29688cfb5acb6e993563cf8c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w49b-g0-declaration/evidence/identity-after.json",
+   "sha256": "d662626f5ce0a58cdf204800ca1564e37b698a3865c29a2b5c15cc6e2fa48cda"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+   "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+   "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25-receded.json",
+   "sha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+   "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+   "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+   "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25-receded.json",
+   "sha256": "12712d534b78017f68fee440cb9d9d451178aae1b80db36c0043fdfb1b591203"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.25.json",
+   "sha256": "ebc3d9105a4a40565278845071113c6a5368b304910362786b8cbfb4cc66bb44"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+   "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd"
+  },
+  {
+   "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+   "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936"
+  },
+  {
+   "path": "packages/calibration/test/tuned-profiles.test.ts",
+   "sha256": "430d3cbc9407db095f8a95312f13e1569636d9cb7d913fe0e96d9b4dbfd6111e"
+  },
+  {
+   "path": "packages/calibration/test/w30-operator-identity.test.ts",
+   "sha256": "bd5c2d6e37c951241525f5492eaa07849fff63559d8d9c0554a203f95aa380e6"
+  },
+  {
+   "path": "packages/calibration/test/w31-identity-table.test.ts",
+   "sha256": "eb258d797b948fba47ef4e7aba4f9322d744fc6291f865f8bc5f7b319ca3a564"
+  },
+  {
+   "path": "packages/renderer-webgpu/test/w31-gate-groups.test.ts",
+   "sha256": "81e9303645a90c514272f41563d03d62371dc22d8b019dfbd1becbf227ce6f34"
+  },
+  {
+   "path": "packages/calibration/test/macos27-profile-export.test.ts",
+   "sha256": "cd71667d23500218835b3f594409d690dea422d513fb3073aef6d60b92a3e7de"
+  },
+  {
+   "path": "packages/calibration/test/tier-coherence.test.ts",
+   "sha256": "c7440f04119071549a12774374bf0c4b630ef55a459eb8a1cf251c3dfa30782e"
+  },
+  {
+   "path": "packages/calibration/test/material-selection.test.ts",
+   "sha256": "1f7c175ce1167135b5cb5bfc8a011e920d164c9852471a614f6b0f391e4c2a39"
+  },
+  {
+   "path": "packages/renderer-webgpu/src/material.ts",
+   "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+  },
+  {
+   "path": "packages/renderer-webgpu/src/wgsl/optics.ts",
+   "sha256": "247e49336cb3a7194e89e1dc1c9a8a7654dcfb3311bbc678d220c99fb503f673"
+  },
+  {
+   "path": "packages/platform-web/src/optics.ts",
+   "sha256": "c18419bfd3ad282f665a6992e813fb5d867ab339f6dbcd72dc443f3684ef3303"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/runtime-unchanged-since-g0.json",
+   "sha256": "9c719dab044677bf14a263398a53bc9ede0fb53e3d5fb6e27df25f1d7575f8f5"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/digest-records.json",
+   "sha256": "88cae675df3cc8f00f508306b2acd06caad6da09e18a55b99b57a1d024063445"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/calibration-identity-suite.log",
+   "sha256": "c12010402187ac093bed7aae8e528d492b6e1c9b478e0be0f6640e5ccf8adc48"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/renderer-gate-groups.log",
+   "sha256": "e4ace5af70d726bb0892966321dd770a4e27bfa26421f305383121032f0e2d96"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/renderer-goldens.log",
+   "sha256": "519032661f85f24cce0b08bc563f334e47230aa5c2f38b966dcff3d80fc62b97"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/raster-witnesses.log",
+   "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/freeze-1818.log",
+   "sha256": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/identityDigestsGoldens/x41-911.log",
+   "sha256": "61d1f0eccb7ceeae4aa61b096e725c88b2608447363e0d14c30e306a89cf3683"
+  }
+ ]
+}

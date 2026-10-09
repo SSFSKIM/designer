@@ -1,0 +1,2987 @@
+{
+  "schema": "w50-measured-tone-argument-1",
+  "id": "apple-macos-27.0-2x-dark-standard-glass0.25|webgpu|dark-solid__rrect-sm__rest",
+  "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+  "renderer": "webgpu",
+  "scene": "dark-solid__rrect-sm__rest",
+  "variant": "regular",
+  "pose": "active",
+  "position": 0.25,
+  "dpr": 2,
+  "span": 32,
+  "role": "gate",
+  "candidateSha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89",
+  "encodedLuminance": 0.11038773116388675,
+  "linearLuminance": 0.011711216012889976,
+  "rgb": [
+    0.011612245179764781,
+    0.011612245179764781,
+    0.012983032342163608
+  ],
+  "provenance": {
+    "level": 0.011711216012858837,
+    "linearLuminance": 0.011711216012889976,
+    "rgb": [
+      0.011612245179764781,
+      0.011612245179764781,
+      0.012983032342163608
+    ],
+    "kind": "source",
+    "operation": "srgb_encode(recorded decoded encoded-mean level)",
+    "surface": {
+      "nodeId": "body",
+      "groupId": "component",
+      "plane": "base",
+      "family": "fixed-rounded-rect",
+      "radius": 8,
+      "bounds": {
+        "x": 128,
+        "y": 84,
+        "width": 64,
+        "height": 32
+      },
+      "refraction": {
+        "state": "true",
+        "accessibilityCap": "true",
+        "effective": "true"
+      }
+    },
+    "groupId": "component",
+    "configuredSource": "texture",
+    "samplingBackend": "gpu-texture",
+    "background": {
+      "id": "dark-solid",
+      "url": "/reference-fixtures/backgrounds/dark-solid@2x.png",
+      "naturalWidth": 640,
+      "naturalHeight": 400
+    },
+    "declaredSpan": 32,
+    "actualSolveSpan": 32,
+    "variant": "regular",
+    "variantSource": "packages/calibration/web/scene.ts registerHost source contract",
+    "capture": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png",
+      "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+    },
+    "report": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report__webgpu.json",
+      "sha256": "cc1abfc5312baecaa5010cb3eff32f05384a533bb4df15d517dfe0c7849d539b"
+    },
+    "cell": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/cell__webgpu.json",
+      "sha256": "f73d7ff3c76cab556a2aac8298f39513b251317f8457e66558e2937675796e60"
+    },
+    "artifacts": {
+      "cell": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/cell__webgpu.json",
+        "sha256": "f73d7ff3c76cab556a2aac8298f39513b251317f8457e66558e2937675796e60"
+      },
+      "report": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report__webgpu.json",
+        "sha256": "cc1abfc5312baecaa5010cb3eff32f05384a533bb4df15d517dfe0c7849d539b"
+      },
+      "png": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png",
+        "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+      },
+      "files": [
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/cell__webgpu.json",
+          "sha256": "f73d7ff3c76cab556a2aac8298f39513b251317f8457e66558e2937675796e60"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png",
+          "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu__alpha.png",
+          "sha256": "d6b9b4c939eddb013c9f9b54ecc85016f848c9846e9e071500ef0ddfcc1f6cb8"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu__repeat.png",
+          "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/page__webgpu__first.json",
+          "sha256": "b919c1a5220465c716df49839be3d853cc8ce70d8565df0aba450b6238878e2f"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/page__webgpu__second.json",
+          "sha256": "b919c1a5220465c716df49839be3d853cc8ce70d8565df0aba450b6238878e2f"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/repeat__webgpu.json",
+          "sha256": "635303dc9ee07e125ee974a611ebf928b044a818711aca4e1c40d525c562d654"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report.cell__webgpu.json",
+          "sha256": "e13015ed1ef5a9c4ecc4cdd345f6a35b4cc1ee3a5b6f4bf494c8171b67897eab"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report__webgpu.json",
+          "sha256": "cc1abfc5312baecaa5010cb3eff32f05384a533bb4df15d517dfe0c7849d539b"
+        }
+      ],
+      "transport": [
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/census-dark-solid__rrect-sm__rest.json",
+          "sha256": "30c53ed0a5cce4b287bd0d267ebb40578862fef590355e62e149ce001e1a16c3"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/request-dark-solid__rrect-sm__rest.json",
+          "sha256": "961d03d88af9475dd47b4562bd2eb08bb0dedd1453615da7367b16ea2ef2cda1"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/exit-dark-solid__rrect-sm__rest.json",
+          "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/compare-dark-solid__rrect-sm__rest.log",
+          "sha256": "9da019b0cacffb359223393549bc0b31ca74e92699d0e09998e3805acccc5cdd"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/capture-dark-solid__rrect-sm__rest.log",
+          "sha256": "f44c89a6598f2a1ec863c05c2ded189c586c31d91202b246e1d014b5e74da3f8"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/fresh-dark-solid__rrect-sm__rest.json",
+          "sha256": "18e9735d03033eb3a7b8b1316aa255f5026d2b65348d7cfa483578f044ad2d53"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/request.json",
+          "sha256": "fa0b6011f4c51bda53fd230eaa8d703de03febe92f3586dd5da40795ef5473a9"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/native-request.json",
+          "sha256": "684d4cff91345fe0196e355bbf56aa07f8ab2d8f3314cd187031120f66587c52"
+        },
+        {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/native-admission-dark-solid__rrect-sm__rest.json",
+          "sha256": "cd30f20da56ffbd65e412198766631144596b011f6204c96281834249a218714"
+        }
+      ]
+    },
+    "matrix": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/matrices/2x-dark-standard-glass025-webgpu.json",
+      "sha256": "63f87bb9628abb810cf2b4c976836421c4ee390fa2afc32be4ab05a865bf852d"
+    },
+    "originalRow": {
+      "key": {
+        "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "web": {
+          "engine": "chromium",
+          "engineVersion": "151.0.7922.34",
+          "renderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "gpuAdapter": "apple/metal-3",
+          "colorSpace": "srgb",
+          "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json declarationSha256=49dce5d6e339 name=w50-current-material-glass0.250 glassTintAmount=0.25",
+          "sceneId": "dark-solid__rrect-sm__rest",
+          "pixelSize": [
+            640,
+            400
+          ],
+          "deterministic": true,
+          "repeatNoise": 0
+        },
+        "sceneId": "dark-solid__rrect-sm__rest"
+      },
+      "fixtureSet": "probe",
+      "state": "rest",
+      "tier": "texture",
+      "capturedAt": "2026-10-08T16:53:50.052Z",
+      "perceptual": {
+        "axis": "perceptual",
+        "edgeWeightedMean": {
+          "value": 0.0003741688540693583,
+          "units": "luminance"
+        },
+        "edgeWeightedP95": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "unweightedMean": {
+          "value": 0.00015629826873448158,
+          "units": "luminance"
+        },
+        "ssimMean": {
+          "value": 0.9985095823176935,
+          "units": "ratio"
+        },
+        "ssimMin": {
+          "value": 0.6387112109074066,
+          "units": "ratio"
+        },
+        "ssimBand": {
+          "value": 0.9690925499322927,
+          "units": "ratio"
+        },
+        "ssimBandWindows": {
+          "value": 7956,
+          "units": "count"
+        },
+        "ssimOutside": {
+          "value": 0.9950290929006876,
+          "units": "ratio"
+        },
+        "ssimOutsideWindows": {
+          "value": 24200,
+          "units": "count"
+        },
+        "oklabDeltaEMean": {
+          "value": 0.0003924177774095773,
+          "units": "oklab"
+        },
+        "oklabDeltaEP95": {
+          "value": 0,
+          "units": "oklab"
+        },
+        "oklabDeltaEMax": {
+          "value": 0.11349813369879491,
+          "units": "oklab"
+        }
+      },
+      "shape": {
+        "axis": "shape",
+        "silhouetteAreaNative": {
+          "value": 7956,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 7980,
+          "units": "px^2"
+        },
+        "componentRegionArea": {
+          "value": 7980,
+          "units": "px^2"
+        },
+        "componentRegionMargin": {
+          "value": 0,
+          "units": "px"
+        },
+        "silhouetteHolesNative": {
+          "value": 0,
+          "units": "count"
+        },
+        "silhouetteHolesWeb": {
+          "value": 0,
+          "units": "count"
+        },
+        "silhouetteBodiesNative": {
+          "value": 1,
+          "units": "count"
+        },
+        "silhouetteBodiesWeb": {
+          "value": 1,
+          "units": "count"
+        },
+        "componentRegionBodies": {
+          "value": 1,
+          "units": "count"
+        },
+        "silhouetteIoU": {
+          "value": 0.9969924812030075,
+          "units": "ratio"
+        },
+        "contourDistanceMax": {
+          "value": 1,
+          "units": "px"
+        },
+        "contourDistanceP95": {
+          "value": 1,
+          "units": "px"
+        },
+        "contourDistanceMean": {
+          "value": 0.06976744186046512,
+          "units": "px"
+        },
+        "contourDistanceRms": {
+          "value": 0.26413527189768715,
+          "units": "px"
+        },
+        "cornerCurvatureMaxDelta": {
+          "value": 0.0411615784802921,
+          "units": "1/px"
+        },
+        "cornerCurvatureP95Delta": {
+          "value": 0.03537811843785909,
+          "units": "1/px"
+        },
+        "cornerCurvatureNative": {
+          "value": 0.06875808995882123,
+          "units": "1/px"
+        },
+        "cornerCurvatureWeb": {
+          "value": 0.06573376748147458,
+          "units": "1/px"
+        },
+        "drawnAreaWeb": {
+          "value": 7972,
+          "units": "px^2"
+        },
+        "declaredIoUWeb": {
+          "value": 0.9989974937343359,
+          "units": "ratio"
+        },
+        "declaredContourP95Web": {
+          "value": 0,
+          "units": "px"
+        },
+        "declaredContourMaxWeb": {
+          "value": 1,
+          "units": "px"
+        }
+      },
+      "material": {
+        "axis": "material",
+        "interiorMeanNative": {
+          "value": 0.048042427787971326,
+          "units": "luminance"
+        },
+        "interiorMeanWeb": {
+          "value": 0.044677537846254715,
+          "units": "luminance"
+        },
+        "interiorMeanBackdrop": {
+          "value": 0.011711216012870129,
+          "units": "luminance"
+        },
+        "interiorStdDevNative": {
+          "value": 0.017134210982953434,
+          "units": "luminance"
+        },
+        "interiorStdDevWeb": {
+          "value": 0.009414849466523292,
+          "units": "luminance"
+        },
+        "interiorStdDevBackdrop": {
+          "value": 6.18865427561198e-09,
+          "units": "luminance"
+        },
+        "tintDeltaLNative": {
+          "value": 0.13644656366010302,
+          "units": "oklab"
+        },
+        "tintDeltaLWeb": {
+          "value": 0.12764714688360781,
+          "units": "oklab"
+        },
+        "tintDeltaANative": {
+          "value": 9.833225386127187e-06,
+          "units": "oklab"
+        },
+        "tintDeltaAWeb": {
+          "value": -0.0005416546469175082,
+          "units": "oklab"
+        },
+        "tintDeltaBNative": {
+          "value": -0.0005327619291035091,
+          "units": "oklab"
+        },
+        "tintDeltaBWeb": {
+          "value": 0.0019024743471103833,
+          "units": "oklab"
+        },
+        "tintChromaDeltaNative": {
+          "value": 0.0005168151633852865,
+          "units": "oklab"
+        },
+        "tintChromaDeltaWeb": {
+          "value": -0.0019780546534244672,
+          "units": "oklab"
+        },
+        "tintHueShiftNative": {
+          "value": -1.824980476619217,
+          "units": "degrees"
+        },
+        "tintHueShiftWeb": {
+          "value": 0.21374183245690404,
+          "units": "degrees"
+        },
+        "rimPeakLuminanceNative": {
+          "value": 0.052412215490463515,
+          "units": "luminance"
+        },
+        "rimPeakLuminanceWeb": {
+          "value": 0.03979876326186855,
+          "units": "luminance"
+        },
+        "rimPeakDistanceNative": {
+          "value": 1,
+          "units": "px"
+        },
+        "rimPeakDistanceWeb": {
+          "value": 1,
+          "units": "px"
+        },
+        "rimFwhmNative": {
+          "value": 2.368797316953289,
+          "units": "px"
+        },
+        "rimFwhmWeb": {
+          "value": 1.4536710803397535,
+          "units": "px"
+        },
+        "shadowPeakDarkeningNative": {
+          "value": 0.0008786388576376565,
+          "units": "luminance"
+        },
+        "shadowPeakDarkeningWeb": {
+          "value": 0,
+          "units": "luminance"
+        },
+        "shadowPeakDistanceNative": {
+          "value": 1,
+          "units": "px"
+        },
+        "shadowPeakDistanceWeb": {
+          "value": 2,
+          "units": "px"
+        },
+        "shadowDecayLengthNative": {
+          "value": 0.8178723875310436,
+          "units": "px"
+        },
+        "shadowDecayLengthWeb": {
+          "value": 0,
+          "units": "px"
+        },
+        "tintInteriorChromaNative": {
+          "value": 0.004340183401424257,
+          "units": "oklab"
+        },
+        "tintInteriorChromaWeb": {
+          "value": 0.001845313584614503,
+          "units": "oklab"
+        },
+        "tintBackdropChroma": {
+          "value": 0.00382336823803897,
+          "units": "oklab"
+        },
+        "interiorChromaMeanNative": {
+          "value": 0.004312937492495997,
+          "units": "oklab"
+        },
+        "interiorChromaMeanWeb": {
+          "value": 0.0018895296963977104,
+          "units": "oklab"
+        },
+        "interiorChromaMeanBackdrop": {
+          "value": 0.0038233682380379723,
+          "units": "oklab"
+        },
+        "interiorChromaSdANative": {
+          "value": 0.0005606363825575256,
+          "units": "oklab"
+        },
+        "interiorChromaSdAWeb": {
+          "value": 0.00018379001662043092,
+          "units": "oklab"
+        },
+        "interiorChromaSdABackdrop": {
+          "value": 5.500931924743287e-10,
+          "units": "oklab"
+        },
+        "interiorChromaSdBNative": {
+          "value": 0.0008819686593012452,
+          "units": "oklab"
+        },
+        "interiorChromaSdBWeb": {
+          "value": 0.0006341333762009457,
+          "units": "oklab"
+        },
+        "interiorChromaSdBBackdrop": {
+          "value": 0,
+          "units": "oklab"
+        },
+        "chromaStructureRatioNative": {
+          "value": 0.06099347413728231,
+          "units": "ratio"
+        },
+        "chromaStructureRatioWeb": {
+          "value": 0.07012647374886939,
+          "units": "ratio"
+        },
+        "interiorOklabLSdDevNative": {
+          "value": 0.031170836277818186,
+          "units": "oklab"
+        },
+        "interiorOklabLSdDevWeb": {
+          "value": 0.02006844539830959,
+          "units": "oklab"
+        },
+        "interiorOklabLSdDevBackdrop": {
+          "value": 1.3871392430298678e-07,
+          "units": "oklab"
+        },
+        "rawChromaRatioNative": {
+          "value": 1.1280465871917311,
+          "units": "ratio"
+        },
+        "rawChromaRatioWeb": {
+          "value": 0.49420552213598845,
+          "units": "ratio"
+        }
+      },
+      "shadow": {
+        "axis": "shadow",
+        "exteriorArea": {
+          "value": 248020,
+          "units": "px^2"
+        },
+        "backdropMeanLuminance": {
+          "value": 0.011711216012836612,
+          "units": "luminance"
+        },
+        "backdropSupport": {
+          "value": 0,
+          "units": "ratio"
+        },
+        "clearanceAbove": {
+          "value": 167.5,
+          "units": "px"
+        },
+        "clearanceBelow": {
+          "value": 167.5,
+          "units": "px"
+        },
+        "clearanceLeft": {
+          "value": 255.5,
+          "units": "px"
+        },
+        "clearanceRight": {
+          "value": 255.5,
+          "units": "px"
+        },
+        "meanDepartureNative": {
+          "value": 2.8427614840990793e-06,
+          "units": "luminance"
+        },
+        "meanDepartureWeb": {
+          "value": -1.0254690091627454e-06,
+          "units": "luminance"
+        },
+        "affineNative": [
+          {
+            "direction": "all",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 2252,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011398,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 2480,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 5624,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 14012,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 38824,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 4732,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011562,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 740,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011707,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 822,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 1880,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 4730,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 13276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 1562,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011709,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 740,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011701,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 822,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 1880,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 4730,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 13276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 1562,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011706,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 386,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.010812,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 418,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 932,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 2276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 6136,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 804,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.01128,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 386,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.010812,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 418,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 932,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 2276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 6136,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 804,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.01128,
+            "unidentifiableReason": "flat-backdrop"
+          }
+        ],
+        "affineWeb": [
+          {
+            "direction": "all",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 2252,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011824,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 2480,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 5624,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 14012,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 38824,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "all",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 4732,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011765,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 740,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.01176,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 822,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 1880,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 4730,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 13276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "above",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 1562,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011734,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 740,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.01176,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 822,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 1880,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 4730,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 13276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "below",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 1562,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011734,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 386,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011946,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 418,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 932,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 2276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 6136,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "left",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 804,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011824,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "0-3",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 3,
+            "sampleCount": 386,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011946,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "3-6",
+            "innerDistanceCssPx": 3,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 418,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "6-12",
+            "innerDistanceCssPx": 6,
+            "outerDistanceCssPx": 12,
+            "sampleCount": 932,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "12-24",
+            "innerDistanceCssPx": 12,
+            "outerDistanceCssPx": 24,
+            "sampleCount": 2276,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "24-48",
+            "innerDistanceCssPx": 24,
+            "outerDistanceCssPx": 48,
+            "sampleCount": 6136,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011711,
+            "unidentifiableReason": "flat-backdrop"
+          },
+          {
+            "direction": "right",
+            "ringLabel": "0-6",
+            "innerDistanceCssPx": 0,
+            "outerDistanceCssPx": 6,
+            "sampleCount": 804,
+            "backdropMeanLinear": 0.011711,
+            "backdropStdDevLinear": 0,
+            "renderedLevelLinear": 0.011824,
+            "unidentifiableReason": "flat-backdrop"
+          }
+        ]
+      }
+    },
+    "candidateDocument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+      "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+    },
+    "originalDocumentPair": {
+      "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+      "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+    },
+    "result": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument/b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f.json.result.json",
+      "sha256": "de8f9f1971702cd2c811b6f5de3dcb7cc8ecfa5198157be8b2732b4d2a3bc7af"
+    },
+    "contract": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument/b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f.json",
+      "sha256": "df51519b46c66b591bf730446576328336d16467b7def5ea6738b87a42413f92"
+    },
+    "claim": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument/b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f.json.started.json",
+      "sha256": "018bb39c3d160facac64e431cb6a34b9f325433bf9b79bc67af7b5a4720875b8"
+    },
+    "sceneSource": "canonical",
+    "scenesSha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+    "endpoint": {
+      "$comment": [
+        "The macOS 27 dark standard material at the Glass",
+        "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a PATCH over the unmoved runtime",
+        "default \u2014 W43 Decision Log 6; it is not a difference over the 0.5 document.",
+        "",
+        "W48 G1, claims \u00a75.213: the span-graded dark transmission and the receded fine term over",
+        "d0219cd684bf (two operators, the tone ordinates held), fitted in two stages in scratch under the hashed part 2 on the dark",
+        "WebGPU fit cells at both scales, T1 read against Apple's texture. The light 0.25 pair, the 0.5",
+        "generations and the 26.5 rows did not move (X60). It supersedes the document named in",
+        "`supersedes`; `entries` keeps the snapshot's record for every leaf W48 left where it was and",
+        "records each leaf W48 moved with its previous and 0.5 values. By X64 and X67 it may name",
+        "sizeScatterFloor2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar2x, sizeHeavySecondShareFar2x, sizeOcclusionGain, sizeScatterSpanMax, sizeScatterSpanMax2x, tintAlphaFar1x and tintAlphaFar2x beside its 0.5 twin's leaves (X44 narrowed)."
+      ],
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+      "schemaVersion": 1,
+      "recordedAt": "2026-10-06",
+      "recordedBy": "W48 G1",
+      "colorSpace": "srgb",
+      "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+      "glassTintAmount": 0.25,
+      "twin": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+        "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+      },
+      "derivedFromCandidate": {
+        "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+        "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
+        "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/active.dark.json",
+        "endpointSha256": "72c7157a9c8eda7559f2d551e8a9455d5666d60c1af0fe9350d926156a939f91"
+      },
+      "supersedes": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+        "sha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+        "resolvedMaterialSha256": "b074fc6913a91c66",
+        "generation": "packages/calibration/results/generations/d0219cd684bf.json"
+      },
+      "resolvedMaterialSha256": "791cde91d97acbc7",
+      "resolvedMaterialSha256Rule": 2,
+      "measurement": {
+        "gate": "W48 G1, claims \u00a75.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
+        "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (\u00a75.199); T1's bar from those runs (\u00a75.202 \u00a72)",
+        "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
+        "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
+        "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
+        "cuts": null
+      },
+      "entries": {
+        "backdropToneResponseThick": {
+          "status": "measured",
+          "value": [
+            0.031,
+            0.0414,
+            0.173,
+            0.196
+          ],
+          "previous": [
+            0.031,
+            0.035,
+            0.169,
+            0.196
+          ],
+          "method": [
+            "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
+            "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
+            "(Decision Log 7 item 3: only the thick row moves in dark)."
+          ]
+        },
+        "sizeOcclusionGain": {
+          "status": "materialised",
+          "value": 0.05,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "sizeScatterFloor2x": {
+          "status": "materialised",
+          "value": 1,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "sizeScatterRampStartThin1x": {
+          "status": "materialised",
+          "value": 0.72,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "sizeScatterRampStartThin2x": {
+          "status": "materialised",
+          "value": 0.46,
+          "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+        },
+        "optics.regular.tintAlpha": {
+          "status": "measured",
+          "value": 0.7,
+          "previous": 0.9,
+          "previousAt05": 0.9,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+          ]
+        },
+        "sizeScatterScaleGain": {
+          "status": "measured",
+          "value": -0.5,
+          "previous": -2,
+          "previousAt05": -2,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
+          ]
+        },
+        "sizeScatterSpanMax": {
+          "status": "measured",
+          "value": 160,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax = 160)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax = 160)"
+          ]
+        },
+        "sizeScatterSpanMax2x": {
+          "status": "measured",
+          "value": 160,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax2x = 160)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax2x = 160)"
+          ]
+        },
+        "tintAlphaFar1x": {
+          "status": "measured",
+          "value": 0.2,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar1x = 0.2)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar1x = 0.2)"
+          ]
+        },
+        "tintAlphaFar2x": {
+          "status": "measured",
+          "value": 0.2,
+          "previous": null,
+          "previousAt05": null,
+          "method": [
+            "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+            "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar2x = 0.2)",
+            "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar2x = 0.2)"
+          ]
+        },
+        "held": {
+          "status": "held",
+          "families": {
+            "rimAndHighlight": "every rim and highlight leaf holds its 0.5 value (Decision Log 7 item 6)",
+            "outerShadow": "every outerShadow leaf holds, the receded zeros included (item 7); C1 reads identically to the pre-fit render on every cell",
+            "lens": "every lens leaf holds (the geometry did not move, \u00a75.200 \u00a74)",
+            "bodyChromaRetention": "held (item 4): M1 passes on the candidate, so the retention does not move",
+            "tintShade": "held (item 5): no tint cell misses a gate; the light receded tint reads +0.023 OKLab L light on average, a named gap",
+            "darkScatter": "held at the 0.5 values (item 2): the dark probes c01d / c01g and c02's step found no net gain on the calibration set",
+            "accessibility": "the accessibility leaves carry the 0.5 values, unmeasured at 0.25 (Decision Log 2 (b))"
+          }
+        }
+      },
+      "cssTierMapping": {
+        "blurSigmaScale": 2.2
+      },
+      "source": {
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+        "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+      },
+      "candidateEndpoint": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/active.dark.json",
+        "sha256": "bbee073f93e5884f33ffba743d399a4e019b9bb1db824b805d112c4319ee2104"
+      }
+    },
+    "reportedSurfaces": [
+      {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "fixed-rounded-rect",
+        "radius": 8,
+        "bounds": {
+          "x": 128,
+          "y": 84,
+          "width": 64,
+          "height": 32
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      }
+    ],
+    "evidenceKind": "completed-current-gate0",
+    "baseline": true,
+    "geometryDomain": "canonical-reported-bounds-not-native-mask-equivalence",
+    "repeatAdmission": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/repeat-admission__webgpu.json",
+      "sha256": "5357ea423796599385bd606b81088a5330c104bfe46dd1ff24aae14c5a3df8f8"
+    },
+    "repeatPair": {
+      "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/repeat__webgpu.json",
+      "sha256": "635303dc9ee07e125ee974a611ebf928b044a818711aca4e1c40d525c562d654"
+    },
+    "reading": "first",
+    "currentComposition": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+      "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+    },
+    "instrument": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument-root.json",
+      "sha256": "849e137f82b544c56baa20088e39d563ea060e3f6401c25781ba1099956b0ab6"
+    },
+    "batch": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/inputs/canonical-batch.json",
+      "sha256": "b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f"
+    }
+  },
+  "evaluationCandidateSha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89",
+  "capturedCandidateSha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411",
+  "currentCandidate": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+    "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+  },
+  "capturedArgument": {
+    "id": "apple-macos-27.0-2x-dark-standard-glass0.25|webgpu|dark-solid__rrect-sm__rest",
+    "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+    "renderer": "webgpu",
+    "scene": "dark-solid__rrect-sm__rest",
+    "variant": "regular",
+    "pose": "active",
+    "position": 0.25,
+    "dpr": 2,
+    "span": 32,
+    "role": "probe",
+    "candidateSha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411",
+    "encodedLuminance": 0.11038773116388675,
+    "linearLuminance": 0.011711216012889976,
+    "rgb": [
+      0.011612245179764781,
+      0.011612245179764781,
+      0.012983032342163608
+    ],
+    "provenance": {
+      "level": 0.011711216012858837,
+      "linearLuminance": 0.011711216012889976,
+      "rgb": [
+        0.011612245179764781,
+        0.011612245179764781,
+        0.012983032342163608
+      ],
+      "kind": "source",
+      "operation": "srgb_encode(recorded decoded encoded-mean level)",
+      "surface": {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "fixed-rounded-rect",
+        "radius": 8,
+        "bounds": {
+          "x": 128,
+          "y": 84,
+          "width": 64,
+          "height": 32
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      },
+      "groupId": "component",
+      "configuredSource": "texture",
+      "samplingBackend": "gpu-texture",
+      "background": {
+        "id": "dark-solid",
+        "url": "/reference-fixtures/backgrounds/dark-solid@2x.png",
+        "naturalWidth": 640,
+        "naturalHeight": 400
+      },
+      "declaredSpan": 32,
+      "actualSolveSpan": 32,
+      "variant": "regular",
+      "variantSource": "packages/calibration/web/scene.ts registerHost source contract",
+      "capture": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png",
+        "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+      },
+      "report": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report__webgpu.json",
+        "sha256": "cc1abfc5312baecaa5010cb3eff32f05384a533bb4df15d517dfe0c7849d539b"
+      },
+      "cell": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/cell__webgpu.json",
+        "sha256": "f73d7ff3c76cab556a2aac8298f39513b251317f8457e66558e2937675796e60"
+      },
+      "artifacts": {
+        "cell": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/cell__webgpu.json",
+          "sha256": "f73d7ff3c76cab556a2aac8298f39513b251317f8457e66558e2937675796e60"
+        },
+        "report": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report__webgpu.json",
+          "sha256": "cc1abfc5312baecaa5010cb3eff32f05384a533bb4df15d517dfe0c7849d539b"
+        },
+        "png": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png",
+          "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+        },
+        "files": [
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/cell__webgpu.json",
+            "sha256": "f73d7ff3c76cab556a2aac8298f39513b251317f8457e66558e2937675796e60"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu.png",
+            "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu__alpha.png",
+            "sha256": "d6b9b4c939eddb013c9f9b54ecc85016f848c9846e9e071500ef0ddfcc1f6cb8"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/dark-solid__rrect-sm__rest__webgpu__repeat.png",
+            "sha256": "de1610ff7ec6cf4d6962fbb800460a303eb56e0323abe4d3abb5ec69c142510d"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/page__webgpu__first.json",
+            "sha256": "b919c1a5220465c716df49839be3d853cc8ce70d8565df0aba450b6238878e2f"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/page__webgpu__second.json",
+            "sha256": "b919c1a5220465c716df49839be3d853cc8ce70d8565df0aba450b6238878e2f"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/repeat__webgpu.json",
+            "sha256": "635303dc9ee07e125ee974a611ebf928b044a818711aca4e1c40d525c562d654"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report.cell__webgpu.json",
+            "sha256": "e13015ed1ef5a9c4ecc4cdd345f6a35b4cc1ee3a5b6f4bf494c8171b67897eab"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/report__webgpu.json",
+            "sha256": "cc1abfc5312baecaa5010cb3eff32f05384a533bb4df15d517dfe0c7849d539b"
+          }
+        ],
+        "transport": [
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/census-dark-solid__rrect-sm__rest.json",
+            "sha256": "30c53ed0a5cce4b287bd0d267ebb40578862fef590355e62e149ce001e1a16c3"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/request-dark-solid__rrect-sm__rest.json",
+            "sha256": "961d03d88af9475dd47b4562bd2eb08bb0dedd1453615da7367b16ea2ef2cda1"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/exit-dark-solid__rrect-sm__rest.json",
+            "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/compare-dark-solid__rrect-sm__rest.log",
+            "sha256": "9da019b0cacffb359223393549bc0b31ca74e92699d0e09998e3805acccc5cdd"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/capture-dark-solid__rrect-sm__rest.log",
+            "sha256": "f44c89a6598f2a1ec863c05c2ded189c586c31d91202b246e1d014b5e74da3f8"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/fresh-dark-solid__rrect-sm__rest.json",
+            "sha256": "18e9735d03033eb3a7b8b1316aa255f5026d2b65348d7cfa483578f044ad2d53"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/request.json",
+            "sha256": "fa0b6011f4c51bda53fd230eaa8d703de03febe92f3586dd5da40795ef5473a9"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/native-request.json",
+            "sha256": "684d4cff91345fe0196e355bbf56aa07f8ab2d8f3314cd187031120f66587c52"
+          },
+          {
+            "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/native-admission-dark-solid__rrect-sm__rest.json",
+            "sha256": "cd30f20da56ffbd65e412198766631144596b011f6204c96281834249a218714"
+          }
+        ]
+      },
+      "matrix": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/matrices/2x-dark-standard-glass025-webgpu.json",
+        "sha256": "63f87bb9628abb810cf2b4c976836421c4ee390fa2afc32be4ab05a865bf852d"
+      },
+      "originalRow": {
+        "key": {
+          "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "web": {
+            "engine": "chromium",
+            "engineVersion": "151.0.7922.34",
+            "renderer": "webgpu",
+            "samplingBackend": "gpu-texture",
+            "gpuAdapter": "apple/metal-3",
+            "colorSpace": "srgb",
+            "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=2, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json declarationSha256=49dce5d6e339 name=w50-current-material-glass0.250 glassTintAmount=0.25",
+            "sceneId": "dark-solid__rrect-sm__rest",
+            "pixelSize": [
+              640,
+              400
+            ],
+            "deterministic": true,
+            "repeatNoise": 0
+          },
+          "sceneId": "dark-solid__rrect-sm__rest"
+        },
+        "fixtureSet": "probe",
+        "state": "rest",
+        "tier": "texture",
+        "capturedAt": "2026-10-08T16:53:50.052Z",
+        "perceptual": {
+          "axis": "perceptual",
+          "edgeWeightedMean": {
+            "value": 0.0003741688540693583,
+            "units": "luminance"
+          },
+          "edgeWeightedP95": {
+            "value": 0,
+            "units": "luminance"
+          },
+          "unweightedMean": {
+            "value": 0.00015629826873448158,
+            "units": "luminance"
+          },
+          "ssimMean": {
+            "value": 0.9985095823176935,
+            "units": "ratio"
+          },
+          "ssimMin": {
+            "value": 0.6387112109074066,
+            "units": "ratio"
+          },
+          "ssimBand": {
+            "value": 0.9690925499322927,
+            "units": "ratio"
+          },
+          "ssimBandWindows": {
+            "value": 7956,
+            "units": "count"
+          },
+          "ssimOutside": {
+            "value": 0.9950290929006876,
+            "units": "ratio"
+          },
+          "ssimOutsideWindows": {
+            "value": 24200,
+            "units": "count"
+          },
+          "oklabDeltaEMean": {
+            "value": 0.0003924177774095773,
+            "units": "oklab"
+          },
+          "oklabDeltaEP95": {
+            "value": 0,
+            "units": "oklab"
+          },
+          "oklabDeltaEMax": {
+            "value": 0.11349813369879491,
+            "units": "oklab"
+          }
+        },
+        "shape": {
+          "axis": "shape",
+          "silhouetteAreaNative": {
+            "value": 7956,
+            "units": "px^2"
+          },
+          "silhouetteAreaWeb": {
+            "value": 7980,
+            "units": "px^2"
+          },
+          "componentRegionArea": {
+            "value": 7980,
+            "units": "px^2"
+          },
+          "componentRegionMargin": {
+            "value": 0,
+            "units": "px"
+          },
+          "silhouetteHolesNative": {
+            "value": 0,
+            "units": "count"
+          },
+          "silhouetteHolesWeb": {
+            "value": 0,
+            "units": "count"
+          },
+          "silhouetteBodiesNative": {
+            "value": 1,
+            "units": "count"
+          },
+          "silhouetteBodiesWeb": {
+            "value": 1,
+            "units": "count"
+          },
+          "componentRegionBodies": {
+            "value": 1,
+            "units": "count"
+          },
+          "silhouetteIoU": {
+            "value": 0.9969924812030075,
+            "units": "ratio"
+          },
+          "contourDistanceMax": {
+            "value": 1,
+            "units": "px"
+          },
+          "contourDistanceP95": {
+            "value": 1,
+            "units": "px"
+          },
+          "contourDistanceMean": {
+            "value": 0.06976744186046512,
+            "units": "px"
+          },
+          "contourDistanceRms": {
+            "value": 0.26413527189768715,
+            "units": "px"
+          },
+          "cornerCurvatureMaxDelta": {
+            "value": 0.0411615784802921,
+            "units": "1/px"
+          },
+          "cornerCurvatureP95Delta": {
+            "value": 0.03537811843785909,
+            "units": "1/px"
+          },
+          "cornerCurvatureNative": {
+            "value": 0.06875808995882123,
+            "units": "1/px"
+          },
+          "cornerCurvatureWeb": {
+            "value": 0.06573376748147458,
+            "units": "1/px"
+          },
+          "drawnAreaWeb": {
+            "value": 7972,
+            "units": "px^2"
+          },
+          "declaredIoUWeb": {
+            "value": 0.9989974937343359,
+            "units": "ratio"
+          },
+          "declaredContourP95Web": {
+            "value": 0,
+            "units": "px"
+          },
+          "declaredContourMaxWeb": {
+            "value": 1,
+            "units": "px"
+          }
+        },
+        "material": {
+          "axis": "material",
+          "interiorMeanNative": {
+            "value": 0.048042427787971326,
+            "units": "luminance"
+          },
+          "interiorMeanWeb": {
+            "value": 0.044677537846254715,
+            "units": "luminance"
+          },
+          "interiorMeanBackdrop": {
+            "value": 0.011711216012870129,
+            "units": "luminance"
+          },
+          "interiorStdDevNative": {
+            "value": 0.017134210982953434,
+            "units": "luminance"
+          },
+          "interiorStdDevWeb": {
+            "value": 0.009414849466523292,
+            "units": "luminance"
+          },
+          "interiorStdDevBackdrop": {
+            "value": 6.18865427561198e-09,
+            "units": "luminance"
+          },
+          "tintDeltaLNative": {
+            "value": 0.13644656366010302,
+            "units": "oklab"
+          },
+          "tintDeltaLWeb": {
+            "value": 0.12764714688360781,
+            "units": "oklab"
+          },
+          "tintDeltaANative": {
+            "value": 9.833225386127187e-06,
+            "units": "oklab"
+          },
+          "tintDeltaAWeb": {
+            "value": -0.0005416546469175082,
+            "units": "oklab"
+          },
+          "tintDeltaBNative": {
+            "value": -0.0005327619291035091,
+            "units": "oklab"
+          },
+          "tintDeltaBWeb": {
+            "value": 0.0019024743471103833,
+            "units": "oklab"
+          },
+          "tintChromaDeltaNative": {
+            "value": 0.0005168151633852865,
+            "units": "oklab"
+          },
+          "tintChromaDeltaWeb": {
+            "value": -0.0019780546534244672,
+            "units": "oklab"
+          },
+          "tintHueShiftNative": {
+            "value": -1.824980476619217,
+            "units": "degrees"
+          },
+          "tintHueShiftWeb": {
+            "value": 0.21374183245690404,
+            "units": "degrees"
+          },
+          "rimPeakLuminanceNative": {
+            "value": 0.052412215490463515,
+            "units": "luminance"
+          },
+          "rimPeakLuminanceWeb": {
+            "value": 0.03979876326186855,
+            "units": "luminance"
+          },
+          "rimPeakDistanceNative": {
+            "value": 1,
+            "units": "px"
+          },
+          "rimPeakDistanceWeb": {
+            "value": 1,
+            "units": "px"
+          },
+          "rimFwhmNative": {
+            "value": 2.368797316953289,
+            "units": "px"
+          },
+          "rimFwhmWeb": {
+            "value": 1.4536710803397535,
+            "units": "px"
+          },
+          "shadowPeakDarkeningNative": {
+            "value": 0.0008786388576376565,
+            "units": "luminance"
+          },
+          "shadowPeakDarkeningWeb": {
+            "value": 0,
+            "units": "luminance"
+          },
+          "shadowPeakDistanceNative": {
+            "value": 1,
+            "units": "px"
+          },
+          "shadowPeakDistanceWeb": {
+            "value": 2,
+            "units": "px"
+          },
+          "shadowDecayLengthNative": {
+            "value": 0.8178723875310436,
+            "units": "px"
+          },
+          "shadowDecayLengthWeb": {
+            "value": 0,
+            "units": "px"
+          },
+          "tintInteriorChromaNative": {
+            "value": 0.004340183401424257,
+            "units": "oklab"
+          },
+          "tintInteriorChromaWeb": {
+            "value": 0.001845313584614503,
+            "units": "oklab"
+          },
+          "tintBackdropChroma": {
+            "value": 0.00382336823803897,
+            "units": "oklab"
+          },
+          "interiorChromaMeanNative": {
+            "value": 0.004312937492495997,
+            "units": "oklab"
+          },
+          "interiorChromaMeanWeb": {
+            "value": 0.0018895296963977104,
+            "units": "oklab"
+          },
+          "interiorChromaMeanBackdrop": {
+            "value": 0.0038233682380379723,
+            "units": "oklab"
+          },
+          "interiorChromaSdANative": {
+            "value": 0.0005606363825575256,
+            "units": "oklab"
+          },
+          "interiorChromaSdAWeb": {
+            "value": 0.00018379001662043092,
+            "units": "oklab"
+          },
+          "interiorChromaSdABackdrop": {
+            "value": 5.500931924743287e-10,
+            "units": "oklab"
+          },
+          "interiorChromaSdBNative": {
+            "value": 0.0008819686593012452,
+            "units": "oklab"
+          },
+          "interiorChromaSdBWeb": {
+            "value": 0.0006341333762009457,
+            "units": "oklab"
+          },
+          "interiorChromaSdBBackdrop": {
+            "value": 0,
+            "units": "oklab"
+          },
+          "chromaStructureRatioNative": {
+            "value": 0.06099347413728231,
+            "units": "ratio"
+          },
+          "chromaStructureRatioWeb": {
+            "value": 0.07012647374886939,
+            "units": "ratio"
+          },
+          "interiorOklabLSdDevNative": {
+            "value": 0.031170836277818186,
+            "units": "oklab"
+          },
+          "interiorOklabLSdDevWeb": {
+            "value": 0.02006844539830959,
+            "units": "oklab"
+          },
+          "interiorOklabLSdDevBackdrop": {
+            "value": 1.3871392430298678e-07,
+            "units": "oklab"
+          },
+          "rawChromaRatioNative": {
+            "value": 1.1280465871917311,
+            "units": "ratio"
+          },
+          "rawChromaRatioWeb": {
+            "value": 0.49420552213598845,
+            "units": "ratio"
+          }
+        },
+        "shadow": {
+          "axis": "shadow",
+          "exteriorArea": {
+            "value": 248020,
+            "units": "px^2"
+          },
+          "backdropMeanLuminance": {
+            "value": 0.011711216012836612,
+            "units": "luminance"
+          },
+          "backdropSupport": {
+            "value": 0,
+            "units": "ratio"
+          },
+          "clearanceAbove": {
+            "value": 167.5,
+            "units": "px"
+          },
+          "clearanceBelow": {
+            "value": 167.5,
+            "units": "px"
+          },
+          "clearanceLeft": {
+            "value": 255.5,
+            "units": "px"
+          },
+          "clearanceRight": {
+            "value": 255.5,
+            "units": "px"
+          },
+          "meanDepartureNative": {
+            "value": 2.8427614840990793e-06,
+            "units": "luminance"
+          },
+          "meanDepartureWeb": {
+            "value": -1.0254690091627454e-06,
+            "units": "luminance"
+          },
+          "affineNative": [
+            {
+              "direction": "all",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 2252,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011398,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 2480,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 5624,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 14012,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 38824,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 4732,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011562,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 740,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011707,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 822,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 1880,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 4730,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 13276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 1562,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011709,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 740,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011701,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 822,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 1880,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 4730,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 13276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 1562,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011706,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 386,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.010812,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 418,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 932,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 2276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 6136,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 804,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.01128,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 386,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.010812,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 418,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 932,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 2276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 6136,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 804,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.01128,
+              "unidentifiableReason": "flat-backdrop"
+            }
+          ],
+          "affineWeb": [
+            {
+              "direction": "all",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 2252,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011824,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 2480,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 5624,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 14012,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 38824,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "all",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 4732,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011765,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 740,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.01176,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 822,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 1880,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 4730,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 13276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "above",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 1562,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011734,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 740,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.01176,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 822,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 1880,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 4730,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 13276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "below",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 1562,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011734,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 386,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011946,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 418,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 932,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 2276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 6136,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "left",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 804,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011824,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "0-3",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "sampleCount": 386,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011946,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "3-6",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 418,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "6-12",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "sampleCount": 932,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "12-24",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "sampleCount": 2276,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "24-48",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "sampleCount": 6136,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011711,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "direction": "right",
+              "ringLabel": "0-6",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "sampleCount": 804,
+              "backdropMeanLinear": 0.011711,
+              "backdropStdDevLinear": 0,
+              "renderedLevelLinear": 0.011824,
+              "unidentifiableReason": "flat-backdrop"
+            }
+          ]
+        }
+      },
+      "candidateDocument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+        "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+      },
+      "originalDocumentPair": {
+        "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+        "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+      },
+      "result": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument/b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f.json.result.json",
+        "sha256": "de8f9f1971702cd2c811b6f5de3dcb7cc8ecfa5198157be8b2732b4d2a3bc7af"
+      },
+      "contract": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument/b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f.json",
+        "sha256": "df51519b46c66b591bf730446576328336d16467b7def5ea6738b87a42413f92"
+      },
+      "claim": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument/b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f.json.started.json",
+        "sha256": "018bb39c3d160facac64e431cb6a34b9f325433bf9b79bc67af7b5a4720875b8"
+      },
+      "sceneSource": "canonical",
+      "scenesSha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8",
+      "endpoint": {
+        "$comment": [
+          "The macOS 27 dark standard material at the Glass",
+          "appearance slider's 0.25 position (`NSGlassTintAmount` 0.25, the clearer glass), as a PATCH over the unmoved runtime",
+          "default \u2014 W43 Decision Log 6; it is not a difference over the 0.5 document.",
+          "",
+          "W48 G1, claims \u00a75.213: the span-graded dark transmission and the receded fine term over",
+          "d0219cd684bf (two operators, the tone ordinates held), fitted in two stages in scratch under the hashed part 2 on the dark",
+          "WebGPU fit cells at both scales, T1 read against Apple's texture. The light 0.25 pair, the 0.5",
+          "generations and the 26.5 rows did not move (X60). It supersedes the document named in",
+          "`supersedes`; `entries` keeps the snapshot's record for every leaf W48 left where it was and",
+          "records each leaf W48 moved with its previous and 0.5 values. By X64 and X67 it may name",
+          "sizeScatterFloor2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartFar1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar2x, sizeHeavySecondShareFar2x, sizeOcclusionGain, sizeScatterSpanMax, sizeScatterSpanMax2x, tintAlphaFar1x and tintAlphaFar2x beside its 0.5 twin's leaves (X44 narrowed)."
+        ],
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "schemaVersion": 1,
+        "recordedAt": "2026-10-06",
+        "recordedBy": "W48 G1",
+        "colorSpace": "srgb",
+        "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
+        "glassTintAmount": 0.25,
+        "twin": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+        },
+        "derivedFromCandidate": {
+          "declaration": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/candidate.json",
+          "declarationSha256": "ac7039aabf8b99ac4fff0c625fcc34a9db03c47d6bfb0b41b70f28908cf2c9d9",
+          "endpoint": "packages/calibration/results/2026-10-06-w48-g1-refit/fit/candidates/d-dl9-g-0.5-rq0.25-rw15-rw25/active.dark.json",
+          "endpointSha256": "72c7157a9c8eda7559f2d551e8a9455d5666d60c1af0fe9350d926156a939f91"
+        },
+        "supersedes": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+          "sha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "resolvedMaterialSha256": "b074fc6913a91c66",
+          "generation": "packages/calibration/results/generations/d0219cd684bf.json"
+        },
+        "resolvedMaterialSha256": "791cde91d97acbc7",
+        "resolvedMaterialSha256Rule": 2,
+        "measurement": {
+          "gate": "W48 G1, claims \u00a75.213; charter docs/doperpowers/specs/2026-10-06-w48-dark-operators-fit.md clauses 6-8; Decision Logs 1-7",
+          "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-{1x,2x}-dark-standard-glass0.25, the W43 G1a bed at seven runs per cell, slider 0.25 (\u00a75.199); T1's bar from those runs (\u00a75.202 \u00a72)",
+          "fixtureSets": "the dark fit cells (the T1 gate cells less the canonical holdout and W46's referee manifest w46-referees-1, with L1's calibration and validation population) fitted; no holdout or referee read to fit",
+          "webCell": "renderer webgpu, samplingBackend gpu-texture, adapter apple/metal-3, candidate mode (W43 G0 (f))",
+          "objective": "part 2's stage objectives (T1's selection metric over each stage's cells, both scales) under its search procedure, tie rule and selection rule, from d0219cd684bf (results/2026-10-06-w48-g1-refit/fit/path/)",
+          "cuts": null
+        },
+        "entries": {
+          "backdropToneResponseThick": {
+            "status": "measured",
+            "value": [
+              0.031,
+              0.0414,
+              0.173,
+              0.196
+            ],
+            "previous": [
+              0.031,
+              0.035,
+              0.169,
+              0.196
+            ],
+            "method": [
+              "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
+              "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
+              "(Decision Log 7 item 3: only the thick row moves in dark)."
+            ]
+          },
+          "sizeOcclusionGain": {
+            "status": "materialised",
+            "value": 0.05,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "sizeScatterFloor2x": {
+            "status": "materialised",
+            "value": 1,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "sizeScatterRampStartThin1x": {
+            "status": "materialised",
+            "value": 0.72,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "sizeScatterRampStartThin2x": {
+            "status": "materialised",
+            "value": 0.46,
+            "inheritedFrom": "DEFAULT_MATERIAL_PROFILE"
+          },
+          "optics.regular.tintAlpha": {
+            "status": "measured",
+            "value": 0.7,
+            "previous": 0.9,
+            "previousAt05": 0.9,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+            ]
+          },
+          "sizeScatterScaleGain": {
+            "status": "measured",
+            "value": -0.5,
+            "previous": -2,
+            "previousAt05": -2,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
+            ]
+          },
+          "sizeScatterSpanMax": {
+            "status": "measured",
+            "value": 160,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax = 160)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax = 160)"
+            ]
+          },
+          "sizeScatterSpanMax2x": {
+            "status": "measured",
+            "value": 160,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax2x = 160)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax2x = 160)"
+            ]
+          },
+          "tintAlphaFar1x": {
+            "status": "measured",
+            "value": 0.2,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar1x = 0.2)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar1x = 0.2)"
+            ]
+          },
+          "tintAlphaFar2x": {
+            "status": "measured",
+            "value": 0.2,
+            "previous": null,
+            "previousAt05": null,
+            "method": [
+              "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+              "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar2x = 0.2)",
+              "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar2x = 0.2)"
+            ]
+          },
+          "held": {
+            "status": "held",
+            "families": {
+              "rimAndHighlight": "every rim and highlight leaf holds its 0.5 value (Decision Log 7 item 6)",
+              "outerShadow": "every outerShadow leaf holds, the receded zeros included (item 7); C1 reads identically to the pre-fit render on every cell",
+              "lens": "every lens leaf holds (the geometry did not move, \u00a75.200 \u00a74)",
+              "bodyChromaRetention": "held (item 4): M1 passes on the candidate, so the retention does not move",
+              "tintShade": "held (item 5): no tint cell misses a gate; the light receded tint reads +0.023 OKLab L light on average, a named gap",
+              "darkScatter": "held at the 0.5 values (item 2): the dark probes c01d / c01g and c02's step found no net gain on the calibration set",
+              "accessibility": "the accessibility leaves carry the 0.5 values, unmeasured at 0.25 (Decision Log 2 (b))"
+            }
+          }
+        },
+        "cssTierMapping": {
+          "blurSigmaScale": 2.2
+        },
+        "source": {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.25.json",
+          "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+        },
+        "candidateEndpoint": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/active.dark.json",
+          "sha256": "bbee073f93e5884f33ffba743d399a4e019b9bb1db824b805d112c4319ee2104"
+        }
+      },
+      "reportedSurfaces": [
+        {
+          "nodeId": "body",
+          "groupId": "component",
+          "plane": "base",
+          "family": "fixed-rounded-rect",
+          "radius": 8,
+          "bounds": {
+            "x": 128,
+            "y": 84,
+            "width": 64,
+            "height": 32
+          },
+          "refraction": {
+            "state": "true",
+            "accessibilityCap": "true",
+            "effective": "true"
+          }
+        }
+      ],
+      "evidenceKind": "completed-current-gate0",
+      "baseline": true,
+      "geometryDomain": "canonical-reported-bounds-not-native-mask-equivalence",
+      "repeatAdmission": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/repeat-admission__webgpu.json",
+        "sha256": "5357ea423796599385bd606b81088a5330c104bfe46dd1ff24aae14c5a3df8f8"
+      },
+      "repeatPair": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass025-webgpu/apple-macos-27.0-2x-dark-standard-glass0.25/dark-solid__rrect-sm__rest/repeat__webgpu.json",
+        "sha256": "635303dc9ee07e125ee974a611ebf928b044a818711aca4e1c40d525c562d654"
+      },
+      "reading": "first",
+      "currentComposition": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/composition/completed-current.json",
+        "sha256": "a0a19b928aebc26ddb5420dd0351b5edca005bcad0ef63d83cd9abc371add640"
+      },
+      "instrument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/current-instrument-root.json",
+        "sha256": "849e137f82b544c56baa20088e39d563ea060e3f6401c25781ba1099956b0ab6"
+      },
+      "batch": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-canonical3/inputs/canonical-batch.json",
+        "sha256": "b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f"
+      }
+    }
+  },
+  "capturedArgumentSha256": "dda3c0d3bf8d501685ec38271249bbe0b60fb057e2c93c725912bb78b1e5ea61",
+  "originalCurrentEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+    "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+  },
+  "heldSamplingProof": {
+    "schema": "w50-held-sampling-proof-1",
+    "position": 0.25,
+    "capturedCandidate": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+      "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+    },
+    "evaluationCandidate": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    "heldMaterialSha256": "aa6647abddeb46c023b1d0778369c6fd121bbf49b42f99658ff7898b47ab5ab0",
+    "lightEndpointSha256s": [
+      "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31",
+      "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+    ],
+    "cssTierMappingSha256": "2087ea7453859d786eee9906126aa4b514126cb93c6534a5acc433b0b87f4f14"
+  },
+  "argumentSemantics": "EVALUATED_CANDIDATE_USING_HELD_GATE0_SAMPLING",
+  "roleBinding": {
+    "capturedRole": "probe",
+    "boundRole": "gate",
+    "basis": "provenance.originalRow.fixtureSet",
+    "ruling": "DL5p"
+  }
+}

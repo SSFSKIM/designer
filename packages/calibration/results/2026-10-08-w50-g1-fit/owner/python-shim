@@ -1,0 +1,3 @@
+#!/bin/sh
+# Only the fixed isolated interpreter may enter the stdlib-first edge bootstrap.
+exec /Users/new/vitrea-w49/py/bin/python -I -B "$(dirname "$0")/edge-launch.py" "$@"

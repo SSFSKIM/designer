@@ -1,0 +1,38 @@
+{
+  "schema": "batch-import-closure-1",
+  "batch": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/read-batch.json",
+    "sha256": "f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628"
+  },
+  "renderer": "packages/calibration/results/2026-10-08-w50-g1-fit/native/run.py",
+  "probe": "packages/calibration/results/2026-10-08-w50-g1-fit/native/probe.py",
+  "closure": {
+    "sources": {
+      "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/probe.py": "cd27b7b74a26ff3e943c5bcffdd0d959cca98c48950780285e6d7a65a47630ce",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/reader.py": "881cb14dd69bb1034018676166774638ef3ebd0f70b345182689d002e6a79a33",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/run.py": "fa482c0ce2a9421718c56e350414764b710e266f81af7a0e1f59c8c465d13fcc",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/statistics.py": "d1fe736d99e7ca55b2121baf1137812887ee7d81b3249be8f5fe925d1f01c7f4"
+    },
+    "environment": {
+      "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+      "executable": "/Users/new/vitrea-w49/py/bin/python",
+      "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+      "architecture": "arm64",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "isolated": true,
+      "packages": {
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "Pillow": "12.3.0"
+      }
+    },
+    "probeSha256": "cd27b7b74a26ff3e943c5bcffdd0d959cca98c48950780285e6d7a65a47630ce",
+    "discovery": "source-only imports + exec audit + function calls",
+    "pixels": "NONE: synthetic instrument exercise"
+  },
+  "guardSources": {
+    "next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+    "closure.py": "3d0837b87659012e1fb5e789145cc7172becbed750e3d039b55cd7ce028e8d9c"
+  }
+}

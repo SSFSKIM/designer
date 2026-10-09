@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/execution/dispatch.py", line 849, in <module>
+    print(execute(args.root, args.contract, args.batch, args.out))
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/execution/dispatch.py", line 783, in execute
+    return execute_admitted(path, contract_path, registered, output, doc, batch, expected, admission, numerical)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/execution/dispatch.py", line 812, in execute_admitted
+    captures = (adapter.execute_current if phase == 'current' else adapter.execute)(context)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/current_router.py", line 51, in execute_current
+    captures.extend(capture(context, run, current=True))
+                    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py", line 359, in _capture_run
+    args = validate_report(report,run,endpoint,abscissa=abscissa,phase=context['phase'])
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py", line 139, in validate_report
+    raise ValueError('Wrong surface population or actual placement')
+ValueError: Wrong surface population or actual placement

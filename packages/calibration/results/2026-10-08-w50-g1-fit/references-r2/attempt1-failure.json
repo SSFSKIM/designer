@@ -1,0 +1,215 @@
+{
+  "schema": "w50-reference-read-attempt-failure-1",
+  "attempt": 1,
+  "instrumentRoot": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references/instrument-root.json",
+    "sha256": "e16bda56065f4040a67a930d2edc864c3540e677593a7a76bd364e4cd709be41",
+    "sealedAt": "a3de6addc"
+  },
+  "output": {
+    "path": "/Users/new/vitrea-w50/g1-canonical-references/canonical-references.json",
+    "sha256": "d6b5d5c30b5f49cdeda3fb70504341173d3b4a1a331c514bd6953e615e6113dc",
+    "bytes": 438368204,
+    "kept": "external, unmodified; not committed (size)"
+  },
+  "exitCode": 1,
+  "log": "empty (no exception; exit 1 is run.py main: not every row MEASURED)",
+  "statusCounts": {
+    "gate": {
+      "MEASURED": 357,
+      "UNMEASURED": 22
+    },
+    "historical-prediction-check": {
+      "MEASURED": 40,
+      "UNMEASURED": 4
+    },
+    "reference-only": {}
+  },
+  "unmeasured": [
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "css",
+      "impulse__rrect-ml__inactive",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "css",
+      "impulse__rrect-ml__rest",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-4__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-64__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-lc16__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard__rrect-ml__inactive",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "photo__rrect-ml__inactive",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "css",
+      "impulse__rrect-ml__inactive",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "css",
+      "impulse__rrect-ml__rest",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-4__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-64__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-lc16__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard__rrect-ml__inactive",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "low-end-path-level",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "photo__rrect-ml__inactive",
+      "T1-full-silhouette",
+      "gate"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-32__rrect-ml__rest",
+      "T1-full-silhouette",
+      "historical-prediction-check"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-8__rrect-ml__rest",
+      "T1-full-silhouette",
+      "historical-prediction-check"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-32__rrect-ml__rest",
+      "T1-full-silhouette",
+      "historical-prediction-check"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "checkerboard-8__rrect-ml__rest",
+      "T1-full-silhouette",
+      "historical-prediction-check"
+    ]
+  ],
+  "reason": "Canonical geometry/background differs from its native source declaration (all 26)",
+  "diagnosis": "Reader defect, not missing evidence. same_geometry compared whole component dicts; the canonical scenes.json rrect-ml carries `$comment-w32-g0`, added at W32 G0 after W29 captured the dark 0.5 repeat passes, so every dark 0.5 rrect-ml row read through the W29 repeat source was refused although kind, size [224,128] and radius 27 are identical in all four W29 pass specs. Canvas, backgrounds and scene bindings were equal.",
+  "disposition": "Burned and kept. references-r2 is a new sealed reader whose only change is an annotation-insensitive geometry comparison (keys beginning with `$`); it rereads the full canonical subset once. The 397 rows MEASURED here are a non-regression witness for the reread. No candidate, blind or held statistic exists at this stage."
+}

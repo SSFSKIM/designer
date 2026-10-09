@@ -1,0 +1,30 @@
+{
+  "schema": "w50-canonical-recovery-readiness-1",
+  "status": "SEALED_NOT_LAUNCHED_CENSUS_REFUSED",
+  "ruling": "W50 DL5k",
+  "rootSha256": "849e137f82b544c56baa20088e39d563ea060e3f6401c25781ba1099956b0ab6",
+  "contractSha256": "df51519b46c66b591bf730446576328336d16467b7def5ea6738b87a42413f92",
+  "batchSha256": "b41140ad991846e9bbcba092b053fd423e03e70b7801b1443a30a60954c6887f",
+  "freshCanonicalMembers": 127,
+  "unchangedCompletedNewbedMembers": 672,
+  "newbedResultSha256": "20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d",
+  "sourceClosure": {
+    "sources": 42,
+    "unchangedCurrent3Sources": 35,
+    "newSources": 7,
+    "sha256": "a51e879a8cb127ceeb3736478fcf02f575ac33a47cf47ceb69a289413cd80c6d",
+    "environment": "Exact current3 interpreter/package environment"
+  },
+  "verification": {
+    "syntheticTests": 24,
+    "result": "PASS",
+    "review": "Independent high review of 52d21f3b5..f12b5f419: no material findings; reviewer independently passed all24 synthetic tests using the existing scientific virtualenv. No actual optical evidence, phase statistics, root seal or capture was consumed by the reviewer."
+  },
+  "prelaunch": {
+    "census": "prelaunch-census-01.json",
+    "passes": false,
+    "refusals": ["captureProcessPresent"],
+    "action": "No launch or attempt claim; foreign browser/processes untouched. A new positive census is required before launch."
+  },
+  "candidateVerdict": "NOT_READ"
+}

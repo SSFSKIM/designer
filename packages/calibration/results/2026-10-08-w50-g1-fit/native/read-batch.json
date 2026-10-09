@@ -1,0 +1,45 @@
+{
+  "schema": "w50-native-read-batch-1",
+  "inputs": {
+    "declaration": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/declaration.json",
+      "sha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86"
+    },
+    "declarationSidecar": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/declaration.sha256",
+      "sha256": "5adb628a6b2cc2a61cd8847a46727c80134882a03bf4b9f93c34d542a9f7f8ec"
+    },
+    "fitDeclaration": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.json",
+      "sha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85"
+    },
+    "fitDeclarationSidecar": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.sha256",
+      "sha256": "c8cd75a6bc0c9af1dd1e05c34bc4c7ced7492513933145f95f5df7b2389fdc5f"
+    },
+    "manifest": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/manifest.json",
+      "sha256": "9423a102f38299c738bf8a6367bd0eca7857ebc94b7b931f749ff4da7958bfb5"
+    },
+    "scenes": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    },
+    "pack": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-sitting/pack.json",
+      "sha256": "73572d2225b4a763856e7518c7b6ee77c348cad51d54d1a2d67f9fe443bfa8b5"
+    }
+  },
+  "exports": [
+    {
+      "role": "calibration",
+      "root": "/Users/new/vitrea-w50/g1a-archive-final/calibration",
+      "indexSha256": "ed4c939da8b870872ad56adcdc8d2f8eef3d232838134204cc4d0a5905a3d469"
+    },
+    {
+      "role": "validation",
+      "root": "/Users/new/vitrea-w50/g1a-archive-final/validation",
+      "indexSha256": "b292ddc95e9177244a62d47c47c09d20594ca1e0c724979162506aef2d12a7ab"
+    }
+  ]
+}

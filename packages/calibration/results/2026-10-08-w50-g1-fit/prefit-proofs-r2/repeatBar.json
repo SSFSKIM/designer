@@ -1,0 +1,258 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "repeatBar",
+ "status": "PASS",
+ "establishes": "Bar = half the largest admitted run-to-run separation, floored at 0.5 code; a spread over 1 code in a required population stops the fit (charter landing rule 1 and the sitting section). Recomputed here from the exposed identification read: no required stop, every required bar 0.5 code; each reference row's B follows its own bar.",
+ "boundary": "Exposed calibration/validation readings only; the 112 blind cells were not opened.",
+ "builtFrom": {
+  "gitHead": "021ee4dab32ae53a466f67f7cccebe6290265664",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "native-statistics-tests",
+   "status": "PASS",
+   "verifies": "Native reader test_statistics.py (synthetic inputs).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/native/test_statistics.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/native",
+   "exitCode": 0,
+   "matched": [
+    "Ran 10 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-statistics-tests.log",
+    "sha256": "bc98fb21f2ae1bf698dbcbc49d1e160aba5f20359a680851eed9de162c6c99bf"
+   }
+  },
+  {
+   "id": "native-reader-tests",
+   "status": "PASS",
+   "verifies": "Native reader test_reader.py (synthetic inputs).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/native/test_reader.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/native",
+   "exitCode": 0,
+   "matched": [
+    "Ran 10 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-reader-tests.log",
+    "sha256": "fff02818eecef66c4936993eabe2ad3cf8254b674516cdba7f1088efa348ef8b"
+   }
+  },
+  {
+   "id": "native-bootstrap-tests",
+   "status": "PASS",
+   "verifies": "Native reader test_bootstrap.py (synthetic inputs).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/native/test_bootstrap.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/native",
+   "exitCode": 0,
+   "matched": [
+    "Ran 11 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-bootstrap-tests.log",
+    "sha256": "25045faa9e89d1fc1937c9f529f4659776e4a1844adfaf6eb6b5172ab175d38a"
+   }
+  },
+  {
+   "id": "native-read-bytes",
+   "status": "PASS",
+   "verifies": "The archived identification read is READY and its per-role projections are exact.",
+   "function": "native_read_bytes",
+   "summary": {
+    "status": "READY",
+    "roleProjectionsExact": [
+     "calibration",
+     "validation"
+    ]
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-read-bytes.json",
+    "sha256": "c7bd29b3f89272acc9be2f1dce5df612c674fa63824be63a16f9814e6f326451"
+   }
+  },
+  {
+   "id": "new-bed-bar-recomputed",
+   "status": "PASS",
+   "verifies": "Every exposed new-bed statistic's spread, bar (max(0.5, half spread)) and 1-code stop recompute from its three run values; all required bars are 0.5 code (charter landing rule 1; \u00a75.217 \u00a710).",
+   "function": "new_bed_bar_recomputed",
+   "summary": {
+    "statistics": 816,
+    "required": 720,
+    "emptySupport": 12,
+    "requiredBarsCodes": [
+     0.5
+    ],
+    "maxRequiredSpreadBelowOneCode": true,
+    "maxRequiredSpreadCodes": 0.0006865471146066716
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/new-bed-bar-recomputed.json",
+    "sha256": "38bdc12e83c42f3305544f0e46364d57aff50adc32ee8ba867bff18c9b4665f2"
+   }
+  },
+  {
+   "id": "new-bed-budgets-from-bar",
+   "status": "PASS",
+   "verifies": "Every exposed new-bed reference row carries its own native repeat and B = max(1 code, 2*bar) (T1: max(code step, 2*bar)).",
+   "function": "new_bed_budgets_from_bar",
+   "summary": {
+    "newBedExposedRowsByStatus": {
+     "MEASURED": 1440,
+     "UNMEASURED_EMPTY_SUPPORT": 24,
+     "REPORTED": 168
+    }
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/new-bed-budgets-from-bar.json",
+    "sha256": "df5bca3f2410e3fc78888b7840a01f23f5b864a61bedcb0fd091deb16faad12c"
+   }
+  },
+  {
+   "id": "canonical-statistics-tests",
+   "status": "PASS",
+   "verifies": "Canonical seven-run repeat-bar rules (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_statistics.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/canonical-statistics-tests.log",
+    "sha256": "f4190ee2b79315ad70f3d6ea7ec38b35eaca8437df8ac5dc1eaab324c0a8c835"
+   }
+  },
+  {
+   "id": "canonical-bars-recomputed",
+   "status": "PASS",
+   "verifies": "Every canonical reference reading's seven-run bar and B recompute from its own repeat values (references-r2 rule).",
+   "function": "canonical_bars_recomputed",
+   "summary": {
+    "canonicalRowsWithReadings": 269,
+    "readingsRecomputed": 1860
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/canonical-bars-recomputed.json",
+    "sha256": "01da3542420ae1d7ae857bd9d0c087bc95a0f844f50a08b20decfe7f89a79f39"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/build.py",
+   "sha256": "72740d7ab70d1e97e787b6750dc79ee0841d612f3027c9c15fab96dace708d61"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/statistics.py",
+   "sha256": "d1fe736d99e7ca55b2121baf1137812887ee7d81b3249be8f5fe925d1f01c7f4"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/reader.py",
+   "sha256": "881cb14dd69bb1034018676166774638ef3ebd0f70b345182689d002e6a79a33"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/test_statistics.py",
+   "sha256": "64c02d27e3b5974c3b6b1a103c998341bbe25ecd47c31d6c19c0048af1dd9f37"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/test_reader.py",
+   "sha256": "340f8ebde06c95db4b1c0225b7e746fca87a0b59224b8e96f458719036105ec0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/test_bootstrap.py",
+   "sha256": "4122e3364c5f6b7526bbbab126e3a719290e9ae6c125d063eaa926c626cbf544"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-read.json.gz",
+   "sha256": "fab6f90bd70eeb24affc491cb86f502c5d7ae2980afda639f0c987819fec2905"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz",
+   "sha256": "9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz",
+   "sha256": "6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-exposed.json",
+   "sha256": "2d97a793de1e2bc8069a0a4823aff2a70dbf18b29b3b1d9d1ac0bea8400b292b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/statistics.py",
+   "sha256": "242b91db8f7dc4b1a211a4fe98f6abad8edc5c04a50da201efac618ef42c7402"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_statistics.py",
+   "sha256": "7ab65ad0a0e74bd77f417d02a31bb7986b6f1d6c159d6f9843ac027091abf34e"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/assembler.py",
+   "sha256": "6f64bdbf127af3088e682d95b2a3e41dd4359d05a75f8cccb8f51e1b28e15f70"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+   "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-statistics-tests.log",
+   "sha256": "bc98fb21f2ae1bf698dbcbc49d1e160aba5f20359a680851eed9de162c6c99bf"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-reader-tests.log",
+   "sha256": "fff02818eecef66c4936993eabe2ad3cf8254b674516cdba7f1088efa348ef8b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-bootstrap-tests.log",
+   "sha256": "25045faa9e89d1fc1937c9f529f4659776e4a1844adfaf6eb6b5172ab175d38a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/native-read-bytes.json",
+   "sha256": "c7bd29b3f89272acc9be2f1dce5df612c674fa63824be63a16f9814e6f326451"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/new-bed-bar-recomputed.json",
+   "sha256": "38bdc12e83c42f3305544f0e46364d57aff50adc32ee8ba867bff18c9b4665f2"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/new-bed-budgets-from-bar.json",
+   "sha256": "df5bca3f2410e3fc78888b7840a01f23f5b864a61bedcb0fd091deb16faad12c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/canonical-statistics-tests.log",
+   "sha256": "f4190ee2b79315ad70f3d6ea7ec38b35eaca8437df8ac5dc1eaab324c0a8c835"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/repeatBar/canonical-bars-recomputed.json",
+   "sha256": "01da3542420ae1d7ae857bd9d0c087bc95a0f844f50a08b20decfe7f89a79f39"
+  }
+ ]
+}

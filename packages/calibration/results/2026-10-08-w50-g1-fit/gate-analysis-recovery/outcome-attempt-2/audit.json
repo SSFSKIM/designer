@@ -1,0 +1,63 @@
+{
+  "attempt1Tombstone": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.failed",
+    "state": "PRESENT_EMPTY_DIRECTORY"
+  },
+  "cause": "At the first repeat-pair helper call inside the capture-only pure-read boundary, the live source profile guard tried to hash the helper Python source in the repository. The capture boundary refused that source-file open before the helper body ran. This is not a scientific threshold or material result and not an environment mismatch.",
+  "classification": "INSTRUMENT_PROVENANCE_GUARD_COMPOSITION_SEAM",
+  "completionAbsent": [
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.complete.json",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.complete.pending.json"
+  ],
+  "coverageGap": "The shared preflight installed the adapters and checked their interfaces/inputs but did not enter the pure Boundary or invoke the retained-pair reader. After the shared plan returned, start() rearmed guard.enforce(), which creates a fresh called_files set and replaces the profiler. The deferred first-call source hash therefore occurred only during measurement under a boundary combination the preflight never exercised.",
+  "failureTombstone": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.failed",
+    "state": "PRESENT_EMPTY_DIRECTORY"
+  },
+  "futureToolingLesson": "Exercise the exact lifecycle and composition of source authentication and capture-only I/O guards on synthetic retained-read fixtures before a one-shot marker. The source profile hook fires before the helper body, so this interaction is source/API-testable without gate values; payload secrecy does not make it an unavoidable blind spot.",
+  "judgeRan": false,
+  "keyedSuccessorFiles": 0,
+  "noExposure": true,
+  "noRetry": true,
+  "originalMeasurements": {
+    "manifest": {
+      "bytes": 160797,
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-stop/unread-measurements-manifest.json",
+      "sha256": "95295607703bfa30ee4adea63b0182897c74a3a5085ada19a6b9625333983d49"
+    },
+    "payloadsParsedByThisAudit": 0,
+    "rawVerified": 634,
+    "unchanged": true
+  },
+  "postStopGatePayloadsOpenedByAudit": 0,
+  "refusal": "ValueError: Read lies outside original capture root",
+  "refusalSite": {
+    "line": 32,
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py",
+    "viaAuditLine": 83
+  },
+  "requestedSource": {
+    "callerLine": 109,
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py"
+  },
+  "runtimeGuardRearmed": {
+    "line": 363,
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py"
+  },
+  "schema": "w50-dl5s-final-fault-audit-1",
+  "scientificInterpretation": "UNMEASURED; no candidate-quality conclusion is supported",
+  "sourceGuard": {
+    "lines": [
+      41,
+      46,
+      69,
+      70,
+      73,
+      75
+    ],
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py"
+  },
+  "witnessCompared": 0,
+  "witnessMismatches": null,
+  "witnessRan": false
+}

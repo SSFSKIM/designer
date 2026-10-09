@@ -1,0 +1,50 @@
+{
+  "candidateDeclarations": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "recededRecords": {
+    "0.25": {
+      "beforeActive": {
+        "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186.json",
+        "sha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186"
+      },
+      "beforeReceded": {
+        "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735.json",
+        "sha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+      },
+      "methods": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/owner-records/glass0.25/receded-methods.json",
+        "sha256": "83f6fe0737f6eba49b291c8cbd364988f4ff90bd5e4cc7816c70d6e2fef2097e"
+      },
+      "activeEntries": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/owner-records/glass0.25/active-entries.json",
+        "sha256": "5cac21b23994ec96cd35ce3cfdd20d22e3cee41661133e54d8e0ea97cd4b8d1c"
+      }
+    },
+    "0.5": {
+      "beforeActive": {
+        "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445.json",
+        "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+      },
+      "beforeReceded": {
+        "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references/documents/5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2.json",
+        "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+      },
+      "methods": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/owner-records/glass0.5/receded-methods.json",
+        "sha256": "a51c660369e509b5f9b2d48d9cb41bf5dde5eb02ab4014cdcf82a99a7b59c73d"
+      },
+      "activeEntries": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/owner-records/glass0.5/active-entries.json",
+        "sha256": "c6966b60da8c22b347de1344962087452da5889e1e4e56c773f6eee7a5e666f4"
+      }
+    }
+  }
+}

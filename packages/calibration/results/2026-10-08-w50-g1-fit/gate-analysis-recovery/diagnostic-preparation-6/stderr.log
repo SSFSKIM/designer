@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 370, in <module>
+    if __name__ == '__main__': sys.exit(main())
+                                        ~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 360, in main
+    print(W.encode(preflight()).decode(), end='')
+                   ~~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 298, in preflight
+    return P.prepare(sys.modules[__name__])["proof"]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 241, in prepare
+    data, union = runner.admit(root, view, contract, batch, live, core)
+                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 88, in admit
+    D.validate_fit_record(A.ROOT, root, batch['cohort'], D.checked(A.REPO, old_contract['fitRecord']))
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py", line 656, in validate_fit_record
+    receipt = admission_module(doc).validate_captures(fitted_batch, completed['report']['captures'], claim['output'])
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/admission.py", line 137, in validate_captures
+    metadata=load(row['artifacts']['cell']['path'])
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/admission.py", line 23, in load
+    return json.loads(Path(path).read_text())
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py", line 47, in loads
+    raise ValueError('Read-only preflight forbids numerical gate payload JSON parsing')
+ValueError: Read-only preflight forbids numerical gate payload JSON parsing

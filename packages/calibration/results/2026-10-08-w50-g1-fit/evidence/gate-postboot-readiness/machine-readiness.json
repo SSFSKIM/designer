@@ -1,0 +1,100 @@
+{
+  "schema": "w50-postboot-machine-readiness-1",
+  "recordedAt": "2026-10-09T10:12:05.126753+00:00",
+  "worktree": "/Users/new/vitrea-w50/g0",
+  "branch": "w50-g1-fit",
+  "head": "2faf2a7e3a823bfebb9c23a2fd10e3b650526469",
+  "scope": "Cold-boot machine readiness only; no native app launched; no material rendered, capture, candidate measurement, physics scoring, or blind data opened.",
+  "status": "RECORDED_METADATA_MATCHES_EXACT_COLOUR_UNPROVEN",
+  "recordedMetadataChecksPass": true,
+  "unqualifiedExactReadiness": false,
+  "accessibility": {
+    "defaultsReduceTransparency": "0",
+    "defaultsIncreaseContrast": "0",
+    "appKitReduceTransparency": false,
+    "appKitIncreaseContrast": false,
+    "browserBothScalesOff": true
+  },
+  "display": {
+    "displayplacerMatchesBothPrebootRecords": true,
+    "systemProfilerContextMatchesBothPrebootRecords": true,
+    "osBuildMatchesPreboot": true,
+    "logicalSize": [
+      2560,
+      1440
+    ],
+    "pixelSize": [
+      5120,
+      2880
+    ],
+    "scale": 2,
+    "mode": 68,
+    "refreshRate": 60,
+    "restoredModeAndBackingScaleMatch": true,
+    "displayName": "가상 16:9",
+    "displayColorProfile": "가상 16:9",
+    "harnessDisplayAndProfileNamesMatch": true,
+    "currentIccProfileSha256": "0dfce2cff367c0fbc7ec8e7a96c53e42f6c0eae31d8c08c0912190c2694b394d",
+    "exactColourProof": "UNPROVEN: the preboot machine observations and known harness display metadata record a profile name, not ICC profile bytes/hash or full display colour-transform state. Name and reported context equality do not prove byte-identical colour management."
+  },
+  "browser": {
+    "source": {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-readiness-current3.json",
+      "sha256": "b804668affaf4bcfd284bc95f817935f3c29f507c1265bbb43ae4c0d17ae23dd",
+      "bytes": 3011
+    },
+    "channel": "chromium",
+    "engineVersion": "151.0.7922.34",
+    "versionMatchesCurrent3": true,
+    "executable": {
+      "path": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "sha256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e"
+    },
+    "adapter": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallback": false,
+      "flag": false
+    },
+    "adapterMatchesCurrent3": true,
+    "hardwareAtBothScales": true,
+    "fallbackAllowed": false,
+    "viewportMatchesCurrent3": true,
+    "canvasColorSpace": "srgb",
+    "note": "Readiness creates a device only; canvas colour capability is read without rendering a material. The first independent hardware probe used a synthetic 512x320 viewport; the final probe uses current3 metadata 512x384.",
+    "browserClosed": true,
+    "localServerClosed": true
+  },
+  "documents": {
+    "baseline": "current3 cohort; eight shipped endpoints and their current-derived documents",
+    "hashPinsMatch": true,
+    "rawChecks": {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/baseline-document-checks.json",
+      "sha256": "b1fea8a1ba7cb3434580e42319e5e6a17bc49068eb6de59cd20653ecc50184e3",
+      "bytes": 10243
+    }
+  },
+  "census": {
+    "beforePasses": true,
+    "afterPasses": true,
+    "afterRefusals": [],
+    "existingChrome": "Annotated only by the carried web census; never attached to, closed, or otherwise operated.",
+    "nativeX6": "Not claimed: the all-names native census sees the user Chrome. This is the classifying headless WEB readiness gate."
+  },
+  "missingToProveExactColour": [
+    "A preboot ICC profile byte/hash witness for this display, plus comparable full colour-transform state if exact colour identity beyond the recorded profile name is required."
+  ],
+  "repositoryStatusUnchanged": true,
+  "evidence": {
+    "baselineMetadata": {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/baseline-metadata.json",
+      "sha256": "c0939f4934d98d946cf35088510b735a75b4fde67c964438455743be61ebe150",
+      "bytes": 30895
+    },
+    "rawDirectory": "/Users/new/vitrea-w50/gate-postboot-readiness/raw",
+    "artifactHashes": "/Users/new/vitrea-w50/gate-postboot-readiness/artifact-hashes.json"
+  },
+  "comparisonCorrection": "Initial derived summary compared the probe adapter object to the harness report envelope, including its outer ok field. Final comparison checks outer ok separately and compares all five adapter identity/class fields. Original summary retained in raw/initial-machine-readiness.json; no probe or measurement was changed."
+}

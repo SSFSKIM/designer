@@ -1,0 +1,80 @@
+{
+  "schema": "batch-import-closure-1",
+  "batch": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/read-batch.json",
+    "sha256": "14ea1c845206eaedf227f9b85ab2bff2ebbc4980e84c9da2f307cd8af77ca854"
+  },
+  "renderer": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/run.py",
+  "probe": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/probe.py",
+  "closure": {
+    "sources": {
+      "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py": "29d785ae6d50b6eb1857dfdf710466ebd3cd31ff4bc23d122cf1aa04e6c27291",
+      "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+      "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/w43_archive.py": "c166e2615e016b9908d2a9f9a9f30b29e2fdd1c779c55e1f27c33aeb1c2f50a5",
+      "packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py": "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a",
+      "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical_guard.py": "cb1641bae5a95cbcf52bac8d6e92959f3930a066dcca29facc5440eabf08eee5",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/archive.py": "d6bffe0520de278dcf4cf8345d83916031fee6445e9b843a346ef41f4211cab8",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/current_probe.py": "1293c78f0fb5e21a7b2d177ec4b9c3ba58ce7e4518defa3423cf30acae4aafa4",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/common.py": "90d31e6c89c789cf1eaf17e9dedac770da8f26b0b66bc31a2b05224060fa44ed",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/composition.py": "057c90cbd9106e385e239a864ab8a8d330e89bcdba056736d094ad5cb0579678",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/dispatch.py": "5e6cfbdff55aea58037c742a347d9a8167362f8cf3c34394ed1dcda22a14e857",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/evidence.py": "f7ef49b3f96b352e36beda19eaecaf3ebf00d23e6b3cc7f87319a4940acc85d3",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/recovery.py": "882332d1acbfe34ef8471b7aae5500ea8720d112db7f6afdf4e20b91fef5ace1",
+      "packages/calibration/results/2026-10-08-w50-g1-current2/execution/native_evidence.py": "92dceef56c9c036996fe841a1d2b8be312a32121585145f0b8d8b111e2c35fd3",
+      "packages/calibration/results/2026-10-08-w50-g1-current2/web/adapter.py": "9cff455f49c52ccf67d6a8f45feca6a67472a9feb5d56c70416b002a8b8bc159",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py": "c1ed09042ef0093d5954b50a1ac9557fad29f0df7ed5284b2a55f50904f1aaed",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/current_probe.py": "aeb99bb6d219a40a82ca1f03b29a0e5126ec19ae8335f970f9a13a76ef51b1e4",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/current_router.py": "72944bf3697d0f047c9442b13e2574e9d9cfcb3a87b4ce5dc79baf952a808478",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py": "64ad36f4281c7d9a9daaf1112272c1a951d0754c07fa10024dcf892a7f6ae5bb",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/guard.py": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/recovery.py": "a5345477bfb6cf0b9cfe8c2e8e0e983f64f6d395f1e5e53b96532f8dcbd8dd5f",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/retained.py": "144fa0a99088eaf9085d9d13c9a67d5a43ba89e8b288b5f8235a91c024cb6c6d",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py": "55d7b30077c959d643cdd9e22e3d027aa5e49bdb71b5e468695927b30fab3f39",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/core.py": "f6d64fe00883dcf28605da7c7ab683eee4b5296acf2ca9444eaa492675200b6e",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/sources.py": "e13fb3fd53c3b4e3f39fc2bb64aa93ae0c22035601f684c4656c67f2ae6443e0",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/web/adapter.py": "e5fa6c51694deee54b2a208e547cee24f6777fc208aa3a7cbcb308984f62c621",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/adapter.py": "5959e94682db89d4cb3ac40e767c9c5ef9c490ceca2add6954c2f5dcc7aee6b4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/analysis.py": "96650826aa67e2fd75354d672a0ba3f4f760a9d27c5af51ce717ec41a56c2536",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis/analysis.py": "2d4240673ce70f79153dd1ece501247ba93b90267e38c31ca2621db3abe0ea8e",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis/native_evidence.py": "2fae1c2b01d05bb32b386604352ee0da0ebd843e8726fc81eb8e9a1b38510250",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis/run.py": "f6127ea818ce3a617ac7cabcbb9c66569bd9cb479e21dd40ab8df3295e5cfa0d",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/exposure/prepare.py": "5be345abecc96b9ef8a30cecf277de5054004ed9aa0bd0ac20472d689bceeb2c",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/capture.py": "64c3ee48d20018ef70511af9ce70403d90be13fe4cb74a167f22a131675363c6",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/reader.py": "881cb14dd69bb1034018676166774638ef3ebd0f70b345182689d002e6a79a33",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/run.py": "fa482c0ce2a9421718c56e350414764b710e266f81af7a0e1f59c8c465d13fcc",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/statistics.py": "d1fe736d99e7ca55b2121baf1137812887ee7d81b3249be8f5fe925d1f01c7f4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/canonical.py": "88a1ee403d118d85124bc543ae6ab9060f0fa8324e47e1cd72b5d68ddf3d0508",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/composed_completion.py": "28abe812b615bce393091c77e93f17690ea1a96782b060dc6f6f3b2e3a39ba9c",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/probe.py": "afd5d2a09d27674674eac61e8adeafcc6c34c378ba77762da952a37e6f97d6b9",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/run.py": "a24cdc25f9e28581170ef753da30178d148213ec86b04fa14cd216eb2af35ae9",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/statistics.py": "242b91db8f7dc4b1a211a4fe98f6abad8edc5c04a50da201efac618ef42c7402",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references/canonical.py": "de418e4e315b83840d5cbd3f6ecffb4c56ec65579708e5d81c7ebe901011b8c4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py": "242b91db8f7dc4b1a211a4fe98f6abad8edc5c04a50da201efac618ef42c7402",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py": "09c5539c7350c11c8f35d05e56df6df3ed17ac9e902c56e2175b833ba8c1099f"
+    },
+    "environment": {
+      "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+      "executable": "/Users/new/vitrea-w49/py/bin/python",
+      "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+      "architecture": "arm64",
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "isolated": true,
+      "packages": {
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "Pillow": "12.3.0"
+      }
+    },
+    "probeSha256": "afd5d2a09d27674674eac61e8adeafcc6c34c378ba77762da952a37e6f97d6b9",
+    "discovery": "source-only imports + exec audit + function calls",
+    "pixels": "NONE: synthetic instrument exercise"
+  },
+  "guardSources": {
+    "next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+    "closure.py": "3d0837b87659012e1fb5e789145cc7172becbed750e3d039b55cd7ce028e8d9c"
+  }
+}

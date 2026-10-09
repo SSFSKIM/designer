@@ -2976,6 +2976,14 @@ are deliberately unchanged, proved by eight before/after capture pairs in
 correction should declare border-box geometry for the source-profile bed and rescore that bed in
 scratch. The runtime must not silently change an application's box sizing to repair a harness.
 
+**2026-10-08 — W50 DL5f:** W50's new512×384 bed is the first source-profile bed declared
+border-box, through a wave-local host used by both current and candidate materials. Its first
+current-only attempt stopped at this exact122×46-versus120×44 admission mismatch; the burned
+contract and43 raw reports remain failed evidence. The replacement instrument must reproduce
+its42 completed GPU cells byte-identically before any CSS cell counts. The canonical harness
+keeps its existing semantics and the canonical border-box rescore remains open; no application
+box-sizing behavior or runtime material is changed by this declaration.
+
 ## Silhouette locality beyond the native-size inactive bed remains unmeasured (2026-09-14, §5.145)
 
 The new GPU reduction reads imported mip zero. The canonical input check has no downscaled source,
@@ -7940,3 +7948,158 @@ registered batch even on direct invocation, and `audit/next_wave.py` seals and e
 imports. A next declaration must pin those contract/guard sources and give any reader subprocess
 its own import gate. Use the additive registered-batch guard for this frozen G0 tool; do not amend
 its old seal or infer permission for a new fit from its generic argument parser.
+
+
+## W50 LIVE `current_evidence` is tested only behind a patched `root_doc` (G1, 2026-10-09)
+
+*Independent review of the W50 live execution path, finding 7; logged rather than fixed under
+the fix wave's cost rule.* `fit/test_composed_current.py` reaches
+`live-execution/dispatch.py#current_evidence` with `root_doc`, `checked` and `load` patched, so the
+initializer's consumer test never drives the dispatcher's own root authentication. The
+evidence-to-composition comparison that authentication ends in is now covered directly
+(`authority.current_authority`, `test_authority.CurrentAuthority`: reordered, missing and extra
+`currentInstruments`/`currentResults`/`chainPins`, chain pins absent from the root's inputs, a
+flattened singular `currentInstrument`), and `validate_body`'s refusal of the root-level
+`currentInstrument`/`currentResults` aliases is tested.
+
+What stays untested is the unpatched path: `root_doc` → `_prepare` (root seal sidecar, bootstrap
+pin, every closure source, `guard.environment`, `guard.enforce`, `guard.discover`) →
+`validate_body` in full. In process this is not cheap. `guard.enforce` installs an audit hook and a
+`sys.setprofile` for the life of the interpreter, so it cannot run inside the unittest process, and
+`validate_body` needs a synthetic repository whose bootstrap files byte-equal current3's, sealed
+part one/two, a declared-inputs fixture, a completed current composition and owner contracts. The
+fix has this shape: a subprocess test (`-I -B`) that builds that synthetic repository once in a
+tempdir by copying the sealed source files, seals a synthetic root with `authority.seal_root`, and
+calls `current_evidence` for real, asserting the composed evidence pin and one refusal (a changed
+evidence byte). If the live root's own composite probe already exercises this at seal time, record
+that instead and close the entry.
+
+## W50 LIVE root seal residuals from the final pre-seal review (G1, 2026-10-09)
+
+*Logged rather than fixed: the final review of `4ffa48746..89e7b0d90` found no P0-P2; these P3s
+are real but small, or bounded by ruling.* (1) A blind cell whose stopped statistic was
+unmeasurable (an empty cut or an empty required silhouette) has no finite repeat bar, so under
+DL5h (ii) only a byte-identical repeat pair qualifies it; a persistently non-identical draw there
+would loop DL5k recaptures although the verdict is already NEITHER. Closing it needs a DL5h ruling
+that exempts stopped statistics from pair qualification, applied to both the capture helper and the
+archived replay. (2) The judge FAILs an L1 named growth miss on a `GROWTH_RULED` cell because
+`GROWTH_MISSES` is empty; the owner test would pass it once a seal adds an entry. This applies
+DL5m item 2's principle (a named miss needing a new owner record is FAIL) to L1, while the ruling
+names M2. (3) A candidate that closes a recorded miss (M1/M2 `MISSED_27_ROWS`, L1 `MISSES`) passes
+the judge, but the owner test's named/recorded set equality fails until the publication removes
+the record; that is G2 publication work. (4) `_lease_mutex` takes its `flock` without a timeout,
+so a suspended holder blocks other entries for its millisecond window rather than refusing them.
+(5) `_alive` treats a lock whose pid equals the current process's as held; a later invocation has
+a different pid, so this cannot wedge.
+
+## W50 LIVE successor root residuals from the DL5o review (G1, 2026-10-09)
+
+*Logged rather than fixed: the DL5o review of `dd73ebdc3..d223c8663` (two opus reviewers) found no
+P0/P1; its three P2s and four cheap P3s were fixed in the unbound live-run tooling (`64bf766da`,
+`8cfbcab05`). These P3s are real but small, and none can change a verdict of root 2
+(`execution-root-2.json`, `2e6f4c99…`, sealed at `ef68b07c6`).* Owner port and candidate records:
+(1) the candidate documents carry hold records at 0.5 beyond the ones X76 needs; harmless.
+(2) No test drives a chart candidate through the owner port; it was verified in scratch only.
+(3) The TS (`owner/`) and Python family classifications are separate tables that can disagree;
+latent today, since both name the same families. A shared generated table, or a test that compares
+them leaf by leaf, closes it. (4) A family the port does not match passes unchecked; today only
+`cssTierBlur`. (5) A dropped leaf that belongs to no family is not caught. (6) The active and
+receded documents refuse a moved family in different forms. (7) `bodyChromaRetention` is classified
+as a family although it is one leaf. (8) `fit/execution.py` `_provenance` is untested. LIVE chain and
+lifecycle: (9) a torn successor seal (a root document without its sidecar) supersedes its
+predecessor by design (`common.superseded`, the safe side), but has to be cleaned up by hand.
+(10) `authority.sealing_commit` checks that the commit introduced the root's bytes but not that it
+is reachable from HEAD. (11) The operator's `run/` records and `<work>/<phase>` outputs are shared
+by every root generation of the directory; a successor root's operator would find its
+predecessor's records. Naming them by root stem closes it. (12) A crash between `claim_output`
+and the contract write leaves a claimed output with no contract; nothing reuses it, but it needs
+manual inspection. In the same shape, a crash in the instant between a successful initializer
+child and `run/initialized.json` leaves the result only in the child's result file under
+`<work>/operator/`.
+
+## W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)
+
+*Logged rather than fixed: the DL5p review of `d223c8663..6e56a2cad` (opus, read-only) found one
+P1, a RootThreeSuccession subtest that would fail once root 3 is sealed, fixed test-only in
+`73e22ce3f`. These four P3s are real but small, and none can change a verdict of root 3.*
+(1) `live-run/recovery.py` binds DL5p's charter paragraph by the SHA-256 of its live text
+(`ruling_sha`), so editing that paragraph while the run is open refuses the recovery. Treat the
+paragraph as frozen until the run closes; a correction goes beside it, not into it.
+(2) `run.py#_numerical` raises its `TOOL_MISSING` / `REFUSED` stops with `step='initialize'`, so a
+numerical-referee failure under `recover-bind` reports the wrong step. Passing the calling step
+through closes it. (3) A crash between the bind child's write of the numerical cohort directory and
+`run/recovered.json` leaves a bound cohort with no record, in the same shape as the DL5o entry's
+(12); it needs manual inspection before a retry. (4) No test drives the recovery end to end through
+`fit/execution.py#bind_arguments` against the real history root, and none asserts that
+`initialize` refuses under root 3 or once `recovered.json` exists; those paths are held by reading
+and by the unit cases around them only.
+
+## W50 composed current reader checks argument identity but not role (G1, 2026-10-09)
+
+*Logged under DL5p (d); the seam is repaired prospectively in the binder, and the sealed reader
+is not edited.* `current-analysis/analysis.py#argument_population`, which the sealed composed
+reader (`current-analysis-composed/analysis.py`) calls to build `completed-current.json`'s
+`arguments`, compares each record to G0's `required_arguments` on profile, renderer and scene only
+(`KEY[:3]`) and never on role. Canonical-scene arguments take their role from the scenes.json
+split (`spec role = scene['fixtureSet']`, line 375), while G0's reference inventory binds those
+cells as `gate`. So the completed read passed its own population check while 115 of its 787
+records (32 calibration, 83 probe; every canonical-scene record) carried a role G0 refuses, and
+the mismatch first surfaced at `fit/execution.py#bind_arguments`, after an initializer had already
+assembled a candidate (root 2's attempt-1 refusal). The W50-bed records (672) carry G0's own roles
+and were never affected. `fit/inputs.py#bound_role` now normalises exactly that seam (canonical
+scene source, role equal to its own `originalRow.fixtureSet`, not holdout or withheld, G0 role
+`gate`) and keeps the captured record and its SHA in `capturedArgument`. The fix in the reader has
+this shape: the next reader seal checks role against the G0 reference at population time, either
+refusing a disagreement or stating the bound role beside the captured split, so a vocabulary
+disagreement stops before any fit input is assembled rather than at binding.
+
+
+## W50 recovery instrument still composes incompatible read authorities (close, 2026-10-10)
+
+Claims §5.218; evidence `results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/`.
+The final run failed because a freshly re-armed `live-execution/guard.py` source profiler tried
+to hash `g1-current3/repeat/admission.py` on its first call inside `reads.py`'s capture-only
+`Boundary`. The boundary correctly refused the repository source open. Source authentication
+and capture authentication each work alone; their combined allowed reads do not. This remains
+unfixed in the sealed instrument, and DL5s(e) forbids another W50 invocation.
+
+The preceding repairs also leave a layered authority model: historical pre-fit pins versus live
+source pins; original capture roots/receipt authority versus successor output/claims; independently
+registered static inputs whose bytes duplicate capture artifacts; and exact prior-fit origins
+versus gate payloads. The eight preparation seals retain these seams and their bounded adapters.
+A future instrument should declare these authority domains together, rather than accumulate more
+cross-root adapters. A fresh root with corrected source pinned from the start and a fresh gate
+capture is the likely simpler option, for the user's next-wave decision. Keep W50 seals unchanged;
+prove source and capture guards can compose without broadening capture payload access.
+
+## W50 lacks a full-pipeline rehearsal under the final guard lifecycle (close, 2026-10-10)
+
+Claims §5.218 §3. The read-only preflight covered complete admission, adapter installation and
+interfaces, not a retained-pair read inside the pure boundary. `start()` then re-armed the source
+guard with fresh first-call state; the untested combination first ran after the one-shot marker.
+This is distinct from the earlier unpatched `current_evidence` coverage debt. Before another
+single-use analysis, add a subprocess rehearsal on synthetic or already exposed fixtures through
+measurement, witness and judge, using the actual source and I/O guards in the exact invocation
+order, including re-arming. Cover success and a deliberate source/capture-integrity refusal;
+separate component tests or a warm guard cannot discharge it. Do not use unread gate values to
+develop this test or relax their read denial. The repaired durable-fence ordering needs to remain
+in that lifecycle, with cheap administrative preconditions before the fence and fallible work after.
+
+## W50 attempt-two preparation docstring names the obsolete proof path (P3, 2026-10-10)
+
+`results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_seal.py` tells the operator to save
+stdout as `analysis-2-attempt-2.preflight.json`; the final tooling binds the preparation-qualified
+path selected by `attempt2_authority.py` (preparation 8 at close). It can misdirect a future reader,
+although pin checks prevent that wrong path from admitting a run. Correct the help text in a
+future instrument to derive or describe the selected preparation's path. Do not edit this sealed
+source merely to tidy documentation; it is a defence-in-depth P3, not the terminal cause.
+
+## W50 read-origin recording mixes lexical and resolved paths (P3, 2026-10-10)
+
+`gate-analysis-recovery/attempt2_preflight.py` records `OriginText`/`OriginBytes` provenance with
+`path.absolute()`, while the payload-path inventory uses `Path(...).resolve()`. The authority text
+promises lexical origins to prevent an alias acquiring prior-fit authority. Keep the distinction
+explicit: record the lexical request and resolved identity separately, compare like with like,
+and test symlink/alias spellings of registered input, prior-fit and gate paths. Existing path and
+symlink guards are separate defences; this is a future defence-in-depth test/representation fix,
+not evidence that a payload escaped or that the candidate failed. Preserve the sealed W50 code.

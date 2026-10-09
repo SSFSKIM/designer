@@ -17,6 +17,89 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 
 ## Progress
 
+**CLOSED (2026-10-10): NEITHER / UNMEASURED; nothing shipped.** Analysis 2 attempt 2 failed
+post-marker during measurement (`25e52e88d`), before the witness or judge. No gate value was
+read by anyone. DL5s(e) is final: no further W50 invocation or exposure. The Outcome and Deferred
+at close below supersede the operational checkpoints and unchecked handoff steps retained here
+as history; they are not instructions to resume. Claims §5.218 records the close.
+
+**Current operational checkpoint (2026-10-09).** Root 2 (`2e6f4c99…`, `ef68b07c6`) and its
+pre-fit evidence (`a106c8d8d`) are sealed. The first initializer invocation assembled ONE point
+under `fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/`,
+then `bind_arguments` refused: “Measured argument has changed or withheld reference identity”.
+All eleven files are preserved unchanged with `fit/live-initializer/attempt-1-refusal.json`
+(`6d36b7fbd`). No numerical referee, fit render, gate or exposure ran. Do NOT rerun initialize
+or change the candidate. Diagnosis found 115 canonical roles using fixtureSet instead of G0 gate;
+all other checks and all 787 identities agree. DL5p is approved and recorded below (`03a8bb004`).
+Landed: binder normalisation (`5ba0d668a`; frozen-G0 positive/negative tests), exact-history root-3
+succession (`a260582b6`), bind-only operator recovery (`42a4d6160`). Root-3 draft
+`execution-root-3.draft.json` (`d50cf054…`, `6e56a2cad`) validates with 72 inputs and 75 sources.
+Review closed after the test-only post-seal P1 fix (`73e22ce3f`); root 3 is SEALED
+(`29bc57288`, hash `d50cf054…`). Root-3 pre-fit evidence is committed (`bdb0f3fef`). Bind-only
+recovery succeeded, numerical referee PASS (`545f4326e`), and all eleven preserved files still
+hash identically. The fit batch is declared in `live-execution/run/fit-batch.json`. Fit attempt 1 stopped before its first draw with CENSUS_REFUSED (foreign College Playwright
+sessions `vis` and `default`, never touch); journal preserved, zero checkpoints and no analysis
+marker. The coordinator closed those browsers with the user's approval; a fresh census passed.
+Attempt 2 retained 56 members. Attempt 3 retained another 494 before the host restart killed its
+child without a completion event. `Store.checkpoints` verified all 550 member identities, ownership,
+payload and artifact hashes; none needed rejection and no analysis marker exists. The interrupted
+journal is committed (`fdf263465`). Successor 4 completed its 290 remaining members; fit analysis
+completed once with status CAPTURED (all 840 captures; result sidecar verified). The full fit and
+recovery chain and the derived single-point fit record are committed. The gate batch and owner
+records are committed: 1,341 cells in 24 runs. A power outage stopped gate attempt 1 after 630
+members. After reboot, the sealed journal verifier rechecked all 630 member identities, ownership,
+payload and artifact hashes successfully; no analysis marker exists and no member was repaired or
+discarded. Gate contract/journal committed `00711dac5`; 711 members remain. Cold-boot checks pass:
+accessibility off, recorded display dimensions/scale/mode/profile name and Chromium hardware adapter
+match. Exact ICC byte continuity is unproven (no preboot hash); that limit and current hash are in
+`evidence/gate-postboot-readiness/`. Gate successor attempt 2 completed all remaining 711 members.
+The complete union is 1,341 captures, but gate analysis STOPPED after its irreversible marker:
+`measurement/projection.py:frozen_primary` refused “Frozen candidate needs its named source-owned
+first-image producer”. No result or verdict exists. Journal and constant traceback are preserved
+in `22e442bcb`, including `evidence/gate-analysis-stop/`. Do NOT retry analysis, alter the point,
+fit record or gate population, or create exposure. Read-only diagnosis is complete: canonical
+companion references overwrite an already-bound full-T1 statistic with the path row's broad
+reading dictionary, dropping `productionStatistic`. Eight gate-only impulse lg/ml T1 keys are
+affected (both scales, rest/inactive, WebGPU dark0.25); the source metrics exist.
+634 keyed measurement files were written before refusal, but neither worker saw numeric readings.
+The helper initially parsed only identity fields, then ceased all payload reads on instruction.
+Raw manifest `95295607…` is committed (`85ec9d038`); payloads stay unread in place. None of the
+eight affected keys is in the saved prefix. The proposed source-fixed comparison removes ONLY
+four top-level fields (`executionRoot`, `executionClaim`, `contract`, `batch`), retains every other
+field, and compares sorted-key, indent-2 strict JSON plus newline for all 634 with no exemptions.
+DL5r is now ruled and recorded verbatim (`c36e52da1`): exactly one successor analysis, automatic
+634-file projection witness before the judge, no exemptions, and any fault/refusal/mismatch is
+UNMEASURED/NEITHER. Exact carry committed `02c0e5694` (three production lines); reviewer-high
+`a557dc68fb53b6372` clears DL5r(a) with no material findings, old-refusal reproduction and a 16-case
+differential retaining all diagnostics. Successor tooling is committed `77ae8da3a` under
+`gate-analysis-recovery/`. Reviewer-high `aec5c2d09c401b82b` found one terminal-publication P1:
+a late durability fault could revive a surviving success record. Fix `ae61a95c5` makes terminal
+bytes provisional. Follow-up `3cf208904` moves completion eligibility to the final exclusive link,
+with conservative crash loss and fault dominance; all 33 synthetic tests pass. Reviewer-high closes
+with no material findings. Analysis 2 attempt 1 then refused BEFORE its marker on historical
+executionClosure's `test_phase_sources.py` live-tree pin. It produced no measurement, witness or
+judge; terminal NEITHER audit is committed `36cfacf75`. The failure tombstone remains untouched.
+**Latest authority: DL5s and clarification 1**, recorded verbatim below. One pre-marker recovery is
+allowed as analysis 2 attempt 2, under a fresh output. Historical pre-fit authentication must use
+attested git objects and the exact 17-path/20-occurrence exception (`f2f88158e`, witness
+`04d02bdf…`): two committed gzip JSONs and fifteen late-preserved logs, all historical hashes matched.
+DL5s tooling committed `26fe414a2` (nine new recovery-only files; 62 synthetic tests pass).
+Reviewer-high `a8b530c885acc4748` clears historical authentication and the shared complete
+read-only admission plan with no material findings. Exact-source clearance and attempt2 authority
+are sealed/committed (87 sources). Running: `attempt2_run.py preflight`, stdout
+`/Users/new/vitrea-w50/g1-live-gate-analysis-2-attempt-2-preflight.json`, stderr sibling `.log`.
+That diagnostic refused before historical admission: stdlib environment discovery opened `/dev/null`
+O_RDWR for `uname -p`, blocked by the no-write guard. No actual attempt2 invocation, output,
+marker, claim or payload read occurred; evidence in `evidence/dl5s-preflight-1/`.
+DL5s clarification 2 now makes preflight failures diagnostic, permits identity/type-checked
+`/dev/null`, and authorises further bounded recovery-tooling API repairs while preserving payload
+and write denials. Running: diagnostic repair and complete preflight, with prior preparation seals
+retained. One final reviewer-high pass must cover the CLEAN preflight/tooling before the real run. Any attempt-2 refusal or post-marker fault is
+final NEITHER; no further recovery. Original 634 and all 1,341 captures still hash-match.
+No old payloads may be parsed during development. Candidate/fit/captures/rules and the 634-file
+witness are unchanged. Report verdict BEFORE any exposure batch. This checkpoint supersedes the
+older handoff notes below.
+
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
 - [x] W36/W42/W43/W49b evidence and both tier implementations read; four native archives fetched
   through their recorded hash-verifying tools. No native or web capture made.
@@ -32,7 +115,48 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 - [x] G0 declaration/instrument/bed, independent reviews and assembled seals completed before native capture.
 - [x] Inert two-tier implementation and identity proofs; no material document moved.
 - [x] G1a native sitting:1,600 admitted frames; all opening/closing bridges agree; restoration verified.
-- [ ] G1 identification, fit, frozen gate and one exposure.
+- [x] G1 exposed native identification:336 calibration/validation cells, required repeats ready; blind unopened.
+- [ ] G1 reference/current-render completion and additive pre-fit gate.
+
+  **Handoff note (2026-10-09, late; branch `w50-g1-fit`; worktree `/Users/new/vitrea-w50/g0`).**
+  Sealed/done: current generation 799 (current3 `dbe20abc…` + canonical3 `849e137f…`); composed
+  analysis `10381e74…` (archived; never rerun); reference read r2 (`references-r2`, DL5l);
+  assembly 1 (`completion/registered/`, superseded) and assembly 2 after the owner-referee P0
+  (`completion/registered-2/`, binding `ab418b64…`, inventory `44476315…`, witness
+  ONLY_RULED_DIFFERENCES; DL5n); owner r2 evidence (`owner/r2/`, `owner/evidence-r2/`; self-check
+  `judge/owner-selfcheck.json` PASS 640/105/5); pre-fit proofs: six in `prefit-proofs/` still
+  stand, four rebuilt in `prefit-proofs-r2/`; all seven LIVE roles plus the pre-seal fix waves
+  (W2a `44fe213cb`; W2b `bd099ae2c`..`b29074c33`; W1 `7e621f344`..`da0fc4cee`). `live-inputs/`
+  (gitignored) must hold `completed-current.json` `10381e74…` and `completed-references-r2.json`
+  `44476315…`; restore with `gunzip -c` from the archives `draft_root.py` records.
+  Also landed: W3 measurement DL5n/DL5m-4 (`3d8a76b52`, `b75972fe9`), W2b NEITHER end-to-end
+  (`34882e9db`) and checkpointed repeat helper (`4ffa48746`). Two re-reviews of
+  `a2d1bfbb9..4ffa48746` found two P1s (owner intrinsic-record content first checked after the
+  analysis marker; an L1 named growth miss grading PASS) and two P2s (stale-lock release race;
+  pre-fit evidence not bound to the rebuilt proofs), fixed by FW-A (`5e84465d6`, `1bfa3f30a`) and
+  FW-B (`fe98fc970`, `5e0f65575`, `b8e5f5325`). Draft root regenerated on the registered-2 binding
+  (`89e7b0d90`, sha `3923669a…`, validate_body PASS); all suites green. The final review of
+  `4ffa48746..89e7b0d90` found no P0-P2 (P3s in the tech-debt tracker), and the LIVE root is
+  SEALED: `live-execution/execution-root.json` `3923669a33979e78…` (`a09e02e94`); nothing executed
+  under it. DL5o (X76 family-keyed history) then required a SUCCESSOR root. Landed: X1 owner port
+  + r3 chain (`c32fb0fbe`..`3e0ae3f16`; `completion/registered-3`, `prefit-proofs-r3`, graded
+  self-check `judge/owner-selfcheck-r3.json` PASS incl. X75 12 + X76 both positions); X3 successor
+  chain and per-root slots (`bed87a4fb`..`d223c8663`; draft `execution-root-2.draft.json`
+  `2e6f4c99…`, validate_body PASS); live-run tooling + candidate records (`adb4774ab`..`68552375b`,
+  `a4ec7ec6d`, `6223e3d76`; operator CLI `live-run/run.py`). The DL5o review of
+  `dd73ebdc3..d223c8663` found no P0/P1 in root-bound code, and the SUCCESSOR ROOT IS SEALED:
+  `live-execution/execution-root-2.json` `2e6f4c99…` (`ef68b07c6`). The live-run P2s are fixed
+  (`64bf766da`, `8cfbcab05`) and `live-run/review-records.json` is complete (`03f28bfbf`). Running:
+  `live-run/run.py --work /Users/new/vitrea-w50/g1-live prefit` (writes
+  `execution-root-2.pre-fit-evidence.json`; after it root 2 cannot be superseded without a ruling;
+  output in `/Users/new/vitrea-w50/g1-live-prefit.out`). Then `initialize`, then
+  executionClosure + independentReview proofs and `pre-fit-evidence.json` (verify through LIVE
+  `verify_prefit` before sealing it); then (superseding the older list below): re-run `live-roles/draft_root.py`; all suites;
+  a short independent re-review of the fix waves; seal `live-execution/execution-root.json`; write
+  executionClosure and independentReview proofs and `pre-fit-evidence.json` pinning the root;
+  fit one point, gate, one exposure; hand back PASS or NEITHER. DL4 and DL5k bind every step.
+
+- [ ] G1 fit, frozen gate and one exposure.
 - [ ] G2 publication/owner adoption or evidence-only closure.
 
 ## Proposed landing rule — fixed before the first candidate gate
@@ -329,7 +453,8 @@ current evidence. They stay outside exploration and get one frozen prediction-ch
 the label “blind”. Existing0.5 canonical holdout is historical/exposed, also a prediction check.
 W42 H is unspent but is not a near-black1–8 or thick-black referee; do not open it to manufacture
 one. W39's holdout was spent by W41. W43 G1b has no blind low-end ladder. The new native split above
-is the prospective blind referee; no capture exists and no pixel has been spent by this grounding.
+is the prospective blind referee. No capture existed at grounding; G1a subsequently archived the
+full bed, and G1 has read only its336 calibration/validation cells. All112 blind cells remain closed.
 
 ## Execution boundaries and children
 
@@ -416,7 +541,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-The following four rulings are recorded verbatim (2026-10-08).
+DL1–DL5s are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -438,6 +563,368 @@ under the classifying census and the W43 sitting tooling's protections.
 DL4 (parent). The family, the blind split and the fixed per-cell landing rule are approved as
 drafted. There is no post-gate amendment and no exception landing; failure is NEITHER. The
 W49b templates (the batch bound inside the renderer, transitive-import sealing) are required.
+
+DL5 (parent, 2026-10-08, before any analytical read or candidate gate). Pre-gate protocol repair.
+Defect verified: audit/render.py fixes ONE execution-contract.json that pre-fit-evidence must pin,
+and that contract seals ONE batch of ONE phase with content-pinned candidate documents, so the
+sealed lifecycle needs the candidate's bytes before the fit and cannot admit a later exposure
+batch. This is an execution-lifecycle defect, not a landing-rule question. Authorised: an
+ADDITIVE prospective G1 dispatcher, with no sealed G0 file, W49b tool or part 1/2 byte changed:
+(a) pre-fit: one sealed G1 execution root, pinned in the pre-fit evidence, binding part 2's
+domain, the source/import closure (adapter, fit, measurement, band readers) and three phase slots;
+(b) fit phase: scratch renders of content-pinned candidates, calibration/validation(/recorded/probe)
+only, refusing every withheld set;
+(c) gate phase: exactly one write-once contract whose candidate pin is the fit's single selected
+point, named by its fit record hash;
+(d) exposure phase: exactly one write-once contract, creatable only from a gate PASS record that
+names the same candidate bytes, membership exactly part 2's blind split + historical prediction
+checks; NEITHER makes it uncreatable.
+Tests refuse: a second gate/exposure contract, exposure before PASS or with other bytes, a changed
+batch, a bypassed wrapper, changed/new imported modules, a cell outside the batch, and a withheld
+set outside exposure. Independent reviewer-high review of the dispatcher before first use.
+DL4 is unchanged: no post-gate amendment, no second point, failure is NEITHER.
+
+DL5a (parent, same date, pre-read). On the neutral 128/224 span controls (family 'span', solid
+background) the structured rows references.py adds (far24 luma mean/median, full-silhouette T1)
+are REPORTED, B null, not gated; charter 59-69 / 289-293 scope the T1 growth clause to structured
+cells. far24 over an empty dot set equals deep8 by definition; that convention is written and
+tested. The additive G1 pre-fit checker keeps every original key and provenance, validates all
+measured values strictly, and exempts ONLY those enumerated row keys (listed by exact key in the
+G1 root, not matched by pattern) from the MEASURED/positive-B requirement; their values are still
+computed and recorded, and the two level rows per control gate normally. The sealed declare.py
+checker is unchanged historical machinery.
+
+DL5b (parent, after the identification read, before pre-fit/any candidate). The 12 DL5a REPORTED
+T1 rows (span 128 receded, greys 0/4/28, both positions/scales) whose native detected silhouette
+is EMPTY are recorded UNMEASURED_EMPTY_SUPPORT, value null, B null, with the empty-support witness;
+no analytical mask, no substituted 0. They never gate. The strict checker admits exactly those
+enumerated keys in that status; every other row stays strict. Their deep/center level rows gate.
+
+DL5c (parent, prospective, before pre-fit and with blind data sealed). The 24 analogous blind
+neutral span-224 REPORTED T1 keys are pre-enumerated as ELIGIBLE for UNMEASURED_EMPTY_SUPPORT,
+admitted only if the one exposure's own zero-support witness (zero pixels, mask hash) proves it;
+otherwise they are computed and reported. They never gate. Their level rows gate normally, and an
+unmeasurable level row remains a block. No other key gains the status.
+
+DL5d (parent, before any fit/gate). The six W46 referee scenes (x2 scales x2 positions) carry a
+T1 historical-prediction-check role while owner-contract rows on the same physical captures gate
+(24 WebGPU + 18 paired CSS = 42 keys; identification/phase-dependency-census.json). The charter
+keeps those referees out of exploration with one frozen render. Ruled: a prospective physical
+dependency-closure table binds every profile+scene that carries any withheld statistic, with its
+opposite-tier pair, to the ONE exposure. Every original key, role and budget is kept; only
+execution timing moves. The gate's PASS record is "PASS on exposed cells, owner rows pending" and
+is what admits the exposure contract. The final verdict is PASS only if every gate row and every
+pending owner row passes on the complete same-candidate gate+exposure union; aggregate or paired
+owner checks (C1, coherence, etc.) are evaluated only on that union, never declared on a partial
+population. Any failure there is NEITHER (DL4).
+DL5d clarification (parent, before any candidate): the full-union timing also covers the six W48
+T1 target aggregates. At the gate, targetChecks is PENDING_FULL_UNION; at exposure, the unchanged
+complete populations are evaluated against their original references. This is the existing union
+rule, not a new population, bound or exposure.
+
+DL5e (parent, before any coefficient fit). The 640 enumerated `owner-contracts` reference rows
+carry B null: they are owner laws (M1/M2/C1/X1/L1/E2/coherence/X75/X76) with their own units and
+limits, not cell-bar statistics. Each carries hash-bound owner evidence naming its source-owned
+limit, exclusions and measured value, and the full existing owner referee gates them under DL5d
+timing. They GATE; this is not an exemption. No owner bound is added or dropped. Every other
+measured row keeps a positive scalar B.
+
+DL5f (parent, before any candidate). The first current-only batch (f28a2dc42 root 9f7e413c…) stopped
+at exact geometry admission: the shipped source-abscissa CSS host is content-box (scene.ts 848-862),
+so CSS draws 122x46 for a declared 120x44. This is the tracked harness debt "The source-profile CSS
+harness retains its historical content-box sizing" (tracker, §5.145), whose stated correction is
+border-box geometry for the source-profile bed. Ruled: an additive W50 NEW-BED-only border-box host
+setup (wave-local entry; canonical scene.ts semantics and all G0 pins untouched); admission is NOT
+relaxed. The burned attempt and its 43 artefacts are retained as failed evidence. A replacement
+current-only instrument is sealed as attempt 2 naming attempt 1 and this ruling, and must prove
+the 42 GPU cells already captured re-render byte-identical under the new host before its CSS cells
+count. Canonical draws keep canonical semantics. Candidate and current read the same new-bed host.
+
+DL5g (parent, pre-fit; prefit.py is outside the sealed current2 closure). Grouped reference-schema
+correction to the not-yet-live additive pre-fit reader:
+(1) the 832 blind reference rows keep their ORIGINAL null native/current evidence and metadata at
+pre-fit (identity and dependency provenance only, SEALED_BLIND, no values); the exposure contract
+must bind real content pins for every one of them, and a blind row without them at exposure blocks;
+(2) the 154 existing 0.25 T1 fidelity objects are validated against their typed original schema
+({statistic: string, native, current, reference}), not a generic numeric shape;
+(3) TIGHTENING: every T1-low row, including the 8 new 0.5 rows, requires its own T1-fine fidelity
+reading;
+(4) the new-bed native three-run evidence goes into a typed, content-pinned envelope that keeps the
+original support text.
+Every field, budget, role and non-blind capture pin is preserved; no landing rule changes.
+
+DL5h (parent, before any further current launch, candidate or exposure). Current attempt 2 (root
+b775ce5f…) stopped at draw 502 (glass0.25/2x/receded/CSS cell-grey-064-s160__inactive):
+deterministic:false, repeatNoise 1.9073e-6 (6 channel-code units over the frame); the second load
+was not retained. Ruled, prospectively and for EVERY W50 web phase alike (current, fit, gate,
+exposure, so a one-shot read cannot be lost to transport):
+(a) attempt 2 is preserved as burned evidence; a separately sealed current recovery (attempt 3)
+keeps attempt 2's 501 validated draws by content hash and recaptures the failed cell plus every
+unfinished fixed member; no other draw is re-rendered or relabelled;
+(b) every web draw retains BOTH repeat images;
+(c) admission stays byte identity by default. A non-identical repeat is admitted only if both
+images pass the unchanged geometry/source/numerical checks AND every declared statistic of that
+cell (levels and T1 where it has them), computed on each image, agrees within 0.1 B (0.05 code at
+the 0.5-code floor). The reading is the first image's; the pair difference is recorded per cell.
+A repeat outside that band stops the run as an instrument fault, never a verdict.
+DL5h clarifications (parent): (i) the band is 0.1 x the cell statistic's native repeat bar (0.05 code
+at the 0.5-code floor), not 0.1 B; (ii) a cell with no finite source-bound repeat budget for every
+declared statistic (e.g. owner-only, B null) keeps byte-identity admission, no new statistic is
+invented; (iii) attempt 2's 501 draws stand as legacy byte-identical pairs: one preserved PNG plus
+production's original equality attestation, never a manufactured second image; every new draw keeps
+both PNGs and reports.
+
+DL5i (parent, before the judge is implemented, no candidate read). Tier mapping of the landing rule,
+read from charter clauses 1-4 and the project's tier doctrine (WebGPU is the fidelity target; CSS
+derives and a CSS-only residual is recorded): clauses 1-2's absolute closure max(1, 2 bar) gates
+WebGPU; CSS must carry the same law, with level-error growth <= 1 code on the priced low-end cells
+against its own current and its coherence contract passing (clause 4); CSS absolute errors are
+reported. Canonical T1 regression stays WebGPU-only per the inventory; new-bed structured T1 growth
+<= B applies to both tiers as declared.
+
+DL5j (parent, before any candidate read). Input 64 is reported as a diagnostic on both tiers.
+Numerical identity to the current law at 64 is required on both tiers, so a candidate that moves
+the join fails. There is no separate CSS growth gate at 64.
+
+DL5k (parent, standing; after canonical attempt 3 stopped on a census refusal of a foreign
+Playwright Chrome, since exited). An OPERATIONAL stop (census refusal, transport/admission fault,
+lease loss) before a phase's result exists and before any statistic of that phase is computed is
+recovered, in every W50 web phase including the one exposure, by: preserving the burned attempt
+with its claim/log/artifact hashes; sealing a recovery naming it and this ruling, which keeps the
+already-validated draws by content hash and captures only the remaining fixed members under the
+unchanged admission (DL5h); launching only when the census reads clean, never by touching another
+owner's process. A recovery never changes membership, candidate bytes, rule or reference, and
+never computes a statistic on a partial phase. The worker applies this without a new ruling and
+reports each use.
+
+DL5k boundary (parent): 'statistic' means candidate-phase scoring. Recovery is allowed until the
+exclusive measurement/judge-start marker. A completed native reference subread, DL5h pair
+qualification and quarantined transport compare artefacts do not count; the completed native
+subread is retained under the same logical exposure contract and never repeated, and its values
+stay sealed (not printed or inspected) until the judge marker. A native read started without a
+complete checkpoint stops; it is not replayed automatically. No partial-phase score or selection,
+ever.
+
+DL5k enforcement boundary (parent): the instrument API, logs and output enforce the barrier,
+beside the existing role boundary. Value-bearing payloads are quarantined; public output is built
+only from metadata allowlists; analytical readers refuse before the authenticated full-union
+marker. Canary tests cover stdout, stderr, errors and status. No agent working on this wave may
+open the plaintext blind archive or checkpoint with Read or Bash before that marker. This last
+restriction holds by role discipline, not by OS isolation. No host-level broker or permission
+change is part of this wave.
+
+DL5l (parent, 2026-10-09): canonical reference read 1 (root `e16bda56…`) lost 26 dark 0.5
+rrect-ml rows to a reader defect: `same_geometry` compared whole component dicts, and
+scenes.json's rrect-ml carries a `$comment-w32-g0` annotation added after W29 captured those
+passes. A reader copy (`references-r2`, root `604041d2…`) that ignores `$`-prefixed annotation
+keys, with a test that a radius change still refuses, rereads once, with read 1's 397 measured
+rows as a byte-level non-regression witness. Accepted as a reference-evidence recovery: no
+candidate, selection or blind value existed. A recovery of that kind, done the same way, needs
+no ruling; it is reported.
+
+DL5m (parent, 2026-10-09, before the LIVE root seal). The judge's six DECISION points in
+`judge/live.py`:
+1. Confirmed: the 105 dark-solid/impulse low-end path cells inside the owner referee's 745-cell
+   context have their per-cell owner verdicts (X1, L1, ...) gated (clause 4, DL5e).
+2. Confirmed: an M2 named miss that would need a new owner record is FAIL; exclusions are never
+   widened.
+   Clarified by the parent before the seal (2026-10-09): item 2 applies to every owner axis
+   carrying named misses, L1 included, so an L1 named growth miss with no `GROWTH_MISSES` record
+   is FAIL (`judge/live.py` `named_record`, `fe98fc970`).
+3. Confirmed: input 64 passes only on the numerical referee's `fixedJoinPass` (DL5j); the
+   rendered difference at 64 is recorded, not gated; an unmeasured 64 blocks.
+4. Changed: a DL5a/b/c REPORTED key whose reading is incomplete or non-finite is recorded
+   UNMEASURED_REPORTED with its cause and does NOT change the verdict, because those keys never
+   gate. The report validator admits that status for exactly those enumerated keys. A missing or
+   corrupt capture still blocks through the gated rows read from the same capture, which are
+   UNMEASURED themselves. Tests cover both sides.
+5. Confirmed: the owner union needs every owner aggregate within, C1 present, X75's twelve entries
+   within, and X76's 0.25 and 0.5 records.
+6. Confirmed: the six W48 T1 targets (C rest, F inactive, P with both poses pooled, per scale,
+   every role), each cell against its G0 `fidelity.reference` (d0219 W48), epsilon the W49a cut's
+   code, never B; the current-as-candidate self-check reading all six WITHIN is the expected
+   witness.
+
+DL5n (parent, 2026-10-09, before the LIVE seal). A COMPLETED native blind read whose sealed
+readiness is false (a required blind statistic unmeasurable, or native spread past the sealed G0
+stop) is checkpointed with its stops as metadata only; the affected required rows reach the judge
+as UNMEASURED, and the verdict is NEITHER through the normal path (DL4; missing evidence is
+UNMEASURED). A deterministic property of the blind data yields a verdict, never a burned
+exposure. Transport, disk or integrity faults remain operational stops under DL5k. The sealed G0
+readiness criteria are unchanged. Also accepted: the owner referee port's absent-field fix
+(`namedExclusion` on omitted means; the pre-seal review's P0, which made every exposure NEITHER
+on eight dark inactive dark-solid context cells) is a DL5l-type pre-fit reference recovery, with
+a current-as-candidate owner self-check (every owner cell, context cell and aggregate PASS) added
+as the owner counterpart of DL5m item 6. Every pre-seal must-fix check moves before its marker.
+
+DL5o (parent, 2026-10-09, pre-fit; nothing executed under root `a09e02e94`). The owner intrinsic
+port cannot read X76 on dark 0.5: the shipped 0.5 active document (`0eac5b294cc2`) predates X76
+and keys its provenance entries by FAMILY, not leaf, so under DL5m(5) every exposure would be
+NEITHER. X76's intent (§5.215) is that every inherited leaf of a sealed document is fitted or
+explicitly held. Ruled (a): the port admits a historical family-keyed entry verbatim as that
+family's hold when no leaf the candidate moves falls under it; a family containing a moved leaf
+needs per-leaf fitted records. Every W50 candidate document carries fitted methods for its moved
+low-end leaves and explicit hold records for each inherited leaf with no record anywhere (the
+helper named backdropToneAnchorX, backdropToneBlackStrength, optics.clear.rimLevelGain,
+outerShadow.liftAmplitude and outerShadow.thinOcclusionDark, to be confirmed). DL5m(5) stands.
+Because the fix moves owner closure sources, a successor LIVE root naming `a09e02e94` and this
+ruling is sealed; before it seals, the owner self-check grades X76 at both positions on a
+hypothetical identity candidate (current documents plus the required records).
+
+DL5p (parent, 2026-10-09; root 2 has pre-fit evidence only, no phase or attempt). The initializer
+refusal is a role-vocabulary seam: 115 canonical argument records carry the scenes.json split
+(32 calibration, 83 probe) where G0 binds role gate. IDs, profile/renderer/scene and every other
+binder check match; no holdout or historical record is involved. Ruled (a)–(d):
+(a) Normalise only canonical argument records whose original role equals their captured
+`originalRow.fixtureSet`, which is non-holdout, and whose G0 reference requires gate. The bound
+role becomes G0's; the original `capturedArgument` and its SHA remain unchanged. No source
+evidence is rewritten. Real-shape tests must prove frozen G0 accepts the normalised records and
+still refuses a holdout or historical role, or a role disagreeing with `fixtureSet`.
+(b) Seal successor root 3 over root 2, pinning its permitted history to exactly its committed
+pre-fit evidence and refusing any other byte, phase or attempt.
+(c) Carry forward the ONE existing candidate and initializer by hash, retaining their root-2
+provenance. Bind only under root 3; never re-initialise, re-assemble or change candidate bytes.
+Root 3 receives its own pre-fit evidence.
+(d) Log the composed reader's role-blind population check as debt and repair the seam prospectively
+in the binder. Continue through numerical check, fit, fit record and gate; report the gate verdict
+to the coordinator before creating any exposure batch.
+
+DL5q (operational, coordinator-recorded ruling, 2026-10-09 12:20 KST). For the remainder of W50,
+when a College playwright-cli browser blocks the census, the operational idle test is two
+`ps -o pid,cputime` samples ten minutes apart of the Chrome process tree launched by daemon
+`~/Library/Caches/ms-playwright/daemon/cd912897287dd5e2`, cwd `~/Documents/College` (the
+`--remote-debugging-pipe` Google Chrome and its helpers). Total CPU growth below five seconds
+qualifies as idle; an in-use browser is left alone. An idle session is closed only through
+`playwright-cli -s=<name> close` from the College directory, with the name taken from the newest
+`.err` in that daemon directory; never kill -9. A failed close or new session requires a fresh
+idle test. Log each close with both samples and the session name in the coordinator's
+`tmp/w42-status.md`. Other daemon directories are outside this rule and are reported, not closed.
+The gate-verdict checkpoint and two-hour persistent-blocker reporting threshold remain.
+
+DL5r (parent, 2026-10-09; the one gate analysis stopped after its irreversible marker 02c070dc…,
+before any aggregate, verdict or judge). Cause: an instrument metadata overwrite in
+measurement/phase_sources.py:358-392. A later low-end-path-level companion replaces the T1
+statistics entry and drops `productionStatistic`, so projection.py:245 correctly refuses eight
+WebGPU dark 0.25 impulse lg/ml T1-full-silhouette gate keys (1x/2x × rest/inactive; probe, none in
+fit). 634 keyed per-cell files were written after the marker. Nobody read a numeric value; they
+were parsed for identity strings only, then pinned by raw-byte manifest 95295607… (85ec9d038).
+Ruled: ONE successor analysis, under these conditions.
+(a) The fix is exactly the proposed carry of `productionStatistic` across the line-367
+    reassignment, with the owning branch unchanged. It comes with order-both-ways tests on
+    synthetic or fit fixtures that reproduce the old refusal. It changes no rule, threshold,
+    arithmetic, capture, candidate, fit record, contract, batch or membership. reviewer-high
+    clears it before use. A fix that grows beyond that needs a new ruling.
+(b) The witness is fixed from source now: canonical JSON (sort_keys, indent 2, allow_nan False,
+    trailing newline) with exactly the top-level executionRoot, executionClaim, contract and batch
+    fields removed. All 634 projections must be byte-identical; the exemption list is empty.
+    The successor writes to a fresh path and never overwrites the 634 originals.
+(c) The successor marker binds the spent marker 02c070dc…, the complete union a3022525… and the
+    manifest 95295607…, and names itself the second analysis. The candidate, fit, contract, batch,
+    cohort and captures are verified unchanged before it starts.
+(d) The witness runs automatically before the judge. Any mismatch, any refusal or any further
+    instrument fault yields UNMEASURED, so the verdict is NEITHER and the exposure is not
+    created. There is no third analysis and no waiver. DL4 holds: no point or rule change.
+(e) Report the verdict before any exposure batch, as before. The spent marker, manifest,
+    traceback and the 634 originals stay in the record.
+Rationale: the frozen point and rules leave no freedom that an unread file could bias, and the fix
+is chosen from source alone. The byte witness turns the second run into a check of the first.
+
+DL5r clarification 1 (parent). Unchanged measurement uses context.output both as the new write
+root and as the ancestor that old captures must sit under. Ruled: a recovery-only READ adapter,
+with no edits to sealed components, supplies the pinned ORIGINAL capture root to the pure
+validators (validate_captures, read_pair, retained_proof) only. All writes and the successor
+context name the fresh output. The adapter admits only paths in the immutable 1,341-member union
+a3022525…, leaves every capture pin unchanged, and refuses symlinks or any path that resolves
+outside that root. It exposes no capture, fit or exposure method and is covered by reviewer-high.
+The captureOutput-parameter alternative is declined because it changes more production code.
+
+DL5r clarification 2 (parent). Both seams the worker found are granted:
+  1. the read-only `_pin_bytes` backend field set to the pinned original root;
+  2. the original root3/contract/batch pins passed to receipt_binding only, before an unchanged
+     verify_pair_semantics.
+They generalise clarification 1 into a standing principle for this recovery:
+  - READ-side authentication of an ORIGINAL capture or its retained proof uses the ORIGINAL
+    root and capture-authority pins, because that is the provenance the evidence was issued
+    under.
+  - Every WRITE and every new claim names the SUCCESSOR.
+The worker applies this at further seams without asking, under four conditions. Each use is
+listed in the adapter and covered by reviewer-high. The union, path and symlink guards hold.
+No arithmetic, sealed source or pin changes. Ask the parent only if a WRITE, a non-capture
+input (candidate, fit, contract cells, rules, references) or the witness projection would need
+anything other than this principle.
+
+Clarification 2 implementation form confirmed by the coordinator: one instance-local `_pin_bytes`
+read adapter redirects only when `external=True`, the read root equals the fresh successor output,
+and the unchanged pin is an exact artifact of the original union; all other calls delegate
+unchanged. This is gate-only; native and exposure paths are excluded.
+
+
+DL5s (parent, 2026-10-09; amends DL5r(d), made blind to every gate value). Analysis 2 stopped BEFORE
+its successor marker. The historical verify_prefit checks root 3's pre-fit proof pins against the
+LIVE tree, and the DL5r carry commit 02c0e5694 legitimately changed two pinned files: the test
+source test_phase_sources.py (f9415dc8 → a2d870fe), and the production phase_sources.py (pinned
+aa52d478…), whose change the successor admitted only on its own side. No marker, keyed
+measurement, witness or judge ran. No gate value has been read by anyone, and the 634 originals
+still hash-match 95295607….
+DL5r(d) said "any refusal → NEITHER". Its purpose was to bound the number of LOOKS at gate values
+to one completed analysis. A refusal before the marker is no look; it is the same class of stop
+DL5k already recovers. Reading (d) literally would close a 1,341-capture gate on a provenance
+seam that carries no information about the candidate, against the wave's goal. The parent
+therefore narrows (d): it applies from the successor marker onward. An instrument stop BEFORE the
+marker is recoverable once, under (a)-(e) below. Everything else in DL5r stands: one completed
+successor analysis at most, the 634-file witness, mismatch or post-marker fault → NEITHER, no
+waiver, DL4 intact.
+  (a) Authenticate the historical pre-fit proof against the bytes it ATTESTED, i.e. the git
+      objects at its committed proof commit (bdb0f3fef / root-3 pre-fit), never the live tree.
+      Every pinned path in the proof is checked this way, test and production sources alike.
+      The live-tree difference is admitted only for the declared DL5r(a) delta (phase_sources.py
+      and its test file at 02c0e5694), and every other live pinned byte must still equal its
+      historical pin. This is the read-side principle of DL5r clarification 2.
+  (b) Run the COMPLETE admission path on the real shape as a read-only preflight: every check
+      admit() and the successor runner perform, stopping before the first irreversible write
+      (marker or claim). The real invocation is allowed only after a clean preflight.
+  (c) reviewer-high clears (a) and (b) before use.
+  (d) The new invocation is analysis 2, attempt 2. It records the analysis-2.failed tombstone,
+      36cfacf75 and this ruling, under a fresh successor output; the tombstone stays.
+  (e) A refusal of attempt 2 BEFORE its marker, or any fault after it, is final: NEITHER, with
+      no further recovery.
+
+DL5s clarification 1 (parent). DL5s(a)'s purpose is authentication against the bytes the proof
+ATTESTED. A SHA-256 committed in the proof at bdb0f3fef attests those bytes as strongly as a git
+blob does. Granted as recommended:
+  - The two gitignored live-input JSONs are authenticated by decompressing their commit-pinned
+    gzip archive blobs.
+  - The 15 gitignored r3 test logs are authenticated by their current raw bytes against the
+    historical proof hashes committed at bdb0f3fef.
+  - The logs are then force-added now as late preservation, with a witness saying plainly that
+    no blob existed at bdb0f3fef.
+  - The exception (17 paths, 20 occurrences) is pinned by name in the attempt-2 authority.
+  - A log whose bytes do not match is a pre-marker refusal under DL5s(e). It must not be
+    regenerated.
+
+DL5s clarification 2 (parent, 2026-10-10). The read-only preflight is a diagnostic, not the attempt.
+DL5s(e) applies only to the real attempt-2 invocation, so a preflight failure is never terminal.
+Rulings:
+  - Granted: the preflight sandbox may open the existing character device /dev/null, with its
+    identity and type validated, for stdlib subprocess redirection. Every other writable open and
+    every gate-payload read stays denied.
+  - Standing, for the preflight only: the worker fixes further environmental or API seams the
+    preflight exposes in the preflight harness or in recovery-only tooling, then reruns the
+    preflight, without asking. It must not relax the payload-read denial or the marker/claim
+    write denial. It must not touch sealed sources, the candidate, fit, contract, rules or pins.
+    Each fix is listed in the attempt-2 authority.
+  - The final preflight tool and the attempt-2 tooling are covered by one reviewer-high pass after
+    the preflight is clean. The real run is single-shot only after that.
+  - Escalate to the parent only if a seam needs a write outside the fresh output, a pin change, or
+    access to gate values.
+
+### DL5 — separate current-material instrument (parent confirmation)
+
+The pre-fit current-only instrument is separate from the later single live-fit root, as G0
+README requires. Its fixed batches refuse every profile/scene in the DL5d exposure closure
+as well as the new blind split. Its instrument and results are pinned by hash in the later
+live root before any candidate render. It has no fit, gate or exposure authority and cannot
+stand in for a placeholder judge or fitter.
 
 ### DL2 — conditional X41 publication delta (ruled)
 
@@ -471,6 +958,29 @@ This list permits no G0 mutation: the original X41 witness stays intact until a 
 
 ## Surprises and discoveries
 
+1. **Rehearse the complete single-use pipeline, not only its parts.** A read-only admission
+   preflight does not prove measurement, witness and judge compose. Before a one-shot marker,
+   exercise them end to end on non-blind data under the identical guard composition and lifecycle
+   state, including a freshly re-armed source guard. W50's clean preflight installed the adapters
+   but never entered their pure capture-read boundary; the first helper call there exposed the
+   untested composition after the marker (§5.218 §3).
+2. **Cross-root recovery compounds authentication seams.** Separating original capture authority
+   from successor write authority reaches proof pins, retained receipts, static inputs and prior-fit
+   evidence, not just path lookup. Each added recovery layer exposed another seam. Prefer a fresh,
+   coherently pinned instrument where affordable; keeping captures does not by itself make recovery
+   the simpler route. W50's eight preparations repaired admission, not the whole measurement path.
+3. **Fence before fallible work.** Cheap no-cost namespace and clearance preconditions can precede
+   the durable single-use fence; substantive admission cannot. Otherwise a crash or an unwritable
+   failure record leaves a retryable invocation. The reviewer-high P1 was fixed before W50's real
+   attempt and cleared (`c7dbbf846`, `a93056f84`, `3c1867cb2`); it is not the terminal fault.
+4. **A stop rule must name its stage.** Diagnostic preparation, real invocation, analytical marker
+   and completed scientific read are different boundaries. State which consumes the attempt and
+   which refuses recoverably before use. DL5s narrowed DL5r's “any refusal” to its intended stage,
+   then clarification 2 separated diagnostic preflights from the one real invocation. That does
+   not permit another recovery after the final post-marker fault.
+
+Grounding discoveries, retained:
+
 - “Thick black unmeasured” needs precision: span96 true black *is* measured at2x in W42/W43,
   while160 is not. W42's stratum64 label hides a44px measured capsule, and its completed low-end
   span128/160 ordinates are not native observations.
@@ -481,7 +991,7 @@ This list permits no G0 mutation: the original X41 witness stays intact until a 
   through the current checkout, with old bytes untouched; this is a provenance-path issue, not
   changed measurements.
 
-## Deferred and outcomes
+## G0 deferred and outcomes (historical checkpoint)
 
 G0 delivers the identified mechanism, an inert two-tier instrument and a declared native bed,
 **not the native1–8 response or a fitted repair**. That response, true black at160/224, and the
@@ -498,7 +1008,69 @@ beyond224 remain outside this repair. Existing mid-dark/chroma/edge gaps stay na
 operators landed only at identity: no material document, matrix publication, fixture, owner bound
 or release changed, and the main checkout was not edited.
 
+## Outcome
+
+1. **NEITHER / UNMEASURED, not a scientific negative.** The sole real analysis-2 attempt-2 run
+   stopped after its marker during measurement (`25e52e88d`). DL5s(e) closes W50 without another
+   recovery; the witness and judge never ran, no gate value was read by anyone, and no exposure
+   was created. Nothing shipped: the ten shipped material documents and their digests, generated
+   profiles, generation selections, canonical matrix/captures and adopted bounds are unchanged.
+   G0's compact low-end chart stays at identity on both tiers. No changeset or release.
+2. **The native identification stands.** G1a acquired 1,600 frames and archived them as
+   `w50-archive` (§5.217 §§8–9). The exposed 336-cell read found uniform black at 32 active /
+   20 receded across its spans, positions and scales. The new 512×384 sparse-impulse 96/160
+   far-body medians also read 32/20; those are not replacements for the original 320×200 controls.
+   Required repeat bars stay at the 0.5-code floor. The 112 new blind native cells remain closed.
+3. **One frozen candidate, a completed fit, an unmeasured gate.** Proposal `044bc4a5…` completed
+   all 840 fit captures with status CAPTURED (result `d2b82491…`, fit record `83ea6b1e…`). That is
+   valid evidence for its own population only, not a gate pass. All 1,341 gate captures completed
+   (union `a3022525…`). Analysis 1 stopped after its marker because a companion path-level row
+   overwrote `productionStatistic` on eight impulse lg/ml T1 keys. Its 634 keyed files remain
+   unread and pinned by manifest `95295607…`; no partial result became a verdict.
+4. **The terminal cause is in the instrument.** DL5r allowed one successor analysis; attempt 1
+   refused before its marker on a historical test-source pin. DL5s allowed one pre-marker recovery.
+   Eight preparations, each with a read-only preflight, repaired historical authentication,
+   environment/API and read-origin seams; the final fence fix cleared reviewer-high. In the real
+   run the source-hash guard was re-armed after preflight. The first `read_pair` call then tried to
+   hash its Python source inside `Boundary`'s capture-root-only scope. `reads.py:32` refused that
+   source-file open before the helper body ran. Zero successor keyed files, zero witness
+   comparisons and no judge: this says nothing about whether the candidate meets the landing rule.
+   The audit, public verdict, written-file inventory and constant traceback are retained in
+   `results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/`.
+
+## Deferred at close
+
+1. **Re-gate the same frozen candidate under a fixed instrument — for the user to decide.**
+   Its gate values are still unread. The likely simplest next-wave option is a fresh root pinning
+   the corrected source from the start and recapturing the fixed 1,341 gate cells, rather than
+   adding another cross-root recovery layer. This is a proposed new charter, not a third W50
+   analysis, a decision to recapture, or permission to alter the candidate or landing rule.
+   Rehearse the full measurement/witness/judge pipeline on non-blind data with the exact guards
+   and lifecycle first, and state the new stage-specific stop boundaries before use.
+2. **Preserve the open evidence without treating it as a score.** The 634 unread analysis-1 files
+   and their `95295607…` raw-byte manifest, the complete 1,341-capture `a3022525…` union, and the
+   completed 840-cell fit result `d2b82491…` / fit record `83ea6b1e…` all remain. The two failed
+   successor attempts, their tombstones and preparation seals remain beside them. Any next-wave
+   use needs declared provenance and population boundaries; none is permission to inspect the
+   quarantined gate values now. The native archive's 112 blind cells remain available for a new
+   declaration; historical prediction checks do not become blind again.
+3. **Repair the instrument composition, not the sealed record.** The source-authentication /
+   capture-only-read conflict and end-to-end coverage gap are tracked with their closure tests.
+   Historical/live proof authority, capture/write roots and metadata/payload origins need an
+   explicit coherent contract in a future instrument. Keep existing seals untouched. The small
+   `attempt2_seal.py` docstring and resolved-versus-lexical origin issues are defence-in-depth
+   debt, not explanations for candidate quality.
+4. **The material question remains open.** Native acquisition and the fit do not establish that
+   the compact group-level chart closes the structured low end or preserves texture and owner
+   contracts. W49b's remaining texture work still needs a measured low-end referee, not an assumed
+   repair. Mid-dark/chroma/edge gaps and behaviour beyond span 224 stay outside this closure.
+
 ## Revision Notes
+
+- 2026-10-10 — Evidence-only close under DL5s(e), claims §5.218: final NEITHER / UNMEASURED,
+  native identification retained, candidate quality unmeasured, no publication. Outcome,
+  generalised instrument lessons and Deferred at close supersede the historical handoffs.
+  No Decision Log paragraph, sealed evidence or material byte changed.
 
 - 2026-10-07 — Bounded grounding review closure, before declaration or any new measurement.
   Replaced an accumulating adjacent-step tolerance with maximum drawdown from the preceding
@@ -561,3 +1133,103 @@ or release changed, and the main checkout was not edited.
   No identifying/blind statistic was opened. Acquisition and archival are complete; native
   analysis, complete reference evidence, the512×384 web adapter and the additive pre-fit gate
   still precede fitting. No material document or matrix generation changed.
+
+- G1 exposed identification — Native root `cdd283599e8dc625a561876c73a554d55a7a5aa95aff9f0455c8c95c50fd7e95`
+  was reviewed, source-sealed and committed before reading. Its finite batch opened only the
+  registered calibration/validation exports under a sandbox denying the original raw/full trees.
+  All336 exposed cells pass required repeat readiness; every required bar stays at0.5 code.
+  Uniform black reads32 active and20 receded at every exposed span, both positions/scales. On
+  the NEW512 canvas, sparse-impulse96/160 far-body medians also read32/20; these are not substituted
+  for the original320 controls. The native deep/center difference is at most1 code. No coefficient
+  is fitted yet. Twelve optional span128 receded T1 native masks are empty; DL5b retains null
+  with the zero-support witnesses, never a substituted path mask or0. DL5c prospectively names
+  the24 analogous blind224 reference keys as eligible for that status only if their one-exposure
+  witness proves empty; their level rows still gate. The two tiers reuse each native witness,
+  so the12 observed native measurements correspond to24 exact reference keys. Evidence is under
+  `results/2026-10-08-w50-g1-fit/identification/`; its compressed full and per-role reports reproduce
+  the read exactly. G1 pre-fit readiness, numerical fitting and the gate are still pending.
+
+- G1 current-only readiness — The additive lifecycle and its original-identity, numerical-cohort,
+  complete-capture and owner-generation bindings were independently reviewed before use. The
+  canonical route's review found that production compare scanned tint fixtures before filtering;
+  its bounded wrapper now checks only the admitted native pins, and gives compare and its child
+  the ORIGINAL fixture tree rather than the worktree copy. Candidate capture labels follow the
+  production path spelling. Synthetic discovery exercises237 Node/Vite pins and10 Python sources,
+  including that wrapper and its original-tree handoff, without opening real fixtures.
+  Current root `9f7e413c7ae02125ef8932de4a66b4ca0759d936f1814ccef4d9e2851497dd2a` and both
+  contracts were committed at `f28a2dc42` before launch. They admit672 exposed512-canvas draws
+  and127 canonical draws:115 mandatory numerical-argument cells plus12 missing default T1
+  baselines. Every physical scene is outside DL5d's closed population. The separate gate0 read
+  subsequently stopped as recorded below; no completion, fitted point, pre-fit PASS or candidate
+  verdict is claimed here.
+  Its two result chains must be pinned by the later live root; the current instrument cannot be
+  promoted to candidate phases. The original G0 seals still verify as SEALED/native, NOT_READ.
+
+
+- G1 current-only attempt1 stopped — After42 WebGPU captures in the first run, the first CSS
+  cell's reported border box was122×46 instead of its declared120×44. Exact geometry admission
+  refused it; the process exited1 and released its GPU lease. No successful batch result exists,
+  the canonical sibling was not launched, and the contract stays burned. The43 raw reports and
+  all301 attempt artifacts are hash-inventoried in
+  `results/2026-10-08-w50-g1-fit/evidence/current-attempt1/failure.json`; no partial capture is
+  promoted to completed reference evidence. DL5f authorises an additive new-bed-only host and a
+  separately named attempt2, with the42 GPU byte identities as a prerequisite before CSS.
+  All112 new blind native cells remain closed; no coefficient fit or candidate render occurred.
+
+
+- G1 current-only attempt2 — Root `b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0`
+  was committed at `6bcb02cd6` before launch, after both scoped high reviews. Its mandatory replay
+  reproduced all42 previous WebGPU PNGs byte-for-byte; the sealed proof
+  `538019838b5ec05ef8bf0671d6780915b79a18ace0eab0b98b7cc9abf6292f40` records both byte pins per
+  cell. The coordinator independently rechecked every pair. Only then did CSS begin; its first
+  capsule reports the declared120×44 at(196,170). The fixed full batch is still running, not a
+  completed current reference or pre-fit PASS. Canonical semantics and all old seals are held.
+
+- G1 owner references — The registered owner-contract snapshot and current reference read
+  completed on the original pinned generations, retaining745 cells of aggregate context and
+  five measured aggregates. Named L1 absences and optional coherence gaps remain explicit; no
+  baseline miss is relabelled within. The original640-key projection is separate. These inputs
+  are reference evidence only, never coefficient data or a candidate verdict. DL5g then corrected
+  pre-fit schema contradictions exposed by integration: blind evidence must stay null until its
+  exposure, typed T1 fidelity labels are not numeric readings, and low-band regression rows need
+  their own fine-band fidelity. No bound, historical cap, role or known value changes.
+
+
+- G1 current-only attempt2 stopped — Draw502, the2x receded0.25 CSS uniform64/span160 cell,
+  reported non-identical loads with mean absolute RGBA difference1.9073486328125e-6 codes: six
+  total channel-code units over1024×768×4. Its second image was not retained, so no location or
+  maximum per-pixel difference is inferred. The original exact-identity admission refused it;
+  the process exited1 and released its lease. The43-report first attempt and this502-report
+  second attempt remain burned evidence. Attempt2's501 validated draws retain their original
+  equality attestations; no second image is manufactured for them. Its3526 raw files and exact
+  failure are inventoried under `results/2026-10-08-w50-g1-current2/evidence/current-attempt2/`.
+  DL5h authorises a separately sealed recovery of the failed and unfinished members only, and
+  prospectively retains both repeats for every fresh W50 draw. The clarified band is0.1 times
+  the NATIVE REPEAT BAR, not the landing B:0.05 code at the0.5-code bar floor. Cells without
+  finite source-bound budgets retain byte-identity admission. No coefficient or candidate has
+  been read, and no incomplete current result is promoted to reference readiness.
+
+- G1 current-only attempt3 — Root `dbe20abc2be6a5908bdc4e96d605fe8a504b226ce25339ceab5aec99a91e2a44`
+  and both fixed contracts were committed at `c722c3bce` before launch. Its35-Python/241-web-source
+  closure was exercised and enforced;151 synthetic tests passed. The independent high consumer
+  review found no material findings (static review, not an independent test pass). The recovery
+  keeps exactly501 original draws and admits171 fresh new-bed plus127 canonical draws; canonical
+  execution requires the first batch's completed result. Fresh pairs retain both images and both
+  source-validated reports; archived readers authenticate their completed chain and shared pure
+  repeat proof without inventing a live capability. The new-bed recovery was launched; this
+  entry records its prospective authority, not pre-fit readiness. DL5j keeps input64 diagnostic
+  on both tiers while requiring numerical identity there; DL5d's full-union timing includes the
+  six unchanged W48 T1 target aggregates. No candidate or exposure has been read.
+
+- G1 attempt3 results — The new-bed batch completed with result SHA
+  `20b7422c8d94f55ccdcd8b86b17418162ec354725777d29a66939bb1e7a8519d`:672 logical captures,
+  comprising501 unchanged legacy draws and171 fresh draws (170 byte-identical, one admitted
+  under its own native repeat band). The canonical prerequisite verifier accepted that result.
+  Canonical execution then stopped at the second cell's census on another owner's Playwright
+  Chrome. One raw canonical cell had produced a retained pair and transport compare row, but
+  no adapter repeat admission, completed run or phase result existed. No statistics were read
+  from that partial transport output. Its20 files, claim and log are preserved under
+  `results/2026-10-08-w50-g1-current3/evidence/current-canonical-attempt3/`; failure SHA
+  `bd14e087d15ef009271eff425a9058a3446159b17dea6925fa1ed7675ea02495`. The lease was released;
+  the foreign processes were not touched. DL5k authorises an additive canonical recovery while
+  preserving the completed new-bed chain. Full current/reference completion remains pending.

@@ -1,0 +1,25 @@
+{
+  "schema": "w50-reference-assembly-supersession-1",
+  "ruling": "DL5l reference-evidence recovery; DL5m item 1 (owner context cells gate)",
+  "superseded": {
+    "binding": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/binding.json",
+      "sha256": "d68fc6ceb6df8ee7642f5000530e4dc6062fff6384b80c0527fec104265bfd69"
+    },
+    "run": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/run.py",
+      "sha256": "4a920c30297f7a57b91de4b5875e3d491740f18b0a9b9b5d60eaf9524c0bb865"
+    },
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/evidence/archive.json",
+      "sha256": "32a4dad8848bdec0ad2ec9146001609e71d2e45ed465dcb8b8619b78c0900635"
+    },
+    "status": "retained unedited; its completed inventory is recorded evidence"
+  },
+  "changedFields": [
+    "ownerContracts",
+    "ownerIndex",
+    "sourcePins"
+  ],
+  "owner": "owner/r2/supersedes.json names the superseded owner reads and evidence"
+}

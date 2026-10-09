@@ -1,0 +1,304 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "dark05Bands",
+ "status": "PASS",
+ "establishes": "Dark 0.5 T1 is priced against its own frozen current 0eac5b294cc2 with its own pre-fit bands and per-cell B, generated and sealed before fitting (landing rule 4; part 2 dark05T1). The bands and B come from the sealed references-r2 read, archived exactly.",
+ "boundary": "No canonical read was rerun; B recomputation uses recorded repeat values only.",
+ "builtFrom": {
+  "gitHead": "021ee4dab32ae53a466f67f7cccebe6290265664",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "r2-archive-and-root",
+   "status": "PASS",
+   "verifies": "The canonical reference read (root 604041d2..., DL5l) is sealed, its pins hold and its output is archived byte-exactly.",
+   "function": "r2_archive_and_root",
+   "summary": {
+    "root": "references-r2 root",
+    "sha256": "604041d23a250084757aa109ba2a1cdca80e5ab809a7bfd46a23d065728a6acc",
+    "repoPinsVerified": 55,
+    "externalPinsVerified": 0,
+    "guardedPinsNotOpened": 0,
+    "outputSha256": "ebb4575915e86d8bbf162423d8d384fda4fcbf9ed2360b78102cd90b5e59438f"
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-archive-and-root.json",
+    "sha256": "e05a8bea522dd8b84f0c5d2719eb2787e3b92cfcadb0586419412b441ed3e940"
+   }
+  },
+  {
+   "id": "r2-statistics-tests",
+   "status": "PASS",
+   "verifies": "references-r2 test_statistics.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_statistics.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 6 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-statistics-tests.log",
+    "sha256": "dfc451d60aa595d500db556b56fc9a1606a9709add7b55d9da536a955c684abd"
+   }
+  },
+  {
+   "id": "r2-canonical-tests",
+   "status": "PASS",
+   "verifies": "references-r2 test_canonical.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_canonical.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 11 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-canonical-tests.log",
+    "sha256": "8e8adf79b0416c0d45e74440993c25578cb1adbb2e5293bcac0b2add7c068b3b"
+   }
+  },
+  {
+   "id": "r2-completion-tests",
+   "status": "PASS",
+   "verifies": "references-r2 test_completion.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_completion.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 7 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-completion-tests.log",
+    "sha256": "a463a8b9d8c94f7d13fd3647450f184f21df7e1c6464319e594c7882666450b4"
+   }
+  },
+  {
+   "id": "r2-composed_completion-tests",
+   "status": "PASS",
+   "verifies": "references-r2 test_composed_completion.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_composed_completion.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 8 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-composed_completion-tests.log",
+    "sha256": "d82c9d78d28c04bdb47263c8ff674b698faeb2cc3df52010ceb52ecea607c37d"
+   }
+  },
+  {
+   "id": "r2-run-tests",
+   "status": "PASS",
+   "verifies": "references-r2 test_run.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_run.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 9 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-run-tests.log",
+    "sha256": "cc6ad58d660e6cbe191ef3ce4481cd444fc189e8081c38ca127b08499f30912a"
+   }
+  },
+  {
+   "id": "r2-run_composed-tests",
+   "status": "PASS",
+   "verifies": "references-r2 test_run_composed.py (synthetic).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/test_run_composed.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2",
+   "exitCode": 0,
+   "matched": [
+    "Ran 4 tests in",
+    "OK"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-run_composed-tests.log",
+    "sha256": "2d2e6d9c1763bf9d25ed2a38837d0cbfbd34dfc23520ab32af1131eeeaffdc4c"
+   }
+  },
+  {
+   "id": "dark05-t1-population",
+   "status": "PASS",
+   "verifies": "All 154 exposed dark 0.5 canonical T1 rows (63+10 full-silhouette, 3+1 T-band per scale) are MEASURED against frozen current 0eac5b294cc2, each B recomputes from its own seven native repeats, T-band rows carry typed T1-fine fidelity, and every native/current pin hashes.",
+   "function": "dark05_t1_population",
+   "summary": {
+    "rows": 154,
+    "byScaleStatisticRole": {
+     "1x T1-full-silhouette gate": 63,
+     "1x T1-full-silhouette historical-prediction-check": 10,
+     "1x T1-low gate": 3,
+     "1x T1-low historical-prediction-check": 1,
+     "2x T1-full-silhouette gate": 63,
+     "2x T1-full-silhouette historical-prediction-check": 10,
+     "2x T1-low gate": 3,
+     "2x T1-low historical-prediction-check": 1
+    },
+    "evidencePinsVerified": 462
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/dark05-t1-population.json",
+    "sha256": "6839814b56b70690604286fbaaf7ae09ae7ad740cac517ca9417b27a3abe3f38"
+   }
+  },
+  {
+   "id": "dark05-missing-baselines",
+   "status": "PASS",
+   "verifies": "The 12 dark 0.5 T1 rows with no prior current capture now read their own pre-fit current render (canonical3 recovery).",
+   "function": "dark05_missing_baselines",
+   "summary": {
+    "previouslyMissingDefaultT1Baselines": [
+     "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|hc-text__rrect-lg__rest|T1-full-silhouette",
+     "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|hc-text__rrect-sm__inactive|T1-full-silhouette",
+     "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|hc-text__rrect-sm__rest|T1-full-silhouette",
+     "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|impulse__rrect-sm__rest|T1-full-silhouette",
+     "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|photo__capsule-button__inactive-pressed|T1-full-silhouette",
+     "apple-macos-27.0-1x-dark-standard-glass0.5|webgpu|photo__capsule-button__pressed|T1-full-silhouette",
+     "apple-macos-27.0-2x-dark-standard-glass0.5|webgpu|hc-text__rrect-lg__rest|T1-full-silhouette",
+     "apple-macos-27.0-2x-dark-standard-glass0.5|webgpu|hc-text__rrect-sm__inactive|T1-full-silhouette",
+     "apple-macos-27.0-2x-dark-standard-glass0.5|webgpu|hc-text__rrect-sm__rest|T1-full-silhouette",
+     "apple-macos-27.0-2x-dark-standard-glass0.5|webgpu|impulse__rrect-sm__rest|T1-full-silhouette",
+     "apple-macos-27.0-2x-dark-standard-glass0.5|webgpu|photo__capsule-button__inactive-pressed|T1-full-silhouette",
+     "apple-macos-27.0-2x-dark-standard-glass0.5|webgpu|photo__capsule-button__pressed|T1-full-silhouette"
+    ]
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/dark05-missing-baselines.json",
+    "sha256": "ad36bb9ae8251212fc7e2f6b13efc7b4cd2d7438ee415132a5bfa45df1ed9e74"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/build.py",
+   "sha256": "72740d7ab70d1e97e787b6750dc79ee0841d612f3027c9c15fab96dace708d61"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/instrument-root.json",
+   "sha256": "604041d23a250084757aa109ba2a1cdca80e5ab809a7bfd46a23d065728a6acc"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/instrument-root.json.sha256",
+   "sha256": "8bb32c35b48bc325cef8c39b6564ebfa5a7a09c528b95bdd3cf9766649cc525b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/execution-contract.json",
+   "sha256": "3def398c1a6440973dde7fc4a33fbcd234ecfe75d8e6536579262f95098cd820"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/execution-contract.json.sha256",
+   "sha256": "023d3ca5022b28a8b125177b8a19e33a205f66436af74f5ee75c3491f458fa61"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/read-batch.json",
+   "sha256": "14ea1c845206eaedf227f9b85ab2bff2ebbc4980e84c9da2f307cd8af77ca854"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/statistics.py",
+   "sha256": "242b91db8f7dc4b1a211a4fe98f6abad8edc5c04a50da201efac618ef42c7402"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/canonical.py",
+   "sha256": "88a1ee403d118d85124bc543ae6ab9060f0fa8324e47e1cd72b5d68ddf3d0508"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/evidence/archive.json",
+   "sha256": "7798098f1fbde14f5b20d159b3ddb5193ae8028754902384f237f33564c0d9ab"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/evidence/canonical-references.json.gz",
+   "sha256": "5022ef35b554050c8e9901d9fb15670c4effe3c5e996f06d35ea800324b17e1b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/archive.json",
+   "sha256": "521126e0692714a687807917fc6dada031cffc93884ff5cd1b24e0db6239f842"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+   "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+   "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+   "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-archive-and-root.json",
+   "sha256": "e05a8bea522dd8b84f0c5d2719eb2787e3b92cfcadb0586419412b441ed3e940"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-statistics-tests.log",
+   "sha256": "dfc451d60aa595d500db556b56fc9a1606a9709add7b55d9da536a955c684abd"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-canonical-tests.log",
+   "sha256": "8e8adf79b0416c0d45e74440993c25578cb1adbb2e5293bcac0b2add7c068b3b"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-completion-tests.log",
+   "sha256": "a463a8b9d8c94f7d13fd3647450f184f21df7e1c6464319e594c7882666450b4"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-composed_completion-tests.log",
+   "sha256": "d82c9d78d28c04bdb47263c8ff674b698faeb2cc3df52010ceb52ecea607c37d"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-run-tests.log",
+   "sha256": "cc6ad58d660e6cbe191ef3ce4481cd444fc189e8081c38ca127b08499f30912a"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/r2-run_composed-tests.log",
+   "sha256": "2d2e6d9c1763bf9d25ed2a38837d0cbfbd34dfc23520ab32af1131eeeaffdc4c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/dark05-t1-population.json",
+   "sha256": "6839814b56b70690604286fbaaf7ae09ae7ad740cac517ca9417b27a3abe3f38"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/logs/dark05Bands/dark05-missing-baselines.json",
+   "sha256": "ad36bb9ae8251212fc7e2f6b13efc7b4cd2d7438ee415132a5bfa45df1ed9e74"
+  }
+ ]
+}

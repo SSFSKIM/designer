@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/quarantine.py", line 51, in _capture_stream
+    try:return True,callback()
+                    ~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/dispatch.py", line 844, in work
+    measurement,config=roles['measurement'];measured=measurement.evaluate(ctx,captures,config);require_context(ctx)
+                                                     ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/measurement.py", line 32, in evaluate
+    return P.measure_phase(context, captures, config)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py", line 186, in measure_phase
+    value = Q.frozen_primary(original, reference, value,
+        measured.get('productionStatistic'), root['references'])
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/projection.py", line 245, in frozen_primary
+    raise ValueError('Frozen candidate needs its named source-owned first-image producer')
+ValueError: Frozen candidate needs its named source-owned first-image producer

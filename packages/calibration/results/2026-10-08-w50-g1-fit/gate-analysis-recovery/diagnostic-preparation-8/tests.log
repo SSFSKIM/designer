@@ -1,0 +1,43 @@
+...............................................Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 123, in once
+    proof = witness()
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/test_judge_pipeline.py", line 60, in witness
+    return W.compare(self.manifest, self.old, self.new, self.expected,
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     self.old_authority, state['binding'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 108, in compare
+    if before != after: raise ValueError('Non-authority witness mismatch')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Non-authority witness mismatch
+.......................Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 123, in once
+    proof = witness()
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/test_witness.py", line 54, in witness
+    return W.compare(self.manifest, self.old, self.new, self.keys, self.old_auth, self.new_auth)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 96, in compare
+    raise ValueError('Successor keyed population differs')
+ValueError: Successor keyed population differs
+..Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 123, in once
+    proof = witness()
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/test_witness.py", line 54, in witness
+    return W.compare(self.manifest, self.old, self.new, self.keys, self.old_auth, self.new_auth)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 108, in compare
+    if before != after: raise ValueError('Non-authority witness mismatch')
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Non-authority witness mismatch
+.Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 122, in once
+    measured = measure()
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/test_witness.py", line 110, in fault
+    def fault(): raise RuntimeError('synthetic numerical detail not public')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: synthetic numerical detail not public
+.
+----------------------------------------------------------------------
+Ran 74 tests in 3.253s
+
+OK

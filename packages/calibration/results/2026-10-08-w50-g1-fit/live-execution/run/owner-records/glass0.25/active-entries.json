@@ -1,0 +1,171 @@
+{
+  "endpointSha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+  "retainedMeasuredEntries": {
+    "backdropToneResponseThick": {
+      "status": "measured",
+      "value": [
+        0.031,
+        0.0414,
+        0.173,
+        0.196
+      ],
+      "previous": [
+        0.031,
+        0.035,
+        0.169,
+        0.196
+      ],
+      "method": [
+        "Light: solved with the thin row (above). Dark: least squares on the dark calibration thick",
+        "cells, its knot-2 step bounded by L1's growth clause on the dark checkerboard rrect-md cells",
+        "(Decision Log 7 item 3: only the thick row moves in dark)."
+      ]
+    },
+    "optics.regular.tintAlpha": {
+      "status": "measured",
+      "value": 0.7,
+      "previous": 0.9,
+      "previousAt05": 0.9,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark optics.regular.tintAlpha = 0.7)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark optics.regular.tintAlpha = 0.8)"
+      ]
+    },
+    "sizeScatterScaleGain": {
+      "status": "measured",
+      "value": -0.5,
+      "previous": -2,
+      "previousAt05": -2,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterScaleGain = -0.5)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterScaleGain = 0)"
+      ]
+    },
+    "sizeScatterSpanMax": {
+      "status": "measured",
+      "value": 160,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax = 160)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax = 160)"
+      ]
+    },
+    "sizeScatterSpanMax2x": {
+      "status": "measured",
+      "value": 160,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark sizeScatterSpanMax2x = 160)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark sizeScatterSpanMax2x = 160)"
+      ]
+    },
+    "tintAlphaFar1x": {
+      "status": "measured",
+      "value": 0.2,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar1x = 0.2)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar1x = 0.2)"
+      ]
+    },
+    "tintAlphaFar2x": {
+      "status": "measured",
+      "value": 0.2,
+      "previous": null,
+      "previousAt05": null,
+      "method": [
+        "W48 G1 re-freeze under part 2 50eccbe41e46 (W48 Decision Log 9 and its addendum): the selection over each stage's rendered points (fit/select_dl9.py, path/d0219/dl9-selection.json): inside the stage objective's tie, the fewest cells away beyond B over both scales, then the fewest past 3 B, then the hashed tie rule",
+        "stage 1: d-s1-ta0.7-s10-o0.05-fa0.34-fb1-n10.72-n20.46-g-0.5-m1160-m2160-t10.2-t20.2 (objective 0.2253 inside the tie 0.0365 of 0.2044; 16 away, 3 past 3 B): the span law's landed values and the rest scatter's scale gain -0.5 (active.dark tintAlphaFar2x = 0.2)",
+        "stage 2: d-s2-rta0.8-rq0.25-rw15-rw25-rs214-rfa0.5-rh10.25-re20.04-rk10.15-rk20.04-rn10.4-rn20.4-rg0 (objective 0.5046 inside the tie 0.0544 of 0.5022; 13 away, 2 past 3 B): W46 point A's receded scatter with the receded second heavy tap at share 0.25, widths 5 / 5 (receded.dark tintAlphaFar2x = 0.2)"
+      ]
+    }
+  },
+  "fittedEntries": {
+    "lowEndStrength": {
+      "status": "measured",
+      "value": 1,
+      "previous": 0,
+      "method": [
+        "lowEndStrength: the compact low-end chart's declared strength 1 (part 2 candidateDomain.strength)",
+        "W50 G1 analytical initializer (fit/execution.py initialize, fit/uniform.py fit_joint): initializer proposal digest 044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+        "part 2 sha256 bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85; pre-fit evidence packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.pre-fit-evidence.json sha256 c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3",
+        "native reports calibration packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz sha256 9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550; validation packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz sha256 6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e",
+        "observations sha256 0b7cf132664a85a3b750dde36ee667141fb66fc66acc18003a750f800b0ae587; fixed64 joins sha256 cc6cb836b731aeb7f604e63a757e5950d0b67d21f4d5810d51b247ac24ace981"
+      ]
+    },
+    "lowEnd44": {
+      "status": "measured",
+      "value": [
+        0.12549019607843137,
+        0.1568627450980392,
+        0.22941176474509803,
+        0.27058823529411763
+      ],
+      "previous": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "method": [
+        "lowEnd44: compact low-end chart row of the one W50 point (charter DL4), fitted within part 2 candidateDomain",
+        "W50 G1 analytical initializer (fit/execution.py initialize, fit/uniform.py fit_joint): initializer proposal digest 044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+        "part 2 sha256 bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85; pre-fit evidence packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.pre-fit-evidence.json sha256 c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3",
+        "native reports calibration packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz sha256 9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550; validation packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz sha256 6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e",
+        "observations sha256 0b7cf132664a85a3b750dde36ee667141fb66fc66acc18003a750f800b0ae587; fixed64 joins sha256 cc6cb836b731aeb7f604e63a757e5950d0b67d21f4d5810d51b247ac24ace981"
+      ]
+    },
+    "lowEnd96": {
+      "status": "measured",
+      "value": [
+        0.12549019607843137,
+        0.15294117647058825,
+        0.2235294117647059,
+        0.2627450980392157
+      ],
+      "previous": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "method": [
+        "lowEnd96: compact low-end chart row of the one W50 point (charter DL4), fitted within part 2 candidateDomain",
+        "W50 G1 analytical initializer (fit/execution.py initialize, fit/uniform.py fit_joint): initializer proposal digest 044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+        "part 2 sha256 bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85; pre-fit evidence packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.pre-fit-evidence.json sha256 c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3",
+        "native reports calibration packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz sha256 9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550; validation packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz sha256 6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e",
+        "observations sha256 0b7cf132664a85a3b750dde36ee667141fb66fc66acc18003a750f800b0ae587; fixed64 joins sha256 cc6cb836b731aeb7f604e63a757e5950d0b67d21f4d5810d51b247ac24ace981"
+      ]
+    },
+    "lowEnd160": {
+      "status": "measured",
+      "value": [
+        0.12549019607843137,
+        0.14745096436526642,
+        0.21176470588235294,
+        0.24705882352941178
+      ],
+      "previous": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "method": [
+        "lowEnd160: compact low-end chart row of the one W50 point (charter DL4), fitted within part 2 candidateDomain",
+        "W50 G1 analytical initializer (fit/execution.py initialize, fit/uniform.py fit_joint): initializer proposal digest 044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+        "part 2 sha256 bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85; pre-fit evidence packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.pre-fit-evidence.json sha256 c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3",
+        "native reports calibration packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz sha256 9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550; validation packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz sha256 6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e",
+        "observations sha256 0b7cf132664a85a3b750dde36ee667141fb66fc66acc18003a750f800b0ae587; fixed64 joins sha256 cc6cb836b731aeb7f604e63a757e5950d0b67d21f4d5810d51b247ac24ace981"
+      ]
+    }
+  }
+}

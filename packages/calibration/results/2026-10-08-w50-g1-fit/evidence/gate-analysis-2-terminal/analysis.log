@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/quarantine.py", line 51, in _capture_stream
+    try:return True,callback()
+                    ~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/run.py", line 288, in work
+    data, union = admit(root, view, old_contract, batch, live, core)
+                  ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/run.py", line 78, in admit
+    if authority.verify_prefit(A.ROOT, root) != old_contract['preFitEvidence']:
+       ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py", line 262, in verify_prefit
+    pinned=_verify_prefit(path,doc)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py", line 292, in _verify_prefit
+    prefit.validate_proof(D.load(D.checked(repo, evidence['evidence'][kind])), kind, repo)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/prefit.py", line 254, in validate_proof
+    pin_path(pin, repo)
+    ~~~~~~~~^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/prefit.py", line 45, in pin_path
+    raise ValueError(f'Changed or missing pinned input: {path}')
+ValueError: Changed or missing pinned input: /Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_phase_sources.py

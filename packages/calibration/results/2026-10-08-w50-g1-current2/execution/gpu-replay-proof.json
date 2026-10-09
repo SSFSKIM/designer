@@ -1,0 +1,574 @@
+{
+  "schema": "w50-current2-gpu-replay-proof-1",
+  "status": "BYTE_IDENTICAL",
+  "executionRootSha256": "b775ce5fe0bcd3571dd453074fe1ed354272305a3888c2f606574d6e106c6dc0",
+  "contractSha256": "4adac87abcb03a9611961e722a8b5ca65a6931b596f91b9007aa501f35888922",
+  "claimSha256": "9e35bfbd3237c43483d8d72f7fc8954c1b902f04b3763d555880b46ee94c2c14",
+  "replacementAttempt": {
+    "attempt": 2,
+    "priorRoot": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/execution/current-instrument-root.json",
+      "sha256": "9f7e413c7ae02125ef8932de4a66b4ca0759d936f1814ccef4d9e2851497dd2a"
+    },
+    "priorClaim": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/execution/current-instrument/d4601b8b2a2776893a6fc3de91b4d196cfc11e5989e0085785f40961abf1b196.json.started.json",
+      "sha256": "291b2abc32cb401741de4c3486725f4f6c81b044b2bdeea8c0cd5574ad4d5dec"
+    },
+    "priorFailure": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/evidence/current-attempt1/failure.json",
+      "sha256": "77e641acd0931988282f3803fb461ee4dcad01341802d3dc5b4bdb56714b1aa9"
+    },
+    "ruling": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-current2/inputs/dl5f-ruling.txt",
+      "sha256": "3c187a09ec1aae7a8146a1d3a647c2697fb300328e3896a814e5071e4c5d1898"
+    }
+  },
+  "cells": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-000-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s044__rest/cell-grey-000-s044__rest__webgpu.png",
+        "sha256": "485c259814216879148f1b0e1ce7bcc55488d14667072d5a13a544169ba313ed"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s044__rest/cell-grey-000-s044__rest__webgpu.png",
+        "sha256": "485c259814216879148f1b0e1ce7bcc55488d14667072d5a13a544169ba313ed"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-000-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s096__rest/cell-grey-000-s096__rest__webgpu.png",
+        "sha256": "6b1b2e7503c357e04b48681d176b094aab10fbe3df663b96fe9650a5aa804632"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s096__rest/cell-grey-000-s096__rest__webgpu.png",
+        "sha256": "6b1b2e7503c357e04b48681d176b094aab10fbe3df663b96fe9650a5aa804632"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-000-s128__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s128__rest/cell-grey-000-s128__rest__webgpu.png",
+        "sha256": "ccbf40ad0c889d78c19479bf93d31b2640a6e8a50222d4236f80c633ea16a214"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s128__rest/cell-grey-000-s128__rest__webgpu.png",
+        "sha256": "ccbf40ad0c889d78c19479bf93d31b2640a6e8a50222d4236f80c633ea16a214"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-000-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s160__rest/cell-grey-000-s160__rest__webgpu.png",
+        "sha256": "3475b7662f2a75f1851e62102271072ebe3e1dd624d729ccda080716e2fc7c85"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-000-s160__rest/cell-grey-000-s160__rest__webgpu.png",
+        "sha256": "3475b7662f2a75f1851e62102271072ebe3e1dd624d729ccda080716e2fc7c85"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-001-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-001-s044__rest/cell-grey-001-s044__rest__webgpu.png",
+        "sha256": "b6649ba7b43859bdf66bcfc050989d5cbaf4c53de99c8940633527961e8e85e6"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-001-s044__rest/cell-grey-001-s044__rest__webgpu.png",
+        "sha256": "b6649ba7b43859bdf66bcfc050989d5cbaf4c53de99c8940633527961e8e85e6"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-001-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-001-s096__rest/cell-grey-001-s096__rest__webgpu.png",
+        "sha256": "0edde47e33041d434c8e754b88dfa0bc903facec8aefef86722f9c5642905d7e"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-001-s096__rest/cell-grey-001-s096__rest__webgpu.png",
+        "sha256": "0edde47e33041d434c8e754b88dfa0bc903facec8aefef86722f9c5642905d7e"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-001-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-001-s160__rest/cell-grey-001-s160__rest__webgpu.png",
+        "sha256": "c5447414489521fee58f474d85abc8e3f615d8db0d150150c3bf1aab9656c8a6"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-001-s160__rest/cell-grey-001-s160__rest__webgpu.png",
+        "sha256": "c5447414489521fee58f474d85abc8e3f615d8db0d150150c3bf1aab9656c8a6"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-002-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-002-s044__rest/cell-grey-002-s044__rest__webgpu.png",
+        "sha256": "576199b79062bdb9c4a2c9e184d3a7521c9d16ab237461ebd14a85ba913a746f"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-002-s044__rest/cell-grey-002-s044__rest__webgpu.png",
+        "sha256": "576199b79062bdb9c4a2c9e184d3a7521c9d16ab237461ebd14a85ba913a746f"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-002-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-002-s096__rest/cell-grey-002-s096__rest__webgpu.png",
+        "sha256": "54bf69bc137daf8391ad7e93104e36f5f2e14ee5661e227266e4cc968696d0ae"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-002-s096__rest/cell-grey-002-s096__rest__webgpu.png",
+        "sha256": "54bf69bc137daf8391ad7e93104e36f5f2e14ee5661e227266e4cc968696d0ae"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-002-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-002-s160__rest/cell-grey-002-s160__rest__webgpu.png",
+        "sha256": "8c194ba29119a2cac6a3a7d0de2a7c23af7b4a2949a658f86a7d8d3baf482182"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-002-s160__rest/cell-grey-002-s160__rest__webgpu.png",
+        "sha256": "8c194ba29119a2cac6a3a7d0de2a7c23af7b4a2949a658f86a7d8d3baf482182"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-003-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-003-s044__rest/cell-grey-003-s044__rest__webgpu.png",
+        "sha256": "48ac1de12313d21f655099e0579154eb030912432e531c3cd8ea634b06182db0"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-003-s044__rest/cell-grey-003-s044__rest__webgpu.png",
+        "sha256": "48ac1de12313d21f655099e0579154eb030912432e531c3cd8ea634b06182db0"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-003-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-003-s096__rest/cell-grey-003-s096__rest__webgpu.png",
+        "sha256": "98b799076c9ac071ca111f13153f78bc68713e29f995f837f4be061a0440fde9"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-003-s096__rest/cell-grey-003-s096__rest__webgpu.png",
+        "sha256": "98b799076c9ac071ca111f13153f78bc68713e29f995f837f4be061a0440fde9"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-003-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-003-s160__rest/cell-grey-003-s160__rest__webgpu.png",
+        "sha256": "c770bbf40d875d36fb5f390123e11a11cd06e0ba581ae045d6f04dc19f7df957"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-003-s160__rest/cell-grey-003-s160__rest__webgpu.png",
+        "sha256": "c770bbf40d875d36fb5f390123e11a11cd06e0ba581ae045d6f04dc19f7df957"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-004-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s044__rest/cell-grey-004-s044__rest__webgpu.png",
+        "sha256": "0b32121d3b8c12ccf8ee8fae2d858bfb451de9447e93adb24cc5a4289f0a7383"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s044__rest/cell-grey-004-s044__rest__webgpu.png",
+        "sha256": "0b32121d3b8c12ccf8ee8fae2d858bfb451de9447e93adb24cc5a4289f0a7383"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-004-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+        "sha256": "71acd5a517a127cf77c1f086d1c7c78aa7944e5b3a9b947a1bd5285ad054e06c"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s096__rest/cell-grey-004-s096__rest__webgpu.png",
+        "sha256": "71acd5a517a127cf77c1f086d1c7c78aa7944e5b3a9b947a1bd5285ad054e06c"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-004-s128__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s128__rest/cell-grey-004-s128__rest__webgpu.png",
+        "sha256": "314afd7dc5cd36bc970b1e403cd7cd14957cd8fed9eb123621e07c58fb653dbf"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s128__rest/cell-grey-004-s128__rest__webgpu.png",
+        "sha256": "314afd7dc5cd36bc970b1e403cd7cd14957cd8fed9eb123621e07c58fb653dbf"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-004-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s160__rest/cell-grey-004-s160__rest__webgpu.png",
+        "sha256": "2dfb3300a6ee1249577f3f661998590f926d33708847179ab79d1ef48d4f91c4"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-004-s160__rest/cell-grey-004-s160__rest__webgpu.png",
+        "sha256": "2dfb3300a6ee1249577f3f661998590f926d33708847179ab79d1ef48d4f91c4"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-005-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-005-s044__rest/cell-grey-005-s044__rest__webgpu.png",
+        "sha256": "5cbb140bbccbb55a9b45f9c7ab079490959d31b811ca283467ba16108496618c"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-005-s044__rest/cell-grey-005-s044__rest__webgpu.png",
+        "sha256": "5cbb140bbccbb55a9b45f9c7ab079490959d31b811ca283467ba16108496618c"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-005-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-005-s096__rest/cell-grey-005-s096__rest__webgpu.png",
+        "sha256": "286183d71ed0c6a2ddf5ca93905d7c4f6201ca893dd82ac7677f6e062b20a894"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-005-s096__rest/cell-grey-005-s096__rest__webgpu.png",
+        "sha256": "286183d71ed0c6a2ddf5ca93905d7c4f6201ca893dd82ac7677f6e062b20a894"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-005-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-005-s160__rest/cell-grey-005-s160__rest__webgpu.png",
+        "sha256": "5cc0272a39e789c4a736434d4b160680f5ed5d61a977aa25e626ec923cf8cf9c"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-005-s160__rest/cell-grey-005-s160__rest__webgpu.png",
+        "sha256": "5cc0272a39e789c4a736434d4b160680f5ed5d61a977aa25e626ec923cf8cf9c"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-006-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-006-s044__rest/cell-grey-006-s044__rest__webgpu.png",
+        "sha256": "96bf4d150323628fe49a52700b9d623b981fac6296ee93bbd95a2844674bf7b7"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-006-s044__rest/cell-grey-006-s044__rest__webgpu.png",
+        "sha256": "96bf4d150323628fe49a52700b9d623b981fac6296ee93bbd95a2844674bf7b7"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-006-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-006-s096__rest/cell-grey-006-s096__rest__webgpu.png",
+        "sha256": "c599a66a722bc8f4d3af97fd7ffa8d5d2641c8ddab1c46a031e545a17f9cb2f0"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-006-s096__rest/cell-grey-006-s096__rest__webgpu.png",
+        "sha256": "c599a66a722bc8f4d3af97fd7ffa8d5d2641c8ddab1c46a031e545a17f9cb2f0"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-006-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-006-s160__rest/cell-grey-006-s160__rest__webgpu.png",
+        "sha256": "c9cd4375b6708f76049441d9b10afa41f3b0626c5a4cbbabe1254194b834a5c2"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-006-s160__rest/cell-grey-006-s160__rest__webgpu.png",
+        "sha256": "c9cd4375b6708f76049441d9b10afa41f3b0626c5a4cbbabe1254194b834a5c2"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-008-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-008-s044__rest/cell-grey-008-s044__rest__webgpu.png",
+        "sha256": "7d423b4508f626757a805fde70318ce0963d5ead5ce8c04f4d2a9baeea0a1005"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-008-s044__rest/cell-grey-008-s044__rest__webgpu.png",
+        "sha256": "7d423b4508f626757a805fde70318ce0963d5ead5ce8c04f4d2a9baeea0a1005"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-008-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-008-s096__rest/cell-grey-008-s096__rest__webgpu.png",
+        "sha256": "5001494d0611fa79820f8818dca8cfd88a30136d5dd7399754afa5a3ce48c43e"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-008-s096__rest/cell-grey-008-s096__rest__webgpu.png",
+        "sha256": "5001494d0611fa79820f8818dca8cfd88a30136d5dd7399754afa5a3ce48c43e"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-008-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-008-s160__rest/cell-grey-008-s160__rest__webgpu.png",
+        "sha256": "98799494ca4441b6b0174f58c538953120c1e5be3d9aeb1599e5e3be95c73a8b"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-008-s160__rest/cell-grey-008-s160__rest__webgpu.png",
+        "sha256": "98799494ca4441b6b0174f58c538953120c1e5be3d9aeb1599e5e3be95c73a8b"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-012-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-012-s044__rest/cell-grey-012-s044__rest__webgpu.png",
+        "sha256": "70004fcdc21d68df9b0b28ce68ddd17b7da495925f4a69e4a25631204f86c24f"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-012-s044__rest/cell-grey-012-s044__rest__webgpu.png",
+        "sha256": "70004fcdc21d68df9b0b28ce68ddd17b7da495925f4a69e4a25631204f86c24f"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-012-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-012-s096__rest/cell-grey-012-s096__rest__webgpu.png",
+        "sha256": "e2b214024d7536ee2acf06f94c9a10503eed1498eb4cea0f2ecd3421a046bf38"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-012-s096__rest/cell-grey-012-s096__rest__webgpu.png",
+        "sha256": "e2b214024d7536ee2acf06f94c9a10503eed1498eb4cea0f2ecd3421a046bf38"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-012-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-012-s160__rest/cell-grey-012-s160__rest__webgpu.png",
+        "sha256": "547c085024a1013836bf18cf936def3c8475a8e3cdd33d8a98dd5c5d89ac9525"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-012-s160__rest/cell-grey-012-s160__rest__webgpu.png",
+        "sha256": "547c085024a1013836bf18cf936def3c8475a8e3cdd33d8a98dd5c5d89ac9525"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-028-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s044__rest/cell-grey-028-s044__rest__webgpu.png",
+        "sha256": "9d8c1d38b88a1c25378bd8d1b72ee9030ee9e87f82c3cc621a2cab8fb0e1b34d"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s044__rest/cell-grey-028-s044__rest__webgpu.png",
+        "sha256": "9d8c1d38b88a1c25378bd8d1b72ee9030ee9e87f82c3cc621a2cab8fb0e1b34d"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-028-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s096__rest/cell-grey-028-s096__rest__webgpu.png",
+        "sha256": "2970812535700bc1fba8bf774a30962ba6b742a4d890d28a3af932a41d09603d"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s096__rest/cell-grey-028-s096__rest__webgpu.png",
+        "sha256": "2970812535700bc1fba8bf774a30962ba6b742a4d890d28a3af932a41d09603d"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-028-s128__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s128__rest/cell-grey-028-s128__rest__webgpu.png",
+        "sha256": "bded6d8f2d9866a947d58eb0f83342ce942095c7992618f64cb36f4f7fa8eb70"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s128__rest/cell-grey-028-s128__rest__webgpu.png",
+        "sha256": "bded6d8f2d9866a947d58eb0f83342ce942095c7992618f64cb36f4f7fa8eb70"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-028-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s160__rest/cell-grey-028-s160__rest__webgpu.png",
+        "sha256": "17cfb3f2853341c34923db603e3305dad4b4e1b7b3db9debd5b48093b7f4663d"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-028-s160__rest/cell-grey-028-s160__rest__webgpu.png",
+        "sha256": "17cfb3f2853341c34923db603e3305dad4b4e1b7b3db9debd5b48093b7f4663d"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-040-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-040-s044__rest/cell-grey-040-s044__rest__webgpu.png",
+        "sha256": "2fe8018b3afd817e3d0075b28d13281f3cf080ac9e20ef0727a25eee49ac28bb"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-040-s044__rest/cell-grey-040-s044__rest__webgpu.png",
+        "sha256": "2fe8018b3afd817e3d0075b28d13281f3cf080ac9e20ef0727a25eee49ac28bb"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-040-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-040-s096__rest/cell-grey-040-s096__rest__webgpu.png",
+        "sha256": "5acf0966276819034b00fe6198c31a31ae26d71d1cdede7ecc2ecc3c7d38ca3a"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-040-s096__rest/cell-grey-040-s096__rest__webgpu.png",
+        "sha256": "5acf0966276819034b00fe6198c31a31ae26d71d1cdede7ecc2ecc3c7d38ca3a"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-040-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-040-s160__rest/cell-grey-040-s160__rest__webgpu.png",
+        "sha256": "d6785efd42af3c15247b7053741970bb13d98da23128adfa26fa73883ca490b0"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-040-s160__rest/cell-grey-040-s160__rest__webgpu.png",
+        "sha256": "d6785efd42af3c15247b7053741970bb13d98da23128adfa26fa73883ca490b0"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-064-s044__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s044__rest/cell-grey-064-s044__rest__webgpu.png",
+        "sha256": "be4a2e200c1e51d292e681be20b1b601183881ea5f9fdfd5c5e64e2487fa524b"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s044__rest/cell-grey-064-s044__rest__webgpu.png",
+        "sha256": "be4a2e200c1e51d292e681be20b1b601183881ea5f9fdfd5c5e64e2487fa524b"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-064-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s096__rest/cell-grey-064-s096__rest__webgpu.png",
+        "sha256": "584b1e73e66270a715dd0fb4c93d70897866a46b792f61b7c8e139ff90187a5e"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s096__rest/cell-grey-064-s096__rest__webgpu.png",
+        "sha256": "584b1e73e66270a715dd0fb4c93d70897866a46b792f61b7c8e139ff90187a5e"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-064-s128__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s128__rest/cell-grey-064-s128__rest__webgpu.png",
+        "sha256": "60a3b51692305afc3ad0c76f3e6bb261a8c682c6d8d6ce3a4b9a966ab5723419"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s128__rest/cell-grey-064-s128__rest__webgpu.png",
+        "sha256": "60a3b51692305afc3ad0c76f3e6bb261a8c682c6d8d6ce3a4b9a966ab5723419"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-grey-064-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s160__rest/cell-grey-064-s160__rest__webgpu.png",
+        "sha256": "acf468e78978ae3ddcf229f7bab50fedf0641aa64f6cafaae715011c5059689e"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-grey-064-s160__rest/cell-grey-064-s160__rest__webgpu.png",
+        "sha256": "acf468e78978ae3ddcf229f7bab50fedf0641aa64f6cafaae715011c5059689e"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-impulse-sparse-s096__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-impulse-sparse-s096__rest/cell-impulse-sparse-s096__rest__webgpu.png",
+        "sha256": "9ab6e67d3e7537899c83bb2cff6644399a7509756918d46bc360908abbf40519"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-impulse-sparse-s096__rest/cell-impulse-sparse-s096__rest__webgpu.png",
+        "sha256": "9ab6e67d3e7537899c83bb2cff6644399a7509756918d46bc360908abbf40519"
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "scene": "cell-impulse-sparse-s160__rest",
+      "priorPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/current-512/captures/glass025-1x-active-webgpu/cell-impulse-sparse-s160__rest/cell-impulse-sparse-s160__rest__webgpu.png",
+        "sha256": "738197eddf30e8e42b5ea0ace6f68cbfb0c979c83adb43b9ca39a851155db61c"
+      },
+      "replacementPng": {
+        "path": "/Users/new/vitrea-w50/g1-baselines/attempt2-current-512/captures/glass025-1x-active-webgpu/cell-impulse-sparse-s160__rest/cell-impulse-sparse-s160__rest__webgpu.png",
+        "sha256": "738197eddf30e8e42b5ea0ace6f68cbfb0c979c83adb43b9ca39a851155db61c"
+      }
+    }
+  ]
+}

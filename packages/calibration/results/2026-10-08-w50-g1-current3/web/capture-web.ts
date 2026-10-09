@@ -1,0 +1,1089 @@
+/**
+ * The web-side capture driver for C7's calibration matrix.
+ *
+ * Runs the scene page in a real Chromium, captures the measured region at the
+ * native fixture's exact pixel size, and writes a PNG plus the X9 "web cell"
+ * descriptor that keys the result matrix.
+ *
+ * A script rather than a Playwright `test`, deliberately. A test reports
+ * pass/fail; this reports *what happened* — which tier drew, on which adapter,
+ * whether the two captures agreed — and every one of those outcomes is data the
+ * matrix needs to record even when it is the disappointing one. A capture run
+ * that skipped or failed instead of writing a labelled CSS-tier cell would leave
+ * the matrix with a hole where an honest number belongs.
+ *
+ * Three rules it exists to enforce:
+ *
+ * 1. **A real adapter, or a labelled fallback.** C6 measured that Playwright's
+ *    bundled headless shell hands back a *software* adapter while
+ *    `channel: "chromium"` — the full browser binary — hands back the real one,
+ *    so the launch recipe below is copied from `playwright.config.ts` unchanged.
+ *    Where no hardware adapter answers, the run does not pretend: it re-captures
+ *    on the CSS tier and the cell says `renderer: "css"` with `gpuAdapter`
+ *    carrying the reason. A GPU-tier claim measured on a CPU rasteriser is worse
+ *    than no claim.
+ *
+ * 2. **Determinism is measured, not assumed.** Every scene is captured twice
+ *    from two independent page loads — the stronger claim, since a repeated
+ *    screenshot of one loaded page only proves the compositor is idle. Byte
+ *    equality is reported as such; anything else is reported as the mean
+ *    absolute channel difference, so a noisy cell is visible in the matrix
+ *    rather than being averaged into a fidelity number.
+ *
+ * 3. **The cell describes what drew.** `renderer`, `samplingBackend` and the
+ *    adapter string are read off the page's own resolved `GlassGroupState`
+ *    (X2's honesty core), never off the URL that asked for them.
+ *
+ * Each scene writes three files into `web-captures/<sceneId>/`, suffixed by the
+ * tier that actually drew: the PNG, `cell__<tier>.json`, and
+ * `report__<tier>.json`. The cell is kept to exactly X9's fields so the matrix's
+ * key stays a key; the report carries everything explanatory — resolved state
+ * per group, the refraction ladder, diagnostics, whether the run fell back, and
+ * any condition that would make the capture misleading.
+ */
+
+import { retainPair } from "./pair.ts";
+import { mkdir, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
+import { basename, join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { chromium, type Browser, type BrowserContext } from "@playwright/test";
+import {
+  BACKDROP_LEVELS_ENV,
+  BACKDROP_MODE_ENV,
+  backdropProbeLabel,
+  backdropProbeRequested,
+  parseBackdropLevel,
+  probeCanonicalOutputRefusal,
+} from "../../../src/backdrop-probe.ts";
+import {
+  readMaterialProfileFile,
+  readRecededProfileFile,
+  recededProfileClause,
+} from "../../../scripts/material-profile-file.ts";
+import { readCandidateDocument, type CandidateDocument } from "../../../scripts/candidate-document.ts";
+import { withinTree } from "../../../src/matrix-write-guard.ts";
+import {
+  candidateMaterialLabel,
+  crossPositionClause,
+  documentPosition,
+  glassToken,
+  selectShippedDocument,
+  type CrossPositionSource,
+  type MaterialPosition,
+} from "../../../src/material-selection.ts";
+import { SHIPPED_MATERIAL_PROFILE_DOCUMENTS } from "@vitreajs/vitrea-web";
+import { PNG } from "pngjs";
+import { createServer, type ViteDevServer } from "vite";
+
+// Extension included so the file runs under node's own type stripping as well as
+// under `tsx`; the import is type-only, so both erase it entirely.
+import type { SceneReport } from "../../../web/scene.ts";
+
+/** Dawn needs these to reach the real backend. Copied from playwright.config.ts. */
+const GPU_ARGS = ["--enable-unsafe-webgpu", "--enable-features=Vulkan,WebGPU"];
+
+const HERE = fileURLToPath(new URL(".", import.meta.url));
+const PACKAGE_ROOT = resolve(HERE, "../../..");
+const REPO_ROOT = resolve(PACKAGE_ROOT, "../..");
+const VITE_CONFIG = resolve(PACKAGE_ROOT, "web/vite.config.ts");
+// `VITREA_SCENES` is the probe-bed override the whole pipeline honours (the
+// native harness, compare, the vite fixtures mount) — one convention.
+const SCENES_JSON =
+  process.env["VITREA_SCENES"] ?? resolve(REPO_ROOT, "apps/reference-apple/scenes.json");
+const DEFAULT_OUT = resolve(PACKAGE_ROOT, "web-captures");
+
+/**
+ * Mirrors `platform-web/e2e/support.ts`, on purpose and by name: measuring the
+ * software path is a legitimate thing to do deliberately and an illegitimate
+ * thing to do by accident.
+ */
+const ALLOW_FALLBACK_ADAPTER = process.env.VITREA_ALLOW_FALLBACK_ADAPTER === "1";
+
+const say = (line: string): void => void process.stdout.write(`${line}\n`);
+
+// ---------------------------------------------------------------------------
+// The X9 web cell
+// ---------------------------------------------------------------------------
+
+/**
+ * One cell of X9's result matrix: the web half of the `native profile × web cell`
+ * key. Every field is an observation, and the schema is deliberately narrow —
+ * anything explanatory lives in the sibling `report.json` so that adding context
+ * can never change the shape of a key.
+ */
+export interface WebCell {
+  readonly engine: "chromium";
+  readonly engineVersion: string;
+  /** What actually drew, read off the resolved group state. */
+  readonly renderer: "webgpu" | "css";
+  /** The resolved backend(s). Joined with `+` where a scene's groups differ. */
+  readonly samplingBackend: string;
+  /** `vendor/architecture` from the real adapter, or why there wasn't one. */
+  readonly gpuAdapter: string;
+  /** X5 locks v1 calibration to sRGB. */
+  readonly colorSpace: string;
+  /** How the PNG was taken, in enough detail to reproduce it. */
+  readonly capturePath: string;
+  readonly sceneId: string;
+  readonly pixelSize: readonly [number, number];
+  readonly deterministic: boolean;
+  /** Mean absolute channel difference between the two captures. 0 when identical. */
+  readonly repeatNoise: number;
+}
+
+// ---------------------------------------------------------------------------
+// Arguments
+// ---------------------------------------------------------------------------
+
+/**
+ * A material profile as the driver handles it: the file it came from, a short
+ * content hash, and the patch itself.
+ *
+ * The path alone would not identify the tunables — a fitting run rewrites the
+ * same file — so the hash travels with it and both land in the cell's
+ * `capturePath`. A capture whose optics cannot be reproduced from what the cell
+ * records is not a data point.
+ */
+interface MaterialProfileFile {
+  readonly path: string;
+  readonly sha256: string;
+  /**
+   * The document's own key, which is what tells the page which runtime material
+   * this patch is a difference from (W29 G4). `undefined` for a bare patch file,
+   * which is read over whatever the runtime resolves by itself.
+   */
+  readonly profileKey: string | undefined;
+  readonly patch: NonNullable<SceneReport["materialProfile"]>;
+  /**
+   * The CSS tier's half of the same document (corrective K5).
+   *
+   * One file carries both, deliberately. The two tiers render one material
+   * through two compositing pipelines, so a configuration is only fully named
+   * when it names the renderer's optics *and* what the crossing to
+   * `backdrop-filter` costs — and a cell's `capturePath` records one hash over
+   * one artefact either way. Two flags would have let a dom-tier run cite a
+   * renderer profile while silently applying the shipped mapping.
+   */
+  readonly cssTierMapping: NonNullable<SceneReport["cssTierMapping"]> | undefined;
+}
+
+/**
+ * The accessibility flags a capture may be rendered under (`--accessibility`).
+ *
+ * Named in the kebab-case of the media queries and of the native profile keys,
+ * so `--accessibility increased-contrast` reads the same as the profile it is
+ * capturing for. `reduced-motion` is accepted for completeness even though the
+ * still scenes carry no motion, because leaving it out would make the flag set
+ * a subset of the runtime's without saying why.
+ */
+const ACCESSIBILITY_FLAGS = {
+  "reduced-transparency": "reducedTransparency",
+  "increased-contrast": "increasedContrast",
+  "reduced-motion": "reducedMotion",
+} as const;
+
+type AccessibilityFlagName = keyof typeof ACCESSIBILITY_FLAGS;
+
+/** `AccessibilityOverrides` as the page receives it: every overridable flag stated. */
+type AccessibilityRequest = Readonly<
+  Record<(typeof ACCESSIBILITY_FLAGS)[AccessibilityFlagName], boolean>
+>;
+
+/**
+ * Parse `--accessibility a,b` into a fully-stated override set.
+ *
+ * Every overridable flag is stated, including the ones not named — an override
+ * set that left them to `"system"` would make the capture depend on whatever the
+ * browser's media queries answer, which for `prefers-reduced-transparency` is
+ * "not queryable at all" on Chromium. The whole reason the native side has
+ * accessibility *profiles* is that this state is not something to leave implicit.
+ *
+ * The empty string is refused rather than read as "none": passing the flag is a
+ * statement about the render, and a statement of nothing is a typo.
+ */
+function parseAccessibility(raw: string): AccessibilityRequest {
+  const names = raw.split(",").map((part) => part.trim()).filter(Boolean);
+  if (names.length === 0) {
+    throw new Error(
+      `--accessibility needs at least one of: ${Object.keys(ACCESSIBILITY_FLAGS).join(", ")}. ` +
+        "Omit the flag entirely for the browser's own preferences.",
+    );
+  }
+  const request: Record<string, boolean> = {
+    reducedTransparency: false,
+    increasedContrast: false,
+    reducedMotion: false,
+  };
+  for (const name of names) {
+    const key = ACCESSIBILITY_FLAGS[name as AccessibilityFlagName];
+    if (key === undefined) {
+      throw new Error(
+        `--accessibility does not know "${name}"; it takes ` +
+          `${Object.keys(ACCESSIBILITY_FLAGS).join(", ")}.`,
+      );
+    }
+    request[key] = true;
+  }
+  return request as AccessibilityRequest;
+}
+
+/** How the cell names the accessibility state a capture ran under. Never omitted. */
+function accessibilityLabel(request: AccessibilityRequest | undefined): string {
+  if (request === undefined) return "accessibility=browser-preferences";
+  const on = Object.entries(request)
+    .filter(([, value]) => value)
+    .map(([key]) => key);
+  return `accessibility=${on.join("+")} (others explicitly off)`;
+}
+
+interface Options {
+  readonly sceneIds: readonly string[];
+  readonly renderer: "css" | "webgpu";
+  readonly scale: number;
+  readonly frames: number;
+  readonly colorScheme: "light" | "dark";
+  readonly accessibility: AccessibilityRequest | undefined;
+  readonly outDir: string;
+  readonly materialProfile: MaterialProfileFile | undefined;
+  /**
+   * A CANDIDATE receded document to pose the inactive scenes of this run with
+   * (W29 G3b, Decision Log 6 (d)).
+   *
+   * It applies to `__inactive` scenes and to nothing else — the page's own
+   * branch decides that, not this driver — so one run may name both a scene of
+   * each pose and each gets the material its pose declares. Absent means the
+   * shipped recede through the runtime pose, which is what every row published
+   * before this flag existed was captured with.
+   */
+  readonly recededProfile: MaterialProfileFile | undefined;
+  /**
+   * Candidate mode (W43 G0 (f)): a complete declared document the page builds its root from,
+   * in place of a shipped document selected by the key with a patch injected over it. It
+   * excludes both flags above, because a candidate that borrowed either half from elsewhere
+   * would be the borrowed material under the candidate's name.
+   */
+  readonly candidateDocument: CandidateDocument | undefined;
+  /**
+   * A declared cross-position reading (`--cross-position <glass|none>`, W43 G0 (f)): the
+   * material, a candidate or the shipped document a keyed `--material-profile` selects, read
+   * against fixtures at another glass position. `compare` passes the fixtures' position only
+   * under its own `--cross-position`; every output then carries the stamp, and the run is
+   * refused into the canonical capture tree.
+   */
+  readonly crossPosition: {
+    readonly source: CrossPositionSource;
+    readonly materialGlass: number | undefined;
+    readonly againstGlass: string;
+  } | undefined;
+  /**
+   * Also take the declaration-conformance capture (W20 G0, claims §5.83): the
+   * same scene on the same resolved tier with the page ground transparent and
+   * the backdrop raster hidden, written as `<scene>__<tier>__alpha.png`.
+   *
+   * A second capture rather than a second reading of the first, because the
+   * quantity does not exist in the first: over an opaque backdrop the only way
+   * to find the material's footprint is to difference against that backdrop,
+   * and the shape axis bounds that difference to the declared region precisely
+   * so the reference's shadow stays out of it. What the tier itself covered is
+   * in its own alpha and nowhere else.
+   */
+  readonly alpha: boolean;
+}
+
+interface SceneMatrix {
+  readonly canvas: { readonly width: number; readonly height: number };
+  readonly scenes: readonly { readonly id: string }[];
+}
+
+function parseOptions(argv: readonly string[], matrix: SceneMatrix): Options {
+  const ids: string[] = [];
+  let renderer: "css" | "webgpu" = "webgpu";
+  let scale = 1;
+  let frames = 8;
+  let colorScheme: "light" | "dark" = "light";
+  let accessibility: AccessibilityRequest | undefined;
+  let outDir = DEFAULT_OUT;
+  let materialProfile: MaterialProfileFile | undefined;
+  let recededProfile: MaterialProfileFile | undefined;
+  let candidateDocument: CandidateDocument | undefined;
+  let againstGlass: string | undefined;
+  let alpha = false;
+  let all = false;
+
+  const next = (index: number, flag: string): string => {
+    const value = argv[index + 1];
+    if (value === undefined) throw new Error(`${flag} needs a value`);
+    return value;
+  };
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const argument = argv[index] as string;
+    switch (argument) {
+      case "--all":
+        all = true;
+        break;
+      case "--alpha":
+        alpha = true;
+        break;
+      case "--renderer": {
+        const value = next(index, argument);
+        if (value !== "css" && value !== "webgpu") {
+          throw new Error(`--renderer takes css or webgpu, not "${value}"`);
+        }
+        renderer = value;
+        index += 1;
+        break;
+      }
+      case "--scale":
+        scale = Number.parseFloat(next(index, argument));
+        index += 1;
+        break;
+      case "--frames":
+        frames = Number.parseInt(next(index, argument), 10);
+        index += 1;
+        break;
+      case "--color-scheme": {
+        const value = next(index, argument);
+        if (value !== "light" && value !== "dark") {
+          throw new Error(`--color-scheme takes light or dark, not "${value}"`);
+        }
+        colorScheme = value;
+        index += 1;
+        break;
+      }
+      case "--accessibility":
+        accessibility = parseAccessibility(next(index, argument));
+        index += 1;
+        break;
+      case "--out":
+        outDir = resolve(process.cwd(), next(index, argument));
+        index += 1;
+        break;
+      case "--material-profile":
+        materialProfile = readMaterialProfile(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
+      case "--receded-profile":
+        recededProfile = readRecededProfile(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
+      case "--candidate-document":
+        candidateDocument = readCandidateDocument(resolve(process.cwd(), next(index, argument)));
+        index += 1;
+        break;
+      case "--cross-position":
+        againstGlass = next(index, argument);
+        index += 1;
+        break;
+      default:
+        if (argument.startsWith("--")) throw new Error(`unknown flag ${argument}`);
+        ids.push(argument);
+    }
+  }
+
+  if (candidateDocument !== undefined &&
+    (materialProfile !== undefined || recededProfile !== undefined)) {
+    throw new Error(
+      "--candidate-document is a complete material and takes no --material-profile or " +
+        "--receded-profile beside it: the page builds the root from the candidate alone, never " +
+        "from a shipped document with a patch injected over it (W43 G0 (f)).",
+    );
+  }
+  let crossPosition: Options["crossPosition"];
+  if (againstGlass !== undefined) {
+    const key = materialProfile?.profileKey;
+    if (candidateDocument === undefined && key === undefined) {
+      throw new Error("--cross-position stamps a material read at another glass position, and this " +
+        "run names neither a --candidate-document nor a keyed --material-profile (W43 G0 (f)).");
+    }
+    crossPosition = candidateDocument !== undefined
+      ? { source: "candidate", materialGlass: candidateDocument.document.glassTintAmount, againstGlass }
+      : {
+          source: "shipped",
+          materialGlass: (documentPosition(
+            selectShippedDocument(key!, SHIPPED_MATERIAL_PROFILE_DOCUMENTS)) as MaterialPosition).glass,
+          againstGlass,
+        };
+    if (againstGlass === glassToken(crossPosition.materialGlass)) {
+      throw new Error(`--cross-position ${againstGlass} is the material's own glass position, so ` +
+        "the stamp would be false (W43 G0 (f)).");
+    }
+    if (withinTree(outDir, DEFAULT_OUT)) {
+      throw new Error(`--cross-position would write into the canonical capture tree ${DEFAULT_OUT}; ` +
+        "pass --out <scratch directory> (W43 G0 (f)).");
+    }
+  }
+  // A candidate's pixels stay out of the canonical capture tree, which `check-capture-tree`
+  // reads against the published rows and the sheets are copied from.
+  if (candidateDocument !== undefined) {
+    if (withinTree(outDir, DEFAULT_OUT)) {
+      throw new Error(
+        `--candidate-document would write into the canonical capture tree ${DEFAULT_OUT}; ` +
+          "pass --out <scratch directory> (W43 G0 (f)).",
+      );
+    }
+  }
+
+  const declared = matrix.scenes.map((scene) => scene.id);
+  const sceneIds = all ? declared : ids;
+  if (sceneIds.length === 0) {
+    throw new Error(
+      "Name at least one scene, or pass --all.\n" +
+        `The matrix declares:\n  ${declared.join("\n  ")}`,
+    );
+  }
+  const unknown = sceneIds.filter((id) => !declared.includes(id));
+  if (unknown.length > 0) {
+    throw new Error(`These are not in the scene matrix: ${unknown.join(", ")}`);
+  }
+
+  // `cli/compare.ts` refuses the same destination, but it is not the only door:
+  // this script is a command of its own (`capture:web`), and run directly with a
+  // probe environment inherited from the shell it would drop probe PNGs into the
+  // canonical capture directory. Its default output is the whole risk.
+  const refusal = probeCanonicalOutputRefusal(backdropProbeRequested(process.env), [
+    { what: "capture directory", path: resolve(outDir), canonical: DEFAULT_OUT, tree: true },
+  ]);
+  if (refusal !== undefined) throw new Error(`${refusal} Pass --out <scratch directory>.`);
+
+  return {
+    sceneIds,
+    renderer,
+    scale,
+    frames,
+    colorScheme,
+    accessibility,
+    outDir,
+    materialProfile,
+    recededProfile,
+    candidateDocument,
+    crossPosition,
+    alpha,
+  };
+}
+
+/**
+ * Read a profile document off disk, typed as the driver handles it.
+ *
+ * The guard that decides which keys a document may name, and the reading of the
+ * file itself, live in `material-profile-file.ts` — Node code with no DOM, so
+ * the unit suite can pin the key sets without importing this driver and its
+ * browser. What stays here is the typing: the sections come back as plain
+ * records, and only the driver knows they are a `MaterialProfilePatch` and a
+ * `CssTierMapping`.
+ */
+function readMaterialProfile(path: string): MaterialProfileFile {
+  const sections = readMaterialProfileFile(path);
+  return {
+    path: sections.path,
+    sha256: sections.sha256,
+    profileKey: sections.profileKey,
+    patch: sections.patch as MaterialProfileFile["patch"],
+    cssTierMapping: sections.cssTierMapping as MaterialProfileFile["cssTierMapping"],
+  };
+}
+
+/**
+ * The same for a candidate receded document, typed the same way. The refusals
+ * that make it a RECEDED document rather than a material one are in the shared
+ * module, where the unit suite can reach them without this driver's browser.
+ */
+function readRecededProfile(path: string): MaterialProfileFile {
+  const sections = readRecededProfileFile(path);
+  return {
+    path: sections.path,
+    sha256: sections.sha256,
+    profileKey: sections.profileKey,
+    patch: sections.patch as MaterialProfileFile["patch"],
+    cssTierMapping: undefined,
+  };
+}
+
+/**
+ * How the cell names a candidate document: the stamp, in place of the `materialProfile=`
+ * clause, so a candidate capture can never carry a shipped capture's key.
+ */
+function candidateLabel(candidate: CandidateDocument): string {
+  const shown = relative(REPO_ROOT, candidate.declarationPath);
+  return candidateMaterialLabel({
+    declaration: shown.startsWith("..") ? candidate.declarationPath : shown,
+    sha256: candidate.declarationSha256,
+    name: candidate.document.name,
+    glassTintAmount: candidate.document.glassTintAmount,
+  });
+}
+
+/** How the cell names the tunables a capture ran on. Never omitted. */
+function materialProfileLabel(profile: MaterialProfileFile | undefined): string {
+  if (profile === undefined) return "materialProfile=renderer defaults";
+  const shown = relative(REPO_ROOT, profile.path);
+  const sections = [
+    Object.keys(profile.patch).length > 0 ? "renderer" : undefined,
+    profile.cssTierMapping === undefined ? undefined : "cssTierMapping",
+  ].filter((section): section is string => section !== undefined);
+  return (
+    `materialProfile=${shown.startsWith("..") ? profile.path : shown} ` +
+    `sha256:${profile.sha256} sections=${sections.join("+")}`
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Capture
+// ---------------------------------------------------------------------------
+
+interface Capture {
+  readonly png: Buffer;
+  readonly report: SceneReport;
+}
+
+/**
+ * One capture, from a fresh page.
+ *
+ * The readiness wait is on the page's own signal — the raster decoded, the tier
+ * resolved, the frames presented — and never on an interval. A timed wait would
+ * sample whatever had happened by then, which for a GPU tier that resolves
+ * asynchronously is a coin flip between glass and an empty canvas.
+ */
+async function capture(
+  context: BrowserContext,
+  baseUrl: string,
+  sceneId: string,
+  renderer: "css" | "webgpu",
+  frames: number,
+  scale: number,
+  transparent = false,
+): Promise<Capture> {
+  const page = await context.newPage();
+  try {
+    // Probe-only route/tone axes travel through compare's inherited environment.
+    // Keep each run in its own scratch capture directory and matrix: these are
+    // not new canonical scene identities. What the page does with them comes back
+    // in its report, and it is the report — not this environment — that names the
+    // axes in the cell.
+    const backdrop = process.env[BACKDROP_MODE_ENV];
+    const levelsPath = process.env[BACKDROP_LEVELS_ENV];
+    const levels = levelsPath === undefined ? undefined :
+      JSON.parse(readFileSync(levelsPath, "utf8")) as Record<string, unknown>;
+    const level = levels === undefined ? null : parseBackdropLevel(
+      levels[sceneId] === undefined ? undefined : String(levels[sceneId]),
+    );
+    if (levels !== undefined && level === null) {
+      throw new Error(`Missing or invalid measured backdrop level for ${sceneId}`);
+    }
+    const query = new URLSearchParams({
+      ...(backdrop === undefined ? {} : { backdrop }),
+      ...(level === null ? {} : { "backdrop-level": String(level) }),
+      scene: sceneId,
+      renderer,
+      scale: `${scale}`,
+      frames: `${frames}`,
+      ...(transparent ? { transparent: "1" } : {}),
+    });
+    await page.goto(`${baseUrl}/index.html?${query.toString()}`);
+    // `attached`, not the default `visible`: everything the page draws is in a
+    // fixed-position stage, so `<html>` has no layout box of its own and the
+    // visibility heuristic would time out on a page that is fully rendered.
+    await page.waitForSelector("html[data-scene-ready='1'], html[data-scene-error]", {
+      state: "attached",
+    });
+
+    const failure = await page.getAttribute("html", "data-scene-error");
+    if (failure !== null) throw new Error(`the scene page failed to build: ${failure}`);
+
+    const report = (await page.evaluate(
+      () => window.__vitreaCalibration.report,
+    )) as SceneReport;
+
+    // The measured region only — not the viewport — so the PNG's frame is the
+    // scene canvas by construction rather than by the viewport happening to
+    // match it.
+    // `omitBackground` only on the transparent pass: it is what lets the alpha
+    // channel survive the screenshot instead of being composited onto white.
+    const png = await page
+      .locator("#stage")
+      .screenshot({ animations: "disabled", ...(transparent ? { omitBackground: true } : {}) });
+    return { png, report };
+  } finally {
+    await page.close();
+  }
+}
+
+/** Mean absolute channel difference over RGBA. `undefined` when incomparable. */
+function meanAbsoluteDifference(a: Buffer, b: Buffer): number | undefined {
+  const left = PNG.sync.read(a);
+  const right = PNG.sync.read(b);
+  if (left.width !== right.width || left.height !== right.height) return undefined;
+
+  let total = 0;
+  for (let index = 0; index < left.data.length; index += 1) {
+    total += Math.abs((left.data[index] as number) - (right.data[index] as number));
+  }
+  return total / left.data.length;
+}
+
+function adapterString(report: SceneReport): string {
+  const { adapter } = report;
+  if (!adapter.ok) return `unavailable: ${adapter.why ?? "unknown"}`;
+  const identity = [adapter.vendor, adapter.architecture].filter(Boolean).join("/") || "unnamed";
+  const detail = adapter.description ?? adapter.device;
+  const named = detail === undefined || detail === "" ? identity : `${identity} (${detail})`;
+  // The cell records the measured verdict, including "not measurable" — an
+  // unlabelled identity here would read as a hardware capture.
+  if (adapter.isFallback === true) return `software-fallback: ${named}`;
+  if (adapter.isFallback === undefined) return `unverified-class: ${named}`;
+  return named;
+}
+
+/**
+ * Why a webgpu request cannot honestly be captured as a GPU-tier cell here.
+ *
+ * Returns `undefined` when it can. An absent adapter counts, a software one
+ * counts — it answers every question plausibly and none of them about whether
+ * real glass renders on real hardware — and so does one whose class could not be
+ * read, because a cell captured against an unidentified rasteriser is a fidelity
+ * claim about nothing in particular.
+ */
+function gpuTierRefusal(report: SceneReport): string | undefined {
+  if (!report.adapter.ok) {
+    return `no WebGPU adapter (${report.adapter.why ?? "unknown"})`;
+  }
+  if (report.adapter.isFallback !== false && !ALLOW_FALLBACK_ADAPTER) {
+    const what =
+      report.adapter.isFallback === true
+        ? "the adapter is a software fallback"
+        : "the adapter's class could not be read";
+    return (
+      `${what} (${adapterString(report)}); ` +
+      "set VITREA_ALLOW_FALLBACK_ADAPTER=1 to measure the software path deliberately"
+    );
+  }
+  const demoted = report.groups.filter((group) => group.state?.activeRenderer !== "webgpu");
+  if (demoted.length > 0) {
+    const named = demoted
+      .map(
+        (group) =>
+          `${group.id} → ${group.state?.activeRenderer ?? "nothing"}` +
+          (group.state?.demotionReason === undefined ? "" : ` (${group.state.demotionReason})`),
+      )
+      .join(", ");
+    return `the runtime resolved the CSS tier anyway: ${named}`;
+  }
+  return undefined;
+}
+
+// ---------------------------------------------------------------------------
+// The run
+// ---------------------------------------------------------------------------
+
+interface SceneOutcome {
+  readonly sceneId: string;
+  readonly cell: WebCell;
+  readonly fallback: { readonly from: string; readonly to: string; readonly why: string } | undefined;
+  readonly problems: readonly string[];
+}
+
+async function captureScene(
+  context: BrowserContext,
+  browser: Browser,
+  baseUrl: string,
+  sceneId: string,
+  options: Options,
+): Promise<SceneOutcome> {
+  let renderer = options.renderer;
+  let first = await capture(context, baseUrl, sceneId, renderer, options.frames, options.scale);
+  let fallback: SceneOutcome["fallback"];
+
+  if (renderer === "webgpu") {
+    const refusal = gpuTierRefusal(first.report);
+    if (refusal !== undefined) {
+      // Recorded, and re-captured rather than relabelled: a root that asked for
+      // WebGPU and was demoted carries a `demoted` health that a CSS-by-choice
+      // root does not, and a cell should describe an ordinary CSS-tier render.
+      fallback = { from: "webgpu", to: "css", why: refusal };
+      renderer = "css";
+      first = await capture(context, baseUrl, sceneId, renderer, options.frames, options.scale);
+    }
+  }
+
+  const second = await capture(context, baseUrl, sceneId, renderer, options.frames, options.scale);
+
+  const identical = first.png.equals(second.png);
+  const difference = identical ? 0 : meanAbsoluteDifference(first.png, second.png);
+  await retainPair(join(options.outDir, sceneId), sceneId, renderer, first, second, identical, difference ?? null);
+  if (difference === undefined) {
+    throw new Error(
+      `The two captures of "${sceneId}" have different dimensions, which is a bug in the ` +
+        "capture path rather than noise.",
+    );
+  }
+
+  const decoded = PNG.sync.read(first.png);
+  const expected = first.report.pixelSize;
+  const problems = [...first.report.problems];
+  if (decoded.width !== expected[0] || decoded.height !== expected[1]) {
+    problems.push(
+      `The capture is ${decoded.width}×${decoded.height} px but the scene canvas at scale ` +
+        `${options.scale} is ${expected[0]}×${expected[1]}. It cannot be diffed against the ` +
+        "native fixture without a resample, which would blur the edges being measured.",
+    );
+  }
+
+  const activeRenderers = new Set(
+    first.report.groups.map((group) => group.state?.activeRenderer ?? "none"),
+  );
+  const backends = [
+    ...new Set(first.report.groups.map((group) => group.state?.samplingBackend ?? "none")),
+  ];
+
+  const cell: WebCell = {
+    engine: "chromium",
+    engineVersion: browser.version(),
+    // Read off the resolved state, never off the request. A scene whose groups
+    // resolved to different renderers would be a contradiction rather than a
+    // cell, so it is named as one instead of being silently collapsed.
+    renderer:
+      activeRenderers.size === 1 && activeRenderers.has("webgpu") ? "webgpu" : "css",
+    samplingBackend: backends.join("+"),
+    gpuAdapter: adapterString(first.report),
+    colorSpace: first.report.canvasColorSpace,
+    capturePath:
+      `playwright ${browser.version()} element screenshot of #stage, ` +
+      `channel=chromium ${GPU_ARGS.join(" ")}, ` +
+      `viewport=${first.report.canvas.width}x${first.report.canvas.height} ` +
+      `deviceScaleFactor=${options.scale}, colorScheme=${options.colorScheme}, ` +
+      `animations=disabled, frames=${first.report.frames}, ` +
+      `${accessibilityLabel(options.accessibility)}, ` +
+      (options.candidateDocument === undefined
+        ? materialProfileLabel(options.materialProfile)
+        : candidateLabel(options.candidateDocument)) +
+      (options.crossPosition === undefined
+        ? ""
+        : crossPositionClause(options.crossPosition.source, options.crossPosition.materialGlass,
+            options.crossPosition.againstGlass)) +
+      // Empty when no candidate receded document was injected, so every key
+      // published before this flag existed is unchanged to the byte, and
+      // non-empty otherwise — which is what makes a receded row say which
+      // endpoint drew it. The tracker's "the inactive pose and the receded
+      // document are not in the cell key" is closed for the candidate path by
+      // this clause and stays open for the runtime-posed one.
+      recededProfileClause(options.recededProfile, REPO_ROOT) +
+      // From what the page reported it was asked for, not from this process's
+      // environment — the same rule the renderer and the adapter follow. Empty
+      // for the canonical texture-sampled, unhinted request, so a shipped cell's
+      // key is unchanged.
+      backdropProbeLabel(first.report.requestedBackdropMode, first.report.requestedBackdropLevel),
+    sceneId,
+    pixelSize: [decoded.width, decoded.height],
+    deterministic: identical,
+    repeatNoise: difference,
+  };
+
+  /*
+   * The accessibility counterpart of the renderer check above: a capture filed
+   * under an accessibility profile whose policy did not actually resolve is
+   * indistinguishable, in the pixels, from a standard-profile capture — and it
+   * would be measured against a native fixture taken with the OS toggle on. So
+   * the request is checked against the page's own resolved policy rather than
+   * assumed to have landed.
+   */
+  if (options.accessibility !== undefined) {
+    const resolved = first.report.accessibilityPolicy;
+    const disagreements = (
+      ["reducedTransparency", "increasedContrast", "reducedMotion"] as const
+    ).filter((flag) => resolved[flag] !== options.accessibility?.[flag]);
+    if (disagreements.length > 0) {
+      problems.push(
+        `The accessibility overrides did not resolve: ${disagreements
+          .map((flag) => `${flag} asked ${String(options.accessibility?.[flag])} got ${String(resolved[flag])}`)
+          .join(", ")}. The capture is not the accessibility state it is filed under.`,
+      );
+    }
+  }
+
+  if (activeRenderers.size > 1) {
+    problems.push(
+      `The scene's groups resolved to different renderers (${[...activeRenderers].join(", ")}), ` +
+        "so one cell cannot describe it. The cell reports css, which is the weaker claim.",
+    );
+  }
+
+  /*
+   * Tier-suffixed, inside the scene's own directory.
+   *
+   * X9 states claims per tier — the texture tier and the dom tier are calibrated
+   * and reported separately — so one scene legitimately has two cells, and they
+   * have to be able to sit side by side. A single `cell.json` would mean a CSS
+   * run silently overwriting a GPU-tier capture, which is the one class of loss
+   * a calibration harness may not have.
+   */
+  const directory = join(options.outDir, sceneId);
+  await mkdir(directory, { recursive: true });
+  // The first and second PNGs were already retained exclusively by retainPair.
+
+  /*
+   * The declaration-conformance capture, on the tier that actually drew.
+   *
+   * `renderer` rather than `options.renderer`: a run that asked for the GPU tier
+   * and was demoted has already re-captured on the CSS tier above, and an alpha
+   * image filed beside a CSS-tier cell must be the CSS tier's. The resolved
+   * renderer is re-read off this capture's own report for the same reason the
+   * cell is, and a disagreement is a problem rather than a silent relabel: an
+   * alpha image from the other tier would move the conformance rows without
+   * anything in the matrix saying so.
+   */
+  if (options.alpha) {
+    const transparent = await capture(
+      context,
+      baseUrl,
+      sceneId,
+      renderer,
+      options.frames,
+      options.scale,
+      true,
+    );
+    const drew = new Set(
+      transparent.report.groups.map((group) => group.state?.activeRenderer ?? "none"),
+    );
+    const drewTier = drew.size === 1 && drew.has("webgpu") ? "webgpu" : "css";
+    if (drewTier !== cell.renderer) {
+      problems.push(
+        `The declaration-conformance capture resolved the ${drewTier} tier where the composite ` +
+          `capture resolved ${cell.renderer}. The two describe different renderers, so the alpha ` +
+          "image cannot be read as this cell's drawn silhouette.",
+      );
+    }
+    if (!transparent.report.transparentPage) {
+      problems.push(
+        "The declaration-conformance capture reports transparentPage false, so the page ground " +
+          "was opaque and its alpha is the ground's rather than the tier's.",
+      );
+    }
+    await writeFile(join(directory, `${sceneId}__${cell.renderer}__alpha.png`), transparent.png);
+  }
+  await writeFile(
+    join(directory, `cell__${cell.renderer}.json`),
+    `${JSON.stringify(cell, undefined, 2)}\n`,
+  );
+  await writeFile(
+    join(directory, `report__${cell.renderer}.json`),
+    `${JSON.stringify(
+      {
+        capturedAt: new Date().toISOString(),
+        requestedRenderer: options.renderer,
+        colorScheme: options.colorScheme,
+        accessibility: options.accessibility ?? null,
+        materialProfile:
+          options.materialProfile === undefined
+            ? null
+            : {
+                path: options.materialProfile.path,
+                sha256: options.materialProfile.sha256,
+                patch: options.materialProfile.patch,
+                cssTierMapping: options.materialProfile.cssTierMapping ?? null,
+              },
+        recededProfile:
+          options.recededProfile === undefined
+            ? null
+            : {
+                path: options.recededProfile.path,
+                sha256: options.recededProfile.sha256,
+                patch: options.recededProfile.patch,
+              },
+        candidateDocument:
+          options.candidateDocument === undefined
+            ? null
+            : {
+                declarationPath: options.candidateDocument.declarationPath,
+                declarationSha256: options.candidateDocument.declarationSha256,
+                endpoints: options.candidateDocument.endpoints,
+                cssTierMappingSha256: options.candidateDocument.cssTierMappingSha256,
+              },
+        crossPosition: options.crossPosition === undefined
+          ? null
+          : { ...options.crossPosition, materialGlass: glassToken(options.crossPosition.materialGlass) },
+        fallback: fallback ?? null,
+        problems,
+        page: first.report,
+      },
+      undefined,
+      2,
+    )}\n`,
+  );
+
+  return { sceneId, cell, fallback, problems };
+}
+
+async function main(): Promise<void> {
+  const matrix = JSON.parse(readFileSync(SCENES_JSON, "utf8")) as SceneMatrix;
+  const options = parseOptions(process.argv.slice(2), matrix);
+
+  let server: ViteDevServer | undefined;
+  let browser: Browser | undefined;
+  const outcomes: SceneOutcome[] = [];
+
+  try {
+    server = await createServer({ configFile: VITE_CONFIG });
+    await server.listen();
+    const url = server.resolvedUrls?.local[0];
+    if (url === undefined) throw new Error("the scene server reported no local URL");
+    const baseUrl = url.replace(/\/$/, "");
+    say(`scene server: ${baseUrl}`);
+
+    // C6's recipe, unchanged. `channel: "chromium"` is the full browser binary
+    // and is what produces a hardware adapter rather than SwiftShader; the flags
+    // are what let Dawn use it.
+    browser = await chromium.launch({ channel: "chromium", args: GPU_ARGS });
+    say(`engine: chromium ${browser.version()}`);
+
+    const context = await browser.newContext({
+      // The viewport is the scene canvas exactly. The renderer cover-fits a
+      // backdrop texture to the viewport, so a viewport of another aspect ratio
+      // would frame the raster differently from the page's own `<img>` and the
+      // glass would refract pixels other than the ones behind it.
+      viewport: { width: matrix.canvas.width, height: matrix.canvas.height },
+      deviceScaleFactor: options.scale,
+      colorScheme: options.colorScheme,
+    });
+
+    // On the context, so every page it opens carries the tunables — and as an
+    // init script, so they are in place before the scene page's own module runs
+    // and builds the root. Setting them after load would have the first frames
+    // draw on the defaults.
+    if (options.materialProfile !== undefined) {
+      const profile = options.materialProfile;
+      await context.addInitScript(
+        (sections: {
+          profileKey: MaterialProfileFile["profileKey"];
+          patch: MaterialProfileFile["patch"];
+          cssTierMapping: MaterialProfileFile["cssTierMapping"];
+        }) => {
+          /*
+           * The key travels even when the patch does not, and that is the point
+           * of sending it (W29 G4). A patch is a DIFFERENCE from whatever
+           * material the root resolved, and since 0.19.0 the runtime resolves
+           * macOS 27's by default and macOS 26.5's on request — so the page has
+           * to select the base this document was fitted over before it merges
+           * anything. The macOS 26.5 light document, whose patch is empty
+           * because it IS the renderer's defaults, is exactly the case where
+           * the key is the only thing that says so.
+           */
+          if (sections.profileKey !== undefined) {
+            window.__vitreaMaterialProfileKey = sections.profileKey;
+          }
+          if (Object.keys(sections.patch).length > 0) {
+            window.__vitreaMaterialProfile = sections.patch;
+          }
+          if (sections.cssTierMapping !== undefined) {
+            window.__vitreaCssTierMapping = sections.cssTierMapping;
+          }
+        },
+        {
+          profileKey: profile.profileKey,
+          patch: profile.patch,
+          cssTierMapping: profile.cssTierMapping,
+        },
+      );
+      say(`material profile: ${materialProfileLabel(profile)}`);
+    }
+
+    /*
+     * The candidate receded document, on the same init script placement and for
+     * the same reason (W29 G3b, Decision Log 6 (d)).
+     *
+     * Only the renderer patch travels. A receded document is a DIFFERENCE over
+     * the active material that the page merges before the root is built, and the
+     * CSS tier's mapping is not a difference of that kind — it is the crossing to
+     * `backdrop-filter`, which the active document already names and which the
+     * recede does not change. A receded document that carried one would silently
+     * replace the active mapping for the inactive scenes of the same run.
+     */
+    if (options.recededProfile !== undefined) {
+      const receded = options.recededProfile;
+      await context.addInitScript((patch: MaterialProfileFile["patch"]) => {
+        window.__vitreaRecededMaterialProfile = patch;
+      }, receded.patch);
+      say(`receded profile:${recededProfileClause(receded, REPO_ROOT)}`);
+    }
+
+    /*
+     * The candidate document, on the same init-script placement (W43 G0 (f)). The whole
+     * document travels, with the stamp the page reports back, and nothing else does: the
+     * flags that inject a patch or a receded difference were refused beside it.
+     */
+    if (options.candidateDocument !== undefined) {
+      const candidate = options.candidateDocument;
+      await context.addInitScript(
+        (injected: NonNullable<Window["__vitreaCandidateDocument"]>) => {
+          window.__vitreaCandidateDocument = injected;
+        },
+        {
+          stamp: {
+            mode: "candidate" as const,
+            declaration: relative(REPO_ROOT, candidate.declarationPath),
+            declarationSha256: candidate.declarationSha256,
+            cssTierMappingSha256: candidate.cssTierMappingSha256,
+          },
+          document: candidate.document as NonNullable<Window["__vitreaCandidateDocument"]>["document"],
+        },
+      );
+      say(`candidate document: ${candidateLabel(candidate)}`);
+    }
+    if (options.crossPosition !== undefined) {
+      say(`CROSS-POSITION: the ${options.crossPosition.source} material at glass ` +
+        `${glassToken(options.crossPosition.materialGlass)}, read against fixtures at glass ` +
+        `${options.crossPosition.againstGlass}`);
+    }
+
+    // Same init-script placement, same reason: the CSS tier writes its
+    // declarations from the resolved policy on the first frame.
+    if (options.accessibility !== undefined) {
+      await context.addInitScript((request: AccessibilityRequest) => {
+        window.__vitreaAccessibilityOverrides = request;
+      }, options.accessibility);
+      say(accessibilityLabel(options.accessibility));
+    }
+
+    for (const sceneId of options.sceneIds) {
+      const outcome = await captureScene(context, browser, baseUrl, sceneId, options);
+      outcomes.push(outcome);
+
+      const { cell } = outcome;
+      say("");
+      say(`${sceneId}`);
+      say(`  tier          ${cell.renderer} / ${cell.samplingBackend}`);
+      say(`  adapter       ${cell.gpuAdapter}`);
+      say(`  colour space  ${cell.colorSpace}`);
+      say(`  pixels        ${cell.pixelSize[0]}x${cell.pixelSize[1]}`);
+      say(
+        `  determinism   ${cell.deterministic ? "byte-identical over two loads" : `mad ${cell.repeatNoise.toFixed(6)}`}`,
+      );
+      say(`  written       ${join(options.outDir, sceneId).replace(`${REPO_ROOT}/`, "")}/`);
+      if (outcome.fallback !== undefined) {
+        say(`  FELL BACK     ${outcome.fallback.from} → ${outcome.fallback.to}: ${outcome.fallback.why}`);
+      }
+      for (const problem of outcome.problems) say(`  PROBLEM       ${problem}`);
+    }
+  } finally {
+    await browser?.close();
+    await server?.close();
+  }
+
+  const fellBack = outcomes.filter((outcome) => outcome.fallback !== undefined).length;
+  const flawed = outcomes.filter((outcome) => outcome.problems.length > 0).length;
+  say("");
+  say(
+    `${outcomes.length} scene(s) captured; ${fellBack} fell back to the CSS tier; ` +
+      `${flawed} carry problems.`,
+  );
+
+  // A problem is a capture that would mislead the matrix, so the exit code says
+  // so — while the PNG and the cell are still on disk, labelled, for inspection.
+  if (flawed > 0) process.exitCode = 1;
+}
+
+main().catch((error: unknown) => {
+  console.error(`${basename(process.argv[1] ?? "capture-web")}: ${String(error)}`);
+  process.exitCode = 1;
+});

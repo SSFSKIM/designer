@@ -1,0 +1,778 @@
+"""W50 G1 LIVE judge role: the fixed per-cell landing rule's phase verdict (charter DL4, DL5d).
+
+evaluate(context, {'measurement', 'owner', 'captures'}, config_pin) -> report, called by the
+LIVE dispatcher in its exclusive analysis stage of the gate and of the one exposure. The
+report is a value-bearing payload; the dispatcher seals it and validates it with the LIVE
+report validator (live-execution/common.py), which runs current3's unchanged validate_report
+over it. Nothing here prints, logs or formats a measured value; errors carry field names and
+keys only (DL5k).
+
+Gate. Exactly the exposed (gateKeys) rows are routed by judge/rules.route_row. A positive
+gate is PASS_EXPOSED_OWNER_PENDING: every numeric row WITHIN (PASS), every DL5a reported row
+REPORTED with finite readings and B null or UNMEASURED_REPORTED with its cause (DL5m 4), every
+DL5b key also admitting UNMEASURED_EMPTY_SUPPORT with its witness, every owner-contracts row
+PENDING_OWNER_UNION. ownerChecks and targetChecks are PENDING_FULL_UNION and pendingOwnerKeys
+is the root's ordered closure.
+
+Exposure. The complete union is the sealed gate report's exposed cells, this exposure's
+routed rows (blind and historical prediction checks with their DL5d physical closure), the
+owner referee's full-union report and the six W48 target aggregates over their unchanged
+complete populations against their original references (judge/targets.py). PASS needs all
+of them; anything else is NEITHER (DL4). Owner rows never pass on a partial population: the
+owner report is graded only at the prepared current report's exact membership, pinned in the
+judge config's ownerUnion (its 745 cells and every aggregate name), so a report that drops or
+adds a cell or aggregate refuses. owner_selfcheck.py grades that prepared report itself as the
+candidate through the same grade_owner_report and expects every cell and aggregate to PASS.
+The measurement evidence must name this phase's analysis claim; an omitted claim refuses.
+
+Routing decisions the charter text fixes and this module only maps:
+* Input 64 (DL5j) is reported on both tiers; its gating condition is numerical identity of the
+  law at the join, carried by the G0 numerical referee the dispatcher admitted the cohort
+  under (fixedJoinPass). The rendered candidate/current difference is recorded, not gated.
+* Missing evidence on a gated row is UNMEASURED and never a pass.
+* A completed native blind read that is not ready (DL5n) is admitted with its stops: every
+  phase key a stop names (on either tier) must be a required blind key, and its cell is
+  UNMEASURED with every reading field null and the cause {kind: NATIVE_NOT_READY, reason},
+  whatever it routed, so the verdict is NEITHER through the normal rule. A stopped key never
+  reads PASS or FAIL and never feeds a target aggregate; the stops are reported as metadata.
+* A DL5a/b/c reported key (the root's reportedKeys, which contain the DL5b/c emptySupportKeys)
+  whose reading is incomplete, non-finite or out of domain is UNMEASURED_REPORTED with its
+  cause, every reading field null. It never gates, so it does not change the verdict (DL5m 4);
+  a missing or corrupt capture still blocks through the gated level rows read from the same
+  capture, which are UNMEASURED themselves. No other key can carry that status. A nonfinite or
+  out-of-domain value is nulled by the measurement projection with its kind and side recorded
+  (readingDefects), because the measurement snapshot is strict JSON and a refusal there would
+  follow the analysis marker; a gated key's defect still refuses in the projection.
+* An owner axis passes when NOT_APPLICABLE, MEASURED within, MEASURED reported on an axis
+  whose owner adopts no per-cell bound (C1, E2, coherence), a named miss that an EXISTING
+  record of the root's owner contracts snapshot covers (named_record), or UNMEASURED under a
+  source-owned exception of that snapshot (owner_evidence.py's rule). A named outcome no
+  existing record covers would need a NEW owner record, widens an exclusion and fails (charter
+  clause 4; DL5m 2). That holds for an M2 named miss and an L1 named growth miss alike,
+  whatever flags the referee sets.
+
+Readings the text leaves open are marked DECISION below and listed in the G1 report.
+"""
+import copy
+import hashlib
+import json
+import math
+from pathlib import Path
+import re
+import sys
+import types
+
+HERE = Path(__file__).resolve().parent
+KEY = ('profile', 'renderer', 'scene', 'statistic')
+GATE_SUCCESS = 'PASS_EXPOSED_OWNER_PENDING'
+WITHHELD = {'blind', 'historical-prediction-check'}
+SCHEMA = 'w50-judge-config-1'
+REPORT = 'w50-judge-report-1'
+AXES = ('M1', 'M2', 'C1', 'X1', 'L1', 'E2', 'coherence')
+JOIN = 'REQUIRED_SEPARATE_JOIN_REFEREE'
+READING_FIELDS = ('units', 'support', 'measurementStatus', 'nativeMeasurementStatus',
+                  'currentMeasurementStatus', 'candidateMeasurementStatus', 'native', 'current',
+                  'candidate', 'code', 'bar', 'B', 'originalBudgetB', 'reported',
+                  'eligibleEmptySupport', 'routingOperands', 'candidateEstimator', 'reason',
+                  'nativeReason', 'currentReason', 'candidateReason')
+OUTSIDE = [
+    'Clause 5 visual price: native/current/candidate views at 1x/2x are a parent stop, not a judge reading.',
+    'Clause 5 identity and shader/CPU agreement: pre-fit proofs identityDigestsGoldens and '
+    'shaderCpuAgreement, bound by the pre-fit evidence the contract names, not re-read here.',
+]
+
+
+def source(path, name):
+    module = types.ModuleType(name)
+    module.__file__ = str(path)
+    sys.modules[name] = module
+    exec(compile(Path(path).read_bytes(), str(path), 'exec', dont_inherit=True), module.__dict__)
+    return module
+
+
+T = source(HERE/'targets.py', 'w50_judge_live_targets')
+R = T.R
+N = R.N
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def parse(raw):
+    def invalid(_):
+        raise ValueError('Nonfinite JSON constant in judge input')
+    return json.loads(raw, parse_constant=invalid)
+
+
+def key(row):
+    return tuple(row[k] for k in KEY)
+
+
+def dispatcher(context):
+    """The registered LIVE dispatcher, its live context and the exclusive analysis marker."""
+    live = sys.modules.get('w50_g1_dispatch')
+    if live is None:
+        raise ValueError('Judge/fit analysis requires the registered live dispatcher')
+    live.require_context(context)
+    claim = context.get('executionClaim') or {}
+    marker = Path(context['contract']+'.phase/analysis.started.json')
+    if context.get('stage') != 'analysis' or Path(claim.get('path', '')) != marker or \
+            not marker.is_file() or sha(marker) != claim.get('sha256'):
+        raise ValueError('Analytical reading refuses before the authenticated full-union marker')
+    return live
+
+
+def root_of(context, live):
+    root = live.sealed(context['executionRoot'])
+    if Path(root['repo']).resolve() != Path(context['repo']).resolve() or root['inputs'] != context['inputs'] or \
+            root['phaseDependencies'] != context['phaseDependencies']:
+        raise ValueError('Analysis context differs from its sealed root')
+    return root
+
+
+def registered(context, live, root, pin):
+    if pin not in root['inputs'] or pin not in context['inputs']:
+        raise ValueError('Analysis input is not prospectively bound by the root')
+    return parse(live.checked(context['repo'], pin).read_bytes())
+
+
+def originals(context, live, root):
+    """The original G0 inventory document and its rows by exact key, in declaration order."""
+    document = parse(live.checked(context['repo'], root['references']).read_bytes())
+    rows = document['cells']
+    result = {key(r): r for r in rows}
+    if len(result) != len(rows) or [list(k) for k in result] != [[c[k] for k in KEY] for c in context['unionExpectedCells']]:
+        raise ValueError('Original inventory differs from the dispatcher union population')
+    return document, result
+
+
+def measurement(context, live, root, inventory, measured):
+    """Authenticate the measurement role's output as its own exclusive phase snapshot."""
+    cohort = context['batch']['cohort']
+    if not isinstance(measured, dict) or measured.get('schema') != 'w50-phase-measurement-evidence-1' or \
+            measured.get('status') != 'EVIDENCE_ONLY' or measured.get('phase') != context['phase'] or \
+            measured.get('cohort') != cohort or \
+            measured.get('candidateSha256s') != sorted(p['sha256'] for p in cohort) or \
+            measured.get('referenceInventory') != root['references'] or \
+            measured.get('gateResult') != context.get('gateResult') or \
+            'executionClaim' not in measured or measured['executionClaim'] != context['executionClaim']:
+        raise ValueError('Measurement evidence is not this phase, cohort, inventory or analysis claim')
+    for name, field in (('executionRoot', 'executionRoot'), ('contract', 'contract'), ('batch', 'batchPath')):
+        if measured.get(name) != {'path': context[field], 'sha256': sha(context[field])}:
+            raise ValueError('Measurement evidence names another root, contract or batch')
+    expected = [key(c) for c in context['expectedCells']]
+    if len(set(expected)) != len(expected) or measured.get('expectedKeys') != [list(k) for k in sorted(expected)]:
+        raise ValueError('Measurement keys differ from the phase contract')
+    rows = measured.get('rows')
+    found = [key(r) for r in rows]
+    if len(found) != len(set(found)) or set(found) != set(expected):
+        raise ValueError('Measurement rows omit or add an original phase key')
+    for item, row in zip(found, rows):
+        if row.get('originalReference') != inventory[item] or row.get('role') != inventory[item]['role']:
+            raise ValueError('Measurement row changed its original reference or role')
+    snapshot = measured.get('snapshot') or {}
+    path = Path(snapshot.get('path', ''))
+    if not path.is_absolute() or path.resolve() != path or not path.is_relative_to(Path(context['output'])) or \
+            not path.is_file() or sha(path) != snapshot.get('sha256') or \
+            parse(path.read_bytes()) != json.loads(json.dumps({k: v for k, v in measured.items() if k != 'snapshot'})):
+        raise ValueError('Measurement evidence differs from its exclusive phase snapshot')
+    return dict(zip(found, rows))
+
+
+def route(rows, root):
+    return R.route_rows(rows, inventory_sha256=root['references']['sha256'],
+                        reported_keys=root['reportedKeys'], empty_support_keys=root['emptySupportKeys'])
+
+
+def compact_reading(source_reading):
+    """Every reading with its candidate identity, small enough for the sealed gate report."""
+    out = {k: copy.deepcopy(source_reading[k]) for k in READING_FIELDS if k in source_reading}
+    evidence = source_reading.get('evidence', {})
+    out['evidence'] = {'candidate': copy.deepcopy(evidence.get('candidate'))}
+    for side in ('native', 'current'):
+        if isinstance(evidence.get(side), dict):
+            out['evidence'][side] = {'numericIdentity': copy.deepcopy(evidence[side].get('numericIdentity'))}
+    return out
+
+
+def compact_route(routed):
+    return {k: copy.deepcopy(routed[k]) for k in ('status', 'checks', 'diagnostics', 'failures',
+            'unmeasured', 'complete', 'numericalIdentity', 'emptySupportWitnesses') if k in routed}
+
+
+def scalar(value):
+    return type(value) in (int, float) and math.isfinite(value) and value >= 0
+
+
+SIDES = ('native', 'current', 'candidate')
+NULL_FIELDS = SIDES+('value', 'fidelity', 'B')
+DEFECTS = ('NON_FINITE_READING', 'OUT_OF_DOMAIN_READING')
+
+
+def reading_defects(reading):
+    """The measurement projection's DL5m (4) defect record on a reported reading, checked.
+
+    The projection nulls a reported key's nonfinite or out-of-domain side before the snapshot
+    (which is strict JSON) and names kind and side only. Each named side must be null, UNMEASURED
+    and carry its kind as its reason, in SIDES order; absent means no defect.
+    """
+    if 'readingDefects' not in reading:
+        return []
+    defects = reading['readingDefects']
+    if not isinstance(defects, list) or not defects or any(
+            not isinstance(d, dict) or set(d) != {'kind', 'side'} or d['kind'] not in DEFECTS or
+            d['side'] not in SIDES or reading.get(d['side']) is not None or
+            reading.get(d['side']+'MeasurementStatus') != 'UNMEASURED' or
+            reading.get(d['side']+'Reason') != d['kind'] for d in defects) or \
+            [d['side'] for d in defects] != [s for s in SIDES if s in {d['side'] for d in defects}]:
+        raise ValueError('Reported reading defect record is malformed')
+    return defects
+
+
+def reported_gap(status, reading):
+    """None for a complete reported reading; else the DL5m (4) cause, metadata only.
+
+    A side is incomplete when absent or null and non-finite when a NaN/infinite float. A side
+    the projection nulled as nonfinite or out of domain keeps that kind, and the cause names the
+    projection's defects (kind and side, never a value). A route that is not DIAGNOSTIC (a source
+    or diagnostic status not MEASURED) is incomplete too, with the router's own labels. The router
+    admits nothing else on a reported key (a MEASURED value is range-checked, an UNMEASURED one
+    is null), so any other defect refuses.
+    """
+    defects = reading_defects(reading)
+    missing = [side for side in SIDES if reading.get(side) is None]
+    nonfinite = [side for side in SIDES if type(reading.get(side)) is float and not math.isfinite(reading[side])]
+    if any(not scalar(reading.get(side)) for side in SIDES if side not in missing+nonfinite) or \
+            status not in ('DIAGNOSTIC', 'UNMEASURED'):
+        raise ValueError('Reported reading is outside the routed domain')
+    if status == 'DIAGNOSTIC' and not missing and not nonfinite:
+        return None
+    kinds = {d['kind'] for d in defects}
+    kind = 'NON_FINITE_READING' if nonfinite or 'NON_FINITE_READING' in kinds else \
+        'OUT_OF_DOMAIN_READING' if kinds else 'INCOMPLETE_READING'
+    cause = {'kind': kind, 'sides': [side for side in SIDES if side in missing+nonfinite], 'routeStatus': status}
+    if defects:
+        cause['defects'] = copy.deepcopy(defects)
+    return cause
+
+
+def join_identity(context, live, root):
+    """The numerical referee the dispatcher admitted this cohort under, re-run unchanged."""
+    claim = context['logicalClaim']
+    path = Path(claim['path'])
+    if not path.is_file() or sha(path) != claim['sha256']:
+        raise ValueError('Logical phase claim changed')
+    admitted = parse(path.read_bytes()).get('numericalAdmission')
+    if live.admission_module(root).validate_numerical(root, context['batch']) != admitted:
+        raise ValueError('Numerical admission differs from the logical phase claim')
+    report = parse(live.checked(context['repo'], admitted).read_bytes())
+    if report.get('candidateSha256s') != sorted(p['sha256'] for p in context['batch']['cohort']):
+        raise ValueError('Numerical admission names another cohort')
+    return admitted, report.get('status') == 'PASS' and report.get('fixedJoinPass') is True
+
+
+def held_difference(row):
+    """Candidate minus current at input64, recorded beside the identity condition (DL5j)."""
+    reading = row['readings'][row['statistic']]
+    k, c = reading.get('candidate'), reading.get('current')
+    if k is None or c is None:
+        return None
+    k, c = (k, c) if isinstance(k, list) else ([k], [c])
+    return [a - b for a, b in zip(k, c)]
+
+
+def cell(item, row, routed, root, *, join, witness):
+    """Map one routed original key to the report's per-cell status."""
+    cell = {**dict(zip(KEY, item)), 'role': row['role'], 'route': compact_route(routed),
+            'readings': {name: compact_reading(value) for name, value in row['readings'].items()},
+            'evidence': copy.deepcopy(row.get('evidence'))}
+    reported = item in {tuple(k) for k in root['reportedKeys']}
+    if not reported and any('readingDefects' in value for value in row['readings'].values()):
+        # A gated key's defective reading refuses in the projection; it is never recorded.
+        raise ValueError('A reading defect record is admitted only on a DL5a/b/c reported key')
+    status = routed['status']
+    if item[3] == 'owner-contracts':
+        cell['status'] = 'PENDING_OWNER_UNION'
+    elif reported and status == 'UNMEASURED_EMPTY_SUPPORT':
+        pin = witness(item, row)
+        cell.update(status='UNMEASURED_EMPTY_SUPPORT', native=None, current=None, candidate=None,
+                    fidelity=None, value=None, B=None, emptySupportWitness=pin)
+    elif reported:
+        value = row['readings'][item[3]]
+        gap = reported_gap(status, value)
+        if gap is None:
+            cell.update(status='REPORTED', B=None, **{k: copy.deepcopy(value[k]) for k in SIDES})
+        else:
+            # DL5m (4): recorded with its cause and every reading field null, so nothing in the
+            # cell can be read as a pass; the readings stay in cell['readings'] as evidence.
+            cell.update(status='UNMEASURED_REPORTED', cause={**gap, 'unmeasured': list(routed.get('unmeasured', []))},
+                        **dict.fromkeys(NULL_FIELDS))
+    elif status == 'WITHIN':
+        cell['status'] = 'PASS'
+    elif status == 'EXCEEDS':
+        cell['status'] = 'FAIL'
+    elif status == 'UNMEASURED':
+        cell['status'] = 'UNMEASURED'
+    elif status == 'DIAGNOSTIC' and routed.get('numericalIdentity') == JOIN:
+        cell.update(status='PASS' if join else 'FAIL', joinIdentity=join, heldDifference=held_difference(row))
+    else:
+        raise ValueError('Required original key has no declared referee')
+    if row['role'] == 'blind':
+        # DL5g (1): a blind row without real exposure content pins blocks. DECISION (DL5m 4
+        # boundary): this holds for a blind reported key too. A broken per-key native envelope
+        # is an evidence-integrity fault, not an incomplete reading, so it is not admitted as
+        # UNMEASURED_REPORTED.
+        pin = row.get('nativeEvidence') or {}
+        path = Path(pin.get('path', ''))
+        if not path.is_file() or sha(path) != pin.get('sha256'):
+            cell['status'] = 'UNMEASURED'
+        cell['nativeEvidence'] = copy.deepcopy(pin)
+    return cell
+
+
+def wanted(item, phase, root):
+    if item in {tuple(k) for k in root['reportedKeys']}:
+        reported = {'REPORTED', 'UNMEASURED_REPORTED'}
+        return reported|{'UNMEASURED_EMPTY_SUPPORT'} if item in {tuple(k) for k in root['emptySupportKeys']} \
+            else reported
+    if item[3] == 'owner-contracts' and phase == 'gate':
+        return {'PENDING_OWNER_UNION'}
+    return {'PASS'}
+
+
+# Owner union (exposure only) ----------------------------------------------------------------
+
+def _at(value, path):
+    for part in path.split('.'):
+        if not isinstance(value, dict) or part not in value:
+            return None
+        value = value[part]
+    return value
+
+
+def _finite(value):
+    return type(value) in (int, float) and math.isfinite(value)
+
+
+def _same(a, b):
+    return json.dumps(a, sort_keys=True, allow_nan=False) == json.dumps(b, sort_keys=True, allow_nan=False)
+
+
+# The owner's L1 growth-miss records: `GROWTH_MISSES` in the owner source the contracts snapshot
+# pins (adopted-thresholds.test.ts at its `ownerSource`), empty there. The owner excuses a named
+# growth miss only when that map records it ("the gate that seals a candidate adds the
+# entries"). The snapshot projects the ruled cells (`growthRuled`) but not the records, so their
+# declared state is this empty set and a named growth outcome always needs a NEW record.
+# judge/test_live.py grounds the emptiness on the pinned source.
+L1_GROWTH_RECORDS = frozenset()
+# The axes whose source owner adopts no per-cell bound, so a per-cell reading is reported.
+REPORTED_AXES = ('C1', 'E2', 'coherence')
+
+
+def _named(entries, profile, scene, statistic=None):
+    """Whether the owner's `texture / set / scene / profile[ :: statistic]` names hold this cell."""
+    suffix = f' :: {statistic}' if statistic else ''
+    for entry in entries if isinstance(entries, list) else []:
+        parts = entry.split(' / ') if isinstance(entry, str) else []
+        if len(parts) == 4 and parts[0] == 'texture' and parts[2:] == [scene, profile+suffix]:
+            return True
+    return False
+
+
+def named_record(name, profile, scene, evidence, contract):
+    """None when an EXISTING source-owned record of the contracts snapshot covers this named owner
+    outcome, else why not. A named outcome no record covers would need a new owner record, which
+    widens an exclusion and fails (charter clause 4; DL5m 2). The referee's flags are read beside
+    the records, never instead of them. Only M1, M2 and L1 carry named outcomes: X1's snapshot
+    records no named miss (`namedMisses` is empty), and C1, E2 and coherence grade each cell
+    within/failure or report it, so a named verdict there has no record to cover it."""
+    exclusions = contract.get('exclusions') if isinstance(contract.get('exclusions'), dict) else {}
+    cell = f'{profile}/{scene}'
+    if name == 'M1':
+        return None if _named(exclusions.get('namedKeys'), profile, scene, 'chromaStructureRatioR') \
+            else 'M1 named miss has no existing MISSED_27_ROWS record'
+    if name == 'M2':
+        verdict = evidence.get('structureVerdict')
+        if evidence.get('wouldRequireNewOwnerRecord') is not False or verdict not in ('named', 'failure'):
+            return 'Named outcome would require a new owner record (exclusion widened)'
+        if not _named(exclusions.get('namedKeys'), profile, scene, 'interiorStdDevStructureDelta'):
+            return 'M2 named miss has no existing MISSED_27_ROWS record'
+        if verdict == 'failure' and not _named(exclusions.get('ruledFailures'), profile, scene):
+            return 'M2 failure has no existing ruled-failure record'
+        return None
+    if name == 'L1':
+        clauses = (evidence.get('absolute'), evidence.get('growthVerdict'))
+        if any(c not in ('within', 'named') for c in clauses) or 'named' not in clauses:
+            return 'L1 named verdict without a named clause'
+        if clauses[0] == 'named' and cell not in (exclusions.get('absoluteMisses') or []):
+            return 'L1 named absolute miss has no existing MISSES record'
+        if clauses[1] == 'named' and cell not in L1_GROWTH_RECORDS:
+            return 'L1 named growth miss has no existing GROWTH_MISSES record (exclusion widened)'
+        return None
+    return name+' has no source-owned named-miss record'
+
+
+def axis(name, profile, scene, evidence, contract):
+    """(status, reason) for one owner axis, using the snapshot's source-owned reading schema."""
+    if not isinstance(evidence, dict):
+        return 'UNMEASURED', 'Owner axis evidence absent'
+    state = evidence.get('state')
+    if state == 'NOT_APPLICABLE':
+        return ('PASS', 'not applicable') if evidence.get('reason') else ('UNMEASURED', 'Unexplained applicability')
+    schema = contract['readingSchema']
+    if state == 'UNMEASURED':
+        for exception in schema['unmeasuredExceptions']:
+            if exception.get('kind') == 'named-cell' and (exception.get('identity') != 'profile/scene' or
+                    f'{profile}/{scene}' not in exception.get('keys', [])):
+                continue
+            if exception.get('kind') not in ('named-cell', 'diagnostic-only'):
+                continue
+            equality = exception.get('evidenceEquals')
+            if isinstance(equality, dict) and equality and evidence.get('reason') and \
+                    all(_same(_at(evidence, k), v) for k, v in equality.items()):
+                return 'PASS', 'source-owned '+exception['kind']+' exception'
+        return 'UNMEASURED', 'Owner axis UNMEASURED without a source-owned exception'
+    if state != 'MEASURED':
+        return 'UNMEASURED', 'Invalid owner evidence state'
+    missing = [p for p in schema['requiredFinite'] if not _finite(_at(evidence, p))]
+    missing += [p for p in schema['requiredArrays'] if not isinstance(_at(evidence, p), list) or not _at(evidence, p)]
+    for rule in schema['conditionalFinite']:
+        if not _same(_at(evidence, rule['unless']['field']), rule['unless']['equals']):
+            missing += [p for p in rule['paths'] if not _finite(_at(evidence, p))]
+    if missing:
+        return 'UNMEASURED', 'Missing source-owned owner reading: '+','.join(missing)
+    verdict = evidence.get('verdict')
+    if verdict == 'within' or (verdict == 'reported' and name in REPORTED_AXES):
+        return 'PASS', verdict
+    if verdict == 'reported':
+        return 'UNMEASURED', 'A reported reading on an axis whose owner bounds each cell'
+    if verdict == 'named-miss':
+        missing = named_record(name, profile, scene, evidence, contract)
+        return ('FAIL', missing) if missing else ('PASS', 'existing named owner record')
+    if verdict == 'failure':
+        return 'FAIL', 'Owner verdict failure'
+    return 'UNMEASURED', 'Owner evidence carries no verdict'
+
+
+def owner_cell(identity, axes, contracts):
+    """One owner-referee cell over all seven axes; any failure fails, any gap is UNMEASURED."""
+    profile, _, scene = identity.split('/', 2)
+    if not isinstance(axes, dict) or set(axes) != set(AXES):
+        return {'status': 'UNMEASURED', 'axes': {}, 'reason': 'Owner cell lacks the seven original axes'}
+    results = {name: axis(name, profile, scene, axes[name], contracts['axes'][name]) for name in AXES}
+    statuses = {s for s, _ in results.values()}
+    status = 'FAIL' if 'FAIL' in statuses else 'UNMEASURED' if 'UNMEASURED' in statuses else 'PASS'
+    return {'status': status, 'axes': {name: {'status': s, 'reason': r, 'state': axes[name].get('state'),
+            'verdict': axes[name].get('verdict')} for name, (s, r) in results.items()}}
+
+
+def _leaves(value):
+    if isinstance(value, dict) and 'state' in value:
+        return {'': value}
+    return value if isinstance(value, dict) else {}
+
+
+def owner_membership(value):
+    """The judge config's `ownerUnion`: the prepared current owner report's cell identities and
+    aggregate names, as that report's own sorted keys, with the report's pin as provenance.
+
+    The referee reports every cell of its fixed current inventory (745: the 640 owner keys and
+    the 105 DL5m (1) context cells) and every complete-bed aggregate it defines. A candidate
+    report is graded only at exactly that membership, so a dropped or added cell or aggregate
+    refuses rather than changing what has to pass. The lists live in the root-pinned config;
+    the judge does not open the report (owner_selfcheck.py binds the two, and grades the
+    report itself as the candidate through grade_owner_report)."""
+    if not isinstance(value, dict) or set(value) != {'report', 'cells', 'aggregates'} or \
+            not T._pin(value['report']):
+        raise ValueError('Judge config ownerUnion needs the prepared report pin, cells and aggregates')
+    for name in ('cells', 'aggregates'):
+        items = value[name]
+        if not isinstance(items, list) or not items or any(not isinstance(i, str) or not i for i in items) or \
+                items != sorted(set(items)):
+            raise ValueError('Judge config ownerUnion '+name+' must be sorted unique names')
+    if 'C1' not in value['aggregates'] or any(len(i.split('/', 2)) != 3 for i in value['cells']):
+        raise ValueError('Judge config ownerUnion lacks C1 or names a malformed cell')
+    return value
+
+
+def grade_owner_report(report, owner_keys, contracts, membership):
+    """Grade one owner report at the pinned membership: every cell over its seven axes, every
+    aggregate, X75/X76, and the context cells that carry no owner-contracts key (DL5m 1)."""
+    cells = report.get('cells')
+    owners = {'/'.join(k[:3]) for k in owner_keys}
+    if not isinstance(cells, dict) or not owners <= set(cells):
+        raise ValueError('Owner report omits an original owner key')
+    if set(cells) != set(membership['cells']):
+        raise ValueError('Owner report cells differ from the prepared current report membership')
+    reported = report.get('aggregates')
+    if not isinstance(reported, dict) or sorted(reported) != membership['aggregates']:
+        raise ValueError('Owner report aggregates differ from the prepared current report membership')
+    graded = {identity: owner_cell(identity, axes, contracts) for identity, axes in sorted(cells.items())}
+    aggregates = []
+    for name, evidence in sorted(reported.items()):
+        ok = isinstance(evidence, dict) and evidence.get('state') == 'MEASURED' and evidence.get('verdict') == 'within'
+        aggregates.append({'name': name, 'status': 'PASS' if ok else 'FAIL' if
+                           (evidence or {}).get('verdict') == 'failure' else 'UNMEASURED'})
+    intrinsic = []
+    expected = {'X75': 12, 'X76': {'0.25', '0.5'}}
+    for name, shape in expected.items():
+        leaves = _leaves((report.get('intrinsic') or {}).get(name))
+        complete = len(leaves) == shape if isinstance(shape, int) else set(leaves) == shape
+        for member, evidence in sorted(leaves.items()):
+            ok = evidence.get('state') == 'MEASURED' and evidence.get('verdict') == 'within'
+            intrinsic.append({'name': name, 'member': member, 'status': 'PASS' if ok else
+                              'FAIL' if evidence.get('verdict') == 'failure' else 'UNMEASURED'})
+        if not complete:
+            intrinsic.append({'name': name, 'member': '*', 'status': 'UNMEASURED'})
+    # DECISION (owner context): the 105 low-end path cells are in the owner referee's 745-cell
+    # context but carry no owner-contracts key, because G0 keyed them by their path statistic.
+    # Clause 4 retains every applicable owner contract at both positions, so their per-cell
+    # owner verdicts gate here too; nothing is added beyond the owner's own bounds.
+    context_checks = [{'id': identity, **value} for identity, value in graded.items() if identity not in owners]
+    return {'cells': graded, 'aggregates': aggregates, 'intrinsic': intrinsic, 'context': context_checks}
+
+
+def owner_union(context, owner, contracts, membership):
+    """Authenticate the owner referee's full-union report and grade every owner check."""
+    if not isinstance(owner, dict) or set(owner) != {'report', 'snapshot'}:
+        raise ValueError('Exposure requires the owner referee report and its snapshot')
+    output = Path(context['output'])
+    snapshot = owner['snapshot']
+    path = Path(snapshot.get('path', ''))
+    if path != output/'owner-candidate.snapshot.json' or not path.is_file() or sha(path) != snapshot.get('sha256'):
+        raise ValueError('Owner snapshot is not this invocation output')
+    report_path = output/'owner-candidate.report.json'
+    if not report_path.is_file() or parse(report_path.read_bytes()) != owner['report']:
+        raise ValueError('Owner report differs from its exclusive output file')
+    report = owner['report']
+    live = report.get('liveUnion') or {}
+    gate = context['gateResult']
+    if live.get('ownerKeys') != context['ownerUnionKeys'] or live.get('cohort') != context['batch']['cohort'] or \
+            (live.get('gateResult') or {}).get('sha256') != gate['sha256'] or \
+            Path(live['gateResult']['path']).resolve() != (Path(context['repo'])/gate['path']).resolve() or \
+            live.get('snapshot') != snapshot:
+        raise ValueError('Owner report names another union, cohort or gate')
+    graded = grade_owner_report(report, context['ownerUnionKeys'], contracts, membership)
+    return {**graded, 'report': {'path': str(report_path), 'sha256': sha(report_path)},
+            'snapshot': copy.deepcopy(snapshot)}
+
+
+# Evaluation ---------------------------------------------------------------------------------
+
+def inputs(context, live, root, config_pin):
+    config = registered(context, live, root, config_pin)
+    if not isinstance(config, dict) or config.get('schema') != SCHEMA or set(config) != {
+            'schema', 'references', 'binding', 'ownerContracts', 'targets', 'ownerUnion'}:
+        raise ValueError('Unknown judge config')
+    owner_membership(config['ownerUnion'])
+    if config['references'] != root['references'] or config['ownerContracts'] != root.get('ownerContracts'):
+        raise ValueError('Judge config names another inventory or owner snapshot')
+    binding = registered(context, live, root, config['binding'])
+    if binding.get('original') != root['references'] or binding.get('reportedKeys') != root['reportedKeys'] or \
+            binding.get('emptySupportKeys') != root['emptySupportKeys'] or \
+            binding.get('ownerContracts') != root.get('ownerContracts'):
+        raise ValueError('Root reported/empty-support keys differ from the registered binding')
+    contracts = parse(live.checked(context['repo'], root['ownerContracts']).read_bytes())
+    if contracts.get('schema') != 'w50-owner-contracts-1' or set(contracts.get('axes', {})) != set(AXES):
+        raise ValueError('Owner contracts snapshot lacks its seven axes')
+    targets = T.validate_config(registered(context, live, root, config['targets']))
+    if targets['inventory'] != root['references']:
+        raise ValueError('Target contracts must read the original inventory')
+    cut = registered(context, live, root, targets['cut'])
+    return config, contracts, targets, cut
+
+
+def preflight(document, root, cut, targets):
+    """Build every target reference with no candidate, so membership, cut cross-binding and
+    Reference construction fail before the one exposure rather than inside it."""
+    T.contracts(document, root['references'], cut, targets, {})
+
+
+NATIVE_STOPS = ('UNMEASURED_UNAUTHORISED_POPULATION', 'NATIVE_SPREAD_EXCEEDS_ONE_CODE')
+NATIVE_NOT_READY = 'NATIVE_NOT_READY'
+PASS_FIELDS = ('joinIdentity', 'heldDifference', 'emptySupportWitness')
+
+
+def native_checkpoint(context, live, phase):
+    """The exposure's native checkpoint, admitted ready or not (DL5n); none at the gate.
+
+    The native role's payload is {ready, complete, stops, nativeExposure, artifacts}. A COMPLETED
+    blind read whose sealed readiness is false is checkpointed with its stops as metadata (cell,
+    statistic, reason), and ready is true exactly when there are none."""
+    if phase != 'exposure':
+        return None
+    native = live.qualification_native(context)
+    if not isinstance(native, dict) or native.get('complete') is not True or \
+            type(native.get('ready')) is not bool or not isinstance(native.get('stops'), list) or \
+            native['ready'] != (native['stops'] == []) or not isinstance(native.get('nativeExposure'), dict):
+        raise ValueError('Exposure native checkpoint is not one complete preparation')
+    for stop in native['stops']:
+        if not isinstance(stop, dict) or set(stop) != {'cell', 'statistic', 'reason'} or \
+                stop['reason'] not in NATIVE_STOPS or not isinstance(stop['cell'], str) or \
+                stop['cell'].count('/') != 1 or not isinstance(stop['statistic'], str):
+            raise ValueError('Native checkpoint stop is not metadata on one required statistic')
+    return native
+
+
+def native_stops(native, rows, root):
+    """{key: reason} for every phase key a native stop names (DL5n), on either tier.
+
+    A stop names a REQUIRED blind statistic: each named key must be a blind row of this phase
+    and not a DL5a/b/c reported key, and a stop must name at least one phase key."""
+    stopped = {}
+    reported = {tuple(k) for k in root['reportedKeys']}
+    for stop in (native or {}).get('stops', []):
+        profile, scene = stop['cell'].split('/')
+        keys = {(profile, renderer, scene, stop['statistic']) for renderer in ('webgpu', 'css')} & set(rows)
+        if not keys or any(rows[k]['role'] != 'blind' or k in reported for k in keys):
+            raise ValueError('A native stop names no required blind key of this phase')
+        stopped.update(dict.fromkeys(keys, stop['reason']))
+    return stopped
+
+
+def native_not_ready(cell, reason):
+    """DL5n: a stopped key's cell is UNMEASURED whatever it routed, every reading field null.
+
+    A spread stop still has a native value, so even a routed WITHIN is overridden; the stopped
+    key never reads PASS or FAIL. Its readings stay in cell['readings'] as evidence."""
+    for name in PASS_FIELDS:
+        cell.pop(name, None)
+    cell.update(status='UNMEASURED', cause={'kind': NATIVE_NOT_READY, 'reason': reason}, **dict.fromkeys(NULL_FIELDS))
+    return cell
+
+
+def empty_witness(native):
+    """DL5b exposed witnesses are the completed reference's; DL5c blind ones the exposure's.
+
+    The exposure's are the native checkpoint's nativeExposure (exposure/prepare.py artifacts),
+    whose emptySupportWitnesses name one zero-mask witness per eligible (profile, scene),
+    shared by both tiers' keys."""
+    witnesses = None
+    if native is not None:
+        witnesses = {(w['profile'], w['scene']): w['pin']
+                     for w in native['nativeExposure'].get('emptySupportWitnesses', [])}
+    def lookup(item, row):
+        if row['role'] == 'blind':
+            if witnesses is None or (item[0], item[2]) not in witnesses:
+                raise ValueError('Eligible blind empty support has no exposure zero-support witness')
+            return copy.deepcopy(witnesses[(item[0], item[2])])
+        pin = (row.get('reference') or {}).get('emptySupportWitness')
+        if not isinstance(pin, dict):
+            raise ValueError('Exposed empty support has no completed-reference witness')
+        return copy.deepcopy(pin)
+    return lookup
+
+
+def evaluate(context, evidence, config_pin):
+    live = dispatcher(context)
+    phase = context.get('phase')
+    if phase not in ('gate', 'exposure') or context['batch'].get('phase') != phase:
+        raise ValueError('The judge issues only gate and exposure verdicts')
+    if not isinstance(evidence, dict) or set(evidence) != {'measurement', 'owner', 'captures'}:
+        raise ValueError('Judge evidence must be measurement, owner and captures')
+    if (phase == 'gate') != (evidence['owner'] is None):
+        raise ValueError('The owner referee runs on the full union at exposure only')
+    if not isinstance(evidence['captures'], dict) or evidence['captures'].get('status') != 'CAPTURED' or \
+            evidence['captures'].get('candidateSha256s') != sorted(p['sha256'] for p in context['batch']['cohort']):
+        raise ValueError('Judge captures are not this cohort')
+    root = root_of(context, live)
+    config, contracts, targets, cut = inputs(context, live, root, config_pin)
+    document, inventory = originals(context, live, root)
+    preflight(document, root, cut, targets)
+    rows = measurement(context, live, root, inventory, evidence['measurement'])
+    admitted, join = join_identity(context, live, root)
+    native = native_checkpoint(context, live, phase)
+    stopped = native_stops(native, rows, root)
+    lookup = empty_witness(native)
+    routed = dict(zip(rows, route(list(rows.values()), root)))
+    fresh = {item: cell(item, rows[item], routed[item], root, join=join, witness=lookup) for item in rows}
+    for item, reason in stopped.items():
+        native_not_ready(fresh[item], reason)
+    cohort = sorted(p['sha256'] for p in context['batch']['cohort'])
+    dependencies = context['phaseDependencies']
+    report = {'schema': REPORT, 'phase': phase, 'candidateSha256s': cohort,
+              'cohort': copy.deepcopy(context['batch']['cohort']), 'config': copy.deepcopy(config_pin),
+              'inventory': copy.deepcopy(root['references']), 'measurement': copy.deepcopy(evidence['measurement']['snapshot']),
+              'numericalAdmission': copy.deepcopy(admitted), 'joinIdentity': join, 'outsideJudge': list(OUTSIDE)}
+    if phase == 'gate':
+        if set(rows) != {tuple(k) for k in dependencies['gateKeys']}:
+            raise ValueError('Gate rows differ from the exposed physical closure')
+        cells = [fresh[key(c)] for c in context['expectedCells']]
+        report.update(ownerChecks='PENDING_FULL_UNION', pendingOwnerKeys=copy.deepcopy(dependencies['pendingOwnerKeys']),
+                      targetChecks='PENDING_FULL_UNION', targets=R.route_targets(None, full_union=False))
+        failed = [c for c in cells if c['status'] not in wanted(key(c), phase, root)]
+        report['status'] = GATE_SUCCESS if not failed else 'NEITHER'
+    else:
+        gate_report = context.get('gateReport') or {}
+        if gate_report.get('schema') != REPORT or gate_report.get('phase') != 'gate' or \
+                gate_report.get('status') != GATE_SUCCESS or gate_report.get('candidateSha256s') != cohort:
+            raise ValueError('Exposure requires this judge\'s same-candidate qualified gate report')
+        gate_cells = {key(c): c for c in gate_report['cells']}
+        if set(gate_cells) != {tuple(k) for k in dependencies['gateKeys']} or \
+                set(rows) != {tuple(k) for k in dependencies['exposureKeys']} or set(gate_cells) & set(rows):
+            raise ValueError('Gate and exposure rows do not partition the original union')
+        for item, value in gate_cells.items():
+            if value.get('status') not in wanted(item, 'gate', root):
+                raise ValueError('Qualified gate report carries an unqualified cell')
+        graded = owner_union(context, evidence['owner'], contracts, config['ownerUnion'])
+        cells = []
+        for original in context['unionExpectedCells']:
+            item = key(original)
+            value = copy.deepcopy(gate_cells[item] if item in gate_cells else fresh[item])
+            value['phase'] = 'gate' if item in gate_cells else 'exposure'
+            if item[3] == 'owner-contracts':
+                owner = graded['cells'].get('/'.join(item[:3]), {'status': 'UNMEASURED', 'axes': {}})
+                value.update(status=owner['status'], owner=owner['axes'])
+            cells.append(value)
+        candidates = {}
+        for value in cells:
+            reading = value.get('readings', {}).get(T.STATISTIC)
+            # A stopped key (DL5n) is UNMEASURED: a target member stays in its population unread.
+            if value['statistic'] == T.STATISTIC and value['renderer'] == 'webgpu' and reading is not None and \
+                    key(value) not in stopped:
+                candidates[key(value)] = reading
+        contract = T.contracts(document, root['references'], cut, targets, candidates)
+        target_checks = R.route_targets(contract, full_union=True)
+        report.update(ownerChecks='FULL_UNION', pendingOwnerKeys=[], targetChecks='FULL_UNION',
+                      targets=target_checks, gateResult=copy.deepcopy(context['gateResult']),
+                      owner={k: graded[k] for k in ('aggregates', 'intrinsic', 'context', 'report', 'snapshot')},
+                      nativeReadiness={'ready': native['ready'], 'stops': copy.deepcopy(native['stops']),
+                                       'stoppedKeys': sorted(list(k) for k in stopped)})
+        failed = [c for c in cells if c['status'] not in wanted(key(c), phase, root)]
+        failed += [t for t in target_checks if t['status'] != 'WITHIN']
+        failed += [c for group in ('aggregates', 'intrinsic', 'context') for c in graded[group] if c['status'] != 'PASS']
+        report['status'] = 'PASS' if not failed else 'NEITHER'
+    reported = {tuple(k) for k in root['reportedKeys']}
+    if any(c['status'] == 'UNMEASURED_REPORTED' and key(c) not in reported for c in cells):
+        raise ValueError('UNMEASURED_REPORTED on a key outside the enumerated reported keys')
+    report['cells'] = cells
+    live.require_context(context)
+    # The sealed result is JSON; normalize now so the in-memory and archived reports agree.
+    return json.loads(json.dumps(report, allow_nan=False))
+
+
+def public_summary(report):
+    """Metadata-only projection of a judge report: statuses, counts and keys, never a reading."""
+    counts = {}
+    for value in report['cells']:
+        counts[value['status']] = counts.get(value['status'], 0) + 1
+    blocking = sorted([c[k] for k in KEY] for c in report['cells']
+                      if c['status'] not in ('PASS', 'REPORTED', 'UNMEASURED_REPORTED', 'UNMEASURED_EMPTY_SUPPORT',
+                                             'PENDING_OWNER_UNION'))
+    owner = report.get('owner') or {}
+    return {'schema': 'w50-judge-public-summary-1', 'phase': report['phase'], 'status': report['status'],
+            'candidateSha256s': list(report['candidateSha256s']), 'ownerChecks': report['ownerChecks'],
+            'targetChecks': report['targetChecks'], 'cellCounts': dict(sorted(counts.items())),
+            'blockingKeys': blocking,
+            'targets': [{'target': t['target'], 'scale': t['scale'], 'status': t['status']} for t in report['targets']],
+            'nativeStops': [dict(s) for s in (report.get('nativeReadiness') or {}).get('stops', [])],
+            'ownerUnion': {group: sorted(str(c.get('name', c.get('id')))+(':'+c['member'] if c.get('member') else '')
+                                         for c in owner.get(group, []) if c['status'] != 'PASS')
+                           for group in ('aggregates', 'intrinsic', 'context')}}
+
+
+def source_probe():
+    T.source_probe()
+    axis('M1', 'p', 's', {'state': 'NOT_APPLICABLE', 'reason': 'probe'}, {'readingSchema': {}})
+    return {'status': 'SOURCE_ONLY'}

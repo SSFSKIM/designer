@@ -1,0 +1,83 @@
+{
+  "schema": "w50-owner-read-supersession-1",
+  "ruling": "DL5o (a), recovered in DL5l's pattern; DL5m item 5 (X75/X76 records at both positions)",
+  "cause": "owner/intrinsic.ts read the shipped glass-0.5 documents' family-keyed provenance entries as leaf records, so X76 could never read MEASURED at 0.5; DL5o (a) admits a historical family-keyed entry verbatim as that family's hold when no moved leaf falls under it, and owner/witness.ts's X76 contract names that admission",
+  "superseded": {
+    "instruments": {
+      "contracts": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/contracts-instrument.json",
+        "sha256": "ca8db277e380399861106509d339833b76bf098a2d4f011da1b2c7f4c62edbf3"
+      },
+      "prepare": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/prepare-instrument.json",
+        "sha256": "88df93272ceff96ea498869fdb3061c097ea0d59621829ad4b1d9577c03e107c"
+      },
+      "projection": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/projection-instrument.json",
+        "sha256": "388af0da046180a1c649bc5e366690981079e64acb756f563d2d556db821eef1"
+      }
+    },
+    "requests": {
+      "contracts": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/contracts-request.json",
+        "sha256": "0d981646ecd3c228096e31a4db2e10842ef027926f08dbffce013f5df9d96cb0"
+      },
+      "prepare": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/prepare-request.json",
+        "sha256": "7d1fc1ea96a8a6f255238e86538a53e2ff67269c6df3c023ff9596f82559d461"
+      },
+      "projection": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/projection-request.json",
+        "sha256": "18247583b9001203447d83733aa4cf961b4c351b55ed7ba45ee660eb57f88e33"
+      }
+    },
+    "closure": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/source-closure.json",
+      "sha256": "84465e599c9b8f9c4b2355028085311c990c637f0a9849fc38d703bc6d8dd6d2"
+    },
+    "outputs": {
+      "contracts.json": {
+        "path": "/Users/new/vitrea-w50/g1-owner-read-r2/contracts.json",
+        "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
+      },
+      "prepare.json": {
+        "path": "/Users/new/vitrea-w50/g1-owner-read-r2/prepare.json",
+        "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+      },
+      "projection.json": {
+        "path": "/Users/new/vitrea-w50/g1-owner-read-r2/projection.json",
+        "sha256": "822cf915e09cc5550e4a829c1ccdf605f0582db83ef3c5432f48cc0aa076ec52"
+      }
+    },
+    "evidence": {
+      "contracts.json": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/contracts.json",
+        "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
+      },
+      "prepare.json": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/prepare.json",
+        "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+      },
+      "projection-index.json": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/projection-index.json",
+        "sha256": "1819348e00701f84c344970ea4dcd5ef396ddf7cf251ada54733f5b071e52e3f"
+      },
+      "projection.json.gz": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/projection.json.gz",
+        "sha256": "86cdbbed01f0fe2c311f4a0395296707cedf2ad83df64f66a84648d5576f778f"
+      }
+    },
+    "status": "retained unedited; recorded evidence of the pre-DL5o intrinsic port"
+  },
+  "closure": {
+    "r3": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/source-closure.json",
+      "sha256": "0ec83188db5e7fd3a46a241ec5e37e15fa1d25967a613775130a83fc88470e39"
+    },
+    "movedSources": [
+      "packages/calibration/results/2026-10-08-w50-g1-fit/owner/intrinsic.ts",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/owner/witness.ts"
+    ]
+  },
+  "unchanged": "config, inventory, ownerKeys, inputWitness, node and pythonEnvironment are the superseded instruments' own pins; owner/run.py is unchanged"
+}

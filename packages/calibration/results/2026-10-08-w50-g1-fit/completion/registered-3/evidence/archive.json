@@ -1,0 +1,65 @@
+{
+  "schema": "w50-reference-assembly-archive-1",
+  "status": "EXACT_BYTES_ARCHIVED",
+  "binding": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/binding.json",
+    "sha256": "6548d289c6fd932a90e549a07ae2519dddb9a84def7a3874d14e553d588ad2de"
+  },
+  "supersedes": {
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/evidence/archive.json",
+      "sha256": "3d699f8c27c8530d33748afab99b60e45e28b151901ebd138c93c70a146ef10b"
+    },
+    "binding": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+      "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+    },
+    "completedReferences": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558",
+    "record": "completion/registered-3/supersedes.json; owner/r3/supersedes.json"
+  },
+  "completedReferences": {
+    "original": {
+      "path": "/Users/new/vitrea-w50/g1-completion-r3/completed-references.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "bytes": 283946703
+    },
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/evidence/completed-references.json.gz",
+      "sha256": "9307e6e495908a7cad76ab40a1498a414a28c31bb14644c6e579da971442ccc1",
+      "encoding": "gzip level9 mtime0 (python gzip.compress)"
+    },
+    "liveCopy": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+      "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "note": "identical bytes, gitignored; the LIVE root pins it repo-relative"
+    }
+  },
+  "bundle": {
+    "path": "/Users/new/vitrea-w50/g1-completion-r3/bundle.json",
+    "sha256": "53a42b6d7de3a261864ceabeb94fa9f95267861fbf9f1b660e5aae34c77b5320",
+    "note": "not archived: validate_registered re-derives it deterministically from the binding"
+  },
+  "artifacts": {
+    "root": "/Users/new/vitrea-w50/g1-completion-r3/artifacts",
+    "files": 828,
+    "contentAddressedNamesVerified": true,
+    "archive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/evidence/artifacts.tar.gz",
+      "sha256": "1970452e746fd71d6e528ef3494d4ab697b1c4bd965657aaf430adcc47972e6f",
+      "encoding": "tar (PAX, sorted, mtime 0, uid/gid 0, no owner names, dir 0755, files 0644) gzip level9 mtime0 (python gzip.compress)"
+    }
+  },
+  "summary": {
+    "rows": 3527,
+    "statuses": {
+      "blind SEALED_BLIND": 832,
+      "calibration MEASURED": 752,
+      "gate MEASURED": 963,
+      "historical-prediction-check MEASURED": 100,
+      "validation MEASURED": 688,
+      "validation REPORTED": 168,
+      "validation UNMEASURED_EMPTY_SUPPORT": 24
+    }
+  },
+  "boundary": "Reference evidence only; blind rows identity-only; no candidate, fit, gate or exposure value."
+}

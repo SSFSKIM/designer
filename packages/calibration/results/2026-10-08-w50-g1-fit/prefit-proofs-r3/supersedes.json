@@ -1,0 +1,74 @@
+{
+  "schema": "w50-prefit-proof-supersession-1",
+  "ruling": "DL5o (a), recovered in DL5l's pattern; DL5m item 5 (X75/X76 records at both positions)",
+  "cause": "the r3 owner chain (owner/r3/supersedes.json, completion/registered-3/supersedes.json) moved the completed reference inventory and its assembly, which these four proofs pin",
+  "superseded": {
+    "proofs": {
+      "active05ScratchBaselines": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/active05ScratchBaselines.json",
+        "sha256": "9fe7e11fa75d98f80d1589c7d5d489e45610c02014587db62f45aa340a8664d1"
+      },
+      "dark05Bands": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/dark05Bands.json",
+        "sha256": "7957e91543c7b4e16c804c430959ac81bbb2dbfbad58415aabc5a102066d27a8"
+      },
+      "referenceCompletion": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/referenceCompletion.json",
+        "sha256": "bbd827bae87a31f1088e26557113d458d281c38273ee25bd666d3371f5f8b4c3"
+      },
+      "repeatBar": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/repeatBar.json",
+        "sha256": "878697807e68bbafde49b0266c33281bf3ec26445bfa44b2330a8c14fd2b62f6"
+      }
+    },
+    "status": "retained unedited; each validated against the r2 inventory it pins"
+  },
+  "rebuilt": {
+    "active05ScratchBaselines": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/active05ScratchBaselines.json",
+      "sha256": "409cc610b8d1cbaf47c0784971fa438c8434d27c4a572b8e48aa958b06b85218"
+    },
+    "dark05Bands": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/dark05Bands.json",
+      "sha256": "bfe2c1e66d9b7c4f9022fbf53788b5601409fb21faa3010edc7c775e163f1ab3"
+    },
+    "referenceCompletion": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/referenceCompletion.json",
+      "sha256": "0dc87aa980134d60d568b89f7f3e8535a72e23103aac37f6e9360f31e67b12e8"
+    },
+    "repeatBar": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/repeatBar.json",
+      "sha256": "0898fdca3f80af54d5d7474b790d18fd988ceadfbf6242b9702292fd4e5351fb"
+    }
+  },
+  "standing": {
+    "identityDigestsGoldens": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/identityDigestsGoldens.json",
+      "sha256": "eb4ca92cfc5a67093b09f815c3214257fb3aad240ea2702d403c455bc95b15cf"
+    },
+    "nativeArchive": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/nativeArchive.json",
+      "sha256": "ed59ff9f07a8173252bdcb350ac65ff413b2844f009d41472cd31f710fe601c1"
+    },
+    "negativeNeutralDiagnostic": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/negativeNeutralDiagnostic.json",
+      "sha256": "19bbe7c3c296b0ebfdb9b5e6959367548d78858a2db1cc0bbd1aff9fd671628a"
+    },
+    "newBedRendererAdapter": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/newBedRendererAdapter.json",
+      "sha256": "dab68bff11b5fee31125ce3831b22097a05dbe25211acb8615fca04e89bb6a4e"
+    },
+    "numericalRehearsal": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/numericalRehearsal.json",
+      "sha256": "c75c2b79664040fcaa40c606a559255de3f10bb68df19f87440e3d8a154acd88"
+    },
+    "shaderCpuAgreement": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/shaderCpuAgreement.json",
+      "sha256": "9df2b3ec0e238332503f0bf6e1dd62da56a55abe9c1e240e5cc85c2b6688cfd6"
+    }
+  },
+  "builder": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/build.py",
+    "sha256": "139a9dfcabd786b57a416f65650823c0e998ddaad34adb049e216877ae13d546"
+  }
+}

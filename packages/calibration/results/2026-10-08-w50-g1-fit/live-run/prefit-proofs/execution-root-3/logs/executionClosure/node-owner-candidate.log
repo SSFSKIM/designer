@@ -1,0 +1,232 @@
+TAP version 13
+# Subtest: live owner authority binds exposure claim and same-candidate gate, not exposure result
+ok 1 - live owner authority binds exposure claim and same-candidate gate, not exposure result
+  ---
+  duration_ms: 1.200458
+  type: 'test'
+  ...
+# Subtest: copied gate captures and unregistered config cannot become live owner authority
+ok 2 - copied gate captures and unregistered config cannot become live owner authority
+  ---
+  duration_ms: 0.143208
+  type: 'test'
+  ...
+# Subtest: post-fit intrinsic records must be exactly those frozen in the gate batch
+ok 3 - post-fit intrinsic records must be exactly those frozen in the gate batch
+  ---
+  duration_ms: 0.095417
+  type: 'test'
+  ...
+# Subtest: real production candidate stamps retain raw bytes and derive full actual endpoints
+ok 4 - real production candidate stamps retain raw bytes and derive full actual endpoints
+  ---
+  duration_ms: 8.994084
+  type: 'test'
+  ...
+# Subtest: unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+ok 5 - unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+  ---
+  duration_ms: 7.09025
+  type: 'test'
+  ...
+# Subtest: legacy role parser stays role-sensitive and unchanged
+ok 6 - legacy role parser stays role-sensitive and unchanged
+  ---
+  duration_ms: 0.338917
+  type: 'test'
+  ...
+# Subtest: exported AST declarations bind explicitly and unresolved runtime dependencies refuse
+ok 7 - exported AST declarations bind explicitly and unresolved runtime dependencies refuse
+  ---
+  duration_ms: 1211.624584
+  type: 'test'
+  ...
+# Subtest: factory refuses missing and mutated external source authority before evaluation
+ok 8 - factory refuses missing and mutated external source authority before evaluation
+  ---
+  duration_ms: 1.549666
+  type: 'test'
+  ...
+# Subtest: candidate PNG kernel binds untouched metadata, full endpoints and declared raster
+ok 9 - candidate PNG kernel binds untouched metadata, full endpoints and declared raster
+  ---
+  duration_ms: 2652.473
+  type: 'test'
+  ...
+# Subtest: rowsOf preserves raw candidate labels and requires full endpoint sidecars
+ok 10 - rowsOf preserves raw candidate labels and requires full endpoint sidecars
+  ---
+  duration_ms: 6.051667
+  type: 'test'
+  ...
+# Subtest: paired coherence reuses frozen arithmetic with candidate identity and rejects mixed cohorts
+ok 11 - paired coherence reuses frozen arithmetic with candidate identity and rejects mixed cohorts
+  ---
+  duration_ms: 1315.193958
+  type: 'test'
+  ...
+# Subtest: legacy pixels and classification retain the original frozen verdicts
+ok 12 - legacy pixels and classification retain the original frozen verdicts
+  ---
+  duration_ms: 52.886083
+  type: 'test'
+  ...
+# Subtest: candidate intrinsic function accepts registered full declarations and rejects role/position changes
+ok 13 - candidate intrinsic function accepts registered full declarations and rejects role/position changes
+  ---
+  duration_ms: 14.440166
+  type: 'test'
+  ...
+# Subtest: evaluateRows reproduces frozen owner report on the exact synthetic union without row relabelling
+ok 14 - evaluateRows reproduces frozen owner report on the exact synthetic union without row relabelling
+  ---
+  duration_ms: 853.416167
+  type: 'test'
+  ...
+# Subtest: candidate X1 recount keeps both frozen pixel masks
+ok 15 - candidate X1 recount keeps both frozen pixel masks
+  ---
+  duration_ms: 414.630125
+  type: 'test'
+  ...
+# Subtest: real production candidate stamps retain raw bytes and derive full actual endpoints
+ok 16 - real production candidate stamps retain raw bytes and derive full actual endpoints
+  ---
+  duration_ms: 7.752625
+  type: 'test'
+  ...
+# Subtest: unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+ok 17 - unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+  ---
+  duration_ms: 6.917459
+  type: 'test'
+  ...
+# Subtest: legacy role parser stays role-sensitive and unchanged
+ok 18 - legacy role parser stays role-sensitive and unchanged
+  ---
+  duration_ms: 0.337583
+  type: 'test'
+  ...
+# Subtest: real production candidate stamps retain raw bytes and derive full actual endpoints
+ok 19 - real production candidate stamps retain raw bytes and derive full actual endpoints
+  ---
+  duration_ms: 6.898667
+  type: 'test'
+  ...
+# Subtest: unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+ok 20 - unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+  ---
+  duration_ms: 6.050291
+  type: 'test'
+  ...
+# Subtest: legacy role parser stays role-sensitive and unchanged
+ok 21 - legacy role parser stays role-sensitive and unchanged
+  ---
+  duration_ms: 0.321833
+  type: 'test'
+  ...
+# Subtest: exposure bridge evaluates untouched real candidate rows against sealed synthetic current evidence
+ok 22 - exposure bridge evaluates untouched real candidate rows against sealed synthetic current evidence
+  ---
+  duration_ms: 5297.21275
+  type: 'test'
+  ...
+# Subtest: real production candidate stamps retain raw bytes and derive full actual endpoints
+ok 23 - real production candidate stamps retain raw bytes and derive full actual endpoints
+  ---
+  duration_ms: 8.097542
+  type: 'test'
+  ...
+# Subtest: unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+ok 24 - unregistered, changed, cross-position, ambiguous and fabricated role stamps refuse
+  ---
+  duration_ms: 8.214208
+  type: 'test'
+  ...
+# Subtest: legacy role parser stays role-sensitive and unchanged
+ok 25 - legacy role parser stays role-sensitive and unchanged
+  ---
+  duration_ms: 0.338792
+  type: 'test'
+  ...
+# Subtest: the frozen engine admits intrinsic records it can read and answers admission only
+ok 26 - the frozen engine admits intrinsic records it can read and answers admission only
+  ---
+  duration_ms: 3258.743708
+  type: 'test'
+  ...
+# Subtest: every content refusal the frozen engine throws after the marker throws before it
+ok 27 - every content refusal the frozen engine throws after the marker throws before it
+  ---
+  duration_ms: 69.675959
+  type: 'test'
+  ...
+# Subtest: the DL5o self-check reads the same frozen engine on records alone and grades nothing itself
+ok 28 - the DL5o self-check reads the same frozen engine on records alone and grades nothing itself
+  ---
+  duration_ms: 14.739958
+  type: 'test'
+  ...
+# Subtest: additive discovery retains static helper and explicit bootstrap source without execution
+ok 29 - additive discovery retains static helper and explicit bootstrap source without execution
+  ---
+  duration_ms: 13.436958
+  type: 'test'
+  ...
+# Subtest: new entries do not silently admit unresolved dynamic imports
+ok 30 - new entries do not silently admit unresolved dynamic imports
+  ---
+  duration_ms: 1.486959
+  type: 'test'
+  ...
+# Subtest: new entries refuse data imports before reading any measured document
+ok 31 - new entries refuse data imports before reading any measured document
+  ---
+  duration_ms: 0.903917
+  type: 'test'
+  ...
+# Subtest: fixed source-only probe exercises a synthetic closure before emitting runtime metadata
+ok 32 - fixed source-only probe exercises a synthetic closure before emitting runtime metadata
+  ---
+  duration_ms: 538.548959
+  type: 'test'
+  ...
+# Subtest: owner union is complete same-candidate gate plus exposure, never baseline fill
+ok 33 - owner union is complete same-candidate gate plus exposure, never baseline fill
+  ---
+  duration_ms: 1.107958
+  type: 'test'
+  ...
+# Subtest: duplicate, wrong-phase and absent dependency records refuse without held context fill
+ok 34 - duplicate, wrong-phase and absent dependency records refuse without held context fill
+  ---
+  duration_ms: 0.211584
+  type: 'test'
+  ...
+# Subtest: drawn endpoint is checked against production-resolved candidate and actual page
+ok 35 - drawn endpoint is checked against production-resolved candidate and actual page
+  ---
+  duration_ms: 0.215875
+  type: 'test'
+  ...
+# Subtest: record admission preserves raw rows and rejects refiled matrix/metadata identities
+ok 36 - record admission preserves raw rows and rejects refiled matrix/metadata identities
+  ---
+  duration_ms: 5.6035
+  type: 'test'
+  ...
+# Subtest: repository-relative cohort spelling is preserved while identity compares resolved pins
+ok 37 - repository-relative cohort spelling is preserved while identity compares resolved pins
+  ---
+  duration_ms: 0.146958
+  type: 'test'
+  ...
+1..37
+# tests 37
+# suites 0
+# pass 37
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7334.521125

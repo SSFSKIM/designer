@@ -1,0 +1,233 @@
+{
+ "schema": "w50-owner-selfcheck-2",
+ "status": "PASS",
+ "counts": {
+  "cells": 745,
+  "ownerCells": 640,
+  "contextCells": 105,
+  "aggregates": 5
+ },
+ "statuses": {
+  "ownerCells": {
+   "PASS": 640
+  },
+  "contextCells": {
+   "PASS": 105
+  },
+  "aggregates": {
+   "PASS": 5
+  },
+  "intrinsic": {
+   "PASS": 14
+  }
+ },
+ "aggregates": [
+  {
+   "name": "C1",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.25/dark/inactive",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.25/dark/rest",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.5/dark/inactive",
+   "status": "PASS"
+  },
+  {
+   "name": "M1/0.5/dark/rest",
+   "status": "PASS"
+  }
+ ],
+ "notPassing": [],
+ "intrinsic": [
+  {
+   "name": "X75",
+   "member": "apple-macos-26.5/dark/active",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-26.5/dark/receded",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-26.5/light/active",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-26.5/light/receded",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.25/dark/active",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.25/dark/receded",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.25/light/active",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.25/light/receded",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.5/dark/active",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.5/dark/receded",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.5/light/active",
+   "status": "PASS"
+  },
+  {
+   "name": "X75",
+   "member": "apple-macos-27.0-glass0.5/light/receded",
+   "status": "PASS"
+  },
+  {
+   "name": "X76",
+   "member": "0.25",
+   "status": "PASS"
+  },
+  {
+   "name": "X76",
+   "member": "0.5",
+   "status": "PASS"
+  }
+ ],
+ "familyHolds": {
+  "0.25": {
+   "activeAdmitted": [],
+   "activeRefused": [],
+   "recededAdmitted": [],
+   "recededRefused": [],
+   "heldByFamily": {},
+   "missing": []
+  },
+  "0.5": {
+   "activeAdmitted": [
+    "backdropToneAdaptation",
+    "backdropToneResponse",
+    "bodyChromaRetention",
+    "cssTierBlur",
+    "outerShadow",
+    "outerShadowSpanGraded",
+    "rim",
+    "scatter",
+    "scatterScaleSelectivity"
+   ],
+   "activeRefused": [],
+   "recededAdmitted": [
+    "backdropToneResponse",
+    "bodyChromaRetention",
+    "outerShadow"
+   ],
+   "recededRefused": [],
+   "heldByFamily": {
+    "backdropToneAnchorX": "backdropToneResponse",
+    "outerShadow.liftAmplitude": "outerShadow",
+    "outerShadow.thinOcclusionDark": "outerShadow"
+   },
+   "missing": []
+  }
+ },
+ "config": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/config.json",
+  "sha256": "6382b4730f2e68652c3159de25d00c3222400571cae8e54ff3bb029acdae5808"
+ },
+ "preparedReport": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/prepare.json",
+  "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+ },
+ "ownerContracts": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/contracts.json",
+  "sha256": "c203e3c1ca3413bcd15aba440224d8bba6b98485d82a00983e0439b70055612b"
+ },
+ "inventory": {
+  "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+  "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+ },
+ "identityCandidate": {
+  "records": {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity/records/owner-intrinsic-records.json",
+   "sha256": "d63e552a7105330cd0ec70e9aa507def2f06f1d794914ed5eef377c8805e7560"
+  },
+  "cohort": [
+   {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity/glass025/candidate.json",
+    "sha256": "8a6eed1ce3d43a23e898ac408365d9fbcb370fc7fa611c2d5d30ec49df8e21e5"
+   },
+   {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity/glass05/candidate.json",
+    "sha256": "59ed35f03a8b71671d190a09e1bc1b31787aa7c3a9d056577382c0707406da39"
+   }
+  ],
+  "builder": {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/identity.py",
+   "sha256": "abf0388d07f4a08d3e3858a9421dbf991d3923fd37eb621a180dbe2d24a4a01a"
+  }
+ },
+ "engine": {
+  "ownerConfig": {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner-config.json",
+   "sha256": "2c40a7464687343b2592f9a239aae8edfefc581a20aa4f94bb80fb89ecc2ca64"
+  },
+  "frozenSourceClosure": {
+   "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/r3/source-closure.json",
+   "sha256": "0ec83188db5e7fd3a46a241ec5e37e15fa1d25967a613775130a83fc88470e39"
+  },
+  "sourcePins": {
+   "packages/calibration/results/2026-10-08-w50-g1-fit/owner/api.ts": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/api.ts",
+    "sha256": "a80a4caea17002b88b5de44b5ac9abf7a88f9d90328041a2e8afde304b6b7a1a"
+   },
+   "packages/calibration/results/2026-10-08-w50-g1-fit/owner/intrinsic.ts": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/intrinsic.ts",
+    "sha256": "c617c142a9a94ffd634afea50b469055319279e53dc418354d43134566a84468"
+   },
+   "packages/calibration/results/2026-10-08-w50-g1-fit/owner/referee.ts": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/referee.ts",
+    "sha256": "67a81a735d662f02092401b3c7954e392ea37f2e6ed5b79a40b81385d6a9eefb"
+   },
+   "packages/calibration/results/2026-10-08-w50-g1-fit/owner/source.ts": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/source.ts",
+    "sha256": "1aea30da0199b81d1c05e5c80ea377cfb257f8bd99774c5272d35612d5b2f51e"
+   }
+  },
+  "bridge": {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/bridge.ts",
+   "sha256": "6187f52fc77f8fe61b6a12c5e9e357013d8af7e25e27e017a04c3faafb898762"
+  },
+  "runner": {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/owner-selfcheck-intrinsic.ts",
+   "sha256": "cbafdff63d482f6a6c4d15e2dffd3d45f439d947762c18226436a26f61795272"
+  },
+  "function": "selfcheckIntrinsics"
+ },
+ "grader": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py",
+  "sha256": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2",
+  "function": "grade_owner_report"
+ }
+}

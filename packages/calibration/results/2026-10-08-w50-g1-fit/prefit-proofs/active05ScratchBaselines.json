@@ -1,0 +1,95 @@
+{
+ "schema": "w50-prefit-proof-1",
+ "kind": "active05ScratchBaselines",
+ "status": "PASS",
+ "establishes": "Active 0.5's missing current web rows are read in scratch before fitting (landing rule 2; README \"missing active0.5 ml/lg current captures\"; \u00a75.217 \u00a72 and \u00a75), and the retained scratch rasters still verify.",
+ "boundary": "Reads retained scratch captures and the canonical capture tree read-only; renders nothing.",
+ "builtFrom": {
+  "gitHead": "9ab03c54cb9c0d47c7ae88f714281e112dbc3ab9",
+  "builder": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+  "python": "3.14.6"
+ },
+ "checks": [
+  {
+   "id": "scratch-raster-identity",
+   "status": "PASS",
+   "verifies": "verify-identity.py: the 43 renderer raster witnesses equal W49b's and the retained scratch controls hash to their records; prior-capture cells are raw-RGBA identical to the canonical tree (read-only).",
+   "command": [
+    "/Users/new/vitrea-w49/py/bin/python",
+    "-I",
+    "-B",
+    "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/verify-identity.py"
+   ],
+   "cwd": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence",
+   "exitCode": 0,
+   "matched": [
+    "43 renderer witnesses exact; WebGPU (24, 4), CSS (21, 7)"
+   ],
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/active05ScratchBaselines/scratch-raster-identity.log",
+    "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c"
+   }
+  },
+  {
+   "id": "scratch-bound-rows",
+   "status": "PASS",
+   "verifies": "The active 0.5 impulse ml/lg current rows (both scales and tiers) and the two default 2x receded CSS ml/lg references are MEASURED on the G0-bound scratch captures, whose pins are unchanged and hash.",
+   "function": "scratch_bound_rows",
+   "summary": {
+    "rowsOnScratchControls": 54,
+    "lowEndPathRequired": 10,
+    "statuses": [
+     "MEASURED"
+    ]
+   },
+   "log": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/active05ScratchBaselines/scratch-bound-rows.json",
+    "sha256": "8955e76f84768245264bdf3e22ab92e2515a0dc5a007d0b92e9b786249b9caaf"
+   }
+  }
+ ],
+ "sources": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/build.py",
+   "sha256": "70d23fee4fdbb514f107d746fbc425286d13b5b1bf8f7004458aaada34291f46"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/verify-identity.py",
+   "sha256": "89b467142d2a64684be5ebdacf7f4d1ccd8f245fe63127acde1359c15c1220a9"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls-complete.json",
+   "sha256": "2584128c6747ba0452d36418aa3bf7fd85d3d29991cca335e9940df95816a4f0"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/dark-controls-css.json",
+   "sha256": "03b9ac916a0ef99518412e4e471ff19488f4d17b29688cfb5acb6e993563cf8c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/evidence/raw-identity.json",
+   "sha256": "d662626f5ce0a58cdf204800ca1564e37b698a3865c29a2b5c15cc6e2fa48cda"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w49b-g0-declaration/evidence/identity-after.json",
+   "sha256": "d662626f5ce0a58cdf204800ca1564e37b698a3865c29a2b5c15cc6e2fa48cda"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+   "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json",
+   "sha256": "a85ef80a068915a2ed1b3170ecacca36c81b42a5b94c77c828539d6e6be39da6"
+  }
+ ],
+ "outputs": [
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/active05ScratchBaselines/scratch-raster-identity.log",
+   "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c"
+  },
+  {
+   "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/logs/active05ScratchBaselines/scratch-bound-rows.json",
+   "sha256": "8955e76f84768245264bdf3e22ab92e2515a0dc5a007d0b92e9b786249b9caaf"
+  }
+ ]
+}

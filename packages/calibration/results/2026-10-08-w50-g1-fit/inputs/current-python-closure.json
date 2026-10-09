@@ -1,0 +1,42 @@
+{
+  "sources": {
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py": "29d785ae6d50b6eb1857dfdf710466ebd3cd31ff4bc23d122cf1aa04e6c27291",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+    "packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py": "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/adapter.py": "5959e94682db89d4cb3ac40e767c9c5ef9c490ceca2add6954c2f5dcc7aee6b4",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/current_probe.py": "1b1ad9415d777c9355a98d061e8a34251cf413cd5f360384cfca0488f7eaa644",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/current_router.py": "e326e5037a0bc9e1814de60bcd097f0554f46793edaa460c4a6da34172334034",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/execution/dispatch.py": "073a1307c9904c6c06ea4451a99d04bc84de437d714c7a3ed060a0433d0bd248",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/execution/guard.py": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py": "09c5539c7350c11c8f35d05e56df6df3ed17ac9e902c56e2175b833ba8c1099f"
+  },
+  "environment": {
+    "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+    "architecture": "arm64",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "isolated": true,
+    "packages": [
+      [
+        "numpy",
+        "2.5.3"
+      ],
+      [
+        "pillow",
+        "12.3.0"
+      ],
+      [
+        "pip",
+        "26.1.2"
+      ],
+      [
+        "scipy",
+        "1.18.1"
+      ]
+    ]
+  },
+  "probeSha256": "1b1ad9415d777c9355a98d061e8a34251cf413cd5f360384cfca0488f7eaa644",
+  "exercise": "synthetic source-only"
+}

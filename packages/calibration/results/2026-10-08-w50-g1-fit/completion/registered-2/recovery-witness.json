@@ -1,0 +1,345 @@
+{
+ "schema": "w50-owner-recovery-witness-1",
+ "ruling": "DL5l reference-evidence recovery; DL5m item 1",
+ "fix": "7e621f344 owner/referee.ts reads an absent L1 mean as the owner test does (null)",
+ "owner": {
+  "closure": {
+   "sources": 180,
+   "differing": [
+    "sources/18/sha256"
+   ]
+  },
+  "contracts": {
+   "differing": [
+    "readerSources/referee.ts/sha256"
+   ]
+  },
+  "prepare": {
+   "cells": 745,
+   "differingCells": [
+    "apple-macos-27.0-1x-dark-standard-glass0.25/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.25/webgpu/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/webgpu/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/webgpu/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/webgpu/dark-solid__rrect-md__inactive"
+   ],
+   "differingField": "L1.namedExclusion",
+   "change": "false -> true"
+  }
+ },
+ "projection": {
+  "rows": 640,
+  "rowValuesIdentical": "every row differs only in reportPin/contractsPin",
+  "indexRows": 640
+ },
+ "assembly": {
+  "bindingFieldsMoved": [
+   "ownerContracts",
+   "ownerIndex",
+   "sourcePins"
+  ],
+  "bindingSourcePinsMoved": [
+   "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/run.py",
+   "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/run.py"
+  ],
+  "bundleFieldsMoved": [
+   "artifactRoot",
+   "artifacts",
+   "binding",
+   "inputs",
+   "sourcePins"
+  ],
+  "bundleNote": "artifacts and artifactRoot move with the fresh root; inputs with the owner pins; binding and sourcePins with the binding; the completed inventory is witnessed below"
+ },
+ "inventory": {
+  "rows": 3527,
+  "byteIdenticalRows": 1255,
+  "ownerRows": 640,
+  "differingLeavesByKind": {
+   "artifact directory emptySupportWitness": 24,
+   "artifact directory nativeEvidence": 1632,
+   "owner ownerEvidence": 1280
+  }
+ },
+ "artifacts": {
+  "files": 828,
+  "namesAndBytesIdentical": true
+ },
+ "ownerSelfcheck": {
+  "superseded": {
+   "status": "FAIL",
+   "counts": {
+    "cells": 745,
+    "ownerCells": 640,
+    "contextCells": 105,
+    "aggregates": 5
+   },
+   "statuses": {
+    "ownerCells": {
+     "PASS": 640
+    },
+    "contextCells": {
+     "PASS": 97,
+     "UNMEASURED": 8
+    },
+    "aggregates": {
+     "PASS": 5
+    }
+   },
+   "notPassing": [
+    "apple-macos-27.0-1x-dark-standard-glass0.25/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.25/webgpu/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/webgpu/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.25/webgpu/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/webgpu/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/webgpu/dark-solid__rrect-md__inactive"
+   ]
+  },
+  "r2": {
+   "status": "PASS",
+   "counts": {
+    "cells": 745,
+    "ownerCells": 640,
+    "contextCells": 105,
+    "aggregates": 5
+   },
+   "statuses": {
+    "ownerCells": {
+     "PASS": 640
+    },
+    "contextCells": {
+     "PASS": 105
+    },
+    "aggregates": {
+     "PASS": 5
+    }
+   },
+   "notPassing": []
+  }
+ },
+ "prefitProofs": {
+  "rebuilt": {
+   "active05ScratchBaselines": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/active05ScratchBaselines.json",
+     "sha256": "9fe7e11fa75d98f80d1589c7d5d489e45610c02014587db62f45aa340a8664d1"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/active05ScratchBaselines.json",
+     "sha256": "fcc09f44bc63a5c53cbfbd0bd3f349f9fa5d1fd1fc08b26b30213e296353ade6"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json"
+    ]
+   },
+   "dark05Bands": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/dark05Bands.json",
+     "sha256": "7957e91543c7b4e16c804c430959ac81bbb2dbfbad58415aabc5a102066d27a8"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/dark05Bands.json",
+     "sha256": "a3cf4b0d65317cf56eecb22a94588e590143d6cab67ec09fa857dee07a323f23"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/binding.json",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json"
+    ]
+   },
+   "referenceCompletion": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/referenceCompletion.json",
+     "sha256": "bbd827bae87a31f1088e26557113d458d281c38273ee25bd666d3371f5f8b4c3"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/referenceCompletion.json",
+     "sha256": "c390ed85343177a5263c1dfaf032202f6ba4d9dfb1a6461f93055336e5d50e2c"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/binding.json",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/evidence/archive.json",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/evidence/artifacts.tar.gz",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/evidence/completed-references.json.gz",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/run.py",
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json"
+    ]
+   },
+   "repeatBar": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r2/repeatBar.json",
+     "sha256": "878697807e68bbafde49b0266c33281bf3ec26445bfa44b2330a8c14fd2b62f6"
+    },
+    "validateProof": "PASS",
+    "movedPins": [],
+    "superseded": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/repeatBar.json",
+     "sha256": "2b011377003eece7e9fef3025dc402cfefce60234faab4c41ac2dfc75ac09d36"
+    },
+    "supersededMovedPins": [
+     "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json"
+    ]
+   }
+  },
+  "standing": {
+   "identityDigestsGoldens": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/identityDigestsGoldens.json",
+     "sha256": "eb4ca92cfc5a67093b09f815c3214257fb3aad240ea2702d403c455bc95b15cf"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "nativeArchive": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/nativeArchive.json",
+     "sha256": "ed59ff9f07a8173252bdcb350ac65ff413b2844f009d41472cd31f710fe601c1"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "negativeNeutralDiagnostic": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/negativeNeutralDiagnostic.json",
+     "sha256": "19bbe7c3c296b0ebfdb9b5e6959367548d78858a2db1cc0bbd1aff9fd671628a"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "newBedRendererAdapter": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/newBedRendererAdapter.json",
+     "sha256": "dab68bff11b5fee31125ce3831b22097a05dbe25211acb8615fca04e89bb6a4e"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "numericalRehearsal": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/numericalRehearsal.json",
+     "sha256": "c75c2b79664040fcaa40c606a559255de3f10bb68df19f87440e3d8a154acd88"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   },
+   "shaderCpuAgreement": {
+    "proof": {
+     "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs/shaderCpuAgreement.json",
+     "sha256": "9df2b3ec0e238332503f0bf6e1dd62da56a55abe9c1e240e5cc85c2b6688cfd6"
+    },
+    "validateProof": "PASS",
+    "movedPins": []
+   }
+  }
+ },
+ "admitted": {
+  "artifact pin directory": 1656,
+  "artifacts byte-identical": 1,
+  "binding ownerIndex/ownerContracts/run.py source pin": 1,
+  "bundle artifacts: same names and documents under the fresh root": 1,
+  "bundle binding and sources are the r2 binding's": 1,
+  "bundle fields": 1,
+  "bundle inputs: owner index, contracts and batch": 1,
+  "closure referee.ts": 1,
+  "contracts readerSources referee.ts": 1,
+  "index membership/order": 1,
+  "index row evidence pin (directory and content pins)": 640,
+  "inventory membership/order": 1,
+  "inventory metadata": 1,
+  "owner row ownerEvidence pin": 1280,
+  "prepare L1 namedExclusion false->true": 1,
+  "projection contractsPin": 1282,
+  "projection membership/order": 1,
+  "projection reportPin": 1282,
+  "rebuilt proof pins no superseded artefact": 4,
+  "rebuilt proof replaces a moved pin": 4,
+  "self-check: superseded fails on exactly the eight, r2 passes": 1,
+  "standing proof pins no superseded artefact": 6
+ },
+ "unexpected": [],
+ "status": "ONLY_RULED_DIFFERENCES",
+ "pins": {
+  "superseded": {
+   "closure": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/source-closure.json",
+    "sha256": "91517fa49cb753ecddfd67ec724ddca70825c2f3ba5b8343962ea5239ddbd1dd"
+   },
+   "contracts": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/contracts.json",
+    "sha256": "b8698df859c404c38ff8dd6df361015e459e5c2cf474f432913bc554260170a4"
+   },
+   "prepare": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/prepare.json",
+    "sha256": "fc4ac59c450b0643c5296a7789901b2569a549a2b5d50a453f857fa3d2168648"
+   },
+   "projection": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read/projection.json",
+    "sha256": "8e0a0b74e7c34ba9da2c1e99fd663b083392a1b6e93efded06468aa35fe2e98c"
+   },
+   "projectionIndex": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence/projection-index.json",
+    "sha256": "ff981240989625983171d911824b97faeb2188fb1f38d3391fd7c22281fcf9f5"
+   },
+   "binding": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered/binding.json",
+    "sha256": "d68fc6ceb6df8ee7642f5000530e4dc6062fff6384b80c0527fec104265bfd69"
+   },
+   "bundle": {
+    "path": "/Users/new/vitrea-w50/g1-completion/bundle.json",
+    "sha256": "2a76acdbc7dc78ca18400cb7d02fd2a2604341fc9d8ed58beaf6b96e606a11d8"
+   },
+   "completedReferences": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references.json",
+    "sha256": "a85ef80a068915a2ed1b3170ecacca36c81b42a5b94c77c828539d6e6be39da6"
+   }
+  },
+  "r2": {
+   "closure": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/r2/source-closure.json",
+    "sha256": "84465e599c9b8f9c4b2355028085311c990c637f0a9849fc38d703bc6d8dd6d2"
+   },
+   "contracts": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/contracts.json",
+    "sha256": "ef2818bae30e0c7d343fbaf54e4a65f1cd6d5c9da2d1970362a15a52820aff5b"
+   },
+   "prepare": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/prepare.json",
+    "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+   },
+   "projection": {
+    "path": "/Users/new/vitrea-w50/g1-owner-read-r2/projection.json",
+    "sha256": "822cf915e09cc5550e4a829c1ccdf605f0582db83ef3c5432f48cc0aa076ec52"
+   },
+   "projectionIndex": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r2/projection-index.json",
+    "sha256": "1819348e00701f84c344970ea4dcd5ef396ddf7cf251ada54733f5b071e52e3f"
+   },
+   "binding": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/binding.json",
+    "sha256": "ab418b646f34f4e2fdfb36ab8b5e4dfee246c001339bce07ceea036147f2736a"
+   },
+   "bundle": {
+    "path": "/Users/new/vitrea-w50/g1-completion-r2/bundle.json",
+    "sha256": "fa5ceb669047caea642543f1e367efa1858064e7e8a09e2a837d14dce2046e10"
+   },
+   "completedReferences": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r2.json",
+    "sha256": "444763157028a9c8601b1b0788d93d2e029e4e35aa926200c07539ba10257558"
+   }
+  }
+ },
+ "builder": {
+  "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-2/witness.py",
+  "sha256": "dce0d8a83328a51c2d3cf4be82e6db5f9fd07a691885e69aef6e530ccd5c2bd4"
+ }
+}

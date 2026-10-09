@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current2/execution/dispatch.py", line 966, in <module>
+    print(execute(args.root, args.contract, args.batch, args.out))
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current2/execution/dispatch.py", line 893, in execute
+    return execute_admitted(path, contract_path, registered, output, doc, batch, expected, admission, numerical)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current2/execution/dispatch.py", line 926, in execute_admitted
+    captures = (adapter.execute_current if phase == 'current' else adapter.execute)(context)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current2/current_router.py", line 46, in execute_current
+    captured=capture(context,run,current=True)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current2/web/adapter.py", line 371, in _capture_run
+    raise ValueError('Wrong tier/colour space or unstable capture')
+ValueError: Wrong tier/colour space or unstable capture

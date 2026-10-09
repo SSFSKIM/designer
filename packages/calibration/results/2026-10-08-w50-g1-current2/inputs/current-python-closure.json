@@ -1,0 +1,44 @@
+{
+  "sources": {
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py": "29d785ae6d50b6eb1857dfdf710466ebd3cd31ff4bc23d122cf1aa04e6c27291",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+    "packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py": "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/current_probe.py": "bf4e9abfb868781b7d70313da75a133157a7d470213a44894e7978bb985d778e",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/current_router.py": "d058abdd4a08ffaf84b1c35be6021c564b2d8066722ec3356604e3136153beed",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/execution/dispatch.py": "3f0356df23ea73abde5ede1961088501974450fd52c6b1350f6e7f2dd1d28654",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/execution/guard.py": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/execution/replacement.py": "4462f51adcbe276691b02a1a4755b8dfacd96c5f0d3d5359ab65fd1c4371cf37",
+    "packages/calibration/results/2026-10-08-w50-g1-current2/web/adapter.py": "9cff455f49c52ccf67d6a8f45feca6a67472a9feb5d56c70416b002a8b8bc159",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/adapter.py": "5959e94682db89d4cb3ac40e767c9c5ef9c490ceca2add6954c2f5dcc7aee6b4",
+    "packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py": "09c5539c7350c11c8f35d05e56df6df3ed17ac9e902c56e2175b833ba8c1099f"
+  },
+  "environment": {
+    "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+    "architecture": "arm64",
+    "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+    "isolated": true,
+    "packages": [
+      [
+        "numpy",
+        "2.5.3"
+      ],
+      [
+        "pillow",
+        "12.3.0"
+      ],
+      [
+        "pip",
+        "26.1.2"
+      ],
+      [
+        "scipy",
+        "1.18.1"
+      ]
+    ]
+  },
+  "probeSha256": "bf4e9abfb868781b7d70313da75a133157a7d470213a44894e7978bb985d778e",
+  "exercise": "synthetic source-only"
+}

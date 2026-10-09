@@ -1,0 +1,36 @@
+{
+  "schema": "w50-live-run-candidate-1",
+  "executionRootSha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882",
+  "cohort": [
+    {
+      "position": 0.25,
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "position": 0.5,
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "initializer": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+    "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710"
+  },
+  "numericalCohort": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/cohort.json",
+    "sha256": "8134e7f37f45533c96e8cb7ad9b1ea75da9353bd0310df2ad8ad35b6a103c6ba"
+  },
+  "argumentManifest": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/arguments.json",
+    "sha256": "5cb5da437bfd25a0e3e7d689781b0c070d60ca4dc9d5b7ba4243754efb0b09ba"
+  },
+  "numericalReferee": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+    "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+  },
+  "recovery": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/recovered.json",
+    "sha256": "7b856808d0ebb20b56585c01352192b95f1648a2219075923c776e3247a422a9"
+  }
+}
