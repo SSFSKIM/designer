@@ -1,0 +1,217 @@
+{
+  "schema": "w50-postboot-artifact-pins-1",
+  "recordedAt": "2026-10-09T10:12:05.132491+00:00",
+  "note": "Final stable artifacts. Initial hash manifest was provisional and is retained as history, not authority; final excludes its own bytes and checksum.",
+  "files": [
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/machine-readiness.json",
+      "sha256": "2a4dd1b1abfc1ea7b039c5866af0f807fd158b313a17f3d4edc33bbb3a57e66b",
+      "bytes": 4587
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/appkit-display-context.exit-code.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/appkit-display-context.json",
+      "sha256": "577fc57958fbe3c1fd9f6c955ad26cdfc172026f69916ceaed1aac84e88aecb4",
+      "bytes": 708
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/appkit-display-context.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/baseline-document-checks.json",
+      "sha256": "b1fea8a1ba7cb3434580e42319e5e6a17bc49068eb6de59cd20653ecc50184e3",
+      "bytes": 10243
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/baseline-metadata.json",
+      "sha256": "c0939f4934d98d946cf35088510b735a75b4fde67c964438455743be61ebe150",
+      "bytes": 30895
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/boot.json",
+      "sha256": "7dd495a8e4be66c3ffc1cf83890120e6c3527afbb1e3a63729c6e48df5f93522",
+      "bytes": 293
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-command-current3.json",
+      "sha256": "8f8c44ab25f5f6b26b5348363259740d0cfd32c14b43502b52547f1f1ea67b2b",
+      "bytes": 346
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-command-current3.stderr.txt",
+      "sha256": "b5a212a8fee07268723f3657eef829f9f05f7e2a12a1f69e89a96d90fb0f3839",
+      "bytes": 183
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-command-current3.stdout.txt",
+      "sha256": "b804668affaf4bcfd284bc95f817935f3c29f507c1265bbb43ae4c0d17ae23dd",
+      "bytes": 3011
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-command.json",
+      "sha256": "0a0762c09db895ad98f31360c3791398f5c638d6ef7ad0a3cc6165013817a3eb",
+      "bytes": 346
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-command.stderr.txt",
+      "sha256": "af1dbc2fb5e08dcd4bae51368d5a1f0193a18f16601c0f841e0f234404c75a87",
+      "bytes": 183
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-command.stdout.txt",
+      "sha256": "1de5ce70635a28b9ba8c84387284cf4b3237501260a3b4457f5c1360c1b84415",
+      "bytes": 2681
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-readiness-current3.json",
+      "sha256": "b804668affaf4bcfd284bc95f817935f3c29f507c1265bbb43ae4c0d17ae23dd",
+      "bytes": 3011
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/browser-readiness.json",
+      "sha256": "1de5ce70635a28b9ba8c84387284cf4b3237501260a3b4457f5c1360c1b84415",
+      "bytes": 2681
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/display-colour-context.json",
+      "sha256": "b78a9011c7cf5cd99fba125641f4473b6a9c0117bb21540b6a06597e54d33826",
+      "bytes": 1537
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/displayplacer.json",
+      "sha256": "8e3218aff0f7a31444f4579326702e987a7711763751ed6716ced38d627d2df1",
+      "bytes": 12231
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/git-after.json",
+      "sha256": "a2c095f702741a0ef90e441b541e35e1c505cb8850828895dea9dcc06f8d7c73",
+      "bytes": 291
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/git-before.json",
+      "sha256": "73f545b8a44a9a7ec0b687a2d8493fc9073bfb0794ef558b5220b7633cc90fee",
+      "bytes": 291
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/git-head.json",
+      "sha256": "fd775c40a78b7b179200308d576ed8ac0ce2f9d3ee7beb0ab19488e0135c793f",
+      "bytes": 295
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/glass-slider.json",
+      "sha256": "442c9804c523a6392f7fca1f8ed568b91eccb46b9204f7c65dbc6b370519cd2a",
+      "bytes": 248
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/increase-contrast.json",
+      "sha256": "8caf84d5541eda01f7db634ed69e1f9ea498e0b56a3298946ff36a40fead0f14",
+      "bytes": 268
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/initial-artifact-hashes.json",
+      "sha256": "f45facb4d3d68c11df2601f01546839e60d912fa783b9930bebc34fdedf9e432",
+      "bytes": 8122
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/initial-artifact-hashes.json.sha256",
+      "sha256": "9001b1824b08d9602c6b3f587dc9a7dc519073e97decc5bce1030c3b32e18fa5",
+      "bytes": 87
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/initial-machine-readiness.json",
+      "sha256": "20a55125fe5e1f8dbb93dddcee993c2f5a7e7e9de441962e1a8d1e5200f21978",
+      "bytes": 4203
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/machine-command.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/machine-command.stdout.txt",
+      "sha256": "de1acac585c8039735e2eaee54e8d9a4b483cd2580c9916ec82f908549506349",
+      "bytes": 4799
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/os.json",
+      "sha256": "80ff7c338cdcabaccb25620d00a47fc5984427f8b6a92fc9c1bf3703b4c3a9bf",
+      "bytes": 268
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/reduce-transparency.json",
+      "sha256": "a9b0a654f7f0ecc8113a0fd593125775a9853c5d8e3dd00692f70a377dab7ea9",
+      "bytes": 270
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/summary-command.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/summary-command.stdout.txt",
+      "sha256": "20a55125fe5e1f8dbb93dddcee993c2f5a7e7e9de441962e1a8d1e5200f21978",
+      "bytes": 4203
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/web-census-after.json",
+      "sha256": "247546d4b7dc05c967f75de0f25d818e32abe6449148b6cd7d33b8ca3be7cff0",
+      "bytes": 4464
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/web-census-before.json",
+      "sha256": "c7a2057ed55e0a24647577ca1e059f7a6d4dadac8ba1fdf42dfbd64078f1e7d1",
+      "bytes": 4463
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/web-census-launch-current3.json",
+      "sha256": "8d119edd0aac594f09a635a47fa7b76e5199aa25668d8ab74855cd5f31b86e05",
+      "bytes": 4464
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/web-census-launch.json",
+      "sha256": "7047f0ea7baca03e780af8c0320cafbcbc447a2373e1ef4cbf954f90dcef607a",
+      "bytes": 4464
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/raw/x6-observation-before.json",
+      "sha256": "243ba2b4295392d590b59115831d5f345bc317806c5eed6f85abefc56c3c57df",
+      "bytes": 162933
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/scripts/display-context.swift",
+      "sha256": "455f7060bfcc25ff58a0ff155758835608ac2e0db3e1abb1238c0722beec46a6",
+      "bytes": 1642
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/scripts/finalize-readiness.py",
+      "sha256": "9c7c8577a424d0fceece27e3779c2a196eae2b367185f1575feeee82c5be9a1e",
+      "bytes": 3454
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/scripts/observe-machine.py",
+      "sha256": "d205b20b339736a6ea50a1f898fd6872be397578d3990ff197a332a24b24a9e5",
+      "bytes": 2378
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/scripts/probe-browser.cjs",
+      "sha256": "dfe7a42040290ce4c5854984db1c28eaeab194f6376427337f736a775864deb3",
+      "bytes": 5616
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/scripts/run-browser-probe.py",
+      "sha256": "04fe650df0b175e6a69cd61c1cdd67c4f9e352738d5978bf995c6075eb7bc3f7",
+      "bytes": 1754
+    },
+    {
+      "path": "/Users/new/vitrea-w50/gate-postboot-readiness/scripts/summarize-readiness.py",
+      "sha256": "bba3e61ac96c228324fb99fd53847c87202cce43a6497df090a066405e23873c",
+      "bytes": 12217
+    }
+  ]
+}
