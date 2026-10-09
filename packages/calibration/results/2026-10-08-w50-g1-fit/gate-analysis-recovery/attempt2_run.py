@@ -32,7 +32,9 @@ TERMINAL = HERE/'analysis-2-attempt-2.terminal.json'
 COMPLETE = HERE/'analysis-2-attempt-2.complete.json'
 PENDING = HERE/'analysis-2-attempt-2.complete.pending.json'
 FAILED = HERE/'analysis-2-attempt-2.failed'
-LOGICAL = Path(str(A.CONTRACT_PATH)+'.started.json')
+LOGICAL = A.FIXED_LOGICAL
+INVOCATION = A.INVOCATION
+PREVIOUS = A.previous_execution_paths()
 
 
 class ReadOnlyDispatcher:
@@ -102,7 +104,8 @@ def activate(live, core, data, union, claim, boundary):
     context.update(executionRoot=str(A.VIEW_PATH), contract=str(A.CONTRACT_PATH),
         output=str(A.OUTPUT), stage='analysis', executionClaim=claim, logicalClaim=W.pin(LOGICAL))
     hashes.extend((str(p), W.sha(p)) for p in
-                  (A.VIEW_PATH, A.CONTRACT_PATH, A.AUTHORITY_PATH, LOGICAL, A.NEW_MARKER, A.UNION))
+                  (A.VIEW_PATH, A.CONTRACT_PATH, A.AUTHORITY_PATH, LOGICAL, A.NEW_MARKER, A.UNION,
+                   INVOCATION, A.FINAL_REVIEW))
     hashes.append((str(A.PREFLIGHT), A.OLD.digest(W.encode(_PLAN['proof']))))
     live._ACTIVE = {'context': context, 'snapshot': copy.deepcopy(context), 'hashes': hashes,
         'doc': data[0], 'store': data[5],
@@ -135,6 +138,7 @@ def analyze(live, core, data, union, manifest, boundary):
     claim = {'schema': 'w50-live-analysis-claim-1', 'analysis': 2, 'attempt': 2, 'ruling': 'DL5s',
         'failedAttempt': A.preservation()['failedAttempt'], 'auditCommit': A.AUDIT_COMMIT,
         'rulingCommit': A.RULING, 'preflight': W.pin(A.PREFLIGHT),
+        'invocation': W.pin(INVOCATION), 'preparation': A.PREPARATION,
         'logicalContract': W.pin(A.CONTRACT_PATH), 'pid': os.getpid(), 'gpuLease': live._LEASE['token'],
         'output': str(A.OUTPUT), 'spentMarker': W.pin(A.MARKER), 'captures': W.pin(A.UNION),
         'unreadManifest': W.pin(A.MANIFEST), 'authority': W.pin(A.AUTHORITY_PATH)}
@@ -245,7 +249,7 @@ def terminal_status():
     if os.path.lexists(FAILED): return unmeasured()
     if COMPLETE.exists(): return authenticated_terminal(COMPLETE)
     if any(os.path.lexists(p) for p in (TERMINAL, COMPLETE, PENDING,
-                                       A.NEW_MARKER, A.OUTPUT, LOGICAL)):
+                                       A.NEW_MARKER, A.OUTPUT, LOGICAL, INVOCATION, *PREVIOUS)):
         return unmeasured()
     return {'status': 'NOT_STARTED', 'analysis': 2, 'attempt': 2}
 
@@ -297,11 +301,16 @@ def preflight():
 def start():
     global _PLAN
     # Same complete path as the read-only command, rechecked before ANY attempt write.
+    A.final_review()
     _PLAN = P.prepare(sys.modules[__name__])
     if A.PREFLIGHT.read_bytes() != W.encode(_PLAN['proof']):
         raise ValueError('A clean, exact read-only preflight record is mandatory')
     live, core = _PLAN['live'], _PLAN['core']
     _PLAN['guard'].enforce(A.REPO, _PLAN['sources'])
+    W.write_once(INVOCATION, {'schema': 'w50-dl5s-fixed-invocation-1', 'analysis': 2, 'attempt': 2,
+        'preparation': A.PREPARATION, 'authority': W.pin(A.AUTHORITY_PATH),
+        'contract': W.pin(A.CONTRACT_PATH), 'analysisMarker': str(A.NEW_MARKER),
+        'preflight': W.pin(A.PREFLIGHT), 'finalReview': W.pin(A.FINAL_REVIEW)})
     # Output mkdir is exclusive and is also a conservative crash tombstone before marker write.
     A.OUTPUT.mkdir(parents=False, exist_ok=False)
     directory = os.open(A.OUTPUT.parent, os.O_RDONLY)

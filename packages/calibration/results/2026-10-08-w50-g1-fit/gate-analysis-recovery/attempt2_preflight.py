@@ -9,6 +9,9 @@ import json
 import os
 from pathlib import Path
 import stat
+import platform
+import shutil
+import subprocess
 import sys
 
 
@@ -17,6 +20,10 @@ class ReadOnly:
         self.forbidden = set(forbidden); self.active = False; self.originals = {}
 
     def __enter__(self):
+        null = os.lstat('/dev/null')
+        if not stat.S_ISCHR(null.st_mode) or os.devnull != '/dev/null':
+            raise ValueError('Expected existing /dev/null character device')
+        self.devnull = (null.st_dev, null.st_ino, null.st_rdev, stat.S_IFMT(null.st_mode))
         self.active = True; sys.addaudithook(self.audit)
         self.loads = json.loads
         def loads(raw, *args, **kwargs):
@@ -35,19 +42,41 @@ class ReadOnly:
         self.active = False; json.loads = self.loads
         for name, value in self.originals.items(): setattr(os, name, value)
 
+    def stdlib_caller(self, module, function):
+        frame = sys._getframe(1)
+        while frame:
+            if (frame.f_code.co_filename == module.__file__ and
+                    frame.f_code.co_name == function): return True
+            frame = frame.f_back
+        return False
+
+    def devnull_open(self, path, flags):
+        if path != '/dev/null' or flags & ~(os.O_RDWR | os.O_CLOEXEC) or flags & os.O_ACCMODE != os.O_RDWR:
+            return False
+        if not self.stdlib_caller(subprocess, '_get_devnull'): return False
+        value = os.lstat('/dev/null')
+        identity = (value.st_dev, value.st_ino, value.st_rdev, stat.S_IFMT(value.st_mode))
+        if identity != self.devnull or not stat.S_ISCHR(value.st_mode):
+            raise ValueError('Existing /dev/null identity/type changed')
+        return True
+
     def audit(self, event, args):
         if not self.active: return
         if event == 'open':
-            _, mode, flags = args
+            path, mode, flags = args
             if ((isinstance(mode, str) and any(c in mode for c in 'wax+')) or
                     flags & (os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_TRUNC | os.O_APPEND)):
-                raise ValueError('Read-only preflight forbids writable opens')
+                if not self.devnull_open(path, flags):
+                    raise ValueError('Read-only preflight forbids writable opens')
         elif event.startswith('socket.') or event in ('os.remove', 'os.rmdir', 'os.mkdir',
                 'os.rename', 'os.link', 'os.symlink', 'os.chmod', 'os.chown', 'os.truncate',
                 'os.utime', 'os.system', 'os.posix_spawn', 'os.fork', 'mmap.__new__'):
             raise ValueError('Read-only preflight forbids state mutation')
         elif event == 'subprocess.Popen':
             argv = args[1]
+            if (argv == ['uname', '-p'] and self.stdlib_caller(platform, 'from_subprocess')
+                    and shutil.which('uname') == '/usr/bin/uname' and args[3] is None):
+                return
             if (not isinstance(argv, (tuple, list)) or len(argv) < 4 or argv[0] != 'git' or
                     argv[1] != '-C' or argv[3] not in ('cat-file', 'show', 'rev-parse', 'merge-base')):
                 raise ValueError('Preflight permits only read-only git object commands')
@@ -67,7 +96,7 @@ def prerequisites(runner, core):
         if os.path.lexists(path) and not path.is_file():
             raise ValueError('Attempt authority/preflight path is not a regular file')
     absent = [A.OUTPUT, A.NEW_MARKER.parent, runner.LOGICAL, runner.TERMINAL,
-              runner.COMPLETE, runner.PENDING, runner.FAILED]
+              runner.COMPLETE, runner.PENDING, runner.FAILED, runner.INVOCATION, *runner.PREVIOUS]
     for path in absent:
         clean(path)
         if os.path.lexists(path): raise ValueError('Attempt 2 namespace already spent')
@@ -151,12 +180,14 @@ def prepare(runner):
         proof = {'schema': 'w50-dl5s-read-only-preflight-1', 'status': 'CLEAN', 'analysis': 2,
             'attempt': 2, 'authority': W.pin(A.AUTHORITY_PATH), 'rootView': W.pin(A.VIEW_PATH),
             'contract': W.pin(A.CONTRACT_PATH), 'review': W.pin(A.REVIEW),
+            'reviewStatus': 'PENDING_FINAL_REVIEW', 'preparation': A.PREPARATION,
             'originalClaim': W.pin(original_claim_path), 'auditCommit': A.AUDIT_COMMIT,
             'rulingCommit': A.RULING, 'spentMarker': W.pin(A.MARKER),
             'captureUnion': W.pin(A.UNION), 'unreadManifest': W.pin(A.MANIFEST),
             'sources': authority['closure']['sources'], 'environment': authority['closure']['environment'],
             'paths': paths, 'namespace': {'output': str(A.OUTPUT), 'marker': str(A.NEW_MARKER),
-                'logicalClaim': str(runner.LOGICAL), 'preflightRecord': str(A.PREFLIGHT)},
+                'logicalClaim': str(runner.LOGICAL), 'preflightRecord': str(A.PREFLIGHT),
+                'invocationFence': str(runner.INVOCATION)},
             'captureCount': len(union['members']), 'witnessCount': manifest['count'],
             'expectedKeys': len(data[4]), 'payloadsParsed': 0, 'writes': 0,
             'checks': ['historical-prefit-all-pins', 'exact-live-delta', 'original-fit-and-cohort',

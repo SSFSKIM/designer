@@ -19,12 +19,37 @@ FIT, REPO, REL = OLD.FIT, OLD.REPO, OLD.REL
 ROOT, CONTRACT, MARKER, UNION, MANIFEST = OLD.ROOT, OLD.CONTRACT, OLD.MARKER, OLD.UNION, OLD.MANIFEST
 OLD_OUTPUT = OLD.OLD_OUTPUT
 OUTPUT = OLD.OUTPUT.with_name('gate-analysis-2-attempt-2')
-AUTHORITY_PATH = HERE/'analysis-2-attempt-2.authority.json'
-VIEW_PATH = HERE/'analysis-2-attempt-2.root-view.json'
-CONTRACT_PATH = HERE/'analysis-2-attempt-2.contract.json'
+PREPARATION = 2
+PREFIX = f'analysis-2-attempt-2.preparation-{PREPARATION}'
+AUTHORITY_PATH = HERE/(PREFIX+'.authority.json')
+VIEW_PATH = HERE/(PREFIX+'.root-view.json')
+CONTRACT_PATH = HERE/(PREFIX+'.contract.json')
 NEW_MARKER = Path(str(CONTRACT_PATH)+'.phase/analysis.started.json')
-PREFLIGHT = HERE/'analysis-2-attempt-2.preflight.json'
-REVIEW = HERE/'attempt-2-review-clearance.json'
+PREFLIGHT = HERE/(PREFIX+'.preflight.json')
+REVIEW = HERE/(PREFIX+'.review-pending.json')
+FINAL_REVIEW = HERE/(PREFIX+'.review-clearance.json')
+INVOCATION = HERE/'analysis-2-attempt-2.invocation.json'
+FIXED_LOGICAL = HERE/'analysis-2-attempt-2.contract.json.started.json'
+PREPARATION_RULING = 'b36acb5c92b99fd708ba52bdd2135e0c06530b5c'
+PREPARATION_ONE_COMMIT = 'd891fdcbbf65626dbd5c3027c1ea262a701b2a8e'
+DIAGNOSTIC_ONE_COMMIT = '566ea52d23ce67d8c2d5be5d6222623e38f5aacb'
+SEAMS = [
+    {'id': 'stdlib-platform-devnull', 'meaning': 'Only stdlib subprocess _get_devnull may open the existing /dev/null character device after exact device/inode/type checks; every other writable open remains denied.'},
+    {'id': 'stdlib-platform-uname', 'meaning': 'Only platform.from_subprocess may invoke exact uname -p from /usr/bin/uname for the unchanged environment fingerprint; no arbitrary subprocess grant.'},
+    {'id': 'additive-preparation', 'meaning': 'Distinct prospective seals preserve every earlier preparation; one fixed invocation/output/logical/terminal/failure fence bars every later preparation after execution starts. Final review remains pending until a clean diagnostic.'},
+]
+
+
+def preparation_paths(n):
+    prefix = 'analysis-2-attempt-2' if n == 1 else f'analysis-2-attempt-2.preparation-{n}'
+    return [HERE/(prefix+'.'+kind+suffix) for kind in ('authority', 'root-view', 'contract')
+            for suffix in ('.json', '.json.sha256')]
+
+
+def previous_execution_paths():
+    return tuple(Path(str(preparation_paths(n)[4])+'.phase/analysis.started.json')
+                 for n in range(1, PREPARATION))
+
 RULING = '8adfc8fd90619e109a80edf0aa691fa43b59fbd9'
 AUDIT_COMMIT = '36cfacf75b65dcd01433b466b2f957373fbdff54'
 HISTORICAL_COMMIT = 'bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0'
@@ -79,7 +104,24 @@ def preservation():
             or witness['occurrenceCount'] != 20 or len(witness['paths']) != 17):
         raise ValueError('Wrong exact exception witness')
     full_preservation = git('rev-parse', PRESERVATION_COMMIT+'^{commit}').decode().strip()
-    return {'failedAttempt': {'analysis': 2, 'attempt': 1, 'tombstone': str(TOMBSTONE),
+    previous = []
+    for n in range(1, PREPARATION):
+        for path in preparation_paths(n):
+            previous.append(committed(path, PREPARATION_ONE_COMMIT) if n == 1 else W.pin(path))
+        if n == 1:
+            previous.append(committed(HERE/'attempt-2-review-clearance.json', PREPARATION_ONE_COMMIT))
+        else:
+            previous.append(W.pin(HERE/f'analysis-2-attempt-2.preparation-{n}.review-pending.json'))
+    diagnostics = [committed(FIT/'evidence/dl5s-preflight-1'/name, DIAGNOSTIC_ONE_COMMIT)
+                   for name in ('refusal.json', 'stderr.log')]
+    return {'preparation': {'number': PREPARATION, 'predecessors': previous,
+                'diagnosticEvidence': diagnostics, 'rulingCommit': PREPARATION_RULING,
+                'rulingPath': CHARTER,
+                'rulingSha256': OLD.digest(git('cat-file', 'blob', PREPARATION_RULING+':'+CHARTER)),
+                'seams': SEAMS, 'reviewStatus': 'PENDING_FINAL_REVIEW',
+                'invocationFence': str(INVOCATION), 'fixedLogicalClaim': str(FIXED_LOGICAL),
+                'previousMarkers': [str(p) for p in previous_execution_paths()]},
+            'failedAttempt': {'analysis': 2, 'attempt': 1, 'tombstone': str(TOMBSTONE),
                              'state': 'EMPTY_DIRECTORY', 'auditCommit': AUDIT_COMMIT,
                              'preserved': preserved},
             'ruling': {'commit': RULING, 'path': CHARTER,
@@ -102,14 +144,14 @@ def closure_sources(sources):
 
 def successor_view(root, sources):
     value = OLD.successor_view(root, sources, W.pin(ROOT))
-    value['analysisSuccessor'].update(attempt=2, ruling=RULING,
+    value['analysisSuccessor'].update(attempt=2, preparation=PREPARATION, ruling=RULING,
         failedAttemptAudit=W.pin(AUDIT), historicalProofCommit=HISTORICAL_COMMIT)
     return value
 
 
 def successor_contract(old, view_pin):
     value = OLD.copy.deepcopy(old)
-    value.update(schema='w50-dl5s-analysis-only-contract-1', analysis=2, attempt=2,
+    value.update(schema='w50-dl5s-analysis-only-contract-1', analysis=2, attempt=2, preparation=PREPARATION,
         executionRootSha256=view_pin['sha256'], logicalOutput=str(OUTPUT),
         originalContract=W.pin(CONTRACT), executionAuthority=W.pin(AUTHORITY_PATH))
     value.pop('outputMarker')
@@ -126,12 +168,26 @@ def authority_document(root, sources, held, closure, binding):
         'exposure': 'NOT_AUTHORISED_BY_THIS_INSTRUMENT'}
 
 
+def pending_review():
+    return {'schema': 'w50-dl5s-preparation-review-1', 'preparation': PREPARATION,
+            'status': 'PENDING_FINAL_REVIEW',
+            'sources': {name: W.sha(HERE/name) for name in TOOLS}}
+
+
 def review():
     value = W.parse(REVIEW.read_bytes())
+    if value != pending_review(): raise ValueError('Prospective review-pending source pins differ')
+    return value
+
+
+def final_review():
+    value = W.parse(FINAL_REVIEW.read_bytes())
     if (value.get('schema') != 'w50-dl5s-review-clearance-1' or value.get('reviewerType') !=
             'doperpowers:reviewer-high' or value.get('verdict') != 'CLEARED' or
-            value.get('sources') != {name: W.sha(HERE/name) for name in TOOLS}):
-        raise ValueError('Attempt 2 needs reviewer-high clearance of these exact sources')
+            value.get('sources') != pending_review()['sources'] or
+            value.get('preparation') != PREPARATION or value.get('authority') != W.pin(AUTHORITY_PATH)
+            or value.get('preflight') != W.pin(PREFLIGHT)):
+        raise ValueError('Actual execution needs final reviewer-high clearance after clean preflight')
     return value
 
 

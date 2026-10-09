@@ -1,4 +1,4 @@
-"""Prospective DL5s sealing, only after exact-source reviewer-high clearance.
+"""Additive DL5s diagnostic preparation; final exact-source review is required before RUN.
 
     python -I -B attempt2_seal.py discover
     python -I -B attempt2_seal.py seal
@@ -30,7 +30,6 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('operation', choices=('discover', 'seal'))
     args = parser.parse_args()
-    A.review()
     root, contract, batch, manifest, amended, held = A.OLD.metadata()
     binding = A.preservation()
     guard = source(A.FIT/'live-execution/guard.py', 'w50_attempt2_seal_guard')
@@ -38,9 +37,11 @@ def main():
     if closure['environment'] != root['closure']['environment']:
         raise ValueError('Historical interpreter/environment changed')
     if args.operation == 'seal':
-        for path in (A.OUTPUT, A.NEW_MARKER.parent, A.PREFLIGHT,
+        for path in (A.OUTPUT, A.NEW_MARKER.parent, A.PREFLIGHT, A.INVOCATION, A.FIXED_LOGICAL,
+                     *A.previous_execution_paths(),
                      HERE/'analysis-2-attempt-2.failed', Path(str(A.CONTRACT_PATH)+'.started.json')):
             if A.OLD.W.os.path.lexists(path): raise ValueError('Attempt 2 namespace already used')
+        A.W.write_once(A.REVIEW, A.pending_review())
         S.write_sealed(A.AUTHORITY_PATH,
                        A.authority_document(root, amended, held, closure, binding))
         view_pin = S.write_sealed(A.VIEW_PATH, A.successor_view(root, amended))

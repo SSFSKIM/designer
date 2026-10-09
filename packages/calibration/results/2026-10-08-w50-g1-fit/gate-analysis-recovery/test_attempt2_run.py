@@ -26,7 +26,7 @@ class RunTests(unittest.TestCase):
         """Real runner, analyzer, writer and quarantine; only scientific inputs are synthetic."""
         with tempfile.TemporaryDirectory() as tmp, contextlib.ExitStack() as stack:
             home = Path(tmp)
-            for name in ('ROOT', 'CONTRACT', 'CONTRACT_PATH', 'AUTHORITY_PATH', 'UNION', 'MANIFEST', 'PREFLIGHT'):
+            for name in ('ROOT', 'CONTRACT', 'CONTRACT_PATH', 'AUTHORITY_PATH', 'UNION', 'MANIFEST', 'PREFLIGHT', 'FINAL_REVIEW'):
                 path = home/name.lower(); path.write_bytes(b'{}\n')
                 stack.enter_context(patch.object(R.A, name, path))
             original_claim = Path(str(R.A.CONTRACT)+'.started.json')
@@ -35,8 +35,11 @@ class RunTests(unittest.TestCase):
                     (R.A, 'OUTPUT', home/'output'), (R.A, 'OLD_OUTPUT', home/'old-output'),
                     (R.A, 'MARKER', home/'old-marker'), (R, 'LOGICAL', home/'logical'),
                     (R, 'TERMINAL', home/'terminal'), (R, 'COMPLETE', home/'complete'),
-                    (R, 'PENDING', home/'pending'), (R, 'FAILED', home/'failed')):
+                    (R, 'PENDING', home/'pending'), (R, 'FAILED', home/'failed'),
+                    (R, 'INVOCATION', home/'invocation')):
                 stack.enter_context(patch.object(owner, name, path, create=True))
+            stack.enter_context(patch.object(R, 'PREVIOUS', ()))
+            stack.enter_context(patch.object(R.A, 'final_review'))
             R.A.MARKER.write_bytes(b'{}\n')
             batch_path = home/'batch'; batch_path.write_bytes(b'{}\n')
             calls = {'measure': 0, 'judge': 0}
@@ -289,6 +292,7 @@ class RunTests(unittest.TestCase):
         with self.synthetic_run() as calls:
             live, core = R.modules()
             data, union = R.admit(None, None, None, None, live, core)
+            R.INVOCATION.write_bytes(b'{}\n')
             R.analyze(live, core, data, union, {}, None)
             self.assert_failed_without_replay(calls)
 
@@ -314,6 +318,7 @@ class RunTests(unittest.TestCase):
                      patch.object(R, 'PENDING', home/'pending'), \
                      patch.object(R, 'COMPLETE', home/'complete'), \
                      patch.object(R, 'FAILED', home/'failed'), \
+                     patch.object(R, 'INVOCATION', home/'invocation'), \
                      patch.object(R.A, 'verify_seal', side_effect=AssertionError('No replay')):
                     path = home/tombstone
                     path.mkdir() if tombstone == 'output' else path.write_bytes(b'partial')
@@ -378,6 +383,24 @@ class RunTests(unittest.TestCase):
             self.assertTrue(R.FAILED.is_dir())
             self.assertFalse(R.A.NEW_MARKER.exists())
             self.assertEqual(R.run(), R.unmeasured())
+            self.assertEqual(calls, {'measure': 0, 'judge': 0})
+
+    def test_fixed_invocation_and_prior_preparation_marker_prevent_new_execution(self):
+        for prior in ('invocation', 'prior-marker'):
+            with self.subTest(prior=prior), self.synthetic_run() as calls:
+                path = R.INVOCATION if prior == 'invocation' else R.A.OUTPUT.parent/'prior-marker'
+                path.write_bytes(b'partial old execution')
+                with patch.object(R, 'PREVIOUS', (path,)):
+                    self.assertEqual(R.run(), R.unmeasured())
+                    self.assertEqual(R.run(), R.unmeasured())
+                self.assertEqual(calls, {'measure': 0, 'judge': 0})
+
+    def test_actual_run_requires_final_review_before_fixed_invocation(self):
+        with self.synthetic_run() as calls:
+            with patch.object(R.A, 'final_review', side_effect=ValueError('pending final review')):
+                self.assertEqual(R.run(), R.unmeasured())
+            self.assertTrue(R.FAILED.is_dir())
+            self.assertFalse(R.INVOCATION.exists())
             self.assertEqual(calls, {'measure': 0, 'judge': 0})
 
 

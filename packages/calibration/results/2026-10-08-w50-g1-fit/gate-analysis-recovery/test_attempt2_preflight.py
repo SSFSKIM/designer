@@ -43,6 +43,26 @@ class ReadOnlyTests(unittest.TestCase):
             self.assertEqual(json.loads('{"metadata": true}'), {'metadata': True})
         self.assertEqual(json.loads(raw), {'numeric': 12.125})
 
+    def test_stdlib_environment_probe_can_use_identified_devnull(self):
+        import platform
+        import subprocess
+        from unittest.mock import patch
+        with P.ReadOnly():
+            self.assertIsInstance(platform._Processor.from_subprocess(), str)
+            with self.assertRaises(ValueError): os.open('/dev/null', os.O_RDWR)
+            with self.assertRaises(ValueError): open('/dev/null', 'w')
+            with self.assertRaises(ValueError):
+                subprocess.run(['uname', '-a'], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        with P.ReadOnly():
+            real = os.lstat
+            def changed(path, *args, **kwargs):
+                if str(path) == '/dev/null':
+                    values = list(real(path, *args, **kwargs)); values[1] += 1
+                    return os.stat_result(values)
+                return real(path, *args, **kwargs)
+            with patch.object(os, 'lstat', side_effect=changed), self.assertRaises(ValueError):
+                platform._Processor.from_subprocess()
+
     def test_read_only_refuses_network_and_unrestricted_subprocess(self):
         import subprocess
         with P.ReadOnly(), self.assertRaises(ValueError):
@@ -66,15 +86,16 @@ class CompletePlanTests(unittest.TestCase):
                       'VIEW_PATH', 'CONTRACT_PATH', 'REVIEW')
             a = types.SimpleNamespace(**{name: home/name for name in fields},
                 OLD_OUTPUT=old, OUTPUT=home/'output', NEW_MARKER=home/'phase'/'analysis.started.json',
-                REPO=home, PREFLIGHT=home/'preflight', AUDIT_COMMIT='audit-commit', RULING='ruling-commit')
+                REPO=home, PREPARATION=2, PREFLIGHT=home/'preflight', AUDIT_COMMIT='audit-commit', RULING='ruling-commit')
             for name in fields: getattr(a, name).write_bytes(W.encode({}))
             a.MANIFEST.write_bytes(W.encode(manifest)); a.UNION.write_bytes(W.encode(union))
             a.MARKER = home/'spent'; a.MARKER.write_bytes(b'{}\n')
             a.OLD = types.SimpleNamespace(MANIFEST_SHA=W.sha(a.MANIFEST), UNION_SHA=W.sha(a.UNION))
             claim = Path(str(a.CONTRACT)+'.started.json')
             claim.write_bytes(W.encode({'numericalAdmission': {}}))
-            for name in ('LOGICAL', 'TERMINAL', 'COMPLETE', 'PENDING', 'FAILED'):
+            for name in ('LOGICAL', 'TERMINAL', 'COMPLETE', 'PENDING', 'FAILED', 'INVOCATION'):
                 setattr(runner, name, home/name)
+            runner.PREVIOUS = ()
             calls = []
             def called(name, result):
                 def call(*args, **kwargs): calls.append(name); return result
