@@ -1,0 +1,42 @@
+{
+  "schema": "w50-dl5r-review-clearance-1",
+  "ruling": "DL5r and clarifications 1/2",
+  "productionFix": {
+    "commit": "02c0e5694bf9b579d2c3125a2ab60bf3684d5ea3",
+    "reviewer": "doperpowers:reviewer-high a557dc68fb53b6372",
+    "verdict": "correct",
+    "findings": []
+  },
+  "successorInstrument": {
+    "commit": "77ae8da3aad9ba4e9de32ddadf47db79c4c0ebf0",
+    "reviewer": "doperpowers:reviewer-high aec5c2d09c401b82b",
+    "findings": [
+      {
+        "severity": "P1",
+        "summary": "Durability failure could revive surviving success bytes",
+        "fixedBy": [
+          "ae61a95c5dd94ac131401592af597d8437765069",
+          "3cf208904e1f675cb169112598b29af76a54ef99"
+        ]
+      }
+    ],
+    "closureCommit": "3cf208904e1f675cb169112598b29af76a54ef99",
+    "closureVerdict": "correct; no material findings",
+    "syntheticTests": 33
+  },
+  "sealed": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.authority.json",
+      "sha256": "1e98915c3725d703857affdd8358cc3746d73c579a3fcc82f9d93098bdd29ead"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.contract.json",
+      "sha256": "27e1a88ce95ff8c6b6faedad477953386fb83c138ffe2ac060dd0e68558df864"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.root-view.json",
+      "sha256": "416c4a02fc8cb3dc20edbcd8d6ac18c320ac0d01b075b79b607f9f80b8eefd5b"
+    }
+  ],
+  "noRealReplayDuringReview": true
+}
