@@ -802,6 +802,15 @@ Ruled: ONE successor analysis, under these conditions.
 Rationale: the frozen point and rules leave no freedom that an unread file could bias, and the fix
 is chosen from source alone. The byte witness turns the second run into a check of the first.
 
+DL5r clarification 1 (parent). Unchanged measurement uses context.output both as the new write
+root and as the ancestor that old captures must sit under. Ruled: a recovery-only READ adapter,
+with no edits to sealed components, supplies the pinned ORIGINAL capture root to the pure
+validators (validate_captures, read_pair, retained_proof) only. All writes and the successor
+context name the fresh output. The adapter admits only paths in the immutable 1,341-member union
+a3022525…, leaves every capture pin unchanged, and refuses symlinks or any path that resolves
+outside that root. It exposes no capture, fit or exposure method and is covered by reviewer-high.
+The captureOutput-parameter alternative is declined because it changes more production code.
+
 ### DL5 — separate current-material instrument (parent confirmation)
 
 The pre-fit current-only instrument is separate from the later single live-fit root, as G0
