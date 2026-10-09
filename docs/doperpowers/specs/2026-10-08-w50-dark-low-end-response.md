@@ -63,8 +63,10 @@ four top-level fields (`executionRoot`, `executionClaim`, `contract`, `batch`), 
 field, and compares sorted-key, indent-2 strict JSON plus newline for all 634 with no exemptions.
 DL5r is now ruled and recorded verbatim (`c36e52da1`): exactly one successor analysis, automatic
 634-file projection witness before the judge, no exemptions, and any fault/refusal/mismatch is
-UNMEASURED/NEITHER. Running: the exact producer-carry patch plus synthetic both-order tests, and
-separate narrowly bound successor-analysis tooling. reviewer-high must clear both before use.
+UNMEASURED/NEITHER. Exact carry committed `02c0e5694` (three production lines); reviewer-high
+`a557dc68fb53b6372` clears DL5r(a) with no material findings, old-refusal reproduction and a 16-case
+differential retaining all diagnostics. Running: separate narrowly bound successor-analysis tooling;
+it still needs reviewer-high clearance before use.
 No gate payload may be opened during development, no capture or candidate changes, no third
 analysis, and no exposure batch before reporting the verdict. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
