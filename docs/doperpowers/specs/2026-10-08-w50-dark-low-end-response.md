@@ -22,10 +22,14 @@ pre-fit evidence (`a106c8d8d`) are sealed. The first initializer invocation asse
 under `fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/`,
 then `bind_arguments` refused: “Measured argument has changed or withheld reference identity”.
 All eleven files are preserved unchanged with `fit/live-initializer/attempt-1-refusal.json`
-(`6d36b7fbd`). No numerical referee, fit render, gate or exposure ran. Do NOT rerun initialize,
-change the candidate, or edit the sealed sources. A read-only diagnosis is running; the parent
-has been told. Next is the exact mismatch diagnosis and a prospective recovery ruling, not a
-second point. This checkpoint supersedes the historical handoff notes below.
+(`6d36b7fbd`). No numerical referee, fit render, gate or exposure ran. Do NOT rerun initialize
+or change the candidate. Diagnosis found 115 canonical roles using fixtureSet instead of G0 gate;
+all other checks and all 787 identities agree. DL5p is approved and recorded below (`03a8bb004`).
+Running: binder normalisation with frozen-G0 positive/negative tests; root-3 succession admitting
+only root 2's exact committed pre-fit evidence; bind-only operator recovery retaining all eleven
+candidate/initializer files and root-2 provenance. Next: review, successor-root seal and its pre-fit
+evidence; bind-only, numerical referee, fit, fit record, gate. Report the gate verdict to the
+coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
 
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
 - [x] W36/W42/W43/W49b evidence and both tier implementations read; four native archives fetched
