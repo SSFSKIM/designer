@@ -471,7 +471,30 @@
           "reason": "Logged in docs/doperpowers/specs/tech-debt-tracker.md under 'W50 LIVE bind-only recovery residuals from the DL5p review (G1, 2026-10-09)'."
         }
       ],
-      "sealedAfter": "not yet sealed: root 3's path, sha256 and sealing commit are recorded here once it is sealed after this round"
+      "sealedAfter": {
+        "root": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+        "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882",
+        "commit": "29bc57288e41d98a5d33db60c319d8d71454c2fe",
+        "status": "sealed under DL5p; exact root-2 pre-fit history; unchanged single candidate"
+      }
+    },
+    {
+      "id": "dl5p-closure",
+      "range": {
+        "base": "6e56a2caded3ffa84705138f7a9ba233713843d5",
+        "head": "49051d352222e2762507f4c9bc1f847caa61f0ee"
+      },
+      "reviewers": [
+        "opus read-only reviewer ac67d5a661cc4dbb1; closure review of 6e56a2cad..49051d352"
+      ],
+      "note": "The test-only P1 fix preserves the original branch assertion and adds post-seal newest-root coverage. Live-execution 133 tests and simulated-postseal reproduction pass; root-bound bytes unchanged. No P0/P1/P2 findings.",
+      "findings": [],
+      "sealedAfter": {
+        "root": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+        "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882",
+        "commit": "29bc57288e41d98a5d33db60c319d8d71454c2fe",
+        "status": "sealed under DL5p; exact root-2 pre-fit history; unchanged single candidate"
+      }
     }
   ]
 }
