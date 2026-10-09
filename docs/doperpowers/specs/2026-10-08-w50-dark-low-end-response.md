@@ -65,8 +65,12 @@ DL5r is now ruled and recorded verbatim (`c36e52da1`): exactly one successor ana
 634-file projection witness before the judge, no exemptions, and any fault/refusal/mismatch is
 UNMEASURED/NEITHER. Exact carry committed `02c0e5694` (three production lines); reviewer-high
 `a557dc68fb53b6372` clears DL5r(a) with no material findings, old-refusal reproduction and a 16-case
-differential retaining all diagnostics. Running: separate narrowly bound successor-analysis tooling;
-it still needs reviewer-high clearance before use.
+differential retaining all diagnostics. Successor tooling is committed `77ae8da3a` under
+`gate-analysis-recovery/` (22 synthetic tests, source-only discovery). Reviewer-high
+`aec5c2d09c401b82b` is checking DL5r(b)–(e), both read-adapter clarifications, and exact historical
+source plus one transform. No authority seal, successor marker, real analysis or payload parse
+has run. After review: `gate-analysis-recovery/seal.py seal`, commit authority files, then the
+single `gate-analysis-recovery/run.py` invocation; report verdict before exposure.
 No gate payload may be opened during development, no capture or candidate changes, no third
 analysis, and no exposure batch before reporting the verdict. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
