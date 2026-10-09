@@ -46,10 +46,13 @@ payload and artifact hashes successfully; no analysis marker exists and no membe
 discarded. Gate contract/journal committed `00711dac5`; 711 members remain. Cold-boot checks pass:
 accessibility off, recorded display dimensions/scale/mode/profile name and Chromium hardware adapter
 match. Exact ICC byte continuity is unproven (no preboot hash); that limit and current hash are in
-`evidence/gate-postboot-readiness/`. Fresh census passes. Running: same-contract successor via
-`live-run/run.py --work /Users/new/vitrea-w50/g1-live run gate`, output
-`/Users/new/vitrea-w50/g1-live-gate-resume-2.out`. Report verdict BEFORE any exposure batch.
-DL5k recovery and DL5q remain in effect. The coordinator permits these recoveries and requests
+`evidence/gate-postboot-readiness/`. Gate successor attempt 2 completed all remaining 711 members.
+The complete union is 1,341 captures, but gate analysis STOPPED after its irreversible marker:
+`measurement/projection.py:frozen_primary` refused “Frozen candidate needs its named source-owned
+first-image producer”. No result or verdict exists. Journal and constant traceback are preserved
+in `22e442bcb`, including `evidence/gate-analysis-stop/`. Do NOT retry analysis, alter the point,
+fit record or gate population, or create exposure. Running: read-only cause and post-marker-output
+audit for the coordinator's recovery ruling; no candidate statistics are to be opened during it. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
