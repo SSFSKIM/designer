@@ -70,16 +70,19 @@ differential retaining all diagnostics. Successor tooling is committed `77ae8da3
 a late durability fault could revive a surviving success record. Fix `ae61a95c5` makes terminal
 bytes provisional. Follow-up `3cf208904` moves completion eligibility to the final exclusive link,
 with conservative crash loss and fault dominance; all 33 synthetic tests pass. Reviewer-high closes
-with no material findings. The successor authority/root-view/contract are SEALED and committed,
-with `gate-analysis-recovery/review-clearance.json`. Running: the ONE authorised invocation,
-`gate-analysis-recovery/run.py run`, output `/Users/new/vitrea-w50/g1-live-gate-analysis-2.out`.
-Do not start it again or permit a third analysis. Read only terminal status/witness metadata when
-it finishes, preserve records and report the verdict before any exposure batch.
-No gate payload may be opened during development, no capture or candidate changes, no third
-analysis, and no exposure batch before reporting the verdict. The coordinator permits these recoveries and requests
-a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
-gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
-coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
+with no material findings. Analysis 2 attempt 1 then refused BEFORE its marker on historical
+executionClosure's `test_phase_sources.py` live-tree pin. It produced no measurement, witness or
+judge; terminal NEITHER audit is committed `36cfacf75`. The failure tombstone remains untouched.
+**Latest authority: DL5s and clarification 1**, recorded verbatim below. One pre-marker recovery is
+allowed as analysis 2 attempt 2, under a fresh output. Historical pre-fit authentication must use
+attested git objects and the exact 17-path/20-occurrence exception (`f2f88158e`, witness
+`04d02bdf…`): two committed gzip JSONs and fifteen late-preserved logs, all historical hashes matched.
+Running: successor-only historical admission and exhaustive read-only preflight implementation;
+reviewer-high must clear it before real preflight and use. The real invocation follows only a clean
+complete preflight; any attempt-2 refusal or post-marker fault is final NEITHER, no further recovery.
+No old payloads may be parsed during development. Candidate/fit/captures/rules and the 634-file
+witness are unchanged. Report verdict BEFORE any exposure batch. This checkpoint supersedes the
+older handoff notes below.
 
 - [x] Grounding on `w50-g0-grounding`, from `a35c9bbd9`; isolated checkout installed and built.
 - [x] W36/W42/W43/W49b evidence and both tier implementations read; four native archives fetched
