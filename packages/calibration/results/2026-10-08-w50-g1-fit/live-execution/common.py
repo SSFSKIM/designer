@@ -34,7 +34,8 @@ the shared fit/ directory because the fit role (fit/live.fit_record) and the ini
 (fit/execution._bootstrap) bind fit/ and the sibling dispatcher to the root's directory, so a
 directory per root would break both. slot_area names every file a root's slots, and the shared
 slots of the dispatcher that sealed generation 1, could have written; a successor is sealed only
-while it is empty.
+while it is empty, or, where authority.PERMITTED names it (DL5p: root 3 over root 2), while it
+holds exactly that committed pre-fit evidence and nothing else.
 
 DL5n: a completed native blind read that is not ready reaches the judge with its stops, and
 each stopped key's cell is UNMEASURED with null readings and the cause NATIVE_NOT_READY.

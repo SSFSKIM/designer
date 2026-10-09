@@ -1,0 +1,26 @@
+DL5p (parent, 2026-10-09; root 2 has pre-fit evidence only, no phase or attempt). The initializer
+refusal is a role-vocabulary seam: 115 canonical argument records carry the scenes.json split
+(32 calibration, 83 probe) where G0 binds role gate. IDs, profile/renderer/scene and every other
+binder check match; no holdout or historical record is involved. Ruled (a)–(d):
+(a) Normalise only canonical argument records whose original role equals their captured
+`originalRow.fixtureSet`, which is non-holdout, and whose G0 reference requires gate. The bound
+role becomes G0's; the original `capturedArgument` and its SHA remain unchanged. No source
+evidence is rewritten. Real-shape tests must prove frozen G0 accepts the normalised records and
+still refuses a holdout or historical role, or a role disagreeing with `fixtureSet`.
+(b) Seal successor root 3 over root 2, pinning its permitted history to exactly its committed
+pre-fit evidence and refusing any other byte, phase or attempt.
+(c) Carry forward the ONE existing candidate and initializer by hash, retaining their root-2
+provenance. Bind only under root 3; never re-initialise, re-assemble or change candidate bytes.
+Root 3 receives its own pre-fit evidence.
+(d) Log the composed reader's role-blind population check as debt and repair the seam prospectively
+in the binder. Continue through numerical check, fit, fit record and gate; report the gate verdict
+to the coordinator before creating any exposure batch.
+
+Bound provenance (recorded with the ruling for authority.PERMITTED; not part of its text): the
+superseded root is root 2, `execution-root-2.json` at
+2e6f4c990f4cd38810994549b95804333ea883a0ea886320648d9f88d0853dd5, sealed at
+ef68b07c60f90d7c17da5b0bfdbc7b0e7fa7020a. Its permitted history is exactly its pre-fit evidence,
+`execution-root-2.pre-fit-evidence.json` at
+c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3, and that file's sidecar at
+39424bb37a3130cd92481d725d4535b3e9f1d8642763edb87d2d7e5fee1d6f3b, both introduced at
+a106c8d8d90ff5323b8f767a1d86883bacb30727.

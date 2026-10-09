@@ -176,11 +176,34 @@ class Successor(unittest.TestCase):
         gate = self.A.C.slot(self.one, 'gate'); gate.write_text('{}')
         with self.assertRaisesRegex(ValueError, 'executed history'): self.A.predecessors(root, doc)
         gate.unlink(); self.seal(root, doc)
-        with self.assertRaisesRegex(ValueError, 'No ruling authorises LIVE root generation 3'): self.draft.supersede(self.body())
+        with patch.dict(self.draft.RULINGS, {2: self.draft.RULINGS[2]}, clear=True), \
+                self.assertRaisesRegex(ValueError, 'No ruling authorises LIVE root generation 3'):
+            self.draft.supersede(self.body())
+
+    def test_a_permitted_history_draws_the_history_record_and_registers_the_recovery(self):
+        two = self.live/'execution-root-2.json'; doc = self.body(); self.draft.supersede(doc)
+        dl5o = (self.live/'dl5o-ruling.txt').read_text(); self.seal(two, doc); sealing = self.git('rev-parse', 'HEAD')
+        (self.live/'dl5o-ruling.txt').write_text(dl5o)  # seal() rewrites it for the next generation
+        evidence = self.A.C.slot(two, 'prefit'); sidecar = Path(str(evidence)+'.sha256')
+        self.D.write_sealed(evidence, {'sources': [self.D.pin(self.repo, two), self.D.pin(self.repo, Path(str(two)+'.sha256'))]})
+        self.git('add', '-f', '-A'); self.git('commit', '-q', '-m', 'root 2 evidence'); history = self.git('rev-parse', 'HEAD')
+        (self.live/'dl5p-ruling.txt').write_text(f'DL5p (synthetic) root `{sealing[:9]}`, evidence `{history[:9]}`.\n')
+        recovery = self.fit/'live-run/dl5p-recovery.json'; recovery.parent.mkdir(); recovery.write_text('{}')
+        permitted = {'ruling': 'DL5p', 'root': self.D.sha(two), 'sealingCommit': sealing, 'commit': history,
+                     'entries': {p.name: self.D.sha(p) for p in (evidence, sidecar)}}
+        with patch.dict(self.A.PERMITTED, {3: permitted}, clear=True):
+            doc = self.body(); root = self.draft.supersede(doc); record = doc['supersedes']
+            self.assertEqual(root, self.live/'execution-root-3.json')
+            self.assertEqual(set(record), set(self.A.HISTORY_LINK)); self.assertEqual(record['schema'], self.A.HISTORY_SUPERSESSION)
+            self.assertEqual(record['history']['entries'], [self.D.pin(self.repo, evidence), self.D.pin(self.repo, sidecar)])
+            self.assertEqual(doc['inputs'], [self.D.pin(self.repo, self.live/'dl5p-ruling.txt'), self.D.pin(self.repo, recovery)])
+            self.assertEqual(self.A.predecessors(root, doc)[2:4], record['history']['entries'])
+            recovery.unlink()
+            with self.assertRaises(FileNotFoundError): self.draft.supersede(self.body())
 
     def test_an_uncommitted_newest_root_has_no_sealing_commit(self):
         self.D.write_sealed(self.live/'execution-root-2.json', {**self.body(), 'unsealed': True})
-        with patch.dict(self.draft.RULINGS, {3: ('DL9x', 'dl5o-ruling.txt')}), \
+        with patch.dict(self.draft.RULINGS, {3: ('DL9x', 'dl5o-ruling.txt', ())}), \
                 self.assertRaisesRegex(ValueError, 'no unique introducing commit'):
             self.draft.supersede(self.body())
 

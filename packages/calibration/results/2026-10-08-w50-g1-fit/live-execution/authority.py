@@ -9,6 +9,15 @@ is re-checked at every admission, so a superseded root can never execute again a
 is never sealed, or admitted, over a predecessor whose slot area holds anything. That area
 includes the predecessor's pre-fit evidence: every phase entry passes verify_prefit before it
 claims an external output, so an empty area is the proof that no output was claimed either.
+
+One exception is ruled (DL5p (b)): root 3 supersedes root 2, which holds its sealed pre-fit
+evidence and nothing else. Its link is a second record schema whose 'history' replaces
+'unexecuted' and states exactly what PERMITTED, a constant here, names: the commit that
+introduced that evidence and the two files' content pins. The record cannot name any other
+exception, since it must equal what PERMITTED yields for its generation, and the area is checked
+against the committed bytes on every admission: a changed byte, an extra file or directory (a
+phase, a marker, an attempt) or a missing file refuses. The permitted entries join the chain's
+superseded pins, so root 3's own pre-fit evidence can never stand on root 2's.
 """
 import os
 from pathlib import Path
@@ -48,6 +57,21 @@ UNEXECUTED=('No pre-fit evidence, phase contract, output claim, marker or attemp
     'root\'s own pre-fit evidence before it claims an external output.')
 
 
+HISTORY_SUPERSESSION='w50-live-root-supersession-2'
+HISTORY_LINK=('schema','root','sealingCommit','ruling','history')
+HISTORY=('The superseded root holds its sealed pre-fit evidence and nothing else: no phase contract, output claim, '
+    'marker or attempt exists under it. Its slot area holds exactly the entries pinned here, each byte for byte as '
+    'the commit named here introduced it, and the successor\'s own pre-fit evidence refuses every one of them.')
+# The one permitted pre-fit history (DL5p (b)), keyed by the successor generation it admits. It
+# is code, not a record field, so no supersedes record can state another exception.
+PERMITTED={3:{'ruling':'DL5p',
+    'root':'2e6f4c990f4cd38810994549b95804333ea883a0ea886320648d9f88d0853dd5',
+    'sealingCommit':'ef68b07c60f90d7c17da5b0bfdbc7b0e7fa7020a',
+    'commit':'a106c8d8d90ff5323b8f767a1d86883bacb30727',
+    'entries':{'execution-root-2.pre-fit-evidence.json':'c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3',
+               'execution-root-2.pre-fit-evidence.json.sha256':'39424bb37a3130cd92481d725d4535b3e9f1d8642763edb87d2d7e5fee1d6f3b'}}}
+
+
 def _git(repo,*args):return subprocess.run(['git','-C',str(repo),*args],capture_output=True)
 
 
@@ -72,6 +96,44 @@ def unexecuted(repo,root):
                                            for folder,pattern in C.slot_area(root)]}
 
 
+def history(repo,root,n):
+    """The history statement generation n's record must state, derived from PERMITTED alone."""
+    entry=PERMITTED.get(n)
+    if entry is None:raise ValueError('No ruling permits pre-fit history under the superseded root')
+    repo=Path(repo).resolve();folder=Path(root).resolve().parent
+    return {**unexecuted(repo,root),'statement':HISTORY,'commit':entry['commit'],
+            'entries':[{'path':str((folder/name).relative_to(repo)),'sha256':digest} for name,digest in sorted(entry['entries'].items())]}
+
+
+def permitted_history(repo,prior,n,record):
+    """A history link against PERMITTED[n] and the predecessor's present slot area; returns the
+    permitted entries' pins. The ruling must name the commit that introduced them, that commit
+    must descend from the predecessor's sealing commit, every entry must be the regular file it
+    introduced, byte for byte, and the area must hold those entries and nothing else."""
+    entry=PERMITTED[n];repo=Path(repo).resolve()
+    if record['root']['sha256']!=entry['root'] or record['sealingCommit']!=entry['sealingCommit'] or \
+            record['ruling']['id']!=entry['ruling']:raise ValueError('Supersedes record names history no ruling permits')
+    if record['history']!=history(repo,prior,n):raise ValueError('Supersedes record misstates the permitted history')
+    commit=entry['commit'];text=D.checked(repo,record['ruling']['text']).read_text()
+    if not any(commit.startswith(t) for t in re.findall(r'\b[0-9a-f]{7,40}\b',text)):
+        raise ValueError('Supersession ruling does not name the history it permits')
+    if _git(repo,'cat-file','-t',commit).stdout!=b'commit\n' or \
+            _git(repo,'merge-base','--is-ancestor',record['sealingCommit'],commit).returncode:
+        raise ValueError('Permitted history commit does not follow the superseded root\'s seal')
+    entries=record['history']['entries']
+    for item in entries:
+        path=repo/item['path'];blob=_git(repo,'cat-file','blob',f'{commit}:{item["path"]}')
+        if path.is_symlink() or not path.is_file() or blob.returncode or blob.stdout!=path.read_bytes() or \
+                D.sha(path)!=item['sha256'] or _git(repo,'cat-file','-e',f'{commit}^:{item["path"]}').returncode==0:
+            raise ValueError('Permitted history is not the bytes its commit introduced')
+    if sorted(C.slot_entries(prior))!=sorted(repo/item['path'] for item in entries):
+        raise ValueError('Superseded root has executed history beyond its permitted pre-fit evidence')
+    evidence=D.sealed(C.slot(prior,'prefit'))
+    if any(D.pin(repo,target) not in evidence.get('sources',[]) for target in (prior,Path(str(prior)+'.sha256'))):
+        raise ValueError('Permitted history was not written for the superseded root')
+    return entries
+
+
 def ruling(repo,doc,record):
     """The ruling a link names is a text pinned among the successor's own inputs, opening with its
     id and naming the superseded root's sealing commit by an abbreviation of at least 7 digits."""
@@ -86,23 +148,29 @@ def ruling(repo,doc,record):
 
 
 def _link(repo,folder,n,doc):
-    """Generation n's supersedes record against generation n-1; returns n-1's path and document."""
+    """Generation n's supersedes record against generation n-1; returns n-1's path, its document
+    and the pins of the history its area may hold (none, unless PERMITTED names it)."""
     record=doc.get('supersedes');prior=folder/C.root_name(n-1)
-    if not isinstance(record,dict) or set(record)!=set(LINK) or record['schema']!=SUPERSESSION:
+    fields={SUPERSESSION:LINK,HISTORY_SUPERSESSION:HISTORY_LINK}
+    if not isinstance(record,dict) or record.get('schema') not in fields or set(record)!=set(fields[record['schema']]):
         raise ValueError('A successor LIVE root needs its exact supersedes record')
+    if record['schema']==HISTORY_SUPERSESSION and n not in PERMITTED:
+        raise ValueError('No ruling permits pre-fit history under the superseded root')
     if not prior.is_file() or record['root']!=D.pin(repo,prior):
         raise ValueError('Supersedes record does not pin the generation before it')
     prior_doc=D.sealed(prior)
     if prior_doc.get('repo')!=doc['repo']:raise ValueError('Superseded root names another repository')
     sealing_commit(repo,prior,record['sealingCommit'])
     ruling(repo,doc,record)
+    if record['schema']==HISTORY_SUPERSESSION:return prior,prior_doc,permitted_history(repo,prior,n,record)
     if record['unexecuted']!=unexecuted(repo,prior):raise ValueError('Supersedes record misstates the superseded slot area')
     if C.slot_entries(prior):raise ValueError('Superseded root has executed history; no successor is sealed over it')
-    return prior,prior_doc
+    return prior,prior_doc,[]
 
 
 def predecessors(path,doc):
-    """The superseded roots below this LIVE root, nearest first, each as its pin and its seal's.
+    """The superseded roots below this LIVE root, nearest first, each as its pin and its seal's,
+    followed by the pins of the pre-fit history its link permits (DL5p).
 
     Refuses a root off the chain's names or not the newest of its directory, a first root that
     supersedes anything, and every link below it (_link)."""
@@ -111,8 +179,8 @@ def predecessors(path,doc):
     if C.superseded(path):raise ValueError('Superseded LIVE root: a later generation exists beside it')
     out=[]
     while n>1:
-        prior,prior_doc=_link(repo,path.parent,n,doc)
-        out+=[D.pin(repo,prior),D.pin(repo,Path(str(prior)+'.sha256'))]
+        prior,prior_doc,permitted=_link(repo,path.parent,n,doc)
+        out+=[D.pin(repo,prior),D.pin(repo,Path(str(prior)+'.sha256')),*permitted]
         doc,n=prior_doc,n-1
     if 'supersedes' in doc:raise ValueError('The first LIVE root supersedes nothing')
     return out

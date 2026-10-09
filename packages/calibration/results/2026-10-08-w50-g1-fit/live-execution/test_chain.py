@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import unittest.mock
 import uuid
 H=Path(__file__).resolve().parent
 
@@ -287,8 +288,10 @@ class Lineage(Chain):
 class PrefitBinding(Lineage):
     """verify_prefit reads each root's own evidence slot, and its lineage refuses every
     superseded root of the chain, so evidence written for one root never stands for another."""
-    def setUp(self):
-        super().setUp();self.generations(('owner/r2','completion/registered-2'))
+    def setUp(self):super().setUp();self.binding()
+
+    def binding(self):
+        self.generations(('owner/r2','completion/registered-2'))
         stub='def validate_exemptions(*a,**k):pass\ndef validate_completion(*a,**k):pass\ndef validate_proof(*a,**k):pass\n'
         (self.live/'prefit.py').write_text(stub)
         self.fields={'partTwo':self.superseded('part-two.json'),'references':self.superseded('references.json'),
@@ -336,6 +339,160 @@ class PrefitBinding(Lineage):
         with self.assertRaisesRegex(ValueError,'executed history'):A.verify_prefit(self.two,self.docs[2])
         for path in (shared,Path(str(shared)+'.sha256')):path.unlink()
         A.verify_prefit(self.two,self.docs[2])
+
+
+class HistoryChain(Chain):
+    """The DL5p link on a synthetic chain: generation 3 over a generation 2 whose slot area holds
+    its sealed pre-fit evidence alone, committed after its seal. PERMITTED is patched to name the
+    synthetic chain's evidence exactly as the real constant names root 2's."""
+    def sources(self):return [self.pin(self.two),self.pin(Path(str(self.two)+'.sha256'))]
+
+    def setUp(self):
+        super().setUp();self.one=self.seal(1);self.two=self.seal(2)
+        self.evidence=C.slot(self.two,'prefit');self.sidecar=Path(str(self.evidence)+'.sha256')
+        D.write_sealed(self.evidence,{'synthetic':'pre-fit evidence','sources':self.sources()})
+        self.git('add','-f',str(self.evidence),str(self.sidecar));self.git('commit','-q','-m','root 2 pre-fit evidence')
+        self.history=self.git('rev-parse','HEAD')
+        self.permitted={'ruling':'DL9c','root':self.pin(self.two)['sha256'],'sealingCommit':self.commits[2],
+                        'commit':self.history,'entries':{p.name:D.sha(p) for p in (self.evidence,self.sidecar)}}
+        patcher=unittest.mock.patch.dict(A.PERMITTED,{3:self.permitted},clear=True);patcher.start();self.addCleanup(patcher.stop)
+
+    def ruling(self,n,commit,text=None,name=None):
+        if n==3 and text is None:
+            text=f'DL9c (synthetic). Root `{commit[:9]}` holds only the pre-fit evidence of `{self.history[:9]}`.\n'
+        return super().ruling(n,commit,text,name)
+
+    def record(self,n,commit=None):
+        if n!=3:return super().record(n,commit)
+        record=super().record(n,commit);record.pop('unexecuted')
+        return {**record,'schema':A.HISTORY_SUPERSESSION,'history':A.history(self.repo,self.two,3)}
+
+
+class ForeignHistory(HistoryChain):
+    def sources(self):return [self.pin(self.one),self.pin(Path(str(self.one)+'.sha256'))]
+
+    def test_evidence_not_written_for_the_superseded_root_refuses(self):
+        self.refuses('not written for the superseded root',3,self.doc(3))
+
+
+class History(HistoryChain):
+    def test_exactly_the_committed_evidence_admits_the_successor(self):
+        three=self.doc(3);entries=[self.pin(self.evidence),self.pin(self.sidecar)]
+        self.assertEqual(three['supersedes']['history']['entries'],entries)
+        expected=[self.pin(self.two),self.pin(Path(str(self.two)+'.sha256')),*entries,
+                  self.pin(self.one),self.pin(Path(str(self.one)+'.sha256'))]
+        self.assertEqual(A.predecessors(self.path(3),three),expected)
+        self.seal(3,three);self.assertEqual(C.newest_root(self.live),self.path(3))
+        self.assertEqual(A.predecessors(self.path(3),self.docs[3]),expected)
+        self.refuses('Superseded LIVE root',2,self.docs[2])
+        # A plain record over the same root still demands an empty area; generation 4 has no exception.
+        plain=Chain.record(self,3);self.refuses('executed history',3,self.doc(3,plain))
+        self.assertNotIn(4,A.PERMITTED)
+
+    def test_changed_or_missing_evidence_or_sidecar_refuses(self):
+        raw={p:p.read_bytes() for p in (self.evidence,self.sidecar)}
+        changes={
+            'evidence content':lambda:self.evidence.write_bytes(raw[self.evidence].replace(b'synthetic',b'syntheticX')),
+            'sidecar content':lambda:self.sidecar.write_text('0'*64+'  '+self.evidence.name+'\n'),
+            'one trailing byte':lambda:self.sidecar.write_bytes(raw[self.sidecar]+b'\n'),
+            'missing evidence':lambda:self.evidence.unlink(),
+            'missing sidecar':lambda:self.sidecar.unlink(),
+            'evidence as a directory':lambda:(self.evidence.unlink(),self.evidence.mkdir()),
+        }
+        for name,change in changes.items():
+            with self.subTest(name):
+                change();self.refuses('not the bytes its commit introduced',3,self.doc(3))
+                if self.evidence.is_dir():self.evidence.rmdir()
+                for path,data in raw.items():path.write_bytes(data)
+        # Resealed consistently, committed later: the present bytes are no longer the named commit's.
+        for path in raw:path.unlink()
+        D.write_sealed(self.evidence,{'synthetic':'resealed','sources':[self.pin(self.two)]})
+        self.git('add','-f','-A');self.git('commit','-q','-m','reseal')
+        self.refuses('not the bytes its commit introduced',3,self.doc(3))
+
+    def test_any_extra_slot_entry_refuses(self):
+        batch='d'*64
+        extras=[C.slot(self.two,'gate'),Path(str(C.slot(self.two,'gate'))+'.sha256'),C.slot(self.two,'fit',batch),
+                Path(str(C.slot(self.two,'exposure'))+'.phase/attempts/000001/contract.json'),
+                Path(str(self.evidence)+'.phase'),Path(str(self.evidence)+'.started.json'),
+                self.live/'gate-contract.json',self.live/'fit'/f'{batch}.json',self.live/'pre-fit-evidence.json']
+        for extra in extras:
+            with self.subTest(str(extra.relative_to(self.live))):
+                extra.parent.mkdir(parents=True,exist_ok=True)
+                extra.mkdir() if extra.name.endswith('.phase') else extra.write_text('{}')
+                self.refuses('beyond its permitted pre-fit evidence',3,self.doc(3))
+                shutil.rmtree(self.live/'fit',ignore_errors=True)
+                for path in self.live.iterdir():
+                    if path.name.endswith(('.phase','.started.json')) or path.name in ('gate-contract.json','pre-fit-evidence.json') \
+                            or '.gate-contract.json' in path.name or '.exposure-contract.json' in path.name:
+                        shutil.rmtree(path) if path.is_dir() else path.unlink()
+        A.predecessors(self.path(3),self.doc(3))
+
+    def test_a_forged_or_widened_exception_refuses(self):
+        later=self.pin(self.put_file('elsewhere.json'))
+        def history(change):
+            def apply(doc):change(doc['supersedes']['history'])
+            return apply
+        def ruled(doc,text):
+            doc['inputs'].remove(doc['supersedes']['ruling']['text'])
+            pin=super(History,self).ruling(3,self.commits[2],text,name='forged.txt')
+            doc['supersedes']['ruling']['text']=pin;doc['inputs'].append(pin)
+        cases={
+            'an extra entry':('misstates the permitted history',history(lambda h:h['entries'].append(later))),
+            'a dropped entry':('misstates the permitted history',history(lambda h:h['entries'].pop())),
+            'reordered entries':('misstates the permitted history',history(lambda h:h['entries'].reverse())),
+            'another commit':('misstates the permitted history',history(lambda h:h.update(commit=self.commits[1]))),
+            'a restated statement':('misstates the permitted history',history(lambda h:h.update(statement='only evidence'))),
+            'a narrowed area':('misstates the permitted history',history(lambda h:h['slots'].pop())),
+            'an unexecuted field beside it':('exact supersedes',lambda d:d['supersedes'].update(unexecuted={})),
+            'another ruling id':('names history no ruling permits',lambda d:(d['supersedes']['ruling'].update(id='DL9z'),
+                ruled(d,f'DL9z (synthetic) `{self.commits[2][:9]}` `{self.history[:9]}`.\n'))),
+            'a ruling not naming the history':('does not name the history it permits',
+                lambda d:ruled(d,f'DL9c (synthetic) names `{self.commits[2][:9]}` only.\n')),
+        }
+        for name,(pattern,change) in cases.items():
+            with self.subTest(name):
+                doc=copy.deepcopy(self.doc(3));change(doc);self.refuses(pattern,3,doc)
+        # The record cannot widen PERMITTED: a history link where none is permitted, and PERMITTED
+        # naming another root, another seal, or a commit that precedes the root's seal.
+        two=self.doc(2);two['supersedes']={**{k:v for k,v in two['supersedes'].items() if k!='unexecuted'},
+            'schema':A.HISTORY_SUPERSESSION,'history':A.history(self.repo,self.two,3)}
+        self.refuses('No ruling permits pre-fit history',2,two)
+        for field,value,pattern in (('root','0'*64,'no ruling permits'),('sealingCommit',self.commits[1],'no ruling permits'),
+                                    ('commit',self.commits[2],'does not follow|not the bytes')):
+            with self.subTest(permitted=field),unittest.mock.patch.dict(A.PERMITTED[3],{field:value}):
+                doc=self.doc(3)
+                if field=='commit':doc=self.doc(3,self.record(3));ruled(doc,f'DL9c names `{self.commits[2][:9]}`.\n')
+                self.refuses(pattern,3,doc)
+
+    def put_file(self,name):
+        path=self.repo/name;path.write_text('{}');return path
+
+
+class HistoryPrefit(Lineage):
+    """Root 3's own pre-fit evidence never stands on root 2's permitted evidence (DL5p (c))."""
+    write=PrefitBinding.write
+
+    def setUp(self):
+        super().setUp();PrefitBinding.binding(self);self.write(self.two);self.prior=C.slot(self.two,'prefit')
+        self.git('add','-f','-A');self.git('commit','-q','-m','root 2 evidence');history=self.git('rev-parse','HEAD')
+        sidecar=Path(str(self.prior)+'.sha256')
+        permitted={'ruling':'DL9c','root':self.pin(self.two)['sha256'],'sealingCommit':self.commits[2],'commit':history,
+                   'entries':{p.name:D.sha(p) for p in (self.prior,sidecar)}}
+        patcher=unittest.mock.patch.dict(A.PERMITTED,{3:permitted},clear=True);patcher.start();self.addCleanup(patcher.stop)
+        record=Chain.record(self,3);record.pop('unexecuted')
+        record['ruling']['text']=self.ruling(3,self.commits[2],f'DL9c (synthetic) `{self.commits[2][:9]}` `{history[:9]}`.\n')
+        self.three=self.seal(3,{**self.doc(3,{**record,'schema':A.HISTORY_SUPERSESSION,'history':A.history(self.repo,self.two,3)}),**self.fields})
+        self.entries=[self.pin(self.prior),self.pin(sidecar)]
+
+    def test_root_threes_evidence_refuses_root_twos(self):
+        slot=self.write(self.three);self.assertEqual(A.verify_prefit(self.three,self.docs[3]),self.pin(slot))
+        for name,extra in (('evidence',self.entries[0]),('sidecar',self.entries[1]),('root 2',self.pin(self.two))):
+            self.write(self.three,extra)
+            with self.subTest(name),self.assertRaisesRegex(ValueError,'evidence pins a superseded LIVE root'):
+                A.verify_prefit(self.three,self.docs[3])
+        self.write(self.three,proof=[self.entries[0]])
+        with self.assertRaisesRegex(ValueError,'referenceCompletion pins a superseded LIVE root'):A.verify_prefit(self.three,self.docs[3])
 
 
 if __name__=='__main__':unittest.main()

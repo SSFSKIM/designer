@@ -5,7 +5,10 @@ the newest sealed root execution-root[-n].json it is execution-root-<n+1>.json, 
 execution-root-<n+1>.draft.json. Its supersedes record (supersede) names the newest sealed root
 by content pin, the commit that introduced it, the ruling that authorises this generation
 (RULINGS; DL5o for generation 2, its verbatim text pinned among the root's inputs) and the
-statement that nothing executed under it, with the slot area that statement covers.
+statement that nothing executed under it, with the slot area that statement covers. Where the
+authority permits the predecessor a pre-fit history (authority.PERMITTED; DL5p for generation
+3) the record is the history schema instead, stating exactly what PERMITTED names, and the
+ruling's registered inputs (DL5p's bind-only recovery declaration) join the root's inputs.
 
 Every field is derived from repository bytes and checked by the original source validators the
 seal will run again (authority.validate_body): G0 declaration selection, the DL5d dependency
@@ -54,8 +57,10 @@ D = A.D
 def pin(path): return D.pin(REPO, path)
 
 
-# The ruling that authorises each successor generation, as a text in live-execution/.
-RULINGS = {2: ('DL5o', 'dl5o-ruling.txt')}
+# The ruling that authorises each successor generation, as a text in live-execution/, and the
+# files that generation must register among its inputs.
+RULINGS = {2: ('DL5o', 'dl5o-ruling.txt', ()),
+           3: ('DL5p', 'dl5p-ruling.txt', ('live-run/dl5p-recovery.json',))}
 
 
 def sealing_commit(path):
@@ -72,10 +77,16 @@ def supersede(doc):
     live = FIT/'live-execution'; newest = A.C.newest_root(live); D.sealed(newest)
     n = A.C.generation(newest.name)+1
     if n not in RULINGS: raise ValueError(f'No ruling authorises LIVE root generation {n}')
-    ruling, text = RULINGS[n][0], pin(live/RULINGS[n][1])
-    doc['supersedes'] = {'schema': A.SUPERSESSION, 'root': pin(newest), 'sealingCommit': sealing_commit(newest),
-                         'ruling': {'id': ruling, 'text': text}, 'unexecuted': A.unexecuted(REPO, newest)}
-    if text not in doc['inputs']: doc['inputs'].append(text)
+    ruling, name, registered = RULINGS[n]; text = pin(live/name)
+    record = {'schema': A.SUPERSESSION, 'root': pin(newest), 'sealingCommit': sealing_commit(newest),
+              'ruling': {'id': ruling, 'text': text}}
+    if n in A.PERMITTED:
+        record.update(schema=A.HISTORY_SUPERSESSION, history=A.history(REPO, newest, n))
+    else:
+        record['unexecuted'] = A.unexecuted(REPO, newest)
+    doc['supersedes'] = record
+    for item in (text, *(pin(FIT/relative) for relative in registered)):
+        if item not in doc['inputs']: doc['inputs'].append(item)
     return live/A.C.root_name(n)
 
 
