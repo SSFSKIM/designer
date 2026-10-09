@@ -78,10 +78,12 @@ allowed as analysis 2 attempt 2, under a fresh output. Historical pre-fit authen
 attested git objects and the exact 17-path/20-occurrence exception (`f2f88158e`, witness
 `04d02bdf…`): two committed gzip JSONs and fifteen late-preserved logs, all historical hashes matched.
 DL5s tooling committed `26fe414a2` (nine new recovery-only files; 62 synthetic tests pass).
-Reviewer-high `a8b530c885acc4748` is checking historical authentication and the shared complete
-read-only admission plan. Next: exact-source review-clearance record, attempt2 seal, then
-`attempt2_run.py preflight` (no marker/claim/write or old-payload parsing). Preserve only a CLEAN
-proof before the single real attempt2 invocation. Any attempt-2 refusal or post-marker fault is
+Reviewer-high `a8b530c885acc4748` clears historical authentication and the shared complete
+read-only admission plan with no material findings. Exact-source clearance and attempt2 authority
+are sealed/committed (87 sources). Running: `attempt2_run.py preflight`, stdout
+`/Users/new/vitrea-w50/g1-live-gate-analysis-2-attempt-2-preflight.json`, stderr sibling `.log`.
+This is the required real read-only admission, with no marker/claim/write or old-payload parsing.
+Preserve only a CLEAN proof before the single real attempt2 invocation. Any attempt-2 refusal or post-marker fault is
 final NEITHER; no further recovery. Original 634 and all 1,341 captures still hash-match.
 No old payloads may be parsed during development. Candidate/fit/captures/rules and the 634-file
 witness are unchanged. Report verdict BEFORE any exposure batch. This checkpoint supersedes the
