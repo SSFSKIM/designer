@@ -61,8 +61,12 @@ Raw manifest `95295607…` is committed (`85ec9d038`); payloads stay unread in p
 eight affected keys is in the saved prefix. The proposed source-fixed comparison removes ONLY
 four top-level fields (`executionRoot`, `executionClaim`, `contract`, `batch`), retains every other
 field, and compares sorted-key, indent-2 strict JSON plus newline for all 634 with no exemptions.
-Coordinator has the complete diagnosis and proposed minimal binding-preservation diff; awaiting
-an explicit successor-analysis ruling. Nothing is replayed under ordinary DL5k authority. The coordinator permits these recoveries and requests
+DL5r is now ruled and recorded verbatim (`c36e52da1`): exactly one successor analysis, automatic
+634-file projection witness before the judge, no exemptions, and any fault/refusal/mismatch is
+UNMEASURED/NEITHER. Running: the exact producer-carry patch plus synthetic both-order tests, and
+separate narrowly bound successor-analysis tooling. reviewer-high must clear both before use.
+No gate payload may be opened during development, no capture or candidate changes, no third
+analysis, and no exposure batch before reporting the verdict. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
