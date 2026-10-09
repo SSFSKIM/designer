@@ -508,7 +508,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5q are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5r are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -767,6 +767,34 @@ qualifies as idle; an in-use browser is left alone. An idle session is closed on
 idle test. Log each close with both samples and the session name in the coordinator's
 `tmp/w42-status.md`. Other daemon directories are outside this rule and are reported, not closed.
 The gate-verdict checkpoint and two-hour persistent-blocker reporting threshold remain.
+
+DL5r (parent, 2026-10-09; the one gate analysis stopped after its irreversible marker 02c070dc…,
+before any aggregate, verdict or judge). Cause: an instrument metadata overwrite in
+measurement/phase_sources.py:358-392. A later low-end-path-level companion replaces the T1
+statistics entry and drops `productionStatistic`, so projection.py:245 correctly refuses eight
+WebGPU dark 0.25 impulse lg/ml T1-full-silhouette gate keys (1x/2x × rest/inactive; probe, none in
+fit). 634 keyed per-cell files were written after the marker. Nobody read a numeric value; they
+were parsed for identity strings only, then pinned by raw-byte manifest 95295607… (85ec9d038).
+Ruled: ONE successor analysis, under these conditions.
+(a) The fix is exactly the proposed carry of `productionStatistic` across the line-367
+    reassignment, with the owning branch unchanged. It comes with order-both-ways tests on
+    synthetic or fit fixtures that reproduce the old refusal. It changes no rule, threshold,
+    arithmetic, capture, candidate, fit record, contract, batch or membership. reviewer-high
+    clears it before use. A fix that grows beyond that needs a new ruling.
+(b) The witness is fixed from source now: canonical JSON (sort_keys, indent 2, allow_nan False,
+    trailing newline) with exactly the top-level executionRoot, executionClaim, contract and batch
+    fields removed. All 634 projections must be byte-identical; the exemption list is empty.
+    The successor writes to a fresh path and never overwrites the 634 originals.
+(c) The successor marker binds the spent marker 02c070dc…, the complete union a3022525… and the
+    manifest 95295607…, and names itself the second analysis. The candidate, fit, contract, batch,
+    cohort and captures are verified unchanged before it starts.
+(d) The witness runs automatically before the judge. Any mismatch, any refusal or any further
+    instrument fault yields UNMEASURED, so the verdict is NEITHER and the exposure is not
+    created. There is no third analysis and no waiver. DL4 holds: no point or rule change.
+(e) Report the verdict before any exposure batch, as before. The spent marker, manifest,
+    traceback and the 634 originals stay in the record.
+Rationale: the frozen point and rules leave no freedom that an unread file could bias, and the fix
+is chosen from source alone. The byte witness turns the second run into a check of the first.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
