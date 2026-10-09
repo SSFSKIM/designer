@@ -891,6 +891,22 @@ blob does. Granted as recommended:
   - A log whose bytes do not match is a pre-marker refusal under DL5s(e). It must not be
     regenerated.
 
+DL5s clarification 2 (parent, 2026-10-10). The read-only preflight is a diagnostic, not the attempt.
+DL5s(e) applies only to the real attempt-2 invocation, so a preflight failure is never terminal.
+Rulings:
+  - Granted: the preflight sandbox may open the existing character device /dev/null, with its
+    identity and type validated, for stdlib subprocess redirection. Every other writable open and
+    every gate-payload read stays denied.
+  - Standing, for the preflight only: the worker fixes further environmental or API seams the
+    preflight exposes in the preflight harness or in recovery-only tooling, then reruns the
+    preflight, without asking. It must not relax the payload-read denial or the marker/claim
+    write denial. It must not touch sealed sources, the candidate, fit, contract, rules or pins.
+    Each fix is listed in the attempt-2 authority.
+  - The final preflight tool and the attempt-2 tooling are covered by one reviewer-high pass after
+    the preflight is clean. The real run is single-shot only after that.
+  - Escalate to the parent only if a seam needs a write outside the fresh output, a pin change, or
+    access to gate values.
+
 ### DL5 — separate current-material instrument (parent confirmation)
 
 The pre-fit current-only instrument is separate from the later single live-fit root, as G0
