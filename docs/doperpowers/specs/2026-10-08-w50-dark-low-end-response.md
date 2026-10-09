@@ -66,10 +66,11 @@ DL5r is now ruled and recorded verbatim (`c36e52da1`): exactly one successor ana
 UNMEASURED/NEITHER. Exact carry committed `02c0e5694` (three production lines); reviewer-high
 `a557dc68fb53b6372` clears DL5r(a) with no material findings, old-refusal reproduction and a 16-case
 differential retaining all diagnostics. Successor tooling is committed `77ae8da3a` under
-`gate-analysis-recovery/` (22 synthetic tests, source-only discovery). Reviewer-high
-`aec5c2d09c401b82b` is checking DL5r(b)–(e), both read-adapter clarifications, and exact historical
-source plus one transform. No authority seal, successor marker, real analysis or payload parse
-has run. After review: `gate-analysis-recovery/seal.py seal`, commit authority files, then the
+`gate-analysis-recovery/`. Reviewer-high `aec5c2d09c401b82b` found one terminal-publication P1:
+a late durability fault could revive a surviving success record. Fix `ae61a95c5` makes terminal
+bytes provisional, requires authenticated completion after cleanup and lets a permanent fault
+tombstone dominate; 29 synthetic tests pass. The same reviewer is checking closure. No authority
+seal, successor marker, real analysis or payload parse has run. After review: `gate-analysis-recovery/seal.py seal`, commit authority files, then the
 single `gate-analysis-recovery/run.py` invocation; report verdict before exposure.
 No gate payload may be opened during development, no capture or candidate changes, no third
 analysis, and no exposure batch before reporting the verdict. The coordinator permits these recoveries and requests
