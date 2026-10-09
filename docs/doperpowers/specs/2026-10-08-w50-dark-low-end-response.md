@@ -522,7 +522,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5r are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5s are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -839,6 +839,36 @@ read adapter redirects only when `external=True`, the read root equals the fresh
 and the unchanged pin is an exact artifact of the original union; all other calls delegate
 unchanged. This is gate-only; native and exposure paths are excluded.
 
+
+DL5s (parent, 2026-10-09; amends DL5r(d), made blind to every gate value). Analysis 2 stopped BEFORE
+its successor marker. The historical verify_prefit checks root 3's pre-fit proof pins against the
+LIVE tree, and the DL5r carry commit 02c0e5694 legitimately changed two pinned files: the test
+source test_phase_sources.py (f9415dc8 → a2d870fe), and the production phase_sources.py (pinned
+aa52d478…), whose change the successor admitted only on its own side. No marker, keyed
+measurement, witness or judge ran. No gate value has been read by anyone, and the 634 originals
+still hash-match 95295607….
+DL5r(d) said "any refusal → NEITHER". Its purpose was to bound the number of LOOKS at gate values
+to one completed analysis. A refusal before the marker is no look; it is the same class of stop
+DL5k already recovers. Reading (d) literally would close a 1,341-capture gate on a provenance
+seam that carries no information about the candidate, against the wave's goal. The parent
+therefore narrows (d): it applies from the successor marker onward. An instrument stop BEFORE the
+marker is recoverable once, under (a)-(e) below. Everything else in DL5r stands: one completed
+successor analysis at most, the 634-file witness, mismatch or post-marker fault → NEITHER, no
+waiver, DL4 intact.
+  (a) Authenticate the historical pre-fit proof against the bytes it ATTESTED, i.e. the git
+      objects at its committed proof commit (bdb0f3fef / root-3 pre-fit), never the live tree.
+      Every pinned path in the proof is checked this way, test and production sources alike.
+      The live-tree difference is admitted only for the declared DL5r(a) delta (phase_sources.py
+      and its test file at 02c0e5694), and every other live pinned byte must still equal its
+      historical pin. This is the read-side principle of DL5r clarification 2.
+  (b) Run the COMPLETE admission path on the real shape as a read-only preflight: every check
+      admit() and the successor runner perform, stopping before the first irreversible write
+      (marker or claim). The real invocation is allowed only after a clean preflight.
+  (c) reviewer-high clears (a) and (b) before use.
+  (d) The new invocation is analysis 2, attempt 2. It records the analysis-2.failed tombstone,
+      36cfacf75 and this ruling, under a fresh successor output; the tombstone stays.
+  (e) A refusal of attempt 2 BEFORE its marker, or any fault after it, is final: NEITHER, with
+      no further recovery.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
