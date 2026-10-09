@@ -33,9 +33,10 @@ Review closed after the test-only post-seal P1 fix (`73e22ce3f`); root 3 is SEAL
 recovery succeeded, numerical referee PASS (`545f4326e`), and all eleven preserved files still
 hash identically. The fit batch is declared in `live-execution/run/fit-batch.json`. Fit attempt 1 stopped before its first draw with CENSUS_REFUSED (foreign College Playwright
 sessions `vis` and `default`, never touch); journal preserved, zero checkpoints and no analysis
-marker. Running: a bounded census watch every three minutes, up to two hours. On clean, resume
-`live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit` on the SAME contract as a DL5k
-successor; repeat after later interruptions. The coordinator permits these recoveries and requests
+marker. The coordinator closed those browsers with the user's approval; a fresh census passed.
+Running: same-contract successor via `live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit`,
+output `/Users/new/vitrea-w50/g1-live-fit-resume-2.out`. If interrupted again by foreign browsers,
+watch the census every three minutes (bounded at two hours), then resume the same contract. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
