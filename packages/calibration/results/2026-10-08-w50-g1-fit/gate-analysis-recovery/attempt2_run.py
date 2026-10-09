@@ -280,12 +280,64 @@ def authenticated_terminal(record):
     return value
 
 
+INVOCATION_BYTES = b'{"schema":"w50-dl5s-invocation-fence-1","analysis":2,"attempt":2}\n'
+_OWN_INVOCATION = None
+
+
+def preliminary():
+    """No-cost administrative checks only: small review/source pins and pathname existence.
+
+    No environment discovery, historical admission, capture read or source exercise belongs
+    here. A clerical clearance error is not an attempted scientific invocation.
+    """
+    A.final_review()
+    if not A.TOMBSTONE.is_dir() or A.TOMBSTONE.is_symlink():
+        raise ValueError('Attempt 1 failure tombstone must remain')
+    for path in (INVOCATION, A.OUTPUT, A.NEW_MARKER.parent, LOGICAL, TERMINAL,
+                 COMPLETE, PENDING, FAILED, *PREVIOUS):
+        if os.path.lexists(path): raise ValueError('Fixed attempt namespace is already spent')
+
+
+def reserve_invocation():
+    """The first durable act: exclusive create, then file AND directory fsync, never removal.
+
+    The fence records consumption, not analytical authority. The later marker binds its hash
+    to the verified preparation, contract, proof and final review. A partial fence also spends
+    the namespace; a failed reservation never proceeds to admission.
+    """
+    global _OWN_INVOCATION
+    fd = os.open(INVOCATION, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(fd, 'wb') as stream:
+        stream.write(INVOCATION_BYTES); stream.flush(); os.fsync(stream.fileno())
+        info = os.fstat(stream.fileno())
+    directory = os.open(INVOCATION.parent, os.O_RDONLY)
+    try: os.fsync(directory)
+    finally: os.close(directory)
+    _OWN_INVOCATION = {'pid': os.getpid(), 'device': info.st_dev, 'inode': info.st_ino,
+                       'pin': {'path': str(INVOCATION.resolve()), 'sha256': A.OLD.digest(INVOCATION_BYTES)}}
+    return _OWN_INVOCATION
+
+
+def require_invocation(owner):
+    if owner is None or owner is not _OWN_INVOCATION or owner['pid'] != os.getpid():
+        raise ValueError('Only this process may consume its exclusively created invocation fence')
+    if INVOCATION.is_symlink() or not INVOCATION.is_file():
+        raise ValueError('Invocation fence is not its original regular file')
+    info = INVOCATION.stat()
+    if (info.st_dev, info.st_ino) != (owner['device'], owner['inode']) or W.pin(INVOCATION) != owner['pin']:
+        raise ValueError('Exclusive invocation fence changed')
+
+
 def run():
-    # Any prior attempt, including a crash before/after the marker, is terminal. This path
-    # neither remeasures nor invokes a judge, and accepts no caller-supplied output/marker.
     previous = status()
     if previous['status'] != 'NOT_STARTED': return previous
-    try: return start()
+    try: preliminary()
+    except BaseException: return unmeasured()
+    try: owner = reserve_invocation()
+    except BaseException: return unmeasured()
+    # Every substantive admission failure or killed process now leaves a spent fixed fence,
+    # including when the filesystem cannot allocate a separate failure tombstone.
+    try: return start(owner)
     except BaseException: return fail_closed()
 
 
@@ -298,19 +350,17 @@ def preflight():
     return P.prepare(sys.modules[__name__])["proof"]
 
 
-def start():
+def start(owner):
     global _PLAN
-    # Same complete path as the read-only command, rechecked before ANY attempt write.
-    A.final_review()
-    _PLAN = P.prepare(sys.modules[__name__])
+    require_invocation(owner)
+    A.final_review()  # Recheck the narrow approval facts after reservation, before admission.
+    # Same complete plan as preflight, with only our own exact consumed fence substituted
+    # for the diagnostic's required absence. No unrelated namespace check is bypassed.
+    _PLAN = P.prepare(sys.modules[__name__], invocation=owner)
     if A.PREFLIGHT.read_bytes() != W.encode(_PLAN['proof']):
         raise ValueError('A clean, exact read-only preflight record is mandatory')
     live, core = _PLAN['live'], _PLAN['core']
     _PLAN['guard'].enforce(A.REPO, _PLAN['sources'])
-    W.write_once(INVOCATION, {'schema': 'w50-dl5s-fixed-invocation-1', 'analysis': 2, 'attempt': 2,
-        'preparation': A.PREPARATION, 'authority': W.pin(A.AUTHORITY_PATH),
-        'contract': W.pin(A.CONTRACT_PATH), 'analysisMarker': str(A.NEW_MARKER),
-        'preflight': W.pin(A.PREFLIGHT), 'finalReview': W.pin(A.FINAL_REVIEW)})
     # Output mkdir is exclusive and is also a conservative crash tombstone before marker write.
     A.OUTPUT.mkdir(parents=False, exist_ok=False)
     directory = os.open(A.OUTPUT.parent, os.O_RDONLY)

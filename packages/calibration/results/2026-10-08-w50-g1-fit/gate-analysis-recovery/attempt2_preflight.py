@@ -118,17 +118,22 @@ def clean(path):
     return path
 
 
-def prerequisites(runner, core):
+def prerequisites(runner, core, invocation=None):
     A = runner.A
     for path in (A.AUTHORITY_PATH, A.VIEW_PATH, A.CONTRACT_PATH, A.REVIEW, A.PREFLIGHT):
         clean(path)
         if os.path.lexists(path) and not path.is_file():
             raise ValueError('Attempt authority/preflight path is not a regular file')
     absent = [A.OUTPUT, A.NEW_MARKER.parent, runner.LOGICAL, runner.TERMINAL,
-              runner.COMPLETE, runner.PENDING, runner.FAILED, runner.INVOCATION, *runner.PREVIOUS]
+              runner.COMPLETE, runner.PENDING, runner.FAILED, *runner.PREVIOUS]
     for path in absent:
         clean(path)
         if os.path.lexists(path): raise ValueError('Attempt 2 namespace already spent')
+    clean(runner.INVOCATION)
+    if invocation is None:
+        if os.path.lexists(runner.INVOCATION): raise ValueError('Diagnostic requires an unclaimed invocation')
+    else:
+        runner.require_invocation(invocation)
     configured_lock = Path(core['C'].D.GPU_LOCK)
     # The sealed dispatcher uses /tmp, macOS's system alias for /private/tmp. Resolve its
     # parent for permission inspection, never a symlink at the lock filename itself.
@@ -149,7 +154,8 @@ def prerequisites(runner, core):
     if os.path.lexists(mutex) and (not mutex.is_file() or not os.access(mutex, os.R_OK | os.W_OK)):
         raise ValueError('GPU lease mutex is not readable/writable')
     return {'absent': [str(p) for p in absent], 'leaseAbsent': str(lock),
-            'configuredLease': str(configured_lock), 'parents': permissions}
+            'configuredLease': str(configured_lock), 'parents': permissions,
+            'invocationRule': 'ABSENT_FOR_DIAGNOSTIC_OR_EXACT_PROCESS_OWNED_FENCE_FOR_RUN'}
 
 
 def registered_metadata(A, root):
@@ -262,7 +268,7 @@ def setup(runner, live, core, data, union, boundary):
     return context, hashes, facade, roles
 
 
-def prepare(runner):
+def prepare(runner, *, invocation=None):
     """No new deterministic admission branch may live only in start(), after a claim or marker."""
     A, W = runner.A, runner.W
     with ReadOnly() as boundary_guard:
@@ -287,7 +293,7 @@ def prepare(runner):
         # instrument exercise is hidden behind a sealed preflight claim.
         guard.enforce(A.REPO, authority['closure']['sources'])
         live, core = runner.modules()
-        paths = prerequisites(runner, core)
+        paths = prerequisites(runner, core, invocation)
         boundary_guard.fit_pins.update(historical_fit_inputs(A, core, root, contract))
         data, union = runner.admit(root, view, contract, batch, live, core)
         capture_view = capture_artifact_view(A, root, union)

@@ -31,7 +31,7 @@ class RunTests(unittest.TestCase):
                 stack.enter_context(patch.object(R.A, name, path))
             original_claim = Path(str(R.A.CONTRACT)+'.started.json')
             original_claim.write_bytes(R.W.encode({'numericalAdmission': {}}))
-            for owner, name, path in ((R.A, 'NEW_MARKER', home/'marker'),
+            for owner, name, path in ((R.A, 'NEW_MARKER', home/'phase'/'analysis.started.json'),
                     (R.A, 'OUTPUT', home/'output'), (R.A, 'OLD_OUTPUT', home/'old-output'),
                     (R.A, 'MARKER', home/'old-marker'), (R, 'LOGICAL', home/'logical'),
                     (R, 'TERMINAL', home/'terminal'), (R, 'COMPLETE', home/'complete'),
@@ -311,7 +311,7 @@ class RunTests(unittest.TestCase):
         for tombstone in ('marker', 'output', 'logical', 'terminal', 'pending', 'complete', 'failed'):
             with self.subTest(tombstone=tombstone), tempfile.TemporaryDirectory() as tmp:
                 home = Path(tmp)
-                with patch.object(R.A, 'NEW_MARKER', home/'marker'), \
+                with patch.object(R.A, 'NEW_MARKER', home/'phase'/'analysis.started.json'), \
                      patch.object(R.A, 'OUTPUT', home/'output'), \
                      patch.object(R, 'LOGICAL', home/'logical'), \
                      patch.object(R, 'TERMINAL', home/'terminal'), \
@@ -399,8 +399,115 @@ class RunTests(unittest.TestCase):
         with self.synthetic_run() as calls:
             with patch.object(R.A, 'final_review', side_effect=ValueError('pending final review')):
                 self.assertEqual(R.run(), R.unmeasured())
-            self.assertTrue(R.FAILED.is_dir())
+            self.assertFalse(R.FAILED.exists())
             self.assertFalse(R.INVOCATION.exists())
+            self.assertEqual(calls, {'measure': 0, 'judge': 0})
+
+    def test_killed_child_during_preparation_irrevocably_spends_invocation(self):
+        import select
+        import signal
+        import subprocess
+        script = r"""
+import signal, sys, types
+from pathlib import Path
+path, home = Path(sys.argv[1]), Path(sys.argv[2])
+r = types.ModuleType('killed_invocation_child'); r.__file__ = str(path); sys.modules[r.__name__] = r
+exec(compile(path.read_bytes(), str(path), 'exec'), r.__dict__)
+for name in ('INVOCATION', 'LOGICAL', 'TERMINAL', 'COMPLETE', 'PENDING', 'FAILED'):
+    setattr(r, name, home/name.lower())
+r.PREVIOUS = ()
+r.A.OUTPUT = home/'output'; r.A.NEW_MARKER = home/'phase'/'analysis.started.json'
+r.A.final_review = lambda: None
+def preparation(*args, **kwargs):
+    print('PREPARING', flush=True)
+    signal.pause()
+r.P.prepare = preparation
+r.run()
+"""
+        with self.synthetic_run() as calls:
+            child = subprocess.Popen([sys.executable, '-I', '-B', '-c', script,
+                str(HERE/'attempt2_run.py'), str(R.INVOCATION.parent)],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                self.assertTrue(select.select([child.stdout], [], [], 15)[0], 'Child never reached preparation')
+                self.assertEqual(child.stdout.readline().strip(), 'PREPARING')
+                child.kill(); self.assertEqual(child.wait(timeout=15), -signal.SIGKILL)
+                self.assertTrue(R.INVOCATION.is_file())
+                self.assertFalse(R.FAILED.exists())
+                self.assertEqual(R.status(), R.unmeasured())
+                self.assertEqual(R.run(), R.unmeasured())
+                self.assertEqual(calls, {'measure': 0, 'judge': 0})
+            finally:
+                if child.poll() is None: child.kill(); child.wait(timeout=15)
+                child.stdout.close(); child.stderr.close()
+
+    def test_admission_refusal_cannot_retry_when_tombstone_is_unwritable(self):
+        with self.synthetic_run() as calls:
+            original = Path.mkdir
+            def refuse_tombstone(path, *args, **kwargs):
+                if path == R.FAILED: raise PermissionError('Synthetic unwritable tombstone')
+                return original(path, *args, **kwargs)
+            with patch.object(R.P, 'prepare', side_effect=ValueError('Synthetic admission refusal')), \
+                 patch.object(Path, 'mkdir', new=refuse_tombstone):
+                self.assertEqual(R.run(), R.unmeasured())
+            self.assertFalse(R.FAILED.exists())
+            self.assertTrue(R.INVOCATION.is_file())
+            self.assertEqual(R.status(), R.unmeasured())
+            self.assertEqual(R.run(), R.unmeasured())
+            self.assertEqual(calls, {'measure': 0, 'judge': 0})
+
+    def test_bad_clearance_record_does_not_consume_and_can_be_corrected(self):
+        real_review = R.A.final_review
+        with self.synthetic_run() as calls, patch.object(R.A, 'final_review', new=real_review):
+            valid = {'schema': 'w50-dl5s-review-clearance-1',
+                'reviewerType': 'doperpowers:reviewer-high', 'verdict': 'CLEARED',
+                'preparation': R.A.PREPARATION, 'sources': R.A.pending_review()['sources'],
+                'authority': R.W.pin(R.A.AUTHORITY_PATH), 'preflight': R.W.pin(R.A.PREFLIGHT)}
+            invalid = [None, b'{malformed', R.W.encode({**valid, 'verdict': 'NOT_CLEARED'}),
+                R.W.encode({**valid, 'sources': {}}),
+                R.W.encode({**valid, 'preflight': {'path': 'wrong', 'sha256': '0'*64}})]
+            for raw in invalid:
+                if raw is None: R.A.FINAL_REVIEW.unlink(missing_ok=True)
+                else: R.A.FINAL_REVIEW.write_bytes(raw)
+                self.assertEqual(R.run(), R.unmeasured())
+                self.assertFalse(R.INVOCATION.exists())
+                self.assertFalse(R.FAILED.exists())
+                self.assertEqual(R.status()['status'], 'NOT_STARTED')
+            R.A.FINAL_REVIEW.write_bytes(R.W.encode(valid))
+            self.assertEqual(R.run()['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            self.assertEqual(calls, {'measure': 1, 'judge': 1})
+
+    def test_file_and_directory_fsync_precede_preparation(self):
+        import stat
+        with self.synthetic_run() as calls:
+            events = []; sync = os.fsync; plan = R.P.prepare.return_value
+            def flush(fd):
+                info = os.fstat(fd)
+                if not any(event == 'prepare' for event in events):
+                    events.append('file-sync' if stat.S_ISREG(info.st_mode) else 'directory-sync')
+                return sync(fd)
+            def prepare(*args, **kwargs):
+                events.append('prepare')
+                self.assertIs(kwargs['invocation'], R._OWN_INVOCATION)
+                return plan
+            with patch.object(R.os, 'fsync', side_effect=flush), \
+                 patch.object(R.P, 'prepare', side_effect=prepare):
+                self.assertEqual(R.run()['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            self.assertEqual(events[:3], ['file-sync', 'directory-sync', 'prepare'])
+            self.assertEqual(calls, {'measure': 1, 'judge': 1})
+
+    def test_failed_fence_creation_never_reaches_admission(self):
+        with self.synthetic_run() as calls:
+            original = os.open
+            def refuse(path, *args, **kwargs):
+                if Path(path) == R.INVOCATION: raise PermissionError('Synthetic denied reservation')
+                return original(path, *args, **kwargs)
+            with patch.object(R.os, 'open', side_effect=refuse):
+                self.assertEqual(R.run(), R.unmeasured())
+            R.P.prepare.assert_not_called()
+            self.assertFalse(R.INVOCATION.exists())
+            self.assertFalse(R.FAILED.exists())
+            self.assertFalse(R.A.OUTPUT.exists())
             self.assertEqual(calls, {'measure': 0, 'judge': 0})
 
 

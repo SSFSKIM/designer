@@ -161,7 +161,8 @@ class CompletePlanTests(unittest.TestCase):
             for name in fields: getattr(a, name).write_bytes(W.encode({}))
             a.MANIFEST.write_bytes(W.encode(manifest)); a.UNION.write_bytes(W.encode(union))
             a.MARKER = home/'spent'; a.MARKER.write_bytes(b'{}\n')
-            a.OLD = types.SimpleNamespace(MANIFEST_SHA=W.sha(a.MANIFEST), UNION_SHA=W.sha(a.UNION))
+            a.OLD = types.SimpleNamespace(MANIFEST_SHA=W.sha(a.MANIFEST), UNION_SHA=W.sha(a.UNION),
+                                         digest=lambda raw: hashlib.sha256(raw).hexdigest())
             claim = Path(str(a.CONTRACT)+'.started.json')
             claim.write_bytes(W.encode({'numericalAdmission': {}}))
             for name in ('LOGICAL', 'TERMINAL', 'COMPLETE', 'PENDING', 'FAILED', 'INVOCATION'):
@@ -213,6 +214,17 @@ class CompletePlanTests(unittest.TestCase):
             self.assertEqual(plan['proof']['writes'], 0)
             self.assertIn(str(runner.A.NEW_MARKER.parent), plan['proof']['paths']['absent'])
             self.assertEqual(plan['proof']['payloadsParsed'], 0)
+
+    def test_shared_prerequisites_accept_only_the_current_process_owned_fence(self):
+        with self.fixture() as (runner, calls, home, primitive):
+            core = runner.modules()[1]
+            diagnostic = P.prerequisites(runner, core)
+            owner = runner.reserve_invocation()
+            self.assertEqual(P.prerequisites(runner, core, owner), diagnostic)
+            with self.assertRaises(ValueError): P.prerequisites(runner, core)
+            with self.assertRaises(ValueError): P.prerequisites(runner, core, dict(owner))
+            runner.INVOCATION.write_bytes(b'changed fence')
+            with self.assertRaises(ValueError): P.prerequisites(runner, core, owner)
 
     def test_any_new_admission_write_or_payload_parse_fails_under_same_plan(self):
         for fault in ('seal-write', 'admit-write', 'admit-parse'):

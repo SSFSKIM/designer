@@ -19,7 +19,7 @@ FIT, REPO, REL = OLD.FIT, OLD.REPO, OLD.REL
 ROOT, CONTRACT, MARKER, UNION, MANIFEST = OLD.ROOT, OLD.CONTRACT, OLD.MARKER, OLD.UNION, OLD.MANIFEST
 OLD_OUTPUT = OLD.OLD_OUTPUT
 OUTPUT = OLD.OUTPUT.with_name('gate-analysis-2-attempt-2')
-PREPARATION = 7
+PREPARATION = 8
 PREFIX = f'analysis-2-attempt-2.preparation-{PREPARATION}'
 AUTHORITY_PATH = HERE/(PREFIX+'.authority.json')
 VIEW_PATH = HERE/(PREFIX+'.root-view.json')
@@ -34,6 +34,7 @@ PREPARATION_RULING = 'b36acb5c92b99fd708ba52bdd2135e0c06530b5c'
 PREPARATION_ONE_COMMIT = 'd891fdcbbf65626dbd5c3027c1ea262a701b2a8e'
 DIAGNOSTIC_ONE_COMMIT = '566ea52d23ce67d8c2d5be5d6222623e38f5aacb'
 SEAMS = [
+    {'id': 'durable-fence-before-admission', 'meaning': 'Narrow read-only clearance/pin and namespace/tombstone checks are no-cost administrative preconditions. Then an exclusive fixed invocation fence is file-and-directory-fsynced BEFORE full preparation or admission. Its process-owned identity alone permits the shared plan to recheck that consumed slot; all post-fence refusals/crashes remain spent even without a writable failure tombstone. Diagnostic preflight never claims a fence.'},
     {'id': 'prior-fit-read-provenance', 'meaning': 'Unchanged validate_fit_record reads its already-completed FIT capture evidence. Allow only exact artifact paths/hashes independently authenticated by the frozen fit result/contract/claim, under the disjoint prior-fit output; never a hash or directory-prefix grant. Gate paths and symlinks refuse first; lexical read origins prevent an alias acquiring FIT authority.'},
     {'id': 'registered-input-artifact-view', 'meaning': 'The full immutable union is verified first. A distinct Boundary-only copy omits only outside-capture artifacts exactly matching independently registered canonical repo input pins; original union/captures still feed measurement, judge and witness unchanged. Original capture-output paths and634 files remain payload-denied.'},
     {'id': 'static-config-provenance', 'meaning': 'An independently root-pinned noncapture input may share raw bytes with a copied capture artifact. JSON admission retains read-path provenance, allows only that original registered path/hash, and still denies every capture path and unprovenanced matching payload.'},
