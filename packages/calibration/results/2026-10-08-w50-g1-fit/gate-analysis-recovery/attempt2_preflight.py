@@ -77,6 +77,11 @@ class ReadOnly:
             if (argv == ['uname', '-p'] and self.stdlib_caller(platform, 'from_subprocess')
                     and shutil.which('uname') == '/usr/bin/uname' and args[3] is None):
                 return
+            if (argv == ['file', '-b', str(Path(sys.executable).resolve())]
+                    and self.stdlib_caller(platform, '_syscmd_file')
+                    and shutil.which('file') == '/usr/bin/file'
+                    and args[3] == dict(os.environ, LC_ALL='C')):
+                return
             if (not isinstance(argv, (tuple, list)) or len(argv) < 4 or argv[0] != 'git' or
                     argv[1] != '-C' or argv[3] not in ('cat-file', 'show', 'rev-parse', 'merge-base')):
                 raise ValueError('Preflight permits only read-only git object commands')

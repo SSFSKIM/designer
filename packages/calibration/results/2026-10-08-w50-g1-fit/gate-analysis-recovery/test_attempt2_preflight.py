@@ -49,6 +49,7 @@ class ReadOnlyTests(unittest.TestCase):
         from unittest.mock import patch
         with P.ReadOnly():
             self.assertIsInstance(platform._Processor.from_subprocess(), str)
+            self.assertIsInstance(platform.architecture(sys.executable), tuple)
             with self.assertRaises(ValueError): os.open('/dev/null', os.O_RDWR)
             with self.assertRaises(ValueError): open('/dev/null', 'w')
             with self.assertRaises(ValueError):

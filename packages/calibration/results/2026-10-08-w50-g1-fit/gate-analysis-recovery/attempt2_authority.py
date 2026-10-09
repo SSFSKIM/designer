@@ -19,7 +19,7 @@ FIT, REPO, REL = OLD.FIT, OLD.REPO, OLD.REL
 ROOT, CONTRACT, MARKER, UNION, MANIFEST = OLD.ROOT, OLD.CONTRACT, OLD.MARKER, OLD.UNION, OLD.MANIFEST
 OLD_OUTPUT = OLD.OLD_OUTPUT
 OUTPUT = OLD.OUTPUT.with_name('gate-analysis-2-attempt-2')
-PREPARATION = 2
+PREPARATION = 3
 PREFIX = f'analysis-2-attempt-2.preparation-{PREPARATION}'
 AUTHORITY_PATH = HERE/(PREFIX+'.authority.json')
 VIEW_PATH = HERE/(PREFIX+'.root-view.json')
@@ -34,6 +34,7 @@ PREPARATION_RULING = 'b36acb5c92b99fd708ba52bdd2135e0c06530b5c'
 PREPARATION_ONE_COMMIT = 'd891fdcbbf65626dbd5c3027c1ea262a701b2a8e'
 DIAGNOSTIC_ONE_COMMIT = '566ea52d23ce67d8c2d5be5d6222623e38f5aacb'
 SEAMS = [
+    {'id': 'stdlib-platform-file', 'meaning': 'Only platform._syscmd_file may invoke file -b on the resolved current interpreter with LC_ALL=C for the unchanged architecture fingerprint; every other target/command refuses.'},
     {'id': 'stdlib-platform-devnull', 'meaning': 'Only stdlib subprocess _get_devnull may open the existing /dev/null character device after exact device/inode/type checks; every other writable open remains denied.'},
     {'id': 'stdlib-platform-uname', 'meaning': 'Only platform.from_subprocess may invoke exact uname -p from /usr/bin/uname for the unchanged environment fingerprint; no arbitrary subprocess grant.'},
     {'id': 'additive-preparation', 'meaning': 'Distinct prospective seals preserve every earlier preparation; one fixed invocation/output/logical/terminal/failure fence bars every later preparation after execution starts. Final review remains pending until a clean diagnostic.'},
@@ -114,6 +115,9 @@ def preservation():
             previous.append(W.pin(HERE/f'analysis-2-attempt-2.preparation-{n}.review-pending.json'))
     diagnostics = [committed(FIT/'evidence/dl5s-preflight-1'/name, DIAGNOSTIC_ONE_COMMIT)
                    for name in ('refusal.json', 'stderr.log')]
+    for n in range(2, PREPARATION):
+        diagnostics.extend(W.pin(HERE/f'diagnostic-preparation-{n}'/name)
+                           for name in ('stdout.json', 'stderr.log'))
     return {'preparation': {'number': PREPARATION, 'predecessors': previous,
                 'diagnosticEvidence': diagnostics, 'rulingCommit': PREPARATION_RULING,
                 'rulingPath': CHARTER,
