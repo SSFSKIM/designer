@@ -152,6 +152,36 @@ def prerequisites(runner, core):
             'configuredLease': str(configured_lock), 'parents': permissions}
 
 
+def registered_metadata(A, root):
+    result = {}
+    for item in root['inputs']:
+        relative = Path(item['path'])
+        if relative.is_absolute() or '..' in relative.parts:
+            raise ValueError('Noncapture metadata needs its canonical repo-relative pin')
+        path = clean(A.REPO/relative)
+        if not path.is_relative_to(A.REPO) or path.is_relative_to(A.OLD_OUTPUT):
+            raise ValueError('A capture cannot masquerade as registered noncapture metadata')
+        result[str(path)] = item['sha256']
+    return result
+
+
+def capture_artifact_view(A, root, union):
+    """Access-control copy only, after the FULL union was admitted; never scientific evidence."""
+    registered = registered_metadata(A, root)
+    rows = []
+    for row in union['members']:
+        artifacts = []
+        for item in row['artifacts']:
+            path = clean(item['path'])
+            if path.is_relative_to(A.OLD_OUTPUT):
+                artifacts.append(item)
+            elif (registered.get(str(path)) != item['sha256'] or not path.is_file() or
+                    hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']):
+                raise ValueError('Outside capture artifact is not the exact registered metadata pin')
+        rows.append({**row, 'artifacts': artifacts})
+    return {**union, 'members': rows}
+
+
 def setup(runner, live, core, data, union, boundary):
     """Actual runner modules, input validators and read adapters, prepared before any marker."""
     A, W = runner.A, runner.W
@@ -200,15 +230,17 @@ def prepare(runner):
         # A retained capture can copy a static config verbatim. Its hash is then not a
         # sufficient provenance discriminator: only the independently root-pinned original
         # pathname may parse those bytes; every capture pathname remains denied.
-        boundary_guard.metadata_pins.update({str((A.REPO/item['path']).resolve()): item['sha256']
-            for item in root['inputs'] if (A.REPO/item['path']).resolve().is_relative_to(A.REPO)})
+        boundary_guard.metadata_pins.update(registered_metadata(A, root))
+        boundary_guard.payload_paths.difference_update(boundary_guard.metadata_pins)
+
         # Same source enforcement as the actual invocation. No source discovery or subprocess
         # instrument exercise is hidden behind a sealed preflight claim.
         guard.enforce(A.REPO, authority['closure']['sources'])
         live, core = runner.modules()
         paths = prerequisites(runner, core)
         data, union = runner.admit(root, view, contract, batch, live, core)
-        boundary = runner.R.Boundary(A.OLD_OUTPUT, A.OUTPUT, union)
+        capture_view = capture_artifact_view(A, root, union)
+        boundary = runner.R.Boundary(A.OLD_OUTPUT, A.OUTPUT, capture_view)
         context, hashes, dispatcher, roles = setup(runner, live, core, data, union, boundary)
         original_claim_path = Path(str(A.CONTRACT)+'.started.json')
         original_claim = W.parse(original_claim_path.read_bytes())
@@ -229,7 +261,8 @@ def prepare(runner):
             'expectedKeys': len(data[4]), 'payloadsParsed': 0, 'writes': 0,
             'checks': ['historical-prefit-all-pins', 'exact-live-delta', 'original-fit-and-cohort',
                 'complete-capture-union', 'successor-view-and-closure', 'role-interfaces-and-inputs',
-                'original-read-adapter-setup', 'attempt-namespace-and-permissions']}
+                'original-read-adapter-setup', 'registered-noncapture-boundary-view',
+                'attempt-namespace-and-permissions']}
         # This canonical snapshot also binds exact marker/output strings and absence assertions;
         # hashing only data would not authenticate the attempted operation.
         proof['planSha256'] = hashlib.sha256(W.encode(proof)).hexdigest()

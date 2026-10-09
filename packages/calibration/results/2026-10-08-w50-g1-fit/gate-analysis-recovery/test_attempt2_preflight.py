@@ -59,6 +59,33 @@ class ReadOnlyTests(unittest.TestCase):
                 boundary.metadata_pins[str(capture)] = digest
                 with self.assertRaises(ValueError): json.loads(capture.read_bytes())
 
+    def test_boundary_view_excludes_only_exact_registered_noncapture_artifact(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp).resolve(); repo = home/'repo'; repo.mkdir()
+            old = home/'captures'; old.mkdir()
+            config = repo/'config.json'; config.write_bytes(b'{"schema":"config"}')
+            capture = old/'capture.json'; capture.write_bytes(b'{"numeric":3}')
+            pin = lambda p: {'path': str(p), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
+            a = types.SimpleNamespace(REPO=repo, OLD_OUTPUT=old)
+            original = {'members': [{'payload': pin(capture), 'artifacts': [pin(capture), pin(config)]}]}
+            root = {'inputs': [{'path': 'config.json', 'sha256': pin(config)['sha256']}]}
+            view = P.capture_artifact_view(a, root, original)
+            self.assertEqual(view['members'][0]['artifacts'], [pin(capture)])
+            self.assertEqual(original['members'][0]['artifacts'], [pin(capture), pin(config)])
+            with self.assertRaises(ValueError): P.capture_artifact_view(a, {'inputs': []}, original)
+            root['inputs'][0]['sha256'] = '0'*64
+            with self.assertRaises(ValueError): P.capture_artifact_view(a, root, original)
+            root['inputs'][0]['sha256'] = pin(config)['sha256']
+            alias = repo/'alias'; alias.symlink_to(config)
+            symlinked = {'members': [{'payload': pin(capture), 'artifacts': [pin(alias)]}]}
+            with self.assertRaises(ValueError): P.capture_artifact_view(a, root, symlinked)
+            other = repo/'other'; other.write_bytes(config.read_bytes())
+            wrong_path = {'members': [{'payload': pin(capture), 'artifacts': [pin(other)]}]}
+            with self.assertRaises(ValueError): P.capture_artifact_view(a, root, wrong_path)
+            masquerade = types.SimpleNamespace(REPO=home, OLD_OUTPUT=old)
+            fake_root = {'inputs': [{'path': 'captures/capture.json', 'sha256': pin(capture)['sha256']}]}
+            with self.assertRaises(ValueError): P.capture_artifact_view(masquerade, fake_root, original)
+
     def test_stdlib_environment_probe_can_use_identified_devnull(self):
         import platform
         import subprocess
