@@ -468,7 +468,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5o are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5p are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -697,6 +697,24 @@ outerShadow.liftAmplitude and outerShadow.thinOcclusionDark, to be confirmed). D
 Because the fix moves owner closure sources, a successor LIVE root naming `a09e02e94` and this
 ruling is sealed; before it seals, the owner self-check grades X76 at both positions on a
 hypothetical identity candidate (current documents plus the required records).
+
+DL5p (parent, 2026-10-09; root 2 has pre-fit evidence only, no phase or attempt). The initializer
+refusal is a role-vocabulary seam: 115 canonical argument records carry the scenes.json split
+(32 calibration, 83 probe) where G0 binds role gate. IDs, profile/renderer/scene and every other
+binder check match; no holdout or historical record is involved. Ruled (a)–(d):
+(a) Normalise only canonical argument records whose original role equals their captured
+`originalRow.fixtureSet`, which is non-holdout, and whose G0 reference requires gate. The bound
+role becomes G0's; the original `capturedArgument` and its SHA remain unchanged. No source
+evidence is rewritten. Real-shape tests must prove frozen G0 accepts the normalised records and
+still refuses a holdout or historical role, or a role disagreeing with `fixtureSet`.
+(b) Seal successor root 3 over root 2, pinning its permitted history to exactly its committed
+pre-fit evidence and refusing any other byte, phase or attempt.
+(c) Carry forward the ONE existing candidate and initializer by hash, retaining their root-2
+provenance. Bind only under root 3; never re-initialise, re-assemble or change candidate bytes.
+Root 3 receives its own pre-fit evidence.
+(d) Log the composed reader's role-blind population check as debt and repair the seam prospectively
+in the binder. Continue through numerical check, fit, fit record and gate; report the gate verdict
+to the coordinator before creating any exposure batch.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
