@@ -1,0 +1,59 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py", line 122, in once
+    measured = measure()
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py", line 160, in measure
+    measured = module.evaluate(ctx, captures, config)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/measurement.py", line 32, in evaluate
+    return P.measure_phase(context, captures, config)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py", line 155, in measure_phase
+    candidate = backend.measure_member(run, receipt, originals_for_member)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py", line 196, in measure_member
+    measured = measure_exposed(self.context, self.dispatcher, run, pin, receipt,
+        self.config['native']['scenes'], native_batch_pin=self.config['native']['batch'],
+        verify_repeat=self.verify_repeat)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py", line 494, in measure_exposed
+    verify_repeat(run, receipt)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py", line 122, in verify_repeat
+    return L.archived_pair(self.context, self.dispatcher, run, receipt, {'canonical': C, 'w50': W})
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/common.py", line 177, in archived_pair
+    retained = helper.read_pair(context, run, record, record['repeatPair'])
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py", line 131, in read_pair
+    return self.boundary.read(lambda: self.helper.read_pair(
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        {**context, 'output': str(self.boundary.original)}, run, record, pair_pin))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py", line 98, in read
+    try: return callback()
+                ~~~~~~~~^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py", line 131, in <lambda>
+    return self.boundary.read(lambda: self.helper.read_pair(
+                                      ~~~~~~~~~~~~~~~~~~~~~^
+        {**context, 'output': str(self.boundary.original)}, run, record, pair_pin))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py", line 109, in read_pair
+    def read_pair(context,run,record,pair_pin):
+    
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py", line 73, in called
+    check(filename)
+    ~~~~~^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py", line 46, in check
+    if path.suffix != '.py' or expected.get(relative) != sha(path):
+                                                         ~~~^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py", line 21, in sha
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                          ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 777, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py", line 83, in _audit
+    p = clean_path(os.fsdecode(path), self.original)
+  File "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py", line 32, in clean_path
+    if not path.is_relative_to(root): raise ValueError('Read lies outside original capture root')
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Read lies outside original capture root
