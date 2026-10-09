@@ -37,11 +37,11 @@ marker. The coordinator closed those browsers with the user's approval; a fresh 
 Attempt 2 retained 56 members. Attempt 3 retained another 494 before the host restart killed its
 child without a completion event. `Store.checkpoints` verified all 550 member identities, ownership,
 payload and artifact hashes; none needed rejection and no analysis marker exists. The interrupted
-journal is committed (`fdf263465`). A fresh census passed. Running: same-contract stale-attempt
-recovery and successor 4 via `live-run/run.py --work /Users/new/vitrea-w50/g1-live run fit`, output
-`/Users/new/vitrea-w50/g1-live-fit-resume-4.out` (unbuffered); 290 members remain before possible
-orphan adoption. Retained members are requalified by the existing capture verifier before draws.
-Repeated DL5k recovery and DL5q remain authorised; report persistent blockage after two hours. The coordinator permits these recoveries and requests
+journal is committed (`fdf263465`). Successor 4 completed its 290 remaining members; fit analysis
+completed once with status CAPTURED (all 840 captures; result sidecar verified). The full fit and
+recovery chain is committed. Running: `live-run/run.py ... fit-record`, output
+`/Users/new/vitrea-w50/g1-live-fit-record.out`. Next: gate-batch, gate; report its verdict BEFORE
+creating an exposure batch. Repeated DL5k recovery and DL5q remain authorised if needed. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
