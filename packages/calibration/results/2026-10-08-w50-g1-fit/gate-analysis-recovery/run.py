@@ -188,13 +188,14 @@ def unmeasured():
 def fail_closed():
     """Append a permanent, payload-free fault tombstone; never repair terminal evidence.
 
-    mkdir makes a known fault visible before any fsync can fail again. The tombstone is never
-    removed, and status needs only its existence, not a successfully written/parsed JSON body.
-    A repeated storage fault cannot turn the in-process failure back into a success.
+    The tombstone is never removed, and status needs only its existence, not a parsed body.
+    Finalization safety does not depend on allocating this record: every fallible flush/check
+    precedes the eligibility link, so a storage refusal leaves the existing transaction ineligible.
     """
     if not os.path.lexists(FAILED):
         try: FAILED.mkdir()
         except FileExistsError: pass
+        except OSError: return unmeasured()
     try:
         directory = os.open(FAILED.parent, os.O_RDONLY)
         try: os.fsync(directory)
@@ -212,39 +213,55 @@ def completion():
 
 def status():
     try: return terminal_status()
-    except BaseException: return fail_closed()
+    except BaseException:
+        # A known authentication fault revokes only eligibility, not the staged completion or
+        # any scientific bytes. The existing pending transaction bars every later replay even
+        # if storage refuses to allocate FAILED. Persist revocation before attempting that write.
+        try:
+            COMPLETE.unlink(missing_ok=True)
+            directory = os.open(COMPLETE.parent, os.O_RDONLY)
+            try: os.fsync(directory)
+            finally: os.close(directory)
+        except OSError:
+            # If the filesystem refuses both revocation and fault-state persistence, durable
+            # rejection is physically unavailable: stop operationally, not with another fallback.
+            pass
+        return fail_closed()
 
 
 def terminal_status():
     if os.path.lexists(FAILED): return unmeasured()
-    if COMPLETE.exists():
-        # Only a fully flushed staging file is linked into COMPLETE, after the lease and
-        # quarantine have both exited. Provisional terminal/staging bytes alone grant nothing.
-        if (COMPLETE.is_symlink() or TERMINAL.is_symlink() or A.NEW_MARKER.is_symlink()
-                or W.parse(COMPLETE.read_bytes()) != completion()):
-            raise ValueError('Completion lost its pinned terminal or analysis marker')
-        value = W.parse(TERMINAL.read_bytes())
-        allowed = {'schema', 'analysis', 'status', 'sha256', 'witnessCount', 'witnessSha256', 'measurementStatus'}
-        if not set(value) <= allowed or value.get('analysis') != 2 or value.get('status') not in (
-                'NEITHER', 'PASS_EXPOSED_OWNER_PENDING'):
-            raise ValueError('Invalid public terminal record')
-        if ('measurementStatus' in value and value['measurementStatus'] != 'UNMEASURED') or (
-                'schema' in value and value['schema'] != 'w50-dl5r-public-result-1'):
-            raise ValueError('Invalid public status metadata')
-        if 'witnessCount' in value and (value['witnessCount'] != 634 or
-                not isinstance(value.get('witnessSha256'), str) or len(value['witnessSha256']) != 64 or
-                any(c not in '0123456789abcdef' for c in value['witnessSha256'])):
-            raise ValueError('Invalid public witness metadata')
-        if 'sha256' in value:
-            if W.sha(A.OUTPUT/'quarantine/result.json') != value['sha256'] or not A.NEW_MARKER.is_file():
-                raise ValueError('Terminal result lost its pinned payload or marker')
-        elif value['status'] != 'NEITHER' or value.get('measurementStatus') != 'UNMEASURED':
-            raise ValueError('A successful terminal result requires a sealed payload')
-        return value
+    if COMPLETE.exists(): return authenticated_terminal(COMPLETE)
     if any(os.path.lexists(p) for p in (TERMINAL, COMPLETE, PENDING,
                                        A.NEW_MARKER, A.OUTPUT, LOGICAL)):
         return unmeasured()
     return {'status': 'NOT_STARTED', 'analysis': 2}
+
+
+def authenticated_terminal(record):
+    # The same checks authenticate staging BEFORE publication and completion on later status.
+    # Provisional terminal/staging bytes alone grant nothing.
+    if (record.is_symlink() or TERMINAL.is_symlink() or A.NEW_MARKER.is_symlink()
+            or W.parse(record.read_bytes()) != completion()):
+        raise ValueError('Completion lost its pinned terminal or analysis marker')
+    value = W.parse(TERMINAL.read_bytes())
+    allowed = {'schema', 'analysis', 'status', 'sha256', 'witnessCount', 'witnessSha256', 'measurementStatus'}
+    if not set(value) <= allowed or value.get('analysis') != 2 or value.get('status') not in (
+            'NEITHER', 'PASS_EXPOSED_OWNER_PENDING'):
+        raise ValueError('Invalid public terminal record')
+    if ('measurementStatus' in value and value['measurementStatus'] != 'UNMEASURED') or (
+            'schema' in value and value['schema'] != 'w50-dl5r-public-result-1'):
+        raise ValueError('Invalid public status metadata')
+    if 'witnessCount' in value and (value['witnessCount'] != 634 or
+            not isinstance(value.get('witnessSha256'), str) or len(value['witnessSha256']) != 64 or
+            any(c not in '0123456789abcdef' for c in value['witnessSha256'])):
+        raise ValueError('Invalid public witness metadata')
+    if 'sha256' in value:
+        if W.sha(A.OUTPUT/'quarantine/result.json') != value['sha256'] or not A.NEW_MARKER.is_file():
+            raise ValueError('Terminal result lost its pinned payload or marker')
+    elif value['status'] != 'NEITHER' or value.get('measurementStatus') != 'UNMEASURED':
+        raise ValueError('A successful terminal result requires a sealed payload')
+    return value
 
 
 def run():
@@ -282,15 +299,21 @@ def start():
     ok, result = core['Q'].run_private(A.OUTPUT/'quarantine/analysis.log', work)
     if not ok or result.get('measurementStatus') == 'UNMEASURED': return fail_closed()
     if os.path.lexists(FAILED): return unmeasured()
-    # The terminal is not a commit. Authenticate it only after all potentially failing work,
-    # including lease release and quarantine stream restoration. Keep staging bytes as evidence;
-    # a failed write never installs COMPLETE, and any later fault appends FAILED instead.
+    # The terminal is not a commit. Persist an ineligible staging record after lease/quarantine
+    # cleanup, then authenticate every published byte before the last durability operation.
     W.write_once(PENDING, completion())
-    os.link(PENDING, COMPLETE)  # Exclusive installation; never overwrite an earlier record.
+    public = authenticated_terminal(PENDING)
+    if public != result: raise ValueError('Terminal differs from the completed analysis')
     directory = os.open(COMPLETE.parent, os.O_RDONLY)
     try: os.fsync(directory)
     finally: os.close(directory)
-    return status()
+    if os.path.lexists(FAILED): return unmeasured()
+    # COMMIT POINT: this exclusive atomic link is the last I/O operation. No authentication,
+    # flush or cleanup follows it, so a preceding fault cannot expose eligible completion even
+    # when storage also refuses FAILED. We deliberately do not fsync the link: losing it on a
+    # crash conservatively leaves NEITHER, never replay. Staging bytes remain untouched.
+    os.link(PENDING, COMPLETE)
+    return public
 
 
 def main():

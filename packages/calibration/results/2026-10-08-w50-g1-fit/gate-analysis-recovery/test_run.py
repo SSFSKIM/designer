@@ -1,6 +1,7 @@
 """Restart and capability checks against synthetic authority/output trees only."""
 import contextlib
 import copy
+import errno
 import io
 import os
 from pathlib import Path
@@ -123,25 +124,124 @@ class RunTests(unittest.TestCase):
                 self.assertTrue(faults)
                 self.assert_failed_without_replay(calls)
 
-    def test_completion_fsync_faults_fail_closed_even_after_exclusive_installation(self):
+    def test_completion_fsync_faults_leave_transaction_ineligible(self):
         for kind in ('file', 'staging-directory', 'commit-directory'):
             with self.subTest(kind=kind), self.synthetic_run() as calls:
-                fsync = os.fsync
-                faults = []
+                fsync, write_once = os.fsync, R.W.write_once
+                staged, faults = [], []
+                def stage_then_arm(path, value):
+                    artifact = write_once(path, value)
+                    if path == R.PENDING: staged.append(True)
+                    return artifact
                 def fail_completion(fd):
                     info = os.fstat(fd)
                     target = R.PENDING if kind == 'file' else R.PENDING.parent
-                    written = R.COMPLETE.exists() if kind == 'commit-directory' else R.PENDING.exists()
+                    written = bool(staged) if kind == 'commit-directory' else R.PENDING.exists()
                     if written and info.st_ino == target.stat().st_ino:
                         faults.append(kind)
                         raise OSError('Synthetic completion fsync fault')
                     return fsync(fd)
-                with patch.object(R.os, 'fsync', side_effect=fail_completion):
+                with patch.object(R.W, 'write_once', side_effect=stage_then_arm), \
+                     patch.object(R.os, 'fsync', side_effect=fail_completion):
                     self.assertEqual(R.run()['status'], 'NEITHER')
                 self.assertTrue(faults)
                 self.assertTrue(R.FAILED.is_dir())
-                self.assertEqual(R.COMPLETE.exists(), kind == 'commit-directory')
+                self.assertFalse(R.COMPLETE.exists())
                 self.assert_failed_without_replay(calls)
+
+    def test_completion_directory_and_failure_allocation_faults_cannot_publish_success(self):
+        with self.synthetic_run() as calls:
+            fsync, mkdir, write_once = os.fsync, Path.mkdir, R.W.write_once
+            staged, faults = [], []
+            def stage_then_arm(path, value):
+                artifact = write_once(path, value)
+                if path == R.PENDING: staged.append(True)
+                return artifact
+            def refuse_completion_flush(fd):
+                if staged and os.fstat(fd).st_ino == R.COMPLETE.parent.stat().st_ino:
+                    faults.append('completion-directory')
+                    raise OSError(errno.ENOSPC, 'Synthetic completion directory fault')
+                return fsync(fd)
+            def refuse_failure_allocation(path, *args, **kwargs):
+                if path == R.FAILED:
+                    faults.append('failure-allocation')
+                    raise OSError(errno.ENOSPC, 'Synthetic failure allocation fault')
+                return mkdir(path, *args, **kwargs)
+            result = None
+            with patch.object(R.W, 'write_once', side_effect=stage_then_arm), \
+                 patch.object(R.os, 'fsync', side_effect=refuse_completion_flush), \
+                 patch.object(Path, 'mkdir', new=refuse_failure_allocation):
+                try: result = R.run()
+                except OSError: pass  # Inspect the surviving eligibility before asserting return.
+            self.assertIn('completion-directory', faults)
+            self.assertIn('failure-allocation', faults)
+            self.assert_failed_without_replay(calls)
+            self.assertEqual(result, R.unmeasured())
+            self.assertFalse(R.COMPLETE.exists())
+            self.assertFalse(R.FAILED.exists())
+
+    def test_exclusive_link_is_last_io_and_authentication_operation(self):
+        with self.synthetic_run() as calls:
+            link, read = os.link, Path.read_bytes
+            operations = {name: getattr(os, name) for name in ('fsync', 'open', 'close', 'stat', 'lstat')}
+            committed, after_commit = [], []
+            def commit(*args, **kwargs):
+                value = link(*args, **kwargs)
+                committed.append(True)
+                return value
+            def observe(name):
+                def operation(*args, **kwargs):
+                    if committed: after_commit.append(name)
+                    return operations[name](*args, **kwargs)
+                return operation
+            def read_bytes(path):
+                if committed: after_commit.append('read')
+                return read(path)
+            with contextlib.ExitStack() as patches:
+                patches.enter_context(patch.object(R.os, 'link', side_effect=commit))
+                patches.enter_context(patch.object(Path, 'read_bytes', new=read_bytes))
+                for name in operations:
+                    patches.enter_context(patch.object(R.os, name, side_effect=observe(name)))
+                result = R.run()
+            self.assertEqual(result['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            self.assertTrue(committed)
+            self.assertEqual(after_commit, [])
+            self.assertEqual(calls, {'measure': 1, 'judge': 1})
+            self.assertEqual(R.status(), result)
+
+    def test_crash_loss_of_eligibility_link_is_neither_and_never_replay(self):
+        with self.synthetic_run() as calls:
+            self.assertEqual(R.run()['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            pending_bytes = R.PENDING.read_bytes()
+            R.COMPLETE.unlink()  # Model a crash losing only the unsynced synthetic eligibility link.
+            self.assert_failed_without_replay(calls)
+            self.assertEqual(R.PENDING.read_bytes(), pending_bytes)
+            self.assertFalse(R.FAILED.exists())
+
+    def test_transient_status_fault_revokes_eligibility_when_failure_allocation_is_unavailable(self):
+        with self.synthetic_run() as calls:
+            self.assertEqual(R.run()['status'], 'PASS_EXPOSED_OWNER_PENDING')
+            pending_bytes = R.PENDING.read_bytes()
+            sha, mkdir = R.W.sha, Path.mkdir
+            faults = []
+            def refuse_result_read(path):
+                if path == R.A.OUTPUT/'quarantine/result.json':
+                    faults.append('validation')
+                    raise OSError(errno.EIO, 'Synthetic transient authentication fault')
+                return sha(path)
+            def refuse_failure_allocation(path, *args, **kwargs):
+                if path == R.FAILED:
+                    faults.append('failure-allocation')
+                    raise OSError(errno.ENOSPC, 'Synthetic failure allocation fault')
+                return mkdir(path, *args, **kwargs)
+            with patch.object(R.W, 'sha', side_effect=refuse_result_read), \
+                 patch.object(Path, 'mkdir', new=refuse_failure_allocation):
+                self.assertEqual(R.status(), R.unmeasured())
+            self.assertEqual(faults, ['validation', 'failure-allocation'])
+            self.assert_failed_without_replay(calls)
+            self.assertEqual(R.PENDING.read_bytes(), pending_bytes)
+            self.assertFalse(R.COMPLETE.exists())
+            self.assertFalse(R.FAILED.exists())
 
     def test_failed_completion_authentication_stays_failed_if_bytes_later_reappear(self):
         with self.synthetic_run() as calls:
