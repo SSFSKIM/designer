@@ -17,6 +17,12 @@ X41 publication delta after PASS; the original X41 witness remains fully intact 
 
 ## Progress
 
+**CLOSED (2026-10-10): NEITHER / UNMEASURED; nothing shipped.** Analysis 2 attempt 2 failed
+post-marker during measurement (`25e52e88d`), before the witness or judge. No gate value was
+read by anyone. DL5s(e) is final: no further W50 invocation or exposure. The Outcome and Deferred
+at close below supersede the operational checkpoints and unchecked handoff steps retained here
+as history; they are not instructions to resume. Claims §5.218 records the close.
+
 **Current operational checkpoint (2026-10-09).** Root 2 (`2e6f4c99…`, `ef68b07c6`) and its
 pre-fit evidence (`a106c8d8d`) are sealed. The first initializer invocation assembled ONE point
 under `fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/`,
@@ -952,6 +958,29 @@ This list permits no G0 mutation: the original X41 witness stays intact until a 
 
 ## Surprises and discoveries
 
+1. **Rehearse the complete single-use pipeline, not only its parts.** A read-only admission
+   preflight does not prove measurement, witness and judge compose. Before a one-shot marker,
+   exercise them end to end on non-blind data under the identical guard composition and lifecycle
+   state, including a freshly re-armed source guard. W50's clean preflight installed the adapters
+   but never entered their pure capture-read boundary; the first helper call there exposed the
+   untested composition after the marker (§5.218 §3).
+2. **Cross-root recovery compounds authentication seams.** Separating original capture authority
+   from successor write authority reaches proof pins, retained receipts, static inputs and prior-fit
+   evidence, not just path lookup. Each added recovery layer exposed another seam. Prefer a fresh,
+   coherently pinned instrument where affordable; keeping captures does not by itself make recovery
+   the simpler route. W50's eight preparations repaired admission, not the whole measurement path.
+3. **Fence before fallible work.** Cheap no-cost namespace and clearance preconditions can precede
+   the durable single-use fence; substantive admission cannot. Otherwise a crash or an unwritable
+   failure record leaves a retryable invocation. The reviewer-high P1 was fixed before W50's real
+   attempt and cleared (`c7dbbf846`, `a93056f84`, `3c1867cb2`); it is not the terminal fault.
+4. **A stop rule must name its stage.** Diagnostic preparation, real invocation, analytical marker
+   and completed scientific read are different boundaries. State which consumes the attempt and
+   which refuses recoverably before use. DL5s narrowed DL5r's “any refusal” to its intended stage,
+   then clarification 2 separated diagnostic preflights from the one real invocation. That does
+   not permit another recovery after the final post-marker fault.
+
+Grounding discoveries, retained:
+
 - “Thick black unmeasured” needs precision: span96 true black *is* measured at2x in W42/W43,
   while160 is not. W42's stratum64 label hides a44px measured capsule, and its completed low-end
   span128/160 ordinates are not native observations.
@@ -962,7 +991,7 @@ This list permits no G0 mutation: the original X41 witness stays intact until a 
   through the current checkout, with old bytes untouched; this is a provenance-path issue, not
   changed measurements.
 
-## Deferred and outcomes
+## G0 deferred and outcomes (historical checkpoint)
 
 G0 delivers the identified mechanism, an inert two-tier instrument and a declared native bed,
 **not the native1–8 response or a fitted repair**. That response, true black at160/224, and the
@@ -979,7 +1008,69 @@ beyond224 remain outside this repair. Existing mid-dark/chroma/edge gaps stay na
 operators landed only at identity: no material document, matrix publication, fixture, owner bound
 or release changed, and the main checkout was not edited.
 
+## Outcome
+
+1. **NEITHER / UNMEASURED, not a scientific negative.** The sole real analysis-2 attempt-2 run
+   stopped after its marker during measurement (`25e52e88d`). DL5s(e) closes W50 without another
+   recovery; the witness and judge never ran, no gate value was read by anyone, and no exposure
+   was created. Nothing shipped: the ten shipped material documents and their digests, generated
+   profiles, generation selections, canonical matrix/captures and adopted bounds are unchanged.
+   G0's compact low-end chart stays at identity on both tiers. No changeset or release.
+2. **The native identification stands.** G1a acquired 1,600 frames and archived them as
+   `w50-archive` (§5.217 §§8–9). The exposed 336-cell read found uniform black at 32 active /
+   20 receded across its spans, positions and scales. The new 512×384 sparse-impulse 96/160
+   far-body medians also read 32/20; those are not replacements for the original 320×200 controls.
+   Required repeat bars stay at the 0.5-code floor. The 112 new blind native cells remain closed.
+3. **One frozen candidate, a completed fit, an unmeasured gate.** Proposal `044bc4a5…` completed
+   all 840 fit captures with status CAPTURED (result `d2b82491…`, fit record `83ea6b1e…`). That is
+   valid evidence for its own population only, not a gate pass. All 1,341 gate captures completed
+   (union `a3022525…`). Analysis 1 stopped after its marker because a companion path-level row
+   overwrote `productionStatistic` on eight impulse lg/ml T1 keys. Its 634 keyed files remain
+   unread and pinned by manifest `95295607…`; no partial result became a verdict.
+4. **The terminal cause is in the instrument.** DL5r allowed one successor analysis; attempt 1
+   refused before its marker on a historical test-source pin. DL5s allowed one pre-marker recovery.
+   Eight preparations, each with a read-only preflight, repaired historical authentication,
+   environment/API and read-origin seams; the final fence fix cleared reviewer-high. In the real
+   run the source-hash guard was re-armed after preflight. The first `read_pair` call then tried to
+   hash its Python source inside `Boundary`'s capture-root-only scope. `reads.py:32` refused that
+   source-file open before the helper body ran. Zero successor keyed files, zero witness
+   comparisons and no judge: this says nothing about whether the candidate meets the landing rule.
+   The audit, public verdict, written-file inventory and constant traceback are retained in
+   `results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/`.
+
+## Deferred at close
+
+1. **Re-gate the same frozen candidate under a fixed instrument — for the user to decide.**
+   Its gate values are still unread. The likely simplest next-wave option is a fresh root pinning
+   the corrected source from the start and recapturing the fixed 1,341 gate cells, rather than
+   adding another cross-root recovery layer. This is a proposed new charter, not a third W50
+   analysis, a decision to recapture, or permission to alter the candidate or landing rule.
+   Rehearse the full measurement/witness/judge pipeline on non-blind data with the exact guards
+   and lifecycle first, and state the new stage-specific stop boundaries before use.
+2. **Preserve the open evidence without treating it as a score.** The 634 unread analysis-1 files
+   and their `95295607…` raw-byte manifest, the complete 1,341-capture `a3022525…` union, and the
+   completed 840-cell fit result `d2b82491…` / fit record `83ea6b1e…` all remain. The two failed
+   successor attempts, their tombstones and preparation seals remain beside them. Any next-wave
+   use needs declared provenance and population boundaries; none is permission to inspect the
+   quarantined gate values now. The native archive's 112 blind cells remain available for a new
+   declaration; historical prediction checks do not become blind again.
+3. **Repair the instrument composition, not the sealed record.** The source-authentication /
+   capture-only-read conflict and end-to-end coverage gap are tracked with their closure tests.
+   Historical/live proof authority, capture/write roots and metadata/payload origins need an
+   explicit coherent contract in a future instrument. Keep existing seals untouched. The small
+   `attempt2_seal.py` docstring and resolved-versus-lexical origin issues are defence-in-depth
+   debt, not explanations for candidate quality.
+4. **The material question remains open.** Native acquisition and the fit do not establish that
+   the compact group-level chart closes the structured low end or preserves texture and owner
+   contracts. W49b's remaining texture work still needs a measured low-end referee, not an assumed
+   repair. Mid-dark/chroma/edge gaps and behaviour beyond span 224 stay outside this closure.
+
 ## Revision Notes
+
+- 2026-10-10 — Evidence-only close under DL5s(e), claims §5.218: final NEITHER / UNMEASURED,
+  native identification retained, candidate quality unmeasured, no publication. Outcome,
+  generalised instrument lessons and Deferred at close supersede the historical handoffs.
+  No Decision Log paragraph, sealed evidence or material byte changed.
 
 - 2026-10-07 — Bounded grounding review closure, before declaration or any new measurement.
   Replaced an accumulating adjacent-step tolerance with maximum drawdown from the preceding

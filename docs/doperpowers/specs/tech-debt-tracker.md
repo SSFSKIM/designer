@@ -8052,3 +8052,54 @@ scene source, role equal to its own `originalRow.fixtureSet`, not holdout or wit
 this shape: the next reader seal checks role against the G0 reference at population time, either
 refusing a disagreement or stating the bound role beside the captured split, so a vocabulary
 disagreement stops before any fit input is assembled rather than at binding.
+
+
+## W50 recovery instrument still composes incompatible read authorities (close, 2026-10-10)
+
+Claims §5.218; evidence `results/2026-10-08-w50-g1-fit/gate-analysis-recovery/outcome-attempt-2/`.
+The final run failed because a freshly re-armed `live-execution/guard.py` source profiler tried
+to hash `g1-current3/repeat/admission.py` on its first call inside `reads.py`'s capture-only
+`Boundary`. The boundary correctly refused the repository source open. Source authentication
+and capture authentication each work alone; their combined allowed reads do not. This remains
+unfixed in the sealed instrument, and DL5s(e) forbids another W50 invocation.
+
+The preceding repairs also leave a layered authority model: historical pre-fit pins versus live
+source pins; original capture roots/receipt authority versus successor output/claims; independently
+registered static inputs whose bytes duplicate capture artifacts; and exact prior-fit origins
+versus gate payloads. The eight preparation seals retain these seams and their bounded adapters.
+A future instrument should declare these authority domains together, rather than accumulate more
+cross-root adapters. A fresh root with corrected source pinned from the start and a fresh gate
+capture is the likely simpler option, for the user's next-wave decision. Keep W50 seals unchanged;
+prove source and capture guards can compose without broadening capture payload access.
+
+## W50 lacks a full-pipeline rehearsal under the final guard lifecycle (close, 2026-10-10)
+
+Claims §5.218 §3. The read-only preflight covered complete admission, adapter installation and
+interfaces, not a retained-pair read inside the pure boundary. `start()` then re-armed the source
+guard with fresh first-call state; the untested combination first ran after the one-shot marker.
+This is distinct from the earlier unpatched `current_evidence` coverage debt. Before another
+single-use analysis, add a subprocess rehearsal on synthetic or already exposed fixtures through
+measurement, witness and judge, using the actual source and I/O guards in the exact invocation
+order, including re-arming. Cover success and a deliberate source/capture-integrity refusal;
+separate component tests or a warm guard cannot discharge it. Do not use unread gate values to
+develop this test or relax their read denial. The repaired durable-fence ordering needs to remain
+in that lifecycle, with cheap administrative preconditions before the fence and fallible work after.
+
+## W50 attempt-two preparation docstring names the obsolete proof path (P3, 2026-10-10)
+
+`results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_seal.py` tells the operator to save
+stdout as `analysis-2-attempt-2.preflight.json`; the final tooling binds the preparation-qualified
+path selected by `attempt2_authority.py` (preparation 8 at close). It can misdirect a future reader,
+although pin checks prevent that wrong path from admitting a run. Correct the help text in a
+future instrument to derive or describe the selected preparation's path. Do not edit this sealed
+source merely to tidy documentation; it is a defence-in-depth P3, not the terminal cause.
+
+## W50 read-origin recording mixes lexical and resolved paths (P3, 2026-10-10)
+
+`gate-analysis-recovery/attempt2_preflight.py` records `OriginText`/`OriginBytes` provenance with
+`path.absolute()`, while the payload-path inventory uses `Path(...).resolve()`. The authority text
+promises lexical origins to prevent an alias acquiring prior-fit authority. Keep the distinction
+explicit: record the lexical request and resolved identity separately, compare like with like,
+and test symlink/alias spellings of registered input, prior-fit and gate paths. Existing path and
+symlink guards are separate defences; this is a future defence-in-depth test/representation fix,
+not evidence that a payload escaped or that the candidate failed. Preserve the sealed W50 code.

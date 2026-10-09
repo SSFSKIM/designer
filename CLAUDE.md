@@ -764,6 +764,24 @@ that remaining repair miss and the pitch-selective body; no new operator or nati
 is authorised here. The receded-only generation is `b2d074d2df24-940384c06f73.json` (468 rows);
 the union stays 3,017 rows and T1 names 120 of 154 dark cells as fidelity misses.
 
+**W50 (§5.217–§5.218, 2026-10-08/10) closed NEITHER / UNMEASURED; nothing shipped.**
+The dark low-end chart landed inert on both tiers. G1a captured 1,600 frames, archived as
+`w50-archive`; the exposed native read found black at 32 active / 20 receded, and the new
+512×384 sparse-impulse 96/160 far-body medians also at 32/20. One frozen candidate (`044bc4a5…`)
+completed its 840-cell fit; that record covers its own population only. All 1,341 gate captures
+completed, but analysis 1 stopped after its marker on a `productionStatistic` overwrite, leaving
+634 unread keyed files. DL5r's successor refused before its marker on a historical source pin;
+DL5s allowed one pre-marker recovery. After eight diagnostic preparations and reviewer clearance,
+the real run failed post-marker: the re-armed source-hash guard opened a Python source inside a
+capture-only read boundary. Witness and judge never ran; no gate value was read by anyone.
+This is an instrument failure, **not a scientific negative about the candidate**. DL5s(e) forbids
+another W50 invocation or exposure. The shipped documents and all ten digests are unchanged;
+no generation or bound moved. The next wave needs a fixed instrument rehearsed end to end on
+non-blind data under the identical guards and lifecycle. Re-gating the same frozen point with a
+fresh root and 1,341 fresh gate captures is the likely simpler option than more cross-root
+recovery, **for the user to decide**, not an authorised retry. The unread 634, gate captures and
+fit record remain; the 112 new blind native cells remain unopened (charter Deferred at close).
+
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
 under `specs/`): declare what will be measured and what would stop the change **before** running

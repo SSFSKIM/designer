@@ -50484,3 +50484,89 @@ was checked cell by cell. `empty-support-keys.json` lists observed and prospecti
 keys separately, and `empty-witnesses/` binds observed support witnesses to the complete native
 role report. The original read and its measurement statuses are unchanged by the subsequent
 reporting rulings.
+
+
+## 5.218 W50 close: native low-end identification retained, the frozen candidate's gate UNMEASURED after an instrument fault, nothing shipped (2026-10-10)
+
+**CLOSED as NEITHER / UNMEASURED, not as a scientific negative.** Charter
+`2026-10-08-w50-dark-low-end-response.md`, DL4 and DL5s(e). Evidence is under
+`packages/calibration/results/2026-10-08-w50-g1-fit/`. The gate's final public verdict is
+`gate-analysis-recovery/outcome-attempt-2/public-verdict.json`; its `audit.json`,
+`written-files.json` and `quarantine/analysis.log` distinguish the failed instrument from the
+unread candidate. No new material, generation, owner threshold, changeset or release results.
+
+### 1. What was measured
+
+G1a captured 1,600 admitted frames, archived as release `w50-archive` (§5.217 §§8–9). The exposed
+identification read (§5.217 §10) covers 336 calibration/validation cells. Uniform black reads
+32 active / 20 receded at every exposed span, both glass positions and scales; the required
+repeat bars stay at the 0.5-code floor. The new 512×384 sparse-impulse 96/160 far-body medians
+also read 32/20. Those observations do not replace the original 320×200 impulse controls and do
+not certify a group-level candidate on structured content. The twelve empty native span-128
+receded T1 supports retain their null readings and witnesses, not substituted zeros or masks.
+The 112 new blind native cells remain unopened; no exposure was created.
+
+One proposal, `044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002`, was fitted.
+Its fit completed all 840 captures with status CAPTURED; result SHA-256
+`d2b82491d388b5cdf2bf48b6d0e6aedc1120f35c6d6c5a5e5050efb8bb1b7058`, fit record
+`83ea6b1ea466fa4936b71331a214b1ed9525eb4c58df8e1a35737c63740e350b` in
+`live-execution/run/fit-record.json`. The later proof-source drift does not invalidate this fit:
+it is evidence for its declared population only. CAPTURED is not a gate verdict.
+
+### 2. What stopped, in order
+
+1. **Gate capture completed; analysis 1 did not.** All 1,341 cells are retained in union
+   `a3022525cc9111a98999eb3d1c8f1ab4dcb888ebf25495f0e2ede71974f5f0cf`. After the irreversible
+   marker, a companion path-level row's overwrite in `measurement/phase_sources.py` dropped
+   `productionStatistic` from eight dark 0.25 WebGPU impulse lg/ml T1 keys (both scales/poses,
+   none in the fit). The source-owned producer check correctly refused. The 634 keyed files
+   written before that refusal were parsed only for identity strings, never numerical readings,
+   then pinned raw by manifest `95295607703bfa30ee4adea63b0182897c74a3a5085ada19a6b9625333983d49`.
+   `evidence/gate-analysis-stop/` retains the stop, traceback and manifest.
+2. **DL5r's successor attempt 1 refused before its marker.** Historical pre-fit authentication
+   compared its test-source pin with the live tree after the authorised carry fix. No successor
+   measurement, witness or judge ran. `evidence/gate-analysis-2-terminal/` retains that refusal;
+   its then-terminal record is history, not erased by DL5s's prospective pre-marker exception.
+3. **DL5s's single real attempt 2 failed after its marker.** Eight preparations, each with a
+   read-only preflight, addressed environment discovery, historical proof authentication and
+   capture/input/prior-fit origin seams. Reviewer-high found substantive admission preceding the
+   durable invocation fence; `c7dbbf846` fixed it, preparation 8's clean proof is in `a93056f84`,
+   and `3c1867cb2` records clearance. The real invocation's outcome is `25e52e88d`. After preflight,
+   `start()` re-armed the source profile guard, resetting its first-call state. The first
+   `read_pair` call inside `Boundary`'s pure capture-root scope made that guard hash the helper's
+   repository `.py` file. `reads.py:32` refused “Read lies outside original capture root” before
+   the helper body ran. The terminal audit classifies an instrument provenance-guard composition
+   seam, not an environmental mismatch or a failed scientific threshold.
+
+The final run wrote **zero keyed successor measurements**. The 634-file witness never ran
+(compared 0, mismatches null); the judge never ran. The audit raw-verifies all 634 originals
+unchanged without parsing their values. No gate value was read by anyone. DL5s(e) admits no
+further invocation: NEITHER is the required operational verdict and UNMEASURED is the candidate's
+scientific status. There is no conclusion that the family failed, succeeded or was infeasible.
+
+### 3. What the instrument did not prove
+
+A clean admission preflight installed adapters and checked inputs/interfaces, but did not enter
+the pure read boundary or call the retained-pair reader. Component tests and source clearance did
+not exercise the composition after the source guard was re-armed. A single-use pipeline needs an
+end-to-end non-blind rehearsal under the identical guard composition and lifecycle state before
+its marker, through measurement, witness and judge. Payload secrecy does not prevent that test.
+Cross-root recovery added authentication seams at each layer; preserving the old captures was
+not a proof that this was the simpler instrument. Fence ordering was repaired before use and is
+not the terminal cause. Stage-specific stop wording is a separate lesson: diagnostic preflight,
+real invocation and analytical marker must not inherit one ambiguous “any refusal” rule.
+
+### 4. What stands and what comes next
+
+The ten shipped documents and their digests, generated profiles, matrix generations/selections,
+canonical capture tree and adopted bounds are unchanged. G0's low-end operator stays inert on
+both tiers; the conditional X41 publication exception was not exercised. The fit record, all
+gate captures, the unread 634 and every failure/preparation seal remain evidence, not a licence
+to inspect quarantined values or resume W50.
+
+Charter Deferred at close 1 proposes, for the user's decision, a new wave re-gating the same
+frozen candidate under a corrected instrument. Its likely simplest form is a fresh root pinning
+the corrected source from the outset and recapturing the 1,341 gate cells, avoiding another
+cross-root recovery layer. It needs the full non-blind composition rehearsal and explicit
+stage-specific stop rules first. This is an option, not an authorised recapture, changed point,
+changed landing rule or third W50 analysis. The low-end material question remains unmeasured.
