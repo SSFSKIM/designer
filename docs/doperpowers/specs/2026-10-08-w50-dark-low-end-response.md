@@ -39,9 +39,11 @@ child without a completion event. `Store.checkpoints` verified all 550 member id
 payload and artifact hashes; none needed rejection and no analysis marker exists. The interrupted
 journal is committed (`fdf263465`). Successor 4 completed its 290 remaining members; fit analysis
 completed once with status CAPTURED (all 840 captures; result sidecar verified). The full fit and
-recovery chain is committed. Running: `live-run/run.py ... fit-record`, output
-`/Users/new/vitrea-w50/g1-live-fit-record.out`. Next: gate-batch, gate; report its verdict BEFORE
-creating an exposure batch. Repeated DL5k recovery and DL5q remain authorised if needed. The coordinator permits these recoveries and requests
+recovery chain and the derived single-point fit record are committed. The gate batch and owner
+records are committed: 1,341 cells in 24 runs. Fresh census passed. Running:
+`live-run/run.py --work /Users/new/vitrea-w50/g1-live run gate`, output
+`/Users/new/vitrea-w50/g1-live-gate.out`. Report its verdict BEFORE creating an exposure batch.
+Repeated DL5k recovery and DL5q remain authorised if needed. The coordinator permits these recoveries and requests
 a stop report only if the same cause persists for about two hours. Next: fit record, gate batch,
 gate; report the verdict before exposure. No second point or initializer run is admitted. Report the gate verdict to the
 coordinator BEFORE creating any exposure batch. This checkpoint supersedes older handoff notes.
