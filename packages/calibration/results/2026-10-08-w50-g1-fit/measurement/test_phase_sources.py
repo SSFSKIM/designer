@@ -323,6 +323,140 @@ class SourceTests(unittest.TestCase):
         self.assertIsNone(result['statistics']['T1-full-silhouette']['productionStatistic']['value'])
         self.assertEqual(result['statistics']['T1-full-silhouette']['value'], .5)
 
+    def impulse_companions(self, scale, component, state):
+        """Canonical ml/lg geometry with generated pixels only; both records carry all seven reads."""
+        self.canvas = {'width': 320, 'height': 200}
+        self.component = {'kind': 'rrect', **({'size': [224, 128], 'radius': 27}
+            if component == 'rrect-ml' else {'size': [280, 160], 'radius': 34})}
+        self.scene = f'impulse__{component}__{state}'
+        self.profile = f'apple-macos-27.0-{scale}x-dark-standard-glass0.25'
+        shape = (200*scale, 320*scale)
+        yy, xx = np.indices(shape)
+        self.background = np.zeros((*shape, 3), dtype=np.uint8)
+        dots = (yy % (64*scale) < 4*scale) & (xx % (64*scale) < 4*scale)
+        self.background[dots] = 255
+        path = S.R.M.S.P.signed_distance(self.component, self.canvas, scale, shape) <= 0
+        self.native = self.background.copy()
+        self.native[path] = 64 if state == 'rest' else 32
+        self.native[path & (xx >= 160*scale)] = 128 if state == 'rest' else 96
+        self.first = self.background.copy(); self.first[path] = 32
+        self.first[path & (xx >= 160*scale)] = 192
+        current = self.background.copy(); current[path] = 96
+        pins = {name: write(self.base/(name+'.png'), png(rgb)) for name, rgb in
+                (('native', self.native), ('background', self.background), ('current', current))}
+        scene = {'id': self.scene, 'background': 'impulse', 'component': component, 'state': state}
+        doc = {'canvas': self.canvas, 'scenes': [scene], 'components': {component: self.component},
+               'backgrounds': {'impulse': {'kind': 'impulse'}}}
+        scenes_pin = write(self.base/'impulse-scenes.json', doc)
+        pins.update(scenes=scenes_pin, currentMetadata=None)
+        self.plan = {'dpr': scale, 'position': .25, 'canvas': self.canvas,
+                     'components': doc['components'], 'scenes': [scene], 'scheme': 'dark'}
+        self.run.update(sceneSource='canonical', profile=self.profile, scenes=[self.scene])
+        self.receipt.update(sceneSource='canonical', profile=self.profile, scene=self.scene,
+            matrix=write(self.output/'matrix.json', {'synthetic': 'authenticated first matrix'}),
+            row={'material': {'interiorStdDevWeb': {'value': .49, 'units': 'luminance'}}})
+        self.evidence['capture'] = write(self.output/'first.png', png(self.first))
+        self.reader.authenticate = lambda *a: (self.plan, scene, {'png': png(self.first)}, self.evidence.copy())
+        published = S.R.M.canonical_read(self.native, self.background, self.component,
+            self.canvas, scale, web_rgb=current, impulse=True)
+        readings = S.R.M.evidence_reading(published, [published]*7)
+        rows, reports = [], []
+        for name in ('T1-full-silhouette', 'low-end-path-level'):
+            row = {'profile': self.profile, 'renderer': 'webgpu', 'scene': self.scene,
+                'statistic': name, 'role': 'gate', 'support': 'Original impulse support prose.',
+                'native': .13, 'current': .17, 'B': .01, 'currentGeneration': 'synthetic-frozen',
+                'currentDocumentPair': {'active.dark': 'a'*64, 'receded.dark': 'b'*64},
+                'historical': [], 'nativeEvidence': pins['native'], 'currentEvidence': pins['current']}
+            report = dict(row, reference=copy.deepcopy(row), status='MEASURED',
+                readings=copy.deepcopy(readings), publishedReading=copy.deepcopy(published),
+                pins=copy.deepcopy(pins))
+            rows.append(row); reports.append(report)
+        self.reader.canonical = {tuple(r[k] for k in S.KEY): r for r in reports}
+        self.reader.config = {'canonicalReferenceEvidence': {'path': str(self.base/'report.json'), 'sha256': 'c'*64}}
+        return rows, reports, scenes_pin
+
+    def impulse_source_reading(self, row, measured):
+        current, evidence = self.reader.current_measurement(row, name=row['statistic'])
+        return S.Q.reading(measured['statistics'][row['statistic']], current,
+            measured['evidence'], evidence, reported=False, eligible_empty=False)
+
+    def test_impulse_companions_preserve_first_image_producer_and_all_diagnostics_in_both_orders(self):
+        """DL5r(a): a later path companion must not erase the full-T1 producer binding."""
+        names = {'T1-full-silhouette', 'deep8-luma-mean', 'deep8-luma-median',
+                 'deep8-channel-median', 'deep8-far24-luma-mean', 'deep8-far24-luma-median',
+                 'deep8-far24-channel-median'}
+        inventory = {'path': '/synthetic/original-inventory.json', 'sha256': 'e'*64}
+        for scale in (1, 2):
+            for component in ('rrect-ml', 'rrect-lg'):
+                for state in ('rest', 'inactive'):
+                    rows, reports, scenes_pin = self.impulse_companions(scale, component, state)
+                    frozen_rows, frozen_reports = copy.deepcopy(rows), copy.deepcopy(reports)
+                    for report in reports: self.assertEqual(set(report['readings']), names)
+                    with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+                        alone = self.reader.canonical_member(self.run, self.receipt, [rows[0]])
+                        companion = self.reader.canonical_member(self.run, self.receipt, [rows[1]])
+                        for order in (rows, rows[::-1]):
+                            with self.subTest(scale=scale, component=component, state=state,
+                                              order=[r['statistic'] for r in order]):
+                                measured = self.reader.canonical_member(self.run, self.receipt, order)
+                                source_reading = self.impulse_source_reading(rows[0], measured)
+                                owned = measured['statistics']['T1-full-silhouette'].get('productionStatistic')
+                                primary = S.Q.frozen_primary(rows[0], reports[0]['reference'],
+                                    source_reading, owned, inventory)
+                                expected = {'estimator': 'PRODUCTION_TS_INTERIOR_LEVEL',
+                                    'statistic': 'T1-full-silhouette',
+                                    'producer': 'packages/calibration/src/metrics/material.ts#interiorLevel',
+                                    'field': 'material.interiorStdDevWeb', 'reading': 'first',
+                                    'capture': self.evidence['capture'], 'matrix': self.receipt['matrix'],
+                                    'scene': self.scene, 'units': 'linear-luma', 'value': .49}
+                                self.assertEqual(owned, expected)
+                                self.assertEqual(owned, alone['statistics']['T1-full-silhouette']['productionStatistic'])
+                                diagnostics = copy.deepcopy(measured['statistics'])
+                                del diagnostics['T1-full-silhouette']['productionStatistic']
+                                baseline = copy.deepcopy(alone['statistics'])
+                                del baseline['T1-full-silhouette']['productionStatistic']
+                                self.assertEqual(set(diagnostics), names)
+                                self.assertEqual(diagnostics, baseline)
+                                self.assertEqual(diagnostics, companion['statistics'])
+                                self.assertEqual(primary['sourceReading'], source_reading)
+                                self.assertEqual((primary['native'], primary['current'], primary['candidate']),
+                                                 (.13, .17, .49))
+                                self.assertEqual(primary['evidence']['candidate']['productionStatistic'], expected)
+                    self.assertEqual(rows, frozen_rows); self.assertEqual(reports, frozen_reports)
+
+    def test_carried_impulse_producer_still_refuses_wrong_identity_units_and_capture(self):
+        rows, reports, scenes_pin = self.impulse_companions(1, 'rrect-ml', 'rest')
+        inventory = {'path': '/synthetic/original-inventory.json', 'sha256': 'e'*64}
+        with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+            for order in (rows, rows[::-1]):
+                measured = self.reader.canonical_member(self.run, self.receipt, order)
+                reading = self.impulse_source_reading(rows[0], measured)
+                owned = measured['statistics']['T1-full-silhouette']['productionStatistic']
+                for field, value in (('producer', 'another-producer'), ('units', 'encoded-luma-codes'),
+                                     ('capture', {'path': '/synthetic/second.png', 'sha256': 'f'*64}),
+                                     ('statistic', 'T1-low'), ('reading', 'second'), ('missing', None)):
+                    with self.subTest(order=[r['statistic'] for r in order], field=field):
+                        bad = None if field == 'missing' else dict(copy.deepcopy(owned), **{field: value})
+                        with self.assertRaises(ValueError):
+                            S.Q.frozen_primary(rows[0], reports[0]['reference'], reading, bad, inventory)
+
+    def test_absent_first_image_metric_survives_impulse_companions_as_unmeasured_in_both_orders(self):
+        rows, reports, scenes_pin = self.impulse_companions(2, 'rrect-lg', 'inactive')
+        self.receipt['row']['material'] = None
+        inventory = {'path': '/synthetic/original-inventory.json', 'sha256': 'e'*64}
+        with patch.object(S.C, 'SCENES', Path(scenes_pin['path'])):
+            for order in (rows, rows[::-1]):
+                with self.subTest(order=[r['statistic'] for r in order]):
+                    measured = self.reader.canonical_member(self.run, self.receipt, order)
+                    source_reading = self.impulse_source_reading(rows[0], measured)
+                    owned = measured['statistics']['T1-full-silhouette'].get('productionStatistic')
+                    primary = S.Q.frozen_primary(rows[0], reports[0]['reference'],
+                        source_reading, owned, inventory)
+                    self.assertIsNone(owned['value']); self.assertIsNone(primary['candidate'])
+                    self.assertEqual(primary['candidateMeasurementStatus'], 'UNMEASURED')
+                    self.assertEqual(primary['sourceReading'], source_reading)
+                    self.assertIsNotNone(source_reading['candidate'])
+
     def test_canonical_pinned_support_witness_mismatch_stops_instead_of_substituting_web_support(self):
         row, report, scenes_pin = self.canonical_fixture('T1-full-silhouette')
         report['publishedReading']['supports']['full-silhouette']['pixels'] += 1

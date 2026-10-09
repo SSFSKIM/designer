@@ -364,6 +364,7 @@ class PhaseSources:
                     frozen_support = item['publishedReading']['supports'][produced['support']]
                     if witness(original_support) != witness(frozen_support) or measured['statistics'][name]['value'] != frozen['native']:
                         raise ValueError('Canonical native support/reading differs from the pinned reference report')
+                    production = statistics.get(name, {}).get('productionStatistic')
                     statistics[name] = dict(copy.deepcopy(produced), measurementStatus=produced['status'],
                         nativeValue=copy.deepcopy(frozen['native']), nativeRepeat=copy.deepcopy(frozen['repeat']),
                         required=True, nativeSupportWitnesses=[witness(original_support)],
@@ -372,6 +373,8 @@ class PhaseSources:
                             'native': copy.deepcopy(pins['native']), 'background': copy.deepcopy(pins['background']),
                             'scenes': copy.deepcopy(pins['scenes'])})
                     record_map[name] = item
+                    if production is not None:
+                        statistics[name]['productionStatistic'] = copy.deepcopy(production)
                     if name == item['statistic'] and Q.frozen_scope(item['reference']):
                         full = name == 'T1-full-silhouette'
                         value = produced['value']
