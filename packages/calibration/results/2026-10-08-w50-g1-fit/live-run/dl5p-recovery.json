@@ -1,0 +1,48 @@
+{
+  "schema": "w50-live-run-dl5p-recovery-declaration-1",
+  "statement": "DL5p (c): root 2 assembled this ONE point and then refused while binding its arguments. Root 3 binds it unchanged, by these hashes, with its root-2 provenance; it is never re-initialised or re-assembled. Every pin is a committed root-2 fact: the ruling paragraph at its commit, root 2 and its sealed pre-fit evidence at the commit that sealed them, and the refusal record with the eleven files it preserved at the commit that introduced them.",
+  "ruling": {
+    "id": "DL5p",
+    "charter": "docs/doperpowers/specs/2026-10-08-w50-dark-low-end-response.md",
+    "commit": "03a8bb00480e83cedb67f02253171ced87153028",
+    "paragraphSha256": "53f98ed6955b1f13b5e4f8627cef92218d504f5f10823741a8ca81e61139dced"
+  },
+  "predecessor": {
+    "root": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.json",
+      "sha256": "2e6f4c990f4cd38810994549b95804333ea883a0ea886320648d9f88d0853dd5"
+    },
+    "preFitEvidence": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.pre-fit-evidence.json",
+      "sha256": "c788ca9bd747ffb9c6383c5f32f9707e62e11e1410284c49dad728f116e86fb3"
+    },
+    "preFitEvidenceSeal": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-2.pre-fit-evidence.json.sha256",
+      "sha256": "39424bb37a3130cd92481d725d4535b3e9f1d8642763edb87d2d7e5fee1d6f3b"
+    },
+    "commit": "a106c8d8d90ff5323b8f767a1d86883bacb30727"
+  },
+  "refusal": {
+    "record": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/attempt-1-refusal.json",
+      "sha256": "ad3f3cf08889cb3640eae0471ed844761054b8b8bf8a5ebf7cff198d639dab8f"
+    },
+    "commit": "6d36b7fbdf95d87be1d054c467c77580b90517f4"
+  },
+  "initializer": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+    "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710"
+  },
+  "cohort": [
+    {
+      "position": 0.25,
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "position": 0.5,
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ]
+}

@@ -29,18 +29,21 @@ ALLOWED = set(R.FIELDS) | {'schema'}
 
 
 class Initializer:
-    """fit/execution.py's assemble/bind_arguments shape over the world's synthetic cohort."""
-    def __init__(self, world): self.world = world; self.calls = []
+    """fit/execution.py's assemble/bind_arguments shape over the world's synthetic cohort. Its
+    initializer.json names the pre-fit evidence the world's root admits, as the real one does."""
+    def __init__(self, world, prefit=None): self.world = world; self.calls = []; self.prefit = prefit
     def assemble(self, root):
         self.calls.append('assemble'); w = self.world
-        return {'cohort': T.candidate(w)['cohort'], 'initializer': w.pin(w.repo/'arguments.json')}
+        made = w.put('synthetic/initializer.json', {'preFitEvidence': self.prefit or w.prefit})
+        return {'cohort': T.candidate(w)['cohort'], 'initializer': made}
     def bind_arguments(self, root, cohort):
         self.calls.append('bind'); w = self.world
-        return {'cohort': w.pin(w.repo/'numerical-cohort.json'), 'argumentManifest': w.pin(w.repo/'arguments.json')}
+        return {'cohort': w.pin(w.repo/'numerical-cohort.json'), 'argumentManifest': w.pin(w.repo/'arguments.json'),
+                'preFitEvidence': dict(w.prefit)}
 
 
-def operator(case, world, lines, numerical=None, pnpm='pnpm'):
-    initializer = Initializer(world)
+def operator(case, world, lines, numerical=None, pnpm='pnpm', initializer=None):
+    initializer = initializer or Initializer(world)
     if numerical is None: numerical = lambda cohort: world.repo/world.numerical['path']
     op = R.Operator(repo=world.repo, live=world.fit_dir/'live-execution', work=world.base/'outputs',
                     call=C.run_inprocess(world.D, initializer), numerical=numerical or None, pnpm=pnpm,
@@ -91,7 +94,7 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(R.main(['run', 'gate'], op), 0)
         self.assertEqual([e['code'] for e in events(self, lines)], ['PHASE_RESUMED', 'VERDICT'])
         # A second candidate, fit batch or fit record is refused, never written.
-        for argv in (['initialize'], ['fit-batch'], ['fit-record']):
+        for argv in (['initialize'], ['recover-bind'], ['fit-batch'], ['fit-record']):
             lines.clear(); self.assertEqual(R.main(argv, op), 1)
             self.assertEqual(events(self, lines)[-1]['code'], 'EXISTS')
 
@@ -172,6 +175,27 @@ class Initialize(unittest.TestCase):
         lines.clear(); self.assertEqual(R.main(['initialize'], op), 0)
         self.assertEqual([e['code'] for e in events(self, lines)], ['INITIALIZE_RESUMED', 'CANDIDATE_WRITTEN'])
         self.assertEqual(initializer.calls, ['assemble', 'bind'])
+
+
+class Provenance(unittest.TestCase):
+    """Without a recovery record, a point is admitted only with this root's own pre-fit evidence."""
+
+    def test_a_point_naming_another_pre_fit_evidence_is_refused_without_a_recovery(self):
+        world = T.K.EndToEnd(self); lines = []
+        other = world.put('synthetic/other-pre-fit-evidence.json', {'synthetic': 'another root'})
+        op, initializer = operator(self, world, lines, initializer=Initializer(world, prefit=other))
+        self.assertEqual(R.main(['initialize'], op), 0)
+        lines.clear(); self.assertEqual(R.main(['fit-batch'], op), 1)
+        self.assertEqual([e['code'] for e in events(self, lines)], ['REFUSED'])
+        self.assertFalse(op.record('fit-batch.json').exists())
+
+    def test_recover_bind_is_refused_on_a_root_without_the_declaration(self):
+        world = T.K.EndToEnd(self); lines = []
+        op, initializer = operator(self, world, lines)
+        self.assertEqual(R.main(['recover-bind'], op), 1)
+        self.assertEqual([e['code'] for e in events(self, lines)], ['REFUSED'])
+        self.assertEqual(initializer.calls, [])
+        self.assertFalse(op.record('recovered.json').exists())
 
 
 class Errors(unittest.TestCase):

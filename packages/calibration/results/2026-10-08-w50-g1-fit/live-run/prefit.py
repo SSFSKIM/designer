@@ -77,6 +77,16 @@ def require(condition, message):
     if not condition: raise AssertionError(message)
 
 
+def default_proofs(fit, root):
+    """Where a root's two proofs are written. A proof is write-once and pins exactly one root
+    (_existing), so each root needs its own: root 2's stay at live-run/prefit-proofs/, where its
+    sealed pre-fit evidence pins them, and every later root writes under
+    live-run/prefit-proofs/<root stem>/ (root 3's own pre-fit evidence, DL5p (c))."""
+    stem = Path(root).name.removesuffix('.json'); match = re.fullmatch(r'execution-root-([0-9]+)', stem)
+    folder = Path(fit)/'live-run/prefit-proofs'
+    return folder/stem if match and int(match[1]) >= 3 else folder
+
+
 class Layout:
     """Where everything is. Defaults are the real tree; tests pass a synthetic repository."""
 
@@ -90,7 +100,7 @@ class Layout:
         if root is None or evidence is None: chain = source(self.live/'common.py', 'w50_live_run_chain')
         self.root = Path(root or chain.newest_root(self.live)).resolve()
         self.evidence = Path(evidence or chain.slot(self.root, 'prefit'))
-        self.proofs = Path(proofs or self.fit/'live-run/prefit-proofs')
+        self.proofs = Path(proofs or default_proofs(self.fit, self.root))
         self.review = Path(review or self.fit/'live-run/review-records.json')
         self.standing = standing or {kind: newest_proof(self.fit, kind) for kind in STANDING}
         self.python = python

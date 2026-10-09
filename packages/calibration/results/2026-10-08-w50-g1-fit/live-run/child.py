@@ -36,6 +36,12 @@ def handle(request, dispatcher=None, initializer=None):
         bound = E.bind_arguments(root, assembled['cohort'])
         return {'cohort': assembled['cohort'], 'initializer': assembled['initializer'],
                 'numericalCohort': bound['cohort'], 'argumentManifest': bound['argumentManifest']}
+    if op == 'bind':
+        # DL5p (c): the carried point is bound, never assembled; the operator authenticated it.
+        E = initializer or source(request['initializer'], 'w50_live_run_initializer')
+        bound = E.bind_arguments(root, request['cohort'])
+        return {'numericalCohort': bound['cohort'], 'argumentManifest': bound['argumentManifest'],
+                'preFitEvidence': bound['preFitEvidence']}
     D = dispatcher or source(request['dispatch'], 'w50_live_run_dispatch')
     doc = D.root_doc(root)
     if op == 'verify_prefit':

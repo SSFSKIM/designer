@@ -287,5 +287,18 @@ class Prefit(unittest.TestCase):
             self.assertEqual(P.newest_proof(fit, 'nativeArchive'), fit/'prefit-proofs/nativeArchive.json')
 
 
+class Proofs(unittest.TestCase):
+    def test_each_root_after_root_2_writes_its_own_proofs(self):
+        fit = Path('/f'); proofs = fit/'live-run/prefit-proofs'
+        self.assertEqual(P.default_proofs(fit, fit/'live-execution/execution-root-2.json'), proofs)
+        self.assertEqual(P.default_proofs(fit, fit/'live-execution/execution-root-3.json'), proofs/'execution-root-3')
+        self.assertEqual(P.default_proofs(fit, fit/'live-execution/execution-root-12.json'), proofs/'execution-root-12')
+        # Root 2's sealed evidence pins its proofs where they are.
+        evidence = json.loads((FIT/'live-execution/execution-root-2.pre-fit-evidence.json').read_text())
+        for kind in ('executionClosure', 'independentReview'):
+            self.assertEqual(evidence['evidence'][kind]['path'],
+                             'packages/calibration/results/2026-10-08-w50-g1-fit/live-run/prefit-proofs/'+kind+'.json')
+
+
 if __name__ == '__main__':
     unittest.main()

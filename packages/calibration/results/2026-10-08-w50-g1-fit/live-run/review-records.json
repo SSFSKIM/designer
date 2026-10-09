@@ -426,6 +426,19 @@
         "commit": "ef68b07c60f90d7c17da5b0bfdbc7b0e7fa7020a",
         "status": "sealed, supersedes execution-root.json (3923669a, a09e02e94) under DL5o"
       }
+    },
+    {
+      "id": "dl5p",
+      "range": {
+        "base": "d223c86639ca3b90677b87c29b9ed8313bc1e685",
+        "head": "TODO: the last commit the DL5p review read, at or after the bind-only recovery commit"
+      },
+      "reviewers": [
+        "TODO: each DL5p reviewer, its model and the range it read, as the review reports state them"
+      ],
+      "note": "DRAFT, no review has run. The round starts at round dl5o's head, so it covers everything root 3 binds that moved since: root 2's seal (ef68b07c6) and pre-fit evidence (a106c8d8d), the preserved refusal (6d36b7fbd), DL5p (03a8bb004), the binder's role normalisation (5ba0d668a, fit/inputs.py), root 3's succession over root 2's committed pre-fit history (a260582b6, live-execution/authority.py and common.py, live-roles/draft_root.py) and the bind-only recovery (live-run/recovery.py, dl5p-recovery.json, run.py recover-bind, child.py bind, prefit.py per-root proofs). Every TODO is filled from the review reports, never ahead of them; prefit refuses root 3's pre-fit evidence while any remains (review_ready).",
+      "findings": "TODO: every finding with its severity, summary and disposition (fixed with fixedBy, deferred or dismissed with a reason); an empty list only if the reports found nothing",
+      "sealedAfter": "TODO: root 3's path, sha256 and sealing commit once it is sealed after this round"
     }
   ]
 }

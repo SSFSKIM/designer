@@ -9,6 +9,12 @@ Steps, in order:
                                  recorded in run/initialized.json before anything else runs; then the
                                  G0 numerical referee report and run/candidate.json. A rerun after a
                                  failed referee resumes from that record and runs only the referee.
+                                 Refused on a root that registers the DL5p recovery declaration.
+    recover-bind                 DL5p, instead of initialize, on root 3 only: the committed root-2 point
+                                 (dl5p-recovery.json, recovery.py) is authenticated, bound by
+                                 bind_arguments under this root, recorded in run/recovered.json before
+                                 the referee runs, then refereed into run/candidate.json as initialize
+                                 does. Never assembles or initializes; a rerun runs only the referee.
     fit-batch                    run/fit-batch.json
     run fit [--retries N]        create, then attempts until captured, then the analysis
     fit-record                   run/fit-record.json over the one completed fit (fit/live.fit_record)
@@ -38,6 +44,11 @@ whose one write survived before its sidecar is completed, which the dispatcher r
 seal, not a replay). A second fit point, gate or exposure is never created; an existing slot
 is resumed. A gate that is not PASS_EXPOSED_OWNER_PENDING stops everything after it.
 
+The candidate record carries the point's provenance (recovery.provenance: the pre-fit evidence
+initializer.json and the endpoint method lines name). Every step that reads it admits that
+provenance only when it is this root's own pre-fit evidence, or when the record names a recovery
+record that recovery.admit authenticates for this root (DL5p (c)); nothing else is admitted.
+
 The initializer's outputs are write-once (fit/execution.py assemble and bind_arguments), so its
 result is recorded before the referee runs and is never asked for twice. The referee's report
 is read if an earlier attempt wrote it, never regenerated; its log is fresh per attempt. Any
@@ -63,13 +74,15 @@ WORK = Path('/Users/new/vitrea-w50/g1-live')
 PHASES = ('fit', 'gate', 'exposure')
 VERDICTS = ('CAPTURED', 'PASS_EXPOSED_OWNER_PENDING', 'NEITHER', 'PASS')
 GATE_SUCCESS = 'PASS_EXPOSED_OWNER_PENDING'
-STEPS = ('prefit', 'initialize', 'fit-batch', 'run', 'fit-record', 'gate-batch', 'exposure-batch', 'status')
+STEPS = ('prefit', 'initialize', 'recover-bind', 'fit-batch', 'run', 'fit-record', 'gate-batch', 'exposure-batch', 'status')
 CODES = ('PREFIT_WRITTEN', 'CANDIDATE_WRITTEN', 'NUMERICAL_NOT_PASS', 'BATCH_WRITTEN', 'RECORD_WRITTEN',
          'PHASE_CREATED', 'PHASE_RESUMED', 'ATTEMPT', 'STALE_STOPPED', 'ANALYSIS', 'VERDICT', 'STATUS',
          'OWNER_RECORDS_BLOCKED', 'STOPPED_AFTER_GATE', 'NO_PHASE', 'REFUSED', 'STALE_ATTEMPT',
          'NATIVE_INCOMPLETE', 'ANALYSIS_STARTED', 'LEASE_HELD', 'EXISTS', 'ONE_FIT_ONLY', 'INITIALIZER_RECORDED',
-         'INITIALIZE_RESUMED', 'TOOL_MISSING', 'ERROR')
+         'INITIALIZE_RESUMED', 'TOOL_MISSING', 'RECOVERY_RECORDED', 'RECOVERY_RESUMED', 'ERROR')
 INITIALIZED = ('cohort', 'initializer', 'numericalCohort', 'argumentManifest')
+RECOVERED = (*INITIALIZED, 'preFitEvidence')
+DECLARATION = HERE/'dl5p-recovery.json'
 FIELDS = {'step': str, 'code': str, 'phase': str, 'attempt': int, 'members': int, 'runs': int, 'cells': int,
           'verdict': str, 'path': str, 'log': str, 'event': dict, 'status': dict}
 # Dispatcher messages that name an operator state, read only to choose the code.
@@ -92,6 +105,7 @@ def load(path): return json.loads(Path(path).read_text())
 
 B = source(HERE/'batches.py', 'w50_live_run_batches')
 C = source(HERE/'child.py', 'w50_live_run_child')
+V = source(HERE/'recovery.py', 'w50_live_run_recovery')
 
 
 class Stop(Exception):
@@ -105,7 +119,8 @@ class Operator:
     end-to-end test; the defaults are the real tree."""
 
     def __init__(self, *, repo=REPO, live=None, root=None, records=None, work=WORK, call=None, numerical=None,
-                 declarations=None, transport=None, owner_records=None, prefit=None, out=print, pnpm='pnpm'):
+                 declarations=None, transport=None, owner_records=None, prefit=None, out=print, pnpm='pnpm',
+                 recovery=DECLARATION):
         self.repo = Path(repo).resolve(); self.live = Path(live or FIT/'live-execution')
         self.chain = source(self.live/'common.py', 'w50_live_run_chain_ops')
         self.root = Path(root or self.chain.newest_root(self.live)).resolve()
@@ -121,7 +136,7 @@ class Operator:
         self.transport = transport or B.transport_fields
         self.owner_records = owner_records or (lambda decl, candidate: B.owner_intrinsic_records(
             self.repo, decl.root['references'], candidate['cohort'], self.records/'owner-records'))
-        self.prefit = prefit; self.out = out; self.pnpm = pnpm
+        self.prefit = prefit; self.out = out; self.pnpm = pnpm; self.declaration = Path(recovery)
 
     # paths ----------------------------------------------------------------------------------
     def record(self, name): return self.records/name
@@ -187,9 +202,17 @@ class Operator:
         else: built = self.prefit(self)
         self.emit(step='prefit', code='PREFIT_WRITTEN', path=built['preFitEvidence']['path'])
 
+    def recovery_root(self):
+        """Whether this root registers the DL5p declaration (any bytes of it) among its inputs."""
+        relative = self.rel(self.declaration)
+        return any(isinstance(i, dict) and i.get('path') == relative for i in load(self.root).get('inputs', []))
+
     def step_initialize(self):
         target = self.record('candidate.json')
         if target.exists(): raise Stop(step='initialize', code='EXISTS', path=self.rel(target))
+        if self.recovery_root() or self.record('recovered.json').exists():
+            # DL5p (c): root 3 carries root 2's point; a second initialize would compute another.
+            raise Stop(step='initialize', code='REFUSED', path=self.rel(self.declaration))
         recorded = self.record('initialized.json')
         if recorded.exists():
             made = self.initialized(recorded)
@@ -199,18 +222,82 @@ class Operator:
             made = {k: result[k] for k in INITIALIZED}
             B.write_once(recorded, {'schema': 'w50-live-run-initialized-1', 'executionRootSha256': sha(self.root), **made})
             self.emit(step='initialize', code='INITIALIZER_RECORDED', path=self.rel(recorded), members=len(made['cohort']))
+        self.referee('initialize', made)
+
+    def referee(self, step, made, extra=None):
+        """G0's numerical referee over the recorded numerical cohort, then run/candidate.json."""
+        target = self.record('candidate.json')
         report = Path(self.numerical(made['numericalCohort']))
         try: verdict = load(report).get('status')
-        except (OSError, ValueError): raise Stop(step='initialize', code='REFUSED', path=self.rel(report)) from None
-        if verdict != 'PASS': raise Stop(step='initialize', code='NUMERICAL_NOT_PASS', path=self.rel(report))
+        except (OSError, ValueError): raise Stop(step=step, code='REFUSED', path=self.rel(report)) from None
+        if verdict != 'PASS': raise Stop(step=step, code='NUMERICAL_NOT_PASS', path=self.rel(report))
         g0 = (self.repo/load(self.root)['partTwo']['path']).parent
         runner = source(g0/'audit/runner.py', 'w50_live_run_numerical_runner')
         try:
             for item in made['cohort']: runner.validate_numerical_referee(load(report), item['sha256'], self.repo)
-        except ValueError: raise Stop(step='initialize', code='NUMERICAL_NOT_PASS', path=self.rel(report)) from None
-        B.write_once(target, {'schema': 'w50-live-run-candidate-1', 'executionRootSha256': sha(self.root), **made,
-                              'numericalReferee': B.D.pin(self.repo, report)})
-        self.emit(step='initialize', code='CANDIDATE_WRITTEN', path=self.rel(target), members=len(made['cohort']))
+        except ValueError: raise Stop(step=step, code='NUMERICAL_NOT_PASS', path=self.rel(report)) from None
+        B.write_once(target, {'schema': 'w50-live-run-candidate-1', 'executionRootSha256': sha(self.root),
+                              **{k: made[k] for k in INITIALIZED}, 'numericalReferee': B.D.pin(self.repo, report),
+                              **(extra or {})})
+        self.emit(step=step, code='CANDIDATE_WRITTEN', path=self.rel(target), members=len(made['cohort']))
+
+    # DL5p bind-only recovery ------------------------------------------------------------------
+    def own_prefit(self, step):
+        """This root's own pre-fit evidence, as the sealed dispatcher's verify_prefit admits it."""
+        return self.child(step, 'verify_prefit')['preFitEvidence']
+
+    def admitted_recovery(self, step):
+        """The DL5p declaration, authenticated for this root (recovery.admit), or a stop."""
+        try:
+            if not self.declaration.is_file(): raise V.Refused('No recovery declaration')
+            return V.admit(self.repo, self.root, load(self.root), self.declaration)
+        except (V.Refused, OSError, ValueError, KeyError, TypeError):
+            raise Stop(step=step, code='REFUSED', path=self.rel(self.declaration)) from None
+
+    def step_recover_bind(self):
+        """DL5p (c): bind root 2's committed point under this root, never computing another."""
+        step = 'recover-bind'; target = self.record('candidate.json')
+        if target.exists(): raise Stop(step=step, code='EXISTS', path=self.rel(target))
+        decl = self.admitted_recovery(step)
+        if self.record('initialized.json').exists(): raise Stop(step=step, code='REFUSED', path=self.rel(self.record('initialized.json')))
+        recorded = self.record('recovered.json')
+        if recorded.exists():
+            made = self.recovered(step, recorded, decl)
+            self.emit(step=step, code='RECOVERY_RESUMED', path=self.rel(recorded), members=len(made['cohort']))
+        else:
+            own = self.own_prefit(step)
+            if own == decl['predecessor']['preFitEvidence']: raise Stop(step=step, code='REFUSED', path=self.rel(self.declaration))
+            bound = self.child(step, 'bind', cohort=decl['cohort'])
+            made = {'cohort': decl['cohort'], 'initializer': decl['initializer'],
+                    'numericalCohort': bound['numericalCohort'], 'argumentManifest': bound['argumentManifest'],
+                    'preFitEvidence': bound['preFitEvidence']}
+            self.bound_cohort(step, made, own)
+            B.write_once(recorded, {'schema': V.RECORD, 'executionRootSha256': sha(self.root),
+                                    'declaration': V.pin(self.repo, self.declaration), **made})
+            self.emit(step=step, code='RECOVERY_RECORDED', path=self.rel(recorded), members=len(made['cohort']))
+        self.referee(step, made, {'recovery': B.D.pin(self.repo, recorded)})
+
+    def bound_cohort(self, step, made, own):
+        """The bind ran under this root's own pre-fit evidence over exactly the declared cohort."""
+        try:
+            numerical = load(B.D.checked(self.repo, made['numericalCohort']))
+            B.D.checked(self.repo, made['argumentManifest'])
+            ok = made['preFitEvidence'] == own and numerical.get('candidates') == made['cohort'] and \
+                numerical.get('structuredArguments') == made['argumentManifest']
+        except (OSError, ValueError, KeyError, TypeError, AttributeError): ok = False
+        if not ok: raise Stop(step=step, code='REFUSED', path=self.rel(self.record('recovered.json')))
+
+    def recovered(self, step, path, decl):
+        """The recorded bind, for this root and this declaration's point, every output unchanged."""
+        value = load(path)
+        if value.get('schema') != V.RECORD or value.get('executionRootSha256') != sha(self.root) or \
+                set(value) != {'schema', 'executionRootSha256', 'declaration', *RECOVERED} or \
+                value['declaration'] != V.pin(self.repo, self.declaration) or value['cohort'] != decl['cohort'] or \
+                value['initializer'] != decl['initializer']:
+            raise Stop(step=step, code='REFUSED', path=self.rel(path))
+        made = {k: value[k] for k in RECOVERED}
+        self.bound_cohort(step, made, self.own_prefit(step))
+        return made
 
     def initialized(self, path):
         """The recorded initializer result, for this root, with every output it names unchanged."""
@@ -252,7 +339,25 @@ class Operator:
         if not path.is_file(): raise Stop(step=step, code='NO_PHASE', path=self.rel(path))
         value = load(path)
         if value['executionRootSha256'] != sha(self.root): raise Stop(step=step, code='REFUSED', path=self.rel(path))
+        self.admitted_provenance(step, path, value)
         return value
+
+    def admitted_provenance(self, step, path, value):
+        """The point's provenance is this root's own pre-fit evidence, or the record names a recovery
+        that recovery.admit authenticates for this root and whose point it is (DL5p (c))."""
+        refused = Stop(step=step, code='REFUSED', path=self.rel(path))
+        try: named = V.provenance(self.repo, value['initializer'], value['cohort'])
+        except (V.Refused, OSError, ValueError, KeyError, TypeError, AttributeError): raise refused from None
+        if 'recovery' not in value:
+            if named != [self.own_prefit(step)]: raise refused
+            return
+        decl = self.admitted_recovery(step)
+        try: recorded = B.D.checked(self.repo, value['recovery'])
+        except ValueError: raise refused from None
+        if recorded != self.record('recovered.json').resolve(): raise refused
+        made = self.recovered(step, recorded, decl)
+        if any(value.get(k) != made[k] for k in INITIALIZED) or named != [decl['predecessor']['preFitEvidence']]:
+            raise refused
 
     def write_batch(self, step, phase, doc):
         path = self.record(f'{phase}-batch.json')
