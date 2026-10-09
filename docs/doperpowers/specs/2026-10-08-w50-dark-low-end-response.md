@@ -484,7 +484,7 @@ Its absence is an environmental blocker for replay, not permission to regenerate
 
 ## Decision Log
 
-DL1–DL5p are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
+DL1–DL5q are recorded verbatim (2026-10-08/09); DL5/DL5a precede the analytical read, DL5b follows it before any candidate.
 
 DL1 (parent). The dark low-end response is the priority. All four dark macOS 27 endpoints are in
 scope: 0.25 and 0.5, active and receded. Light and 26.5 stay at identity.
@@ -731,6 +731,18 @@ Root 3 receives its own pre-fit evidence.
 (d) Log the composed reader's role-blind population check as debt and repair the seam prospectively
 in the binder. Continue through numerical check, fit, fit record and gate; report the gate verdict
 to the coordinator before creating any exposure batch.
+
+DL5q (operational, coordinator-recorded ruling, 2026-10-09 12:20 KST). For the remainder of W50,
+when a College playwright-cli browser blocks the census, the operational idle test is two
+`ps -o pid,cputime` samples ten minutes apart of the Chrome process tree launched by daemon
+`~/Library/Caches/ms-playwright/daemon/cd912897287dd5e2`, cwd `~/Documents/College` (the
+`--remote-debugging-pipe` Google Chrome and its helpers). Total CPU growth below five seconds
+qualifies as idle; an in-use browser is left alone. An idle session is closed only through
+`playwright-cli -s=<name> close` from the College directory, with the name taken from the newest
+`.err` in that daemon directory; never kill -9. A failed close or new session requires a fresh
+idle test. Log each close with both samples and the session name in the coordinator's
+`tmp/w42-status.md`. Other daemon directories are outside this rule and are reported, not closed.
+The gate-verdict checkpoint and two-hour persistent-blocker reporting threshold remain.
 
 ### DL5 — separate current-material instrument (parent confirmation)
 
