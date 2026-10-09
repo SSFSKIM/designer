@@ -8,6 +8,7 @@ import sys
 import tempfile
 import types
 import unittest
+from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 P = types.ModuleType('attempt2_preflight_tests'); P.__file__ = str(HERE/'attempt2_preflight.py')
@@ -85,6 +86,32 @@ class ReadOnlyTests(unittest.TestCase):
             masquerade = types.SimpleNamespace(REPO=home, OLD_OUTPUT=old)
             fake_root = {'inputs': [{'path': 'captures/capture.json', 'sha256': pin(capture)['sha256']}]}
             with self.assertRaises(ValueError): P.capture_artifact_view(masquerade, fake_root, original)
+
+    def test_same_bytes_fit_receipt_does_not_admit_gate_path_or_alias(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp).resolve(); fit = home/'fit'; fit.mkdir()
+            gate = home/'gate'; gate.mkdir()
+            fit_cell, gate_cell = fit/'cell.json', gate/'cell.json'
+            raw = b'{"metadata":"same"}\n'
+            fit_cell.write_bytes(raw); gate_cell.write_bytes(raw)
+            sha = hashlib.sha256(raw).hexdigest()
+            gate_alias = gate/'alias'; gate_alias.symlink_to(fit_cell)
+            a = types.SimpleNamespace(OLD_OUTPUT=gate)
+            pins = P.fit_artifact_pins(a, fit, [{'path': str(fit_cell), 'sha256': sha}], {})
+            with P.ReadOnly({sha}) as boundary:
+                boundary.fit_pins.update(pins); boundary.payload_paths.add(str(gate_cell))
+                self.assertEqual(json.loads(fit_cell.read_text()), {'metadata': 'same'})
+                with self.assertRaises(ValueError): json.loads(gate_cell.read_text())
+                with self.assertRaises(ValueError): json.loads(gate_alias.read_text())
+                boundary.fit_pins[str(gate_cell)] = sha
+                with self.assertRaises(ValueError): json.loads(gate_cell.read_text())
+            with self.assertRaises(ValueError):
+                P.fit_artifact_pins(a, fit, [{'path': str(gate_cell), 'sha256': sha}], {})
+            alias = fit/'alias'; alias.symlink_to(fit_cell)
+            with self.assertRaises(ValueError):
+                P.fit_artifact_pins(a, fit, [{'path': str(alias), 'sha256': sha}], {})
+            with self.assertRaises(ValueError):
+                P.fit_artifact_pins(a, gate, [{'path': str(gate_cell), 'sha256': sha}], {})
 
     def test_stdlib_environment_probe_can_use_identified_devnull(self):
         import platform
@@ -169,7 +196,8 @@ class CompletePlanTests(unittest.TestCase):
             runner.modules = called('modules', (live, core))
             (home/'batch').write_bytes(b'{}\n')
             runner.admit = called('admit', (({}, {}, home/'batch', {}, [], None), union))
-            yield runner, calls, home, primitive
+            with patch.object(P, 'historical_fit_inputs', return_value={}):
+                yield runner, calls, home, primitive
 
     def test_complete_plan_exercises_all_setup_without_writes_or_payload_reads(self):
         with self.fixture() as (runner, calls, home, primitive):

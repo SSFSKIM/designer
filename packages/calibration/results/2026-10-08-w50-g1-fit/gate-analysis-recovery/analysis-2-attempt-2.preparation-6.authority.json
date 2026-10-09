@@ -1,0 +1,704 @@
+{
+  "analysis": 2,
+  "attempt": 2,
+  "captureUnion": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.phase/captures.complete.json",
+    "sha256": "a3022525cc9111a98999eb3d1c8f1ab4dcb888ebf25495f0e2ede71974f5f0cf"
+  },
+  "closure": {
+    "environment": {
+      "architecture": "arm64",
+      "executable": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "executableSha256": "b502cb4c5b46b8d4192ec6bcb600ce8922f1afc396fcf646e8765c6eba74a0bf",
+      "isolated": true,
+      "packages": [
+        [
+          "numpy",
+          "2.5.3"
+        ],
+        [
+          "pillow",
+          "12.3.0"
+        ],
+        [
+          "pip",
+          "26.1.2"
+        ],
+        [
+          "scipy",
+          "1.18.1"
+        ]
+      ],
+      "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+      "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]"
+    },
+    "exercise": "synthetic source-only",
+    "probeSha256": "4b01cc9a97771cdf9c0a188044cb50340b121ad5fd5bacdc6b3785a631e74e9e",
+    "sources": {
+      "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py": "29d785ae6d50b6eb1857dfdf710466ebd3cd31ff4bc23d122cf1aa04e6c27291",
+      "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+      "packages/calibration/results/2026-10-01-w43-g0-declaration/bed/sitting/w43_archive.py": "c166e2615e016b9908d2a9f9a9f30b29e2fdd1c779c55e1f27c33aeb1c2f50a5",
+      "packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py": "2f2f2dd23727269742fc0a06909c2ca5eb97e1715eed935c4cd38279da071e0a",
+      "packages/calibration/results/2026-10-03-w44-g0-declaration/port/interior.py": "8c5193b550b2cd627c88380b41227d6656d4fc04214f336ae8a3bcb7ee0fdd98",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/closure.py": "3d0837b87659012e1fb5e789145cc7172becbed750e3d039b55cd7ce028e8d9c",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/next_wave.py": "1c7ddc7f90f35ae6c76b0788fb0e200e75b0b81f597c031402cb94a2eea595d6",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical_guard.py": "cb1641bae5a95cbcf52bac8d6e92959f3930a066dcca29facc5440eabf08eee5",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/audit/runner.py": "b3bf96c8b2dd70898da182f36a08f6828f2cc36dec8e223e95da2aa20650973f",
+      "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/sitting/archive.py": "d6bffe0520de278dcf4cf8345d83916031fee6445e9b843a346ef41f4211cab8",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/current_probe.py": "1293c78f0fb5e21a7b2d177ec4b9c3ba58ce7e4518defa3423cf30acae4aafa4",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/common.py": "90d31e6c89c789cf1eaf17e9dedac770da8f26b0b66bc31a2b05224060fa44ed",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/composition.py": "057c90cbd9106e385e239a864ab8a8d330e89bcdba056736d094ad5cb0579678",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/dispatch.py": "5e6cfbdff55aea58037c742a347d9a8167362f8cf3c34394ed1dcda22a14e857",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/evidence.py": "f7ef49b3f96b352e36beda19eaecaf3ebf00d23e6b3cc7f87319a4940acc85d3",
+      "packages/calibration/results/2026-10-08-w50-g1-canonical3/execution/recovery.py": "882332d1acbfe34ef8471b7aae5500ea8720d112db7f6afdf4e20b91fef5ace1",
+      "packages/calibration/results/2026-10-08-w50-g1-current2/execution/native_evidence.py": "92dceef56c9c036996fe841a1d2b8be312a32121585145f0b8d8b111e2c35fd3",
+      "packages/calibration/results/2026-10-08-w50-g1-current2/web/adapter.py": "9cff455f49c52ccf67d6a8f45feca6a67472a9feb5d56c70416b002a8b8bc159",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py": "c1ed09042ef0093d5954b50a1ac9557fad29f0df7ed5284b2a55f50904f1aaed",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/current_probe.py": "aeb99bb6d219a40a82ca1f03b29a0e5126ec19ae8335f970f9a13a76ef51b1e4",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/current_router.py": "72944bf3697d0f047c9442b13e2574e9d9cfcb3a87b4ce5dc79baf952a808478",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/dispatch.py": "64ad36f4281c7d9a9daaf1112272c1a951d0754c07fa10024dcf892a7f6ae5bb",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/guard.py": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/native_evidence.py": "92dceef56c9c036996fe841a1d2b8be312a32121585145f0b8d8b111e2c35fd3",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/recovery.py": "a5345477bfb6cf0b9cfe8c2e8e0e983f64f6d395f1e5e53b96532f8dcbd8dd5f",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/execution/retained.py": "144fa0a99088eaf9085d9d13c9a67d5a43ba89e8b288b5f8235a91c024cb6c6d",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py": "55d7b30077c959d643cdd9e22e3d027aa5e49bdb71b5e468695927b30fab3f39",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/core.py": "f6d64fe00883dcf28605da7c7ab683eee4b5296acf2ca9444eaa492675200b6e",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/repeat/sources.py": "e13fb3fd53c3b4e3f39fc2bb64aa93ae0c22035601f684c4656c67f2ae6443e0",
+      "packages/calibration/results/2026-10-08-w50-g1-current3/web/adapter.py": "e5fa6c51694deee54b2a208e547cee24f6777fc208aa3a7cbcb308984f62c621",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/canonical/adapter.py": "5959e94682db89d4cb3ac40e767c9c5ef9c490ceca2add6954c2f5dcc7aee6b4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis/analysis.py": "2d4240673ce70f79153dd1ece501247ba93b90267e38c31ca2621db3abe0ea8e",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis/native_evidence.py": "2fae1c2b01d05bb32b386604352ee0da0ebd843e8726fc81eb8e9a1b38510250",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis/run.py": "f6127ea818ce3a617ac7cabcbb9c66569bd9cb479e21dd40ab8df3295e5cfa0d",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/exposure/prepare.py": "5be345abecc96b9ef8a30cecf277de5054004ed9aa0bd0ac20472d689bceeb2c",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/fit/execution.py": "0e2cac33d5159af1a82b1b1f44e87ffebd1fae7e25ea99a4027d446bd70683d4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/fit/inputs.py": "98e9f647699aec17fac69d29353c89dfc68c7790915e0848b80fcd7f9c5a4437",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live.py": "5669f2f8699695051e47861785c6cdcb82bdaaa2f6990b4b1a162fd6343c943c",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/fit/uniform.py": "86a9f6794eaa624cd35f378cafdca9e481bcf61439326b08e9ef614b05408279",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_authority.py": "2aa8bebb2e0775b8b1c4bd93ff66cf4c786c230708420616ec2e0d3a04166e35",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_preflight.py": "fd696ca287a7cc7ee080728b4f899764701f97ec3846d3b6d4cc57f2da338e48",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_probe.py": "4b01cc9a97771cdf9c0a188044cb50340b121ad5fd5bacdc6b3785a631e74e9e",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_run.py": "db70a73747113540342fd22f85b1155e89af5553566d1504dacc5e1fc54ea1b4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt2_seal.py": "b813d3237b07142012ca29e6d7476c5102d61b911e28fec89ce9b2e6830b9179",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/authority.py": "a91647604fc9fc09e4c6f923676220175c282b743be39f5c58bf4e05c53cb97b",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/historical.py": "8ded5ee510b86350d9a25e07433c9cdb7530d7dd3136c2c75a6b4e01828d5eb2",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/probe.py": "0c23dff347c32da6ff6405bbf7564ffd12e4cfa92492732104a664624520c670",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py": "af1849d111905c3f27dfc06b9fcfdb16aaa8fd01d1cbe62a4b74c7d8d3b80729",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/run.py": "00dd5168290f7b065d30bf56495a1c4db67f49c3b33c20e878b093b367b0ad17",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/seal.py": "4f232385fdaa51f560b08691ad78e1a7c6dfaf7c4078e2ae607019b2e83c3fb8",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py": "2cbd6e446a2d43675a4b70a2cf896fa3a4a3500c84e920515c88924aaa89586d",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/judge/numerical.py": "b8dce9e947a98661c51927b41450b544ae68640e71dad3089dcb0e72737b5af2",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py": "840302e6caaa75044206a2960b257f17c057b1a3ce93c6bf877c92747049398d",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/judge/targets.py": "afc031f589a611da1fc41462bbb478ff3412b62a95ea0491be96a863598c7a01",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/admission.py": "368e458459774c95c28a7e79e67b9cdac3f13da8b5b1a8d18fb8db14fa4c69ab",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/authority.py": "13bf3e967b3a8504c5b05cd2fc4934a6b80602d5d6a37efcf1b652c68d4627fc",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/common.py": "27d707c639ce9fa116127b5d9d21dc32ff3e69dfca81d12fa8813702919a4ae2",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/dispatch.py": "47f4fb79fe351e03929029f6334e95a128649ebfa5b5f55ee892f52589b4d5a5",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/guard.py": "80b28cd1891d525c27adb4291f0ed1519e861aaf46c84c444e509d56ffa5018a",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/lifecycle.py": "41caf9507e13f220eb8c6749e3c77a2b79d8f3b7b7952a9959dbd18ea0f68555",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/native_evidence.py": "92dceef56c9c036996fe841a1d2b8be312a32121585145f0b8d8b111e2c35fd3",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/owner_evidence.py": "bb17674546657c75b9122242bf65a481ea102d278eeb1c3a2187e3c58590c7f8",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/prefit.py": "9769e1585e8d1288d4aaaf35b9851e1eb0d74c0dc48107ed27368b1e5b45fa51",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/probe.py": "1f4facbad656c9e9df32e52011f1f88d031c961f963f6a243833b04c165ed4a6",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/quarantine.py": "122b9ff5e851780f8263c66942d4b452b97cc4bd20b88030a2739d061abb63c7",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py": "0037b04ed2dc8454f1e0c8a065f747772e7613566510a15712d1bf5cc3c960ee",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/common.py": "dd51b6181ff38f557ca9364de91fa9679877f71945b500ef918d796fe4bb1ae7",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/measurement.py": "c4ad04a1fe6fac9628dfec404382f835db9e639bfda98fde202d123b8665e27b",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/native.py": "8a8835c9ef11af9331a35cc22804db6bea886bd286437bf97d1e3b2fc1e46d46",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/owner.py": "bcee6932b116189524f0ca3a88a9a015ced2d62405869fdc8cac2567a410e736",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/probe.py": "2a9d2af183ae8f3f371eb854bc59c0866b2d1e15a9305eda8a36e649289121aa",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/live/router.py": "146c0cc2d3581b56ed5a22131a8e92e23f5a2a6f5829638f2703b4742adc235c",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/capture.py": "64c3ee48d20018ef70511af9ce70403d90be13fe4cb74a167f22a131675363c6",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py": "c30b98a226961f40fadc3fdbf9a94f9d34c45d0dec24cd1c974bca14c4f971fd",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py": "24e32623527e8ecfd039f66a88fd6b5e2a24e3def7f0eb553187fa6dd54e57ad",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/projection.py": "2e942dd7d3f85025d9fb2fded6ad8a1eac896cfd4900b12e94dc56c31f0cd2f3",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/readiness.py": "ab5a7c8d769f437705ed2c2715cdd8656006fb858b32740dca19273ebf46abcd",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/reader.py": "881cb14dd69bb1034018676166774638ef3ebd0f70b345182689d002e6a79a33",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/run.py": "fa482c0ce2a9421718c56e350414764b710e266f81af7a0e1f59c8c465d13fcc",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/native/statistics.py": "d1fe736d99e7ca55b2121baf1137812887ee7d81b3249be8f5fe925d1f01c7f4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/owner-candidate/live.py": "48e2dfe31e9c0726cd8e29f82ed1aca10a54f5b47bf65746cee0f669b84ad99c",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references/canonical.py": "de418e4e315b83840d5cbd3f6ecffb4c56ec65579708e5d81c7ebe901011b8c4",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/references/statistics.py": "242b91db8f7dc4b1a211a4fe98f6abad8edc5c04a50da201efac618ef42c7402",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/web/adapter.py": "09c5539c7350c11c8f35d05e56df6df3ed17ac9e902c56e2175b833ba8c1099f"
+    }
+  },
+  "exposure": "NOT_AUTHORISED_BY_THIS_INSTRUMENT",
+  "failedAttempt": {
+    "analysis": 2,
+    "attempt": 1,
+    "auditCommit": "36cfacf75b65dcd01433b466b2f957373fbdff54",
+    "preserved": [
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-2-terminal/audit.json",
+        "sha256": "5de305af2291f0d8283fcd6d106b5deb436f45781af3b2c2af984fbe6591dfc1"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g1-live/gate-analysis-2/quarantine/analysis.log",
+        "sha256": "ad5fbfd336f430deee7811386373290c83165ef437a3d54cfe52b366d3ac09d0"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.authority.json",
+        "sha256": "1e98915c3725d703857affdd8358cc3746d73c579a3fcc82f9d93098bdd29ead"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.authority.json.sha256",
+        "sha256": "03167c0d89efd577a012cfa327e758f65cefa8e0216ae766755f870041f4bf56"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.contract.json",
+        "sha256": "27e1a88ce95ff8c6b6faedad477953386fb83c138ffe2ac060dd0e68558df864"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.contract.json.sha256",
+        "sha256": "3e31d5c069396e93e418309024b2fd3bf1612c4a9ce6be766a025b2a30ff6dce"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.root-view.json",
+        "sha256": "416c4a02fc8cb3dc20edbcd8d6ac18c320ac0d01b075b79b607f9f80b8eefd5b"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.root-view.json.sha256",
+        "sha256": "8c19550b5d2338e31ea450ed5bfea0656a7ab93351029ab7019d68e55076473f"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-2-terminal/analysis.log",
+        "sha256": "ad5fbfd336f430deee7811386373290c83165ef437a3d54cfe52b366d3ac09d0"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-2-terminal/public-event.txt",
+        "sha256": "39a66649dcb48c45ec9a19e83ad3ceff06c4c515a760c3eed5af0ff6e700f94d"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/authority.py",
+        "sha256": "a91647604fc9fc09e4c6f923676220175c282b743be39f5c58bf4e05c53cb97b"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/witness.py",
+        "sha256": "2cbd6e446a2d43675a4b70a2cf896fa3a4a3500c84e920515c88924aaa89586d"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/run.py",
+        "sha256": "00dd5168290f7b065d30bf56495a1c4db67f49c3b33c20e878b093b367b0ad17"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/seal.py",
+        "sha256": "4f232385fdaa51f560b08691ad78e1a7c6dfaf7c4078e2ae607019b2e83c3fb8"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/probe.py",
+        "sha256": "0c23dff347c32da6ff6405bbf7564ffd12e4cfa92492732104a664624520c670"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/reads.py",
+        "sha256": "af1849d111905c3f27dfc06b9fcfdb16aaa8fd01d1cbe62a4b74c7d8d3b80729"
+      }
+    ],
+    "state": "EMPTY_DIRECTORY",
+    "tombstone": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2.failed"
+  },
+  "historicalProof": {
+    "commit": "bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0",
+    "exceptionPaths": [
+      {
+        "archive": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz",
+          "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50"
+        },
+        "archiveCommit": "bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0",
+        "authentication": "COMMITTED_GZIP_BLOB_DECOMPRESSION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 137796292,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+        "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+      },
+      {
+        "archive": {
+          "path": "packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/evidence/completed-references.json.gz",
+          "sha256": "9307e6e495908a7cad76ab40a1498a414a28c31bb14644c6e579da971442ccc1"
+        },
+        "archiveCommit": "bdb0f3fef27c0dc6381a605ba58eb8f5b1703af0",
+        "authentication": "COMMITTED_GZIP_BLOB_DECOMPRESSION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 283946703,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+        "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 83,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/active05ScratchBaselines/scratch-raster-identity.log",
+        "sha256": "3bb1a18821cbdfd0822e70dc4a18a6b848f8a7b3f2e178371ed6db359795ff9c"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 110,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-canonical-tests.log",
+        "sha256": "f450b2093e664d6bfe625de3c5cc92af764ab00c551ab4d5151cc6b5c022455b"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 105,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-completion-tests.log",
+        "sha256": "8a39456c59bfb992eccc288521cd3d52b0d466f3e1684360bb00184c8c8c2cca"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 106,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-composed_completion-tests.log",
+        "sha256": "f87328d2097f624fd37af633e57a8f10d66c20229f815a43f24dfb99bcd50d0e"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 108,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-run-tests.log",
+        "sha256": "d8d5f1b5a5fd396acb7eefe5da6920c79e6b54bce500f8877e385dc9e069d768"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 102,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-run_composed-tests.log",
+        "sha256": "372ae5fb1c463ea2634e24d964e27892629cdc0cf08a893eb49a16bc687f6958"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 104,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/dark05Bands/r2-statistics-tests.log",
+        "sha256": "7508879d45a5044a12c6a1f4893369e84654d4586a3823c358a41978a48f9b07"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 110,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-assembler-tests.log",
+        "sha256": "85ca96fb207a9acf727b042ed3fd6fdb6890b8cc0d45810393b27db424a95d19"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 102,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-bound-tests.log",
+        "sha256": "41855a6380634e4d5ef6e6b8a4b4afa9f891b191414433c9328dff783b38b91c"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 104,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-bound_composed-tests.log",
+        "sha256": "9bd9a087ab7d96ca2894b1754eb64f95395af1e66cc7580b847b7a0e4b5493ab"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 100,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/referenceCompletion/completion-validator-tests.log",
+        "sha256": "8fb7c0050b03ef803e8819d7a13002f014f5486222a6e1735d7415084264e70e"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 104,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/canonical-statistics-tests.log",
+        "sha256": "6c799e05befe53a65a3d6e2fe9a29f05651433ae6c547ee3ac06cbd84b49e6a9"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 111,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-bootstrap-tests.log",
+        "sha256": "fa264e38954882e6cacfa72e4ceda7e694780d869fc4d30e5c38a76afaf3325d"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 109,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-reader-tests.log",
+        "sha256": "97222407753d26e4af297ebe54aeb47d7ff8efdb6fa20a6ca6ae73c70fdc9396"
+      },
+      {
+        "authentication": "HISTORICAL_PROOF_SHA256_LATE_PRESERVATION",
+        "blobExistedAtHistoricalCommit": false,
+        "bytes": 109,
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/prefit-proofs-r3/logs/repeatBar/native-statistics-tests.log",
+        "sha256": "711877988b5c316f8dc19d0e4db77e7a9eba2640715bdfae8f61eaba09751fd0"
+      }
+    ],
+    "exceptions": {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/dl5s-historical-pin-exceptions/exceptions.json",
+      "sha256": "04d02bdfb8135e6dd3a3a94088b5d4d4f2447f288ed671584b1638dd772e9002"
+    },
+    "liveDeltaCommit": "02c0e5694bf9b579d2c3125a2ab60bf3684d5ea3",
+    "liveDeltaPaths": [
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py",
+      "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/test_phase_sources.py"
+    ],
+    "preservationCommit": "f2f88158ee918962c18cbe9c1f1b1910237ee7dd"
+  },
+  "historicalRoot": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+    "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+  },
+  "marker": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-6.contract.json.phase/analysis.started.json",
+  "output": "/Users/new/vitrea-w50/g1-live/gate-analysis-2-attempt-2",
+  "preflightRecord": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-6.preflight.json",
+  "preparation": {
+    "diagnosticEvidence": [
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/dl5s-preflight-1/refusal.json",
+        "sha256": "41c394036a69418c1a85a4bfc4c6e439512b1cc023958ae50905930cf613bc9e"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/dl5s-preflight-1/stderr.log",
+        "sha256": "5b2a7a04224d61b3b274c9e79c2cf0294e6ffb06f35dc7befdb73365030a75c3"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-2/stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-2/stderr.log",
+        "sha256": "bd3283cc8380652ce28b2b86de85db79bdff478a2690e0fac6752be76bc68d43"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-3/stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-3/stderr.log",
+        "sha256": "d186a6342a97432e71d0a2961cfb176c1f5d98c9b00278f51da074e70564b799"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-4/stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-4/stderr.log",
+        "sha256": "90b95a77e4320003df3f7a0da7f2add578bb2fff1c00998ad58c4392b1fe408c"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-5/stdout.json",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/diagnostic-preparation-5/stderr.log",
+        "sha256": "6055dec8c4c14340bd08ac0dcd4f849b88bbbb24a2b54a81ff001c70b8ef7e3a"
+      }
+    ],
+    "fixedLogicalClaim": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.contract.json.started.json",
+    "invocationFence": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.invocation.json",
+    "number": 6,
+    "predecessors": [
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.authority.json",
+        "sha256": "20e62452e0885a78f396d491d64d029112249f8f71895586f765c9d84023b699"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.authority.json.sha256",
+        "sha256": "9c0538fa9371e9f879be18f199d05d718bb345e44c52d21011dcc9bf153cf1bf"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.root-view.json",
+        "sha256": "976565640988024b7eec90cfa9e4d6b75feb67ee840e6cc3a56a595321099943"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.root-view.json.sha256",
+        "sha256": "9103342adb3d5d361d05b44cb32f2895f3eefcf006b45ed26b88969b15538738"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.contract.json",
+        "sha256": "4dc6f2f6e51c2128c50f615908ed5f4e633e157ace8ab4c9ebb0fd92e4f9443d"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.contract.json.sha256",
+        "sha256": "0195799ccc6eb803eaa5d8bcf509d0427aaa2311d35b2056c15b851049fd08cb"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/attempt-2-review-clearance.json",
+        "sha256": "abdfcd9f2fa85db305eeb07a6429e79bd814019ee29d75cd9aaf25e0f6ed4fd3"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.authority.json",
+        "sha256": "45caa2c04e7406a3941ad5d12fbb3f3162d6fdbe967eb26ddd4759f9f8bae419"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.authority.json.sha256",
+        "sha256": "95eb0f605c0f5b42a51bc944d531eeae48c013d5741c0afc48fd759da4303f44"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.root-view.json",
+        "sha256": "78f108fe053a84e86355087a2907c125e29f99b9104f06dff717de981b831231"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.root-view.json.sha256",
+        "sha256": "25655b04ab4b3668af281da9a92ab017703e8c0ef1428febded4d156357c18c4"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.contract.json",
+        "sha256": "cb4dd9ead73367fd635eddd8223cc3ddc87e86d23d9f3298c9272b4dc2a8d7ca"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.contract.json.sha256",
+        "sha256": "59fc0b184f56ad8b2316dbb59dabc07b8f720923d9412c25b487dc826e951472"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.review-pending.json",
+        "sha256": "4ab0f9f1d23897f24639a78b3ea5e8067f2341d12c502de39f63d230dd9844f2"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.authority.json",
+        "sha256": "72360c37b02c55453ae6519b5b6333b2fbaf9fae8d4e848c3b1471446eb646e2"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.authority.json.sha256",
+        "sha256": "f1b1e7273b68f3fff1a8329534419553879241b478be0018a601cb0ad32e387e"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.root-view.json",
+        "sha256": "c89c6ae029c6888cc6a0e9fc3accb4142505fe08424ca7839dbb5c3853a4f76c"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.root-view.json.sha256",
+        "sha256": "9a647db5fa110b00b52b637adf7e8f3b298890176faae3a50b19d566256b87a3"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.contract.json",
+        "sha256": "441826b3c37b5fff4cff5b47e14550e54a10887e6d14401655aa75e0c878762f"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.contract.json.sha256",
+        "sha256": "c1ffac91bdc6f1e34970a54129b7cca4dbec8e5d23e188a585a6292965c76ae4"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.review-pending.json",
+        "sha256": "2b119729e44fe2ef395da3ca4ca0298ca20afbdd27ec79eac1ec6cadfb319d56"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.authority.json",
+        "sha256": "920fa21b9aa17a412427203dc1e05cdd0e4c99fb72100ef07499a04d090b5632"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.authority.json.sha256",
+        "sha256": "c874d2c9c11cd7706bf0179be4e8bd30cd486f7055472ac3599e95ca49eb9267"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.root-view.json",
+        "sha256": "ec3c029f0196acff28af3a5a6bfe0d3623eb9daec28c907d58bb416f80c50d43"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.root-view.json.sha256",
+        "sha256": "2e616f526d7e79003fe87653f27dc38a57080503f5352ed8b83e749531528aa1"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.contract.json",
+        "sha256": "e6e79ab9276029b3acdbc041c713e8b1d974931d33bb2b700e8992fff4cd5bf0"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.contract.json.sha256",
+        "sha256": "ff7e19e68b565d93d0c01c828d5e9b1979cc5ba7a5344df202f8df745ea089d7"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.review-pending.json",
+        "sha256": "f5dcb13fc013b901b8f9bd0daa06325e426c10d267ffb900d32f02fa7fd0aec2"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.authority.json",
+        "sha256": "54fddb4631f35978fded400dab84152c82d02893d509f20caaa889942981fcf0"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.authority.json.sha256",
+        "sha256": "c507d4b795c54872ee1231268a0d528145dd744f37dfe6f6f16a31e14c63bd0c"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.root-view.json",
+        "sha256": "cd640f0457df2efbe17b6080023543e81c8fb5d3ec38b48b19d031998825db05"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.root-view.json.sha256",
+        "sha256": "bb0db2f064dd0e4f581a13f3828e79bf07dcea0c2e354eabdc83922726f7d9c6"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.contract.json",
+        "sha256": "41d21819a0ebae5149b06ee103bf04f16437e2292df1d322f54e2ec4172fed86"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.contract.json.sha256",
+        "sha256": "4313a4202252a4d54db5726022471c4d2aa71fbd3bd8d636dd0fc18d482695c8"
+      },
+      {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.review-pending.json",
+        "sha256": "f722eb18a4075bfaa23bb4084981c3b7945af2d2481cd4832d63423c502c7764"
+      }
+    ],
+    "previousMarkers": [
+      "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.contract.json.phase/analysis.started.json",
+      "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-2.contract.json.phase/analysis.started.json",
+      "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-3.contract.json.phase/analysis.started.json",
+      "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-4.contract.json.phase/analysis.started.json",
+      "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-5.contract.json.phase/analysis.started.json"
+    ],
+    "reviewStatus": "PENDING_FINAL_REVIEW",
+    "rulingCommit": "b36acb5c92b99fd708ba52bdd2135e0c06530b5c",
+    "rulingPath": "docs/doperpowers/specs/2026-10-08-w50-dark-low-end-response.md",
+    "rulingSha256": "a3a994b92553de0e92e890749eb002b96c5998a8ae8f14905e7e1503301f035e",
+    "seams": [
+      {
+        "id": "registered-input-artifact-view",
+        "meaning": "The full immutable union is verified first. A distinct Boundary-only copy omits only outside-capture artifacts exactly matching independently registered canonical repo input pins; original union/captures still feed measurement, judge and witness unchanged. Original capture-output paths and634 files remain payload-denied."
+      },
+      {
+        "id": "static-config-provenance",
+        "meaning": "An independently root-pinned noncapture input may share raw bytes with a copied capture artifact. JSON admission retains read-path provenance, allows only that original registered path/hash, and still denies every capture path and unprovenanced matching payload."
+      },
+      {
+        "id": "stdlib-interpreter-alias",
+        "meaning": "The stdlib file probe may spell the identical resolved current interpreter through Homebrew intermediate aliases; file identity remains exact, not an arbitrary file grant."
+      },
+      {
+        "id": "stdlib-platform-file",
+        "meaning": "Only platform._syscmd_file may invoke file -b on the resolved current interpreter with LC_ALL=C for the unchanged architecture fingerprint; every other target/command refuses."
+      },
+      {
+        "id": "stdlib-platform-devnull",
+        "meaning": "Only stdlib subprocess _get_devnull may open the existing /dev/null character device after exact device/inode/type checks; every other writable open remains denied."
+      },
+      {
+        "id": "stdlib-platform-uname",
+        "meaning": "Only platform.from_subprocess may invoke exact uname -p from /usr/bin/uname for the unchanged environment fingerprint; no arbitrary subprocess grant."
+      },
+      {
+        "id": "additive-preparation",
+        "meaning": "Distinct prospective seals preserve every earlier preparation; one fixed invocation/output/logical/terminal/failure fence bars every later preparation after execution starts. Final review remains pending until a clean diagnostic."
+      }
+    ]
+  },
+  "review": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/gate-analysis-recovery/analysis-2-attempt-2.preparation-6.review-pending.json",
+    "sha256": "848b549b25282699a16abe9c6c99ef64d94aacf04dfd7a23dbf65d583f62387e"
+  },
+  "ruling": {
+    "commit": "8adfc8fd90619e109a80edf0aa691fa43b59fbd9",
+    "path": "docs/doperpowers/specs/2026-10-08-w50-dark-low-end-response.md",
+    "sha256": "d17ad6a255f94a9e23ba9a9200fccae41ed19b28cdc1261b1be0f23da5d882cd"
+  },
+  "schema": "w50-dl5s-attempt-2-authority-1",
+  "spentMarker": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.phase/analysis.started.json",
+    "sha256": "02c070dcb0d7d40dc6498309e5a1b911324db5436b3b2987e7aa089a87296c3b"
+  },
+  "unchanged": [
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+      "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json.sha256",
+      "sha256": "4f865cf62266e559eb7307ac2f3d3815ae4ea95fc0188184fd4b7dc5ce3eda8a"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json",
+      "sha256": "5ca86014ce94815693dcd9ae1225d14453e46148ecc2091b64d34274b4cf364a"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.sha256",
+      "sha256": "3cd59ea98d9b4780494e26e53425c18b7976c3a58d20ebfb73985309aa9cc080"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.started.json",
+      "sha256": "289e78628c02726192f5e5070061381a7045f02a651cf8d3cea669c0b99b998c"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.phase/analysis.started.json",
+      "sha256": "02c070dcb0d7d40dc6498309e5a1b911324db5436b3b2987e7aa089a87296c3b"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.gate-contract.json.phase/captures.complete.json",
+      "sha256": "a3022525cc9111a98999eb3d1c8f1ab4dcb888ebf25495f0e2ede71974f5f0cf"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-stop/unread-measurements-manifest.json",
+      "sha256": "95295607703bfa30ee4adea63b0182897c74a3a5085ada19a6b9625333983d49"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/attempt-1-refusal.json",
+      "sha256": "ad3f3cf08889cb3640eae0471ed844761054b8b8bf8a5ebf7cff198d639dab8f"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/gate-batch.json",
+      "sha256": "66d2f2886367445d47f2fe4ef338e85dcd2fafa31014443cec6fc9a73e782070"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-record.json",
+      "sha256": "83ea6b1ea466fa4936b71331a214b1ed9525eb4c58df8e1a35737c63740e350b"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.result.json",
+      "sha256": "d2b82491d388b5cdf2bf48b6d0e6aedc1120f35c6d6c5a5e5050efb8bb1b7058"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+      "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+      "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+      "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+      "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.dark.json",
+      "sha256": "3cc4ed0d9d22d71d7c289e7041bb3034b897fca1f23ddc1f012ce43194bcdd68"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.light.json",
+      "sha256": "a217b7f7d2a72c6ec2282caebf5b897b2cc07fb55050bdb8f64371862a1be780"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.dark.json",
+      "sha256": "0ab7b8aebdb0a66285c30f81731cf35401dbbaca7fbc0152e63a4cc8ac6a7b49"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.light.json",
+      "sha256": "83e2156ba37924041e65d8cb8308c94d311b4e8bf57b9dab287a628bc7d76071"
+    },
+    {
+      "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+      "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710"
+    }
+  ],
+  "unreadManifest": {
+    "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/evidence/gate-analysis-stop/unread-measurements-manifest.json",
+    "sha256": "95295607703bfa30ee4adea63b0182897c74a3a5085ada19a6b9625333983d49"
+  },
+  "witness": {
+    "count": 634,
+    "excludedTopLevelFields": [
+      "executionRoot",
+      "executionClaim",
+      "contract",
+      "batch"
+    ],
+    "exemptions": []
+  }
+}

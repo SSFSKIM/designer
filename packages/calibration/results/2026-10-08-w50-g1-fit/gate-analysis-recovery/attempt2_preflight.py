@@ -28,7 +28,7 @@ class OriginBytes(bytes):
 class ReadOnly:
     def __init__(self, forbidden=()):
         self.forbidden = set(forbidden); self.active = False; self.originals = {}
-        self.metadata_pins = {}; self.payload_paths = set()
+        self.metadata_pins = {}; self.fit_pins = {}; self.payload_paths = set()
 
     def __enter__(self):
         null = os.lstat('/dev/null')
@@ -43,16 +43,16 @@ class ReadOnly:
             if digest in self.forbidden:
                 origin = raw.origin if isinstance(raw, (OriginText, OriginBytes)) else None
                 if (origin in self.payload_paths or origin is None or
-                        self.metadata_pins.get(origin) != digest):
+                        (self.metadata_pins.get(origin) != digest and self.fit_pins.get(origin) != digest)):
                     raise ValueError('Read-only preflight forbids numerical gate payload JSON parsing')
             return self.loads(raw, *args, **kwargs)
         json.loads = loads
         self.read_text, self.read_bytes = Path.read_text, Path.read_bytes
         read_text, read_bytes = self.read_text, self.read_bytes
         def text(path, *args, **kwargs):
-            return OriginText(read_text(path, *args, **kwargs), str(path.resolve()))
+            return OriginText(read_text(path, *args, **kwargs), str(path.absolute()))
         def binary(path, *args, **kwargs):
-            return OriginBytes(read_bytes(path, *args, **kwargs), str(path.resolve()))
+            return OriginBytes(read_bytes(path, *args, **kwargs), str(path.absolute()))
         Path.read_text, Path.read_bytes = text, binary
         def refuse(*args, **kwargs): raise ValueError('Read-only preflight forbids descriptor mutation')
         for name in ('write', 'writev', 'pwrite', 'ftruncate', 'fchmod', 'fchown'):
@@ -182,6 +182,56 @@ def capture_artifact_view(A, root, union):
     return {**union, 'members': rows}
 
 
+def fit_artifact_pins(A, output, artifacts, registered):
+    """Exact pins only; a prior-fit output prefix by itself grants no read permission."""
+    output = clean(output)
+    if output.is_relative_to(A.OLD_OUTPUT) or A.OLD_OUTPUT.is_relative_to(output):
+        raise ValueError('Historical FIT and unread GATE outputs must be disjoint')
+    result = {}
+    for item in artifacts:
+        path = clean(item['path'])
+        if path.is_relative_to(A.OLD_OUTPUT):
+            raise ValueError('Gate capture cannot masquerade as a historical FIT artifact')
+        if not path.is_relative_to(output):
+            if registered.get(str(path)) == item['sha256']: continue
+            raise ValueError('Historical FIT receipt names an unregistered outside artifact')
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']:
+            raise ValueError('Historical FIT artifact pin changed')
+        if str(path) in result and result[str(path)] != item['sha256']:
+            raise ValueError('Historical FIT receipt has conflicting pins')
+        result[str(path)] = item['sha256']
+    return result
+
+
+def historical_fit_inputs(A, core, root, old_contract):
+    """Authenticate only prior FIT evidence the unchanged fit validator already requires.
+
+    The result's raw pin comes from the frozen fit record. result_for checks the sealed result,
+    contract and claim bindings and all receipt pins before this path-specific read allowance.
+    validate_fit_record still runs unchanged afterwards; this is no substitute for its verdict.
+    """
+    D = core['C'].D
+    record = D.load(D.checked(A.REPO, old_contract['fitRecord']))
+    if (record.get('schema') != 'w50-g1-fit-record-1' or record.get('executionRootSha256') != D.sha(A.ROOT)
+            or record.get('selected') != old_contract['cohort'] or len(record.get('completed', [])) != 1):
+        raise ValueError('Historical FIT read authority is not the frozen selected point')
+    pins = {}
+    for item in record['completed']:
+        result_path = D.checked(A.REPO, item)
+        if not str(result_path).endswith('.result.json'): raise ValueError('Not a FIT result')
+        contract_path = Path(str(result_path)[:-len('.result.json')])
+        contract = D.sealed(contract_path)
+        if (contract_path.parent != A.ROOT.parent/'fit' or contract.get('phase') != 'fit'
+                or contract.get('executionRootSha256') != D.sha(A.ROOT)):
+            raise ValueError('Historical FIT result belongs to another root/phase')
+        completed = D.result_for(contract_path)
+        claim = D.load(Path(str(contract_path)+'.started.json'))
+        pins.update(fit_artifact_pins(A, Path(claim['output']),
+            completed['captureReceipt']['artifacts'] + completed.get('repeatReceipt', []),
+            registered_metadata(A, root)))
+    return pins
+
+
 def setup(runner, live, core, data, union, boundary):
     """Actual runner modules, input validators and read adapters, prepared before any marker."""
     A, W = runner.A, runner.W
@@ -238,6 +288,7 @@ def prepare(runner):
         guard.enforce(A.REPO, authority['closure']['sources'])
         live, core = runner.modules()
         paths = prerequisites(runner, core)
+        boundary_guard.fit_pins.update(historical_fit_inputs(A, core, root, contract))
         data, union = runner.admit(root, view, contract, batch, live, core)
         capture_view = capture_artifact_view(A, root, union)
         boundary = runner.R.Boundary(A.OLD_OUTPUT, A.OUTPUT, capture_view)
@@ -259,7 +310,9 @@ def prepare(runner):
                 'invocationFence': str(runner.INVOCATION)},
             'captureCount': len(union['members']), 'witnessCount': manifest['count'],
             'expectedKeys': len(data[4]), 'payloadsParsed': 0, 'writes': 0,
-            'checks': ['historical-prefit-all-pins', 'exact-live-delta', 'original-fit-and-cohort',
+            'priorFitReadPinCount': len(boundary_guard.fit_pins),
+            'priorFitReadPinsSha256': hashlib.sha256(W.encode(boundary_guard.fit_pins)).hexdigest(),
+            'checks': ['historical-prefit-all-pins', 'exact-live-delta', 'original-fit-and-cohort', 'exact-authenticated-prior-fit-read-pins',
                 'complete-capture-union', 'successor-view-and-closure', 'role-interfaces-and-inputs',
                 'original-read-adapter-setup', 'registered-noncapture-boundary-view',
                 'attempt-namespace-and-permissions']}
