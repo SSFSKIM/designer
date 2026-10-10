@@ -82,7 +82,7 @@ test("the snippet carries alt, intrinsic size, a container colour and the credit
   assert.match(s, /alt="aisle &quot;A&quot;"/);
   assert.match(s, /width="7281" height="4993"/);
   assert.match(s, /background:#d9d9d9/);
-  assert.match(s, /Photo by <a href="https:\/\/unsplash.com\/@oxana\?utm">Oxana Melis<\/a> on <a href="https:\/\/unsplash.com\/\?utm_source=designer&utm_medium=referral">Unsplash<\/a>/);
+  assert.match(s, /Photo by <a href="https:\/\/unsplash.com\/@oxana\?utm">Oxana Melis<\/a> on <a href="https:\/\/unsplash.com\/\?utm_source=designer&amp;utm_medium=referral">Unsplash<\/a>/);
 });
 
 test("verify accepts an image response, retries a refused HEAD as a ranged GET, and drops the rest", async () => {
@@ -103,6 +103,25 @@ test("the cache key is stable for one query and differs across options", () => {
 });
 
 test("creditHtml names the photographer for either source", () => {
-  assert.match(creditHtml({ source: "unsplash", creator: "Tianlei Wu", creatorUrl: "https://unsplash.com/@wutianlei?utm" }), /Tianlei Wu.*on <a href="https:\/\/unsplash.com\/\?utm_source=designer&utm_medium=referral">Unsplash/);
+  assert.match(creditHtml({ source: "unsplash", creator: "Tianlei Wu", creatorUrl: "https://unsplash.com/@wutianlei?utm" }), /Tianlei Wu.*on <a href="https:\/\/unsplash.com\/\?utm_source=designer&amp;utm_medium=referral">Unsplash/);
   assert.equal(creditHtml({ source: "openverse", alt: "Story Hour", creator: "shannonpatrick17", creatorUrl: "https://flickr.com/p", page: "https://flickr.com/photos/1", license: "BY 2.0" }), '<a href="https://flickr.com/photos/1">Story Hour</a> by <a href="https://flickr.com/p">shannonpatrick17</a>, BY 2.0');
+});
+
+test("provider text and attributes cannot introduce HTML markup", () => {
+  const c = { source: "openverse", alt: 'A & <B> "C"', creator: '<em>someone</em>', creatorUrl: 'https://example.com/?a=1&b="2"', page: 'https://example.com/photo', license: 'BY <2.0>', url: 'https://example.com/image?a=1&b="2"', width: 100, height: 100, color: "#ffffff" };
+  const credit = creditHtml(c);
+  assert.ok(credit.includes('&lt;em&gt;someone&lt;/em&gt;'));
+  assert.ok(credit.includes('BY &lt;2.0&gt;'));
+  assert.ok(credit.includes('a=1&amp;b=&quot;2&quot;'));
+  assert.ok(!credit.includes('<em>'));
+  const html = snippet(c);
+  assert.ok(html.includes('alt="A &amp; &lt;B&gt; &quot;C&quot;"'));
+  assert.ok(html.includes('src="https://example.com/image?a=1&amp;b=&quot;2&quot;"'));
+});
+
+test("fallback attribution is treated as text, while generated links remain HTML", () => {
+  assert.equal(creditHtml({credit: '<a href="x">A & B</a>'}), '&lt;a href=&quot;x&quot;&gt;A &amp; B&lt;/a&gt;');
+  assert.equal(creditHtml({}), '');
+  const credit = creditHtml({source: 'unsplash', creator: 'A & B', creatorUrl: 'https://unsplash.com/@ab'});
+  assert.ok(credit.includes('<a href="https://unsplash.com/@ab">A &amp; B</a>'));
 });
