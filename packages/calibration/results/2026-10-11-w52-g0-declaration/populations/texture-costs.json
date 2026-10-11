@@ -1,0 +1,1777 @@
+{
+  "authority": "W52-DL2",
+  "captureAuthority": false,
+  "costs": [
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.001344741046342278,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.01828481968244225,
+        "referenceValue": 0.006571827413494032
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.001344741046342278,
+                "current_error": 0.011712992268948216,
+                "error": 0.013635526202548195,
+                "growth": 0.0019225339335999792,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "css",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/673836360f04f25abc262280d2e2c318a18792e6b19f86815114f17549ad820a.json",
+          "sha256": "8bfdc28e4179bcef0cd00498dbb1fcbe03e443b429705e6df75e93e3b5698316"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.001344741046342278,
+            "bar": 0.000672370523171139,
+            "candidate": 0.004649293479894053,
+            "code": 0.001344741046342278,
+            "current": 0.006571827413494032,
+            "native": 0.01828481968244225,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.001344741046342278,
+          "bar": 0.000672370523171139,
+          "candidate": 0.004649293479894053,
+          "code": 0.001344741046342278,
+          "current": 0.006571827413494032,
+          "native": 0.01828481968244225
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "css",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0012804963529506699,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.018726869179159264,
+        "referenceValue": 0.005969806154744168
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0012804963529506699,
+                "current_error": 0.012757063024415096,
+                "error": 0.015177349144862474,
+                "growth": 0.0024202861204473784,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "css",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/2bc307da5fdbb1eca0ef80c912fbfaf2a53c1bc724b0f8ad8317a24f2ebb8f61.json",
+          "sha256": "166b3f881e7e83420e3013a6fa14ff9b6d541e672eb89cb9c659a22169d54119"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0012804963529506699,
+            "bar": 0.0006402481764753349,
+            "candidate": 0.0035495200342967894,
+            "code": 0.0012804963529506699,
+            "current": 0.005969806154744168,
+            "native": 0.018726869179159264,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0012804963529506699,
+          "bar": 0.0006402481764753349,
+          "candidate": 0.0035495200342967894,
+          "code": 0.0012804963529506699,
+          "current": 0.005969806154744168,
+          "native": 0.018726869179159264
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "css",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.001344741046342278,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.01828481968244225,
+        "referenceValue": 0.0163692643759669
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.001344741046342278,
+                "current_error": 0.001915555306475348,
+                "error": 0.0034526360388989798,
+                "growth": 0.0015370807324236319,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "webgpu",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/2e0456d5aeae79969d74ebf023bfa8c038857014e619a1eea5aeaef742d67644.json",
+          "sha256": "0623b3671c9e66c8277970fc24dc00dd5ddba98e2c0baac7555b86b48663c0d1"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.001344741046342278,
+            "bar": 0.000672370523171139,
+            "candidate": 0.01483218364354327,
+            "code": 0.001344741046342278,
+            "current": 0.0163692643759669,
+            "native": 0.01828481968244225,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.001344741046342278,
+          "bar": 0.000672370523171139,
+          "candidate": 0.01483218364354327,
+          "code": 0.001344741046342278,
+          "current": 0.0163692643759669,
+          "native": 0.01828481968244225
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0012804963529506699,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.018726869179159264,
+        "referenceValue": 0.01733293980969983
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0012804963529506699,
+                "current_error": 0.0013939293694594339,
+                "error": 0.003652310299136062,
+                "growth": 0.002258380929676628,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "webgpu",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/b456e106e2f9124bf07ac249db34e0dee8c6349623f9e1940ff3f3646681a6d1.json",
+          "sha256": "83e149c23e59a12ca6c0fc7018520cb681b095f5f623973159a10047eb82d97c"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0012804963529506699,
+            "bar": 0.0006402481764753349,
+            "candidate": 0.015074558880023202,
+            "code": 0.0012804963529506699,
+            "current": 0.01733293980969983,
+            "native": 0.018726869179159264,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0012804963529506699,
+          "bar": 0.0006402481764753349,
+          "candidate": 0.015074558880023202,
+          "code": 0.0012804963529506699,
+          "current": 0.01733293980969983,
+          "native": 0.018726869179159264
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013476082611407483,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.01825675018051219,
+        "referenceValue": 0.0060880655935188896
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013476082611407483,
+                "current_error": 0.0121686845869933,
+                "error": 0.01447968672627358,
+                "growth": 0.0023110021392802795,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "css",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/4415c44025903411c4a48c9d5a7a19db89977c2f0cebc3d20026d6bf3b794ba7.json",
+          "sha256": "c7bf7062efc4ee0368cb5b95ac626b58a9bcb3f4166a134fbe4c6a608c7a6cd5"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013476082611407483,
+            "bar": 0.0006738041305703741,
+            "candidate": 0.0037770634542386113,
+            "code": 0.0013476082611407483,
+            "current": 0.0060880655935188896,
+            "native": 0.01825675018051219,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013476082611407483,
+          "bar": 0.0006738041305703741,
+          "candidate": 0.0037770634542386113,
+          "code": 0.0013476082611407483,
+          "current": 0.0060880655935188896,
+          "native": 0.01825675018051219
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.5",
+            "css",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.001288426677817879,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.01891270437808494,
+        "referenceValue": 0.005879666468735457
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.001288426677817879,
+                "current_error": 0.013033037909349484,
+                "error": 0.015295402334796133,
+                "growth": 0.0022623644254466495,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "css",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/216cd60c9881d935d824db50ba3da3329cd739fd6cacc43fd319a1c20ab9eda9.json",
+          "sha256": "1ecae26a1ffa1bc44bf8b549a4a6550c37a9d5639e7043314c96519989663015"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.001288426677817879,
+            "bar": 0.0006442133389089395,
+            "candidate": 0.003617302043288807,
+            "code": 0.001288426677817879,
+            "current": 0.005879666468735457,
+            "native": 0.01891270437808494,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.001288426677817879,
+          "bar": 0.0006442133389089395,
+          "candidate": 0.003617302043288807,
+          "code": 0.001288426677817879,
+          "current": 0.005879666468735457,
+          "native": 0.01891270437808494
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.5",
+            "css",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013476082611407483,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.01825675018051219,
+        "referenceValue": 0.017052966712142303
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013476082611407483,
+                "current_error": 0.001203783468369888,
+                "error": 0.003380908339752778,
+                "growth": 0.0021771248713828902,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "webgpu",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/5a8cec8cdd3f91d8e6dddc58b7bd666ded1d8862f67a70a1db9ab1987b08419b.json",
+          "sha256": "cdc9dc1495a9d486a2b346a8cb1ac542f93bca330e3cdadb96e73c52d0fae4a1"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013476082611407483,
+            "bar": 0.0006738041305703741,
+            "candidate": 0.014875841840759413,
+            "code": 0.0013476082611407483,
+            "current": 0.017052966712142303,
+            "native": 0.01825675018051219,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013476082611407483,
+          "bar": 0.0006738041305703741,
+          "candidate": 0.014875841840759413,
+          "code": 0.0013476082611407483,
+          "current": 0.017052966712142303,
+          "native": 0.01825675018051219
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.5",
+            "webgpu",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.001288426677817879,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.01891270437808494,
+        "referenceValue": 0.016690174965438797
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.001288426677817879,
+                "current_error": 0.002222529412646144,
+                "error": 0.004455523006292084,
+                "growth": 0.0022329935936459405,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "webgpu",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/79212381c21f47116c76859f029213fd649ce4f754bb3eb5b9ad6c5095ce81dd.json",
+          "sha256": "288f657f81fbcf570abf3a14d1cbb8759d00b50e33833fc2ee97a9205f33a64a"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.001288426677817879,
+            "bar": 0.0006442133389089395,
+            "candidate": 0.014457181371792856,
+            "code": 0.001288426677817879,
+            "current": 0.016690174965438797,
+            "native": 0.01891270437808494,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.001288426677817879,
+          "bar": 0.0006442133389089395,
+          "candidate": 0.014457181371792856,
+          "code": 0.001288426677817879,
+          "current": 0.016690174965438797,
+          "native": 0.01891270437808494
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.5",
+            "webgpu",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013298159683785731,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.019567280631655887,
+        "referenceValue": 0.017541834696387003
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013298159683785731,
+                "current_error": 0.002025445935268884,
+                "error": 0.0044890733084572716,
+                "growth": 0.0024636273731883877,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "canonical-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "webgpu",
+          "impulse__capsule-button__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/10bf8f35f684f327a855ac87b9c74207189c3f01880108d149cc5bb8ed84513f.json",
+          "sha256": "f19a7b53d094bcd0d10d23dabe59064c59562026477fbe9678868a3dda6decfe"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013298159683785731,
+            "bar": 0.0006649079841892866,
+            "candidate": 0.015078207323198615,
+            "code": 0.0013298159683785731,
+            "current": 0.017541834696387003,
+            "native": 0.019567280631655887,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013298159683785731,
+          "bar": 0.0006649079841892866,
+          "candidate": 0.015078207323198615,
+          "code": 0.0013298159683785731,
+          "current": 0.017541834696387003,
+          "native": 0.019567280631655887
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.5",
+            "webgpu",
+            "impulse__capsule-button__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013678097790624688,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.021855534317129582,
+        "referenceValue": 0.006704055846139455
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013678097790624688,
+                "current_error": 0.015151478470990128,
+                "error": 0.017021889488768354,
+                "growth": 0.0018704110177782257,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "css",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/ccf42fbe12cb255f597b4770669abcb609d4367e3b5a7429a1436e9f1271b874.json",
+          "sha256": "9ce528b102d9c3c1ff6abeca0f24f51b2c5605e0051bab68b85e0151317f3bcf"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013678097790624688,
+            "bar": 0.0006839048895312344,
+            "candidate": 0.004833644828361228,
+            "code": 0.0013678097790624688,
+            "current": 0.006704055846139455,
+            "native": 0.021855534317129582,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013678097790624688,
+          "bar": 0.0006839048895312344,
+          "candidate": 0.004833644828361228,
+          "code": 0.0013678097790624688,
+          "current": 0.006704055846139455,
+          "native": 0.021855534317129582
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "css",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013045376122645086,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.021897788435237233,
+        "referenceValue": 0.005954548305291462
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013045376122645086,
+                "current_error": 0.01594324012994577,
+                "error": 0.01837847866417548,
+                "growth": 0.0024352385342297084,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "css",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/1f7678a2a3b6493b2d77728ec31c48c0c10cdc47185c1e6a4a34c034a5d96e1d.json",
+          "sha256": "9d8ca4622c703c6fb7d08dfccaa7ae6026f8dcbf40ebb6f6aa2b4cd77c07ed70"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013045376122645086,
+            "bar": 0.0006522688061322543,
+            "candidate": 0.0035193097710617544,
+            "code": 0.0013045376122645086,
+            "current": 0.005954548305291462,
+            "native": 0.021897788435237233,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013045376122645086,
+          "bar": 0.0006522688061322543,
+          "candidate": 0.0035193097710617544,
+          "code": 0.0013045376122645086,
+          "current": 0.005954548305291462,
+          "native": 0.021897788435237233
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "css",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013678097790624688,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.021855534317129582,
+        "referenceValue": 0.018187344710351067
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013678097790624688,
+                "current_error": 0.003668189606778515,
+                "error": 0.005366414275801281,
+                "growth": 0.001698224669022766,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "webgpu",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/fe30c521a83fc4d3d9ad647802f20d6887e5adb9d9c7401d0d17a8eaa8696a2d.json",
+          "sha256": "a78e0549bb5ea494dff0fcfe28080e53c84c3cf8b4d9d4c12eba9ef96f15fdcd"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013678097790624688,
+            "bar": 0.0006839048895312344,
+            "candidate": 0.0164891200413283,
+            "code": 0.0013678097790624688,
+            "current": 0.018187344710351067,
+            "native": 0.021855534317129582,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013678097790624688,
+          "bar": 0.0006839048895312344,
+          "candidate": 0.0164891200413283,
+          "code": 0.0013678097790624688,
+          "current": 0.018187344710351067,
+          "native": 0.021855534317129582
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013045376122645086,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.021897788435237233,
+        "referenceValue": 0.017765417103237872
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013045376122645086,
+                "current_error": 0.004132371331999361,
+                "error": 0.0064628064112755915,
+                "growth": 0.00233043507927623,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "webgpu",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/de2704823e71826c06b7920bbec315c5a3fa188ac62b63bd8096fd60f001fa97.json",
+          "sha256": "7f5cdaf60f59404f92bffc0f20c4e3082ff9ecac048fb8cd969b6e90c694a978"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013045376122645086,
+            "bar": 0.0006522688061322543,
+            "candidate": 0.015434982023961642,
+            "code": 0.0013045376122645086,
+            "current": 0.017765417103237872,
+            "native": 0.021897788435237233,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013045376122645086,
+          "bar": 0.0006522688061322543,
+          "candidate": 0.015434982023961642,
+          "code": 0.0013045376122645086,
+          "current": 0.017765417103237872,
+          "native": 0.021897788435237233
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013562231729409892,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.021751748112059467,
+        "referenceValue": 0.006075470571489714
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013562231729409892,
+                "current_error": 0.01567627754056975,
+                "error": 0.018014196846363604,
+                "growth": 0.002337919305793853,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "css",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/44576ce0f99e3afa17f563519ad77a82ccadb3ac5445bed9896830a19fd5ffc6.json",
+          "sha256": "47e93879fad7c45a741c94666745bb7675fcfaf3566d30c89989447028b8328a"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013562231729409892,
+            "bar": 0.0006781115864704946,
+            "candidate": 0.003737551265695864,
+            "code": 0.0013562231729409892,
+            "current": 0.006075470571489714,
+            "native": 0.021751748112059467,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013562231729409892,
+          "bar": 0.0006781115864704946,
+          "candidate": 0.003737551265695864,
+          "code": 0.0013562231729409892,
+          "current": 0.006075470571489714,
+          "native": 0.021751748112059467
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.5",
+            "css",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.001316059344611207,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.02215867579610251,
+        "referenceValue": 0.00588756379407655
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.001316059344611207,
+                "current_error": 0.01627111200202596,
+                "error": 0.01853452436204918,
+                "growth": 0.002263412360023219,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "css",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/2347595197cadc7f2b042583d2ec08d8727248e6d3d7565970658c5104138356.json",
+          "sha256": "e1cdbac9eb6e25ff4f8e584811c516388855ec8d4e8ff807e00d96e2b82754a4"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.001316059344611207,
+            "bar": 0.0006580296723056035,
+            "candidate": 0.0036241514340533314,
+            "code": 0.001316059344611207,
+            "current": 0.00588756379407655,
+            "native": 0.02215867579610251,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.001316059344611207,
+          "bar": 0.0006580296723056035,
+          "candidate": 0.0036241514340533314,
+          "code": 0.001316059344611207,
+          "current": 0.00588756379407655,
+          "native": 0.02215867579610251
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.5",
+            "css",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013562231729409892,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.021751748112059467,
+        "referenceValue": 0.018800680259931927
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013562231729409892,
+                "current_error": 0.0029510678521275403,
+                "error": 0.005272752224916955,
+                "growth": 0.002321684372789415,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "webgpu",
+          "cell-impulse-sparse-s096__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/8153f3fd6bab3102c9e96b71adfc1d26670281b3a2a512c80943e406793d1293.json",
+          "sha256": "472f19e65005749b1d7c7e434c2f028a5867238b80d06d19eff51cb83365c099"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013562231729409892,
+            "bar": 0.0006781115864704946,
+            "candidate": 0.016478995887142512,
+            "code": 0.0013562231729409892,
+            "current": 0.018800680259931927,
+            "native": 0.021751748112059467,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013562231729409892,
+          "bar": 0.0006781115864704946,
+          "candidate": 0.016478995887142512,
+          "code": 0.0013562231729409892,
+          "current": 0.018800680259931927,
+          "native": 0.021751748112059467
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.5",
+            "webgpu",
+            "cell-impulse-sparse-s096__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.001316059344611207,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.02215867579610251,
+        "referenceValue": 0.01782464173139519
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.001316059344611207,
+                "current_error": 0.00433403406470732,
+                "error": 0.006664579006712043,
+                "growth": 0.002330544942004723,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "newbed-structured-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "webgpu",
+          "cell-impulse-sparse-s160__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/896164c3e2f0dd399a04a4fc34551d20f0b44c54a93723a1509576155b36069a.json",
+          "sha256": "649f6723cf673fc83f57750bdf35f3eeff84c70ced87dd40429371ceee6b1e24"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.001316059344611207,
+            "bar": 0.0006580296723056035,
+            "candidate": 0.015494096789390467,
+            "code": 0.001316059344611207,
+            "current": 0.01782464173139519,
+            "native": 0.02215867579610251,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.001316059344611207,
+          "bar": 0.0006580296723056035,
+          "candidate": 0.015494096789390467,
+          "code": 0.001316059344611207,
+          "current": 0.01782464173139519,
+          "native": 0.02215867579610251
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.5",
+            "webgpu",
+            "cell-impulse-sparse-s160__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    },
+    {
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "prospective": {
+        "bound": {
+          "base": 0.0013625007154063743,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "native": 0.02362137426348326,
+        "referenceValue": 0.01875113646336547
+      },
+      "w51DeclaredCost": {
+        "failedComparisons": [
+          {
+            "components": [
+              {
+                "bound": 0.0013625007154063743,
+                "current_error": 0.004870237800117791,
+                "error": 0.006981391737761213,
+                "growth": 0.0021111539376434223,
+                "name": "T1-full-silhouette",
+                "status": "EXCEEDS"
+              }
+            ],
+            "rule": "canonical-T1-growth",
+            "statistic": "T1-full-silhouette"
+          }
+        ],
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "webgpu",
+          "impulse__capsule-button__rest",
+          "T1-full-silhouette"
+        ],
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/real-4/measurement/f6152cb5f5622aefc0a020771ce381702ff8d9eb343f7b13f6ac2b9d1959073a.json",
+          "sha256": "ed4d1616c6fbffbda5224b7b25c5ee340122529bd39a0a6e787f946a26dd8c93"
+        },
+        "readings": {
+          "T1-full-silhouette": {
+            "B": 0.0013625007154063743,
+            "bar": 0.0006812503577031872,
+            "candidate": 0.016639982525722047,
+            "code": 0.0013625007154063743,
+            "current": 0.01875113646336547,
+            "native": 0.02362137426348326,
+            "originalBudgetB": null,
+            "support": "full-silhouette",
+            "units": "linear-luma"
+          }
+        }
+      },
+      "w51ExposedGate": {
+        "reading": {
+          "B": 0.0013625007154063743,
+          "bar": 0.0006812503577031872,
+          "candidate": 0.016639982525722047,
+          "code": 0.0013625007154063743,
+          "current": 0.01875113646336547,
+          "native": 0.02362137426348326
+        },
+        "selector": {
+          "collection": "cells",
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.5",
+            "webgpu",
+            "impulse__capsule-button__rest",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json",
+          "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+        }
+      }
+    }
+  ],
+  "genericT1GrowthMultiplier": 2,
+  "noW51ExceptionsCarry": true,
+  "numericalEpsilon": {
+    "authority": "Prospective data descriptor, not live judge authority",
+    "function": "less_equal",
+    "operands": [
+      "growth_or_error",
+      "bound",
+      "native",
+      "reference",
+      "candidate"
+    ],
+    "source": {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+      "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+    },
+    "units": "same component units; include original subtraction operands"
+  },
+  "schema": "w52-population-scaffold-1",
+  "source": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.real.json",
+    "sha256": "7944dc555cab67198bee75e423d6e446c6e033149568c0eb59f3ff0e66eb5eab"
+  },
+  "status": "UNSEALED_DATA_SCAFFOLD_ONLY",
+  "w52Exceptions": []
+}

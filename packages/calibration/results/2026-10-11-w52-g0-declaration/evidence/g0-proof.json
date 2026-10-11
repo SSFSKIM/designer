@@ -1,0 +1,86 @@
+{
+  "earlierRenderFailure": "Reserved WGSL identifiers, corrected without arithmetic changes; original log retained.",
+  "exactGoldenSceneRasters": 13,
+  "exactRasterTestPassed": 1,
+  "freeze05Count": 911,
+  "freeze26Count": 1818,
+  "goldenScope": "The golden suite has34 tests and13 scene rasters. The separate raw-SHA witness proves all13 rasters byte-identical to pre-wave W50 pixels; no golden is regenerated.",
+  "goldenTestsPassed": 34,
+  "gpuOperatorTestsPassed": 4,
+  "logs": [
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/assembled-build.txt",
+      "sha256": "f8ed7b990bd859246b60dfdf70cbf2a520c78e8226fb7b253c0885ef640f6a68"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/assembled-lint.txt",
+      "sha256": "8f0f41c66bdc17b6f1365d4f8dc79468085a40335c6bd58d7bbdfe1908ded611"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/assembled-tests.txt",
+      "sha256": "96fc24eee86e4407021622899641d731bc9fabe4aaff305564bdf8147538d733"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/inert-render.txt",
+      "sha256": "e42ad7ba049d4c889e2433e8b4b5bc1a27a976073539b6292123a4e507b9547c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/inert-render-2.txt",
+      "sha256": "8b15d1a46fce8eb20b3542650d0cec57081425bd7d7992858899d0a3ad8ddce0"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/pre-inert-render-census.json",
+      "sha256": "13d7e564a52a55ffb84f31594cb08880aa8d1f6cc48c090d3999c0e86f97346a"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/pre-inert-render-2-census.json",
+      "sha256": "e8203e740334968be8d1b4dd11b3facd38446a44ca8ddfe2d20443e8a85cd579"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/freeze-final.txt",
+      "sha256": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/x41-final.txt",
+      "sha256": "61d1f0eccb7ceeae4aa61b096e725c88b2608447363e0d14c30e306a89cf3683"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/digests.json",
+      "sha256": "f48c1074ae8b30cbac4d7e0a00e17e2dbe7ed761f7b0ebc53f6d6156c19fd0db"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/populations-final-tests.txt",
+      "sha256": "2dd9ae1b4d0e7a57f0c803803093dd224478d32d29542b417fb8374f3e168767"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/review-closures.json",
+      "sha256": "dd84516d1bbf756d390a6bf438e847e9ddfbe093a8972ba15904f1b2c2eea502"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/precision-green.txt",
+      "sha256": "888a0c0ed615e57d32cf72be501b0c355f33b8613c81dfdaa99db33d7959487e"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/precision-red-strict.txt",
+      "sha256": "1cb35ad02a579a5cd3c1a18f098b2cddb89c125d851fc915cdba71321fc883cf"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/exact-raster.txt",
+      "sha256": "0b7b336547e80bf4fd3470df5b24dc50246fb4a540f2af3cb322b6f63225b405"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/evidence/pre-exact-raster-census.json",
+      "sha256": "ade4acbabc39a0021986fd0f6cf866dc4877b012161b687b24a37cc4f0849114"
+    }
+  ],
+  "populationTestsPassed": 15,
+  "schema": "w52-g0-proof-1",
+  "scientificFitOrGateRun": false,
+  "shippedDocumentCount": 10,
+  "stage": "G0_INERT_ONLY",
+  "unchangedDigestCount": 10,
+  "workspaceBuildExitCode": 0,
+  "workspaceLintExitCode": 0,
+  "workspaceUnitTestsPassed": 3305,
+  "workspaceUnitTestsSkipped": 4
+}

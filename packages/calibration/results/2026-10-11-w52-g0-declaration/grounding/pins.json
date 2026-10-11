@@ -1,0 +1,763 @@
+{
+  "environment": {
+    "node": "v24.18.0",
+    "numpy": "2.5.3",
+    "pillow": "12.3.0",
+    "python": "3.14.6",
+    "tsx": "4.20.6"
+  },
+  "inputs": {
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest.png": {
+      "bytes": 3511,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "ce29834491953fea0921ad0e642f6b14ca013a6221ff3a25cf2984e79b2d3b02"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest.png": {
+      "bytes": 6731,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "16de9d7e2cc4410a4145af7271bf4f993f19e2fae795dae5f8221f397b535348"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest.png": {
+      "bytes": 4730,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "1440b6f623137fcf266ffdf45e6810076da8b7db3d7e5d4fea3ae7099c34e89c"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest.png": {
+      "bytes": 2909,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "02d11df4c34bacae63f068287abd04eec8f5c59899175848114c335b071df266"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest.png": {
+      "bytes": 3678,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "421e1dbbe807595a8490e1a765d7bf973439ef85bca02a00ad7755eba0841d45"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest.png": {
+      "bytes": 6935,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "05b1e9820970fd5e1f7b90c4a78fca1ef75ea666b8976dd6b66bd5a13ad864e4"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest.png": {
+      "bytes": 4877,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "d2e6c8791d16ffa5ee45ec3e1319dd27b8ac14336c7f25043b6b3d30dc91ad35"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest.png": {
+      "bytes": 2900,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "0c2f144b9007749b08d114fdf44399fc763d4d34b60e8836e016de22152f81a1"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest.png": {
+      "bytes": 9326,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "ec2623ee5e26bf9367ce36340b71880ebdd400a7ae91bd182526b6fe684df03a"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest.png": {
+      "bytes": 17102,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "56daf125789a9c13fea539494a2125ea1bf18f09dbc22fe7bd61812d6a84408b"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest.png": {
+      "bytes": 13393,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "13d34d8ee538a2e42711b2055fa6a45897194513114958926108f9f983d0fe60"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest.png": {
+      "bytes": 7887,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "f0baedf9cc36c1501d0943d188dacfbba0a5cdbacc4b3206791df096bad7d7c2"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest.png": {
+      "bytes": 9588,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "e45885e10af25041a19a568343b06dd311ed083d44c205547e04d5a243c066d8"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest.png": {
+      "bytes": 16011,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "633efbfde7ceb7273dd61b109f43abbf6f0f9cf4801d8e5be6c01161bf6157d2"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest.png": {
+      "bytes": 12893,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "6e327f16aaca97e5b7294f3060654cfbe54d995a43353386a8b83d915b7e1a80"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest.png": {
+      "bytes": 7722,
+      "roles": [
+        "native PNG"
+      ],
+      "sha256": "6eac776aa8659609ac64f9e199537f1e7e79a9a6e1f6fd59353be09143823f2e"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/backgrounds/impulse@1x.png": {
+      "bytes": 1113,
+      "roles": [
+        "background PNG"
+      ],
+      "sha256": "a0342dd9608bae6a2493b5c30bc266cac77416ad43674f8f245e14bda14770fc"
+    },
+    "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/backgrounds/impulse@2x.png": {
+      "bytes": 3666,
+      "roles": [
+        "background PNG"
+      ],
+      "sha256": "92f8c9420ff4a382d69b0c59097f7c960cadddad1abb4c858059bb2de6a90632"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 2228,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "fd51b71c9c0c757c4ab62ce0ec60ef4140730080ca1ed67385ce5807d07030dd"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 3435,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "a8d1c7658147c27ff70d80767dcdbf00b4cd10ff4603edeef64b5df2f0e2a0af"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 3078,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "3cd3de0bcc12438aae676483dd1e475ae416b983efa93fc2b8ba88b66bba25af"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 1567,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "4c04135d3eddc75ae42ae3c912861b5e50caea5dab56d4c90b27885642c25885"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 2038,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "8e5d596a0bee3c3315f2b0cf34d41518cd789603003f650159bbd39a76253f36"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 5388,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "72a86593f582007183d908a4afe0108030af3969fabbd9bfb51370e1c055242d"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 8366,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "d713e4a673eabfd87347fc707ad391df2223e694cdffce4d4ebb12ce2a711987"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 6672,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "41e77e462188040fa24063518ace3b40b54f934a4270184be1af268d1c125d38"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 3858,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "0e2b5e58b6a1fef748d2d1c1d227c7b5fce5681ddb0c016010c49faac9a8884c"
+    },
+    "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 4611,
+      "roles": [
+        "retained canonical current byte comparison only"
+      ],
+      "sha256": "0f5255fbc6bc498ebafd8799b76c73c3f57cf6b360797a1ba23aac3e06e047d3"
+    },
+    "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/1x-dark-standard-glass05-webgpu/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 1482,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "5bbba2f5f53afd7b0a9357b3ecd17ba8564ad787117d23063df12ed0556f6cd9"
+    },
+    "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass05-webgpu/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 3498,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "2c91804cdd9498884698337b32f3f9c22a3e6225d8d3efa5abac67b264bac491"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.25-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 3435,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "a8d1c7658147c27ff70d80767dcdbf00b4cd10ff4603edeef64b5df2f0e2a0af"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.25-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 3078,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "3cd3de0bcc12438aae676483dd1e475ae416b983efa93fc2b8ba88b66bba25af"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 8366,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "d713e4a673eabfd87347fc707ad391df2223e694cdffce4d4ebb12ce2a711987"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 6672,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "41e77e462188040fa24063518ace3b40b54f934a4270184be1af268d1c125d38"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.5-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 3795,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "8d114120baa64ff67ac6897e66a3c058410bbd3e0a3c1554056acd70316b6eca"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.5-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 3070,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "25385403ace49bd3d28349363e1c02c5abc635c0aa507829fb492021be0748cc"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.5-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 8780,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "990f9db0769fbfdf755fea004fc449ff0f812dced8cc47d3589ef98c5cb31cd4"
+    },
+    "/Users/new/vitrea-w50/identity-controls-complete/0.5-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 5955,
+      "roles": [
+        "original current PNG"
+      ],
+      "sha256": "7329707e6b2edf6dd1b1b2bbca40aef61485beb2eec8fe13469bb6955818abc4"
+    },
+    "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json": {
+      "bytes": 20630,
+      "roles": [
+        "historical candidate active document"
+      ],
+      "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+    },
+    "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.dark.json": {
+      "bytes": 34206,
+      "roles": [
+        "historical candidate active document"
+      ],
+      "sha256": "3cc4ed0d9d22d71d7c289e7041bb3034b897fca1f23ddc1f012ce43194bcdd68"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/34246e86f582e5173ce6a8195a1c37e652eee176e79d1dcfee3f6cbe2d736745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 2153,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "179f6af7eb03eef59bcd516f8dc14cc6ba7f572f033746f7331bf87fbab569d0"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/34246e86f582e5173ce6a8195a1c37e652eee176e79d1dcfee3f6cbe2d736745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/report__webgpu.json": {
+      "bytes": 6510,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "e8e38f81dcd539010b71091122c4474be8329840e82c7248ed2eda43e6f1fac9"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/54337c518de8a9a65f81582ba630ce06526d339dbd30fe95fc23f554de9b4a9f/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 1595,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "91d11d15e0d82ac57ad8804be530f32874daf251fba2497d151af07da7837cd6"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/54337c518de8a9a65f81582ba630ce06526d339dbd30fe95fc23f554de9b4a9f/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest/report__webgpu.json": {
+      "bytes": 6513,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "2a3482e96b156427821ec8d78e9b9096318941d6a7fb9bc2c0228d8d194ede70"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/68f9aa34995f6f221d4fc50c92b1825f7e106f60a7390d19598dedda055fbfb9/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 4151,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "3386272fee19f89691ec559fcbe7038b7ef10e98aca5e96215a352c4f10e9fc7"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/68f9aa34995f6f221d4fc50c92b1825f7e106f60a7390d19598dedda055fbfb9/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/report__webgpu.json": {
+      "bytes": 6515,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "490d7509c46fc0bec1292c9c902960d2e3612aef57e3674dbca73f5e2ae99eb0"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6b012a2b65f1c6c32cb7427ee7dcf91431b16265bfb3127dd2ff59789c2ca23d/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 5399,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "43df711e774dba4a451eba29f513c03e82ba55343aabce9d31ea03f3671e09d7"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6b012a2b65f1c6c32cb7427ee7dcf91431b16265bfb3127dd2ff59789c2ca23d/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest/report__webgpu.json": {
+      "bytes": 6563,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "401b16ef9131d5429f73569a99debf45f0bb241231fd411dac61c9cfc0d291ff"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6c0925bf2f8d040a833dc10856abf867052bd436ff47f4a50ee2e194c0b45967/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 3907,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "440fa3cb6be655de2b2c967232ca640a780637f68a82d98c636cf86c3e41e411"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6c0925bf2f8d040a833dc10856abf867052bd436ff47f4a50ee2e194c0b45967/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest/report__webgpu.json": {
+      "bytes": 6566,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "cf5003c22c1d75ce7ea250ea7affe0d06e309233144972cef94b9a8b942c8361"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6d91aac0661c96b923251b444e728195a8688fffdc2a6481f74e9f56c7f7ea44/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 4203,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "e94e8191cbd0a341c146e67d4872771d8c71c1e1c08162d09b5bdf2c02ab2e87"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6d91aac0661c96b923251b444e728195a8688fffdc2a6481f74e9f56c7f7ea44/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest/report__webgpu.json": {
+      "bytes": 6507,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "c30a291b4bcb448b56948c8779705a776a9dd2ac7ce54cca8c8a660ef3725e6d"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/905d9ccaa4962e85cfaab991d0860fc781ab944a55d31cce648a8d7b3d95a57e/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 2095,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "4bbe6a93cd5623f686b744bad93f2de77f6b7a9ae58a930771648a7a8303d556"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/905d9ccaa4962e85cfaab991d0860fc781ab944a55d31cce648a8d7b3d95a57e/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest/report__webgpu.json": {
+      "bytes": 6502,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "78d99dd5afadd51de82d298955067481b307781458aaa36a65d622c586c55854"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/95c30ef6fd07c3eb5c7f5c734648ee206a1f70f10e1b55fe5f7e8892180f152d/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 3176,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "619f93f4599f294cb94c343c0e1753fc81417916e5efa6c5bd18608982630d38"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/95c30ef6fd07c3eb5c7f5c734648ee206a1f70f10e1b55fe5f7e8892180f152d/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/report__webgpu.json": {
+      "bytes": 6515,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "2fdd38f6aa0ffa94b278a3071441b42622d0ea07983a59f136a903a5bde822c1"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/97bc0b3621f17e239bcb78cec7af8160348e19350803b3b203688068929310d0/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 7044,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "e66ea194282186e44bf4c0f16efb2feca0f7fb1140adc080531db659c2fe3b17"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/97bc0b3621f17e239bcb78cec7af8160348e19350803b3b203688068929310d0/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/report__webgpu.json": {
+      "bytes": 6568,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "4660bb05346b76a7e78c4c2f94eca63cd19af15bc6039341d8e118e8e5947755"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/993ad1748c91a8e5933828010caa84f22c3f67d97d8adddfec236fad1e0cd1d2/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png": {
+      "bytes": 5076,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "28b01d9683faa08f67aac021aaa07f401bf6eb6eedbd92a57609aad6c85ff533"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/993ad1748c91a8e5933828010caa84f22c3f67d97d8adddfec236fad1e0cd1d2/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest/report__webgpu.json": {
+      "bytes": 6555,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "4c9828a8d3ffda3627734cdede150e1b2d1d937913a45b85d394e7cdcf681fb8"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/9e1b0f176b746c881dc97591e98cbdbfe973f8cbf71a21b106cbc154f440c521/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 9622,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "c28a03a2b69189f2d3b8feba74064f98cd1bf4c7742e1ba6de3eac418c9e87e8"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/9e1b0f176b746c881dc97591e98cbdbfe973f8cbf71a21b106cbc154f440c521/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/report__webgpu.json": {
+      "bytes": 6568,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "b8ff0c29ee268a3d0efcea3230d1982c29854469f9e328ae56bc45552f14ccce"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/a02f89996b93271a88f963d11e9da36cd6769434a8a3070432578434c7a95d7b/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 2958,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "677e24a6413c6afe74cf90cd5a73f1fa77f5e1a522c61ee6d69594d9e27b260a"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/a02f89996b93271a88f963d11e9da36cd6769434a8a3070432578434c7a95d7b/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest/report__webgpu.json": {
+      "bytes": 6507,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "6c647834143c7ada8e4e2bf1b3b771cdf2c8a2c508c6fff00cff321301e4827f"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/a545735a9d617d3e08d027bfe6b932422ce106a5b3f6002b1b7b1a6a05db74bc/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 3619,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "e3a261623f89221637f44a44972fa25e2476dd39e230030d4482e997e97d021a"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/a545735a9d617d3e08d027bfe6b932422ce106a5b3f6002b1b7b1a6a05db74bc/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest/report__webgpu.json": {
+      "bytes": 6558,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "b5d2cc7320af817150b8615f6f08ca1de0f4860a8e5e2278d167e0cae13d0b9a"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/b634ab2ed95ae6372d0936c4bc2f6e5dac429e8c0adf2479ad72312a873894f5/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png": {
+      "bytes": 10317,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "7894b07d29a35ef42cd0a0013f4e371b54d50e02aa8e0e99ed9e4802920f96fb"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/b634ab2ed95ae6372d0936c4bc2f6e5dac429e8c0adf2479ad72312a873894f5/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest/report__webgpu.json": {
+      "bytes": 6560,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "4909a16d7ff0b8fa78dc1d963458cc00c33bb0ad637aad624d25c2c65587731a"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/b9d6a8e57ded2ac2e41d63ebd450bdd9db2f3f97afc1c704b0d7ea55618bc83e/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png": {
+      "bytes": 1501,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "4297d192d330b5f7c6804d3269efe176ee89e16d27d5bb249bcbb99464846f61"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/b9d6a8e57ded2ac2e41d63ebd450bdd9db2f3f97afc1c704b0d7ea55618bc83e/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest/report__webgpu.json": {
+      "bytes": 6505,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "aa288d1767caa684a1e8798a579982f1ab3a415ec49ad22bb317959fafcff39e"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/ed1c536799d433d26c79ef0b18c080139d216172c09e1e2f009a50b0f7581a71/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png": {
+      "bytes": 6317,
+      "roles": [
+        "exposed candidate PNG"
+      ],
+      "sha256": "e724ba1c50fbf94f1147a26eb5a7049561c85e7b1829d2c675d318b33855fde4"
+    },
+    "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/ed1c536799d433d26c79ef0b18c080139d216172c09e1e2f009a50b0f7581a71/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest/report__webgpu.json": {
+      "bytes": 6560,
+      "roles": [
+        "exposed capture page metadata"
+      ],
+      "sha256": "939506b584a1101f85aca189b5066e7dbae8ba1eb3b15440003a00f844b8d585"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/0cc55540ab4878e98adacd093ba390d10c222e162004de4eab315ee0d5168ee2.json": {
+      "bytes": 1332930,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "183474f46a73c52010d7eb99ca9ea005bc9ff28e145852d83b452ec1d4956024"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/10bf8f35f684f327a855ac87b9c74207189c3f01880108d149cc5bb8ed84513f.json": {
+      "bytes": 439782,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "dcf67b28b2adeef28a538fcbabb8120ba54196cce937be860747c81b8ad7977d"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/30794edb28d555b9f17fbb48525924cec93abb4e09fd79c917606c76144c357d.json": {
+      "bytes": 102156,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "b30bb873699728cfcfbd41ce1086ab27d4a48ae8f1f0d589c1a87e3583aabb38"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/53cc929280ec15a27b9484892386ee8db7588ebb8ef9bc3d92fd19afd28a2709.json": {
+      "bytes": 91525,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "681c86792eb0ebafec30980a63eff44a005f556d1dda4499aeac19c90e7c7b85"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/570a3cee64748fad29e3a69462f4ba88d1f950f0c2c5d2ac2a638367933766d0.json": {
+      "bytes": 93337,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "738cb1d8c889d8153791bdd4cd1bf0acd777c8c6406ce9df48ac66c70f946893"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/72c71cd1de53a6ed3bcd454fa7f1dd349f6aeaa2eab5e65b0a1c024a133b9f5f.json": {
+      "bytes": 90738,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "e2b3989ec5c05637bff3aa6174f267c546dae69a5ee0d7ca472dd60c701d34e2"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/732bf18a2e3b6daac170747343b898f251afd0ba2a9b00baa5834cdcd716aec8.json": {
+      "bytes": 1334083,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "e96b2d8c94e1832146a8d7570f2a0a155208d2cb3dc3f8916aba4ef8a9ae2b9e"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/766a6e5066da0044ea2c155147e606d7ae9aad556b9414cf5c68b52e5e532256.json": {
+      "bytes": 91183,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "fe3b08aa01c0badb4fa8735ddcdf786bd50186061d4d3c2957c9c5d6eacb8564"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/800f76b771dd010ba7076376ffeb82eb6a4c3214b1bdae3334270405d2ecc7d8.json": {
+      "bytes": 92720,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "e15a3a312d89641fa4fe3df8532720ce1c5cfc6255bcd626ef2848baae879346"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/b86a356fd6a15702282c4f6729b8a54c8706d29353e4677563a14e3b88341d0c.json": {
+      "bytes": 436421,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "64e5416837f3539d5480ae671b5eba98c89bfbae2874dc8e6f49438b7cf12a86"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/d2ad1aabfe50db55f200841e6d38c5636cf7fafe4d266610ae25734840f218d8.json": {
+      "bytes": 90720,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "9698ebec2096fabee0c02cc666db1a614750bcf3a6acad6dca8c1fe70a7c7a61"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/d639fc34c9d31cf9975875d96640fdf1155b4d3aaeccd526cff97d3c369cc197.json": {
+      "bytes": 1332109,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "b5e9d82a5d95e28238253e2040d79252d5321e91dec5432c39eac951d4413cf4"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/e6143b901f33242e479df23704b88fa2331e79f9db1f411204f3aaf08fd656a3.json": {
+      "bytes": 436680,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "68625135efbb9e0959a571442888b71bda1e6096b1d5aadc70359b1e8dac04ee"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/ea512df9b75b6c376940600abbb383073729ef1816e08beba73c2ea18a7ea158.json": {
+      "bytes": 93068,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "0d1bd01ce8872c527e6a4106f6c1dc952c0065c26142d0bea00326be5bbcf4ec"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/f2a3b0a5529aa11762ccd0e0813f4aa340a1bcc74ee5d4ff954622a4aa64eab7.json": {
+      "bytes": 437971,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "e94483417a4730b93c8fc5af9864b58c6db7241480d60dd6697246ed194db895"
+    },
+    "/Users/new/vitrea-w51/live/gate/measurement/f6152cb5f5622aefc0a020771ce381702ff8d9eb343f7b13f6ac2b9d1959073a.json": {
+      "bytes": 1335319,
+      "roles": [
+        "exposed keyed measurement"
+      ],
+      "sha256": "93932b59cc0a92025848bfc8c8e82e04aa560e6119e125cbda1a07aa58b77c53"
+    },
+    "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6-complete/report.json": {
+      "bytes": 30032027,
+      "roles": [
+        "committed exposed W51 report"
+      ],
+      "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+    },
+    "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6/committed-clause-projection.json": {
+      "bytes": 150525,
+      "roles": [
+        "exposed scalar projection"
+      ],
+      "sha256": "33fa2e531faeddc87f94508ac4abb8791077de600981053d80e4699fdb4e25ba"
+    }
+  },
+  "reproduce": "/Users/new/vitrea-w49/py/bin/python -I -B /Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/grounding/attribute.py --check",
+  "schema": "w52-grounding-input-pins-1",
+  "scriptSha256": "d7c945a93ec14d415e2925d6c37466ac89da3a20394f5498b758723dd1887a4d",
+  "sourceBlobs": {
+    "apps/reference-apple/scenes.json": {
+      "bytes": 165725,
+      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8"
+    },
+    "packages/calibration/cli/measure.ts": {
+      "bytes": 30701,
+      "sha256": "e3e5a5d1896c48c129ac7e905589bcc601e42b99f280e64123cb7eca92c73842"
+    },
+    "packages/calibration/results/2026-10-08-w50-g1-fit/measurement/projection.py": {
+      "bytes": 16018,
+      "sha256": "2e942dd7d3f85025d9fb2fded6ad8a1eac896cfd4900b12e94dc56c31f0cd2f3"
+    },
+    "packages/calibration/results/2026-10-10-w51-regate/evidence/gate-dl6/committed-clause-projection.json": {
+      "bytes": 150525,
+      "sha256": "33fa2e531faeddc87f94508ac4abb8791077de600981053d80e4699fdb4e25ba"
+    },
+    "packages/calibration/src/color.ts": {
+      "bytes": 5292,
+      "sha256": "5331c4145ce59e6f069fba9e5951e39db6e6b34cb9392d3fc1f83b59933b9742"
+    },
+    "packages/calibration/src/component-region.ts": {
+      "bytes": 15017,
+      "sha256": "ca76a1cf84aefc18ac3929700c194c907c0260b0109a37d17873804175c29784"
+    },
+    "packages/calibration/src/image.ts": {
+      "bytes": 7118,
+      "sha256": "604765765ceaf9cd15ceb10963567f223a384de2001de24a7eb6f5244484cfe8"
+    },
+    "packages/calibration/src/metrics/material.ts": {
+      "bytes": 32871,
+      "sha256": "aa93d523abd8026f69b0aefa3a3254b499609783bd9a5238ba1505e935196e28"
+    },
+    "packages/calibration/src/silhouette.ts": {
+      "bytes": 27874,
+      "sha256": "586a68d734296153b5ca0dc286aa38ac032acd6e9b534ad0c504a7a402105473"
+    },
+    "packages/geometry/src/apple.ts": {
+      "bytes": 9344,
+      "sha256": "a16fbd9738835992d28eb3fbe6b9c45ee76290c645b70b3809a58e17fdf7c593"
+    },
+    "packages/geometry/src/channels.ts": {
+      "bytes": 4156,
+      "sha256": "a3ce10fc274f15f62f1222840fe7f630de7e00ea9f53c8dd74dd1bd70d2211d6"
+    },
+    "packages/geometry/src/coefficients.ts": {
+      "bytes": 10451,
+      "sha256": "c4b60fae4ab0efe0e4866a216062952037e7e04fba0abe8e812df10bc5d3a140"
+    },
+    "packages/geometry/src/concentric.ts": {
+      "bytes": 7281,
+      "sha256": "b243633246e03f62059a4670024d35d81e4cd5270d120c142bca9030acf83730"
+    },
+    "packages/geometry/src/contour.ts": {
+      "bytes": 17266,
+      "sha256": "9c2bca7c12bfca6c75e29b7bbf3ca39b54d3899e6bc30e4bcfde4b4164cbf36e"
+    },
+    "packages/geometry/src/corner.ts": {
+      "bytes": 4775,
+      "sha256": "555560a9b353c53dfef4e9199521172adf1887fc0c2ee40d938faec8971b2a54"
+    },
+    "packages/geometry/src/errors.ts": {
+      "bytes": 1071,
+      "sha256": "e18bd18b17bdf9bcf653dfdce12f99ed947ca10570de69ca09d39105a38f8d8f"
+    },
+    "packages/geometry/src/field.ts": {
+      "bytes": 16929,
+      "sha256": "6f4cb5c8604377e9cc188629f0d19ba1e6135cec274e5b87ccdd4aa3a457e08a"
+    },
+    "packages/geometry/src/index.ts": {
+      "bytes": 3572,
+      "sha256": "fbb865fdd89305b09e440ed9b87a927eb662e9c25416750d270a8af55d44a8a4"
+    },
+    "packages/geometry/src/morph.ts": {
+      "bytes": 4619,
+      "sha256": "a38ccd2b8460fdb04a74507caa10017c7db0307ecba2803a12ea7c62fc825c93"
+    },
+    "packages/geometry/src/shape.ts": {
+      "bytes": 14853,
+      "sha256": "5b9c9c385b7251402b0c13b349a1d3ac2fcd9059db06d936d06e87a22c104c6e"
+    },
+    "packages/geometry/src/union.ts": {
+      "bytes": 7151,
+      "sha256": "270466b0ff6da5865359b13611cd9d7d6a10ca1e24facd60228a1a8a22869e6b"
+    },
+    "packages/geometry/src/wgsl.ts": {
+      "bytes": 6663,
+      "sha256": "c832cb0e6d15c16974258bbbbad48d122a0ca8b3a6d9bfdd44d71937529c4390"
+    },
+    "packages/platform-web/src/host.ts": {
+      "bytes": 9570,
+      "sha256": "66d23a59046d283346b163aa19c1649431e5bc717ca68340721f0282352bfa8a"
+    },
+    "packages/policy/src/index.ts": {
+      "bytes": 3565,
+      "sha256": "54b37810603acba834a0c34bdc097adc80d0ff64ada28f1e0d10e3a31f29928a"
+    },
+    "packages/policy/src/refraction.ts": {
+      "bytes": 4656,
+      "sha256": "447945461909b1ff969f57f0ffa9999388464e2989abd945fb96c8b1a8e9cd52"
+    },
+    "packages/renderer-webgpu/src/color.ts": {
+      "bytes": 7155,
+      "sha256": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a"
+    },
+    "packages/renderer-webgpu/src/material.ts": {
+      "bytes": 333250,
+      "sha256": "740db82448789def08615d267e8b5c4275e7b9f741069f3d67e0703b41e90264"
+    },
+    "packages/renderer-webgpu/src/wgsl/optics.ts": {
+      "bytes": 106370,
+      "sha256": "247e49336cb3a7194e89e1dc1c9a8a7654dcfb3311bbc678d220c99fb503f673"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 129414,
+      "sha256": "c869fd1d93b428ffebbb381a810dc4603a9acb1bfc92622a938c424fc6a7d170"
+    }
+  },
+  "sourceRevision": "b60d63c599c3e7ca784321b14dd23c8b613ddc8a"
+}

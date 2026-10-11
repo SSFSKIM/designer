@@ -2112,10 +2112,17 @@ export interface MaterialProfile {
   readonly backdropToneBlackThin: number;
   readonly backdropToneBlackThick: number;
 
-  /** W50 DL4: encoded output ordinates at input codes 0/8/28/40, on physical spans
-   * 44/96/160. Linear in input and span, holding outer span rows. Gate zero takes
-   * the old arithmetic exactly; the fixed 64 join reads the old law at the actual
-   * span rather than interpolating row endpoints. All four leaves drop together.
+  /**
+   * W52 DL3: a scalar DC request, encoded ordinates at input codes 0/8/28/40
+   * on physical spans 44/96/160. Linear in input and span, holding outer rows;
+   * the fixed input-64 join reads the OLD law at the actual span. Strength
+   * weights the decoded request minus the actual old solved composite DC.
+   * The sampled GPU tier carries that signed linear difference after shadow
+   * and rim, with presence once and the old paint shade held. Unsampled GPU
+   * and CSS decline it; the old response, authority and alpha never change.
+   * Gate zero and input >=64 take the exact old path. All four leaves drop
+   * together at identity. These unshipped leaves replace W50's target/authority
+   * meaning; its fitted coefficients are not W52 coefficients.
    */
   readonly lowEndStrength: number;
   readonly lowEnd44: readonly [number, number, number, number];
@@ -3707,6 +3714,10 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
     whyGated: "Plain value drop: the identity executes the original path without an added sample or pass.",
     claims: "c9a §5.216; W49b DL2",
   },
+  // Historical W50 declaration bytes stay pinned. W52 DL3 reuses this identity
+  // group for a late DC request (lowEndChartTarget/lowEndDcDelta), not the old
+  // target/authority replacement below. Its prospective law is tested in
+  // w52-level-only.test.ts; no shipped endpoint ever activated the W50 law.
   {
     wave: "W50", gate: { lowEndStrength: 0 },
     gated: ["lowEnd44", "lowEnd96", "lowEnd160"],
@@ -4647,6 +4658,64 @@ export function sizeThickness(
 }
 
 /**
+ * W52's raw decoded DC request, not a replacement response or authority. Its
+ * strength is applied only by lowEndDcDelta, after subtracting the achieved old
+ * DC. The fixed join uses the actual span's evaluated thickness/far terms.
+ */
+export function lowEndChartTarget(
+  encodedInput: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  levelFar = 0,
+  span = 44,
+): number {
+  if (profile.lowEndStrength <= 0 || encodedInput >= 64 / 255) {
+    return backdropToneResponse(encodedInput, thickness, profile, levelFar);
+  }
+  const rowA = span < 96 ? profile.lowEnd44 : profile.lowEnd96;
+  const rowB = span < 96 ? profile.lowEnd96 : profile.lowEnd160;
+  const spanT = Math.min(1, Math.max(0, span < 96 ? (span - 44) / 52 : (span - 96) / 64));
+  const row = rowA.map((v, i) => v + (rowB[i]! - v) * spanT);
+  const code = Math.max(0, encodedInput * 255);
+  let target: number;
+  if (code <= 40) {
+    const xs = [0, 8, 28, 40];
+    const i = code <= 8 ? 0 : code <= 28 ? 1 : 2;
+    target = row[i]! + (row[i + 1]! - row[i]!) * (code - xs[i]!) / (xs[i + 1]! - xs[i]!);
+  } else {
+    const join = linearToSrgbChannel(backdropToneResponse(64 / 255, thickness, profile, levelFar));
+    target = row[3]! + (join - row[3]!) * (code - 40) / 24;
+  }
+  return srgbToLinearChannel(target);
+}
+
+/**
+ * W52's signed linear DC difference before presence and paint transport. Supply
+ * the OLD solve's actual clamped neutral luma and solved alpha, not its target:
+ * partial authority and clipping need not achieve that target. Transmission
+ * changes the residual gain but not this mean, since its two ends share mu.
+ * The caller owns the no-tone/policy/alpha/collapse and sampled-path stand-downs.
+ * Presence is applied once by that caller; it is not folded into solvedAlpha.
+ */
+export function lowEndDcDelta(
+  encodedInput: number,
+  linearMean: number,
+  solvedNeutralLuma: number,
+  solvedAlpha: number,
+  collapse: number,
+  thickness: number,
+  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
+  levelFar = 0,
+  span = 44,
+): number {
+  if (profile.lowEndStrength <= 0 || encodedInput >= 64 / 255) return 0;
+  const oldDC = (1 - collapse) * ((1 - solvedAlpha) * linearMean +
+    solvedAlpha * solvedNeutralLuma) + collapse * linearMean;
+  return profile.lowEndStrength *
+    (lowEndChartTarget(encodedInput, thickness, profile, levelFar, span) - oldDC);
+}
+
+/**
  * The backdrop tone response `R(encodedInput, thickness)` (W9) — the settled
  * interior level the reference shows over a backdrop whose ENCODED-space mean
  * is `encodedInput`, for a surface of the given (unfolded) thickness. See
@@ -4663,35 +4732,11 @@ export function backdropToneResponse(
   thickness: number,
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
   levelFar = 0,
+  // Kept for callers of the former W50 chart API. The OLD law reads the already
+  // evaluated thickness/far terms; only lowEndChartTarget reads physical span.
   span = 44,
 ): number {
-  if (profile.lowEndStrength > 0 && encodedInput < 64 / 255) {
-    const rowA = span < 96 ? profile.lowEnd44 : profile.lowEnd96;
-    const rowB = span < 96 ? profile.lowEnd96 : profile.lowEnd160;
-    const spanT = Math.min(1, Math.max(0, span < 96 ? (span - 44) / 52 : (span - 96) / 64));
-    const row = rowA.map((v, i) => v + (rowB[i]! - v) * spanT);
-    const code = Math.max(0, encodedInput * 255);
-    let target: number;
-    if (code <= 40) {
-      const xs = [0, 8, 28, 40];
-      const i = code <= 8 ? 0 : code <= 28 ? 1 : 2;
-      target = row[i]! + (row[i + 1]! - row[i]!) * (code - xs[i]!) / (xs[i + 1]! - xs[i]!);
-    } else {
-      const join = linearToSrgbChannel(oldBackdropToneResponse(64 / 255, thickness, profile, levelFar));
-      target = row[3]! + (join - row[3]!) * (code - 40) / 24;
-    }
-    const linear = srgbToLinearChannel(target);
-    if (profile.lowEndStrength === 1) return linear;
-    const old = oldBackdropToneResponse(encodedInput, thickness, profile, levelFar);
-    return old + (linear - old) * profile.lowEndStrength;
-  }
-  return oldBackdropToneResponse(encodedInput, thickness, profile, levelFar);
-}
-
-/** Kept separate so the live branch's fixed join cannot call itself recursively. */
-function oldBackdropToneResponse(
-  encodedInput: number, thickness: number, profile: MaterialProfile, levelFar: number,
-): number {
+  void span;
   const xs = profile.backdropToneAnchorX;
   const f = smoothstep(0, 1, thickness);
   const ys = [0, 1, 2].map(
@@ -4788,9 +4833,6 @@ export function backdropToneSolveWeight(
   const authority = smoothstep(anchor * 0.5, anchor, encodedInput);
   const black = backdropToneBlackWeight(encodedInput, profile);
   const old = black === 0 ? authority : authority + (1 - authority) * black;
-  if (profile.lowEndStrength > 0 && encodedInput < 64 / 255) {
-    return old + (1 - old) * profile.lowEndStrength;
-  }
   return old;
 }
 

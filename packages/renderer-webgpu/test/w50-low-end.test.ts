@@ -1,8 +1,8 @@
-/** W50 DL4: fixed compact support, measured rows, and a join at the actual span. */
+/** W52 DL3 reuses W50’s chart geometry, not its response/authority replacement. */
 import { describe, expect, it } from "vitest";
 import {
   DEFAULT_MATERIAL_PROFILE, backdropToneResponse, backdropToneSolveWeight,
-  materialDigestInput, withMaterialOverrides, type MaterialProfilePatch,
+  lowEndChartTarget, materialDigestInput, withMaterialOverrides, type MaterialProfilePatch,
 } from "../src/material";
 
 const old = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {
@@ -20,20 +20,24 @@ const chart: MaterialProfilePatch = {
 const decode = (v: number) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
 const encode = (v: number) => v <= 0.0031308 ? v * 12.92 : 1.055 * v ** (1 / 2.4) - 0.055;
 
-describe("W50 low-end chart", () => {
-  it("owns target and authority together; input and physical span interpolate linearly", () => {
+describe("W52 low-end DC chart", () => {
+  it("interpolates the raw DC request without changing the old response or authority", () => {
     const on = withMaterialOverrides(old, chart);
-    expect(backdropToneResponse(4 / 255, 1, on, 0, 70)).toBeCloseTo(decode(24.5 / 255), 14);
-    expect(backdropToneResponse(20 / 255, 0, on, 0, 128)).toBeCloseTo(decode(41.5 / 255), 14);
-    expect(backdropToneResponse(0, 1, on, 0, 224)).toBeCloseTo(decode(22 / 255), 14);
-    expect(backdropToneSolveWeight(0.0035, on)).toBe(1);
+    for (const x of [0, 0.002, 0.0035, 0.004, 8 / 255, 40 / 255, 63 / 255]) {
+      expect(backdropToneSolveWeight(x, on)).toBe(backdropToneSolveWeight(x, old));
+      expect(backdropToneResponse(x, 0.71, on, 0.007, 128))
+        .toBe(backdropToneResponse(x, 0.71, old, 0.007, 128));
+    }
+    expect(lowEndChartTarget(4 / 255, 1, on, 0, 70)).toBeCloseTo(decode(24.5 / 255), 14);
+    expect(lowEndChartTarget(20 / 255, 0, on, 0, 128)).toBeCloseTo(decode(41.5 / 255), 14);
+    expect(lowEndChartTarget(0, 1, on, 0, 224)).toBeCloseTo(decode(22 / 255), 14);
   });
   it("joins the old response at actual span, never an interpolated row join", () => {
     const on = withMaterialOverrides(old, chart);
     // Nonlinear thickness and far-level terms are already evaluated for this span.
     const join = encode(backdropToneResponse(64 / 255, 0.71, old, 0.007, 128));
     const t40 = 61.5 / 255;
-    expect(backdropToneResponse(52 / 255, 0.71, on, 0.007, 128))
+    expect(lowEndChartTarget(52 / 255, 0.71, on, 0.007, 128))
       .toBeCloseTo(decode((t40 + join) / 2), 14);
     for (const x of [64 / 255, 0.5, 1]) {
       expect(backdropToneResponse(x, 0.71, on, 0.007, 128))

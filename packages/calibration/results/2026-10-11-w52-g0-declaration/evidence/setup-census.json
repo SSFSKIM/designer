@@ -1,0 +1,117 @@
+{
+  "annotate": [
+    {
+      "command": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "pid": "12834",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database",
+      "pid": "12842",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process --g",
+      "pid": "12849",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "pid": "12850",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "pid": "12852",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12858",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12859",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12864",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12867",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12868",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12870",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12871",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12879",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12883",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "12932",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "pid": "13120",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utili",
+      "pid": "13121",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "13195",
+      "why": "the user's own Google Chrome (no automation flag)"
+    },
+    {
+      "command": "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.98/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) ",
+      "pid": "78012",
+      "why": "the user's own Google Chrome (no automation flag)"
+    }
+  ],
+  "passes": true,
+  "recordedAt": "2026-10-11T11:45:21.593216+00:00",
+  "refusals": [],
+  "refuse": [],
+  "x6": {
+    "facts": {
+      "NSGlassTintAmount": true,
+      "foreignProcessCountZero": false,
+      "idleAtLeast60Seconds": true,
+      "increaseContrast": true,
+      "reduceTransparency": true
+    },
+    "idleSeconds": 15020.183098166,
+    "passes": false,
+    "refusals": [
+      "foreignProcessCountZero"
+    ]
+  }
+}

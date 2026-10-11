@@ -449,7 +449,8 @@ export interface BackdropToneResponseConstants {
   readonly blackStrength?: number;
   readonly blackThin?: number;
   readonly blackThick?: number;
-  /** W50 compact chart: encoded output at input codes 0/8/28/40, gated as one unit. */
+  /** W52 requested DC chart, encoded output at input codes 0/8/28/40. The sampled GPU
+   * adds its signed difference late; CSS and unsampled DOM-GPU decline that placement. */
   readonly lowEndStrength?: number;
   readonly lowEnd44?: readonly [number, number, number, number];
   readonly lowEnd96?: readonly [number, number, number, number];
@@ -556,6 +557,72 @@ export function resolvedBackdropToneResponse(
 }
 
 /**
+ * W52-DL3 explicitly declines the late low-end correction on CSS. An rgba-layer or
+ * linearRGB-filter intercept adjustment at held slope would still be mixed in encoded space
+ * and modulated by separate shadow/contour layers. Neither carries an independent signed
+ * linear-light offset after those layers, so it is not the sampled GPU's late correction.
+ * No opacity change or extra layer substitutes for it. The retained CSS level gap is a tier
+ * residual; its existing level-growth and coherence checks remain in force.
+ */
+export const CSS_DECLINED_LOW_END_STRENGTH = 0;
+
+/**
+ * The response the CSS material actually solves, distinct from the document's requested chart.
+ * The shared DOM-GPU scalar path also uses this projection: an unsampled translucent layer
+ * cannot represent a full-composite linear delta (W52-DL3). Leave identity objects untouched.
+ */
+export function cssProjectedBackdropToneResponse(
+  requested: BackdropToneResponseConstants,
+): BackdropToneResponseConstants {
+  return (requested.lowEndStrength ?? 0) === CSS_DECLINED_LOW_END_STRENGTH ? requested
+    : { ...requested, lowEndStrength: CSS_DECLINED_LOW_END_STRENGTH };
+}
+
+/**
+ * The raw requested DC, independent of fractional chart strength. Pure request arithmetic for
+ * cross-tier validation, never the CSS runtime projection. The old curve supplies the actual-
+ * span input64 join; an inactive chart or input at/above64 returns that old curve exactly.
+ */
+export function lowEndChartTarget(
+  encodedInput: number,
+  thickness: number,
+  response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+  levelFar = 0,
+  span = 44,
+): number {
+  if ((response.lowEndStrength ?? 0) <= 0 || encodedInput >= 64 / 255) {
+    return oldBackdropToneResponseLevel(encodedInput, thickness, response, levelFar);
+  }
+  return backdropToneResponseLevel(encodedInput, thickness, { ...response, lowEndStrength: 1 },
+    levelFar, span);
+}
+
+/**
+ * W52's signed DC request before presence, mirrored for numerical cross-tier validation only.
+ * Subtract the OLD solve's achieved DC, including clamped neutral, solved alpha, collapse and
+ * the independent linear mean, not its possibly unachieved response target. A sampled GPU
+ * caller owns eligibility and the single presence fold; CSS/DOM-GPU never applies this delta.
+ */
+export function lowEndDcDelta(
+  encodedInput: number,
+  linearMean: number,
+  solvedNeutralLuma: number,
+  solvedAlpha: number,
+  collapse: number,
+  thickness: number,
+  response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
+  levelFar = 0,
+  span = 44,
+): number {
+  const strength = response.lowEndStrength ?? 0;
+  if (strength <= 0 || encodedInput >= 64 / 255) return 0;
+  const actualOldDc = (1 - collapse)
+    * ((1 - solvedAlpha) * linearMean + solvedAlpha * solvedNeutralLuma) + collapse * linearMean;
+  return strength * (lowEndChartTarget(encodedInput, thickness, response, levelFar, span)
+    - actualOldDc);
+}
+
+/**
  * The response curve `R(encodedInput, thickness)` — the settled interior level
  * the reference shows at this encoded-space backdrop mean. Mirrors the
  * renderer's `backdropToneResponse` term for term: monotone (Fritsch–Carlson)
@@ -563,6 +630,10 @@ export function resolvedBackdropToneResponse(
  * the rows. W50 replaces only the domain below input code 64 with a chart in
  * encoded output; its fixed join evaluates the old response at this surface's
  * actual thickness and far-level term, not at an interpolated row's thickness.
+ *
+ * This is a blended REQUEST utility retained for historical numerical callers, not the CSS
+ * runtime solve and not W52's achieved-DC correction. W52 uses `lowEndChartTarget` (unweighted)
+ * and `lowEndDcDelta` (strength against actual old DC). W50 coefficients cannot be transferred.
  */
 export function backdropToneResponseLevel(
   encodedInput: number,
@@ -595,7 +666,7 @@ export function backdropToneResponseLevel(
   return old + (target - old) * strength;
 }
 
-/** The pre-W50 law is kept intact for exact identity and protected-domain arithmetic. */
+/** The old W9/W36 law is the actual CSS response, also supplying the request chart's join. */
 function oldBackdropToneResponseLevel(
   encodedInput: number,
   thickness: number,
@@ -680,10 +751,10 @@ function blackBranchWeight(x: number, response: BackdropToneResponseConstants): 
  * tint's luma is shifted, achromatically, to land the post-collapse mean on
  * `R(encodedInput, thickness)`. At the default identity, authority fades below
  * the dark anchor; W36 restores it within the selected black branch's separate
- * support, leaving the old impulse/middle response intact at W50's identity.
- * The enabled W50 chart restores authority below input 64 only; neither branch
- * changes the alpha, measured-tone or policy gates. The solve always stands down
- * entirely at k → 1, where the collapse owns the surface.
+ * support. W52's chart is explicitly declined, including its old W50 authority lift:
+ * changing the neutral here would feed the correction into the later shade, shadow and rim.
+ * Every caller, including the shared DOM-GPU scalar path, gets the old solve even if the
+ * requested response names an active chart. The solve stands down entirely at k → 1.
  */
 export function toneRespondedSourceOptics(
   source: MaterialSourceOptics,
@@ -693,10 +764,12 @@ export function toneRespondedSourceOptics(
   strength: number,
   response: BackdropToneResponseConstants = BACKDROP_TONE_RESPONSE,
   levelFar = 0,
+  // Retained for existing callers; only the requested chart, not this old solve, reads span.
   span = 44,
 ): MaterialSourceOptics {
-  const solve = toneResponseSolve(source, sample, thickness, adaptation, strength, response,
-    levelFar, span);
+  void span;
+  const solve = toneResponseSolve(source, sample, thickness, adaptation, strength,
+    cssProjectedBackdropToneResponse(response), levelFar);
   if (solve === undefined) return source;
   const { preCollapse, authority, shift } = solve;
   const alpha = source.tintAlpha;
@@ -724,7 +797,7 @@ export function toneRespondedSourceOptics(
   return { ...source, tint, tintAlpha };
 }
 
-/** The unclamped solve state is shared with W50's negative-neutral identification referee. */
+/** The old response solve; neither its authority nor target reads the declined chart. */
 function toneResponseSolve(
   source: MaterialSourceOptics,
   sample: { readonly luminance: number; readonly linearLuminance: number },
@@ -733,7 +806,6 @@ function toneResponseSolve(
   strength: number,
   response: BackdropToneResponseConstants,
   levelFar: number,
-  span: number,
 ): { readonly preCollapse: number; readonly authority: number; readonly shift: number } | undefined {
   const k = clamp01(adaptation);
   const alpha = source.tintAlpha;
@@ -745,12 +817,8 @@ function toneResponseSolve(
   let authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
   const black = blackBranchWeight(encodedInput, response);
   if (black > 0) authority += (responseStrength - authority) * black;
-  const lowEnd = response.lowEndStrength ?? 0;
-  if (lowEnd > 0 && encodedInput < 64 / 255) {
-    authority += (responseStrength - authority) * lowEnd;
-  }
   if (authority <= 0) return undefined;
-  const target = backdropToneResponseLevel(encodedInput, thickness, response, levelFar, span);
+  const target = oldBackdropToneResponseLevel(encodedInput, thickness, response, levelFar);
   // The collapse's mean pull is toward L(the LINEAR mean colour), not toward
   // the encoded level — the shader's own comment, mirrored.
   const preCollapse = (target - k * sample.linearLuminance) / (1 - k);
@@ -762,11 +830,12 @@ function toneResponseSolve(
 }
 
 /**
- * W50's requested neutral channels before the gamut clamp, on the new chart's
- * eligible domain only. A negative request is a failed identification/candidate,
- * even though the drawing path's ordinary clamp still emits a valid colour.
- * The independent linear mean is retained: decoding the encoded mean would
- * erase the transmitted floor on a structured black/white source.
+ * Historical W50 requested neutral channels before the gamut clamp. This pure referee is
+ * retained for archived instrument consumers, not called by CSS or DOM-GPU drawing. It does
+ * not describe W52's late DC correction: old W50 coefficients and negative-neutral criteria
+ * are not W52 coefficients or feasibility bounds. Replay W50 evidence at its source revision.
+ * The independent linear mean is retained rather than decoding the encoded source mean.
+ * @deprecated Historical W50-only request. For W52 validation use `lowEndDcDelta`.
  */
 export function lowEndNeutralRequest(
   source: MaterialSourceOptics,
@@ -781,10 +850,24 @@ export function lowEndNeutralRequest(
   if ((response.lowEndStrength ?? 0) <= 0 || srgbEncode(clamp01(sample.luminance)) >= 64 / 255) {
     return undefined;
   }
-  const solve = toneResponseSolve(source, sample, thickness, adaptation, strength, response,
-    levelFar, span);
-  if (solve === undefined) return undefined;
-  return [source.tint[0] + solve.shift, source.tint[1] + solve.shift, source.tint[2] + solve.shift];
+  const k = clamp01(adaptation);
+  const alpha = source.tintAlpha;
+  const responseStrength = clamp01(strength) * clamp01(response.strength);
+  if (responseStrength <= 0 || alpha <= 1e-3 || k >= 0.995) return undefined;
+  const encodedInput = srgbEncode(clamp01(sample.luminance));
+  const anchor = Math.max(response.anchorX[0], 1e-4);
+  const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
+  let authority = authorityT * authorityT * (3 - 2 * authorityT) * responseStrength;
+  const black = blackBranchWeight(encodedInput, response);
+  if (black > 0) authority += (responseStrength - authority) * black;
+  authority += (responseStrength - authority) * (response.lowEndStrength ?? 0);
+  if (authority <= 0) return undefined;
+  const target = backdropToneResponseLevel(encodedInput, thickness, response, levelFar, span);
+  const preCollapse = (target - k * sample.linearLuminance) / (1 - k);
+  const tintLuma = 0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
+  const nominal = (1 - alpha) * sample.linearLuminance + alpha * tintLuma;
+  const shift = ((preCollapse - nominal) / alpha) * authority * clamp01(strength);
+  return [source.tint[0] + shift, source.tint[1] + shift, source.tint[2] + shift];
 }
 
 /** The adaptation constants under a profile patch, by the renderer's merge rule. */
@@ -4655,7 +4738,10 @@ export interface MaterialAtBackdrop {
  * measured mean while retaining the profile's transmission. Paint shades at the
  * resulting level, and the rim's amplitude reads that level before paint. The
  * contour geometry still owns the inner shadow and the rim's shape; this function
- * states their scalar input rather than pretending a group has one contour.
+ * states their scalar input rather than pretending a group has one contour. W52's low-end
+ * chart is declined here on BOTH CSS and unsampled DOM-GPU: this nominal translucent layer
+ * cannot carry a signed full-composite delta after shadow/rim. All old appearance inputs stay
+ * unchanged even for an active requested chart; pure target helpers report the request only.
  *
  * The outer shadow has its own black occlusion and a lift of the backdrop's
  * light. A DOM group can state that lift only at its measured tone, not at every
@@ -4705,7 +4791,7 @@ export function materialAtBackdrop(
   const responded = tone === undefined ? occluded : toneRespondedSourceOptics(
     occluded, tone, thickness, adaptation,
     (strength >= 0.999 ? 1 : 0) * clamp01(toneConstants.max),
-    resolvedBackdropToneResponse(profile),
+    cssProjectedBackdropToneResponse(resolvedBackdropToneResponse(profile)),
     sizeToneLevelFar(span, size, devicePixelRatio,
       size.refractionScale[accessibilityRefractionCap(policy)]),
     span,

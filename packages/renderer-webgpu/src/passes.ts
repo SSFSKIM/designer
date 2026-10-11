@@ -1054,7 +1054,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[153] = args.heavySecondFarEnabled ? 1 : 0;
       d[154] = 0;
       d[155] = 0;
-      // W50 appends its own gate and three rows; no prior uniform lane moves.
+      // W52 reuses W50’s gate and three rows for a DC request; no uniform lane moves.
       d[156] = args.lowEndStrength;
       d[157] = 0; d[158] = 0; d[159] = 0;
       d.set(args.lowEnd44, 160);

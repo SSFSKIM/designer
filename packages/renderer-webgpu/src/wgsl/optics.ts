@@ -275,7 +275,7 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// W49b D: independent transmission top in CSS px (x), padding (yzw). Zero takes the old
   /// scatter farS expression exactly. Nonzero anchors were resolved before DPR interpolation.
   transmissionSpan : vec4f,
-  // W50: gate and encoded ordinates at input codes 0/8/28/40, by physical span.
+  // W52 reuses W50 lanes: DC-request gate and encoded 0/8/28/40 ordinates, by span.
   lowEnd : vec4f,
   lowEnd44 : vec4f,
   lowEnd96 : vec4f,
@@ -436,7 +436,8 @@ fn tone_response(x : f32, sizeK : f32, levelFar : f32) -> f32 {
        + levelFar;
 }
 
-// Compact chart, called only below input 64 and inside the existing solve gate.
+// W52 raw DC request, called below input 64 under the old solve stand-downs.
+// It never changes the response/authority used to solve the OLD material.
 // The join reads the old law at this pixel's thickness and far-level offset.
 fn low_end_response(x : f32, span : f32, sizeK : f32, levelFar : f32) -> f32 {
   var row = mix(ou.lowEnd44, ou.lowEnd96, vec4f(clamp((span - 44.0) / 52.0, 0.0, 1.0)));
@@ -456,6 +457,15 @@ fn low_end_response(x : f32, span : f32, sizeK : f32, levelFar : f32) -> f32 {
     ordinate = mix(row.w, join, (code - 40.0) / 24.0);
   }
   return srgb_decode(ordinate);
+}
+
+// Achieved OLD DC, not the old response target. The caller supplies the clamped
+// neutral/solved alpha under the old stand-downs and applies presence once.
+fn low_end_dc_delta(chartDC : f32, linearMean : f32, solvedLuma : f32,
+    solvedAlpha : f32, collapse : f32, strength : f32) -> f32 {
+  let oldDC = (1.0 - collapse) *
+    ((1.0 - solvedAlpha) * linearMean + solvedAlpha * solvedLuma) + collapse * linearMean;
+  return strength * (chartDC - oldDC);
 }
 
 /// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
@@ -1320,6 +1330,7 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   var solvedNeutral = neutral;
   var solvedAlpha = sizedAlpha;
+  var lowEndDelta = vec3f(0.0);
   if (toneStrength > 0.0 && ou.toneRowThin.w > 0.0 &&
       sizedAlpha > 1e-3 && toneAdapt < 0.995) {
     let encodedInput = srgb_encode(toneColour.w);
@@ -1334,18 +1345,11 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
         (1.0 - smoothstep(0.0, 0.003, encodedInput));
       authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), blackWeight);
     }
-    let lowEndOn = ou.lowEnd.x > 0.0 && encodedInput < 64.0 / 255.0;
-    if (lowEndOn) {
-      authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), ou.lowEnd.x);
-    }
     if (authority > 0.0) {
       var response = tone_response(encodedInput, sizeK, toneLevelFar);
       if (blackWeight > 0.0) {
         let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
         response = mix(response, mix(ou.toneBlack.y, ou.toneBlack.z, f), blackWeight);
-      }
-      if (lowEndOn) {
-        response = mix(response, low_end_response(encodedInput, span, sizeK, toneLevelFar), ou.lowEnd.x);
       }
       // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
       // mean, which toneAnchor.w carries — not toward the encoded level.
@@ -1374,6 +1378,17 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
         );
         solvedAlpha = mix(sizedAlpha, alphaTarget, authority * toneStrength);
       }
+    }
+    // W52 DL3: request a DC shift from the ACTUAL old composite, including the
+    // old authority and both clamps. Collapse transmission has mean mu too.
+    // Carry the difference around all old appearance inputs, with presence once.
+    // Unsampled GPU (DOM proxy included) deliberately declines: a translucent
+    // layer cannot carry a full-composite linear offset. This is a tier residual.
+    if (ou.flags.x > 0.5 && ou.lowEnd.x > 0.0 && encodedInput < 64.0 / 255.0) {
+      let solvedLuma = dot(solvedNeutral, vec3f(0.2126, 0.7152, 0.0722));
+      let chartDC = low_end_response(encodedInput, span, sizeK, toneLevelFar);
+      lowEndDelta = vec3f(
+        low_end_dc_delta(chartDC, toneLinearMean, solvedLuma, solvedAlpha, toneAdapt, ou.lowEnd.x) * mat);
     }
   }
 
@@ -1642,7 +1657,16 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     let encodedMaterial = linear_to_srgb(clamp(colour, vec3f(0.0), vec3f(1.0)));
     let encodedLayer = linear_to_srgb(layer);
     if (ou.flags.x > 0.5) {
-      colour = srgb_to_linear(mix(encodedMaterial, encodedLayer, vec3f(s)));
+      let paintedOld = srgb_to_linear(mix(encodedMaterial, encodedLayer, vec3f(s)));
+      if (any(lowEndDelta != vec3f(0.0))) {
+        // Transport only the DC residual through the existing encoded blend.
+        // Hold OLD shade/seed fixed: no corrected-level appearance feedback.
+        // Partial paint and gamut are a residual, not the untinted gain theorem.
+        let correctedEncoded = linear_to_srgb(clamp(colour + lowEndDelta, vec3f(0.0), vec3f(1.0)));
+        lowEndDelta = srgb_to_linear(mix(correctedEncoded, encodedLayer, vec3f(s))) - paintedOld;
+        if (s >= 1.0) { lowEndDelta = vec3f(0.0); }
+      }
+      colour = paintedOld;
     } else {
       // The opaque layer at the author's opacity over the material's own layer,
       // premultiplied: the fold 'tintedCssOptics' makes into one rgba.
@@ -1821,6 +1845,12 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     colour = min((colour * bodyAlpha + rimLight) / max(carried, 1e-6), vec3f(1.0));
     bodyAlpha = carried;
   }
+
+  // Late LINEAR addition: old shadow and rim above read the uncorrected body.
+  // At gate 0 / input >=64 no arithmetic is added to the old output path.
+  // Exact residual preservation is untinted, fixed-mean, full-coverage and
+  // unclipped only; captured/quantised T1 is decided by the declared referees.
+  if (any(lowEndDelta != vec3f(0.0))) { colour = colour + lowEndDelta; }
 
   // The material over its own shadow over the page, in one premultiplied vector:
   // the colour is the surface's, weighted by its coverage and by however much of

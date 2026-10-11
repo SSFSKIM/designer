@@ -1,4 +1,4 @@
-/** W50's compact response is one target/authority law; these are synthetic, not fitted rows. */
+/** Synthetic chart requests, historical W50 referee and W52's explicit runtime decline. */
 import type { ResolvedMaterialPolicy } from "@vitreajs/vitrea";
 import { describe, expect, it } from "vitest";
 import {
@@ -46,7 +46,38 @@ const tone = (code: number) => {
 const composite = (result: MaterialSourceOptics, linear: number): number =>
   (1 - result.tintAlpha) * linear + result.tintAlpha * result.tint[0];
 
-describe("W50 CSS low-end response", () => {
+describe("low-end request arithmetic and CSS decline", () => {
+  it("declines the active W52 chart without moving CSS or DOM-GPU source, level, shade or rim", () => {
+    const profile: RendererMaterialProfile = {
+      ...patch,
+      optics: { regular: { tint: source.tint, tintAlpha: source.tintAlpha } },
+      backdropToneSizeBias: 1,
+      backdropToneLow: 0,
+      backdropToneHigh: 0.001,
+      sizeOcclusionGain: 0,
+    };
+    const off = { ...profile, lowEndStrength: 0 };
+    for (const gate of [0.4, 1]) {
+      const on = { ...profile, lowEndStrength: gate };
+      for (const span of [32, 44, 70, 96, 128, 160, 224]) {
+        for (const code of [0, 0.7, 4, 8, 28, 40, 52, 64, 69, 255]) {
+          const sample = tone(code);
+          expect(toneRespondedSourceOptics(source, sample, 0.4, 0.2, 1,
+            resolvedBackdropToneResponse(on), 0.02, span), `source gate ${gate} code ${code}`)
+            .toEqual(toneRespondedSourceOptics(source, sample, 0.4, 0.2, 1,
+              resolvedBackdropToneResponse(off), 0.02, span));
+          for (const dpr of [1, 2]) {
+            for (const tintStrength of [0, 0.5, 1]) {
+              // The complete scalar output includes responded/adapted sources, shade and rim.
+              expect(materialAtBackdrop(on, "regular", sample, span, policy, dpr, tintStrength))
+                .toEqual(materialAtBackdrop(off, "regular", sample, span, policy, dpr, tintStrength));
+            }
+          }
+        }
+      }
+    }
+  });
+
   it("interpolates encoded output in input and span, holding only the measured outer rows", () => {
     const response = resolvedBackdropToneResponse(patch);
     // Expected codes are hand-derived from the two linear axes, before decoding the target.
@@ -83,37 +114,23 @@ describe("W50 CSS low-end response", () => {
     }
   });
 
-  it("gives the enabled solve full low-end authority without changing the protected old domain", () => {
-    const on = resolvedBackdropToneResponse(patch);
-    const off = resolvedBackdropToneResponse({ ...patch, lowEndStrength: 0 });
-    for (const [code, output] of [[0, 20], [0.25, 20.25], [0.8, 20.8], [1, 21],
-      [4, 24], [8, 28], [18, 39], [28, 50], [40, 64]]) {
-      const sample = tone(code!);
-      const solved = toneRespondedSourceOptics(source, sample, 0, 0, 1, on, 0, 44);
-      expect(encode(composite(solved, sample.linearLuminance)) * 255,
-        `input ${code}`).toBeCloseTo(output!, 10);
-    }
-    for (const code of [64, 69, 128, 255]) {
-      expect(toneRespondedSourceOptics(source, tone(code), 0.7, 0, 1, on, 0.01, 128))
-        .toEqual(toneRespondedSourceOptics(source, tone(code), 0.7, 0, 1, off, 0.01, 128));
-    }
-  });
-
-  it("blends target and authority independently for fractional chart strength", () => {
+  it("retains historical blended-request arithmetic without lifting the actual old authority", () => {
     const on = resolvedBackdropToneResponse({ ...patch, lowEndStrength: 0.4 });
     const off = resolvedBackdropToneResponse({ ...patch, lowEndStrength: 0 });
     const encoded = 0.0035;
     const sample = { luminance: decode(encoded), linearLuminance: decode(encoded) };
     const oldTarget = backdropToneResponseLevel(encoded, 0, off);
     const chartTarget = decode((20 + encoded * 255) / 255);
-    const target = oldTarget + (chartTarget - oldTarget) * 0.4;
+    expect(backdropToneResponseLevel(encoded, 0, on))
+      .toBeCloseTo(oldTarget + (chartTarget - oldTarget) * 0.4, 14);
+    // Old authority = smoothstep(0.75); the historical request is not the runtime target.
     const oldAuthority = 0.75 ** 2 * (3 - 2 * 0.75);
-    const authority = oldAuthority + (1 - oldAuthority) * 0.4;
-    const nominal = composite(source, sample.linearLuminance);
-    const expected = nominal + (target - nominal) * authority;
-    expect(backdropToneResponseLevel(encoded, 0, on)).toBeCloseTo(target, 14);
-    const solved = toneRespondedSourceOptics(source, sample, 0, 0, 1, on);
-    expect(composite(solved, sample.linearLuminance)).toBeCloseTo(expected, 14);
+    // Start above the target so the old one-sided brightward alpha lift is not involved.
+    const inputSource = { ...source, tint: [0.2, 0.2, 0.2] as const };
+    const nominal = composite(inputSource, sample.linearLuminance);
+    const solved = toneRespondedSourceOptics(inputSource, sample, 0, 0, 1, on);
+    expect(composite(solved, sample.linearLuminance))
+      .toBeCloseTo(nominal + (oldTarget - nominal) * oldAuthority, 14);
   });
 
   it("leaves gate-zero rows unread and preserves old response and solve arithmetic exactly", () => {
@@ -167,21 +184,19 @@ describe("W50 CSS low-end response", () => {
       { ...response, strength: 0.6 });
     const nominal = composite(source, 0);
     expect(composite(half, 0)).toBeCloseTo(
-      nominal + (decode(20 / 255) - nominal) * 0.6 * 0.5 * 0.5, 14,
+      nominal + (0.02 - nominal) * 0.6 * 0.5 * 0.5, 14,
     );
   });
 
-  it("referees cumulative drawdown on the composed uniform response, not merely ordered rows", () => {
+  it("detects drawdown in the requested chart's actual-span join, not merely ordered rows", () => {
     const response = resolvedBackdropToneResponse(patch);
     const size = sourceSize(patch);
     let worstDrawdown = 0;
     for (let span = 32; span <= 224; span++) {
       let runningMax = -Infinity;
       for (let step = 0; step <= 64 * 64; step++) {
-        const sample = tone(step / 64);
-        const solved = toneRespondedSourceOptics(source, sample, sizeThickness(span, size),
-          0, 1, response, 0, span);
-        const output = encode(composite(solved, sample.linearLuminance)) * 255;
+        const output = encode(backdropToneResponseLevel(step / (64 * 255),
+          sizeThickness(span, size), response, 0, span)) * 255;
         worstDrawdown = Math.max(worstDrawdown, runningMax - output);
         runningMax = Math.max(runningMax, output);
       }
@@ -196,16 +211,14 @@ describe("W50 CSS low-end response", () => {
     let runningMax = -Infinity;
     let drawdown = 0;
     for (let step = 0; step <= 64 * 64; step++) {
-      const sample = tone(step / 64);
-      const solved = toneRespondedSourceOptics(source, sample, 0, 0, 1, bad);
-      const output = encode(composite(solved, sample.linearLuminance)) * 255;
+      const output = encode(backdropToneResponseLevel(step / (64 * 255), 0, bad)) * 255;
       drawdown = Math.max(drawdown, runningMax - output);
       runningMax = Math.max(runningMax, output);
     }
     expect(drawdown).toBeGreaterThan(1);
   }, 15_000);
 
-  it("reports the actual pre-clamp neutral request and preserves the distinct linear mean", () => {
+  it("retains W50's historical pre-clamp referee without feeding it into the W52 runtime", () => {
     const response = resolvedBackdropToneResponse(patch);
     const structured = { luminance: decode(4 / 255), linearLuminance: 0.1 };
     const requested = lowEndNeutralRequest(source, structured, 0, 0, 1, response);
@@ -215,7 +228,9 @@ describe("W50 CSS low-end response", () => {
       expect.closeTo(expected, 14)]);
     expect(requested!.every((channel) => channel < 0)).toBe(true);
     const result = toneRespondedSourceOptics(source, structured, 0, 0, 1, response);
-    expect(result.tint).toEqual([0, 0, 0]);
+    expect(result).toEqual(toneRespondedSourceOptics(source, structured, 0, 0, 1,
+      resolvedBackdropToneResponse({ ...patch, lowEndStrength: 0 })));
+    expect(result.tint[0]).toBeGreaterThan(0);
     expect(lowEndNeutralRequest(source, tone(4), 0, 0, 1, response)![0]).toBeGreaterThan(0);
     for (const [alpha, k, strength] of [[0.001, 0, 1], [0.8, 0.995, 1], [0.8, 1, 1],
       [0.8, 0, 0]]) {
@@ -229,7 +244,7 @@ describe("W50 CSS low-end response", () => {
     expect(lowEndNeutralRequest(source, tone(64), 0, 0, 1, response)).toBeUndefined();
   });
 
-  it("passes the actual surface span and preserves unknown-tone and policy stand-downs", () => {
+  it("declines at every surface span, including unknown tone and policy stand-downs", () => {
     const profile: RendererMaterialProfile = {
       ...patch,
       optics: { regular: { tint: source.tint, tintAlpha: source.tintAlpha } },
@@ -238,12 +253,12 @@ describe("W50 CSS low-end response", () => {
       backdropToneHigh: 0.001,
       sizeOcclusionGain: 0,
     };
-    for (const [span, code] of [[44, 20], [70, 22], [96, 24], [128, 26], [160, 28], [224, 28]]) {
-      const result = materialAtBackdrop(profile, "regular", tone(0), span!, policy);
-      expect(result.adaptation).toBe(0);
-      expect(encode(result.level) * 255, `span ${span}`).toBeCloseTo(code!, 10);
-    }
     const off = { ...profile, lowEndStrength: 0 };
+    for (const span of [44, 70, 96, 128, 160, 224]) {
+      const result = materialAtBackdrop(profile, "regular", tone(0), span, policy);
+      expect(result.adaptation).toBe(0);
+      expect(result).toEqual(materialAtBackdrop(off, "regular", tone(0), span, policy));
+    }
     expect(materialAtBackdrop(profile, "regular", undefined, 160, policy))
       .toEqual(materialAtBackdrop(off, "regular", undefined, 160, policy));
     for (const folded of [

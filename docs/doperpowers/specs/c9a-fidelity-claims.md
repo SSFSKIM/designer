@@ -50677,3 +50677,112 @@ low-pass correction as a user decision, with this gate now exposed evidence and 
 unread 634 and unspent exposure preserved. This is not authority to fit, capture, read protected
 files or retry W51. Comparator precision, occupied-cap design, the blue residual and the remaining
 verification-CLI P3 are logged in `tech-debt-tracker.md`.
+
+## 5.220 W52 G0: identify the rim coupling and declare a late DC correction, inert (2026-10-11)
+
+**G0 only; no fit, scientific gate or exposure has run.** Charter
+`2026-10-11-w52-level-only.md`, W52-DL1–DL3 and clarifications. Artifacts below are relative to
+`packages/calibration/results/2026-10-11-w52-g0-declaration/`. Every shipped document remains
+unchanged and its low-end strength is zero. This is a prospective replacement of the unshipped
+W50 operator's meaning, not a retrospective reinterpretation of W50/W51's recorded candidate.
+
+### 1. The chart already moved a mean; the level-dependent rim coupled it to T1
+
+W50 does not apply a nonlinear chart to each sampled impulse pixel. It reads the existing
+source or silhouette mean and changes the W9 solved neutral. On the active, untinted neutral
+impulse cells, the old body is an affine `C = G B + Q`: changing the neutral moves Q while the
+backdrop gain G stays fixed. The later inner shadow multiplies that change spatially, and the
+rim's positive level gain (0.44 on these active dark endpoints) reads the changed material.
+Thus the bulk level shift becomes approximately `delta * shadowKeep * (1 + 0.44 * rimField)`.
+
+`grounding/attribute.py` executes a float64 source oracle pinned to immutable W51 base
+`b60d63c599c3e7ca784321b14dd23c8b613ddc8a`, not the newly changed runtime. It authenticates the
+exposed W51 report, its exact per-cell envelopes, current/native/candidate PNGs and metadata.
+At dark0.25, the compact `numericIdentity.captureSha256` is a frozen-reference-record digest;
+the original-capture pin, not that record digest, authenticates the PNG. There is no remaining
+PNG discrepancy. No W50 partial-gate file or exposure payload was opened.
+
+The source-predicted correction reproduces all sixteen impulse-rest T1 change directions. On
+the twelve cells that lose fidelity (0.25 ml/lg and all four 0.5 shapes at both scales), it
+accounts for 86.97–113.35% of the observed decrease; the largest remaining standard-deviation
+residual is 0.000320987. The forty-eight native/current/candidate scalar replays agree with the
+recorded operands within 4.90e-15. At 0.25/1x/lg, current T1 0.017550454 becomes 0.015737587;
+the source predicts 0.015628825. DC alone predicts 0.017923812, shadow alone 0.017694779 and rim
+alone 0.015639442: the rim is the main coupling, not an independently identified new blur law.
+The 0.25/1x/sm's small change is overpredicted (216%); it is recorded, not claimed closed.
+
+The native silhouette is not an eroded bulk mask. Native black body code32 is about 0.01444
+linear, below the 0.02 luminance-difference threshold. For 0.25/1x/lg only 192 of 1,082 selected
+pixels are more than8 CSS px inward; for ml it is48 of772. The script evaluates the actual
+chroma arm (which adds zero pixels here), not assumed perfect neutrality. A fixed bulk transfer
+can therefore coexist with a large rim-driven change in this full-silhouette statistic. The
+source geometry, finite-difference normals and inversion of quantized current pixels make this
+an approximate attribution, not a byte-exact GPU replay. Independent review cleared the numeric
+artifacts with these limitations retained.
+
+### 2. W52 changes placement, not the number of fitted leaves
+
+W52-DL3 reuses `lowEndStrength` and the44/96/160 chart rows. The old response, authority,
+clamped neutral, solved alpha, collapse, scatter and appearance inputs stay old. The new request
+is `delta = strength * (chartTarget - actualOldDC)`, using the achieved old composite rather
+than the old response target alone. Add its presence-folded difference in linear light after
+shadow and rim, before output encoding and coverage. No blur, sampling argument, uniform lane
+or leaf is added. **W50's fitted chart values are not W52 coefficients.**
+
+For an untinted, full-coverage, unclipped surface at fixed mean/span, the added scalar is constant,
+so pairwise linear differences and the old residual gain remain unchanged. This is not a promise
+about quantized T1, antialiasing, clipping, merged-surface argument variation or author paint.
+Paint transports the difference through the existing encoded blend at the OLD shade; full paint
+suppresses it. Unsampled WebGPU, including DOM proxies, stands down rather than treating a
+translucent layer color as an opaque composite. That sampling-path gap remains explicit.
+
+CSS declines the late placement: its old source/level/shade/rim remain, even when a future
+selected document requests a nonzero chart. An rgba-layer or filter-intercept approximation
+cannot reproduce a signed linear addition after its separately composed shadow/rim. No opacity
+workaround is substituted. `css-residual/current-gap.json` reduces only authenticated CURRENT
+operands from W51's exposed report. Across both scales, CSS retains these maximum absolute errors
+in encoded codes (inactive / active):
+
+| Family | Glass0.25 | Glass0.5 |
+| --- | --- | --- |
+| Uniform0–40 | 21 /21 | 20 /21 |
+| Sparse-impulse far body | 34 /21.116910 | 34 /21.043473 |
+| Canonical thick-impulse far body | 9 /19.014692 | 21 /18.098648 |
+
+These are existing measured gaps, not new W52 renders or an absolute CSS closure claim. CSS
+level-growth and its existing coherence scope remain gated; macOS27's coherence counterfactual
+is not silently promoted into a new numeric bound.
+
+### 3. Prospective rules, proof and remaining work
+
+The declared populations preserve fit840/1,856 keys, gate1,341/2,553 and exposure322/974. Sixteen
+canonical impulse-rest referees add twelve physical cells and22 keys at the fit, making
+852/1,878; all sixteen are explicitly non-blind at the gate. The real rehearsal remains840.
+Generic primary T1 growth is2 B; the eighteen W51 texture-cost keys have the stricter B stop.
+Twenty own-history comparisons retain their published witnesses; fifteen occupied caps use
+that cell's current-generation reading prospectively with B headroom, never a global rebaseline.
+No W51 exception is carried as permission. The76 original full-gate aggregate definitions remain
+decisive at G2; G3 additionally reads the complete union's80 groups. Owner/six-target timing holds.
+
+The per-cell comparison convention is64 binary64 ulps at the largest source operand, scale
+floor1 in the component's units. It is separate from B and the scientific one-code log
+regularizer. M1/M2/L1 floating caps use a prospective source adapter; named lists, baselines and
+bounds stay fixed. X75 keeps its1e-9 allowance. Integers, integrity, support selectors,
+categorical directions and aggregate laws keep their original semantics.
+
+The assembled workspace build/lint/unit chain passes (3,305 tests; four source-declared skips).
+All ten document bytes and digests remain unchanged; the34 golden tests and four active-operator
+GPU probes pass, and the1,818/911 immutable witnesses remain intact. The suite has thirteen
+scene rasters, not34 image files: a separate raw-SHA replay proves all thirteen byte-identical
+to W50's pre-wave raster witness, beyond the ordinary screenshot suite's tolerance. The first GPU attempt found
+a reserved WGSL identifier and failed compilation; its log is preserved and the corrected repeat
+passes. That was an implementation defect, not a material delta. Independent runtime-high and
+charter/numeric/data reviews are recorded in `evidence/review-closures.json`.
+
+The G0 declaration is sealed only after the assembled source/proof pins are final. G1 still
+must initialize and render-fit new coefficients, build and rehearse the candidate-bound
+one-root instrument and its dormant exposure/owner path, obtain reviewer-high clearance, and
+freeze one point. G2 is a fresh single gate with an immediate coordinator handoff. The real
+exposure contract cannot exist before that ruling; no post-marker source mutation or successor
+capture adapter is admitted. No fidelity improvement, new default, release or publication is
+claimed by this inert milestone.
