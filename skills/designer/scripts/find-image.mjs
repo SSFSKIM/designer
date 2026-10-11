@@ -234,15 +234,19 @@ export async function search(query, { n = 6, orientation = null, source = "auto"
 
 // The credit, as HTML: beside the photo in a figcaption, or gathered into one credits line per
 // page that names every photographer — either placement satisfies the sources' terms.
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
+}
 export function creditHtml(c) {
-  if (c.source === "unsplash") return `Photo by <a href="${c.creatorUrl}">${c.creator}</a> on <a href="https://unsplash.com/${UTM}">Unsplash</a>`;
-  if (c.creator && c.creatorUrl) return `<a href="${c.page || c.creatorUrl}">${c.alt || "Photo"}</a> by <a href="${c.creatorUrl}">${c.creator}</a>, ${c.license}`;
-  return c.credit || "";
+  if (c.source === "unsplash") return `Photo by <a href="${escapeHtml(c.creatorUrl)}">${escapeHtml(c.creator)}</a> on <a href="https://unsplash.com/${escapeHtml(UTM)}">Unsplash</a>`;
+  if (c.creator && c.creatorUrl) return `<a href="${escapeHtml(c.page || c.creatorUrl)}">${escapeHtml(c.alt || "Photo")}</a> by <a href="${escapeHtml(c.creatorUrl)}">${escapeHtml(c.creator)}</a>, ${escapeHtml(c.license)}`;
+  // Provider attribution is source text, not trusted markup.
+  return escapeHtml(c.credit || "");
 }
 
 export function snippet(c) {
-  const alt = (c.alt || "").replace(/"/g, "&quot;");
-  return `<figure>\n  <img src="${c.url}" alt="${alt}" width="${c.width}" height="${c.height}" loading="lazy" style="background:${c.color || "#e5e5e5"}">\n  <figcaption>${creditHtml(c)}</figcaption>\n</figure>`;
+  const alt = escapeHtml(c.alt || "");
+  return `<figure>\n  <img src="${escapeHtml(c.url)}" alt="${alt}" width="${escapeHtml(c.width)}" height="${escapeHtml(c.height)}" loading="lazy" style="background:${escapeHtml(c.color || "#e5e5e5")}">\n  <figcaption>${creditHtml(c)}</figcaption>\n</figure>`;
 }
 
 export async function pick(id, { key = unsplashKey(), width = 1600 } = {}) {
