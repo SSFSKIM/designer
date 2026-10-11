@@ -1,0 +1,54 @@
+{
+  "boundary": "G0 source/design/proof reviews only. No fit, final execution root, scientific gate or exposure clearance.",
+  "numericGrounding": {
+    "agentId": "ac85d30ce9877ca12",
+    "commit": "541d30f85",
+    "finalVerdict": "correct",
+    "remainingMaterialFindings": [],
+    "reviewer": "doperpowers:reviewer-medium"
+  },
+  "ownerPrecision": {
+    "agentId": "a690c94e2fe337854",
+    "commit": "4ff4aba581",
+    "finalVerdict": "correct",
+    "remainingMaterialFindings": [],
+    "reviewer": "doperpowers:reviewer-medium"
+  },
+  "populationData": {
+    "agentId": "ab9b6a9e3ec99c258",
+    "commits": [
+      "2339d8918",
+      "7d8eccac1"
+    ],
+    "finalVerdict": "correct",
+    "limitation": "Later explicit pre-seal rulings-pin refresh is separately witnessed and checked.",
+    "remainingMaterialFindings": [],
+    "reviewer": "doperpowers:reviewer-medium"
+  },
+  "runtime": {
+    "agentId": "a6477e1d38273ad46",
+    "finalVerdict": "correct",
+    "fix": "cfdf60edd + 250440792",
+    "initialLimitation": "Source semantics only; live probes subsequently found reserved WGSL target identifiers.",
+    "range": "b60d63c599..8e0e31e4e plus cfdf60edd and 250440792",
+    "remainingMaterialFindings": [],
+    "reviewer": "doperpowers:reviewer-high",
+    "verifiedRenderLog": "inert-render-2.txt"
+  },
+  "scalarPrecision": {
+    "agentId": "acaf73e0fae56eb47",
+    "commit": "c519696e2",
+    "finalVerdict": "correct",
+    "remainingMaterialFindings": [],
+    "reviewer": "doperpowers:reviewer-medium"
+  },
+  "schema": "w52-g0-review-closures-1",
+  "scientificCharter": {
+    "agentId": "a7505a2eec17752f0",
+    "finalVerdict": "approve",
+    "fix": "cfdf60edd",
+    "initialFinding": "P1: exposure/owner wiring deferred until after the frozen gate",
+    "remainingMaterialFindings": [],
+    "reviewer": "doperpowers:adversarial-reviewer"
+  }
+}

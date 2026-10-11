@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/check.py", line 67, in <module>
+    verify()
+    ~~~~~~^^
+  File "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/check.py", line 32, in verify
+    raw = (HERE / 'declaration.json').read_bytes()
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 777, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/declaration.json'

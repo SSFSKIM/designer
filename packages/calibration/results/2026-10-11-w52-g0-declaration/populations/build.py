@@ -20,7 +20,7 @@ import re
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[4]
-SOURCE_PINS_SHA256 = '5197992bb08525daa921c7422c5e71a65fb5a7bb535684c457f26627ae217d6f'
+SOURCE_PINS_SHA256 = '2ff34f67115f79382b1e451b917b226ca620f731e161ee0bc197410ffc7862ea'
 KEY = ('profile', 'renderer', 'scene', 'statistic')
 PHYSICAL = KEY[:3]
 CHANNELS = ('deep8-channel-median', 'central8-channel-median')
