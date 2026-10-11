@@ -59,9 +59,9 @@ describe("W52 GPU correction plumbing (rendered proof is separate)", () => {
     expect(solve).toContain("sizedAlpha > 1e-3 && toneAdapt < 0.995");
     expect(solve).toContain("toneStrength > 0.0 && ou.toneRowThin.w > 0.0");
     expect(solve).toContain("ou.flags.x > 0.5 && ou.lowEnd.x > 0.0 && encodedInput < 64.0 / 255.0");
-    expect(solve).toContain("low_end_dc_delta(target, toneLinearMean, solvedLuma, solvedAlpha, toneAdapt, ou.lowEnd.x) * mat");
+    expect(solve).toContain("low_end_dc_delta(chartDC, toneLinearMean, solvedLuma, solvedAlpha, toneAdapt, ou.lowEnd.x) * mat");
     expect(OPTICS_WGSL).toContain("(1.0 - solvedAlpha) * linearMean + solvedAlpha * solvedLuma");
-    expect(OPTICS_WGSL).toContain("return strength * (target - oldDC)");
+    expect(OPTICS_WGSL).toContain("return strength * (chartDC - oldDC)");
     expect(solve).not.toContain("authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), ou.lowEnd.x)");
     expect(solve).not.toContain("response = mix(response, low_end_response");
   });
