@@ -1,0 +1,41 @@
+FFFF.
+======================================================================
+FAIL: test_epsilon_is_declared_from_units_and_source_operands_not_the_cell_budget (__main__.ComparisonTests.test_epsilon_is_declared_from_units_and_source_operands_not_the_cell_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/precision/test_comparison.py", line 31, in test_epsilon_is_declared_from_units_and_source_operands_not_the_cell_budget
+    self.assertEqual(comparison.epsilon(1.0, 21.0), 64 * math.ulp(21.0))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0.0 != 2.2737367544323206e-13
+
+======================================================================
+FAIL: test_exposed_luma_boundary_is_numerically_equal (__main__.ComparisonTests.test_exposed_luma_boundary_is_numerically_equal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/precision/test_comparison.py", line 20, in test_exposed_luma_boundary_is_numerically_equal
+    self.assertTrue(comparison.less_equal(value, 1.0, native, candidate))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_nonfinite_operands_never_get_tolerance_or_a_pass (__main__.ComparisonTests.test_nonfinite_operands_never_get_tolerance_or_a_pass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/precision/test_comparison.py", line 45, in test_nonfinite_operands_never_get_tolerance_or_a_pass
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_only_the_numerical_boundary_is_inclusive (__main__.ComparisonTests.test_only_the_numerical_boundary_is_inclusive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w52/g0/packages/calibration/results/2026-10-11-w52-g0-declaration/precision/test_comparison.py", line 39, in test_only_the_numerical_boundary_is_inclusive
+    self.assertFalse(comparison.less_equal(1.0 + 2 * eps, 1.0))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+FAILED (failures=4)
