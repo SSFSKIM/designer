@@ -248,11 +248,15 @@ def costs(data):
 
 
 def aggregate_memberships(data, full):
-    """Apply W51's declared grouping to keys, restoring costs without opening blind readings.
+    """Retain W51's exact gate components, including all 22 already-member cost keys.
 
-    Unlike a landing policy, these records contain membership only, not fitted operands or
-    scoring permission. The prior gate/diagnostic distinction is retained as provenance for
-    the parent's final policy. Substatistics and RGB components follow W51's generator exactly.
+    The 80 definitions comprise 76 historical W51 gate definitions and four prospectively
+    added W52 exposure-only inactive-T groups (positions 0.25/0.5, scales 1/2). Substatistics
+    and RGB components follow W51's generator exactly; no gate member component is added.
+    These records contain membership only, not fitted operands or scoring permission.
+    `w51Gate` and `w51Timing` preserve source gate/diagnostic and timing provenance only for
+    the historical definitions; `timing` describes prospective W52 full-union membership.
+    Source-owned full-union owner-contract timing and applicability remain unchanged.
     """
     originals = index(data['inventory']['cells'])
     bed = {(r['profile'], r['scene']): r for r in data['bed']['cells']}
@@ -318,7 +322,7 @@ def aggregate_memberships(data, full):
         for reduction in (('max', 'mean') if group['kind'] == 'level' else ('median-log-ratio',)):
             label = '/'.join(f'{k}={v}' for k, v in sorted(group['dimensions'].items()))
             aggregates.append({**group, 'id': group['kind'] + '/' + label + '/' + reduction,
-                'members': members, 'reduction': reduction, 'w51Gate': group['kind'] != 'newbed-t1',
+                'members': members, 'reduction': reduction,
                 'timing': 'full-union', 'membershipSha256': hashlib.sha256(encoded(members)).hexdigest()})
     expected = {a['id']: a for a in data['policy']['aggregates']}
     actual = {a['id']: a for a in aggregates}
@@ -327,16 +331,25 @@ def aggregate_memberships(data, full):
     require(set(actual) == set(expected) | extra_ids, 'Aggregate dimensions differ from W51 source law')
     require(all(m['membership'] == 'exposure' for label in extra_ids for m in actual[label]['members']),
             'Additional text stratum is not exposure-only')
+    for label in extra_ids:
+        actual[label]['definitionOrigin'] = 'prospective-w52-exposure-only-inactive-t'
     for label, original in expected.items():
         old = {(tuple(m['key']), m['statistic'], m['component']) for m in original['members']}
         present = {(tuple(m['key']), m['statistic'], m['component']) for m in actual[label]['members']
                    if m['membership'] == 'gate'}
-        costs_set = {tuple(e['key']) for e in data['policy']['exceptions']}
-        require(old <= present and {k for k, _, _ in present - old} <= costs_set,
-                'Aggregate projection differs beyond restoration of W51 cost keys')
+        require(old == present, 'Aggregate projection differs from exact W51 gate components')
+        actual[label].update(definitionOrigin='historical-w51-gate',
+                             w51Gate=original['gate'], w51Timing=original['timing'])
+    require(data['report']['ownerChecks'] == 'PENDING_FULL_UNION',
+            'Source-owned full-union owner-contract timing changed')
     return document(aggregates=sorted(aggregates, key=lambda a: a['id']),
-        ownerContractKeys=owner, exclusions=exclusions, excludedExceptionKeys=[],
-        restoredW51ExceptionKeys=[e['key'] for e in data['policy']['exceptions']],
+        definitionCounts={'historicalW51Gate': len(expected),
+                          'prospectiveW52ExposureOnlyInactiveT': len(extra_ids)},
+        ownerContractKeys=owner, ownerContractTiming={'timing': 'full-union', 'unchanged': True,
+            'source': data['pins']['report'], 'sourceField': 'ownerChecks',
+            'sourceValue': data['report']['ownerChecks']},
+        exclusions=exclusions, excludedExceptionKeys=[],
+        retainedW51CostKeys=[e['key'] for e in data['policy']['exceptions']],
         sourceLaw=data['pins']['w51Generator'], sourcePolicy=data['pins']['policy'],
         authorityBoundary='Membership only. No blind operands, policy seal or executable judging authority.')
 

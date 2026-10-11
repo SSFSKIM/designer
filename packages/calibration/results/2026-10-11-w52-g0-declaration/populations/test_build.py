@@ -122,12 +122,19 @@ class PopulationTests(unittest.TestCase):
         self.assertEqual(output['numericalEpsilon']['function'], 'less_equal')
         self.assertEqual(output['numericalEpsilon']['source'], self.sources['pins']['precision'])
 
-    def test_memberships_restore_w51_cost_keys_to_strata(self):
+    def test_memberships_retain_all_w51_cost_keys_and_exact_gate_components(self):
         output = self.outputs['aggregate-memberships.json']
         members = {tuple(m['key']) for a in output['aggregates'] for m in a['members']}
         for e in self.sources['policy']['exceptions']:
             self.assertIn(tuple(e['key']), members)
         self.assertEqual(output['excludedExceptionKeys'], [])
+        self.assertEqual(output['retainedW51CostKeys'],
+                         [e['key'] for e in self.sources['policy']['exceptions']])
+        self.assertEqual(len(output['retainedW51CostKeys']), 22)
+        self.assertNotIn('restoredW51ExceptionKeys', output)
+        original_members = {tuple(m['key']) for a in self.sources['policy']['aggregates']
+                            for m in a['members']}
+        self.assertTrue(set(map(tuple, output['retainedW51CostKeys'])) <= original_members)
         for a in output['aggregates']:
             self.assertFalse(any(k in m for m in a['members'] for k in ('native', 'current', 'candidate')))
         for original in self.sources['policy']['aggregates']:
@@ -135,9 +142,44 @@ class PopulationTests(unittest.TestCase):
             expected_members = {(tuple(m['key']), m['statistic'], m['component']) for m in original['members']}
             gate_members = {(tuple(m['key']), m['statistic'], m['component']) for m in actual['members']
                             if m['membership'] == 'gate'}
-            self.assertTrue(expected_members <= gate_members)
-            extra = {k for k, _, _ in gate_members - expected_members}
-            self.assertTrue(extra <= {tuple(e['key']) for e in self.sources['policy']['exceptions']})
+            self.assertEqual(gate_members, expected_members)
+
+    def test_historical_definitions_preserve_source_gate_and_timing_provenance(self):
+        output = self.outputs['aggregate-memberships.json']
+        self.assertEqual(output['definitionCounts'],
+                         {'historicalW51Gate': 76, 'prospectiveW52ExposureOnlyInactiveT': 4})
+        actuals = {a['id']: a for a in output['aggregates']}
+        for original in self.sources['policy']['aggregates']:
+            actual = actuals[original['id']]
+            self.assertEqual(actual['definitionOrigin'], 'historical-w51-gate')
+            self.assertEqual(actual['w51Gate'], original['gate'])
+            self.assertEqual(actual['w51Timing'], original['timing'])
+            self.assertEqual(actual['timing'], 'full-union')
+        self.assertEqual(sum(a['w51Gate'] is False for a in actuals.values()
+                             if a['definitionOrigin'] == 'historical-w51-gate'), 16)
+
+    def test_source_omission_cannot_allow_an_additional_gate_cost_component(self):
+        bad = copy.deepcopy(self.sources)
+        cost_keys = {tuple(e['key']) for e in bad['policy']['exceptions']}
+        original = next(a for a in bad['policy']['aggregates']
+                        if any(tuple(m['key']) in cost_keys for m in a['members']))
+        component = next(m for m in original['members'] if tuple(m['key']) in cost_keys)
+        original['members'].remove(component)
+        with self.assertRaisesRegex(ValueError, 'exact W51 gate components'):
+            self.builder.aggregate_memberships(bad, self.outputs['full-union.json'])
+
+    def test_owner_contracts_keep_source_owned_full_union_timing(self):
+        output = self.outputs['aggregate-memberships.json']
+        timing = output['ownerContractTiming']
+        self.assertEqual(timing['timing'], 'full-union')
+        self.assertIs(timing['unchanged'], True)
+        self.assertEqual(timing['source'], self.sources['pins']['report'])
+        self.assertEqual(timing['sourceField'], 'ownerChecks')
+        self.assertEqual(timing['sourceValue'], self.sources['report']['ownerChecks'])
+        self.assertEqual(timing['sourceValue'], 'PENDING_FULL_UNION')
+        expected = [list(k) for k in map(tuple, self.outputs['full-union.json']['statisticKeys'])
+                    if k[3] == 'owner-contracts']
+        self.assertEqual(output['ownerContractKeys'], expected)
 
     def test_full_union_adds_only_four_exposure_text_strata_and_covers_every_key(self):
         data = self.outputs['aggregate-memberships.json']
@@ -148,6 +190,11 @@ class PopulationTests(unittest.TestCase):
             for position in (0.25, 0.5) for scale in (1, 2)
         })
         self.assertTrue(all(m['membership'] == 'exposure' for a in extra for m in a['members']))
+        for a in extra:
+            self.assertEqual(a['definitionOrigin'], 'prospective-w52-exposure-only-inactive-t')
+            self.assertNotIn('w51Gate', a)
+            self.assertNotIn('w51Timing', a)
+            self.assertEqual(a['timing'], 'full-union')
         covered = {tuple(m['key']) for a in data['aggregates'] for m in a['members']}
         covered.update(map(tuple, data['ownerContractKeys']))
         covered.update(tuple(e['key']) for e in data['exclusions'])
