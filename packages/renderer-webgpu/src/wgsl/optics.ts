@@ -459,6 +459,15 @@ fn low_end_response(x : f32, span : f32, sizeK : f32, levelFar : f32) -> f32 {
   return srgb_decode(ordinate);
 }
 
+// Achieved OLD DC, not the old response target. The caller supplies the clamped
+// neutral/solved alpha under the old stand-downs and applies presence once.
+fn low_end_dc_delta(target : f32, linearMean : f32, solvedLuma : f32,
+    solvedAlpha : f32, collapse : f32, strength : f32) -> f32 {
+  let oldDC = (1.0 - collapse) *
+    ((1.0 - solvedAlpha) * linearMean + solvedAlpha * solvedLuma) + collapse * linearMean;
+  return strength * (target - oldDC);
+}
+
 /// Rim proximity: 1 exactly on the contour, falling to 0 by 'width' on either
 /// side. Symmetric, so the rim is a band on the boundary rather than a plateau
 /// that keeps burning outward where coverage has already faded.
@@ -1377,11 +1386,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
     // layer cannot carry a full-composite linear offset. This is a tier residual.
     if (ou.flags.x > 0.5 && ou.lowEnd.x > 0.0 && encodedInput < 64.0 / 255.0) {
       let solvedLuma = dot(solvedNeutral, vec3f(0.2126, 0.7152, 0.0722));
-      let oldDC = (1.0 - toneAdapt) *
-        ((1.0 - solvedAlpha) * toneLinearMean + solvedAlpha * solvedLuma) +
-        toneAdapt * toneLinearMean;
       let target = low_end_response(encodedInput, span, sizeK, toneLevelFar);
-      lowEndDelta = vec3f(ou.lowEnd.x * (target - oldDC) * mat);
+      lowEndDelta = vec3f(
+        low_end_dc_delta(target, toneLinearMean, solvedLuma, solvedAlpha, toneAdapt, ou.lowEnd.x) * mat);
     }
   }
 
