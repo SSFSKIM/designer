@@ -2738,8 +2738,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
          * and it takes the UNFOLDED thickness — the gate is geometric, and the
          * policy has its own fold on the strength beside it.
          */
-        // One scalar derivation for the CSS reading and the DOM-GPU material.
-        // The renderer mirrors it per pixel so mixed-span unions keep their law.
+        // One old scalar derivation for CSS and unsampled DOM-GPU. W52's late DC correction
+        // is declined here: a translucent layer cannot carry a signed full-composite delta.
+        // Sampled GPU keeps this old body/appearance solve, then adds its correction late.
         const atBackdrop = materialAtBackdrop(
           resolvedProfile, variant, backdropTone, Math.min(bounds.width, bounds.height),
           accessibility.material, devicePixelRatio, material.tint?.strength ?? 0, cssMapping,

@@ -130,7 +130,10 @@ import {
   tintShadeLayer as cssTierTintShadeLayer,
   tintToneAdaptation as cssTierTintToneAdaptation,
   validateBackdropToneAbscissa,
-  lowEndNeutralRequest,
+  CSS_DECLINED_LOW_END_STRENGTH,
+  cssProjectedBackdropToneResponse,
+  lowEndChartTarget as cssLowEndChartTarget,
+  lowEndDcDelta as cssLowEndDcDelta,
   macos26MaterialProfileDocument,
   macos27Glass025MaterialProfileDocument,
   macos27MaterialProfileDocument,
@@ -144,6 +147,8 @@ import {
   backdropToneAdaptation as rendererBackdropToneAdaptation,
   backdropToneResponse as rendererBackdropToneResponse,
   backdropToneSolveWeight as rendererBackdropToneSolveWeight,
+  lowEndChartTarget as rendererLowEndChartTarget,
+  lowEndDcDelta as rendererLowEndDcDelta,
   backdropToneUnderPolicy as rendererBackdropToneUnderPolicy,
   occlusionAlphaUnderPolicy as rendererOcclusionAlphaUnderPolicy,
   occlusionLiftForPolicy as rendererOcclusionLiftForPolicy,
@@ -3195,11 +3200,12 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   backdropToneBlackStrength: "resolvedBackdropToneResponse",
   backdropToneBlackThin: "resolvedBackdropToneResponse",
   backdropToneBlackThick: "resolvedBackdropToneResponse",
-  // W50's compact chart and authority share the actual surface span (the W50 block below).
-  lowEndStrength: "resolvedBackdropToneResponse",
-  lowEnd44: "resolvedBackdropToneResponse",
-  lowEnd96: "resolvedBackdropToneResponse",
-  lowEnd160: "resolvedBackdropToneResponse",
+  // W52's requested chart is mirrored for validation, but its late placement is DECLINED.
+  // CSS/unsampled DOM-GPU retain the old solve; the W52 block below pins both truths.
+  lowEndStrength: "cssProjectedBackdropToneResponse",
+  lowEnd44: "cssLowEndChartTarget",
+  lowEnd96: "cssLowEndChartTarget",
+  lowEnd160: "cssLowEndChartTarget",
   // The collapse's transmission, per scale.
   collapseTransmission: "adaptedSourceOptics",
   collapseTransmission2x: "adaptedSourceOptics",
@@ -3855,8 +3861,8 @@ describe("W49b W/S CSS declines", () => {
   });
 });
 
-/** W50's compact encoded-output chart and solve authority share a per-surface span on both tiers. */
-describe("W50 low-end chart tier coherence", () => {
+/** W52-DL3: scalar request parity is not a claim that CSS draws the GPU's late correction. */
+describe("W52 low-end request and explicit CSS decline", () => {
   const CHART = {
     lowEndStrength: 1,
     lowEnd44: [20 / 255, 28 / 255, 50 / 255, 64 / 255] as const,
@@ -3915,7 +3921,7 @@ describe("W50 low-end chart tier coherence", () => {
     }
   });
 
-  it("carries the chart, fixed actual-span join and fractional authority on all four dark endpoints", () => {
+  it("mirrors raw requested targets and achieved-old-DC deltas on all four dark endpoints", () => {
     for (const { name, profile: shipped } of DARK) {
       for (const lowEndStrength of [0.4, 1]) {
         const profile = withMaterialOverrides(shipped, { ...CHART, lowEndStrength });
@@ -3926,21 +3932,27 @@ describe("W50 low-end chart tier coherence", () => {
             const far = rendererSizeToneLevelFar(span, profile, dpr);
             for (const code of [0, 0.25, 0.7, 1, 4, 8, 18, 28, 34, 40, 52, 64 - 1e-7, 64, 69]) {
               const input = code / 255;
-              const target = rendererBackdropToneResponse(input, thickness, profile, far, span);
-              expect(cssBackdropToneResponseLevel(input, thickness, response, far, span),
+              const target = rendererLowEndChartTarget(input, thickness, profile, far, span);
+              expect(cssLowEndChartTarget(input, thickness, response, far, span),
                 `${name} gate ${lowEndStrength} span ${span} dpr ${dpr} input ${code}`)
                 .toBeCloseTo(target, 12);
-              if (code >= 64) continue;
-              const source = profile.optics.regular;
-              const sample = { luminance: srgbDecode(input), linearLuminance: srgbDecode(input) };
-              const luma = 0.2126 * source.tint[0] + 0.7152 * source.tint[1] + 0.0722 * source.tint[2];
-              const nominal = (1 - source.tintAlpha) * sample.linearLuminance + source.tintAlpha * luma;
-              const authority = rendererBackdropToneSolveWeight(input, profile)
-                * profile.backdropToneResponseStrength;
-              const shift = (target - nominal) / source.tintAlpha * authority;
-              const request = lowEndNeutralRequest(source, sample, thickness, 0, 1, response, far, span)!;
-              for (const channel of [0, 1, 2] as const) {
-                expect(request[channel]).toBeCloseTo(source.tint[channel] + shift, 12);
+              // The actual CSS response is still the renderer's OLD solve, not that request.
+              const projected = cssProjectedBackdropToneResponse(response);
+              expect(cssBackdropToneResponseLevel(input, thickness, projected, far, span))
+                .toBeCloseTo(rendererBackdropToneResponse(input, thickness, profile, far, span), 12);
+              for (const linearMean of [srgbDecode(input), 0.1]) {
+                for (const collapse of [0, 0.2, 0.9]) {
+                  const solved = toneRespondedSourceOptics(profile.optics.regular,
+                    { luminance: srgbDecode(input), linearLuminance: linearMean },
+                    thickness, collapse, 1, response, far, span);
+                  const luma = 0.2126 * solved.tint[0] + 0.7152 * solved.tint[1]
+                    + 0.0722 * solved.tint[2];
+                  expect(cssLowEndDcDelta(input, linearMean, luma, solved.tintAlpha,
+                    collapse, thickness, response, far, span)).toBeCloseTo(
+                    rendererLowEndDcDelta(input, linearMean, luma, solved.tintAlpha,
+                      collapse, thickness, profile, far, span), 12,
+                  );
+                }
               }
             }
           }
@@ -3949,13 +3961,60 @@ describe("W50 low-end chart tier coherence", () => {
     }
   });
 
-  it("bounds running-maximum drawdown of synthetic composed charts at dense inputs and every span", () => {
+  it("pins the explicit decline through actual source, scalar appearance and CSS declarations", () => {
+    expect(CSS_DECLINED_LOW_END_STRENGTH).toBe(0);
+    for (const { name, profile: shipped } of SHIPPED) {
+      // Light/26.5 are not fit populations. They still must not activate a chart on CSS.
+      const profile = withMaterialOverrides(shipped, CHART);
+      const response = resolvedBackdropToneResponse(profile);
+      const projected = cssProjectedBackdropToneResponse(response);
+      expect(response.lowEndStrength, name).toBe(1);
+      expect(projected.lowEndStrength, name).toBe(CSS_DECLINED_LOW_END_STRENGTH);
+      expect(sourceOptics(profile), name).toEqual(sourceOptics(shipped));
+      expect(cssTierOptics(profile), name).toEqual(cssTierOptics(shipped));
+      const source = profile.optics.regular;
+      const sample = { luminance: srgbDecode(4 / 255), linearLuminance: 0.1 };
+      // Old partial authority and independent linear mean remain intact even at active strength 1.
+      const old = toneRespondedSourceOptics(source, sample, 0.4, 0.2, 1,
+        resolvedBackdropToneResponse(shipped));
+      expect(toneRespondedSourceOptics(source, sample, 0.4, 0.2, 1, response)).toEqual(old);
+      expect(rendererBackdropToneSolveWeight(4 / 255, profile))
+        .toBe(rendererBackdropToneSolveWeight(4 / 255, shipped));
+      for (const dpr of [1, 2]) {
+        for (const span of [44, 96, 128, 160, 224]) {
+          for (const code of [0, 4, 28, 40, 52, 64, 69]) {
+            const linear = srgbDecode(code / 255);
+            const tone = { rgb: [linear, linear, linear] as const,
+              luminance: linear, linearLuminance: linear };
+            for (const tintStrength of [0, 0.5, 1]) {
+              const actual = materialAtBackdrop(profile, "regular", tone, span,
+                NOMINAL_ACCESSIBILITY_POLICY.material, dpr, tintStrength);
+              const retained = materialAtBackdrop(shipped, "regular", tone, span,
+                NOMINAL_ACCESSIBILITY_POLICY.material, dpr, tintStrength);
+              // Complete result pins level, shade, responded alpha/neutral and adapted rim.
+              expect(actual, name).toEqual(retained);
+              const surface = { radii: [22, 22, 22, 22] as const,
+                policy: NOMINAL_ACCESSIBILITY_POLICY, spanPx: span,
+                extentsCssPx: [span, span] as const, devicePixelRatio: dpr,
+                size: sourceSize(profile) };
+              const optics = cssOpticsFromSource(cssTierOptics(profile).regular, actual.adapted);
+              const oldOptics = cssOpticsFromSource(cssTierOptics(shipped).regular, retained.adapted);
+              expect(optics).toEqual(oldOptics);
+              expect(cssTierDeclarations({ ...surface, optics }))
+                .toEqual(cssTierDeclarations({ ...surface, optics: oldOptics }));
+            }
+          }
+        }
+      }
+    }
+  });
+
+  it("bounds synthetic requested-chart drawdown, without claiming a CSS draw or captured T1", () => {
     // The chosen low rows are a numerical rehearsal, never native measurements or fitted claims.
     let worstDrawdown = 0;
     for (const { profile: shipped } of DARK) {
       const profile = withMaterialOverrides(shipped, CHART);
       const response = resolvedBackdropToneResponse(profile);
-      const source = profile.optics.regular;
       for (const dpr of [1, 2]) {
         for (let span = 32; span <= 224; span++) {
           const thickness = rendererSizeThickness(span, profile);
@@ -3963,11 +4022,8 @@ describe("W50 low-end chart tier coherence", () => {
           let runningMax = -Infinity;
           for (let step = 0; step <= 64 * 64; step++) {
             const input = step / (64 * 255);
-            const linear = srgbDecode(input);
-            const solved = toneRespondedSourceOptics(source,
-              { luminance: linear, linearLuminance: linear }, thickness, 0, 1, response, far, span);
-            const luma = 0.2126 * solved.tint[0] + 0.7152 * solved.tint[1] + 0.0722 * solved.tint[2];
-            const output = srgbEncode((1 - solved.tintAlpha) * linear + solved.tintAlpha * luma) * 255;
+            const output = srgbEncode(cssLowEndChartTarget(input, thickness, response, far, span))
+              * 255;
             worstDrawdown = Math.max(worstDrawdown, runningMax - output);
             runningMax = Math.max(runningMax, output);
           }
