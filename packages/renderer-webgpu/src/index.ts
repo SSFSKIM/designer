@@ -193,6 +193,8 @@ export {
   // not evaluate them would be a pin on the constants again, which is what let
   // the two tiers disagree about the ORDER they are applied in.
   backdropToneResponse,
+  lowEndChartTarget,
+  lowEndDcDelta,
   backdropToneSizeBiasUnderPolicy,
   backdropToneSolveWeight,
   backdropToneUnderPolicy,
