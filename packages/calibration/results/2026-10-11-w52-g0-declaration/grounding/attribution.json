@@ -1,0 +1,4711 @@
+{
+  "ablations": {
+    "both": "delta * shadowKeep * (1 + rimLevelGain * squaredRimWeight * lit * along)",
+    "dc": "delta only",
+    "rim": "delta * (1 + rimLevelGain * squaredRimWeight * lit * along)",
+    "shadow": "delta * shadowKeep"
+  },
+  "formula": "delta * shadowKeep * (1 + rimLevelGain * squaredRimWeight * lit * along)",
+  "limitations": [
+    "The group/source DC solve is source-owned; no coefficient is fitted to candidate pixels.",
+    "The predicted image starts from an 8-bit current capture, not the unrounded shader buffer.",
+    "The oracle uses float64 geometry, finite-difference normals and NumPy ties-to-even rounding; WGSL float32, pixel coverage and browser quantization are not replicated bit-exactly.",
+    "Coverage reconstruction assumes a black edge backdrop; this is asserted for every cell.",
+    "The mask is the production un-eroded native luminance-delta mask inside the declared circular rounded rectangle; deep counts use the renderer continuous SDF, not mask erosion.",
+    "The dark32 body is below the mask threshold. Full-silhouette T1 is often rim-heavy and is not an isolated deep-body transfer function.",
+    "Current/native frozen-reference-record numeric identities are JSON record binders, not PNG byte hashes. OriginalCapture pins authenticate those images separately.",
+    "Residuals remain unexplained; matching directions and rough magnitude do not prove a W52 operator passes per-cell, aggregate, tint, CSS or exposure contracts."
+  ],
+  "meaning": "Offline reconstruction of W51, not a rendered W52 candidate or acceptance result.",
+  "rows": [
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00013909705023986557,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.1770691077710531,
+          "minimumPreOutputLinearOnMask": 0.01619542123380345,
+          "pixelLinearLumaRMSE": 0.0010646919932350916,
+          "shiftFromCurrent": -0.0009246493805747276,
+          "stdDev": 0.024396336456753046
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0009626876632622336,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.2254914486115305,
+          "minimumPreOutputLinearOnMask": 0.016170643726799196,
+          "pixelLinearLumaRMSE": 0.0037616948128212273,
+          "shiftFromCurrent": 0.00017713533292737157,
+          "stdDev": 0.025498121170255145
+        },
+        "rim": {
+          "actualMinusPredicted": -7.813259471575393e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.9005380142116721,
+          "minimumPreOutputLinearOnMask": 0.015887314659288627,
+          "pixelLinearLumaRMSE": 0.0009321387473054714,
+          "shiftFromCurrent": -0.0007074197356191081,
+          "stdDev": 0.024613566101708666
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0007197801484131357,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.08372730801229913,
+          "minimumPreOutputLinearOnMask": 0.016474593793160547,
+          "pixelLinearLumaRMSE": 0.003915911201831208,
+          "shiftFromCurrent": -6.577218192172635e-05,
+          "stdDev": 0.025255213655406047
+        }
+      },
+      "actualShift": -0.000785552330334862,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": false,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 4872,
+          "maskSha256": "5ac6e1e61195c5683c835c09703ccb5b20a3e10253201f1a7c10762a768f0bbd",
+          "scalars": {
+            "candidate": {
+              "count": 4872,
+              "mean": 0.017615304979272474,
+              "numpyStdDev": 0.011109713331637487,
+              "sequentialStdDev": 0.011109713331635117
+            },
+            "current": {
+              "count": 4872,
+              "mean": 0.03844907376313389,
+              "numpyStdDev": 0.011827917440695985,
+              "sequentialStdDev": 0.011827917440694233
+            },
+            "native": {
+              "count": 4872,
+              "mean": 0.01678724650502071,
+              "numpyStdDev": 0.008829921066081702,
+              "sequentialStdDev": 0.008829921066081544
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 2744,
+          "maskSha256": "a91ddd578c7f2cdae8e615a42c16d919300611e65296f38f5ad9050cec911284",
+          "scalars": {
+            "candidate": {
+              "count": 2744,
+              "mean": 0.015790262550884487,
+              "numpyStdDev": 0.00870070033489003,
+              "sequentialStdDev": 0.00870070033488914
+            },
+            "current": {
+              "count": 2744,
+              "mean": 0.036561945743737646,
+              "numpyStdDev": 0.00872591256812975,
+              "sequentialStdDev": 0.008725912568117656
+            },
+            "native": {
+              "count": 2744,
+              "mean": 0.014636769779764159,
+              "numpyStdDev": 0.002974861688252132,
+              "sequentialStdDev": 0.0029748616882499424
+            }
+          }
+        },
+        "production": {
+          "count": 400,
+          "maskSha256": "f6f60d18732e7ef5f3779cd32de0f552cbd611c9b8bac19bcc1a511f94d8db7e",
+          "scalars": {
+            "candidate": {
+              "count": 400,
+              "mean": 0.04246186541160373,
+              "numpyStdDev": 0.024535433506992912,
+              "sequentialStdDev": 0.024535433506992565
+            },
+            "current": {
+              "count": 400,
+              "mean": 0.06574079413976346,
+              "numpyStdDev": 0.025320985837327774,
+              "sequentialStdDev": 0.025320985837327593
+            },
+            "native": {
+              "count": 400,
+              "mean": 0.03906430750981686,
+              "numpyStdDev": 0.019765558088611614,
+              "sequentialStdDev": 0.019765558088611395
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 32,
+          "maskSha256": "d2c2236164dcf650dc530480f84590dd93b3dc53269de43f49b19b5f1a7f54f8",
+          "scalars": {
+            "candidate": {
+              "count": 32,
+              "mean": 0.08874797518873799,
+              "numpyStdDev": 0.023025545228441465,
+              "sequentialStdDev": 0.023025545228441358
+            },
+            "current": {
+              "count": 32,
+              "mean": 0.10941893212141442,
+              "numpyStdDev": 0.023809676967629853,
+              "sequentialStdDev": 0.023809676967629975
+            },
+            "native": {
+              "count": 32,
+              "mean": 0.03753795092495659,
+              "numpyStdDev": 0.014860030631127267,
+              "sequentialStdDev": 0.014860030631127237
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/34246e86f582e5173ce6a8195a1c37e652eee176e79d1dcfee3f6cbe2d736745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "179f6af7eb03eef59bcd516f8dc14cc6ba7f572f033746f7331bf87fbab569d0"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "d8a709412507f12dfc219c1741a5949c324c791527dc22ece7f521b613153fee",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "b3038f14df8ae079dfb939fc63f221738789a7ea7a6fae52b9f70c310f5666fb"
+        },
+        "currentPng": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "fd51b71c9c0c757c4ab62ce0ec60ef4140730080ca1ed67385ce5807d07030dd"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/30794edb28d555b9f17fbb48525924cec93abb4e09fd79c917606c76144c357d.json",
+          "sha256": "b30bb873699728cfcfbd41ce1086ab27d4a48ae8f1f0d589c1a87e3583aabb38"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "7ec5e56c990072dd3256d0f6e4e90512c5a7a7b8570f90baedbc7764c94af774",
+          "documentPair": null,
+          "statisticSha256": "9e6982afcb25aa862c1f89635e44435b9b6dcb3c3519d033796df32de4e47d40"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest.png",
+          "sha256": "ce29834491953fea0921ad0e642f6b14ca013a6221ff3a25cf2984e79b2d3b02"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "fd51b71c9c0c757c4ab62ce0ec60ef4140730080ca1ed67385ce5807d07030dd"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 400,
+          "mean": 0.04246186541160373,
+          "numpyMinusReport": 3.469446951953614e-16,
+          "numpyStdDev": 0.024535433506992912,
+          "report": 0.024535433506992565,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.024535433506992565
+        },
+        "current": {
+          "count": 400,
+          "mean": 0.06574079413976346,
+          "numpyMinusReport": 1.8041124150158794e-16,
+          "numpyStdDev": 0.025320985837327774,
+          "report": 0.025320985837327593,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.025320985837327593
+        },
+        "native": {
+          "count": 400,
+          "mean": 0.03906430750981686,
+          "numpyMinusReport": 2.185751579730777e-16,
+          "numpyStdDev": 0.019765558088611614,
+          "report": 0.019765558088611395,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.019765558088611395
+        }
+      },
+      "reportNativeErrorGrowth": -0.0007855523303350286,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.70138427734375,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.020718806674300844,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 22,
+          "halfW": 60,
+          "k": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "reach": 22
+        },
+        "k": 0.09228515625,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.020038614528706786,
+        "newTarget": 0.015174578130147914,
+        "nominal": 0.036189022827148434,
+        "oldDC": 0.03589338480444876,
+        "oldNeutral": 0.0495784935131148,
+        "oldTarget": 0.035880111260572445,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0022976389961261298,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00010876195668512237,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.05999445305338,
+          "minimumPreOutputLinearOnMask": 0.014206080029171744,
+          "pixelLinearLumaRMSE": 0.0006036448127154379,
+          "shiftFromCurrent": -0.0019216288327003374,
+          "stdDev": 0.015628824797624518
+        },
+        "dc": {
+          "actualMinusPredicted": -0.002186224956373495,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.20594897799607997,
+          "minimumPreOutputLinearOnMask": 0.014038978788514477,
+          "pixelLinearLumaRMSE": 0.0030222666068562766,
+          "shiftFromCurrent": 0.0003733580803582798,
+          "stdDev": 0.017923811710683135
+        },
+        "rim": {
+          "actualMinusPredicted": 9.814510320339115e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0541380641358067,
+          "minimumPreOutputLinearOnMask": 0.014005144558891822,
+          "pixelLinearLumaRMSE": 0.0006368890717539285,
+          "shiftFromCurrent": -0.0019110119792186062,
+          "stdDev": 0.01563944165110625
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.001957192080550594,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.07961158452661123,
+          "minimumPreOutputLinearOnMask": 0.014206080029171744,
+          "pixelLinearLumaRMSE": 0.003144064145320287,
+          "shiftFromCurrent": 0.00014432520453537892,
+          "stdDev": 0.017694778834860234
+        }
+      },
+      "actualShift": -0.001812866876015215,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 43816,
+          "maskSha256": "887d6a197b3b064a8536bc65a424868ca3a52cfe4da09faf3fbf97bb30462ddc",
+          "scalars": {
+            "candidate": {
+              "count": 43816,
+              "mean": 0.015573291329683147,
+              "numpyStdDev": 0.004610693949360346,
+              "sequentialStdDev": 0.004610693949366691
+            },
+            "current": {
+              "count": 43816,
+              "mean": 0.03255569936400732,
+              "numpyStdDev": 0.005052118513992502,
+              "sequentialStdDev": 0.005052118513735576
+            },
+            "native": {
+              "count": 43816,
+              "mean": 0.015145502001304545,
+              "numpyStdDev": 0.004253055688115241,
+              "sequentialStdDev": 0.004253055688121097
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 37408,
+          "maskSha256": "7e04c3d4bd6fd05b9a67774363705128e74bca69de5b35f933b2f8c927661b70",
+          "scalars": {
+            "candidate": {
+              "count": 37408,
+              "mean": 0.014883732759121174,
+              "numpyStdDev": 0.0006042390655918072,
+              "sequentialStdDev": 0.0006042390655784925
+            },
+            "current": {
+              "count": 37408,
+              "mean": 0.03189903887570544,
+              "numpyStdDev": 0.0004530667499702724,
+              "sequentialStdDev": 0.0004530667473528477
+            },
+            "native": {
+              "count": 37408,
+              "mean": 0.014617981979687316,
+              "numpyStdDev": 0.0004756911431474364,
+              "sequentialStdDev": 0.00047569114306907003
+            }
+          }
+        },
+        "production": {
+          "count": 1082,
+          "maskSha256": "a60dfeb7b73839c230b001bfa6b2ff3c180cc4000f4137b809031b146a1c86c6",
+          "scalars": {
+            "candidate": {
+              "count": 1082,
+              "mean": 0.032755911342155386,
+              "numpyStdDev": 0.01573758675430964,
+              "sequentialStdDev": 0.01573758675430895
+            },
+            "current": {
+              "count": 1082,
+              "mean": 0.05126218742095507,
+              "numpyStdDev": 0.017550453630324855,
+              "sequentialStdDev": 0.017550453630325025
+            },
+            "native": {
+              "count": 1082,
+              "mean": 0.03362790295636292,
+              "numpyStdDev": 0.018882673026418856,
+              "sequentialStdDev": 0.018882673026418738
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 192,
+          "maskSha256": "9ae643b0fec6c6e911d6938509fdfb346fc4354381226b980d3fb12b43eb2f06",
+          "scalars": {
+            "candidate": {
+              "count": 192,
+              "mean": 0.01723317602690523,
+              "numpyStdDev": 0.0028351327285296695,
+              "sequentialStdDev": 0.0028351327285299982
+            },
+            "current": {
+              "count": 192,
+              "mean": 0.033557826136405074,
+              "numpyStdDev": 0.0029118386566633746,
+              "sequentialStdDev": 0.0029118386566619656
+            },
+            "native": {
+              "count": 192,
+              "mean": 0.01644989192591827,
+              "numpyStdDev": 0.0008136208338185599,
+              "sequentialStdDev": 0.0008136208338185732
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/68f9aa34995f6f221d4fc50c92b1825f7e106f60a7390d19598dedda055fbfb9/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "3386272fee19f89691ec559fcbe7038b7ef10e98aca5e96215a352c4f10e9fc7"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "f378d0bb5bd567a378250a3b226fa5b3969f5d8581d73f7b28a78ae6b3d2d072",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "c5830b1b234e77703cf2acedc1d8188bffc633ba64f33d849a4bfc428986c9bf"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "a8d1c7658147c27ff70d80767dcdbf00b4cd10ff4603edeef64b5df2f0e2a0af"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/d2ad1aabfe50db55f200841e6d38c5636cf7fafe4d266610ae25734840f218d8.json",
+          "sha256": "9698ebec2096fabee0c02cc666db1a614750bcf3a6acad6dca8c1fe70a7c7a61"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "5933d8fea7be8b1f2322ae604e65f71ea1ab9f1152fe08279896dc1e7bc76f90",
+          "documentPair": null,
+          "statisticSha256": "9020619c431bfe0161f1d3b6ffa708f3ac30cb042fac70c0850dc1f77286d72c"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest.png",
+          "sha256": "16de9d7e2cc4410a4145af7271bf4f993f19e2fae795dae5f8221f397b535348"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "a8d1c7658147c27ff70d80767dcdbf00b4cd10ff4603edeef64b5df2f0e2a0af"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 1082,
+          "mean": 0.032755911342155386,
+          "numpyMinusReport": 6.904199434387692e-16,
+          "numpyStdDev": 0.01573758675430964,
+          "report": 0.01573758675430895,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.01573758675430895
+        },
+        "current": {
+          "count": 1082,
+          "mean": 0.05126218742095507,
+          "numpyMinusReport": -1.700029006457271e-16,
+          "numpyStdDev": 0.017550453630324855,
+          "report": 0.017550453630325025,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.017550453630325025
+        },
+        "native": {
+          "count": 1082,
+          "mean": 0.03362790295636292,
+          "numpyMinusReport": 1.1796119636642288e-16,
+          "numpyStdDev": 0.018882673026418856,
+          "report": 0.018882673026418738,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.018882673026418738
+        }
+      },
+      "reportNativeErrorGrowth": 0.0018128668760160754,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.9049999999999999,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.016674464944479158,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 80,
+          "halfW": 140,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 51.9746083
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016129168353821378,
+        "newTarget": 0.014953147360208346,
+        "nominal": 0.04560625,
+        "oldDC": 0.031627612304687504,
+        "oldNeutral": 0.03455399149689227,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0018445370036609622,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.0002280303535601904,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.1335075570432083,
+          "minimumPreOutputLinearOnMask": 0.01444765027759157,
+          "pixelLinearLumaRMSE": 0.0006840325154738675,
+          "shiftFromCurrent": -0.001936026204959005,
+          "stdDev": 0.014809234396035879
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0018289526808080315,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.07081798782482733,
+          "minimumPreOutputLinearOnMask": 0.014292160684385085,
+          "pixelLinearLumaRMSE": 0.0029729106067167997,
+          "shiftFromCurrent": 0.00012095682940921684,
+          "stdDev": 0.0168662174304041
+        },
+        "rim": {
+          "actualMinusPredicted": 1.7554684631141196e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0102779433666447,
+          "minimumPreOutputLinearOnMask": 0.014292160684385085,
+          "pixelLinearLumaRMSE": 0.0008267316405339276,
+          "shiftFromCurrent": -0.0017255505360299558,
+          "stdDev": 0.015019710064964928
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0019313613707802445,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.1307763828574279,
+          "minimumPreOutputLinearOnMask": 0.01444765027759157,
+          "pixelLinearLumaRMSE": 0.0031077996324117055,
+          "shiftFromCurrent": 0.0002233655193814299,
+          "stdDev": 0.016968626120376314
+        }
+      },
+      "actualShift": -0.0017079958513988146,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-ml__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 28048,
+          "maskSha256": "d306dbc85601c7d36550114e363b9af8296d32dac322db1b968e0f2183be43b2",
+          "scalars": {
+            "candidate": {
+              "count": 28048,
+              "mean": 0.015639818830786162,
+              "numpyStdDev": 0.005227105231876913,
+              "sequentialStdDev": 0.005227105231867693
+            },
+            "current": {
+              "count": 28048,
+              "mean": 0.03199594044211107,
+              "numpyStdDev": 0.005751992444485199,
+              "sequentialStdDev": 0.005751992444362785
+            },
+            "native": {
+              "count": 28048,
+              "mean": 0.015221886804177827,
+              "numpyStdDev": 0.004721714049581324,
+              "sequentialStdDev": 0.004721714049567045
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 22968,
+          "maskSha256": "f10375e650349be80694d529ba82689200b039aebe7e28954f90f6e34d3c8f03",
+          "scalars": {
+            "candidate": {
+              "count": 22968,
+              "mean": 0.014801322727230034,
+              "numpyStdDev": 0.0011018516484168526,
+              "sequentialStdDev": 0.0011018516483702865
+            },
+            "current": {
+              "count": 22968,
+              "mean": 0.031112734881642665,
+              "numpyStdDev": 0.001145987596229341,
+              "sequentialStdDev": 0.0011459875958764313
+            },
+            "native": {
+              "count": 22968,
+              "mean": 0.014550469032391558,
+              "numpyStdDev": 0.0004589878537416161,
+              "sequentialStdDev": 0.0004589878535838979
+            }
+          }
+        },
+        "production": {
+          "count": 772,
+          "maskSha256": "8b01bf389eb4912084f1cca2b338860c82fe89ab7557f8a600f3c4c01f6a1958",
+          "scalars": {
+            "candidate": {
+              "count": 772,
+              "mean": 0.035628448061921045,
+              "numpyStdDev": 0.015037264749596069,
+              "sequentialStdDev": 0.015037264749595738
+            },
+            "current": {
+              "count": 772,
+              "mean": 0.05399078558022509,
+              "numpyStdDev": 0.016745260600994884,
+              "sequentialStdDev": 0.016745260600994072
+            },
+            "native": {
+              "count": 772,
+              "mean": 0.03588500232258118,
+              "numpyStdDev": 0.018682789023252773,
+              "sequentialStdDev": 0.018682789023252898
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 48,
+          "maskSha256": "902a43da9bef980e086834a07eae365bf621829251648982b90e9f76060ca87f",
+          "scalars": {
+            "candidate": {
+              "count": 48,
+              "mean": 0.03221117368112073,
+              "numpyStdDev": 0.0027005419859051296,
+              "sequentialStdDev": 0.0027005419859052007
+            },
+            "current": {
+              "count": 48,
+              "mean": 0.04859522389310577,
+              "numpyStdDev": 0.0026537139940014656,
+              "sequentialStdDev": 0.0026537139940015827
+            },
+            "native": {
+              "count": 48,
+              "mean": 0.018361155053140506,
+              "numpyStdDev": 0.0005965704328481791,
+              "sequentialStdDev": 0.0005965704328476915
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/95c30ef6fd07c3eb5c7f5c734648ee206a1f70f10e1b55fe5f7e8892180f152d/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "619f93f4599f294cb94c343c0e1753fc81417916e5efa6c5bd18608982630d38"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "8a9cee43c5457a219d4e47463453102bd254b214bc874a9877a5ccf84aee9195",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "25059c792f5cd042660c35cd91f1048f805b9585049c85377ecbe9a6d38c5c58"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "3cd3de0bcc12438aae676483dd1e475ae416b983efa93fc2b8ba88b66bba25af"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/ea512df9b75b6c376940600abbb383073729ef1816e08beba73c2ea18a7ea158.json",
+          "sha256": "0d1bd01ce8872c527e6a4106f6c1dc952c0065c26142d0bea00326be5bbcf4ec"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "e6fe058d9ad05267e8bb2bb09eee1cbee4ddbc5331e922daf0196deb0b219027",
+          "documentPair": null,
+          "statisticSha256": "6ebf4f701dacb7cd0ab0eda8059e7b9eab17a1ab45296aed4219ef3ad918cc1a"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest.png",
+          "sha256": "1440b6f623137fcf266ffdf45e6810076da8b7db3d7e5d4fea3ae7099c34e89c"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "3cd3de0bcc12438aae676483dd1e475ae416b983efa93fc2b8ba88b66bba25af"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 772,
+          "mean": 0.035628448061921045,
+          "numpyMinusReport": 3.3133218391157016e-16,
+          "numpyStdDev": 0.015037264749596069,
+          "report": 0.015037264749595738,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.015037264749595738
+        },
+        "current": {
+          "count": 772,
+          "mean": 0.05399078558022509,
+          "numpyMinusReport": 8.118505867571457e-16,
+          "numpyStdDev": 0.016745260600994884,
+          "report": 0.016745260600994072,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.016745260600994072
+        },
+        "native": {
+          "count": 772,
+          "mean": 0.03588500232258118,
+          "numpyMinusReport": -1.249000902703301e-16,
+          "numpyStdDev": 0.018682789023252773,
+          "report": 0.018682789023252898,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.018682789023252898
+        }
+      },
+      "reportNativeErrorGrowth": 0.0017079958513983341,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.8099999999999999,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.01642128304860855,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 64,
+          "halfW": 112,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 41.27395365
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.017660537420699327,
+        "newTarget": 0.015017535310766453,
+        "nominal": 0.0412125,
+        "oldDC": 0.031438818359375,
+        "oldNeutral": 0.03793372636959877,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.002170050460692441,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00030342335068984927,
+          "directionMatches": true,
+          "explainedShiftFraction": 2.155081758218249,
+          "minimumPreOutputLinearOnMask": 0.020760506525730686,
+          "pixelLinearLumaRMSE": 0.0011554252751436026,
+          "shiftFromCurrent": -0.0005661089558697714,
+          "stdDev": 0.02780755397317555
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0002456737258348281,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.06476136876035543,
+          "minimumPreOutputLinearOnMask": 0.021480617657207594,
+          "pixelLinearLumaRMSE": 0.003661109611727403,
+          "shiftFromCurrent": -1.7011879345094072e-05,
+          "stdDev": 0.028356651049700227
+        },
+        "rim": {
+          "actualMinusPredicted": 1.6103053118166066e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0613016198856293,
+          "minimumPreOutputLinearOnMask": 0.020507842153800946,
+          "pixelLinearLumaRMSE": 0.0010921266887101233,
+          "shiftFromCurrent": -0.0002787886582980882,
+          "stdDev": 0.028094874270747233
+        },
+        "shadow": {
+          "actualMinusPredicted": 3.3459297775935426e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.12737392958026,
+          "minimumPreOutputLinearOnMask": 0.02172127027513671,
+          "pixelLinearLumaRMSE": 0.00378320028247134,
+          "shiftFromCurrent": -0.0002961449029558576,
+          "stdDev": 0.028077518026089463
+        }
+      },
+      "actualShift": -0.00026268560517992215,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-sm__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": false,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 2000,
+          "maskSha256": "55e820504247679a0bb40d216aaf329b5452ec17f4e6547e6d0e9a2c8d4d0492",
+          "scalars": {
+            "candidate": {
+              "count": 2000,
+              "mean": 0.02041422006203748,
+              "numpyStdDev": 0.015471986970436634,
+              "sequentialStdDev": 0.015471986970436113
+            },
+            "current": {
+              "count": 2000,
+              "mean": 0.04142877107750839,
+              "numpyStdDev": 0.016163203472736202,
+              "sequentialStdDev": 0.016163203472731476
+            },
+            "native": {
+              "count": 2000,
+              "mean": 0.018110412673162747,
+              "numpyStdDev": 0.011768871387958998,
+              "sequentialStdDev": 0.011768871387957958
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 768,
+          "maskSha256": "12b85417ab06f5d51c7c60de61a9285a7749837482201a214b5ef9d3980e72cc",
+          "scalars": {
+            "candidate": {
+              "count": 768,
+              "mean": 0.01912136654958601,
+              "numpyStdDev": 0.016644633552355285,
+              "sequentialStdDev": 0.016644633552355452
+            },
+            "current": {
+              "count": 768,
+              "mean": 0.039912236465804087,
+              "numpyStdDev": 0.016513933976220998,
+              "sequentialStdDev": 0.016513933976221744
+            },
+            "native": {
+              "count": 768,
+              "mean": 0.015372909397940874,
+              "numpyStdDev": 0.005526005830743113,
+              "sequentialStdDev": 0.005526005830743509
+            }
+          }
+        },
+        "production": {
+          "count": 232,
+          "maskSha256": "a122dadc87f17f7a45992d824e8ccc89fb5091783910e237876f73c6608e076f",
+          "scalars": {
+            "candidate": {
+              "count": 232,
+              "mean": 0.04810292235921721,
+              "numpyStdDev": 0.0281109773238654,
+              "sequentialStdDev": 0.028110977323865197
+            },
+            "current": {
+              "count": 232,
+              "mean": 0.07101647631103172,
+              "numpyStdDev": 0.02837366292904532,
+              "sequentialStdDev": 0.028373662929044734
+            },
+            "native": {
+              "count": 232,
+              "mean": 0.04258391681020348,
+              "numpyStdDev": 0.022428445149950182,
+              "sequentialStdDev": 0.02242844514995002
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 32,
+          "maskSha256": "d2c2236164dcf650dc530480f84590dd93b3dc53269de43f49b19b5f1a7f54f8",
+          "scalars": {
+            "candidate": {
+              "count": 32,
+              "mean": 0.09170070843882956,
+              "numpyStdDev": 0.02413603626965052,
+              "sequentialStdDev": 0.024136036269650413
+            },
+            "current": {
+              "count": 32,
+              "mean": 0.1118751024015655,
+              "numpyStdDev": 0.024119325930422895,
+              "sequentialStdDev": 0.024119325930422833
+            },
+            "native": {
+              "count": 32,
+              "mean": 0.03735429816532102,
+              "numpyStdDev": 0.015041615732732137,
+              "sequentialStdDev": 0.015041615732732109
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/54337c518de8a9a65f81582ba630ce06526d339dbd30fe95fc23f554de9b4a9f/captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "91d11d15e0d82ac57ad8804be530f32874daf251fba2497d151af07da7837cd6"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "d3f5368a043a8d2cd8cfdcb1437b984262446987b9ba980a5808856c41ebb6b0",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "61e401f3a55a010365cdbf8515dececcfbab697b7d3402a6ea2390367c4883ff"
+        },
+        "currentPng": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "4c04135d3eddc75ae42ae3c912861b5e50caea5dab56d4c90b27885642c25885"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/53cc929280ec15a27b9484892386ee8db7588ebb8ef9bc3d92fd19afd28a2709.json",
+          "sha256": "681c86792eb0ebafec30980a63eff44a005f556d1dda4499aeac19c90e7c7b85"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "20830d78239e6cdbafdced6e2bf249590a9f35b0e6f644940d7f0eb951953bd0",
+          "documentPair": null,
+          "statisticSha256": "2537c5081ebc571f317da87d578306337ef9df8cfc4c4ec05bb43976fe718696"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest.png",
+          "sha256": "02d11df4c34bacae63f068287abd04eec8f5c59899175848114c335b071df266"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "4c04135d3eddc75ae42ae3c912861b5e50caea5dab56d4c90b27885642c25885"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 232,
+          "mean": 0.04810292235921721,
+          "numpyMinusReport": 2.0122792321330962e-16,
+          "numpyStdDev": 0.0281109773238654,
+          "report": 0.028110977323865197,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.028110977323865197
+        },
+        "current": {
+          "count": 232,
+          "mean": 0.07101647631103172,
+          "numpyMinusReport": 5.863365348801608e-16,
+          "numpyStdDev": 0.02837366292904532,
+          "report": 0.028373662929044734,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.028373662929044734
+        },
+        "native": {
+          "count": 232,
+          "mean": 0.04258391681020348,
+          "numpyMinusReport": 1.6306400674181987e-16,
+          "numpyStdDev": 0.022428445149950182,
+          "report": 0.02242844514995002,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.02242844514995002
+        }
+      },
+      "reportNativeErrorGrowth": -0.00026268560517953704,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.7,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.02083079296360208,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 16,
+          "halfW": 32,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 12.2293196
+        },
+        "k": 0,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.020070825900211305,
+        "newTarget": 0.015174578130147914,
+        "nominal": 0.036125,
+        "oldDC": 0.036005371093749995,
+        "oldNeutral": 0.049829101562500006,
+        "oldTarget": 0.036,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0022976389961261298,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": -0.00032098671028076876,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.8697097159359155,
+          "minimumPreOutputLinearOnMask": 0.01711518860588088,
+          "pixelLinearLumaRMSE": 0.0006937687237459726,
+          "shiftFromCurrent": -0.0021426406629076154,
+          "stdDev": 0.015399194033479387
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0027318828957458557,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.10888640282085346,
+          "minimumPreOutputLinearOnMask": 0.017089937970781684,
+          "pixelLinearLumaRMSE": 0.0043230559980644845,
+          "shiftFromCurrent": 0.0002682555225574715,
+          "stdDev": 0.017810090218944474
+        },
+        "rim": {
+          "actualMinusPredicted": -0.00031370551813818086,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.8726651921665456,
+          "minimumPreOutputLinearOnMask": 0.01680119871644605,
+          "pixelLinearLumaRMSE": 0.0006864513503230067,
+          "shiftFromCurrent": -0.0021499218550502033,
+          "stdDev": 0.0153919128413368
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0027384652716716893,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.11155822567745488,
+          "minimumPreOutputLinearOnMask": 0.017399691983271664,
+          "pixelLinearLumaRMSE": 0.004394303181795607,
+          "shiftFromCurrent": 0.0002748378984833051,
+          "stdDev": 0.017816672594870308
+        }
+      },
+      "actualShift": -0.002463627373188384,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 4872,
+          "maskSha256": "5ac6e1e61195c5683c835c09703ccb5b20a3e10253201f1a7c10762a768f0bbd",
+          "scalars": {
+            "candidate": {
+              "count": 4872,
+              "mean": 0.01752428288872131,
+              "numpyStdDev": 0.008061144789809216,
+              "sequentialStdDev": 0.008061144789806686
+            },
+            "current": {
+              "count": 4872,
+              "mean": 0.03834393625607731,
+              "numpyStdDev": 0.0091972617355664,
+              "sequentialStdDev": 0.009197261735561155
+            },
+            "native": {
+              "count": 4872,
+              "mean": 0.01685141418264362,
+              "numpyStdDev": 0.008465704828490546,
+              "sequentialStdDev": 0.008465704828488761
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 2744,
+          "maskSha256": "a91ddd578c7f2cdae8e615a42c16d919300611e65296f38f5ad9050cec911284",
+          "scalars": {
+            "candidate": {
+              "count": 2744,
+              "mean": 0.015579887717045241,
+              "numpyStdDev": 0.0027305596266827916,
+              "sequentialStdDev": 0.0027305596266811952
+            },
+            "current": {
+              "count": 2744,
+              "mean": 0.03618269573683977,
+              "numpyStdDev": 0.0028557930344307297,
+              "sequentialStdDev": 0.002855793034397544
+            },
+            "native": {
+              "count": 2744,
+              "mean": 0.01467089202398226,
+              "numpyStdDev": 0.0009648832121574969,
+              "sequentialStdDev": 0.0009648832121535792
+            }
+          }
+        },
+        "production": {
+          "count": 388,
+          "maskSha256": "4e44d6324fab696b1a5d93badecfb8dda850e757a05fa585c932bf303a0d3a65",
+          "scalars": {
+            "candidate": {
+              "count": 388,
+              "mean": 0.037404625685464925,
+              "numpyStdDev": 0.015078207323198619,
+              "sequentialStdDev": 0.015078207323197982
+            },
+            "current": {
+              "count": 388,
+              "mean": 0.06121071253336944,
+              "numpyStdDev": 0.017541834696387003,
+              "sequentialStdDev": 0.017541834696387017
+            },
+            "native": {
+              "count": 388,
+              "mean": 0.03827586758000665,
+              "numpyStdDev": 0.019567280631655883,
+              "sequentialStdDev": 0.01956728063165567
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 16,
+          "maskSha256": "acd6621eb68c4376386fbae6762978178ebd4d3c788106809f1433f56667da9c",
+          "scalars": {
+            "candidate": {
+              "count": 16,
+              "mean": 0.045297025605531796,
+              "numpyStdDev": 0.004146266551541816,
+              "sequentialStdDev": 0.004146266551541677
+            },
+            "current": {
+              "count": 16,
+              "mean": 0.0666924455503702,
+              "numpyStdDev": 0.003898775011482245,
+              "sequentialStdDev": 0.0038987750114826436
+            },
+            "native": {
+              "count": 16,
+              "mean": 0.025243410888132856,
+              "numpyStdDev": 0.002211193763882301,
+              "sequentialStdDev": 0.0022111937638823378
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/905d9ccaa4962e85cfaab991d0860fc781ab944a55d31cce648a8d7b3d95a57e/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "4bbe6a93cd5623f686b744bad93f2de77f6b7a9ae58a930771648a7a8303d556"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "8e5d596a0bee3c3315f2b0cf34d41518cd789603003f650159bbd39a76253f36",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "77ec3fb06b5ad52467536ec14ae94fb8f682e90a197ddd6535e72175e7694dcd"
+        },
+        "currentPng": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "8e5d596a0bee3c3315f2b0cf34d41518cd789603003f650159bbd39a76253f36"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/10bf8f35f684f327a855ac87b9c74207189c3f01880108d149cc5bb8ed84513f.json",
+          "sha256": "dcf67b28b2adeef28a538fcbabb8120ba54196cce937be860747c81b8ad7977d"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "421e1dbbe807595a8490e1a765d7bf973439ef85bca02a00ad7755eba0841d45",
+          "documentPair": null,
+          "statisticSha256": "c05a97a17a1ab1e31682667fbac6fc37d2614ab842965f8bda9c388d26cb7b4f"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest.png",
+          "sha256": "421e1dbbe807595a8490e1a765d7bf973439ef85bca02a00ad7755eba0841d45"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "8e5d596a0bee3c3315f2b0cf34d41518cd789603003f650159bbd39a76253f36"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 388,
+          "mean": 0.037404625685464925,
+          "numpyMinusReport": 3.469446951953614e-18,
+          "numpyStdDev": 0.015078207323198619,
+          "report": 0.015078207323198615,
+          "sequentialMinusReport": -6.331740687315346e-16,
+          "sequentialStdDev": 0.015078207323197982
+        },
+        "current": {
+          "count": 388,
+          "mean": 0.06121071253336944,
+          "numpyMinusReport": 0.0,
+          "numpyStdDev": 0.017541834696387003,
+          "report": 0.017541834696387003,
+          "sequentialMinusReport": 1.3877787807814457e-17,
+          "sequentialStdDev": 0.017541834696387017
+        },
+        "native": {
+          "count": 388,
+          "mean": 0.03827586758000665,
+          "numpyMinusReport": -3.469446951953614e-18,
+          "numpyStdDev": 0.019567280631655883,
+          "report": 0.019567280631655887,
+          "sequentialMinusReport": -2.1510571102112408e-16,
+          "sequentialStdDev": 0.01956728063165567
+        }
+      },
+      "reportNativeErrorGrowth": 0.0024636273731883877,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.90046142578125,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.02111443362456482,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 22,
+          "halfW": 60,
+          "k": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "reach": 22
+        },
+        "k": 0.09228515625,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.01643747089330987,
+        "newTarget": 0.015174578130147914,
+        "nominal": 0.04539634094238281,
+        "oldDC": 0.03628901175471273,
+        "oldNeutral": 0.03988593078291115,
+        "oldTarget": 0.035880111260572445,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0021261084214704083,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.0001670747090949786,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0968466779616093,
+          "minimumPreOutputLinearOnMask": 0.014206080029171744,
+          "pixelLinearLumaRMSE": 0.0006149640304358564,
+          "shiftFromCurrent": -0.0018922212253359213,
+          "stdDev": 0.015077175453126508
+        },
+        "dc": {
+          "actualMinusPredicted": -0.002094971630721313,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.21437316251040017,
+          "minimumPreOutputLinearOnMask": 0.014038978788514477,
+          "pixelLinearLumaRMSE": 0.0030234252538801614,
+          "shiftFromCurrent": 0.00036982511448037034,
+          "stdDev": 0.0173392217929428
+        },
+        "rim": {
+          "actualMinusPredicted": 0.00015113051259196472,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0876044505027171,
+          "minimumPreOutputLinearOnMask": 0.014005144558891822,
+          "pixelLinearLumaRMSE": 0.0006475687599076693,
+          "shiftFromCurrent": -0.0018762770288329074,
+          "stdDev": 0.015093119649629522
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0018502228422309364,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.07250185697996964,
+          "minimumPreOutputLinearOnMask": 0.014206080029171744,
+          "pixelLinearLumaRMSE": 0.003145825663197305,
+          "shiftFromCurrent": 0.00012507632598999369,
+          "stdDev": 0.017094473004452423
+        }
+      },
+      "actualShift": -0.0017251465162409427,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 43816,
+          "maskSha256": "887d6a197b3b064a8536bc65a424868ca3a52cfe4da09faf3fbf97bb30462ddc",
+          "scalars": {
+            "candidate": {
+              "count": 43816,
+              "mean": 0.01556596011244415,
+              "numpyStdDev": 0.0046902710461894535,
+              "sequentialStdDev": 0.004690271046198445
+            },
+            "current": {
+              "count": 43816,
+              "mean": 0.03257875671317672,
+              "numpyStdDev": 0.005122865492134558,
+              "sequentialStdDev": 0.005122865491884913
+            },
+            "native": {
+              "count": 43816,
+              "mean": 0.015261165211930279,
+              "numpyStdDev": 0.004237640471061013,
+              "sequentialStdDev": 0.004237640471057793
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 37408,
+          "maskSha256": "7e04c3d4bd6fd05b9a67774363705128e74bca69de5b35f933b2f8c927661b70",
+          "scalars": {
+            "candidate": {
+              "count": 37408,
+              "mean": 0.014879208570604005,
+              "numpyStdDev": 0.0010651329986991224,
+              "sequentialStdDev": 0.001065132998684403
+            },
+            "current": {
+              "count": 37408,
+              "mean": 0.03193508742861339,
+              "numpyStdDev": 0.0009972182201098154,
+              "sequentialStdDev": 0.0009972182189308782
+            },
+            "native": {
+              "count": 37408,
+              "mean": 0.014733734547096613,
+              "numpyStdDev": 0.00046815146311182757,
+              "sequentialStdDev": 0.00046815146303198004
+            }
+          }
+        },
+        "production": {
+          "count": 1084,
+          "maskSha256": "12f6bba5e8086d661bc3d64e3d6f4b14ab586faaf46316ed54157217d89e3730",
+          "scalars": {
+            "candidate": {
+              "count": 1084,
+              "mean": 0.03352021067854612,
+              "numpyStdDev": 0.015244250162221487,
+              "sequentialStdDev": 0.015244250162221062
+            },
+            "current": {
+              "count": 1084,
+              "mean": 0.052103131035862706,
+              "numpyStdDev": 0.01696939667846243,
+              "sequentialStdDev": 0.016969396678461993
+            },
+            "native": {
+              "count": 1084,
+              "mean": 0.03352287088895063,
+              "numpyStdDev": 0.018948351482347667,
+              "sequentialStdDev": 0.01894835148234713
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 192,
+          "maskSha256": "9ae643b0fec6c6e911d6938509fdfb346fc4354381226b980d3fb12b43eb2f06",
+          "scalars": {
+            "candidate": {
+              "count": 192,
+              "mean": 0.02151658544700412,
+              "numpyStdDev": 0.006370576796512867,
+              "sequentialStdDev": 0.006370576796513145
+            },
+            "current": {
+              "count": 192,
+              "mean": 0.0383006288206842,
+              "numpyStdDev": 0.006652575219882904,
+              "sequentialStdDev": 0.006652575219882326
+            },
+            "native": {
+              "count": 192,
+              "mean": 0.01593064512029318,
+              "numpyStdDev": 0.00021773059752807668,
+              "sequentialStdDev": 0.00021773059753008888
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6d91aac0661c96b923251b444e728195a8688fffdc2a6481f74e9f56c7f7ea44/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "e94e8191cbd0a341c146e67d4872771d8c71c1e1c08162d09b5bdf2c02ab2e87"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "8d114120baa64ff67ac6897e66a3c058410bbd3e0a3c1554056acd70316b6eca",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "c5edd7373df42299a8f25b38a138b788f6cc3bd88bb1a12beb3f06c9e25a3b32"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.5-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "8d114120baa64ff67ac6897e66a3c058410bbd3e0a3c1554056acd70316b6eca"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/e6143b901f33242e479df23704b88fa2331e79f9db1f411204f3aaf08fd656a3.json",
+          "sha256": "68625135efbb9e0959a571442888b71bda1e6096b1d5aadc70359b1e8dac04ee"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "05b1e9820970fd5e1f7b90c4a78fca1ef75ea666b8976dd6b66bd5a13ad864e4",
+          "documentPair": null,
+          "statisticSha256": "3aea8ce8a8692479a70c6d604878358c6ff53da9c9a4052c4315e06e402256bf"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+          "sha256": "05b1e9820970fd5e1f7b90c4a78fca1ef75ea666b8976dd6b66bd5a13ad864e4"
+        },
+        "retainedCanonicalAlternative": {
+          "exists": false,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 1084,
+          "mean": 0.03352021067854612,
+          "numpyMinusReport": -1.734723475976807e-18,
+          "numpyStdDev": 0.015244250162221487,
+          "report": 0.015244250162221489,
+          "sequentialMinusReport": -4.2674197509029455e-16,
+          "sequentialStdDev": 0.015244250162221062
+        },
+        "current": {
+          "count": 1084,
+          "mean": 0.052103131035862706,
+          "numpyMinusReport": 3.469446951953614e-18,
+          "numpyStdDev": 0.01696939667846243,
+          "report": 0.016969396678462426,
+          "sequentialMinusReport": -4.3368086899420177e-16,
+          "sequentialStdDev": 0.016969396678461993
+        },
+        "native": {
+          "count": 1084,
+          "mean": 0.03352287088895063,
+          "numpyMinusReport": 0.0,
+          "numpyStdDev": 0.018948351482347667,
+          "report": 0.018948351482347667,
+          "sequentialMinusReport": -5.377642775528102e-16,
+          "sequentialStdDev": 0.01894835148234713
+        }
+      },
+      "reportNativeErrorGrowth": 0.0017251465162409375,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.905,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.016674464944479158,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 80,
+          "halfW": 140,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 51.9746083
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016129168353821374,
+        "newTarget": 0.014953147360208346,
+        "nominal": 0.04560625000000001,
+        "oldDC": 0.031627612304687504,
+        "oldNeutral": 0.03455399149689226,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0023411538794789253,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00013586736448633827,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.076888412914442,
+          "minimumPreOutputLinearOnMask": 0.014260643981494393,
+          "pixelLinearLumaRMSE": 0.0006276468684338885,
+          "shiftFromCurrent": -0.0019029394022136003,
+          "stdDev": 0.01485127299599561
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0020812520403217117,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.17779694086412884,
+          "minimumPreOutputLinearOnMask": 0.014103366739072584,
+          "pixelLinearLumaRMSE": 0.0031510084327685066,
+          "shiftFromCurrent": 0.00031418000259444967,
+          "stdDev": 0.01706839240080366
+        },
+        "rim": {
+          "actualMinusPredicted": 0.00010055042359306994,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0569022775791268,
+          "minimumPreOutputLinearOnMask": 0.014103366739072584,
+          "pixelLinearLumaRMSE": 0.0006444086162858645,
+          "shiftFromCurrent": -0.001867622461320332,
+          "stdDev": 0.014886589936888878
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0018495231874331008,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.04665975576857871,
+          "minimumPreOutputLinearOnMask": 0.014260643981494393,
+          "pixelLinearLumaRMSE": 0.0032617566969500005,
+          "shiftFromCurrent": 8.245114970583875e-05,
+          "stdDev": 0.01683666354791505
+        }
+      },
+      "actualShift": -0.001767072037727262,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__rrect-ml__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 28048,
+          "maskSha256": "d306dbc85601c7d36550114e363b9af8296d32dac322db1b968e0f2183be43b2",
+          "scalars": {
+            "candidate": {
+              "count": 28048,
+              "mean": 0.015640679223339008,
+              "numpyStdDev": 0.005233846759094309,
+              "sequentialStdDev": 0.005233846759087152
+            },
+            "current": {
+              "count": 28048,
+              "mean": 0.03254506786167037,
+              "numpyStdDev": 0.005719908240896895,
+              "sequentialStdDev": 0.005719908240757115
+            },
+            "native": {
+              "count": 28048,
+              "mean": 0.015233223680936207,
+              "numpyStdDev": 0.004728479553926553,
+              "sequentialStdDev": 0.004728479553912889
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 22968,
+          "maskSha256": "f10375e650349be80694d529ba82689200b039aebe7e28954f90f6e34d3c8f03",
+          "scalars": {
+            "candidate": {
+              "count": 22968,
+              "mean": 0.014796101331085176,
+              "numpyStdDev": 0.001036902742027061,
+              "sequentialStdDev": 0.001036902741979559
+            },
+            "current": {
+              "count": 22968,
+              "mean": 0.03175649348189548,
+              "numpyStdDev": 0.0010605677412147947,
+              "sequentialStdDev": 0.0010605677407804711
+            },
+            "native": {
+              "count": 22968,
+              "mean": 0.014537362999330486,
+              "numpyStdDev": 0.0003358460358150638,
+              "sequentialStdDev": 0.00033584603560962814
+            }
+          }
+        },
+        "production": {
+          "count": 792,
+          "maskSha256": "3f386d7ea61818cc5db767866c9458b6972ec1a9a042523e5855070eb736fad4",
+          "scalars": {
+            "candidate": {
+              "count": 792,
+              "mean": 0.03550867052258729,
+              "numpyStdDev": 0.014987140360481948,
+              "sequentialStdDev": 0.014987140360481408
+            },
+            "current": {
+              "count": 792,
+              "mean": 0.05413209131984084,
+              "numpyStdDev": 0.01675421239820921,
+              "sequentialStdDev": 0.016754212398209022
+            },
+            "native": {
+              "count": 792,
+              "mean": 0.0355638876765928,
+              "numpyStdDev": 0.018627953309276635,
+              "sequentialStdDev": 0.018627953309276656
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 48,
+          "maskSha256": "902a43da9bef980e086834a07eae365bf621829251648982b90e9f76060ca87f",
+          "scalars": {
+            "candidate": {
+              "count": 48,
+              "mean": 0.03223755386471307,
+              "numpyStdDev": 0.0021641636769531903,
+              "sequentialStdDev": 0.002164163676953061
+            },
+            "current": {
+              "count": 48,
+              "mean": 0.0490951916760741,
+              "numpyStdDev": 0.0023067817976555167,
+              "sequentialStdDev": 0.0023067817976557786
+            },
+            "native": {
+              "count": 48,
+              "mean": 0.01673978555393923,
+              "numpyStdDev": 0.0002241713294164746,
+              "sequentialStdDev": 0.0002241713294175362
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/a02f89996b93271a88f963d11e9da36cd6769434a8a3070432578434c7a95d7b/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "677e24a6413c6afe74cf90cd5a73f1fa77f5e1a522c61ee6d69594d9e27b260a"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "25385403ace49bd3d28349363e1c02c5abc635c0aa507829fb492021be0748cc",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "efbdad90b02f8a730263f8ce853bc9373a530aba91c98bf7b3c9777031d921ce"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.5-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "25385403ace49bd3d28349363e1c02c5abc635c0aa507829fb492021be0748cc"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/f2a3b0a5529aa11762ccd0e0813f4aa340a1bcc74ee5d4ff954622a4aa64eab7.json",
+          "sha256": "e94483417a4730b93c8fc5af9864b58c6db7241480d60dd6697246ed194db895"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "d2e6c8791d16ffa5ee45ec3e1319dd27b8ac14336c7f25043b6b3d30dc91ad35",
+          "documentPair": null,
+          "statisticSha256": "1a1e7a49bdabbd21b93e9a4bb26da5eb75afb342c87ecbb6e6728cba6cf66502"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest.png",
+          "sha256": "d2e6c8791d16ffa5ee45ec3e1319dd27b8ac14336c7f25043b6b3d30dc91ad35"
+        },
+        "retainedCanonicalAlternative": {
+          "exists": false,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 792,
+          "mean": 0.03550867052258729,
+          "numpyMinusReport": -1.734723475976807e-18,
+          "numpyStdDev": 0.014987140360481948,
+          "report": 0.01498714036048195,
+          "sequentialMinusReport": -5.412337245047638e-16,
+          "sequentialStdDev": 0.014987140360481408
+        },
+        "current": {
+          "count": 792,
+          "mean": 0.05413209131984084,
+          "numpyMinusReport": -2.0816681711721685e-17,
+          "numpyStdDev": 0.01675421239820921,
+          "report": 0.01675421239820923,
+          "sequentialMinusReport": -2.0816681711721685e-16,
+          "sequentialStdDev": 0.016754212398209022
+        },
+        "native": {
+          "count": 792,
+          "mean": 0.0355638876765928,
+          "numpyMinusReport": 1.3877787807814457e-17,
+          "numpyStdDev": 0.018627953309276635,
+          "report": 0.01862795330927662,
+          "sequentialMinusReport": 3.469446951953614e-17,
+          "sequentialStdDev": 0.018627953309276656
+        }
+      },
+      "reportNativeErrorGrowth": 0.0017670720377272811,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.905,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.01661007699392105,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 64,
+          "halfW": 112,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 41.27395365
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016200315260515415,
+        "newTarget": 0.015017535310766453,
+        "nominal": 0.04560625000000001,
+        "oldDC": 0.031627612304687504,
+        "oldNeutral": 0.03455399149689226,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0020985855020487464,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 8.047172155867081e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0395515727014375,
+          "minimumPreOutputLinearOnMask": 0.020381262405212833,
+          "pixelLinearLumaRMSE": 0.0008118460573703247,
+          "shiftFromCurrent": -0.0021150740410701297,
+          "stdDev": 0.014669604041622241
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0018672489100519524,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.08225362168057038,
+          "minimumPreOutputLinearOnMask": 0.02108315671970759,
+          "pixelLinearLumaRMSE": 0.003588703125123621,
+          "shiftFromCurrent": -0.00016735340945950652,
+          "stdDev": 0.016617324673232865
+        },
+        "rim": {
+          "actualMinusPredicted": -7.807365435735618e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.9616270690303239,
+          "minimumPreOutputLinearOnMask": 0.020124649495508882,
+          "pixelLinearLumaRMSE": 0.000698908658065212,
+          "shiftFromCurrent": -0.0019565286651541027,
+          "stdDev": 0.014828149417538268
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0021410080788388,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.05229806252894213,
+          "minimumPreOutputLinearOnMask": 0.021328401098272082,
+          "pixelLinearLumaRMSE": 0.0044486598834847825,
+          "shiftFromCurrent": 0.00010640575932734098,
+          "stdDev": 0.016891083842019712
+        }
+      },
+      "actualShift": -0.002034602319511459,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__rrect-sm__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 2000,
+          "maskSha256": "55e820504247679a0bb40d216aaf329b5452ec17f4e6547e6d0e9a2c8d4d0492",
+          "scalars": {
+            "candidate": {
+              "count": 2000,
+              "mean": 0.01919034129736695,
+              "numpyStdDev": 0.010160101805138997,
+              "sequentialStdDev": 0.010160101805139566
+            },
+            "current": {
+              "count": 2000,
+              "mean": 0.04051102273106053,
+              "numpyStdDev": 0.011454363031762794,
+              "sequentialStdDev": 0.011454363031758917
+            },
+            "native": {
+              "count": 2000,
+              "mean": 0.01802495887140202,
+              "numpyStdDev": 0.010820560532173033,
+              "sequentialStdDev": 0.010820560532172417
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 768,
+          "maskSha256": "12b85417ab06f5d51c7c60de61a9285a7749837482201a214b5ef9d3980e72cc",
+          "scalars": {
+            "candidate": {
+              "count": 768,
+              "mean": 0.01657005633718942,
+              "numpyStdDev": 0.005265848889885532,
+              "sequentialStdDev": 0.005265848889885808
+            },
+            "current": {
+              "count": 768,
+              "mean": 0.03774455669652053,
+              "numpyStdDev": 0.005193371603260911,
+              "sequentialStdDev": 0.005193371603258851
+            },
+            "native": {
+              "count": 768,
+              "mean": 0.014988681480238497,
+              "numpyStdDev": 0.0016665094162894272,
+              "sequentialStdDev": 0.0016665094162904776
+            }
+          }
+        },
+        "production": {
+          "count": 216,
+          "maskSha256": "b8fd338db0a8bada300029ce4d33b01844e78b5bf41be173f608df5cf6110d8d",
+          "scalars": {
+            "candidate": {
+              "count": 216,
+              "mean": 0.038864304977260615,
+              "numpyStdDev": 0.014750075763180912,
+              "sequentialStdDev": 0.014750075763181077
+            },
+            "current": {
+              "count": 216,
+              "mean": 0.06271740127733355,
+              "numpyStdDev": 0.01678467808269237,
+              "sequentialStdDev": 0.016784678082692222
+            },
+            "native": {
+              "count": 216,
+              "mean": 0.04147575844230761,
+              "numpyStdDev": 0.02128115215925829,
+              "sequentialStdDev": 0.0212811521592582
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 16,
+          "maskSha256": "acd6621eb68c4376386fbae6762978178ebd4d3c788106809f1433f56667da9c",
+          "scalars": {
+            "candidate": {
+              "count": 16,
+              "mean": 0.046776504150948396,
+              "numpyStdDev": 0.004224823811651676,
+              "sequentialStdDev": 0.004224823811651801
+            },
+            "current": {
+              "count": 16,
+              "mean": 0.067398370402522,
+              "numpyStdDev": 0.004364474257510195,
+              "sequentialStdDev": 0.004364474257510308
+            },
+            "native": {
+              "count": 16,
+              "mean": 0.025243410888132856,
+              "numpyStdDev": 0.002211193763882301,
+              "sequentialStdDev": 0.0022111937638823378
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/b9d6a8e57ded2ac2e41d63ebd450bdd9db2f3f97afc1c704b0d7ea55618bc83e/captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "4297d192d330b5f7c6804d3269efe176ee89e16d27d5bb249bcbb99464846f61"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "5bbba2f5f53afd7b0a9357b3ecd17ba8564ad787117d23063df12ed0556f6cd9",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "7c127bc368683b4aaf132a1a8fc4149d0d943610e66052dcfcf82a1549ce8085"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/1x-dark-standard-glass05-webgpu/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "5bbba2f5f53afd7b0a9357b3ecd17ba8564ad787117d23063df12ed0556f6cd9"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/b86a356fd6a15702282c4f6729b8a54c8706d29353e4677563a14e3b88341d0c.json",
+          "sha256": "64e5416837f3539d5480ae671b5eba98c89bfbae2874dc8e6f49438b7cf12a86"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "0c2f144b9007749b08d114fdf44399fc763d4d34b60e8836e016de22152f81a1",
+          "documentPair": null,
+          "statisticSha256": "1d8d9dec3febd82f7b0a5c813b3ab28a767a1cf405071995938ee223785636e1"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest.png",
+          "sha256": "0c2f144b9007749b08d114fdf44399fc763d4d34b60e8836e016de22152f81a1"
+        },
+        "retainedCanonicalAlternative": {
+          "exists": false,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 216,
+          "mean": 0.038864304977260615,
+          "numpyMinusReport": -1.734723475976807e-17,
+          "numpyStdDev": 0.014750075763180912,
+          "report": 0.01475007576318093,
+          "sequentialMinusReport": 1.474514954580286e-16,
+          "sequentialStdDev": 0.014750075763181077
+        },
+        "current": {
+          "count": 216,
+          "mean": 0.06271740127733355,
+          "numpyMinusReport": 2.0816681711721685e-17,
+          "numpyStdDev": 0.01678467808269237,
+          "report": 0.01678467808269235,
+          "sequentialMinusReport": -1.2836953722228372e-16,
+          "sequentialStdDev": 0.016784678082692222
+        },
+        "native": {
+          "count": 216,
+          "mean": 0.04147575844230761,
+          "numpyMinusReport": 1.3877787807814457e-17,
+          "numpyStdDev": 0.02128115215925829,
+          "report": 0.021281152159258278,
+          "sequentialMinusReport": -7.632783294297951e-17,
+          "sequentialStdDev": 0.0212811521592582
+        }
+      },
+      "reportNativeErrorGrowth": 0.0020346023195114207,
+      "scale": 1,
+      "sourceModel": {
+        "alpha": 0.9,
+        "authority": 0.9570312499999999,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.021228253901102084,
+        "encodedInput": 0.00375,
+        "geom": {
+          "halfH": 16,
+          "halfW": 32,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 12.2293196
+        },
+        "k": 0,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.01644397570016435,
+        "newTarget": 0.015174578130147914,
+        "nominal": 0.045375000000000006,
+        "oldDC": 0.03640283203125,
+        "oldNeutral": 0.04003092447916666,
+        "oldTarget": 0.036,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 2.2,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00029024767801857584,
+        "linearLuminance": 0.00375,
+        "rgb": [
+          0.00375,
+          0.00375,
+          0.00375
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.002141960995386952,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": -5.57499054374376e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.9549966521363165,
+          "minimumPreOutputLinearOnMask": 0.013826219269557342,
+          "pixelLinearLumaRMSE": 0.000632892377151184,
+          "shiftFromCurrent": -0.0011830447194937053,
+          "stdDev": 0.025689814908098733
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0012171807788748865,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.01744748130260726,
+          "minimumPreOutputLinearOnMask": 0.01362065001932744,
+          "pixelLinearLumaRMSE": 0.002626321907995153,
+          "shiftFromCurrent": -2.161384605625649e-05,
+          "stdDev": 0.026851245781536182
+        },
+        "rim": {
+          "actualMinusPredicted": 8.846178214824349e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0714095624633184,
+          "minimumPreOutputLinearOnMask": 0.013553842214020194,
+          "pixelLinearLumaRMSE": 0.0009364860766850728,
+          "shiftFromCurrent": -0.0013272564070793864,
+          "stdDev": 0.025545603220513052
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0012435810732213427,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.003863794848533371,
+          "minimumPreOutputLinearOnMask": 0.013827297267469018,
+          "pixelLinearLumaRMSE": 0.0027240138817346887,
+          "shiftFromCurrent": 4.7864482901997796e-06,
+          "stdDev": 0.02687764607588264
+        }
+      },
+      "actualShift": -0.001238794624931143,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": false,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 19468,
+          "maskSha256": "b8c4756051ea12c2bf702c3c9f922501ed7bf440fd53c55c5bbae83afeda49ad",
+          "scalars": {
+            "candidate": {
+              "count": 19468,
+              "mean": 0.017007979168507756,
+              "numpyStdDev": 0.010141352434919837,
+              "sequentialStdDev": 0.010141352434913388
+            },
+            "current": {
+              "count": 19468,
+              "mean": 0.03747032595455169,
+              "numpyStdDev": 0.010755194450831255,
+              "sequentialStdDev": 0.010755194450801796
+            },
+            "native": {
+              "count": 19468,
+              "mean": 0.017104515372725004,
+              "numpyStdDev": 0.010386074138301489,
+              "sequentialStdDev": 0.010386074138296187
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 10984,
+          "maskSha256": "101d19faf1513a0c1d6f52c5b65f9853e5a5319458fe587e31112a897a68d460",
+          "scalars": {
+            "candidate": {
+              "count": 10984,
+              "mean": 0.01605248312567528,
+              "numpyStdDev": 0.007802306365127021,
+              "sequentialStdDev": 0.007802306365120347
+            },
+            "current": {
+              "count": 10984,
+              "mean": 0.036393609385353895,
+              "numpyStdDev": 0.007923836039584428,
+              "sequentialStdDev": 0.007923836039573758
+            },
+            "native": {
+              "count": 10984,
+              "mean": 0.014638307356657235,
+              "numpyStdDev": 0.0034036098615941096,
+              "sequentialStdDev": 0.003403609861576619
+            }
+          }
+        },
+        "production": {
+          "count": 1720,
+          "maskSha256": "b7ef22810c521719681fdb432d37ab56f93d9e07224a0db96cc29a214e59cb20",
+          "scalars": {
+            "candidate": {
+              "count": 1720,
+              "mean": 0.0330452175026768,
+              "numpyStdDev": 0.025634065002661296,
+              "sequentialStdDev": 0.025634065002660862
+            },
+            "current": {
+              "count": 1720,
+              "mean": 0.05507617059682617,
+              "numpyStdDev": 0.02687285962759244,
+              "sequentialStdDev": 0.026872859627590735
+            },
+            "native": {
+              "count": 1720,
+              "mean": 0.04092923540384138,
+              "numpyStdDev": 0.024109512169818142,
+              "sequentialStdDev": 0.02410951216981825
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 96,
+          "maskSha256": "39bf1c74167173b2e311a897f69a34307f26e0a1b0dc9a37276e2ddfee6361e5",
+          "scalars": {
+            "candidate": {
+              "count": 96,
+              "mean": 0.08702970014717658,
+              "numpyStdDev": 0.01915819879558429,
+              "sequentialStdDev": 0.01915819879558403
+            },
+            "current": {
+              "count": 96,
+              "mean": 0.1079356853506671,
+              "numpyStdDev": 0.01933434788674654,
+              "sequentialStdDev": 0.019334347886746622
+            },
+            "native": {
+              "count": 96,
+              "mean": 0.046520164948691406,
+              "numpyStdDev": 0.01711985092824068,
+              "sequentialStdDev": 0.017119850928240588
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6b012a2b65f1c6c32cb7427ee7dcf91431b16265bfb3127dd2ff59789c2ca23d/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "43df711e774dba4a451eba29f513c03e82ba55343aabce9d31ea03f3671e09d7"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "49019d5a99fd569efdf03fd61422086ce898222a48ed2eb97d1129a958dd9979",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "ca73dc9488658470285f67f73c71f5e7e45965dde41a5a8e2e088ccfa9adff39"
+        },
+        "currentPng": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "72a86593f582007183d908a4afe0108030af3969fabbd9bfb51370e1c055242d"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/570a3cee64748fad29e3a69462f4ba88d1f950f0c2c5d2ac2a638367933766d0.json",
+          "sha256": "738cb1d8c889d8153791bdd4cd1bf0acd777c8c6406ce9df48ac66c70f946893"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "9b2abaed445bb3982836480c8b786fa7606623d24d28689c9cc6918cfd39828c",
+          "documentPair": null,
+          "statisticSha256": "fbdb073d5e2654743e8c69126426b327456cec0b278177a1237d7458060a0b48"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest.png",
+          "sha256": "ec2623ee5e26bf9367ce36340b71880ebdd400a7ae91bd182526b6fe684df03a"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "72a86593f582007183d908a4afe0108030af3969fabbd9bfb51370e1c055242d"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 1720,
+          "mean": 0.0330452175026768,
+          "numpyMinusReport": 4.3368086899420177e-16,
+          "numpyStdDev": 0.025634065002661296,
+          "report": 0.025634065002660862,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.025634065002660862
+        },
+        "current": {
+          "count": 1720,
+          "mean": 0.05507617059682617,
+          "numpyMinusReport": 1.7034984534092246e-15,
+          "numpyStdDev": 0.02687285962759244,
+          "report": 0.026872859627590735,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.026872859627590735
+        },
+        "native": {
+          "count": 1720,
+          "mean": 0.04092923540384138,
+          "numpyMinusReport": -1.0755285551056204e-16,
+          "numpyStdDev": 0.024109512169818142,
+          "report": 0.02410951216981825,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.02410951216981825
+        }
+      },
+      "reportNativeErrorGrowth": -0.0012387946249298731,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.70138427734375,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.02071915678935473,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 22,
+          "halfW": 60,
+          "k": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "reach": 22
+        },
+        "k": 0.09228515625,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.02018858676942322,
+        "newTarget": 0.01517083118563326,
+        "nominal": 0.036080087710957255,
+        "oldDC": 0.03588998797498799,
+        "oldNeutral": 0.04972896493105149,
+        "oldTarget": 0.035880111260572445,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0013714771705469076,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00016697795105851017,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.095714266233979,
+          "minimumPreOutputLinearOnMask": 0.01410489377800413,
+          "pixelLinearLumaRMSE": 0.0006325415704603282,
+          "shiftFromCurrent": -0.0019115240634460101,
+          "stdDev": 0.015197182902769581
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0018431322769021704,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.05651106830288956,
+          "minimumPreOutputLinearOnMask": 0.013944308470837854,
+          "pixelLinearLumaRMSE": 0.0023206036595609584,
+          "shiftFromCurrent": 9.858616451467045e-05,
+          "stdDev": 0.017207293130730262
+        },
+        "rim": {
+          "actualMinusPredicted": 7.337697370072942e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0420607819877625,
+          "minimumPreOutputLinearOnMask": 0.013904414314531006,
+          "pixelLinearLumaRMSE": 0.0007688620047979418,
+          "shiftFromCurrent": -0.0018179230860882294,
+          "stdDev": 0.015290783880127362
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0017507284864404175,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.003543829543408646,
+          "minimumPreOutputLinearOnMask": 0.01410489377800413,
+          "pixelLinearLumaRMSE": 0.0023563315168437194,
+          "shiftFromCurrent": 6.182374052917522e-06,
+          "stdDev": 0.01711488934026851
+        }
+      },
+      "actualShift": -0.0017445461123875,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 175240,
+          "maskSha256": "58bfcb29287151309f03d21225b653651f82e87eb0420d95d8fb96dadda9d49c",
+          "scalars": {
+            "candidate": {
+              "count": 175240,
+              "mean": 0.015305730026545807,
+              "numpyStdDev": 0.0038612037167023113,
+              "sequentialStdDev": 0.0038612037168131376
+            },
+            "current": {
+              "count": 175240,
+              "mean": 0.03241054118290295,
+              "numpyStdDev": 0.004237021241182889,
+              "sequentialStdDev": 0.004237021241173671
+            },
+            "native": {
+              "count": 175240,
+              "mean": 0.015189277317294385,
+              "numpyStdDev": 0.004824080956730443,
+              "sequentialStdDev": 0.004824080956823104
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 149612,
+          "maskSha256": "e97ae672ca9e079e4ce64934bcf653b7451c3fcb4b5c7d0b03de528d4e03eba1",
+          "scalars": {
+            "candidate": {
+              "count": 149612,
+              "mean": 0.014892202516364462,
+              "numpyStdDev": 0.0009172881370191698,
+              "sequentialStdDev": 0.0009172881371510075
+            },
+            "current": {
+              "count": 149612,
+              "mean": 0.032072127454811195,
+              "numpyStdDev": 0.0007504292788157993,
+              "sequentialStdDev": 0.000750429280452797
+            },
+            "native": {
+              "count": 149612,
+              "mean": 0.0146091938714183,
+              "numpyStdDev": 0.00044897154011133776,
+              "sequentialStdDev": 0.0004489715405716736
+            }
+          }
+        },
+        "production": {
+          "count": 4488,
+          "maskSha256": "59129ab8c76c198cb7c3306db7811ffecd969e92e8ed22b5a57de283914f6c91",
+          "scalars": {
+            "candidate": {
+              "count": 4488,
+              "mean": 0.02753165497333865,
+              "numpyStdDev": 0.015364160853828092,
+              "sequentialStdDev": 0.015364160853824091
+            },
+            "current": {
+              "count": 4488,
+              "mean": 0.0455111292601507,
+              "numpyStdDev": 0.01710870696621559,
+              "sequentialStdDev": 0.017108706966216785
+            },
+            "native": {
+              "count": 4488,
+              "mean": 0.03491197389755585,
+              "numpyStdDev": 0.02194476923152503,
+              "sequentialStdDev": 0.021944769231526082
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 764,
+          "maskSha256": "dd49e1db54ca6c59906ef689ae326b0028c13a0bde13c00696886882e800b72b",
+          "scalars": {
+            "candidate": {
+              "count": 764,
+              "mean": 0.019081000831520565,
+              "numpyStdDev": 0.003809206836161155,
+              "sequentialStdDev": 0.0038092068361630644
+            },
+            "current": {
+              "count": 764,
+              "mean": 0.035619509949356275,
+              "numpyStdDev": 0.003927181028757982,
+              "sequentialStdDev": 0.0039271810287563646
+            },
+            "native": {
+              "count": 764,
+              "mean": 0.016233202869133427,
+              "numpyStdDev": 0.0006512980745219492,
+              "sequentialStdDev": 0.0006512980745279097
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/9e1b0f176b746c881dc97591e98cbdbfe973f8cbf71a21b106cbc154f440c521/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "c28a03a2b69189f2d3b8feba74064f98cd1bf4c7742e1ba6de3eac418c9e87e8"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "de256edc4e3635953b24b751e7cf71041e72c1037a7d29888ac79c17d7034bff",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "112072866ac4685fb688ba55b6b0912e42e0bbed41afccd42db928b59d88e3a0"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "d713e4a673eabfd87347fc707ad391df2223e694cdffce4d4ebb12ce2a711987"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/72c71cd1de53a6ed3bcd454fa7f1dd349f6aeaa2eab5e65b0a1c024a133b9f5f.json",
+          "sha256": "e2b3989ec5c05637bff3aa6174f267c546dae69a5ee0d7ca472dd60c701d34e2"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "15b5306c04212c4a2166b20ff9079737ee5bf73c99f13016eec03b58f692750a",
+          "documentPair": null,
+          "statisticSha256": "5c9d7896c8486a40caf9d2b296766fc18897065646eed7f92c9c68e1f2a91536"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest.png",
+          "sha256": "56daf125789a9c13fea539494a2125ea1bf18f09dbc22fe7bd61812d6a84408b"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "d713e4a673eabfd87347fc707ad391df2223e694cdffce4d4ebb12ce2a711987"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 4488,
+          "mean": 0.02753165497333865,
+          "numpyMinusReport": 4.000272335602517e-15,
+          "numpyStdDev": 0.015364160853828092,
+          "report": 0.015364160853824091,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.015364160853824091
+        },
+        "current": {
+          "count": 4488,
+          "mean": 0.0455111292601507,
+          "numpyMinusReport": -1.1934897514720433e-15,
+          "numpyStdDev": 0.01710870696621559,
+          "report": 0.017108706966216785,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.017108706966216785
+        },
+        "native": {
+          "count": 4488,
+          "mean": 0.03491197389755585,
+          "numpyMinusReport": -1.0512424264419451e-15,
+          "numpyStdDev": 0.02194476923152503,
+          "report": 0.021944769231526082,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.021944769231526082
+        }
+      },
+      "reportNativeErrorGrowth": 0.0017445461123926937,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.9049999999999999,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.01676913526215578,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 80,
+          "halfW": 140,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 51.9746083
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016164588808869687,
+        "newTarget": 0.014950546840033484,
+        "nominal": 0.04557159396800642,
+        "oldDC": 0.03171968210218926,
+        "oldNeutral": 0.0346940200377711,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0023798375946380195,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00010316180557986415,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0589334675434214,
+          "minimumPreOutputLinearOnMask": 0.0143781263001578,
+          "pixelLinearLumaRMSE": 0.0006403809087406796,
+          "shiftFromCurrent": -0.0018536409455329958,
+          "stdDev": 0.015685217401305747
+        },
+        "dc": {
+          "actualMinusPredicted": -0.001706339966669558,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.025215480879569575,
+          "minimumPreOutputLinearOnMask": 0.014227080293403745,
+          "pixelLinearLumaRMSE": 0.0023152476686652064,
+          "shiftFromCurrent": -4.4139173283573585e-05,
+          "stdDev": 0.01749471917355517
+        },
+        "rim": {
+          "actualMinusPredicted": 0.000271495345041459,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.1550977322978715,
+          "minimumPreOutputLinearOnMask": 0.01414823270214417,
+          "pixelLinearLumaRMSE": 0.0006182614187407781,
+          "shiftFromCurrent": -0.0020219744849945907,
+          "stdDev": 0.015516883861844152
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0017245097829760997,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.014835570664228123,
+          "minimumPreOutputLinearOnMask": 0.0143781263001578,
+          "pixelLinearLumaRMSE": 0.002358568166264651,
+          "shiftFromCurrent": -2.5969356977031954e-05,
+          "stdDev": 0.01751288898986171
+        }
+      },
+      "actualShift": -0.0017504791399531316,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-ml__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 112200,
+          "maskSha256": "e461ea2ed003959ddbb1c57e39f9dc51b275f386975a52500149333a982f0aac",
+          "scalars": {
+            "candidate": {
+              "count": 112200,
+              "mean": 0.015343912217120014,
+              "numpyStdDev": 0.004472649988884847,
+              "sequentialStdDev": 0.00447264998889429
+            },
+            "current": {
+              "count": 112200,
+              "mean": 0.03168460172313665,
+              "numpyStdDev": 0.004950615658866086,
+              "sequentialStdDev": 0.004950615658998597
+            },
+            "native": {
+              "count": 112200,
+              "mean": 0.015275157071495056,
+              "numpyStdDev": 0.005344371790942318,
+              "sequentialStdDev": 0.005344371790957647
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 91884,
+          "maskSha256": "9b173fdb0f3b245d15fc325f973f5c5c9c1cf16f5bde3240b85209c8306725ed",
+          "scalars": {
+            "candidate": {
+              "count": 91884,
+              "mean": 0.014845177861487915,
+              "numpyStdDev": 0.0013625345267637866,
+              "sequentialStdDev": 0.001362534526794834
+            },
+            "current": {
+              "count": 91884,
+              "mean": 0.031162002027213143,
+              "numpyStdDev": 0.0014266663907492713,
+              "sequentialStdDev": 0.0014266663907735952
+            },
+            "native": {
+              "count": 91884,
+              "mean": 0.014545471274069898,
+              "numpyStdDev": 0.0004313444717424776,
+              "sequentialStdDev": 0.00043134447193829455
+            }
+          }
+        },
+        "production": {
+          "count": 3178,
+          "maskSha256": "717deb6a3983b81c44cf1e43c3b414e21e705a48c1c90093f576c01e03f2b77a",
+          "scalars": {
+            "candidate": {
+              "count": 3178,
+              "mean": 0.028831806739768068,
+              "numpyStdDev": 0.01578837920688561,
+              "sequentialStdDev": 0.01578837920688431
+            },
+            "current": {
+              "count": 3178,
+              "mean": 0.04667680759330433,
+              "numpyStdDev": 0.017538858346838743,
+              "sequentialStdDev": 0.01753885834684332
+            },
+            "native": {
+              "count": 3178,
+              "mean": 0.03733888573296995,
+              "numpyStdDev": 0.021954070693887492,
+              "sequentialStdDev": 0.021954070693887974
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 192,
+          "maskSha256": "9bba5903572615c739ff9b4de0193fdcdee6abb14cc421999ac786158385ba76",
+          "scalars": {
+            "candidate": {
+              "count": 192,
+              "mean": 0.02415763244850481,
+              "numpyStdDev": 0.0,
+              "sequentialStdDev": 0.0
+            },
+            "current": {
+              "count": 192,
+              "mean": 0.04091519690685331,
+              "numpyStdDev": 0.0,
+              "sequentialStdDev": 0.0
+            },
+            "native": {
+              "count": 192,
+              "mean": 0.017641954488384116,
+              "numpyStdDev": 3.469446951953614e-18,
+              "sequentialStdDev": 0.0
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/97bc0b3621f17e239bcb78cec7af8160348e19350803b3b203688068929310d0/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "e66ea194282186e44bf4c0f16efb2feca0f7fb1140adc080531db659c2fe3b17"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "9a82210035c4596c48360db27d769e25c73586d0b97878c8614a6e801c8f98a6",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "af2d9bc2b052bfafae4f06cc0e3abbd1bf9624f3d7a9eb5ebc7155165548542d"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "41e77e462188040fa24063518ace3b40b54f934a4270184be1af268d1c125d38"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/800f76b771dd010ba7076376ffeb82eb6a4c3214b1bdae3334270405d2ecc7d8.json",
+          "sha256": "e15a3a312d89641fa4fe3df8532720ce1c5cfc6255bcd626ef2848baae879346"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "f407d7a8d03b28831e9b19265e29bbc18e6c03c6e818ca52f4e8113c275e8384",
+          "documentPair": null,
+          "statisticSha256": "6a44292964f40d0e964e34e3e4a1e6a7814f510b28a6b5c63a9bfeee1303ee7f"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest.png",
+          "sha256": "13d34d8ee538a2e42711b2055fa6a45897194513114958926108f9f983d0fe60"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "41e77e462188040fa24063518ace3b40b54f934a4270184be1af268d1c125d38"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 3178,
+          "mean": 0.028831806739768068,
+          "numpyMinusReport": 1.3010426069826053e-15,
+          "numpyStdDev": 0.01578837920688561,
+          "report": 0.01578837920688431,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.01578837920688431
+        },
+        "current": {
+          "count": 3178,
+          "mean": 0.04667680759330433,
+          "numpyMinusReport": -4.576200529626817e-15,
+          "numpyStdDev": 0.017538858346838743,
+          "report": 0.01753885834684332,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.01753885834684332
+        },
+        "native": {
+          "count": 3178,
+          "mean": 0.03733888573296995,
+          "numpyMinusReport": -4.822531263215524e-16,
+          "numpyStdDev": 0.021954070693887492,
+          "report": 0.021954070693887974,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.021954070693887974
+        }
+      },
+      "reportNativeErrorGrowth": 0.0017504791399590089,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.8099999999999999,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.01648636343958989,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 64,
+          "halfW": 112,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 41.27395365
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.017742486993453235,
+        "newTarget": 0.015014602400709953,
+        "nominal": 0.041143187936012834,
+        "oldDC": 0.03150096584029984,
+        "oldNeutral": 0.03809602210405803,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.002360020783527139,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 1.9409830436651482e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0246074942818644,
+          "minimumPreOutputLinearOnMask": 0.01371699339295257,
+          "pixelLinearLumaRMSE": 0.0008114913557425764,
+          "shiftFromCurrent": -0.0008081870303548247,
+          "stdDev": 0.030661078690535075
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0008081159751323862,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.02451741152789297,
+          "minimumPreOutputLinearOnMask": 0.01350986950043457,
+          "pixelLinearLumaRMSE": 0.002947935434744397,
+          "shiftFromCurrent": 1.9338775214212955e-05,
+          "stdDev": 0.03148860449610411
+        },
+        "rim": {
+          "actualMinusPredicted": -6.752199931940248e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.914396613737812,
+          "minimumPreOutputLinearOnMask": 0.01345660841340247,
+          "pixelLinearLumaRMSE": 0.0009403239364755575,
+          "shiftFromCurrent": -0.0007212552005987707,
+          "stdDev": 0.03074801052029113
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0007098524488946927,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.10005962524229671,
+          "minimumPreOutputLinearOnMask": 0.013732357234134723,
+          "pixelLinearLumaRMSE": 0.003068093737878385,
+          "shiftFromCurrent": -7.892475102348057e-05,
+          "stdDev": 0.03139034096986642
+        }
+      },
+      "actualShift": -0.0007887771999181732,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-sm__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": false,
+      "position": 0.25,
+      "productionMask": {
+        "declared": {
+          "count": 7980,
+          "maskSha256": "ab058faf2d3aa3e3b07220d8f596a65b6d81bd16192fd27df81cef2372cf5546",
+          "scalars": {
+            "candidate": {
+              "count": 7980,
+              "mean": 0.019600755950973978,
+              "numpyStdDev": 0.014635545116099847,
+              "sequentialStdDev": 0.014635545116096932
+            },
+            "current": {
+              "count": 7980,
+              "mean": 0.040574473794125016,
+              "numpyStdDev": 0.015245141666596171,
+              "sequentialStdDev": 0.015245141666595541
+            },
+            "native": {
+              "count": 7980,
+              "mean": 0.018385168287686594,
+              "numpyStdDev": 0.013083688869475623,
+              "sequentialStdDev": 0.013083688869472565
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 3096,
+          "maskSha256": "4b1d1910fd79d7c147e12ee78b836a6d6258c8a087b31a827204c81603e77b8d",
+          "scalars": {
+            "candidate": {
+              "count": 3096,
+              "mean": 0.0196233574891768,
+              "numpyStdDev": 0.015704392342583272,
+              "sequentialStdDev": 0.015704392342583105
+            },
+            "current": {
+              "count": 3096,
+              "mean": 0.040615947159928986,
+              "numpyStdDev": 0.015632390460498947,
+              "sequentialStdDev": 0.015632390460493837
+            },
+            "native": {
+              "count": 3096,
+              "mean": 0.015371920504112494,
+              "numpyStdDev": 0.006138537011848769,
+              "sequentialStdDev": 0.00613853701184775
+            }
+          }
+        },
+        "production": {
+          "count": 958,
+          "maskSha256": "5d294f11279fefccc0cf8441fba8c76b20cce69e36f77e7a79faf62b07ef3afc",
+          "scalars": {
+            "candidate": {
+              "count": 958,
+              "mean": 0.04050028545100735,
+              "numpyStdDev": 0.030680488520971726,
+              "sequentialStdDev": 0.030680488520971248
+            },
+            "current": {
+              "count": 958,
+              "mean": 0.0628371957705857,
+              "numpyStdDev": 0.0314692657208899,
+              "sequentialStdDev": 0.031469265720889456
+            },
+            "native": {
+              "count": 958,
+              "mean": 0.04367715809585943,
+              "numpyStdDev": 0.026167704138654425,
+              "sequentialStdDev": 0.026167704138653925
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 96,
+          "maskSha256": "39bf1c74167173b2e311a897f69a34307f26e0a1b0dc9a37276e2ddfee6361e5",
+          "scalars": {
+            "candidate": {
+              "count": 96,
+              "mean": 0.09712857201213798,
+              "numpyStdDev": 0.024179198907206687,
+              "sequentialStdDev": 0.024179198907206444
+            },
+            "current": {
+              "count": 96,
+              "mean": 0.11783827379751159,
+              "numpyStdDev": 0.02418471114367403,
+              "sequentialStdDev": 0.024184711143673463
+            },
+            "native": {
+              "count": 96,
+              "mean": 0.04559323692631001,
+              "numpyStdDev": 0.016471087301715193,
+              "sequentialStdDev": 0.01647108730171525
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/6c0925bf2f8d040a833dc10856abf867052bd436ff47f4a50ee2e194c0b45967/captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "440fa3cb6be655de2b2c967232ca640a780637f68a82d98c636cf86c3e41e411"
+        },
+        "currentIdentityKind": "frozen-reference-record",
+        "currentNumericIdentity": {
+          "captureSha256": "2e72042048a983f390d3f92a753ee65ce98858e0fe8a2b6f720b7197fab983a3",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+          },
+          "statisticSha256": "4c973103b83fe4df9855a4f3304c37f4488dc59490eb0ed21e05804373051229"
+        },
+        "currentPng": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "0e2b5e58b6a1fef748d2d1c1d227c7b5fce5681ddb0c016010c49faac9a8884c"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/766a6e5066da0044ea2c155147e606d7ae9aad556b9414cf5c68b52e5e532256.json",
+          "sha256": "fe3b08aa01c0badb4fa8735ddcdf786bd50186061d4d3c2957c9c5d6eacb8564"
+        },
+        "nativeIdentityKind": "frozen-reference-record",
+        "nativeNumericIdentity": {
+          "captureSha256": "0a2c5d13de95051eae38e4bf9615f66b580f0e180abe953c601461cf7ef7a9d7",
+          "documentPair": null,
+          "statisticSha256": "fd5927ceb8767e0668a7f2ed80ad2dac6dbdfa7a3cd535a86e105b28d0e1c08b"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest.png",
+          "sha256": "f0baedf9cc36c1501d0943d188dacfbba0a5cdbacc4b3206791df096bad7d7c2"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "0e2b5e58b6a1fef748d2d1c1d227c7b5fce5681ddb0c016010c49faac9a8884c"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 958,
+          "mean": 0.04050028545100735,
+          "numpyMinusReport": 4.787836793695988e-16,
+          "numpyStdDev": 0.030680488520971726,
+          "report": 0.030680488520971248,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.030680488520971248
+        },
+        "current": {
+          "count": 958,
+          "mean": 0.0628371957705857,
+          "numpyMinusReport": 4.440892098500626e-16,
+          "numpyStdDev": 0.0314692657208899,
+          "report": 0.031469265720889456,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.031469265720889456
+        },
+        "native": {
+          "count": 958,
+          "mean": 0.04367715809585943,
+          "numpyMinusReport": 4.996003610813204e-16,
+          "numpyStdDev": 0.026167704138654425,
+          "report": 0.026167704138653925,
+          "sequentialMinusReport": 0.0,
+          "sequentialStdDev": 0.026167704138653925
+        }
+      },
+      "reportNativeErrorGrowth": -0.0007887771999182079,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.7,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.0208299373082476,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 16,
+          "halfW": 32,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 12.2293196
+        },
+        "k": 0,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.020221816123808037,
+        "newTarget": 0.01517083118563326,
+        "nominal": 0.03601555989896763,
+        "oldDC": 0.03600076849388086,
+        "oldNeutral": 0.04997886942130462,
+        "oldTarget": 0.036,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.7
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0016862266123600584,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": -0.00021734429334073838,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.8970495284757173,
+          "minimumPreOutputLinearOnMask": 0.014613038179881951,
+          "pixelLinearLumaRMSE": 0.0006620827917289358,
+          "shiftFromCurrent": -0.0018938096443027012,
+          "stdDev": 0.01685732681906278
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0021536992961838537,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.020152655749918955,
+          "minimumPreOutputLinearOnMask": 0.014423827456888194,
+          "pixelLinearLumaRMSE": 0.0028014654031774844,
+          "shiftFromCurrent": 4.254535854041411e-05,
+          "stdDev": 0.018793681821905894
+        },
+        "rim": {
+          "actualMinusPredicted": 0.00017135437738186043,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0811662164120224,
+          "minimumPreOutputLinearOnMask": 0.014332644731709733,
+          "pixelLinearLumaRMSE": 0.0008081921638823532,
+          "shiftFromCurrent": -0.0022825083150253,
+          "stdDev": 0.01646862814834018
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.002162358075534391,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.024254099607775415,
+          "minimumPreOutputLinearOnMask": 0.014635045970363528,
+          "pixelLinearLumaRMSE": 0.00287657914237161,
+          "shiftFromCurrent": 5.120413789095127e-05,
+          "stdDev": 0.01880234060125643
+        }
+      },
+      "actualShift": -0.0021111539376434396,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 19468,
+          "maskSha256": "b8c4756051ea12c2bf702c3c9f922501ed7bf440fd53c55c5bbae83afeda49ad",
+          "scalars": {
+            "candidate": {
+              "count": 19468,
+              "mean": 0.016745670581296813,
+              "numpyStdDev": 0.006890230127685489,
+              "sequentialStdDev": 0.006890230127690522
+            },
+            "current": {
+              "count": 19468,
+              "mean": 0.03758312892729989,
+              "numpyStdDev": 0.007744571666782502,
+              "sequentialStdDev": 0.007744571666746974
+            },
+            "native": {
+              "count": 19468,
+              "mean": 0.01716486640864412,
+              "numpyStdDev": 0.009952211613944589,
+              "sequentialStdDev": 0.009952211613943399
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 10984,
+          "maskSha256": "101d19faf1513a0c1d6f52c5b65f9853e5a5319458fe587e31112a897a68d460",
+          "scalars": {
+            "candidate": {
+              "count": 10984,
+              "mean": 0.015694997433151173,
+              "numpyStdDev": 0.00241304446927839,
+              "sequentialStdDev": 0.0024130444692812936
+            },
+            "current": {
+              "count": 10984,
+              "mean": 0.0362419575477105,
+              "numpyStdDev": 0.0025572763534861503,
+              "sequentialStdDev": 0.002557276353544271
+            },
+            "native": {
+              "count": 10984,
+              "mean": 0.014659320755692788,
+              "numpyStdDev": 0.0010094339276005494,
+              "sequentialStdDev": 0.0010094339275617925
+            }
+          }
+        },
+        "production": {
+          "count": 1690,
+          "maskSha256": "0b4482fd27042de5a352621f9baafb3cc3de7907f3c7440feacfe07f01a73910",
+          "scalars": {
+            "candidate": {
+              "count": 1690,
+              "mean": 0.028958110534689992,
+              "numpyStdDev": 0.01663998252572204,
+              "sequentialStdDev": 0.016639982525721037
+            },
+            "current": {
+              "count": 1690,
+              "mean": 0.051571590519775196,
+              "numpyStdDev": 0.01875113646336548,
+              "sequentialStdDev": 0.018751136463361722
+            },
+            "native": {
+              "count": 1690,
+              "mean": 0.039902721877591495,
+              "numpyStdDev": 0.02362137426348326,
+              "sequentialStdDev": 0.023621374263483024
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 64,
+          "maskSha256": "1c8e62b4dcae67599b72597b549aeb314c146bf348587ffae2c0adf69483b38e",
+          "scalars": {
+            "candidate": {
+              "count": 64,
+              "mean": 0.04046519520646246,
+              "numpyStdDev": 0.0038829195360981362,
+              "sequentialStdDev": 0.0038829195360984272
+            },
+            "current": {
+              "count": 64,
+              "mean": 0.061649711458541076,
+              "numpyStdDev": 0.003980292693174339,
+              "sequentialStdDev": 0.003980292693173887
+            },
+            "native": {
+              "count": 64,
+              "mean": 0.026434627189012655,
+              "numpyStdDev": 0.0023042577864319353,
+              "sequentialStdDev": 0.0023042577864323542
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/993ad1748c91a8e5933828010caa84f22c3f67d97d8adddfec236fad1e0cd1d2/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "28b01d9683faa08f67aac021aaa07f401bf6eb6eedbd92a57609aad6c85ff533"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "0f5255fbc6bc498ebafd8799b76c73c3f57cf6b360797a1ba23aac3e06e047d3",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "b39945b0a755eb428822008b26e30c97b650403ab384863e01bf212a0e37dee3"
+        },
+        "currentPng": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "0f5255fbc6bc498ebafd8799b76c73c3f57cf6b360797a1ba23aac3e06e047d3"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/f6152cb5f5622aefc0a020771ce381702ff8d9eb343f7b13f6ac2b9d1959073a.json",
+          "sha256": "93932b59cc0a92025848bfc8c8e82e04aa560e6119e125cbda1a07aa58b77c53"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "e45885e10af25041a19a568343b06dd311ed083d44c205547e04d5a243c066d8",
+          "documentPair": null,
+          "statisticSha256": "95d01931888f7d0f7b7a240b94c0953733196d72480fd06ebf72b5011c3710aa"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest.png",
+          "sha256": "e45885e10af25041a19a568343b06dd311ed083d44c205547e04d5a243c066d8"
+        },
+        "retainedCanonicalAlternative": {
+          "bytesMatchOriginal": true,
+          "exists": true,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "0f5255fbc6bc498ebafd8799b76c73c3f57cf6b360797a1ba23aac3e06e047d3"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 1690,
+          "mean": 0.028958110534689992,
+          "numpyMinusReport": -6.938893903907228e-18,
+          "numpyStdDev": 0.01663998252572204,
+          "report": 0.016639982525722047,
+          "sequentialMinusReport": -1.0096090630185017e-15,
+          "sequentialStdDev": 0.016639982525721037
+        },
+        "current": {
+          "count": 1690,
+          "mean": 0.051571590519775196,
+          "numpyMinusReport": 1.0408340855860843e-17,
+          "numpyStdDev": 0.01875113646336548,
+          "report": 0.01875113646336547,
+          "sequentialMinusReport": -3.747002708109903e-15,
+          "sequentialStdDev": 0.018751136463361722
+        },
+        "native": {
+          "count": 1690,
+          "mean": 0.039902721877591495,
+          "numpyMinusReport": 0.0,
+          "numpyStdDev": 0.02362137426348326,
+          "report": 0.02362137426348326,
+          "sequentialMinusReport": -2.3592239273284576e-16,
+          "sequentialStdDev": 0.023621374263483024
+        }
+      },
+      "reportNativeErrorGrowth": 0.0021111539376434223,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.90046142578125,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.02117748741813215,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 22,
+          "halfW": 60,
+          "k": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "reach": 22
+        },
+        "k": 0.09228515625,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.01647363541957389,
+        "newTarget": 0.01517083118563326,
+        "nominal": 0.045360029236985754,
+        "oldDC": 0.03634831860376541,
+        "oldNeutral": 0.039992119178895766,
+        "oldTarget": 0.035880111260572445,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0013714771705469076,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.000164207586274695,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0934848561751709,
+          "minimumPreOutputLinearOnMask": 0.01410489377800413,
+          "pixelLinearLumaRMSE": 0.000582806745471477,
+          "shiftFromCurrent": -0.0019207229513623254,
+          "stdDev": 0.015042006476971782
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0018723757143800576,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.06596033920070324,
+          "minimumPreOutputLinearOnMask": 0.013944308470837854,
+          "pixelLinearLumaRMSE": 0.002320857281277739,
+          "shiftFromCurrent": 0.0001158603492924272,
+          "stdDev": 0.017078589777626534
+        },
+        "rim": {
+          "actualMinusPredicted": 3.52162709919418e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.020048939902205,
+          "minimumPreOutputLinearOnMask": 0.01390249286685048,
+          "pixelLinearLumaRMSE": 0.0007492706423197901,
+          "shiftFromCurrent": -0.0017917316360795722,
+          "stdDev": 0.015170997792254535
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0017470409025074525,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.005393896784788588,
+          "minimumPreOutputLinearOnMask": 0.01410489377800413,
+          "pixelLinearLumaRMSE": 0.0023531068786487863,
+          "shiftFromCurrent": -9.474462580177923e-06,
+          "stdDev": 0.01695325496575393
+        }
+      },
+      "actualShift": -0.0017565153650876304,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 175240,
+          "maskSha256": "58bfcb29287151309f03d21225b653651f82e87eb0420d95d8fb96dadda9d49c",
+          "scalars": {
+            "candidate": {
+              "count": 175240,
+              "mean": 0.015315768280401354,
+              "numpyStdDev": 0.003921489251676741,
+              "sequentialStdDev": 0.003921489251785433
+            },
+            "current": {
+              "count": 175240,
+              "mean": 0.032444925561000426,
+              "numpyStdDev": 0.004290673196551437,
+              "sequentialStdDev": 0.004290673196587944
+            },
+            "native": {
+              "count": 175240,
+              "mean": 0.015194108511241764,
+              "numpyStdDev": 0.004817576098066505,
+              "sequentialStdDev": 0.004817576098156223
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 149612,
+          "maskSha256": "e97ae672ca9e079e4ce64934bcf653b7451c3fcb4b5c7d0b03de528d4e03eba1",
+          "scalars": {
+            "candidate": {
+              "count": 149612,
+              "mean": 0.01490665287568096,
+              "numpyStdDev": 0.0011860992031183949,
+              "sequentialStdDev": 0.001186099203266593
+            },
+            "current": {
+              "count": 149612,
+              "mean": 0.03212563763756907,
+              "numpyStdDev": 0.0010552563368623517,
+              "sequentialStdDev": 0.0010552563380930695
+            },
+            "native": {
+              "count": 149612,
+              "mean": 0.014606433435261048,
+              "numpyStdDev": 0.00037633128366624494,
+              "sequentialStdDev": 0.00037633128414464486
+            }
+          }
+        },
+        "production": {
+          "count": 4492,
+          "maskSha256": "83f79b1be0e82762a9661ea95bfdd855604a83ebfc74616fa2747ea64960c328",
+          "scalars": {
+            "candidate": {
+              "count": 4492,
+              "mean": 0.027781959893693232,
+              "numpyStdDev": 0.015206214063246477,
+              "sequentialStdDev": 0.015206214063244246
+            },
+            "current": {
+              "count": 4492,
+              "mean": 0.04576431797942855,
+              "numpyStdDev": 0.016962729428334107,
+              "sequentialStdDev": 0.016962729428338222
+            },
+            "native": {
+              "count": 4492,
+              "mean": 0.034852732748206564,
+              "numpyStdDev": 0.02198532612768945,
+              "sequentialStdDev": 0.021985326127691603
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 764,
+          "maskSha256": "dd49e1db54ca6c59906ef689ae326b0028c13a0bde13c00696886882e800b72b",
+          "scalars": {
+            "candidate": {
+              "count": 764,
+              "mean": 0.020743326349915703,
+              "numpyStdDev": 0.003411168414858096,
+              "sequentialStdDev": 0.0034111684148581283
+            },
+            "current": {
+              "count": 764,
+              "mean": 0.037600509127823256,
+              "numpyStdDev": 0.0034666083477920425,
+              "sequentialStdDev": 0.003466608347795478
+            },
+            "native": {
+              "count": 764,
+              "mean": 0.015876374982641262,
+              "numpyStdDev": 0.00041256503243270083,
+              "sequentialStdDev": 0.0004125650324400912
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/b634ab2ed95ae6372d0936c4bc2f6e5dac429e8c0adf2479ad72312a873894f5/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "7894b07d29a35ef42cd0a0013f4e371b54d50e02aa8e0e99ed9e4802920f96fb"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "990f9db0769fbfdf755fea004fc449ff0f812dced8cc47d3589ef98c5cb31cd4",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "aa79c4ebdf41a2a573c4ac81d00a7bc0c512320495d38ceb4e00a6448a84aa01"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.5-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png",
+          "sha256": "990f9db0769fbfdf755fea004fc449ff0f812dced8cc47d3589ef98c5cb31cd4"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/0cc55540ab4878e98adacd093ba390d10c222e162004de4eab315ee0d5168ee2.json",
+          "sha256": "183474f46a73c52010d7eb99ca9ea005bc9ff28e145852d83b452ec1d4956024"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "633efbfde7ceb7273dd61b109f43abbf6f0f9cf4801d8e5be6c01161bf6157d2",
+          "documentPair": null,
+          "statisticSha256": "d076f83e3beec09e8b0a65b4b25e4dae1992a360bcbd9de97e9602fdb4d51d30"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest.png",
+          "sha256": "633efbfde7ceb7273dd61b109f43abbf6f0f9cf4801d8e5be6c01161bf6157d2"
+        },
+        "retainedCanonicalAlternative": {
+          "exists": false,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-lg__rest/impulse__rrect-lg__rest__webgpu.png"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 4492,
+          "mean": 0.027781959893693232,
+          "numpyMinusReport": -1.734723475976807e-18,
+          "numpyStdDev": 0.015206214063246477,
+          "report": 0.015206214063246478,
+          "sequentialMinusReport": -2.2325891135821507e-15,
+          "sequentialStdDev": 0.015206214063244246
+        },
+        "current": {
+          "count": 4492,
+          "mean": 0.04576431797942855,
+          "numpyMinusReport": 1.3877787807814457e-17,
+          "numpyStdDev": 0.016962729428334107,
+          "report": 0.016962729428334093,
+          "sequentialMinusReport": 4.128641872824801e-15,
+          "sequentialStdDev": 0.016962729428338222
+        },
+        "native": {
+          "count": 4492,
+          "mean": 0.034852732748206564,
+          "numpyMinusReport": 3.469446951953614e-18,
+          "numpyStdDev": 0.02198532612768945,
+          "report": 0.021985326127689445,
+          "sequentialMinusReport": 2.157996004115148e-15,
+          "sequentialStdDev": 0.021985326127691603
+        }
+      },
+      "reportNativeErrorGrowth": 0.0017565153650876148,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.905,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.01676913526215578,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 80,
+          "halfW": 140,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 51.9746083
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016164588808869687,
+        "newTarget": 0.014950546840033484,
+        "nominal": 0.045571593968006426,
+        "oldDC": 0.03171968210218926,
+        "oldNeutral": 0.03469402003777109,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0023698050213434418,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 0.00017066374705135626,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0934933035257874,
+          "minimumPreOutputLinearOnMask": 0.01416141388939611,
+          "pixelLinearLumaRMSE": 0.0006190935200057319,
+          "shiftFromCurrent": -0.001996075200228681,
+          "stdDev": 0.01562460245743576
+        },
+        "dc": {
+          "actualMinusPredicted": -0.001979053735848873,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.08416857602384244,
+          "minimumPreOutputLinearOnMask": 0.014008364031514325,
+          "pixelLinearLumaRMSE": 0.0023893054087070673,
+          "shiftFromCurrent": 0.00015364228267154834,
+          "stdDev": 0.01777431994033599
+        },
+        "rim": {
+          "actualMinusPredicted": -1.9865259680462016e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.9891173797305345,
+          "minimumPreOutputLinearOnMask": 0.013966718713380621,
+          "pixelLinearLumaRMSE": 0.0008333899423502268,
+          "shiftFromCurrent": -0.0018055461934968625,
+          "stdDev": 0.01581513146416758
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0017778139876910952,
+          "directionMatches": true,
+          "explainedShiftFraction": 0.026074924315491087,
+          "minimumPreOutputLinearOnMask": 0.01416141388939611,
+          "pixelLinearLumaRMSE": 0.002409504535079211,
+          "shiftFromCurrent": -4.759746548622934e-05,
+          "stdDev": 0.017573080192178212
+        }
+      },
+      "actualShift": -0.0018254114531773245,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__rrect-ml__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 112200,
+          "maskSha256": "e461ea2ed003959ddbb1c57e39f9dc51b275f386975a52500149333a982f0aac",
+          "scalars": {
+            "candidate": {
+              "count": 112200,
+              "mean": 0.01522377855053501,
+              "numpyStdDev": 0.00438262964192516,
+              "sequentialStdDev": 0.0043826296419340344
+            },
+            "current": {
+              "count": 112200,
+              "mean": 0.03232285081810536,
+              "numpyStdDev": 0.004795754146442072,
+              "sequentialStdDev": 0.004795754146905387
+            },
+            "native": {
+              "count": 112200,
+              "mean": 0.015280920669476158,
+              "numpyStdDev": 0.005342013431644224,
+              "sequentialStdDev": 0.005342013431655191
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 91884,
+          "maskSha256": "9b173fdb0f3b245d15fc325f973f5c5c9c1cf16f5bde3240b85209c8306725ed",
+          "scalars": {
+            "candidate": {
+              "count": 91884,
+              "mean": 0.014704678318878318,
+              "numpyStdDev": 0.0010262246619478868,
+              "sequentialStdDev": 0.0010262246619784892
+            },
+            "current": {
+              "count": 91884,
+              "mean": 0.03193544344815927,
+              "numpyStdDev": 0.0009520514878132467,
+              "sequentialStdDev": 0.0009520514893340112
+            },
+            "native": {
+              "count": 91884,
+              "mean": 0.014529192891684552,
+              "numpyStdDev": 0.00030658667700089737,
+              "sequentialStdDev": 0.00030658667718996087
+            }
+          }
+        },
+        "production": {
+          "count": 3316,
+          "maskSha256": "da4a23cfc83fee95e845bb6b630665a805c39e6e8035616085851646fc79b04e",
+          "scalars": {
+            "candidate": {
+              "count": 3316,
+              "mean": 0.0284961566028602,
+              "numpyStdDev": 0.015795266204487117,
+              "sequentialStdDev": 0.01579526620448555
+            },
+            "current": {
+              "count": 3316,
+              "mean": 0.04637932231863391,
+              "numpyStdDev": 0.01762067765766444,
+              "sequentialStdDev": 0.017620677657669316
+            },
+            "native": {
+              "count": 3316,
+              "mean": 0.036602686731426304,
+              "numpyStdDev": 0.021801123232553753,
+              "sequentialStdDev": 0.021801123232553808
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 192,
+          "maskSha256": "9bba5903572615c739ff9b4de0193fdcdee6abb14cc421999ac786158385ba76",
+          "scalars": {
+            "candidate": {
+              "count": 192,
+              "mean": 0.025186859627361613,
+              "numpyStdDev": 0.0,
+              "sequentialStdDev": 1.6130980174698654e-09
+            },
+            "current": {
+              "count": 192,
+              "mean": 0.04091519690685331,
+              "numpyStdDev": 0.0,
+              "sequentialStdDev": 0.0
+            },
+            "native": {
+              "count": 192,
+              "mean": 0.01599629336550959,
+              "numpyStdDev": 3.469446951953614e-18,
+              "sequentialStdDev": 9.313225746154785e-10
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/ed1c536799d433d26c79ef0b18c080139d216172c09e1e2f009a50b0f7581a71/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "e724ba1c50fbf94f1147a26eb5a7049561c85e7b1829d2c675d318b33855fde4"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "7329707e6b2edf6dd1b1b2bbca40aef61485beb2eec8fe13469bb6955818abc4",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "15edb15d08835d7502b37a329eec976688de7b9cdc6d6b18dc9a3d7b9e2e76c6"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.5-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png",
+          "sha256": "7329707e6b2edf6dd1b1b2bbca40aef61485beb2eec8fe13469bb6955818abc4"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/732bf18a2e3b6daac170747343b898f251afd0ba2a9b00baa5834cdcd716aec8.json",
+          "sha256": "e96b2d8c94e1832146a8d7570f2a0a155208d2cb3dc3f8916aba4ef8a9ae2b9e"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "6e327f16aaca97e5b7294f3060654cfbe54d995a43353386a8b83d915b7e1a80",
+          "documentPair": null,
+          "statisticSha256": "8bd855d3803c58a2a653c5ac6bd03c146095c455bab1cb9f9df5d0d8750ec692"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest.png",
+          "sha256": "6e327f16aaca97e5b7294f3060654cfbe54d995a43353386a8b83d915b7e1a80"
+        },
+        "retainedCanonicalAlternative": {
+          "exists": false,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__rest/impulse__rrect-ml__rest__webgpu.png"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 3316,
+          "mean": 0.0284961566028602,
+          "numpyMinusReport": -6.938893903907228e-18,
+          "numpyStdDev": 0.015795266204487117,
+          "report": 0.015795266204487124,
+          "sequentialMinusReport": -1.5751289161869408e-15,
+          "sequentialStdDev": 0.01579526620448555
+        },
+        "current": {
+          "count": 3316,
+          "mean": 0.04637932231863391,
+          "numpyMinusReport": 2.42861286636753e-17,
+          "numpyStdDev": 0.01762067765766444,
+          "report": 0.017620677657664417,
+          "sequentialMinusReport": 4.898859096158503e-15,
+          "sequentialStdDev": 0.017620677657669316
+        },
+        "native": {
+          "count": 3316,
+          "mean": 0.036602686731426304,
+          "numpyMinusReport": 0.0,
+          "numpyStdDev": 0.021801123232553753,
+          "report": 0.021801123232553753,
+          "sequentialMinusReport": 5.551115123125783e-17,
+          "sequentialStdDev": 0.021801123232553808
+        }
+      },
+      "reportNativeErrorGrowth": 0.0018254114531772933,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.905,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.01670507970147931,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 64,
+          "halfW": 112,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 41.27395365
+        },
+        "k": 1,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016235368433926558,
+        "newTarget": 0.015014602400709953,
+        "nominal": 0.045571593968006426,
+        "oldDC": 0.03171968210218926,
+        "oldNeutral": 0.03469402003777109,
+        "oldTarget": 0.031,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 0.0023320511849210723,
+        "native32Linear": 0.014443843596092545
+      }
+    },
+    {
+      "ablations": {
+        "both": {
+          "actualMinusPredicted": 5.9232967400575653e-05,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.030168974354733,
+          "minimumPreOutputLinearOnMask": 0.014505935974461603,
+          "pixelLinearLumaRMSE": 0.0008598990096393704,
+          "shiftFromCurrent": -0.0020226065545865986,
+          "stdDev": 0.01673138347057633
+        },
+        "dc": {
+          "actualMinusPredicted": -0.0021003410652648095,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.0697612919786159,
+          "minimumPreOutputLinearOnMask": 0.014310922278584493,
+          "pixelLinearLumaRMSE": 0.002927304442357333,
+          "shiftFromCurrent": 0.00013696747807878662,
+          "stdDev": 0.018890957503241716
+        },
+        "rim": {
+          "actualMinusPredicted": 0.00010058379586645391,
+          "directionMatches": true,
+          "explainedShiftFraction": 1.0512300850550884,
+          "minimumPreOutputLinearOnMask": 0.01423842434849289,
+          "pixelLinearLumaRMSE": 0.0009285208634995488,
+          "shiftFromCurrent": -0.002063957383052477,
+          "stdDev": 0.016690032642110452
+        },
+        "shadow": {
+          "actualMinusPredicted": -0.0020516443999122544,
+          "directionMatches": false,
+          "explainedShiftFraction": -0.04495874514271344,
+          "minimumPreOutputLinearOnMask": 0.01453832820536527,
+          "pixelLinearLumaRMSE": 0.003010640557836954,
+          "shiftFromCurrent": 8.827081272623147e-05,
+          "stdDev": 0.01884226083788916
+        }
+      },
+      "actualShift": -0.001963373587186023,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__rrect-sm__rest",
+        "T1-full-silhouette"
+      ],
+      "losingRequestedCell": true,
+      "position": 0.5,
+      "productionMask": {
+        "declared": {
+          "count": 7980,
+          "maskSha256": "ab058faf2d3aa3e3b07220d8f596a65b6d81bd16192fd27df81cef2372cf5546",
+          "scalars": {
+            "candidate": {
+              "count": 7980,
+              "mean": 0.01807923397534733,
+              "numpyStdDev": 0.008877015596821192,
+              "sequentialStdDev": 0.008877015596818786
+            },
+            "current": {
+              "count": 7980,
+              "mean": 0.039243374505262225,
+              "numpyStdDev": 0.009884540136540792,
+              "sequentialStdDev": 0.00988454013654183
+            },
+            "native": {
+              "count": 7980,
+              "mean": 0.018303906673154374,
+              "numpyStdDev": 0.012234997287628174,
+              "sequentialStdDev": 0.012234997287626535
+            }
+          }
+        },
+        "declaredDeepGt8CssPx": {
+          "count": 3096,
+          "maskSha256": "4b1d1910fd79d7c147e12ee78b836a6d6258c8a087b31a827204c81603e77b8d",
+          "scalars": {
+            "candidate": {
+              "count": 3096,
+              "mean": 0.016797783179137323,
+              "numpyStdDev": 0.004864400419003431,
+              "sequentialStdDev": 0.004864400419001925
+            },
+            "current": {
+              "count": 3096,
+              "mean": 0.03777808483532231,
+              "numpyStdDev": 0.00499376331363781,
+              "sequentialStdDev": 0.004993763313623807
+            },
+            "native": {
+              "count": 3096,
+              "mean": 0.014938728136180386,
+              "numpyStdDev": 0.0016790100699696463,
+              "sequentialStdDev": 0.0016790100699652431
+            }
+          }
+        },
+        "production": {
+          "count": 957,
+          "maskSha256": "9e9538989f9f48ad709e5d51b2acbafa6e42d7ecf40e00abde672197d2c6b37d",
+          "scalars": {
+            "candidate": {
+              "count": 957,
+              "mean": 0.03187151038146525,
+              "numpyStdDev": 0.016790616437976906,
+              "sequentialStdDev": 0.016790616437977128
+            },
+            "current": {
+              "count": 957,
+              "mean": 0.054570885901140974,
+              "numpyStdDev": 0.01875399002516293,
+              "sequentialStdDev": 0.018753990025163446
+            },
+            "native": {
+              "count": 957,
+              "mean": 0.04116572327490813,
+              "numpyStdDev": 0.02532167340808741,
+              "sequentialStdDev": 0.025321673408087088
+            }
+          }
+        },
+        "productionDeepGt8CssPx": {
+          "count": 64,
+          "maskSha256": "1c8e62b4dcae67599b72597b549aeb314c146bf348587ffae2c0adf69483b38e",
+          "scalars": {
+            "candidate": {
+              "count": 64,
+              "mean": 0.044628801367488216,
+              "numpyStdDev": 0.005094828588138434,
+              "sequentialStdDev": 0.005094828588138397
+            },
+            "current": {
+              "count": 64,
+              "mean": 0.0659464538237585,
+              "numpyStdDev": 0.00522811427358713,
+              "sequentialStdDev": 0.005228114273586731
+            },
+            "native": {
+              "count": 64,
+              "mean": 0.0258129815147556,
+              "numpyStdDev": 0.001770385632805744,
+              "sequentialStdDev": 0.0017703856328061273
+            }
+          }
+        }
+      },
+      "provenance": {
+        "candidatePng": {
+          "path": "/Users/new/vitrea-w51/live/gate/attempts/000001/quarantine/a545735a9d617d3e08d027bfe6b932422ce106a5b3f6002b1b7b1a6a05db74bc/captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "e3a261623f89221637f44a44972fa25e2476dd39e230030d4482e997e97d021a"
+        },
+        "currentIdentityKind": "png",
+        "currentNumericIdentity": {
+          "captureSha256": "2c91804cdd9498884698337b32f3f9c22a3e6225d8d3efa5abac67b264bac491",
+          "documentPair": {
+            "activeSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+            "recededSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+          },
+          "statisticSha256": "bef1c32a48cfe1d3504027f982333081282d7a86f7d04653d8605934552467a9"
+        },
+        "currentPng": {
+          "path": "/Users/new/vitrea-w50/g1-baselines/canonical3-recovery/captures/2x-dark-standard-glass05-webgpu/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png",
+          "sha256": "2c91804cdd9498884698337b32f3f9c22a3e6225d8d3efa5abac67b264bac491"
+        },
+        "measurement": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/d639fc34c9d31cf9975875d96640fdf1155b4d3aaeccd526cff97d3c369cc197.json",
+          "sha256": "b5e9d82a5d95e28238253e2040d79252d5321e91dec5432c39eac951d4413cf4"
+        },
+        "nativeIdentityKind": "png",
+        "nativeNumericIdentity": {
+          "captureSha256": "6eac776aa8659609ac64f9e199537f1e7e79a9a6e1f6fd59353be09143823f2e",
+          "documentPair": null,
+          "statisticSha256": "1b5be2a1e72e80f3c91949b73bd61184c4ad41a6b37a97cd93bfd1923bc3c27d"
+        },
+        "nativePng": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest.png",
+          "sha256": "6eac776aa8659609ac64f9e199537f1e7e79a9a6e1f6fd59353be09143823f2e"
+        },
+        "retainedCanonicalAlternative": {
+          "exists": false,
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-sm__rest/impulse__rrect-sm__rest__webgpu.png"
+        }
+      },
+      "replay": {
+        "candidate": {
+          "count": 957,
+          "mean": 0.03187151038146525,
+          "numpyMinusReport": 0.0,
+          "numpyStdDev": 0.016790616437976906,
+          "report": 0.016790616437976906,
+          "sequentialMinusReport": 2.220446049250313e-16,
+          "sequentialStdDev": 0.016790616437977128
+        },
+        "current": {
+          "count": 957,
+          "mean": 0.054570885901140974,
+          "numpyMinusReport": 3.8163916471489756e-17,
+          "numpyStdDev": 0.01875399002516293,
+          "report": 0.01875399002516289,
+          "sequentialMinusReport": 5.551115123125783e-16,
+          "sequentialStdDev": 0.018753990025163446
+        },
+        "native": {
+          "count": 957,
+          "mean": 0.04116572327490813,
+          "numpyMinusReport": -6.938893903907228e-18,
+          "numpyStdDev": 0.02532167340808741,
+          "report": 0.025321673408087417,
+          "sequentialMinusReport": -3.2959746043559335e-16,
+          "sequentialStdDev": 0.025321673408087088
+        }
+      },
+      "reportNativeErrorGrowth": 0.0019633735871859848,
+      "scale": 2,
+      "sourceModel": {
+        "alpha": 0.9,
+        "authority": 0.9506106124169117,
+        "axis": [
+          -0.7071,
+          -0.7071
+        ],
+        "candidateAuthority": 1,
+        "collapse": 0,
+        "delta": -0.02129039259643585,
+        "encodedInput": 0.0037310431985294137,
+        "geom": {
+          "halfH": 16,
+          "halfW": 32,
+          "k": [
+            0.058939,
+            0.53608908,
+            -1.48273371,
+            1.77253595,
+            -0.74059491
+          ],
+          "reach": 12.2293196
+        },
+        "k": 0,
+        "lensSizeGainMax": 2.6,
+        "newNeutral": 0.016480345799234127,
+        "newTarget": 0.01517083118563326,
+        "nominal": 0.04533851996632255,
+        "oldDC": 0.03646122378206911,
+        "oldNeutral": 0.04013633757305174,
+        "oldTarget": 0.036,
+        "optics": {
+          "blurSigma": 1.25,
+          "highlight": [
+            1,
+            1,
+            1
+          ],
+          "rimAlongSideSlope": 0.1,
+          "rimAlpha": 0.055,
+          "rimLevelGain": 0.44,
+          "rimLitExponent": 0.85,
+          "rimWidth": 2.2,
+          "rimWidth2x": 1.35,
+          "shadowAlpha": 0.05,
+          "shadowDepth": 0.35,
+          "specularGain": 0,
+          "specularPower": 6,
+          "tint": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "tintAlpha": 0.9
+        },
+        "rimWidth": 1.35,
+        "sizeShadowGainMax": 1
+      },
+      "sourceTone": {
+        "level": 0.00028878043332271005,
+        "linearLuminance": 0.0033851996632254457,
+        "rgb": [
+          0.003385199663225446,
+          0.003385199663225446,
+          0.003385199663225446
+        ]
+      },
+      "supportNotes": {
+        "additionalChromaArmPixels": 0,
+        "chromaThreshold": 0.03,
+        "deepDistance": "historical renderer continuous SDF, CSS px",
+        "maskIsErodedOrFilled": false,
+        "maskThreshold": 0.02,
+        "maximumChromaDeltaInDeclaredRegion": 2.680223077990413e-08,
+        "native32Linear": 0.014443843596092545
+      }
+    }
+  ],
+  "schema": "w52-exposed-impulse-source-attribution-1",
+  "sourceRevision": "b60d63c599c3e7ca784321b14dd23c8b613ddc8a",
+  "summary": {
+    "cells": 16,
+    "correctPredictedDirections": 16,
+    "losingExplainedFractionRange": [
+      0.8697097159359155,
+      1.1335075570432083
+    ],
+    "losingMaxAbsoluteSigmaResidual": 0.00032098671028076876,
+    "losingRequestedCells": 12,
+    "maximumNativeCurrentCandidateReplayDiscrepancy": 4.576200529626817e-15
+  }
+}
