@@ -32,6 +32,20 @@ recover a deleted one without knowing it existed.
 
 ---
 
+## W51's read-only root verification CLI uses a noncanonical temporary path
+
+`packages/calibration/results/2026-10-10-w51-regate/root.py verify` passes literal
+`/tmp/w51-admission-only` to the ordinary-path validator. On this Mac `/tmp` resolves to
+`/private/tmp`, so the convenience command refuses with “Symlink or noncanonical evidence path”.
+The real runner accepts its explicitly canonical `/Users/new/vitrea-w51/live/...` output; all
+three populations and the synthetic clearance were verified through `prepare` at such a path.
+No material capture or analysis was involved in the refusal. Found immediately after sealing
+root `3c2a741c…` on 2026-10-10; deliberately left outside the sealed runtime change.
+
+Resolve the verification-only scratch pathname before passing it to `prepare`, with a CLI test
+on a symlinked temporary-directory prefix. Do not weaken `ordinary()` or silently reseal W51's
+historical root to fix a convenience command.
+
 ## The e2e suites inherit the machine's accessibility settings
 
 *Found 2026-08-29, during the overlap-check narrowing.*
@@ -8103,3 +8117,45 @@ explicit: record the lexical request and resolved identity separately, compare l
 and test symlink/alias spellings of registered input, prior-fit and gate paths. Existing path and
 symlink guards are separate defences; this is a future defence-in-depth test/representation fix,
 not evidence that a payload escaped or that the candidate failed. Preserve the sealed W50 code.
+
+
+## Per-cell level bounds need source-owned numerical precision (W51 close, 2026-10-11)
+
+Claims §5.219 §3; W51 `evidence/gate-dl6/committed-clause-projection.json`. Two 2x inactive
+WebGPU deep8-far24 luma medians (dark0.25 impulse-lg and dark0.5 impulse-ml) differ by
+`1.0000000000000036` at a one-code bound. Native/candidate operands are
+19.999999999999996/21 and the reverse. The sealed comparator has no tolerance and both remain
+FAIL. Before another declaration, derive a numerical epsilon from the statistic's source-owned
+precision, pin it separately from the scientific bound, and test exact-bound and genuinely
+out-of-bound cases. Do not infer a tolerance from failed observations or patch the sealed W51
+judge. Nine other cells and four aggregates independently retain NEITHER.
+
+## Own-history caps can leave current with zero growth headroom (W51 close, 2026-10-11)
+
+Claims §5.219 §3; the same committed projection. Dark0.25 1x WebGPU
+`impulse__rrect-ml__inactive` passes primary current-growth at 2 B but fails own-history:
+0.0013798445629486346 against 0.001318279930855289, an excess of about 0.11 B. Current's
+historical growth already equals that cap. Any further error growth fails even when the primary
+budget admits it. The next declaration must inventory cap headroom and either explicitly retain
+that stop or obtain a prospective re-baseline ruling. A primary-budget amendment must not imply
+historical caps changed. Preserve the references and W51 verdict; no retroactive cap increase.
+
+## Dark-solid blue remains two codes low beyond the declared capsule (W51 close, 2026-10-11)
+
+Claims §5.219 §3; W51's six newly read dark0.25 inactive WebGPU cells (`rrect-48`, `rrect-80`,
+`rrect-sm`, both scales) read native RGB 48/48/51 against candidate 48/48/49. They extend the
+four declared inactive capsule blue exceptions at the two positions/scales. Two rest span-64
+misses at dark0.25 are already in current and unchanged. These are eight new gate failures, not
+eight candidate-introduced regressions. Identify the small chromatic residual separately from
+neutral low-end level and thick impulse texture, with uncensored colour controls if needed;
+no unique optical cause is established. No new capture or candidate change is authorised by
+this entry, and the failed candidate is not shipped.
+
+## W51 verification CLI supplies a noncanonical convenience path (P3, 2026-10-11)
+
+The W51 charter's Progress records this pre-rehearsal debt. `results/2026-10-10-w51-regate/root.py`
+uses `/tmp/w51-admission-only` for `verify`, while ordinary-path admission rejects the machine's
+alias spelling. Admission at canonical output paths and both full rehearsals and gate completed;
+this helper defect did not cause NEITHER. A future instrument should select a valid canonical
+scratch path (or accept an explicit one) and test its verification CLI under the same path policy.
+Keep admission strict and leave sealed W51 source unchanged merely for this convenience repair.

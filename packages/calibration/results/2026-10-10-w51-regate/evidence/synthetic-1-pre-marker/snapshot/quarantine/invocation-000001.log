@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/run.py", line 419, in invoke
+    engine.create_contract();union=engine.captures()
+                                   ~~~~~~~~~~~~~~~^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/run.py", line 267, in captures
+    ctx=self.context('capture',claim,[member]);result=capture.capture(ctx,member,config)
+                                                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/capture.py", line 164, in capture
+    records = draw(context, run, current=current)
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/canonical/adapter.py", line 275, in capture_run
+    launch_cells(context,run,argv,env,captures)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/canonical/adapter.py", line 177, in launch_cells
+    census=load_source(CAL/'results/2026-10-02-w43-g3-refit/stage/census.py','w50_canonical_census')
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/canonical/adapter.py", line 44, in load_source
+    exec(compile(path.read_bytes(),str(path),'exec'),m.__dict__)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/guard.py", line 51, in event
+    check(args[0].co_filename)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/guard.py", line 35, in check
+    raise ValueError('Changed or unsealed executed import: '+relative)
+ValueError: Changed or unsealed executed import: packages/calibration/results/2026-10-02-w43-g3-refit/stage/census.py

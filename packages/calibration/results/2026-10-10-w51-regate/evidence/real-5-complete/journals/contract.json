@@ -1,0 +1,40 @@
+{
+  "batch": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal5/real/real-rehearsal-batch.json",
+    "sha256": "7453de769c3a18a4bc05211815a6e04e5d704c94973aab1adaf493cafcc41a93"
+  },
+  "cohort": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "dataset": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal5/real/dataset.json",
+    "sha256": "ac7fe24bd1831a2cd3e214bd2893e7835fc1bc70cf97fc75af386ba3df8aa52a"
+  },
+  "executionRootSha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23",
+  "importedFit": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/inputs.json",
+    "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+  },
+  "logicalOutput": "/Users/new/vitrea-w51/live/real-5",
+  "outputMarker": {
+    "path": "/Users/new/vitrea-w51/live/real-5/phase-output.json",
+    "sha256": "1bc405a61c05799929d05052b601795ed6e33f8ad04ebaad28ba5ba86f4d9961"
+  },
+  "phase": "gate",
+  "population": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/rehearsal-population.json",
+    "sha256": "35846805248715b95d5dd2a43278dcbf82a60845e1f47aad7140bff0e4df91fc"
+  },
+  "preFitEvidence": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal5/real/imported-reference-binding.json",
+    "sha256": "ed7769bb9265031bf2614fbfdb3fcfdf020818050414d3a8ea4ad7f8b9f22b13"
+  },
+  "schema": "w51-phase-contract-1"
+}

@@ -1,0 +1,168 @@
+{
+  "amendment": "W51-DL4, before any real gate read",
+  "artifacts": [
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/amendment.json",
+      "sha256": "47e94c66bcb83416853f88a930a0aca709359f75863b37e5479a4f4915149cc0"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/check.py",
+      "sha256": "105338ca7a42b75b23dc4b265a364706d41ceaddac9dd325d52a202d9656263c"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/exposure-population.json",
+      "sha256": "eaddc3f1302cb10ef1f96ca0070ae356d95cbd413917e3a5254d002b6f9dbddf"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/gate-population.json",
+      "sha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/inputs.json",
+      "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/membership-witness.json",
+      "sha256": "a001428d4ae698a099582ee7b74fc3277894ca169ba179101b2dbfac33918bcc"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/provenance.json",
+      "sha256": "46aaeef5fb269cb7edc31e062d872bf9554eab6cff217d90f511d812e69a5bbd"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/rehearsal-population.json",
+      "sha256": "35846805248715b95d5dd2a43278dcbf82a60845e1f47aad7140bff0e4df91fc"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/test_check.py",
+      "sha256": "8b74a2ace15adf4d3a6e834a5fdf1fe0a9a70f2f81a727f1294a94ac15b43a2b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2-review.json",
+      "sha256": "6fe58aa3c45df31e825f251c2ff55bdbf6fedf918f885020b9a00f0e496758aa"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/charter-review.json",
+      "sha256": "0dc99732c0cc4144ed7fdbdfb03b7e445188a4c4484cb436a8a3ce8bf37d7f1b"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/charter-seal.json",
+      "sha256": "6c8b10cd8535d9148bee64c006d6e88b795f33058e7a90a8860412cb9b934838"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/charter-seal-dl3.json",
+      "sha256": "85a29bd86440e9fb622d1825f0745dab5572ea87ad4f865c5cc06e5836437efe"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/fixture.json",
+      "sha256": "10d661d8645938726513ba07c67caf85a4269be6262fa9e0c9ba1b83a0ac2696"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/population.json",
+      "sha256": "3989f89ef07d6457996eff2da6b1a78502534d5daa7d7701666658f17825ebe6"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic-review.json",
+      "sha256": "685a08a30eb7e27f7cf29a3e5f5cc9ea153f7fa08b4a201041a551bae58447d4"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/charter-seal-completion.json",
+      "sha256": "5f5c00fd1e8dbb647b7c5283d57f3f129915a0f99e4c2ebc6b5fecbd2e6bc952"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/synthetic-3-judge-stop/audit.json",
+      "sha256": "38c03da91c0876e7de666c4f21277b01f63e81e6a6b0079beecf617fea2e443e"
+    }
+  ],
+  "candidateProposal": "044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+  "charter": {
+    "commit": "3bea1081cc9e26001df050c3f560386759b50528",
+    "path": "docs/doperpowers/specs/2026-10-10-w51-regate.md",
+    "sha256": "d5008d84fd32bdda2015a71d521202c27254765984f355b8ae48c00db575a94c"
+  },
+  "date": "2026-10-10",
+  "judgeScope": {
+    "authorityChain": [
+      "immutable fit result",
+      "fit contract",
+      "pre-fit evidence",
+      "dark05Bands proof",
+      "canonicalReferenceEvidence actually read"
+    ],
+    "dark025": "unchanged frozen original-inventory operands and history",
+    "dark05": "current-generation readings and B hash-bound in pre-fit evidence",
+    "invariants": [
+      "threshold",
+      "reference",
+      "estimator",
+      "band",
+      "candidate"
+    ],
+    "predicate": "unchanged measurement.projection.frozen_scope(originalReference)",
+    "requiredTests": [
+      "missing dark025 frozen provenance refuses",
+      "unsealed/post-fit/candidate-produced dark05 operand or B refuses",
+      "both positions and full/low paths"
+    ],
+    "review": "reviewer-high includes this delta and both completed rehearsals"
+  },
+  "landingRule": {
+    "bytes": 5863,
+    "endHeadingExclusive": "## Grounding:",
+    "sha256": "4c5910e62b91e48184e2d977d32906a7cd70520fad386705d36e894a1e15cb86",
+    "source": {
+      "path": "docs/doperpowers/specs/2026-10-08-w50-dark-low-end-response.md",
+      "sha256": "f47331fafad50439ae3fe36e90d6c6a1d4a98f85919d78b2ecc597d7e99a9c3e"
+    },
+    "startHeading": "## Proposed landing rule"
+  },
+  "populationCounts": {
+    "exposure": [
+      322,
+      974
+    ],
+    "gate": [
+      1341,
+      2553
+    ],
+    "rehearsal": [
+      840,
+      1856
+    ]
+  },
+  "publicationBoundary": {
+    "afterCommitError": "preserve committed verdict; report durability/output error; no retry",
+    "beforeCommitFault": "NEITHER / UNMEASURED, no retry, even if failure record cannot persist",
+    "commit": "atomic link to terminal.json",
+    "order": [
+      "finish scientific validation and owned cleanup",
+      "atomic eligibility link",
+      "directory fsync",
+      "emit"
+    ]
+  },
+  "review": {
+    "amendment": "aee9f5581ee4b20a1",
+    "design": "acd124331d9e40369"
+  },
+  "schema": "w51-charter-seal-1",
+  "scope": "unchanged scientific rule, ruled T1 scope/provenance correction and completion boundary; not execution clearance",
+  "stop": "report gate verdict before creating any exposure batch",
+  "supersedes": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/charter-seal-completion.json",
+    "sha256": "5f5c00fd1e8dbb647b7c5283d57f3f129915a0f99e4c2ebc6b5fecbd2e6bc952"
+  },
+  "syntheticPopulation": {
+    "dataOrigin": "synthetic",
+    "fixture": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/fixture.json",
+      "sha256": "10d661d8645938726513ba07c67caf85a4269be6262fa9e0c9ba1b83a0ac2696"
+    },
+    "manifest": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/population.json",
+      "sha256": "3989f89ef07d6457996eff2da6b1a78502534d5daa7d7701666658f17825ebe6"
+    },
+    "physicalCount": 8,
+    "statisticCount": 12
+  }
+}

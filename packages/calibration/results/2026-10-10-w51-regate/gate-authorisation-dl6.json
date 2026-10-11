@@ -1,0 +1,23 @@
+{
+  "byteChangeVoidsAuthorisation": true,
+  "date": "2026-10-11",
+  "exposureAuthorised": false,
+  "gateAuthorised": true,
+  "kind": "coordinator-gate-authorisation",
+  "output": "/Users/new/vitrea-w51/live/gate",
+  "review": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/rehearsal5-reviewer-high.json",
+    "sha256": "bff6b46041752fc328ff92acc04277f808103edb15f8b0a49566f3bf2ac83a86"
+  },
+  "root": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/execution-root.rehearsal5.json",
+    "sha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23"
+  },
+  "rootSha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23",
+  "ruling": "W51-DL6",
+  "schema": "w51-gate-authorisation-1",
+  "slotCreation": "The unchanged entrypoint creates the slot only after its durable fence and complete admission.",
+  "sourceClosureSha256": "f0e879cc4a160ce0c722dcb195b56b834c2df252b7d70106a234ac04d8d78132",
+  "stop": "Commit the terminal evidence and report the verdict before any exposure batch.",
+  "text": "W51-DL6 (parent, 2026-10-11). Gate authorised. Rehearsal 5 (root e7deb576\u2026, closure f0e879cc\u2026)\ncompleted both populations through the identical pipeline (real fit840 PASS_EXPOSED_OWNER_PENDING,\nsynthetic instrument-clean), and reviewer-high ab4479133a4868ec0 approved with no material\nfindings (record bff6b460\u2026). The worker may create the gate execution slot and clearance under\nthat exact root and closure, capture the 1,341 gate cells fresh, and run the ONE analysis.\nConditions: census clean before capture; DL5k pre-marker recovery and DL5q as standing; fence\nfirst behind the no-cost preconditions; no exposure batch until the parent rules on the verdict;\nthe 634 W50 files and the 501 blind identities' values are not read by anyone before the judge\nmarker; a post-marker fault is NEITHER (W51-DL2). Any byte change to the root, closure, policy\nor declaration between now and the marker voids this authorisation.\n"
+}

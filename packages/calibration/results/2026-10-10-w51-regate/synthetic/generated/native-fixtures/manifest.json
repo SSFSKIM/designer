@@ -1,0 +1,144 @@
+{
+  "backgrounds": {
+    "w51-synthetic-fine@1x": "backgrounds/w51-synthetic-fine@1x.png",
+    "w51-synthetic-fine@2x": "backgrounds/w51-synthetic-fine@2x.png",
+    "w51-synthetic-impulse@1x": "backgrounds/w51-synthetic-impulse@1x.png",
+    "w51-synthetic-impulse@2x": "backgrounds/w51-synthetic-impulse@2x.png",
+    "w51-synthetic-photo@1x": "backgrounds/w51-synthetic-photo@1x.png",
+    "w51-synthetic-photo@2x": "backgrounds/w51-synthetic-photo@2x.png",
+    "w51-synthetic-text@2x": "backgrounds/w51-synthetic-text@2x.png"
+  },
+  "caveats": [
+    "SYNTHETIC arrays, not Apple measurements. materialRendered means the generated body is present.",
+    "capturedAt is a fixed schema-compatible synthetic epoch, not a capture timestamp."
+  ],
+  "dataOrigin": "synthetic",
+  "profiles": [
+    {
+      "a11yMode": "standard",
+      "colorScheme": "dark",
+      "dataOrigin": "synthetic",
+      "display": {
+        "actualBackingScale": 1
+      },
+      "fixtures": [
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-impulse__rrect-synthetic__rest"
+        },
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-fine__rrect-synthetic__inactive"
+        },
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-photo__rrect-synthetic__rest"
+        }
+      ],
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25"
+    },
+    {
+      "a11yMode": "standard",
+      "colorScheme": "dark",
+      "dataOrigin": "synthetic",
+      "display": {
+        "actualBackingScale": 1
+      },
+      "fixtures": [
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "sceneId": "w51-synthetic-impulse__rrect-synthetic__rest"
+        }
+      ],
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5"
+    },
+    {
+      "a11yMode": "standard",
+      "colorScheme": "dark",
+      "dataOrigin": "synthetic",
+      "display": {
+        "actualBackingScale": 2
+      },
+      "fixtures": [
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-impulse__rrect-synthetic__rest"
+        },
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-fine__rrect-synthetic__inactive"
+        },
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-photo__rrect-synthetic__rest"
+        }
+      ],
+      "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.25"
+    },
+    {
+      "a11yMode": "standard",
+      "colorScheme": "dark",
+      "dataOrigin": "synthetic",
+      "display": {
+        "actualBackingScale": 2
+      },
+      "fixtures": [
+        {
+          "captureMethod": "synthetic-array-generator",
+          "capturedAt": "1970-01-01T00:00:00.000Z",
+          "dataOrigin": "synthetic",
+          "file": "apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest.png",
+          "fixtureSet": "calibration",
+          "materialRendered": true,
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "sceneId": "w51-synthetic-text__rrect-synthetic__rest"
+        }
+      ],
+      "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5"
+    }
+  ],
+  "sceneSpecVersion": 1,
+  "schemaVersion": 2
+}

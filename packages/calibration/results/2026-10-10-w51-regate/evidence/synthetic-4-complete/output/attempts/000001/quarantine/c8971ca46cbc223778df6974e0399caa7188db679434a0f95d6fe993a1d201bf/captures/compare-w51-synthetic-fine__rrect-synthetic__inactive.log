@@ -1,0 +1,29 @@
+
+── measure (1 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/matrix.json (1 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+calibration 2x-dark-standard-glass0.25    w51-synthetic-fine__rrect-synthetic__inactive  0.995    0.34   0.845   0.0450    0.103/ 0.003    0.0692/ 0.1432    0.0234/ 0.0049    0.0083/ 0.0003
+
+2x-dark-standard-glass0.25    calibration n= 1  IoU mean 0.9946 worst 0.9946   contour p95 mean 3.00 worst 3.00   SSIM mean 0.8448 worst 0.8448   dE mean 0.04500 worst 0.04500
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+2x-dark-standard-glass0.25    w51-synthetic-fine__rrect-synthetic__inactive    91460        91532  0.9992         1.00         1.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-dark-standard-glass0.25    w51-synthetic-fine__rrect-synthetic__inactive    0.50  0.0000/ 0.0102    0/  0/  0/  0    0/  0/  0/  0     —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+caveat: SYNTHETIC arrays, not Apple measurements. materialRendered means the generated body is present.
+caveat: capturedAt is a fixed schema-compatible synthetic epoch, not a capture timestamp.
+CANDIDATE material document drawn on the web side: /Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json
+web accessibility for apple-macos-27.0-2x-dark-standard-glass0.25 (native standard): browser preferences, no overrides
+
+── notes (1) ────────────
+  w51-synthetic-fine__rrect-synthetic__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.

@@ -1,0 +1,1946 @@
+{
+  "batch": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal4/synthetic/synthetic-rehearsal-batch.json",
+    "sha256": "c558ac71d0073bc9678a5432587f09cd799d24c69dcb5e7f19e8f537a5fb2f11"
+  },
+  "cohort": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "completedReferences": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/completed-references.json",
+    "sha256": "8f0050d446b81ce9fc322595b405d30121f8b24d7c216090064ad86b3d73a576"
+  },
+  "config": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal4/synthetic/measurement-config.json",
+    "sha256": "a5a6474f04a7306da647edce4dac2ae69a477c2368e8e90b30a74be72e24e008"
+  },
+  "contract": {
+    "path": "/Users/new/vitrea-w51/live/synthetic-4/contract.json",
+    "sha256": "562011f10fddf12f83f0caee3bac906135d2d1bd4299ac4069cf47616c6bc9f2"
+  },
+  "executionClaim": {
+    "path": "/Users/new/vitrea-w51/live/synthetic-4/contract.json.phase/analysis.started.json",
+    "sha256": "b46d2df44e76b63d5555a62a3be16f0f5976819785dde459a906518eb5976a43"
+  },
+  "executionRoot": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/execution-root.rehearsal4.json",
+    "sha256": "dcc8ffb9cfdf00100373ea847a3940974f29ec0a51693b02571370600d9f34d8"
+  },
+  "gateResult": null,
+  "phase": "gate",
+  "referenceInventory": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/inventory.json",
+    "sha256": "8f0050d446b81ce9fc322595b405d30121f8b24d7c216090064ad86b3d73a576"
+  },
+  "row": {
+    "arguments": [],
+    "candidateCapture": {
+      "artifacts": {
+        "cell": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+          "sha256": "65985318c82e0339c2888e01b8e7455a698f0cafe2965f5618625093fca65791"
+        },
+        "files": [
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+            "sha256": "65985318c82e0339c2888e01b8e7455a698f0cafe2965f5618625093fca65791"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+            "sha256": "dfde6cade056ab5c0e39290cf54d2392963fd2e614162d2623e8ae3a51b6780d"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+            "sha256": "dfde6cade056ab5c0e39290cf54d2392963fd2e614162d2623e8ae3a51b6780d"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+            "sha256": "556348743d64119141bad0bcfd3cabef30cdbdedae7d1be4b303ea7ea7280a00"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+            "sha256": "0d747dbcf47e5c611051c02da4e08c279dec44b9b2b963c9ac0e6e6525e3748f"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+            "sha256": "f5ceb1ad0c28c3f65f66391fc38a4efc8d9f9b90f67f5c9205227e6f960e1937"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+            "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+            "sha256": "e90632aee0392a99fff52a463d5fd1b1f5f45e9f1691a1c286386004f161eb9e"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+            "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+          }
+        ],
+        "png": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+          "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+        },
+        "report": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+          "sha256": "f5ceb1ad0c28c3f65f66391fc38a4efc8d9f9b90f67f5c9205227e6f960e1937"
+        },
+        "transport": [
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+            "sha256": "843fcfbedc68fe6be33a35c40b234adea77aee28a55ba41a402d05f677148925"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+            "sha256": "4b3d6fd2e93a5d3e611327d33918c3caf77dbf943121ef8908d7f1bb4fccc736"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+            "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+            "sha256": "7dc435a9d414607af23eb1e988c03ca6810602c83a91060e7eacfd1531661294"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+            "sha256": "5f99baf5bcbbd694dae1be62532f0534f59f2f60f414c2c85cdd956b74c69c31"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+            "sha256": "fde559329bce0dd9dba5dc205ea667d7c6ebe6586c58a4d88097f0a6061fbd00"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/request.json",
+            "sha256": "95c0e35ebcbcf4aa3ee2479ff86eb872fa379187e868a7cb1298cb114847ce64"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/native-request.json",
+            "sha256": "dfe08a2dd6c3b2ab2ea7fe2f5655e42d580676647c318190ef26dbf05ea9a640"
+          },
+          {
+            "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+            "sha256": "0b85e974e924f64e4ad60790de5b349481bed728d4ca7ec58436b69a0d4d041c"
+          }
+        ]
+      },
+      "candidate": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "coherenceStatus": "NOT_APPLICABLE",
+      "endpoint": {
+        "patch": {
+          "adaptiveTintDark": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "adaptiveTintLight": [
+            0.05,
+            0.05,
+            0.05
+          ],
+          "backdropToneAnchorX": [
+            0.004,
+            0.11,
+            0.47,
+            0.95
+          ],
+          "backdropToneBlackStrength": 1,
+          "backdropToneBlackThick": 0.014443843596092545,
+          "backdropToneBlackThin": 0.014443843596092545,
+          "backdropToneHigh": 0.0001,
+          "backdropToneLow": 0,
+          "backdropToneResponseStrength": 1,
+          "backdropToneResponseThick": [
+            0.031,
+            0.0414,
+            0.173,
+            0.196
+          ],
+          "backdropToneResponseThin": [
+            0.036,
+            0.042,
+            0.199,
+            0.464
+          ],
+          "bodyChromaRetention": 0.336,
+          "lowEnd160": [
+            0.12549019607843137,
+            0.14745096436526642,
+            0.21176470588235294,
+            0.24705882352941178
+          ],
+          "lowEnd44": [
+            0.12549019607843137,
+            0.1568627450980392,
+            0.22941176474509803,
+            0.27058823529411763
+          ],
+          "lowEnd96": [
+            0.12549019607843137,
+            0.15294117647058825,
+            0.2235294117647059,
+            0.2627450980392157
+          ],
+          "lowEndStrength": 1,
+          "optics": {
+            "regular": {
+              "rimAlpha": 0.055,
+              "rimLevelGain": 0.44,
+              "rimWidth": 2.2,
+              "specularGain": 0,
+              "tint": [
+                0.05,
+                0.05,
+                0.05
+              ],
+              "tintAlpha": 0.7
+            }
+          },
+          "outerShadow": {
+            "liftAmplitude": 0,
+            "liftBlurSigmaCss": 40,
+            "liftSpanFull": 118,
+            "liftSpanMin": 64,
+            "offsetPx": 7.95,
+            "reducedTransparencyOcclusion": 0.038,
+            "sigmaPx": 9.04,
+            "sigmaSlopePerSpan": 0.1215,
+            "sigmaSpanRefPx": 96,
+            "sigmaThinOffsetPx": -6.318,
+            "spreadPx": 1.8,
+            "thickOcclusionAt128": 0.2188,
+            "thickOcclusionAt160": 0.3443,
+            "thickOcclusionAt96": 0.1038,
+            "thinOcclusionBright": 0.0231,
+            "thinOcclusionDark": 0,
+            "thinOcclusionMid": 0.0196
+          },
+          "sizeHeavySecondShare": 0,
+          "sizeHeavySecondSigma": 0,
+          "sizeHeavySecondSigma2x": 0,
+          "sizeHeavyTapSigma": 0,
+          "sizeHeavyTapSigma2x": 0,
+          "sizeOcclusionGain": 0.05,
+          "sizeScatterFloor": 0.34,
+          "sizeScatterFloor2x": 1,
+          "sizeScatterRampStartThin1x": 0.72,
+          "sizeScatterRampStartThin2x": 0.46,
+          "sizeScatterScaleGain": -0.5,
+          "sizeScatterScaleRef": 0.03,
+          "sizeScatterSpanMax": 160,
+          "sizeScatterSpanMax2x": 160,
+          "tintAlphaFar1x": 0.2,
+          "tintAlphaFar2x": 0.2,
+          "tintShadeStrength": 0
+        },
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "resolvedMaterialSha256": "08b4270f06edd50c",
+        "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+      },
+      "lane": "candidate",
+      "matrix": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/matrix.json",
+        "sha256": "3003d62600b561d275aa766d039a99f8572e228dbd82d4e266cfc889a52c2768"
+      },
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "repeatAdmission": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+        "sha256": "3327bb902f7d4d3f009d7e5b85c7c483da0c30590ee3b6c162ed1a89be793ccc"
+      },
+      "repeatPair": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+        "sha256": "556348743d64119141bad0bcfd3cabef30cdbdedae7d1be4b303ea7ea7280a00"
+      },
+      "row": {
+        "capturedAt": "2026-10-10T03:12:35.187Z",
+        "fixtureSet": "calibration",
+        "key": {
+          "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "sceneId": "w51-synthetic-impulse__rrect-synthetic__rest",
+          "web": {
+            "capturePath": "playwright 151.0.7922.34 element screenshot of #stage, channel=chromium --enable-unsafe-webgpu --enable-features=Vulkan,WebGPU, viewport=320x200 deviceScaleFactor=1, colorScheme=dark, animations=disabled, frames=8, accessibility=browser-preferences, materialProfile=candidate candidateDocument=packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json declarationSha256=af1c181af52e name=w50-chart-c60042e8adf3 glassTintAmount=0.25",
+            "colorSpace": "srgb",
+            "deterministic": true,
+            "engine": "chromium",
+            "engineVersion": "151.0.7922.34",
+            "gpuAdapter": "apple/metal-3",
+            "pixelSize": [
+              320,
+              200
+            ],
+            "renderer": "webgpu",
+            "repeatNoise": 0,
+            "samplingBackend": "gpu-texture",
+            "sceneId": "w51-synthetic-impulse__rrect-synthetic__rest"
+          }
+        },
+        "material": {
+          "axis": "material",
+          "chromaStructureRatioBackdrop": {
+            "units": "ratio",
+            "value": 0.05775485720574652
+          },
+          "chromaStructureRatioNative": {
+            "units": "ratio",
+            "value": 0.1493839876917354
+          },
+          "chromaStructureRatioWeb": {
+            "units": "ratio",
+            "value": 0.2515433804629653
+          },
+          "interiorChromaMeanBackdrop": {
+            "units": "oklab",
+            "value": 0.012826329509648984
+          },
+          "interiorChromaMeanNative": {
+            "units": "oklab",
+            "value": 0.006236790121902795
+          },
+          "interiorChromaMeanWeb": {
+            "units": "oklab",
+            "value": 0.009548339541393346
+          },
+          "interiorChromaSdABackdrop": {
+            "units": "oklab",
+            "value": 0.007438661909647131
+          },
+          "interiorChromaSdANative": {
+            "units": "oklab",
+            "value": 0.0014098798558806601
+          },
+          "interiorChromaSdAWeb": {
+            "units": "oklab",
+            "value": 0.001051592442055809
+          },
+          "interiorChromaSdBBackdrop": {
+            "units": "oklab",
+            "value": 0.017743293058129675
+          },
+          "interiorChromaSdBNative": {
+            "units": "oklab",
+            "value": 0.002747552771294292
+          },
+          "interiorChromaSdBWeb": {
+            "units": "oklab",
+            "value": 0.001496535524415199
+          },
+          "interiorMeanBackdrop": {
+            "units": "luminance",
+            "value": 0.22208226511505932
+          },
+          "interiorMeanNative": {
+            "units": "luminance",
+            "value": 0.04318478720985311
+          },
+          "interiorMeanWeb": {
+            "units": "luminance",
+            "value": 0.029817909876191925
+          },
+          "interiorOklabLSdDevBackdrop": {
+            "units": "oklab",
+            "value": 0.4148160863216541
+          },
+          "interiorOklabLSdDevNative": {
+            "units": "oklab",
+            "value": 0.05272348111998736
+          },
+          "interiorOklabLSdDevWeb": {
+            "units": "oklab",
+            "value": 0.024709707362277584
+          },
+          "interiorStdDevBackdrop": {
+            "units": "luminance",
+            "value": 0.3331233976725888
+          },
+          "interiorStdDevNative": {
+            "units": "luminance",
+            "value": 0.02067271219550001
+          },
+          "interiorStdDevWeb": {
+            "units": "luminance",
+            "value": 0.007271355329927042
+          },
+          "luminanceOffsetNative": {
+            "units": "luminance",
+            "value": 0.031032248466092337
+          },
+          "luminanceOffsetWeb": {
+            "units": "luminance",
+            "value": 0.025499481107760034
+          },
+          "luminanceR2Native": {
+            "units": "ratio",
+            "value": 0.7775380120448891
+          },
+          "luminanceR2Web": {
+            "units": "ratio",
+            "value": 0.7936030041857588
+          },
+          "luminanceSlopeNative": {
+            "units": "ratio",
+            "value": 0.054720887944224736
+          },
+          "luminanceSlopeWeb": {
+            "units": "ratio",
+            "value": 0.0194451761656634
+          },
+          "rawChromaRatioNative": {
+            "units": "ratio",
+            "value": 0.48624901747697863
+          },
+          "rawChromaRatioWeb": {
+            "units": "ratio",
+            "value": 0.7444327337926511
+          },
+          "rimFwhmNative": {
+            "units": "px",
+            "value": 0
+          },
+          "rimFwhmWeb": {
+            "units": "px",
+            "value": 0
+          },
+          "rimPeakDistanceNative": {
+            "units": "px",
+            "value": 4
+          },
+          "rimPeakDistanceWeb": {
+            "units": "px",
+            "value": 4
+          },
+          "rimPeakLuminanceNative": {
+            "units": "luminance",
+            "value": 0
+          },
+          "rimPeakLuminanceWeb": {
+            "units": "luminance",
+            "value": 0
+          },
+          "shadowDecayLengthNative": {
+            "units": "px",
+            "value": 0
+          },
+          "shadowDecayLengthWeb": {
+            "units": "px",
+            "value": 0
+          },
+          "shadowPeakDarkeningNative": {
+            "units": "luminance",
+            "value": -0.012968135980692918
+          },
+          "shadowPeakDarkeningWeb": {
+            "units": "luminance",
+            "value": -0.014673488767553164
+          },
+          "shadowPeakDistanceNative": {
+            "units": "px",
+            "value": 24
+          },
+          "shadowPeakDistanceWeb": {
+            "units": "px",
+            "value": 24
+          },
+          "tintBackdropChroma": {
+            "units": "oklab",
+            "value": 0.028142194921979606
+          },
+          "tintChromaDeltaNative": {
+            "units": "oklab",
+            "value": -0.02122808000328445
+          },
+          "tintChromaDeltaWeb": {
+            "units": "oklab",
+            "value": -0.018417828331855818
+          },
+          "tintDeltaANative": {
+            "units": "oklab",
+            "value": -0.00826417522178216
+          },
+          "tintDeltaAWeb": {
+            "units": "oklab",
+            "value": -0.006656177629398047
+          },
+          "tintDeltaBNative": {
+            "units": "oklab",
+            "value": -0.019553774407131908
+          },
+          "tintDeltaBWeb": {
+            "units": "oklab",
+            "value": -0.01719487564771016
+          },
+          "tintDeltaLNative": {
+            "units": "oklab",
+            "value": -0.25565822435436986
+          },
+          "tintDeltaLWeb": {
+            "units": "oklab",
+            "value": -0.296215649815489
+          },
+          "tintHueShiftNative": {
+            "units": "degrees",
+            "value": 0.5081523588591352
+          },
+          "tintHueShiftWeb": {
+            "units": "degrees",
+            "value": -3.0039016829841643
+          },
+          "tintInteriorChromaNative": {
+            "units": "oklab",
+            "value": 0.006914114918695157
+          },
+          "tintInteriorChromaWeb": {
+            "units": "oklab",
+            "value": 0.009724366590123788
+          }
+        },
+        "perceptual": {
+          "axis": "perceptual",
+          "edgeWeightedMean": {
+            "units": "luminance",
+            "value": 0.0019282200820089235
+          },
+          "edgeWeightedP95": {
+            "units": "luminance",
+            "value": 0.004779724721103671
+          },
+          "oklabDeltaEMax": {
+            "units": "oklab",
+            "value": 0.2686182752312628
+          },
+          "oklabDeltaEMean": {
+            "units": "oklab",
+            "value": 0.007565530867026435
+          },
+          "oklabDeltaEP95": {
+            "units": "oklab",
+            "value": 0.030112234946067178
+          },
+          "ssimBand": {
+            "units": "ratio",
+            "value": 0.8093530799737146
+          },
+          "ssimBandWindows": {
+            "units": "count",
+            "value": 52
+          },
+          "ssimMean": {
+            "units": "ratio",
+            "value": 0.9703970719500727
+          },
+          "ssimMin": {
+            "units": "ratio",
+            "value": 0.4533119157768164
+          },
+          "ssimOutside": {
+            "units": "ratio",
+            "value": 0.9899882343016482
+          },
+          "ssimOutsideWindows": {
+            "units": "count",
+            "value": 2344
+          },
+          "unweightedMean": {
+            "units": "luminance",
+            "value": 0.0013415838005521445
+          }
+        },
+        "shadow": {
+          "affineNative": [
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-3",
+              "sampleCount": 1840,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 1888,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 3952,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 8596,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 18284,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-6",
+              "sampleCount": 3728,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-3",
+              "sampleCount": 590,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 608,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 1276,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 2786,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 5708,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-6",
+              "sampleCount": 1198,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-3",
+              "sampleCount": 590,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 608,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 1276,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 2786,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 5708,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-6",
+              "sampleCount": 1198,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-3",
+              "sampleCount": 330,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 336,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 700,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 1512,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 3434,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-6",
+              "sampleCount": 666,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-3",
+              "sampleCount": 330,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 336,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 700,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 1512,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 3434,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "0-6",
+              "sampleCount": 666,
+              "unidentifiableReason": "flat-backdrop"
+            }
+          ],
+          "affineWeb": [
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0.000139,
+              "ringLabel": "0-3",
+              "sampleCount": 1840,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 1888,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 3952,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 8596,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 18284,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "all",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 6.8e-05,
+              "ringLabel": "0-6",
+              "sampleCount": 3728,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0.000108,
+              "ringLabel": "0-3",
+              "sampleCount": 590,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 608,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 1276,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 2786,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 5708,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "above",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 5.3e-05,
+              "ringLabel": "0-6",
+              "sampleCount": 1198,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0.000108,
+              "ringLabel": "0-3",
+              "sampleCount": 590,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 608,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 1276,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 2786,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 5708,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "below",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 5.3e-05,
+              "ringLabel": "0-6",
+              "sampleCount": 1198,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0.000193,
+              "ringLabel": "0-3",
+              "sampleCount": 330,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 336,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 700,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 1512,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 3434,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "left",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 9.5e-05,
+              "ringLabel": "0-6",
+              "sampleCount": 666,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 3,
+              "renderedLevelLinear": 0.000193,
+              "ringLabel": "0-3",
+              "sampleCount": 330,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 3,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 0,
+              "ringLabel": "3-6",
+              "sampleCount": 336,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 6,
+              "outerDistanceCssPx": 12,
+              "renderedLevelLinear": 0,
+              "ringLabel": "6-12",
+              "sampleCount": 700,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 12,
+              "outerDistanceCssPx": 24,
+              "renderedLevelLinear": 0,
+              "ringLabel": "12-24",
+              "sampleCount": 1512,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 24,
+              "outerDistanceCssPx": 48,
+              "renderedLevelLinear": 0,
+              "ringLabel": "24-48",
+              "sampleCount": 3434,
+              "unidentifiableReason": "flat-backdrop"
+            },
+            {
+              "backdropMeanLinear": 0,
+              "backdropStdDevLinear": 0,
+              "direction": "right",
+              "innerDistanceCssPx": 0,
+              "outerDistanceCssPx": 6,
+              "renderedLevelLinear": 9.5e-05,
+              "ringLabel": "0-6",
+              "sampleCount": 666,
+              "unidentifiableReason": "flat-backdrop"
+            }
+          ],
+          "axis": "shadow",
+          "backdropMeanLuminance": {
+            "units": "luminance",
+            "value": 0
+          },
+          "backdropSupport": {
+            "units": "ratio",
+            "value": 0
+          },
+          "clearanceAbove": {
+            "units": "px",
+            "value": 43.5
+          },
+          "clearanceBelow": {
+            "units": "px",
+            "value": 43.5
+          },
+          "clearanceLeft": {
+            "units": "px",
+            "value": 55.5
+          },
+          "clearanceRight": {
+            "units": "px",
+            "value": 55.5
+          },
+          "exteriorArea": {
+            "units": "px^2",
+            "value": 41112
+          },
+          "meanDepartureNative": {
+            "units": "luminance",
+            "value": 0
+          },
+          "meanDepartureWeb": {
+            "units": "luminance",
+            "value": -6.2019271711922395e-06
+          }
+        },
+        "shape": {
+          "axis": "shape",
+          "componentRegionArea": {
+            "units": "px^2",
+            "value": 22888
+          },
+          "componentRegionBodies": {
+            "units": "count",
+            "value": 1
+          },
+          "componentRegionMargin": {
+            "units": "px",
+            "value": 0
+          },
+          "contourDistanceMax": {
+            "units": "px",
+            "value": 106.77546534667971
+          },
+          "contourDistanceMean": {
+            "units": "px",
+            "value": 78.70336813867202
+          },
+          "contourDistanceP95": {
+            "units": "px",
+            "value": 105.47511554864494
+          },
+          "contourDistanceRms": {
+            "units": "px",
+            "value": 82.44756120735252
+          },
+          "cornerCurvatureMaxDelta": {
+            "units": "1/px",
+            "value": 106.68311144188667
+          },
+          "cornerCurvatureNative": {
+            "units": "1/px",
+            "value": 0.38343546736977546
+          },
+          "cornerCurvatureP95Delta": {
+            "units": "1/px",
+            "value": 106.68311144188667
+          },
+          "cornerCurvatureWeb": {
+            "units": "1/px",
+            "value": 107.00590512143326
+          },
+          "declaredContourMaxWeb": {
+            "units": "px",
+            "value": 1
+          },
+          "declaredContourP95Web": {
+            "units": "px",
+            "value": 0
+          },
+          "declaredIoUWeb": {
+            "units": "ratio",
+            "value": 0.9993009437259699
+          },
+          "drawnAreaWeb": {
+            "units": "px^2",
+            "value": 22872
+          },
+          "silhouetteAreaNative": {
+            "units": "px^2",
+            "value": 52
+          },
+          "silhouetteAreaWeb": {
+            "units": "px^2",
+            "value": 1162
+          },
+          "silhouetteBodiesNative": {
+            "units": "count",
+            "value": 1
+          },
+          "silhouetteBodiesWeb": {
+            "units": "count",
+            "value": 7
+          },
+          "silhouetteHolesNative": {
+            "units": "count",
+            "value": 0
+          },
+          "silhouetteHolesWeb": {
+            "units": "count",
+            "value": 0
+          },
+          "silhouetteIoU": {
+            "units": "ratio",
+            "value": 0.04475043029259897
+          }
+        },
+        "state": "rest",
+        "tier": "texture"
+      },
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical"
+    },
+    "currentDocumentPair": {
+      "active.dark": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+      "receded.dark": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+    },
+    "currentGeneration": "w51-synthetic-current",
+    "family": "impulse",
+    "historical": [],
+    "inputCode": null,
+    "material": {
+      "candidateDocument": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+        "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+      },
+      "documentPair": {
+        "activeSha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+        "recededSha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+      },
+      "drawnEndpoint": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "resolvedMaterialSha256": "08b4270f06edd50c",
+        "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+      },
+      "endpoints": {
+        "active.dark": {
+          "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+          "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+          "resolvedMaterialSha256": "08b4270f06edd50c",
+          "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+        },
+        "active.light": {
+          "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+          "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+          "resolvedMaterialSha256": "3741b22934f17f4d",
+          "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+        },
+        "receded.dark": {
+          "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+          "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+          "resolvedMaterialSha256": "06acd442f036b20f",
+          "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+        },
+        "receded.light": {
+          "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+          "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+          "resolvedMaterialSha256": "c4ca0e1cd6791bde",
+          "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+        }
+      },
+      "reportedMaterial": {
+        "glassTintAmount": 0.25,
+        "name": "w50-chart-c60042e8adf3",
+        "platform": "macOS 27.0",
+        "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+        "resolvedMaterialSha256": "08b4270f06edd50c",
+        "tuned": false
+      },
+      "samplingBackends": [
+        {
+          "groupId": "component",
+          "samplingBackend": "gpu-texture"
+        }
+      ]
+    },
+    "measurementStatus": "MEASUREMENT_EVIDENCE",
+    "originalReference": {
+      "B": null,
+      "currentDocumentPair": {
+        "active.dark": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+        "receded.dark": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+      },
+      "currentEvidence": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.png",
+        "sha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4"
+      },
+      "currentGeneration": "w51-synthetic-current",
+      "currentMaxGrowthInB": 1,
+      "currentMetadata": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.json",
+        "sha256": "6d1dd3da90e05345ef529b6ba4b02bd7e258e337bb94529671139ca3ad473fdd"
+      },
+      "dataOrigin": "synthetic",
+      "historical": [],
+      "nativeEvidence": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+        "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+      },
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "statistic": "low-end-path-level",
+      "status": "MEASURED",
+      "support": "supplied path deep8/far24; encoded-luma mean and median"
+    },
+    "pose": "active",
+    "position": 0.25,
+    "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+    "readings": {
+      "deep8-far24-luma-mean": {
+        "B": 2.0,
+        "bar": 1.0,
+        "budgetDomain": "PRODUCER_NATIVE_REPEAT",
+        "candidate": 32.043416262975775,
+        "candidateMeasurementStatus": "MEASURED",
+        "code": 1.0,
+        "current": 33.93339100346021,
+        "currentMeasurementStatus": "MEASURED",
+        "eligibleEmptySupport": false,
+        "evidence": {
+          "candidate": {
+            "capture": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+              "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+            },
+            "captureIdentity": {
+              "digest": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6",
+              "kind": "png",
+              "pin": {
+                "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+                "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+              }
+            },
+            "cell": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+              "sha256": "65985318c82e0339c2888e01b8e7455a698f0cafe2965f5618625093fca65791"
+            },
+            "material": {
+              "candidateDocument": {
+                "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+                "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+              },
+              "documentPair": {
+                "activeSha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+                "recededSha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+              },
+              "drawnEndpoint": {
+                "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+                "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+                "resolvedMaterialSha256": "08b4270f06edd50c",
+                "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+              },
+              "endpoints": {
+                "active.dark": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+                  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+                  "resolvedMaterialSha256": "08b4270f06edd50c",
+                  "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+                },
+                "active.light": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+                  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+                  "resolvedMaterialSha256": "3741b22934f17f4d",
+                  "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+                },
+                "receded.dark": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+                  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+                  "resolvedMaterialSha256": "06acd442f036b20f",
+                  "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+                },
+                "receded.light": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+                  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+                  "resolvedMaterialSha256": "c4ca0e1cd6791bde",
+                  "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+                }
+              },
+              "reportedMaterial": {
+                "glassTintAmount": 0.25,
+                "name": "w50-chart-c60042e8adf3",
+                "platform": "macOS 27.0",
+                "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+                "resolvedMaterialSha256": "08b4270f06edd50c",
+                "tuned": false
+              },
+              "samplingBackends": [
+                {
+                  "groupId": "component",
+                  "samplingBackend": "gpu-texture"
+                }
+              ]
+            },
+            "numericIdentity": {
+              "captureSha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6",
+              "documentPair": {
+                "activeSha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+                "recededSha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+              },
+              "statisticSha256": "8381acddac34f08c11989d170db1e7701ae566833e473ee5d0d45a689c5aa08a"
+            },
+            "originalBackground": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/background.png",
+              "sha256": "36b9c6402f7e8a560090fd349d38fe0846be2e9216cac796305a8ef13885a4cc"
+            },
+            "originalNative": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+              "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+            },
+            "reading": "first",
+            "referenceReport": {
+              "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/canonical-reference-evidence.json",
+              "sha256": "cb3c7d012c4f0379302d8f9798d2373fd84a29f652f78e8a34117e06bba5d41a"
+            },
+            "repeatAdmission": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+              "sha256": "3327bb902f7d4d3f009d7e5b85c7c483da0c30590ee3b6c162ed1a89be793ccc"
+            },
+            "repeatPair": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+              "sha256": "556348743d64119141bad0bcfd3cabef30cdbdedae7d1be4b303ea7ea7280a00"
+            },
+            "report": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+              "sha256": "f5ceb1ad0c28c3f65f66391fc38a4efc8d9f9b90f67f5c9205227e6f960e1937"
+            }
+          },
+          "current": {
+            "canonicalReferenceEvidence": {
+              "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/canonical-reference-evidence.json",
+              "sha256": "cb3c7d012c4f0379302d8f9798d2373fd84a29f652f78e8a34117e06bba5d41a"
+            },
+            "capture": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.png",
+              "sha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4"
+            },
+            "captureIdentity": {
+              "digest": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4",
+              "kind": "png",
+              "pin": {
+                "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.png",
+                "sha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4"
+              }
+            },
+            "cell": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.json",
+              "sha256": "6d1dd3da90e05345ef529b6ba4b02bd7e258e337bb94529671139ca3ad473fdd"
+            },
+            "material": {
+              "documentPair": {
+                "activeSha256": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+                "recededSha256": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+              },
+              "originalDocumentPair": {
+                "active.dark": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+                "receded.dark": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+              }
+            },
+            "numericIdentity": {
+              "captureSha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4",
+              "documentPair": {
+                "activeSha256": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+                "recededSha256": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+              },
+              "statisticSha256": "725dd26c34077318a0465cd8bdbbf45934b0b7816dbb6bec5a520f05a531029f"
+            }
+          },
+          "historical": [],
+          "native": {
+            "background": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/background.png",
+              "sha256": "36b9c6402f7e8a560090fd349d38fe0846be2e9216cac796305a8ef13885a4cc"
+            },
+            "captureIdentity": {
+              "digest": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8",
+              "kind": "png",
+              "pin": {
+                "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+                "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+              }
+            },
+            "native": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+              "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+            },
+            "numericIdentity": {
+              "captureSha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8",
+              "documentPair": null,
+              "statisticSha256": "962cc6e9a028d2540f1b7d37de912bd88e364e58853ed1e40e59c237bd177353"
+            },
+            "referenceReport": {
+              "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/canonical-reference-evidence.json",
+              "sha256": "cb3c7d012c4f0379302d8f9798d2373fd84a29f652f78e8a34117e06bba5d41a"
+            },
+            "scenes": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/scenes.json",
+              "sha256": "b297e7e79a8a7147e9212c0eeb25756b02b184b64ba03a78dda8bb8c0ec130bb"
+            }
+          }
+        },
+        "measurementStatus": "MEASURED",
+        "native": 27.93339100346021,
+        "nativeMeasurementStatus": "MEASURED",
+        "nativeRepeat": {
+          "B": 2.0,
+          "bar": 1.0,
+          "barRule": "W50 max(0.5 code_step, half own-seven-run spread)",
+          "budgetRule": "max(code_step, 2*bar)",
+          "code": 1.0,
+          "publishedNativeInteriorMean": null,
+          "runs": 7,
+          "spread": 2.0,
+          "spreadCodes": 2.0,
+          "spreadPolicy": "REPORTED_NOT_A_HISTORICAL_NOISE_STOP",
+          "units": "encoded-luma-codes"
+        },
+        "nativeSupportWitnesses": [
+          {
+            "maskPackedBitsSha256": "fd3f0f1eb48137fde47b117a774180c0f633df1472b2e60ce4c668ea786ac26c",
+            "maskShape": [
+              200,
+              320
+            ],
+            "pixels": 16184
+          }
+        ],
+        "originalBudgetB": null,
+        "reported": false,
+        "required": true,
+        "support": "deep8_far24",
+        "units": "encoded-luma-codes"
+      },
+      "deep8-far24-luma-median": {
+        "B": 2.0,
+        "bar": 1.0,
+        "budgetDomain": "PRODUCER_NATIVE_REPEAT",
+        "candidate": 32.0,
+        "candidateMeasurementStatus": "MEASURED",
+        "code": 1.0,
+        "current": 34.0,
+        "currentMeasurementStatus": "MEASURED",
+        "eligibleEmptySupport": false,
+        "evidence": {
+          "candidate": {
+            "capture": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+              "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+            },
+            "captureIdentity": {
+              "digest": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6",
+              "kind": "png",
+              "pin": {
+                "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+                "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+              }
+            },
+            "cell": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+              "sha256": "65985318c82e0339c2888e01b8e7455a698f0cafe2965f5618625093fca65791"
+            },
+            "material": {
+              "candidateDocument": {
+                "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+                "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+              },
+              "documentPair": {
+                "activeSha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+                "recededSha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+              },
+              "drawnEndpoint": {
+                "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+                "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+                "resolvedMaterialSha256": "08b4270f06edd50c",
+                "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+              },
+              "endpoints": {
+                "active.dark": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+                  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+                  "resolvedMaterialSha256": "08b4270f06edd50c",
+                  "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+                },
+                "active.light": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+                  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250",
+                  "resolvedMaterialSha256": "3741b22934f17f4d",
+                  "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+                },
+                "receded.dark": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+                  "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250-receded",
+                  "resolvedMaterialSha256": "06acd442f036b20f",
+                  "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+                },
+                "receded.light": {
+                  "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+                  "profileKey": "apple-macos-27.0-1x-light-standard-glass0.250-receded",
+                  "resolvedMaterialSha256": "c4ca0e1cd6791bde",
+                  "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+                }
+              },
+              "reportedMaterial": {
+                "glassTintAmount": 0.25,
+                "name": "w50-chart-c60042e8adf3",
+                "platform": "macOS 27.0",
+                "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.250",
+                "resolvedMaterialSha256": "08b4270f06edd50c",
+                "tuned": false
+              },
+              "samplingBackends": [
+                {
+                  "groupId": "component",
+                  "samplingBackend": "gpu-texture"
+                }
+              ]
+            },
+            "numericIdentity": {
+              "captureSha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6",
+              "documentPair": {
+                "activeSha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c",
+                "recededSha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+              },
+              "statisticSha256": "920a629fd46e29ba4dd1c09ea22a94c690ea990b27ca00de53a5371dca121b48"
+            },
+            "originalBackground": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/background.png",
+              "sha256": "36b9c6402f7e8a560090fd349d38fe0846be2e9216cac796305a8ef13885a4cc"
+            },
+            "originalNative": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+              "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+            },
+            "reading": "first",
+            "referenceReport": {
+              "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/canonical-reference-evidence.json",
+              "sha256": "cb3c7d012c4f0379302d8f9798d2373fd84a29f652f78e8a34117e06bba5d41a"
+            },
+            "repeatAdmission": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+              "sha256": "3327bb902f7d4d3f009d7e5b85c7c483da0c30590ee3b6c162ed1a89be793ccc"
+            },
+            "repeatPair": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+              "sha256": "556348743d64119141bad0bcfd3cabef30cdbdedae7d1be4b303ea7ea7280a00"
+            },
+            "report": {
+              "path": "/Users/new/vitrea-w51/live/synthetic-4/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+              "sha256": "f5ceb1ad0c28c3f65f66391fc38a4efc8d9f9b90f67f5c9205227e6f960e1937"
+            }
+          },
+          "current": {
+            "canonicalReferenceEvidence": {
+              "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/canonical-reference-evidence.json",
+              "sha256": "cb3c7d012c4f0379302d8f9798d2373fd84a29f652f78e8a34117e06bba5d41a"
+            },
+            "capture": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.png",
+              "sha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4"
+            },
+            "captureIdentity": {
+              "digest": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4",
+              "kind": "png",
+              "pin": {
+                "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.png",
+                "sha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4"
+              }
+            },
+            "cell": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.json",
+              "sha256": "6d1dd3da90e05345ef529b6ba4b02bd7e258e337bb94529671139ca3ad473fdd"
+            },
+            "material": {
+              "documentPair": {
+                "activeSha256": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+                "recededSha256": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+              },
+              "originalDocumentPair": {
+                "active.dark": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+                "receded.dark": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+              }
+            },
+            "numericIdentity": {
+              "captureSha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4",
+              "documentPair": {
+                "activeSha256": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+                "recededSha256": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+              },
+              "statisticSha256": "f3f5eb44350675255fb8ee37b43fcfb81e5e2064ef3401ba0d08b1bca1bf26c8"
+            }
+          },
+          "historical": [],
+          "native": {
+            "background": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/background.png",
+              "sha256": "36b9c6402f7e8a560090fd349d38fe0846be2e9216cac796305a8ef13885a4cc"
+            },
+            "captureIdentity": {
+              "digest": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8",
+              "kind": "png",
+              "pin": {
+                "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+                "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+              }
+            },
+            "native": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+              "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+            },
+            "numericIdentity": {
+              "captureSha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8",
+              "documentPair": null,
+              "statisticSha256": "2dfdcc15ac6f77e49741a2cf7b238c661e609ad4a835b0ad34eea7be6fc7bd41"
+            },
+            "referenceReport": {
+              "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/canonical-reference-evidence.json",
+              "sha256": "cb3c7d012c4f0379302d8f9798d2373fd84a29f652f78e8a34117e06bba5d41a"
+            },
+            "scenes": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/scenes.json",
+              "sha256": "b297e7e79a8a7147e9212c0eeb25756b02b184b64ba03a78dda8bb8c0ec130bb"
+            }
+          }
+        },
+        "measurementStatus": "MEASURED",
+        "native": 27.999999999999996,
+        "nativeMeasurementStatus": "MEASURED",
+        "nativeRepeat": {
+          "B": 2.0,
+          "bar": 1.0,
+          "barRule": "W50 max(0.5 code_step, half own-seven-run spread)",
+          "budgetRule": "max(code_step, 2*bar)",
+          "code": 1.0,
+          "publishedNativeInteriorMean": null,
+          "runs": 7,
+          "spread": 2.0,
+          "spreadCodes": 2.0,
+          "spreadPolicy": "REPORTED_NOT_A_HISTORICAL_NOISE_STOP",
+          "units": "encoded-luma-codes"
+        },
+        "nativeSupportWitnesses": [
+          {
+            "maskPackedBitsSha256": "fd3f0f1eb48137fde47b117a774180c0f633df1472b2e60ce4c668ea786ac26c",
+            "maskShape": [
+              200,
+              320
+            ],
+            "pixels": 16184
+          }
+        ],
+        "originalBudgetB": null,
+        "reported": false,
+        "required": true,
+        "support": "deep8_far24",
+        "units": "encoded-luma-codes"
+      }
+    },
+    "reference": {
+      "B": null,
+      "currentDocumentPair": {
+        "active.dark": "bcb85f6df7c71cff35d01917acc5f927d6160bdbf7cff45761dcb0aac9db7d8d",
+        "receded.dark": "5ad55f49d57d9bc31c62e50a75d422ecdd513e8c32242f0de3dfe98830cdc01b"
+      },
+      "currentEvidence": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.png",
+        "sha256": "10576b1489874fc0a1a0b309a9aaeab256061a543609095eda47e6067bd28bb4"
+      },
+      "currentGeneration": "w51-synthetic-current",
+      "currentMaxGrowthInB": 1,
+      "currentMetadata": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/pixels/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/current.json",
+        "sha256": "6d1dd3da90e05345ef529b6ba4b02bd7e258e337bb94529671139ca3ad473fdd"
+      },
+      "dataOrigin": "synthetic",
+      "historical": [],
+      "nativeEvidence": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/native-fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest.png",
+        "sha256": "3c213ef0059c2355967bf7f4c87d14cbad6de15710db3f2e0755ba00bc42ffc8"
+      },
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "statistic": "low-end-path-level",
+      "status": "MEASURED",
+      "support": "supplied path deep8/far24; encoded-luma mean and median"
+    },
+    "renderer": "webgpu",
+    "role": "gate",
+    "scale": 1,
+    "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+    "sceneSource": "canonical",
+    "span": 112,
+    "statistic": "low-end-path-level",
+    "support": "supplied path deep8/far24; encoded-luma mean and median"
+  },
+  "schema": "w50-keyed-measurement-evidence-1"
+}

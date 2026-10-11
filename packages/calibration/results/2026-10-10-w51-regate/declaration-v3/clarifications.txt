@@ -1,0 +1,32 @@
+W51-DL5 clarification 1 (parent). Clause (c)'s stratum aggregates are judged on the FULL declared
+membership only (the 1,341 gate cells, plus the exposure where DL5d already places an aggregate),
+never on a partial population. This is DL5d's existing rule applied to the new clause. So:
+  - the real fit840 rehearsal reports every clause-(c) aggregate PENDING_FULL_UNION, exactly as it
+    already reports the six W48/owner aggregates; a rehearsal PASS means every per-cell clause
+    passes and every aggregate is pending, nothing more;
+  - the synthetic population, whose declared membership is complete, exercises the aggregate
+    pass/fail path end to end;
+  - the exact full-gate membership of every clause-(c) aggregate is declared by key list and hash
+    in the amended declaration before any gate pixel.
+The fit840-local reading that dark 0.5 C/rest worsens (1x 0.0863 -> 0.1563, 2x 0.3111 -> 0.3537,
+four canonical cells each) is recorded in the charter as a known risk: on the full union that
+stratum may still fail, and if it does, the gate is NEITHER. No exception is excluded and no
+aggregate bound is relaxed.
+W51-DL5 clarification 2 (parent). The worker's four terms are ruled as proposed:
+  1. Clause-(c) T1 strata are canonical WebGPU F/T/C/P x pose x scale x glass position over exact
+     full-gate keys, every nonempty group, no tolerance beyond the source-owned one-code epsilon.
+     New-bed T1 keeps its per-cell 2 B check on both tiers and is NOT inserted into canonical
+     strata; a new-bed T1 aggregate is REPORTED, not gated, because its 16 declared exceptions
+     would otherwise fail it by construction. CSS canonical T1 stays unpriced, as it always was.
+  2. Level aggregates: for every (position, pose, scale, tier), BOTH the maximum and the mean
+     native absolute error, in encoded codes, over exactly the gated level components (each
+     declared substatistic counted once; input 64 and REPORTED keys excluded) must read no worse
+     than current. Component memberships and hashes declared before capture.
+  3. Historical own-history caps are unchanged: max(B, frozen current historical growth), repaired
+     entries <= B. The 2 B of DL5(b) applies to the primary current-growth check only.
+  4. Exceptions: the four blue misses are capped at 2 codes with R/G at their ordinary 1-code
+     bounds; the 18 T1 exceptions are capped at their exact unrounded rehearsal-4 growths. Other
+     checks on those keys are unchanged and the rows stay in every aggregate.
+
+Coordinator epsilon addendum (2026-10-11):
+Pin the epsilon per member explicitly in the declaration: the W49a landing-cut `code` for dark 0.25, the own pre-fit canonical-reference native `code` for dark 0.5; T's value on T1-fine with its epsilon the native-interior-mean code step, never B or a step inferred from the fine residual.

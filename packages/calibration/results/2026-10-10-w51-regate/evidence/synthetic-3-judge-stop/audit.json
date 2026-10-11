@@ -1,0 +1,1328 @@
+{
+  "analysisConsumed": true,
+  "analysisMarkerPresent": true,
+  "cause": "Measurement freezes canonical T1 only under projection.frozen_scope; the unchanged judge requests frozen original operands for all canonical WebGPU primary T1, including dark glass0.5 source readings. The synthetic0.5 rows expose the incompatible scopes before any real gate read.",
+  "dataOrigin": "synthetic",
+  "disposition": "This synthetic run is final and is not resumed. Coordinator ruling requested for a prospective narrow judge-scope correction before a fresh full rehearsal; no protected real gate or exposure value has been read.",
+  "executionRootSha256": "3329bfae26c7a431004ce1558019b8ba85898fc7d1c7c304a9a69340447017d0",
+  "files": [
+    {
+      "bytes": 0,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/.invocation.lock",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/.invocation.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 885,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "d4b7251be6fd512c9e2e39d02670963737f351f46feab92d399dc83e8eeb8290"
+    },
+    {
+      "bytes": 3804,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__first.json",
+      "sha256": "342ed07035871cb935b68130dedf1d70c7c2b063a5d0881f447535a0a97fe033"
+    },
+    {
+      "bytes": 3804,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__second.json",
+      "sha256": "342ed07035871cb935b68130dedf1d70c7c2b063a5d0881f447535a0a97fe033"
+    },
+    {
+      "bytes": 4659,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "sha256": "5a0e00275a09f98107026f6fb76aa3c3dee441298cf8b21fa16956dc3906c940"
+    },
+    {
+      "bytes": 1806,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat__webgpu.json",
+      "sha256": "ce95906ff63752eb203feff7f9b5e76a9e5457e81222ef55e99a04010836bbef"
+    },
+    {
+      "bytes": 34876,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report.cell__webgpu.json",
+      "sha256": "0bc097a1e6d2af326c9d9792c7c5f0426d589f001ceecd927c83651c4f26f97c"
+    },
+    {
+      "bytes": 6601,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "749c242662e1589537da19859ca151087f3166fd0c099952969ac79d822d955e"
+    },
+    {
+      "bytes": 51402,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu.png",
+      "sha256": "f52777e87eebd1f0065a95e2218c21ec0f9e5e56d7073a539e1c705188b54c79"
+    },
+    {
+      "bytes": 13814,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__alpha.png",
+      "sha256": "d4d32ec99a5b46fe33023eb82fe4d238d6d7f3442407b4204126bda7fdbaf604"
+    },
+    {
+      "bytes": 51402,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__repeat.png",
+      "sha256": "f52777e87eebd1f0065a95e2218c21ec0f9e5e56d7073a539e1c705188b54c79"
+    },
+    {
+      "bytes": 894,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/capture-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/capture-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "sha256": "203bfba332446efd80e8ea6aeee46af074ee9b9d6e46d2671ec42000784401e7"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/census-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/census-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "5a1bc6c5e90281b396f46f49ff696a35eaa7a7a8ad3c759786725ec827debb54"
+    },
+    {
+      "bytes": 3513,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/compare-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/compare-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "sha256": "a81a7eb3d1170ae013d94b3f97231e9f30b507e66e099feada4db5dc6c2c635a"
+    },
+    {
+      "bytes": 55766,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/complete.json",
+      "sha256": "24fb537c8dddf3ffeb433104aace1eac4230c22cf275011dacf80aa20cacfdc1"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/exit-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/exit-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2769,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/fresh-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/fresh-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "bcf200c7675902af7f3bb49d3e0e88815c7db3137bc804ba73ed4b3ea882a5cb"
+    },
+    {
+      "bytes": 1146,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/native-admission-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/native-admission-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "e16e1dc69f8fce0987daee24aac74595eb4c947fe65c967fc28d862becdaf372"
+    },
+    {
+      "bytes": 959,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/native-request.json",
+      "sha256": "bfba3f6162ffae8bdd0b68c302e5a070a5bde6c0c74778c9603c2a4db3ad4f8a"
+    },
+    {
+      "bytes": 1988,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/request-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/request-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "b47c9626453b5cfd07a56677b5cfd59b040462cf09023caa6f4b03f67b8566ff"
+    },
+    {
+      "bytes": 3434,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/captures/request.json",
+      "sha256": "508af6d195a60b0b0ba8b4bf5731d17b0305b436a4cab7a2691f1b4fef8d13bf"
+    },
+    {
+      "bytes": 40111,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/matrix.json",
+      "sha256": "6e4dce2f67de9f64d311c401767d6703db796b7fb01ca1b0078970f1175be1b5"
+    },
+    {
+      "bytes": 36502,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/record.json",
+      "sha256": "02905d8bd2b378eeccfc3fab0638c13e5827fc9c7d913dbb75aee52d70acb5ba"
+    },
+    {
+      "bytes": 3592,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446/render-authority.json",
+      "sha256": "6bd09aeb29f834ecf600493ae4db87a6b5caed837d0a1095ea46740087d5045a"
+    },
+    {
+      "bytes": 885,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "10dac587b1579d7fe2606c4ef4d5e63bbc97866095b068345c43088c245d544c"
+    },
+    {
+      "bytes": 3825,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+      "sha256": "3578ede95f2751915409e0cb9e4d62b7cc9360bec1077b313cf8dde2626cfd47"
+    },
+    {
+      "bytes": 3825,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+      "sha256": "3578ede95f2751915409e0cb9e4d62b7cc9360bec1077b313cf8dde2626cfd47"
+    },
+    {
+      "bytes": 4701,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "sha256": "5b03032c6a510ab5ab61824a9df503b313f455e5fe179741cc09281a4a9c572a"
+    },
+    {
+      "bytes": 1816,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+      "sha256": "723b4acaa504529c259ea0f3568231be8d97fc7293cf1a2b4167a0cecd8d74a5"
+    },
+    {
+      "bytes": 29398,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+      "sha256": "6a7eb651550a2d21ce4c6951d79cab61a3acd7d216c84ba7d7f001b280f98f47"
+    },
+    {
+      "bytes": 6617,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "4ac23cce02fb2a13da55a924621618a3dbdb9d741dd9fa495ed9f87b166e3422"
+    },
+    {
+      "bytes": 2456,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "sha256": "331f535dd949c362c310fb55a573a5d30786a233d781ee8851aa222efd747492"
+    },
+    {
+      "bytes": 4261,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+      "sha256": "acbd0b6c4c7fd7f303f7e4f6e4afe52ffac20f0e61e59443496a0e52e030b3bc"
+    },
+    {
+      "bytes": 2456,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+      "sha256": "331f535dd949c362c310fb55a573a5d30786a233d781ee8851aa222efd747492"
+    },
+    {
+      "bytes": 895,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "sha256": "7eefe413d67a236bfdb5c3d2cb9ba3d1933692c001f1a471d1368713430dc4cd"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "3c167e555a80288a39298554a0eabbf9a3d04a59e9d231bedb11dfad96b0def7"
+    },
+    {
+      "bytes": 4409,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "sha256": "0395bd680a2cddf256964cc149aa104a16d8c4bb760d94692b262eeece89d1fa"
+    },
+    {
+      "bytes": 48765,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/complete.json",
+      "sha256": "96ed4373174fd1ef328a02f870e3af7bbc58754eb2f0c5fd286224b38894f719"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2783,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "bd56bffaf9c0d61143a5179e059c10e5a6ccf5d920cc7f1470bea58356dfe59c"
+    },
+    {
+      "bytes": 1148,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "7d36bef07bcf68a3244d7fec4936918f2dd54e95f5b709d3640bc8df88bc478a"
+    },
+    {
+      "bytes": 963,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/native-request.json",
+      "sha256": "3a4f913ad8b85a49b583f304e5ebe348c4edecc43cf16773a34d87c7736adb03"
+    },
+    {
+      "bytes": 1990,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "dd8b2a70477d400d631e5b92a7e67940d82a6b95605608b10c17ddcdac08f0cf"
+    },
+    {
+      "bytes": 3434,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/request.json",
+      "sha256": "48812a37924c7c3cc42864423d706de3d1ef991689492e5bf974936c7f4b7060"
+    },
+    {
+      "bytes": 33801,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/matrix.json",
+      "sha256": "f11ff3c4aed627e6aec73a05e134d2724d9623d892968634268c938a01d49c59"
+    },
+    {
+      "bytes": 32263,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/record.json",
+      "sha256": "c05d8342165161156f1a370e64e7e11559b25a8a5c57775e03ec665cbaf1e8d7"
+    },
+    {
+      "bytes": 3594,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/render-authority.json",
+      "sha256": "cda8d42443506875d332ebe7fe5bf2858c7a31450f8f85afca6a5a0f8ec33e32"
+    },
+    {
+      "bytes": 887,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "65985318c82e0339c2888e01b8e7455a698f0cafe2965f5618625093fca65791"
+    },
+    {
+      "bytes": 3828,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+      "sha256": "dfde6cade056ab5c0e39290cf54d2392963fd2e614162d2623e8ae3a51b6780d"
+    },
+    {
+      "bytes": 3828,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+      "sha256": "dfde6cade056ab5c0e39290cf54d2392963fd2e614162d2623e8ae3a51b6780d"
+    },
+    {
+      "bytes": 4711,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "sha256": "5c506a07a5ba538faf5570d8a11f1bf24dc760ee82a69111b218a4a464651767"
+    },
+    {
+      "bytes": 1820,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+      "sha256": "9844c0094f63622a3aa0beeef01348ea8d43a7495d297ce5d3c83c6e479f691f"
+    },
+    {
+      "bytes": 29400,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+      "sha256": "74fa92a8601b31940052dac6a8f9a72c7e8794dc9abc2f08a0498b9f576f3a34"
+    },
+    {
+      "bytes": 6625,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "3083f0dfc9fece86a276ed663aa20b4d9257c0060b64b2ac29743acc7ec231a9"
+    },
+    {
+      "bytes": 2814,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+    },
+    {
+      "bytes": 4617,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+      "sha256": "e90632aee0392a99fff52a463d5fd1b1f5f45e9f1691a1c286386004f161eb9e"
+    },
+    {
+      "bytes": 2814,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+      "sha256": "fa0e666b417859d11dbceeab0e34975cf8ee77d17ef6537994bf44509ace30d6"
+    },
+    {
+      "bytes": 898,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "sha256": "8b908bc83e99ebeef632ea19f3135d0c5809318ffd69dca1c76f3b00fa341779"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "15d5f4851a801a5e0275d0388c14246bb74f6de3aea5164a824efa6eab083f27"
+    },
+    {
+      "bytes": 4411,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "sha256": "896fd86510dc0f9ce5373cbe8cde95947cf452a2e25883aa56ce229dd592cdd4"
+    },
+    {
+      "bytes": 49092,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/complete.json",
+      "sha256": "72885caa2f428e52d1576bf7b6f0bbd19d33da4962fef3f9762f1deb0bdac4bd"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2791,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "e1dde2fb0e03d00ae28bacb9403ceede4fcdeb2ad4057ee4d7daecdca1d33bb4"
+    },
+    {
+      "bytes": 1150,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "0b85e974e924f64e4ad60790de5b349481bed728d4ca7ec58436b69a0d4d041c"
+    },
+    {
+      "bytes": 965,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/native-request.json",
+      "sha256": "dfe08a2dd6c3b2ab2ea7fe2f5655e42d580676647c318190ef26dbf05ea9a640"
+    },
+    {
+      "bytes": 1994,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "6e68bfe5b6e0886149b1d1e8c522cdb872e84290ae45ae8c335863acbc4defb1"
+    },
+    {
+      "bytes": 3438,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/captures/request.json",
+      "sha256": "6d17b88dee6d8a1a8c08c87fcddba32a809a646d49a61a1bbe77a4c13f612d1d"
+    },
+    {
+      "bytes": 33803,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/matrix.json",
+      "sha256": "912d88fb7b80dae3ee560ff4558d276b0fdd23fa1cab0b106cf3b72347d14f07"
+    },
+    {
+      "bytes": 32510,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/record.json",
+      "sha256": "ac3ab209a358c195d846efd8cf2db5d338ef22b26dc27425fad74ec4f0b6dcdb"
+    },
+    {
+      "bytes": 3598,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745/render-authority.json",
+      "sha256": "c98aecc00a74d50123c997129fed8f669e995efcfb5be52c57aad8bd26f8b223"
+    },
+    {
+      "bytes": 888,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/cell__webgpu.json",
+      "sha256": "81b60618928ed721da7b6e34cc7e8cbb966b1f2d676b803af1f236e0dfceb810"
+    },
+    {
+      "bytes": 6913,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__first.json",
+      "sha256": "edb9f321e9cb80b7a8ad360c60f116c918c9c35e06489276f0081533f1e53373"
+    },
+    {
+      "bytes": 6913,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__second.json",
+      "sha256": "edb9f321e9cb80b7a8ad360c60f116c918c9c35e06489276f0081533f1e53373"
+    },
+    {
+      "bytes": 4698,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat-admission__webgpu.json",
+      "sha256": "4934c72fd53b98d5343cb4685c5df9501a3ce9c02b23f1f23d964fcd5b4869d5"
+    },
+    {
+      "bytes": 1827,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat__webgpu.json",
+      "sha256": "20e0014331c97614332b526f28c1d6165627343d62c53a448f8097bdbdf66b7b"
+    },
+    {
+      "bytes": 34148,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report.cell__webgpu.json",
+      "sha256": "fdc6339d7354eb527c34a7bcbd1aef3e6218c5aef020de46cd8230d2890b3761"
+    },
+    {
+      "bytes": 9950,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report__webgpu.json",
+      "sha256": "e98a55e2da9827bbfb3e57be52a648f3b79e26999b594eb60c2c1df1bcab21be"
+    },
+    {
+      "bytes": 8826,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu.png",
+      "sha256": "aad0505348f19dd1e06f76c194bec43d016073c29156358a592227bf0e4b359f"
+    },
+    {
+      "bytes": 8761,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__alpha.png",
+      "sha256": "4b365f174b741dad572ab13820f30401b81f4c87348a83ee4d8575632b071fc8"
+    },
+    {
+      "bytes": 8826,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/apple-macos-27.0-1x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__repeat.png",
+      "sha256": "aad0505348f19dd1e06f76c194bec43d016073c29156358a592227bf0e4b359f"
+    },
+    {
+      "bytes": 900,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/capture-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/capture-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "sha256": "adff5512139280256059f0a51881df9cdd525bcc10d4c4e3adff2041300191ec"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/census-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/census-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "598b7181b4927d1940f07e16f9e9051fc04867b6c32d197dec8574557182a45b"
+    },
+    {
+      "bytes": 3190,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/compare-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/compare-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "sha256": "422535f1d5fc077d0e44d839aabae76bd67cc4009c83e06ed41b8b10be236e67"
+    },
+    {
+      "bytes": 55023,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/complete.json",
+      "sha256": "05f8a7d4b36968716b38d04b8a8cb92ed921360e01eef3654e2840c2bb3f506b"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/exit-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/exit-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2802,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/fresh-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/fresh-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "bbe34deb9529a1a0d58498c418c5569d5d44e1c22ff062f6e63550db6ac81dc5"
+    },
+    {
+      "bytes": 1152,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/native-admission-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/native-admission-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "f5334f552cac61c1e4599e92f55a686195504a31084f318eb8569ab71a03c38e"
+    },
+    {
+      "bytes": 968,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/native-request.json",
+      "sha256": "4aefea5b37a37425339b9a2a0255bafb21747ebc611cb21defba5bb5ef2b185b"
+    },
+    {
+      "bytes": 1997,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/request-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/request-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "48d77cbc0134103a4503a6c914f0e4e632e92b4c312f3caffdb65665b5a998c7"
+    },
+    {
+      "bytes": 3440,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/captures/request.json",
+      "sha256": "1feea61492f2a92cb512544745e7e69e8e7c70953dce54255f34747cc599e47c"
+    },
+    {
+      "bytes": 39319,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/matrix.json",
+      "sha256": "c9e96337c785faaead8d6bcf17c4804ce41ed3a864dedfc9f56236d613e7671e"
+    },
+    {
+      "bytes": 36023,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/record.json",
+      "sha256": "969cd8df29d3124c2fa95853e6206ae818cc659ed91a1e783a1296e3481055b1"
+    },
+    {
+      "bytes": 3601,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a/render-authority.json",
+      "sha256": "15db1bcdd34e4e4bf8878d766580124c9f009b88b4c7e72715255d5e395e7e16"
+    },
+    {
+      "bytes": 888,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/cell__webgpu.json",
+      "sha256": "5a03364a785c6eb4a13fee806f3f87908656e0a980891f330af72a5a8248a65b"
+    },
+    {
+      "bytes": 6910,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__first.json",
+      "sha256": "fc860eb1cb910db335548b366be7822b786f8a4f846cdf39cb5de13ecb480c4d"
+    },
+    {
+      "bytes": 6910,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/page__webgpu__second.json",
+      "sha256": "fc860eb1cb910db335548b366be7822b786f8a4f846cdf39cb5de13ecb480c4d"
+    },
+    {
+      "bytes": 4712,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat-admission__webgpu.json",
+      "sha256": "d3f48c3e4392e8cc4b63bc1c454e3e9769a8aca8298240e83aa61d80494b0438"
+    },
+    {
+      "bytes": 1827,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/repeat__webgpu.json",
+      "sha256": "ff845ce7ce290c622a7d2403b3e3e1b4d1cd4d62f93ef7df50db0fdf8be70673"
+    },
+    {
+      "bytes": 34046,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report.cell__webgpu.json",
+      "sha256": "76057208accdf0e09514d474449fa001a0e25c803a5700e1c1ed1207a92f6345"
+    },
+    {
+      "bytes": 9947,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/report__webgpu.json",
+      "sha256": "a134216632fb6105cee0e6932a25d43395ac046c92fdcd6c9e9ea898c01f1ab1"
+    },
+    {
+      "bytes": 14173,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu.png",
+      "sha256": "47a50165b55bbc163bfee51da79c2a7eabca7a7e65cebf2498a781a91e788174"
+    },
+    {
+      "bytes": 13718,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__alpha.png",
+      "sha256": "1f156dd65135529d1e43004ab3798e1332b99c4704e9b09d0caec8af64d94a6f"
+    },
+    {
+      "bytes": 14173,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-fine__rrect-synthetic__inactive/w51-synthetic-fine__rrect-synthetic__inactive__webgpu__repeat.png",
+      "sha256": "47a50165b55bbc163bfee51da79c2a7eabca7a7e65cebf2498a781a91e788174"
+    },
+    {
+      "bytes": 900,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/capture-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/capture-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "sha256": "ff56df9100ce7884b17e740951446d855453b89a1e6e3760f5d8f8128b89193f"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/census-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/census-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "fedd233f18d7392d5f136e5acfeeb0bd3d4fdc3372b4bdad0d0035b1a15b335b"
+    },
+    {
+      "bytes": 3480,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/compare-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/compare-w51-synthetic-fine__rrect-synthetic__inactive.log",
+      "sha256": "84cfe294831fea5935e348c2ba633bdf6460124c102940e749b25bf358197180"
+    },
+    {
+      "bytes": 54869,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/complete.json",
+      "sha256": "075985b0afb36d7e739269d2085229a42b605d00317f1c3b45df18ffced54229"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/exit-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/exit-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2802,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/fresh-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/fresh-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "880ebdb678c90446effe09b6795b6e5a66898d5e9cbd150a20e77fd262a1b23b"
+    },
+    {
+      "bytes": 1152,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/native-admission-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/native-admission-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "f298bf547ecacf80d6f91763cf2dd2ee2dcf4781da2609d5b65e89cdcbca3f3b"
+    },
+    {
+      "bytes": 968,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/native-request.json",
+      "sha256": "0122d02c189c39c1e22301d83785f644aef0c9de26782275679844551b030c1f"
+    },
+    {
+      "bytes": 1997,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/request-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/request-w51-synthetic-fine__rrect-synthetic__inactive.json",
+      "sha256": "65567577c2561880ae54e48795ec5be8cd7a92f593fba1742b8f1d77987de4a5"
+    },
+    {
+      "bytes": 3440,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/captures/request.json",
+      "sha256": "7532f7b0ac3f78a7aeb677567a6bc6a37c8c3f81e334a80ac855a1fef4f3808b"
+    },
+    {
+      "bytes": 39185,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/matrix.json",
+      "sha256": "672dac7b44c26eeffe1fcb786d1768fafbb54d709ffad2eb7f4f8a918ba21e70"
+    },
+    {
+      "bytes": 35961,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/record.json",
+      "sha256": "d5bd42485c6338f1ed41419af7e59f18cc69a72eedcb38d5f8a4d1466645fcfa"
+    },
+    {
+      "bytes": 3601,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf/render-authority.json",
+      "sha256": "5e5e36a606412215fff8773ab9cf07ed797a6767b1b565a954d7f57c134df004"
+    },
+    {
+      "bytes": 882,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "6d969d5f4d2c2cc0f45cb91b8f4e05d58aeaac320fef0e9edac1cf0ca8bed1d4"
+    },
+    {
+      "bytes": 3797,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/page__webgpu__first.json",
+      "sha256": "c3d40e5838968fe533ee68a7dd2bb14d6e3e0e98224a396eaedcfddab76046f8"
+    },
+    {
+      "bytes": 3797,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/page__webgpu__second.json",
+      "sha256": "c3d40e5838968fe533ee68a7dd2bb14d6e3e0e98224a396eaedcfddab76046f8"
+    },
+    {
+      "bytes": 4624,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "sha256": "b343d861bea4be8ab6ea0f068cd1198845067018238b5fa5d87291ef1b431025"
+    },
+    {
+      "bytes": 1795,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/repeat__webgpu.json",
+      "sha256": "180a01205e42b5a0733f2aacf862d76acb24bf4e8a6d401848489b1f17dfc72e"
+    },
+    {
+      "bytes": 34826,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/report.cell__webgpu.json",
+      "sha256": "d97b807bd8de949c6347e31243d4a693b97e85f00dd24c901f96783c8ddbcf20"
+    },
+    {
+      "bytes": 6589,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "2b46d54687295aad4bee3ea18bec45abfcadcd5a492413408120e70f8ea53831"
+    },
+    {
+      "bytes": 30145,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/w51-synthetic-text__rrect-synthetic__rest__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/w51-synthetic-text__rrect-synthetic__rest__webgpu.png",
+      "sha256": "de402a75e44455a124aaafae9eda2bfe42c1c6e718a09f396e78d5b12dfc1577"
+    },
+    {
+      "bytes": 16347,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/w51-synthetic-text__rrect-synthetic__rest__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/w51-synthetic-text__rrect-synthetic__rest__webgpu__alpha.png",
+      "sha256": "58faf96b9c05da452afa414687206b053ad67e081938e9b34bff66932b333cc3"
+    },
+    {
+      "bytes": 30145,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/w51-synthetic-text__rrect-synthetic__rest__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/apple-macos-27.0-2x-dark-standard-glass0.5/w51-synthetic-text__rrect-synthetic__rest/w51-synthetic-text__rrect-synthetic__rest__webgpu__repeat.png",
+      "sha256": "de402a75e44455a124aaafae9eda2bfe42c1c6e718a09f396e78d5b12dfc1577"
+    },
+    {
+      "bytes": 889,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/capture-w51-synthetic-text__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/capture-w51-synthetic-text__rrect-synthetic__rest.log",
+      "sha256": "2b64b416d043c9fd87b88529141b9dff8c5b33c727db15e7205a0986c4272701"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/census-w51-synthetic-text__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/census-w51-synthetic-text__rrect-synthetic__rest.json",
+      "sha256": "468a0960e316fe3d47a913d37bd44da31348ba2bcbe9341f478dd5cd262c5510"
+    },
+    {
+      "bytes": 3644,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/compare-w51-synthetic-text__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/compare-w51-synthetic-text__rrect-synthetic__rest.log",
+      "sha256": "12fd0850ccc82a180ac413f40982259fafafeb7df10df3cdb308a3f93e13eb7f"
+    },
+    {
+      "bytes": 55355,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/complete.json",
+      "sha256": "ebc98de141890e4718974acb601b3c82bb1c6319d77c03812bbd5852133f3ade"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/exit-w51-synthetic-text__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/exit-w51-synthetic-text__rrect-synthetic__rest.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2750,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/fresh-w51-synthetic-text__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/fresh-w51-synthetic-text__rrect-synthetic__rest.json",
+      "sha256": "0ac8bef6a462fee0f89f46db22fec42f7b4d447f4ae9ced573422d2dcde9e7ad"
+    },
+    {
+      "bytes": 1142,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/native-admission-w51-synthetic-text__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/native-admission-w51-synthetic-text__rrect-synthetic__rest.json",
+      "sha256": "3ab8155f04578bfe5e527653f99bc9375ef4df0140801b9453c9ffc737f4a58c"
+    },
+    {
+      "bytes": 954,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/native-request.json",
+      "sha256": "5867f65605b717c44ec505c43d6dea5fbbc71800f873f9076b87f72aa831dc32"
+    },
+    {
+      "bytes": 1981,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/request-w51-synthetic-text__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/request-w51-synthetic-text__rrect-synthetic__rest.json",
+      "sha256": "69b2836f6d036e3c267e8944c4a33461709b936515cf49bfb69a67c844b71eaa"
+    },
+    {
+      "bytes": 3428,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/captures/request.json",
+      "sha256": "73886e789504791865328edc386cdde09aadb768481a845e04b9c2b514ff4472"
+    },
+    {
+      "bytes": 40045,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/matrix.json",
+      "sha256": "6fccb78bdfeaabd7fc47d73bba64df57bfe1cd09bd0c381acccd5359e1f30559"
+    },
+    {
+      "bytes": 36227,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/record.json",
+      "sha256": "08a6126a6d4615891865b39ac536e67286214915022e5e0459c2e985daf8d41c"
+    },
+    {
+      "bytes": 3585,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa/render-authority.json",
+      "sha256": "9d9b11b2be3b13b930348a381bf96c99ace8ca662f96c41117b1ea7569dfe97a"
+    },
+    {
+      "bytes": 887,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "82e958483fa65be32ae1b05858695741a5e6bca2834e404bf681341c41d04fa9"
+    },
+    {
+      "bytes": 3827,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+      "sha256": "849f564fef52e6fc357aced0753178b2b13209fd0aa6e5e3b165b77485904090"
+    },
+    {
+      "bytes": 3827,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+      "sha256": "849f564fef52e6fc357aced0753178b2b13209fd0aa6e5e3b165b77485904090"
+    },
+    {
+      "bytes": 4711,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "sha256": "ec51b81ff1ad7618faf1846e303f5e879e53587030f9014063aaed4cc26e40e5"
+    },
+    {
+      "bytes": 1820,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+      "sha256": "2f38b1d164fb7d5d5820767ad2a7c69c1171b850acba98073b57578c92aff92f"
+    },
+    {
+      "bytes": 29819,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report.cell__webgpu.json",
+      "sha256": "70bf0397b4346ae8eaddbb4386e7a949625ab85e95cd143951de2c25ade171e6"
+    },
+    {
+      "bytes": 6624,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "ba57c4214451d26d5315d8db50e3da10880eeabf9a26f4960bae2c151412cee3"
+    },
+    {
+      "bytes": 6750,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "sha256": "28f69fe0cd7f0d24e16d18f75b76aa3d9f6161a866f1ca9fc0855c97fdcb7f8e"
+    },
+    {
+      "bytes": 10934,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__alpha.png",
+      "sha256": "f0d45acc21c9e96be5298727172a714f776c7c7752e146bf8e403e9a5edd9aa0"
+    },
+    {
+      "bytes": 6750,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+      "sha256": "28f69fe0cd7f0d24e16d18f75b76aa3d9f6161a866f1ca9fc0855c97fdcb7f8e"
+    },
+    {
+      "bytes": 898,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/capture-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "sha256": "4690bba41d6e896d7c389d7d126bf723c9288c2a11bb6cfe4b443c63199dd341"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/census-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "648fdb8a71a58b0f115fa1d694ff02743772d3cc4128d537c1881e7044009079"
+    },
+    {
+      "bytes": 4136,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/compare-w51-synthetic-impulse__rrect-synthetic__rest.log",
+      "sha256": "d62e2eb92c4b6f7e2f0485d271a7c34138bfa3ac99396c52cd8215c20410fd49"
+    },
+    {
+      "bytes": 49603,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/complete.json",
+      "sha256": "3160c460fdf0633b0c145178478a234df862fd83aa8ef25bee102c06d6784354"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/exit-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2791,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/fresh-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "bf0b73e5f9c44de9f6940061e4fec42c38b426d867eb34d5b75cbae3e5e667e7"
+    },
+    {
+      "bytes": 1150,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/native-admission-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "46a7d335dca2dc00c7c979a7b2c112d0b859db4d6fbc4b608f99ad6fd9a73912"
+    },
+    {
+      "bytes": 965,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/native-request.json",
+      "sha256": "00b898b5ae9f43b42eb8ecc701df4ae98b22c6b13a804753812794bb92ef6bb3"
+    },
+    {
+      "bytes": 1994,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/request-w51-synthetic-impulse__rrect-synthetic__rest.json",
+      "sha256": "ee8d3ef8d7463938ae3653c95bb75fe0ba4dcf4c84cff1e2b3c57e1fb6f9d3b0"
+    },
+    {
+      "bytes": 3438,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/captures/request.json",
+      "sha256": "5311ef6e2216c31b5e24d1ef856307aa6d1764665be655a04bba2462482dabac"
+    },
+    {
+      "bytes": 34286,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/matrix.json",
+      "sha256": "d9f587f186e5fe35fefed195feabaf0b8f17d5d70529d8aa08c99b5782aa6edb"
+    },
+    {
+      "bytes": 32837,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/record.json",
+      "sha256": "4e99c828ecffd7d1cb7339c9a47109e3be3e0b362ba2a01f37aea8fb9de56ee4"
+    },
+    {
+      "bytes": 3598,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf/render-authority.json",
+      "sha256": "a9af037152182129e19d560e4e701ffaa5ab78ff7a3a8b6a61257ad81a7fa83a"
+    },
+    {
+      "bytes": 885,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "f2431bfb7355c430491ef02308845e0e59fc6ccdfbec0281de08fedde3761335"
+    },
+    {
+      "bytes": 3806,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__first.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__first.json",
+      "sha256": "c9932b6607e3645d96f39e9732cfc5c0dd27dc494c2afb6dbdf5108a779123bf"
+    },
+    {
+      "bytes": 3806,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__second.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/page__webgpu__second.json",
+      "sha256": "c9932b6607e3645d96f39e9732cfc5c0dd27dc494c2afb6dbdf5108a779123bf"
+    },
+    {
+      "bytes": 4659,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat-admission__webgpu.json",
+      "sha256": "9f8da1122a86690f19a6ab61665a72f0dfb96435b07c81e18885df5f5fe4292e"
+    },
+    {
+      "bytes": 1806,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/repeat__webgpu.json",
+      "sha256": "5ee0a93acfe8dec5f720d98d52bae4a4c5e5a9740555f2381cbaaa9b8bfacfe4"
+    },
+    {
+      "bytes": 34834,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report.cell__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report.cell__webgpu.json",
+      "sha256": "779109e8c55246416741486b2239ff57beff77aebe011bfcf8e0ad743d37499f"
+    },
+    {
+      "bytes": 6603,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report__webgpu.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "fd3aabab27dfdaff0e7943994acd1f121acaf1ca53b1bdcdf685833258642766"
+    },
+    {
+      "bytes": 156810,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu.png",
+      "sha256": "f5337a7c4dee6fc19687b0c4752ee560418aea167d9c6fdbce84c73970d8a4dc"
+    },
+    {
+      "bytes": 33506,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__alpha.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__alpha.png",
+      "sha256": "9fdd030a61e5c4e56981dfd6e4b29c796d62ab6c355842724ba834dda5bcf876"
+    },
+    {
+      "bytes": 156810,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__repeat.png",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/apple-macos-27.0-2x-dark-standard-glass0.25/w51-synthetic-photo__rrect-synthetic__rest/w51-synthetic-photo__rrect-synthetic__rest__webgpu__repeat.png",
+      "sha256": "f5337a7c4dee6fc19687b0c4752ee560418aea167d9c6fdbce84c73970d8a4dc"
+    },
+    {
+      "bytes": 894,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/capture-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/capture-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "sha256": "bd5bc1170aa0b829f7f539f6487753575ea65410a20d511ac1c41bcd571c0e2f"
+    },
+    {
+      "bytes": 7026,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/census-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/census-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "316ca4572416c41c4a08eaebe2a3916abba3bddc53a3f1cf1083809fcd7f2cd8"
+    },
+    {
+      "bytes": 3513,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/compare-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/compare-w51-synthetic-photo__rrect-synthetic__rest.log",
+      "sha256": "eb435584d8dbd63225399c680e11e9406a508058c4363f4da0f59d55c8f41637"
+    },
+    {
+      "bytes": 55700,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/complete.json",
+      "sha256": "8b524e02ed066178e7d09fa4fd415a00df21d027fe7d3095362cedbffcacbc79"
+    },
+    {
+      "bytes": 22,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/exit-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/exit-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "1e3f6691f455051e8adb15d961e4bf3c7a17e83dd88b2afdd13315cc288250bb"
+    },
+    {
+      "bytes": 2769,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/fresh-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/fresh-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "432a1fc5dfffd2ab49f40532adc1c793900a02be0e2447931db4d357e5fa154d"
+    },
+    {
+      "bytes": 1146,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/native-admission-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/native-admission-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "bad762d6b66a94911cd4287dae3aac5837febeb99a5084bd3b2139152b8b90c3"
+    },
+    {
+      "bytes": 959,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/native-request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/native-request.json",
+      "sha256": "3ecf5fbf799633c7502529ad6de08cf17640ed49b9122a7cab6230ecb6effce8"
+    },
+    {
+      "bytes": 1988,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/request-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/request-w51-synthetic-photo__rrect-synthetic__rest.json",
+      "sha256": "a45bb0523d2e6e3e626789e5b3790cb8eedee9e6e5115c4a89123a1906c59023"
+    },
+    {
+      "bytes": 3434,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/request.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/captures/request.json",
+      "sha256": "d9fcd42b2a2486653ecbe80d6fb5b758547ca191dd1613ba6ecb263c50649d8a"
+    },
+    {
+      "bytes": 40053,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/matrix.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/matrix.json",
+      "sha256": "b794d7d227be6961968d0a14f75a0130b1ca17d04ab9ce783ada4f4378ed79cd"
+    },
+    {
+      "bytes": 36492,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/record.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/record.json",
+      "sha256": "6d9040d08f3d1ed661f39a2f73700c01e7b166a3677239e53f33b05cdfa4c25c"
+    },
+    {
+      "bytes": 3592,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/render-authority.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/attempts/000001/quarantine/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e/render-authority.json",
+      "sha256": "e65bcc8b39a3aef095c4aa457341c4b9eca07e00543a9c80e4e7441ec45a776d"
+    },
+    {
+      "bytes": 2084,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json",
+      "sha256": "38d111797dc42e536d3ee2945dacd48fb7c7f09d1b377956a6d1d88d65ca590b"
+    },
+    {
+      "bytes": 522,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/analysis.started.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/analysis.started.json",
+      "sha256": "c2d12771ac7920b0297269405e43e76b1c409b2368feb15742df57b8ab353bfd"
+    },
+    {
+      "bytes": 206,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/complete.json",
+      "sha256": "49efd354bd46c685bc6f91f9b09876656ae1e5cf9eaf27c7a1567db1e613f7ba"
+    },
+    {
+      "bytes": 19529,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/contract.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/contract.json",
+      "sha256": "801c71184cfac68ec0a89b0bd3092592b157c2ad8cb189d66cebd291afb858f1"
+    },
+    {
+      "bytes": 9599,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/0741d349799f87da28cb4ff7c15ba1743faaa6968f9345e1ec6e8bec82115446.json",
+      "sha256": "6220cbe46aeb3bb6f77b28abd401c3fd8f03f3e88fcf87e0f190808b18e44fd0"
+    },
+    {
+      "bytes": 9631,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87.json",
+      "sha256": "18623bef0f542461a72b7d289dc1460d06e70dfba087c22e8d77ad77274d8ad1"
+    },
+    {
+      "bytes": 9645,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/3e95738b115946125613e4bb060d5522cd27be7a00778aa27a2ca67add259745.json",
+      "sha256": "e5f4057826d3261bb2405cf52203d6c60343685d1841fbd51bcdee03087aca4b"
+    },
+    {
+      "bytes": 9668,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/8bbfe0bd5360af471123904b8132eabaa4083a2da654b489e5cea8061e2dfe1a.json",
+      "sha256": "a4f2c6a8edc2b8aca262ee2c3383fc8741e00924cd68736300911ac718f656db"
+    },
+    {
+      "bytes": 9668,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/c8971ca46cbc223778df6974e0399caa7188db679434a0f95d6fe993a1d201bf.json",
+      "sha256": "1b8516e6d2719a02ee1c349f7eab406a5d39a082cc2521649c8e7ee240ad29e8"
+    },
+    {
+      "bytes": 9562,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/cb004f4da0d7303728571263df57be745a625e67c81c38a918672773c9164eaa.json",
+      "sha256": "d01d636ebafea42b1938c23e7e4ebf97239182a37f60aa55b205d330e906fb61"
+    },
+    {
+      "bytes": 9645,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/d420719448a8aff2d2d7aa05ef523c054bb16633bd51f860dada702d8330ecbf.json",
+      "sha256": "b54cfcde877ed99cfe4dc7562c70d8d2af4427b7f1e6455e9c990432d2064845"
+    },
+    {
+      "bytes": 9599,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/members/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/members/e841603ef2f87aa756b3a892e1b1c3d0cfdd29fad3fd5a73fcfd39e870e5f51e.json",
+      "sha256": "159d3a241fa4ed98f968b31707019ed08c0c3afb855aeb1ec3326c2e32c24fc4"
+    },
+    {
+      "bytes": 489,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/attempts/000001/started.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/attempts/000001/started.json",
+      "sha256": "d95bd26873ded2f57a8d60b444564d22659431c23b589664921edc96df6b58b0"
+    },
+    {
+      "bytes": 79320,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.phase/captures.complete.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.phase/captures.complete.json",
+      "sha256": "75d25aff4df1f2a47ae009d57723195332453a9fbeb847822f74f0d8fd58f95d"
+    },
+    {
+      "bytes": 80,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.sha256",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.sha256",
+      "sha256": "544dd635f36197d6b86ac5be2c249948d2956c4252eb353aecc26f6b501bce2a"
+    },
+    {
+      "bytes": 536,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/contract.json.started.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/contract.json.started.json",
+      "sha256": "6d211130d8bd74c8a75e28051dc8dba2e683c5e79d408bf66b38d0fe13dda786"
+    },
+    {
+      "bytes": 440,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/fault.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/fault.json",
+      "sha256": "f76301a23ced3ca49a0a315f95e3dbea4664a1295eb6e61c5c2a3a6978cc7caa"
+    },
+    {
+      "bytes": 327,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/fences/000001.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/fences/000001.json",
+      "sha256": "e73a16de41b914c33dbbfdc3b86a8d915b1f67182cadef5f3a000d9b723becae"
+    },
+    {
+      "bytes": 113455,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/01ac0c623449ec5aaa0ec9e31044c8bdb66beebdc6fdf446cb8e2581091d869e.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/01ac0c623449ec5aaa0ec9e31044c8bdb66beebdc6fdf446cb8e2581091d869e.json",
+      "sha256": "296d218a8e10461fe712a219c804a5ba809516c748739f360baab183f84826b5"
+    },
+    {
+      "bytes": 73466,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/15d6d8c7c0ae6899039040282f2b203a9512aba5d2c8d4a72f44febf40762d62.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/15d6d8c7c0ae6899039040282f2b203a9512aba5d2c8d4a72f44febf40762d62.json",
+      "sha256": "6009e9a89d4cf21042c3f6490603d7c06de4cfb9b7bf8fe3f493d4ee5527e029"
+    },
+    {
+      "bytes": 87373,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/3ec9f5f98dd8249937c1a33e36af7e543dee0255c7569289e406eaebba7fc705.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/3ec9f5f98dd8249937c1a33e36af7e543dee0255c7569289e406eaebba7fc705.json",
+      "sha256": "0e9787f73e8330fda45e098ba70b5bf3cd4a273d24bd0cc915a0e6643e2c3e3d"
+    },
+    {
+      "bytes": 94186,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/6dbb01ffc51df50db94c2bf7e9c66235a8ac22e901aa01d53e5936b2f3c67675.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/6dbb01ffc51df50db94c2bf7e9c66235a8ac22e901aa01d53e5936b2f3c67675.json",
+      "sha256": "95bd6a631d46d0b462e361bbd7c2e4798d4492bc77e26011b4dcb26f6ab04ec6"
+    },
+    {
+      "bytes": 93854,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/6f75ddf018a9fe6f78f8bc571ebe16045b43d65c815afce4e4ece3e093884b2b.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/6f75ddf018a9fe6f78f8bc571ebe16045b43d65c815afce4e4ece3e093884b2b.json",
+      "sha256": "1b4917fe05f821776eee50963efd39314dc89eee73b1fd92cafe3ec51e9b8fe6"
+    },
+    {
+      "bytes": 86986,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/7609094d1a3e243fb165b36ca3865ce5c9be032fb648920ecc16c01922d275a7.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/7609094d1a3e243fb165b36ca3865ce5c9be032fb648920ecc16c01922d275a7.json",
+      "sha256": "9df33d00ee256aa083ed64d5621d4fc0c6c915ee008747359a03616a01d32ccf"
+    },
+    {
+      "bytes": 87884,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/828e6540f1e1398553f11959f758406318fc4c504203ce053d7c0e8f6ad87146.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/828e6540f1e1398553f11959f758406318fc4c504203ce053d7c0e8f6ad87146.json",
+      "sha256": "142f3699bb98d89b046cb2dbc1aa7260b454251287d9e4a9cbef7efce9fcd416"
+    },
+    {
+      "bytes": 99397,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/8d4017e07c01fd8c9c30b2f28623978768afb5565d37102114a65c210b72da47.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/8d4017e07c01fd8c9c30b2f28623978768afb5565d37102114a65c210b72da47.json",
+      "sha256": "5f4b6c26351c44c4a012f6019d86704cc3a471fd45f4c81581dabbaf4cb424d5"
+    },
+    {
+      "bytes": 99936,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/8db58e1f794eda2275479fa93500a191bba6661e33c9f528a38f55c830bb0a8f.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/8db58e1f794eda2275479fa93500a191bba6661e33c9f528a38f55c830bb0a8f.json",
+      "sha256": "3b5779d64e227a51e6227106a5633e17c0c92bfe01e3162a105b36f667371bea"
+    },
+    {
+      "bytes": 99247,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/c5338e38e169fbe10fec21671c9d3e885013c57c1e9a9e155a650ae1bbcbaa11.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/c5338e38e169fbe10fec21671c9d3e885013c57c1e9a9e155a650ae1bbcbaa11.json",
+      "sha256": "22b1797078dd59cfa46202b56e027be9e36725e719c987ade716ba8e7dc82697"
+    },
+    {
+      "bytes": 93360,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/d5d5dd6e0917d32fe7e03456a932b025e5ca18d9f2bb93c1a40eeff4a8007977.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/d5d5dd6e0917d32fe7e03456a932b025e5ca18d9f2bb93c1a40eeff4a8007977.json",
+      "sha256": "6d71b37b704e4fee0ccb9ab172b7a146c65d204d9d74f4664627f9c700bf61c2"
+    },
+    {
+      "bytes": 99858,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/ec602275e9d671ece2fbcdd26218e49cce813bf4dd2360e5ff1f76f7c18c040b.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/ec602275e9d671ece2fbcdd26218e49cce813bf4dd2360e5ff1f76f7c18c040b.json",
+      "sha256": "80275f79b50cb5394b1a9b64d05dc93bdfeb866cd1ab8a8ebd9c609357823c13"
+    },
+    {
+      "bytes": 1159082,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/measurement/phase.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/measurement/phase.json",
+      "sha256": "a508faf7e65b395d82ae3c9cbb833627e7fb9c6e278625697eb419904013df4a"
+    },
+    {
+      "bytes": 112,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/phase-output.json",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/phase-output.json",
+      "sha256": "50e3ed25b96ff6052659ea436c613d4c737fadfb0f7ed4cad910c1d8a9a28fd3"
+    },
+    {
+      "bytes": 2494,
+      "copy": "evidence/synthetic-3-judge-stop/snapshot/quarantine/invocation-000001.log",
+      "path": "/Users/new/vitrea-w51/live/synthetic-3/quarantine/invocation-000001.log",
+      "sha256": "8b3fb21705831bc549be716acb399a6d27a2b5b3ce645e445fb5340d73f28397"
+    }
+  ],
+  "judgeCompleted": false,
+  "measuredKeyCount": 12,
+  "measurementStatus": "UNMEASURED",
+  "output": "/Users/new/vitrea-w51/live/synthetic-3",
+  "physicalCheckpointCount": 8,
+  "pngCount": 24,
+  "population": "synthetic-rehearsal",
+  "schema": "w51-synthetic-judge-stop-1",
+  "status": "NEITHER",
+  "terminalCommitPresent": false
+}

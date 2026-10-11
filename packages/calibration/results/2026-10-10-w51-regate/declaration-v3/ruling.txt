@@ -1,0 +1,27 @@
+W51-DL5 (USER, 2026-10-11, before any blind cell is read: "Amend before the gate, then one read").
+Rehearsal-4 (real fit840, 3a0ed1b27) is a completed, instrument-clean judge NEITHER: 22 per-cell
+failures, byte-identical to W50's fit renders. The user rules a PRE-GATE content amendment of the
+W51 landing rule to the improvement-landing form (as W45/W48), with these terms:
+  (a) The 22 known costs are DECLARED EXCEPTIONS, named by full key (profile, renderer, scene,
+      statistic) with their rehearsal-4 values: 4 dark-solid capsule inactive blue level misses
+      (2 codes against 1), 16 new-bed sparse-impulse rest T1 growths (1.14-1.89 B), 2 dark 0.5
+      impulse capsule rest T1 growths (1.85 / 1.55 B). At the gate each must read no worse than
+      its declared value (they are deterministic); a worse reading is a failure.
+  (b) Every other gated cell: the level clauses stand as declared (absolute); the T1 growth
+      clauses (2, 3, 4) admit growth up to 2 B instead of B. No further exception may be named
+      after the read.
+  (c) Every declared stratum aggregate (T1 by F/T/C/P x pose x scale x position; the level
+      aggregates) reads no worse than the current generation; W48's retained halvings and the
+      DL5d full-union aggregates stand; the owner contracts (X75/X76, M1/M2/C1/X1/L1/E2,
+      coherence) are unchanged, exclusions never widened.
+  (d) Clause 5 (visual acceptance at the exposure) is unchanged and is the parent's stop.
+  (e) The record states plainly that this amendment was informed by the non-blind fit840 and
+      that the 501 unread cells decide the gate under (b)-(c).
+  (f) DL2 applies: on PASS the candidate ships as the new default dark 0.5 generation (the
+      conditional X41 exception), a @vitreajs/vitrea-web minor.
+  (g) Single-use rule unchanged (W51-DL2): the gate is read ONCE; post-marker fault = NEITHER.
+Process: content-amend the charter and declaration (pre-pixel, no gate pixel exists), adversarial
+review of the amendment, implement the rule in judge_rules with tests, re-rehearse BOTH populations
+through the identical full pipeline under a new sealed root (the real fit840 is expected to PASS
+under the amended rule; synthetic re-reads its own synthetic bounds), reviewer-high on instrument
+and rehearsal evidence, then the fresh 1,341 gate capture and one analysis.

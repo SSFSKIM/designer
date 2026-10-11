@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-11",
+  "limits": [
+    "Runtime policy enforcement, aggregate timing, source guards and both fresh rehearsals require subsequent instrument review.",
+    "No restricted candidate data or new captures read."
+  ],
+  "materialFindings": [],
+  "reviewId": "af0b71630c3a41e2c",
+  "reviewedArtifacts": [
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/build.py",
+      "sha256": "b2ed7b1bf419ab1053a2af87481f515883cf55a371a3eb33bb0e06712c720933"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/check.py",
+      "sha256": "dc05de044e43f37263288ed9f990b9effd65ed2483790da4c8265d3c349ce7e7"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/test_check.py",
+      "sha256": "2de244d31a4f43f03c5d6ecb0c701ffa2f7e09dc89ed1b4a2bf9cbeaaf6e1c7f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/amendment.json",
+      "sha256": "42f6e31ddc8621c50995bab3125010a9c6f07dd186772159ea5007a38fb738b3"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.real.json",
+      "sha256": "7944dc555cab67198bee75e423d6e446c6e033149568c0eb59f3ff0e66eb5eab"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.synthetic.json",
+      "sha256": "775baf723a06b657bb49b593752bdb80acf29ccee8bae693594c2c1422db5ea1"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/membership-witness.json",
+      "sha256": "17b48606ce016503de9999478e7c41594e926ace651f5ac16c3680b95fc18e69"
+    }
+  ],
+  "reviewer": "doperpowers:adversarial-reviewer",
+  "schema": "w51-declaration-amendment-review-1",
+  "scope": "Exact source-derived declaration and buildability; not runtime, rehearsal or gate clearance. T uses fine values and interior-mean code epsilon; synthetic extra F low key is not a duplicate fidelity member.",
+  "verdict": "APPROVE",
+  "verified": {
+    "canonicalT1Groups": 28,
+    "canonicalT1Members": 264,
+    "declarationTests": 14,
+    "exceptions": [
+      22,
+      0
+    ],
+    "knownRehearsalLevelComponentsExactlyMatched": 3808,
+    "levelComponents": 4025,
+    "levelGroups": 16,
+    "levelReductions": 32,
+    "newbedReportedGroups": 16,
+    "realCompleteKeys": 2553,
+    "syntheticAggregates": 14,
+    "syntheticCompleteKeys": 12
+  }
+}

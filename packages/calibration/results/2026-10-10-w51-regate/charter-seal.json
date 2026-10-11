@@ -1,0 +1,75 @@
+{
+  "artifacts": [
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/check.py",
+      "sha256": "34a218e0acb9dddccc3ba5d6cc3a34fe4bf92965794e5432bb0356149bf5c04f"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/exposure-population.json",
+      "sha256": "eaddc3f1302cb10ef1f96ca0070ae356d95cbd413917e3a5254d002b6f9dbddf"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/gate-population.json",
+      "sha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/inputs.json",
+      "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/membership-witness.json",
+      "sha256": "a0957fdb6badc58037a31d13d63f4fd6ea53f744c3edcde770762e8bace7089a"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/provenance.json",
+      "sha256": "46aaeef5fb269cb7edc31e062d872bf9554eab6cff217d90f511d812e69a5bbd"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/rehearsal-population.json",
+      "sha256": "0eac168352855ddc60d57f4a1c46e005abcbdb60c06e92a1542d603dc02dd231"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration/test_check.py",
+      "sha256": "020c946dd4ea0d33b1c64608509e9ae8fd96ec5bda7821494277b8dea2b3eb42"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/charter-review.json",
+      "sha256": "0dc99732c0cc4144ed7fdbdfb03b7e445188a4c4484cb436a8a3ce8bf37d7f1b"
+    }
+  ],
+  "candidateProposal": "044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+  "charter": {
+    "commit": "d2ce68e16d437f0b99806e43fed6faa200c7e583",
+    "path": "docs/doperpowers/specs/2026-10-10-w51-regate.md",
+    "sha256": "69e8efa1f01e8b2e4d406e9cfb29b565fca166ea394ce1c5f01a193edea783c7"
+  },
+  "date": "2026-10-10",
+  "landingRule": {
+    "bytes": 5863,
+    "endHeadingExclusive": "## Grounding:",
+    "sha256": "4c5910e62b91e48184e2d977d32906a7cd70520fad386705d36e894a1e15cb86",
+    "source": {
+      "path": "docs/doperpowers/specs/2026-10-08-w50-dark-low-end-response.md",
+      "sha256": "f47331fafad50439ae3fe36e90d6c6a1d4a98f85919d78b2ecc597d7e99a9c3e"
+    },
+    "startHeading": "## Proposed landing rule"
+  },
+  "populationCounts": {
+    "exposure": [
+      322,
+      974
+    ],
+    "gate": [
+      1341,
+      2553
+    ],
+    "rehearsal": [
+      852,
+      1880
+    ]
+  },
+  "review": "acd124331d9e40369",
+  "schema": "w51-charter-seal-1",
+  "scope": "scientific declaration only; no execution source seal or capture authority",
+  "stop": "report gate verdict before creating any exposure batch"
+}

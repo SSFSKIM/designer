@@ -782,6 +782,21 @@ fresh root and 1,341 fresh gate captures is the likely simpler option than more 
 recovery, **for the user to decide**, not an authorised retry. The unread 634, gate captures and
 fit record remain; the 112 new blind native cells remain unopened (charter Deferred at close).
 
+**W51 (§5.219, 2026-10-10/11) completed the first trustworthy gate on W50's frozen candidate
+and closed measured NEITHER; nothing shipped.** DL5's pre-gate improvement-landing amendment
+was informed by non-blind fit840: 22 declared costs, 2 B primary T1 growth, unchanged historical
+caps, and no-worse full-gate strata. One root (`e7deb576…`) completed real fit840 and disjoint
+synthetic rehearsals, received reviewer-high clearance, then captured 1,341 cells and judged
+2,553 keys once, witness COMPLETE. All 22 costs held exactly; 264/275 blind numeric cells passed.
+All 576 WebGPU 0–40 level keys close within one code, and thick active impulse level error falls
+18 → <0.04. Four canonical C/rest T1 aggregates worsen on impulse alone; all 24 checker/text
+members per group are unchanged. Eight blue misses, one occupied own-history cap and two exact
+float-boundary failures also block. The low-end chart couples level and texture: the next operator
+must correct deep / low-pass level without changing high-pass gain, with canonical thick impulse
+rest cells declared as referees. W52 is an option for the user, not authorised work. Declare
+per-cell numerical epsilon and historical headroom prospectively. The gate is spent; exposure322
+and W50's 634 files remain unread. Documents, digests, generations and bounds are unchanged.
+
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
 under `specs/`): declare what will be measured and what would stop the change **before** running

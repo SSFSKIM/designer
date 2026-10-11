@@ -1,0 +1,23 @@
+{
+  "schema": "w51-synthetic-fixture-review-1",
+  "date": "2026-10-10",
+  "reviewer": "doperpowers:reviewer-medium",
+  "reviewId": "af9d1a9bba5bf7111",
+  "reviewedCommits": ["55dab1817", "9e6b4785c"],
+  "scope": "packages/calibration/results/2026-10-10-w51-regate/synthetic/",
+  "verdict": "correct",
+  "materialFindings": [],
+  "verified": [
+    "Explicit synthetic provenance and disjoint evidence",
+    "Consistent canonical statistics, repeat budgets and native-admission inputs",
+    "Nine tests pass in isolated scratch tree",
+    "All 129 committed artifact pins verify",
+    "All eleven statistic records replay from committed synthetic PNGs"
+  ],
+  "limits": [
+    "Uncommitted instrument not reviewed",
+    "Protected W50 payloads not opened",
+    "Complete productionStatistic carry and text-band execution remain unproved until the full rehearsal",
+    "Does not replace mandatory reviewer-high instrument and completed-rehearsal review"
+  ]
+}

@@ -1,0 +1,638 @@
+{
+  "exceptions": [
+    {
+      "checks": [
+        {
+          "B": 0.001344741046342278,
+          "candidate": 0.004649293479894053,
+          "cap": 0.0019225339335999792,
+          "capInB": 1.4296685141197325,
+          "component": "T1-full-silhouette",
+          "current": 0.006571827413494032,
+          "gateInB": 1.4296685141197325,
+          "gateValue": 0.0019225339335999792,
+          "metric": "growth",
+          "native": 0.01828481968244225,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0012804963529506699,
+          "candidate": 0.0035495200342967894,
+          "cap": 0.0024202861204473784,
+          "capInB": 1.8901155906225513,
+          "component": "T1-full-silhouette",
+          "current": 0.005969806154744168,
+          "gateInB": 1.8901155906225513,
+          "gateValue": 0.0024202861204473784,
+          "metric": "growth",
+          "native": 0.018726869179159264,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.001344741046342278,
+          "candidate": 0.01483218364354327,
+          "cap": 0.0015370807324236319,
+          "capInB": 1.1430310219239024,
+          "component": "T1-full-silhouette",
+          "current": 0.0163692643759669,
+          "gateInB": 1.1430310219239024,
+          "gateValue": 0.0015370807324236319,
+          "metric": "growth",
+          "native": 0.01828481968244225,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0012804963529506699,
+          "candidate": 0.015074558880023202,
+          "cap": 0.002258380929676628,
+          "capInB": 1.7636761904652067,
+          "component": "T1-full-silhouette",
+          "current": 0.01733293980969983,
+          "gateInB": 1.7636761904652067,
+          "gateValue": 0.002258380929676628,
+          "metric": "growth",
+          "native": 0.018726869179159264,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "candidate": [
+            48.0,
+            48.0,
+            49.0
+          ],
+          "cap": 2.0,
+          "component": "B",
+          "current": [
+            37.0,
+            37.0,
+            38.0
+          ],
+          "gateValue": 2.0,
+          "metric": "error",
+          "native": [
+            48.0,
+            48.0,
+            51.0
+          ],
+          "rule": "absolute-level",
+          "statistic": "deep8-channel-median",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "dark-solid__capsule-button__inactive",
+        "low-end-path-level"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013476082611407483,
+          "candidate": 0.0037770634542386113,
+          "cap": 0.0023110021392802795,
+          "capInB": 1.7148916387051678,
+          "component": "T1-full-silhouette",
+          "current": 0.0060880655935188896,
+          "gateInB": 1.7148916387051678,
+          "gateValue": 0.0023110021392802795,
+          "metric": "growth",
+          "native": 0.01825675018051219,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.001288426677817879,
+          "candidate": 0.003617302043288807,
+          "cap": 0.0022623644254466495,
+          "capInB": 1.7559124352177051,
+          "component": "T1-full-silhouette",
+          "current": 0.005879666468735457,
+          "gateInB": 1.7559124352177051,
+          "gateValue": 0.0022623644254466495,
+          "metric": "growth",
+          "native": 0.01891270437808494,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013476082611407483,
+          "candidate": 0.014875841840759413,
+          "cap": 0.0021771248713828902,
+          "capInB": 1.615547287859424,
+          "component": "T1-full-silhouette",
+          "current": 0.017052966712142303,
+          "gateInB": 1.615547287859424,
+          "gateValue": 0.0021771248713828902,
+          "metric": "growth",
+          "native": 0.01825675018051219,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.001288426677817879,
+          "candidate": 0.014457181371792856,
+          "cap": 0.0022329935936459405,
+          "capInB": 1.7331165460092852,
+          "component": "T1-full-silhouette",
+          "current": 0.016690174965438797,
+          "gateInB": 1.7331165460092852,
+          "gateValue": 0.0022329935936459405,
+          "metric": "growth",
+          "native": 0.01891270437808494,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "candidate": [
+            48.0,
+            48.0,
+            49.0
+          ],
+          "cap": 2.0,
+          "component": "B",
+          "current": [
+            37.0,
+            37.0,
+            38.0
+          ],
+          "gateValue": 2.0,
+          "metric": "error",
+          "native": [
+            48.0,
+            48.0,
+            51.0
+          ],
+          "rule": "absolute-level",
+          "statistic": "deep8-channel-median",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "dark-solid__capsule-button__inactive",
+        "low-end-path-level"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013298159683785731,
+          "candidate": 0.015078207323198615,
+          "cap": 0.0024636273731883877,
+          "capInB": 1.8526077530804925,
+          "component": "T1-full-silhouette",
+          "current": 0.017541834696387003,
+          "gateInB": 1.8526077530804925,
+          "gateValue": 0.0024636273731883877,
+          "metric": "growth",
+          "native": 0.019567280631655887,
+          "rule": "canonical-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013678097790624688,
+          "candidate": 0.004833644828361228,
+          "cap": 0.0018704110177782257,
+          "capInB": 1.3674496603323398,
+          "component": "T1-full-silhouette",
+          "current": 0.006704055846139455,
+          "gateInB": 1.3674496603323398,
+          "gateValue": 0.0018704110177782257,
+          "metric": "growth",
+          "native": 0.021855534317129582,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013045376122645086,
+          "candidate": 0.0035193097710617544,
+          "cap": 0.0024352385342297084,
+          "capInB": 1.866744593130166,
+          "component": "T1-full-silhouette",
+          "current": 0.005954548305291462,
+          "gateInB": 1.866744593130166,
+          "gateValue": 0.0024352385342297084,
+          "metric": "growth",
+          "native": 0.021897788435237233,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013678097790624688,
+          "candidate": 0.0164891200413283,
+          "cap": 0.001698224669022766,
+          "capInB": 1.241564942010264,
+          "component": "T1-full-silhouette",
+          "current": 0.018187344710351067,
+          "gateInB": 1.241564942010264,
+          "gateValue": 0.001698224669022766,
+          "metric": "growth",
+          "native": 0.021855534317129582,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013045376122645086,
+          "candidate": 0.015434982023961642,
+          "cap": 0.00233043507927623,
+          "capInB": 1.786406967010247,
+          "component": "T1-full-silhouette",
+          "current": 0.017765417103237872,
+          "gateInB": 1.786406967010247,
+          "gateValue": 0.00233043507927623,
+          "metric": "growth",
+          "native": 0.021897788435237233,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "candidate": [
+            48.0,
+            48.0,
+            49.0
+          ],
+          "cap": 2.0,
+          "component": "B",
+          "current": [
+            37.0,
+            37.0,
+            38.0
+          ],
+          "gateValue": 2.0,
+          "metric": "error",
+          "native": [
+            48.0,
+            48.0,
+            51.0
+          ],
+          "rule": "absolute-level",
+          "statistic": "deep8-channel-median",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "dark-solid__capsule-button__inactive",
+        "low-end-path-level"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013562231729409892,
+          "candidate": 0.003737551265695864,
+          "cap": 0.002337919305793853,
+          "capInB": 1.7238455679267313,
+          "component": "T1-full-silhouette",
+          "current": 0.006075470571489714,
+          "gateInB": 1.7238455679267313,
+          "gateValue": 0.002337919305793853,
+          "metric": "growth",
+          "native": 0.021751748112059467,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.001316059344611207,
+          "candidate": 0.0036241514340533314,
+          "cap": 0.002263412360023219,
+          "capInB": 1.7198406510246549,
+          "component": "T1-full-silhouette",
+          "current": 0.00588756379407655,
+          "gateInB": 1.7198406510246549,
+          "gateValue": 0.002263412360023219,
+          "metric": "growth",
+          "native": 0.02215867579610251,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "css",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013562231729409892,
+          "candidate": 0.016478995887142512,
+          "cap": 0.002321684372789415,
+          "capInB": 1.7118748736277742,
+          "component": "T1-full-silhouette",
+          "current": 0.018800680259931927,
+          "gateInB": 1.7118748736277742,
+          "gateValue": 0.002321684372789415,
+          "metric": "growth",
+          "native": 0.021751748112059467,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s096__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.001316059344611207,
+          "candidate": 0.015494096789390467,
+          "cap": 0.002330544942004723,
+          "capInB": 1.7708509510209187,
+          "component": "T1-full-silhouette",
+          "current": 0.01782464173139519,
+          "gateInB": 1.7708509510209187,
+          "gateValue": 0.002330544942004723,
+          "metric": "growth",
+          "native": 0.02215867579610251,
+          "rule": "newbed-structured-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "cell-impulse-sparse-s160__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "candidate": [
+            48.0,
+            48.0,
+            49.0
+          ],
+          "cap": 2.0,
+          "component": "B",
+          "current": [
+            37.0,
+            37.0,
+            38.0
+          ],
+          "gateValue": 2.0,
+          "metric": "error",
+          "native": [
+            48.0,
+            48.0,
+            51.0
+          ],
+          "rule": "absolute-level",
+          "statistic": "deep8-channel-median",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "dark-solid__capsule-button__inactive",
+        "low-end-path-level"
+      ],
+      "status": "PASS"
+    },
+    {
+      "checks": [
+        {
+          "B": 0.0013625007154063743,
+          "candidate": 0.016639982525722047,
+          "cap": 0.0021111539376434223,
+          "capInB": 1.5494699663432892,
+          "component": "T1-full-silhouette",
+          "current": 0.01875113646336547,
+          "gateInB": 1.5494699663432892,
+          "gateValue": 0.0021111539376434223,
+          "metric": "growth",
+          "native": 0.02362137426348326,
+          "rule": "canonical-T1-growth",
+          "statistic": "T1-full-silhouette",
+          "status": "WITHIN"
+        }
+      ],
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "meaning": "Projection of the committed judge report after its marker; not a new measurement or judge invocation.",
+  "schema": "w51-dl6-exception-readings-1",
+  "sourceReport": {
+    "path": "/Users/new/vitrea-w51/live/gate/report.json",
+    "sha256": "af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128"
+  }
+}

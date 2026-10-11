@@ -1,0 +1,40 @@
+{
+  "populations": [
+    {
+      "aggregates": 76,
+      "physical": 840,
+      "policy": {
+        "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.real.json",
+        "sha256": "7944dc555cab67198bee75e423d6e446c6e033149568c0eb59f3ff0e66eb5eab"
+      },
+      "population": "real-rehearsal",
+      "statistics": 1856,
+      "status": "ADMITTED_METADATA_ONLY"
+    },
+    {
+      "aggregates": 14,
+      "physical": 8,
+      "policy": {
+        "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.synthetic.json",
+        "sha256": "775baf723a06b657bb49b593752bdb80acf29ccee8bae693594c2c1422db5ea1"
+      },
+      "population": "synthetic-rehearsal",
+      "statistics": 12,
+      "status": "ADMITTED_METADATA_ONLY"
+    },
+    {
+      "aggregates": 76,
+      "physical": 1341,
+      "policy": {
+        "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.real.json",
+        "sha256": "7944dc555cab67198bee75e423d6e446c6e033149568c0eb59f3ff0e66eb5eab"
+      },
+      "population": "gate",
+      "statistics": 2553,
+      "status": "ADMITTED_METADATA_ONLY"
+    }
+  ],
+  "root": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/execution-root.rehearsal5.json",
+  "schema": "w51-metadata-admission-1",
+  "scope": "Read-only draft admission through actual permanent source guard then historical/static boundary; no fence, slot, capture, analysis or gate clearance."
+}

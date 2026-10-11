@@ -1,0 +1,51 @@
+{
+  "charter": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/charter-seal-dl5.json",
+    "sha256": "5e3ef7e83fb13f5624058cfddb3a902ae5cc77a9d12d7d8ae27b209542f66728"
+  },
+  "date": "2026-10-11",
+  "gateAuthorised": false,
+  "kind": "reviewer-high",
+  "limits": [
+    "Reviewer did not invoke lifecycle or render, recompute pixel statistics, rerun the complete 107-test suite or freezes, or open protected candidate/native data.",
+    "Real rehearsal aggregates and owner/target checks remain pending; synthetic scientific NEITHER is complete instrument evidence.",
+    "This is instrument approval, not coordinator gate authorisation."
+  ],
+  "materialFindings": [],
+  "rehearsals": {
+    "real-rehearsal": {
+      "path": "/Users/new/vitrea-w51/live/real-5/result.json",
+      "sha256": "4a96599910cc9e4be26e19717b880dcd27565aace6f844ccce6c586fe96d23bf"
+    },
+    "synthetic-rehearsal": {
+      "path": "/Users/new/vitrea-w51/live/synthetic-5/result.json",
+      "sha256": "f73af14595333f9aa8aaa7a3bedcdfcc0904b21ce02a43d386b5392a230ae527"
+    }
+  },
+  "reviewId": "ab4479133a4868ec0",
+  "reviewedBase": "3a0ed1b2747977ef10ce07ebab3d8a73a2bc2690",
+  "reviewedHead": "721357207a3a5af02223a32750a608948ece249e",
+  "reviewer": "doperpowers:reviewer-high",
+  "root": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/execution-root.rehearsal5.json",
+    "sha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23"
+  },
+  "rootSha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23",
+  "schema": "w51-instrument-review-1",
+  "scope": "The ruled DL5 policy, exact exception and source-operand authority, complete/partial aggregate timing, named-population bindings, carried-over guard/fence/marker/terminal machinery and both completed same-root rehearsals.",
+  "sourceClosureSha256": "f0e879cc4a160ce0c722dcb195b56b834c2df252b7d70106a234ac04d8d78132",
+  "status": "APPROVE",
+  "verdict": "correct",
+  "verified": {
+    "boundedTests": 44,
+    "declarationChecker": "PASS",
+    "distinctStaticScalarOperandsMatched": 4321,
+    "gateSlotExists": false,
+    "realFirstImagesMatchingRehearsal4": 840,
+    "realKeyedComparisonsReplayed": 1856,
+    "realPreservedFiles": 16658,
+    "sealedPythonSources": 45,
+    "syntheticKeyedComparisonsReplayed": 12,
+    "syntheticPreservedFiles": 222
+  }
+}

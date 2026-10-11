@@ -1,0 +1,28 @@
+{
+  "implementationCommit": "53bd7485351d67ba24a1bc031389cfacc6e8c490",
+  "kind": "coordinator-pre-rehearsal-verification",
+  "nodeTests": 2,
+  "populations": {
+    "gate": {
+      "physical": 1341,
+      "statistics": 2553
+    },
+    "real-rehearsal": {
+      "physical": 840,
+      "statistics": 1856
+    },
+    "synthetic-rehearsal": {
+      "physical": 8,
+      "statistics": 12
+    }
+  },
+  "pythonTests": 75,
+  "rootSha256": "dcc8ffb9cfdf00100373ea847a3940974f29ec0a51693b02571370600d9f34d8",
+  "scope": "DL4 exact predicate and charter-bound pre-fit provenance; full live rehearsals and high review remain pending",
+  "sourceClosureSha256": "47b2d4ffda466ab82f78b9d8f93b00c85c2ddddda5aca23641355c9b5a23d2a4",
+  "status": "PASS",
+  "tests": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/pre-rehearsal4/tests.txt",
+    "sha256": "ff0719f3f2e2446b0774465f703161b26e9f039d907163f5bc9fbd06c54a392d"
+  }
+}

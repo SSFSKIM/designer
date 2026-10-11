@@ -1,0 +1,54 @@
+{
+  "counts": {
+    "real": {
+      "aggregates": 76,
+      "completeKeys": 2553,
+      "exceptions": 22
+    },
+    "synthetic": {
+      "aggregates": 14,
+      "completeKeys": 12,
+      "exceptions": 0
+    }
+  },
+  "files": {
+    "amendment.json": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/amendment.json",
+      "sha256": "42f6e31ddc8621c50995bab3125010a9c6f07dd186772159ea5007a38fb738b3"
+    },
+    "build.py": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/build.py",
+      "sha256": "b2ed7b1bf419ab1053a2af87481f515883cf55a371a3eb33bb0e06712c720933"
+    },
+    "check.py": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/check.py",
+      "sha256": "dc05de044e43f37263288ed9f990b9effd65ed2483790da4c8265d3c349ce7e7"
+    },
+    "clarifications.txt": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/clarifications.txt",
+      "sha256": "1431e576bba93efa03e7d51c4d4edf39a58669c058fa6e4d31adaa4b1a62660d"
+    },
+    "declared-costs.json": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/declared-costs.json",
+      "sha256": "8fcc368d4202a35cc87cad3a411d9f34b33958f6f461336d0662ecf2320f7578"
+    },
+    "landing-policy.real.json": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.real.json",
+      "sha256": "7944dc555cab67198bee75e423d6e446c6e033149568c0eb59f3ff0e66eb5eab"
+    },
+    "landing-policy.synthetic.json": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.synthetic.json",
+      "sha256": "775baf723a06b657bb49b593752bdb80acf29ccee8bae693594c2c1422db5ea1"
+    },
+    "ruling.txt": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/ruling.txt",
+      "sha256": "faa21e36a3f5f0c534cb91ea14af23e3e7fe352f76d307fb0631c003e6657acd"
+    },
+    "test_check.py": {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/test_check.py",
+      "sha256": "2de244d31a4f43f03c5d6ecb0c701ffa2f7e09dc89ed1b4a2bf9cbeaaf6e1c7f"
+    }
+  },
+  "ruling": "W51-DL5",
+  "schema": "w51-membership-witness-3"
+}

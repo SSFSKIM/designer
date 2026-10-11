@@ -1,0 +1,21 @@
+{
+  "schema": "w51-declaration-review-1",
+  "date": "2026-10-10",
+  "reviewer": "doperpowers:reviewer-medium",
+  "reviewId": "aee9f5581ee4b20a1",
+  "reviewedCommit": "54c4821441e217768f5eb36fb2f2c257e9fc9624",
+  "scope": "packages/calibration/results/2026-10-10-w51-regate/declaration/",
+  "verdict": "correct",
+  "materialFindings": [],
+  "verified": [
+    "Frozen proposal, candidate documents and original 840-cell fit evidence match W50",
+    "Gate 1341/2553, exposure 322/974 and rehearsal 852/1880 preserve every original statistic companion per physical triple",
+    "Exactly twelve specified rehearsal additions and no withheld physical dependency overlap",
+    "Declaration checker and all five tests pass"
+  ],
+  "limits": [
+    "Scientific input/population declaration only, not execution source seal",
+    "Charter and landing-rule authority are separately pinned by parent-owned charter-seal.json",
+    "No W50 gate payload, unread keyed measurement, blind native value or pixel data was opened"
+  ]
+}

@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/repeat.py", line 229, in admit_pair
+    validate_reports(context,run,record,retained,inventory)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/repeat.py", line 144, in validate_reports
+    required=S.M.N.required_arguments(inventory)
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/audit/numerical_guard.py", line 73, in required_arguments
+    raise ValueError('UNMEASURED: fixed low-end argument population is empty')
+ValueError: UNMEASURED: fixed low-end argument population is empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/run.py", line 419, in invoke
+    engine.create_contract();union=engine.captures()
+                                   ~~~~~~~~~~~~~~~^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/run.py", line 267, in captures
+    ctx=self.context('capture',claim,[member]);result=capture.capture(ctx,member,config)
+                                                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/capture.py", line 164, in capture
+    records = draw(context, run, current=current)
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/canonical/adapter.py", line 300, in capture_run
+    record['repeatAdmission']=web.admit_repeat(context,run,record)
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/adapter.py", line 423, in admit_repeat
+    return helper.admit_pair(context,run,record,record['repeatPair'])
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/repeat.py", line 235, in admit_pair
+    raise fault
+w50_repeat_math.InstrumentFault: UNMEASURED: fixed low-end argument population is empty

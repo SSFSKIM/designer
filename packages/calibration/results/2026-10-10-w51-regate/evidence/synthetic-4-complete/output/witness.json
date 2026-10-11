@@ -1,0 +1,166 @@
+{
+  "analysisClaim": {
+    "path": "/Users/new/vitrea-w51/live/synthetic-4/contract.json.phase/analysis.started.json",
+    "sha256": "b46d2df44e76b63d5555a62a3be16f0f5976819785dde459a906518eb5976a43"
+  },
+  "branches": {
+    "producerCarry": [
+      {
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/measurement/d5d5dd6e0917d32fe7e03456a932b025e5ca18d9f2bb93c1a40eeff4a8007977.json",
+          "sha256": "b6b7e66d0f380e3d56852026fa28fdf26ca3da275f1383e26aeb399e0b53136a"
+        },
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "webgpu",
+          "w51-synthetic-impulse__rrect-synthetic__rest",
+          "T1-full-silhouette"
+        ],
+        "producer": "PRODUCTION_TS_INTERIOR_LEVEL"
+      },
+      {
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/measurement/6f75ddf018a9fe6f78f8bc571ebe16045b43d65c815afce4e4ece3e093884b2b.json",
+          "sha256": "60737792f0507c74358b63a790781b4197924ebbdc67b9a4c01cde0243d4fbdb"
+        },
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "webgpu",
+          "w51-synthetic-impulse__rrect-synthetic__rest",
+          "T1-full-silhouette"
+        ],
+        "producer": "PRODUCTION_TS_INTERIOR_LEVEL"
+      }
+    ],
+    "textBands": [
+      {
+        "bands": [
+          "T1-low",
+          "T1-fine"
+        ],
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/measurement/01ac0c623449ec5aaa0ec9e31044c8bdb66beebdc6fdf446cb8e2581091d869e.json",
+          "sha256": "3d065a456c09c1e73e713b9dbb54d9987b12d5d6eefcd08b1a80a77ffaf6e4b4"
+        },
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "webgpu",
+          "w51-synthetic-fine__rrect-synthetic__inactive",
+          "T1-low"
+        ],
+        "producer": "CANONICAL_NUMPY_GAUSSIAN_LOW"
+      },
+      {
+        "bands": [
+          "T1-low",
+          "T1-fine"
+        ],
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/synthetic-4/measurement/6dbb01ffc51df50db94c2bf7e9c66235a8ac22e901aa01d53e5936b2f3c67675.json",
+          "sha256": "45d52b2ed9de89e60f181fd5168f266d79c28b7e80609c5e81d27a08cb6cd356"
+        },
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "webgpu",
+          "w51-synthetic-text__rrect-synthetic__rest",
+          "T1-low"
+        ],
+        "producer": null
+      }
+    ]
+  },
+  "candidate": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "captureUnion": {
+    "path": "/Users/new/vitrea-w51/live/synthetic-4/contract.json.phase/captures.complete.json",
+    "sha256": "09d265a9285794fb9fa44f7f41390c22458de64fe62763d7b58eeb51684c80c1"
+  },
+  "dataOrigin": "synthetic",
+  "dataset": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal4/synthetic/dataset.json",
+    "sha256": "96bca210ed9069371b855d40cb07a61492609b22775013a98f231109ed96f7b5"
+  },
+  "executionRoot": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/execution-root.rehearsal4.json",
+    "sha256": "dcc8ffb9cfdf00100373ea847a3940974f29ec0a51693b02571370600d9f34d8"
+  },
+  "importedFit": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/inputs.json",
+    "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+  },
+  "judgeCompleted": true,
+  "measurement": {
+    "path": "/Users/new/vitrea-w51/live/synthetic-4/measurement/phase.json",
+    "sha256": "6bb1a330449c8f43628ffb4b773f84292732089f5365235bf41f735ef091ecae"
+  },
+  "physicalCount": 8,
+  "population": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/population.json",
+    "sha256": "3989f89ef07d6457996eff2da6b1a78502534d5daa7d7701666658f17825ebe6"
+  },
+  "referenceInventory": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/inventory.json",
+    "sha256": "8f0050d446b81ce9fc322595b405d30121f8b24d7c216090064ad86b3d73a576"
+  },
+  "reportStatus": "NEITHER",
+  "schema": "w51-completeness-witness-1",
+  "sourceClosureSha256": "47b2d4ffda466ab82f78b9d8f93b00c85c2ddddda5aca23641355c9b5a23d2a4",
+  "sourceDifferential": {
+    "declarationSha256": "1a756845a64ab8da2c2e866e95595c22e7a8999531435c7056534da07f9cd0b4",
+    "deltas": [
+      "explicit dataset/population authentication and input import wiring",
+      "canonical scene location by bound byte identity",
+      "W51-DL4 judge frozen operands use unchanged measurement.frozen_scope",
+      "shared target/rules numerical module through prospective imports",
+      "canonical reference authority anchored to completed fit pre-fit band proof or sealed synthetic fixture",
+      "declared per-run scene document through canonical transport",
+      "static exposed native/reference authentication for paired repeats",
+      "numerical argument membership bound to the imported referee inventory on both datasets",
+      "Store write primitive uses atomic no-replace installation; state transitions unchanged"
+    ],
+    "originals": {
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py": "c1ed09042ef0093d5954b50a1ac9557fad29f0df7ed5284b2a55f50904f1aaed",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/compare.ts": "9fbdf59f503d77b813086bc143054d063b8b15e0c7eaa88f146a2b02a7348802",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/native-admission.ts": "4543d7575df16a4913692ab78f53f2e72427ddefd73519534c52b0d7e6296acd",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py": "55d7b30077c959d643cdd9e22e3d027aa5e49bdb71b5e468695927b30fab3f39",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/sources.py": "e13fb3fd53c3b4e3f39fc2bb64aa93ae0c22035601f684c4656c67f2ae6443e0",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/adapter.py": "e5fa6c51694deee54b2a208e547cee24f6777fc208aa3a7cbcb308984f62c621",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py": "840302e6caaa75044206a2960b257f17c057b1a3ce93c6bf877c92747049398d",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/targets.py": "afc031f589a611da1fc41462bbb478ff3412b62a95ea0491be96a863598c7a01",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/lifecycle.py": "41caf9507e13f220eb8c6749e3c77a2b79d8f3b7b7952a9959dbd18ea0f68555",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py": "0037b04ed2dc8454f1e0c8a065f747772e7613566510a15712d1bf5cc3c960ee",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/common.py": "dd51b6181ff38f557ca9364de91fa9679877f71945b500ef918d796fe4bb1ae7",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py": "c30b98a226961f40fadc3fdbf9a94f9d34c45d0dec24cd1c974bca14c4f971fd",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py": "24e32623527e8ecfd039f66a88fd6b5e2a24e3def7f0eb553187fa6dd54e57ad"
+    },
+    "ports": {
+      "canonical/adapter.py": "ae3b65dea0fb6e02b3a292d1a5d00cc36b1855b8dfbb4599b336c3ea3af6973a",
+      "canonical/compare.ts": "bed1cc735a7d8d54df58f6b0e738a4c2fa9d6cde345d97eb67f051b385bbb1a3",
+      "canonical/native-admission.ts": "4543d7575df16a4913692ab78f53f2e72427ddefd73519534c52b0d7e6296acd",
+      "capture.py": "9900af7960175d799be7b557c61d29522fcbcda377f2bc0ca7ad6e26527799e4",
+      "judge.py": "8b7c822a69959241b9e2860658933938ebd67db637138f6d571e6d6f75b768ac",
+      "judge_rules.py": "d2ee47b5f7337c40243c5e4c1c327bb3fe92926e0742a32d4007917137609bd3",
+      "judge_targets.py": "3cd912eaa6e9f02838fa4425cdb50b3458e6550507273ae11e37d4727ba592cc",
+      "lifecycle.py": "2457afc8a3a3cd2a45def98c40bf70f85917ed096e08c7b5af9ca86a5cac04ed",
+      "measurement.py": "b6efc201ef7f0ae2d569a68dd7fecec35ba37db7f76224d641b63a272d325589",
+      "phase_sources.py": "f107d83f16b96b1a85bbfb11e16057a87ccfebd31148bdbfff70961946a1738f",
+      "repeat.py": "a5f1d977340796a9d34aeec2c12b2938624589a0285cecdde2b6655cfc1aae52",
+      "repeat_sources.py": "2dd5e0006c75488b1f9b728de025c4f5bdcaad7a2ff842e54fcdd94e20d7be00",
+      "role_common.py": "6cf35ee76158ca1c3866db28bdb976224b1b6415aa174b0f509c7ecb8dec99b3",
+      "web/adapter.py": "097fdafd67eeeb8bad396a48b89d08ca6fe168fea386f64d3b0a6f0de48bbe95"
+    },
+    "schema": "w51-scientific-differential-1",
+    "status": "UNCHANGED_NUMERICS_DECLARED_SCOPE_WIRING"
+  },
+  "statisticCount": 12,
+  "status": "COMPLETE"
+}

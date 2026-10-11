@@ -1,0 +1,31 @@
+{
+  "declarationTests": 14,
+  "freezes": {
+    "glass05": 911,
+    "macos265": 1818
+  },
+  "implementationCommit": "639efa723315d88fd0074315b6a8c9257ff6e85b",
+  "kind": "coordinator-pre-rehearsal-verification",
+  "metadataAdmission": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/pre-rehearsal5/guarded-admission.json",
+    "sha256": "da69d4361283d45ca1e615c127f8785820de7a3970c55b0df5aa4618282a890f"
+  },
+  "nodeTests": 2,
+  "nonblindConsumerForecast": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/pre-rehearsal5/nonblind-consumer-forecast.json",
+    "sha256": "62f59d07c355d5bdf53588d565dd6a16c94aaddeba00c79b121cda3cc7f7b438"
+  },
+  "preservedPriorFailure": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/pre-rehearsal5/python-tests.log",
+    "sha256": "c165892398fb5b672eb616102a99fcf18238de841797c391b42a92999d89ff35"
+  },
+  "pythonTests": 107,
+  "rootSha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23",
+  "scope": "DL5 policy plus exact population authority on assembled tree. Both fresh complete rehearsals and reviewer-high remain pending; no gate clearance.",
+  "sourceClosureSha256": "f0e879cc4a160ce0c722dcb195b56b834c2df252b7d70106a234ac04d8d78132",
+  "status": "PASS",
+  "tests": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/evidence/pre-rehearsal5/python-tests-2.log",
+    "sha256": "96694db85a0ba78be8317a9a2b9e66d1107f513313b317cdde3b303c46d19834"
+  }
+}

@@ -50570,3 +50570,110 @@ the corrected source from the outset and recapturing the 1,341 gate cells, avoid
 cross-root recovery layer. It needs the full non-blind composition rehearsal and explicit
 stage-specific stop rules first. This is an option, not an authorised recapture, changed point,
 changed landing rule or third W50 analysis. The low-end material question remains unmeasured.
+
+
+## 5.219 W51 close: the first completed gate closes low-end level but fails texture transfer; measured NEITHER, nothing shipped (2026-10-11)
+
+**CLOSED at a scientific finding, not an instrument fault.** Charter
+`2026-10-10-w51-regate.md`, W51-DL1–DL6. The sole candidate is W50's frozen
+`044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002`; it was not refitted.
+Evidence below is relative to `packages/calibration/results/2026-10-10-w51-regate/`.
+
+### 1. The first completed gate, under a prospectively amended rule
+
+W50's fit was CAPTURED, not PASS, and its gate never measured (§5.218). W51 rebuilt the
+instrument around one root, exercised the real fit840 and a disjoint synthetic population through
+its actual guards, measurement, judge, witness and terminal publication, and obtained independent
+reviewer-high clearance before the gate. The final root is
+`e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23`.
+
+W51-DL5 was explicitly informed by the non-blind fit840. It declared 22 known costs at their
+exact measured caps, admitted 2 B on other primary T1 growth checks, retained absolute level
+and own-history bounds, and required complete declared canonical T1 and level aggregates to
+read no worse than current. It changed neither candidate nor references. Both rehearsals ran
+again under that rule: real fit840 PASS_EXPOSED_OWNER_PENDING, synthetic instrument-clean.
+The amendment was reviewed and sealed before any gate pixel. The 501 unread identities still
+had a deciding role: 275 numeric physical cells and 226 owner-only cells, not 501 numeric tests.
+
+DL6 captured 1,341 cells fresh and read 2,553 keys once. The judge completed, witness COMPLETE,
+one analysis marker, no instrument fault. `evidence/gate-dl6/terminal-verification.json` records
+45 sealed sources and 72 declaration artifacts unchanged. All 29,379 output files are preserved
+in `evidence/gate-dl6-complete/`. Its `report.json` hashes to
+`af06fec2d652264e3e44c52d483b12dbf8b64a0de4206dba7bb9b1db0edaf128`.
+The post-terminal projections below read this committed report, not a second analysis.
+
+### 2. What passed
+
+`evidence/gate-dl6/exception-readings.json` records all 22 exceptions exactly at their caps.
+`gains-and-unseen-numeric.json` records 264 of 275 previously unread numeric cells passing and
+the gains, with tiers and populations kept separate:
+
+- All 576 WebGPU uniform 0–40 level keys close within one code. Worst absolute error falls
+  20 → 1; the four endpoint means fall from about 10.8–15.2 to 0.02–0.08 encoded codes.
+- WebGPU sparse-impulse far-body worst error falls from 21–34 to at most 0.312 codes across
+  positions, poses and scales. Canonical thick active impulse far-body error falls 18 → <0.04.
+- All 32 required level max/mean aggregates pass, as do 24 of 28 canonical T1 aggregates.
+  All 713 CSS level-growth comparisons pass; this does not assert one-code absolute CSS closure.
+
+The new aggregate disposition is 56 WITHIN, four EXCEEDS and sixteen new-bed REPORTED. Required
+key dispositions are 1,808 PASS, eleven FAIL, 168 REPORTED, 24 permitted empty-support and 542
+owner-pending. Owner and six retained-target union checks are still PENDING_FULL_UNION; none
+is inferred from the per-cell or new aggregate passes.
+
+### 3. What failed, and what the failures identify
+
+`evidence/gate-dl6/committed-clause-projection.json` gives every operand and membership. Four
+canonical WebGPU C/rest median-log-ratio errors worsen:
+
+| Glass position | Scale | Current | Candidate |
+| --- | --- | --- | --- |
+| 0.25 | 1x | 0.1724005715 | 0.1908519060 |
+| 0.25 | 2x | 0.2006873584 | 0.2228085704 |
+| 0.5 | 1x | 0.2271207921 | 0.2837430312 |
+| 0.5 | 2x | 0.3770115906 | 0.3822111361 |
+
+Every group has 28 members. Its nineteen checker and five coarse-text readings are unchanged;
+only the four canonical impulses move. At 0.25 the thick lg/ml worsen while capsule/sm improve;
+at 0.5 all four worsen. The sixteen sparse-newbed exceptions are not members of these strata:
+DL5 had declared their own aggregates REPORTED before capture. These four required failures
+are not waived by the level gain or by the known partial-fit aggregate risk.
+
+The eleven failed keys comprise:
+
+1. Eight dark0.25 WebGPU dark-solid blue misses, 2 codes against 1. At both scales,
+   `rrect-48`, `rrect-80` and `rrect-sm` inactive read native RGB 48/48/51 against candidate
+   48/48/49, extending the declared capsule residual. The two `rrect-64` rest misses are already
+   present in current and unchanged. This is a separate small chromatic gap, not a demonstrated
+   unique optical mechanism or eight newly introduced regressions.
+2. One 1x dark0.25 `impulse__rrect-ml__inactive` T1 own-history miss: growth
+   0.0013798445629486346 against cap 0.001318279930855289. The excess is about 0.11 B; the primary
+   2 B current-growth check passes. Current already occupies that historical cap exactly, so
+   any further error growth fails it. Prospective re-baselining by ruling or explicit declaration
+   of zero headroom is needed, not reinterpretation of this result.
+3. Two 2x inactive canonical impulse `deep8-far24-luma-median` differences at
+   `1.0000000000000036` against 1: dark0.25 lg and dark0.5 ml. Native/candidate are
+   19.999999999999996/21 and 21/19.999999999999996 respectively. The sealed comparator has no
+   tolerance; both remain FAIL. A source-owned numerical epsilon belongs in a future per-cell
+   level comparator, declared before reading and separately from the scientific error bound.
+
+**The scientific principle is level/texture coupling in this operator.** The chart closes the
+low-end level while moving thick impulse texture response. The next operator must correct the
+level in the deep / low-pass component without changing high-pass gain, declared and fitted with
+canonical thick impulse rest cells as named referees. W51 identifies that requirement; it does
+not prove a replacement law feasible. The pre-gate amendment worked as a process: its known
+costs passed, but the new numeric cells and full-gate strata retained authority to say NEITHER.
+
+### 4. Why nothing shipped, and what stays unspent
+
+The intersection fails under DL5. No exception is added after the read, no float failure is
+waived, and no pending owner check is called a pass. The gate is spent. The 322-cell exposure
+was never read and stays unspent, including 112 unopened native blind cells; visual acceptance
+at exposure did not occur. W50's 634 unread files remain unread and were not W51 inputs.
+
+All shipped documents, ten digests, generated profiles, immutable generations and selections,
+adopted bounds and canonical capture trees are unchanged. The low-end operator remains inert;
+no release or conditional X41 publication follows. Charter Deferred at close 1 offers W52's
+low-pass correction as a user decision, with this gate now exposed evidence and the retained fit,
+unread 634 and unspent exposure preserved. This is not authority to fit, capture, read protected
+files or retry W51. Comparator precision, occupied-cap design, the blue residual and the remaining
+verification-CLI P3 are logged in `tech-debt-tracker.md`.

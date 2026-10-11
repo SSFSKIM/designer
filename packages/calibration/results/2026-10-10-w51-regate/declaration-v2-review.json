@@ -1,0 +1,23 @@
+{
+  "schema": "w51-declaration-amendment-review-1",
+  "date": "2026-10-10",
+  "reviewer": "doperpowers:reviewer-medium",
+  "reviewId": "aee9f5581ee4b20a1",
+  "reviewedDeclarationCommit": "ca5d45259ad70fe26eb57e0842075824b4a4ed8b",
+  "reviewedCharterCommit": "ca2906a1f",
+  "verdict": "correct",
+  "materialFindings": [],
+  "verified": [
+    "Gate 1341/2553, exposure 322/974, candidate/fit inputs and provenance remain byte-identical to v1",
+    "Real rehearsal is exactly original fit840/1856 with every original companion and role",
+    "Precisely twelve non-fit physical cells and 24 keys removed; all 501 protected non-fit gate cells excluded",
+    "Nine tests and declaration-v2 checker pass",
+    "Prospective charter counts, hashes and command match v2 artifacts",
+    "Synthetic dataset/profile-key distinction does not relabel real identities",
+    "Pre-pixel attestation is correctly bounded historical source/namespace evidence"
+  ],
+  "limits": [
+    "No final execution/source seal or unfinished synthetic fixture reviewed",
+    "No gate payload, unread measurement, blind native value or pixel opened"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "canonicalReferenceEvidence": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/evidence/canonical-references.json.gz",
+    "sha256": "5022ef35b554050c8e9901d9fb15670c4effe3c5e996f06d35ea800324b17e1b"
+  },
+  "completedCurrentEvidence": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.final-draft/real/completed-current.json.gz",
+    "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50"
+  },
+  "completedReferences": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.final-draft/real/completed-references-r3.json.gz",
+    "sha256": "9307e6e495908a7cad76ab40a1498a414a28c31bb14644c6e579da971442ccc1"
+  },
+  "native": {
+    "batch": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/read-batch.json",
+      "sha256": "f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628"
+    },
+    "reports": {
+      "calibration": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz",
+        "sha256": "9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550"
+      },
+      "validation": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz",
+        "sha256": "6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e"
+      }
+    },
+    "scenes": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    }
+  },
+  "schema": "w50-phase-measurement-inputs-1"
+}

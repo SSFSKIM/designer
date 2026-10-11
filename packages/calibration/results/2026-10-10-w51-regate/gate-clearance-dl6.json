@@ -1,0 +1,26 @@
+{
+  "populationSha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8",
+  "purpose": "gate",
+  "rehearsals": {
+    "real-rehearsal": {
+      "path": "/Users/new/vitrea-w51/live/real-5/result.json",
+      "sha256": "4a96599910cc9e4be26e19717b880dcd27565aace6f844ccce6c586fe96d23bf"
+    },
+    "synthetic-rehearsal": {
+      "path": "/Users/new/vitrea-w51/live/synthetic-5/result.json",
+      "sha256": "f73af14595333f9aa8aaa7a3bedcdfcc0904b21ce02a43d386b5392a230ae527"
+    }
+  },
+  "reviewEvidence": [
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/rehearsal5-reviewer-high.json",
+      "sha256": "bff6b46041752fc328ff92acc04277f808103edb15f8b0a49566f3bf2ac83a86"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-10-w51-regate/gate-authorisation-dl6.json",
+      "sha256": "848b140f84ce083fc650819d0d2cdd33814a54e77ee9cc15bcde329b0da9f714"
+    }
+  ],
+  "rootSha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23",
+  "sourceClosureSha256": "f0e879cc4a160ce0c722dcb195b56b834c2df252b7d70106a234ac04d8d78132"
+}

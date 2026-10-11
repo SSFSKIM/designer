@@ -1,0 +1,75 @@
+{
+  "batchSha256": "eaa936ebd5fde72712b5741a3c78ddf88d0ea8fe4035c2d2341e6092669e1e08",
+  "candidate": {
+    "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+    "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+  },
+  "config": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal5/synthetic/repeat-config.json",
+    "sha256": "af768788a53c51ae5137c577902acccdb2189259e18414d8695560ba9ec333e8"
+  },
+  "contractSha256": "5b93defd67aed982702f7b431c50e29c27adefbc93c6ff5f9565a0ddc020097d",
+  "declaredStatistics": [
+    "T1-full-silhouette",
+    "low-end-path-level"
+  ],
+  "differences": {},
+  "executionRootSha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23",
+  "kind": "retained-repeat-pair",
+  "lane": "candidate",
+  "manifest": {
+    "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/repeat__webgpu.json",
+    "sha256": "888f247ddbf7f86c187212cab2904d053d21f77bdde8426cc98a566a8726cc96"
+  },
+  "mode": "byte-identical",
+  "originalArtifacts": {
+    "cell": {
+      "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/cell__webgpu.json",
+      "sha256": "10dac587b1579d7fe2606c4ef4d5e63bbc97866095b068345c43088c245d544c"
+    },
+    "png": {
+      "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+      "sha256": "331f535dd949c362c310fb55a573a5d30786a233d781ee8851aa222efd747492"
+    },
+    "report": {
+      "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/report__webgpu.json",
+      "sha256": "27d432340ae1a2a2f82753fcffc74594acc9e0c001de6aff60c57548bfcbe7b2"
+    }
+  },
+  "pair": {
+    "deterministic": true,
+    "first": {
+      "image": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu.png",
+        "sha256": "331f535dd949c362c310fb55a573a5d30786a233d781ee8851aa222efd747492"
+      },
+      "report": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__first.json",
+        "sha256": "3578ede95f2751915409e0cb9e4d62b7cc9360bec1077b313cf8dde2626cfd47"
+      }
+    },
+    "kind": "w50-retained-repeat-pair",
+    "reading": "first",
+    "renderer": "webgpu",
+    "repeatNoise": 0,
+    "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+    "schema": 1,
+    "second": {
+      "image": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/w51-synthetic-impulse__rrect-synthetic__rest__webgpu__repeat.png",
+        "sha256": "331f535dd949c362c310fb55a573a5d30786a233d781ee8851aa222efd747492"
+      },
+      "report": {
+        "path": "/Users/new/vitrea-w51/live/synthetic-5/attempts/000001/quarantine/348a1c8a5ba4bf9029efd0b3c9730af4dbb83e74c9e1c3453c39bc2665873e87/captures/apple-macos-27.0-1x-dark-standard-glass0.5/w51-synthetic-impulse__rrect-synthetic__rest/page__webgpu__second.json",
+        "sha256": "3578ede95f2751915409e0cb9e4d62b7cc9360bec1077b313cf8dde2626cfd47"
+      }
+    }
+  },
+  "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+  "reading": "first",
+  "renderer": "webgpu",
+  "rule": "every statistic/channel/cut <= 0.1 native repeat bar; never 0.1 B",
+  "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+  "sceneSource": "canonical",
+  "schema": "w50-repeat-admission-1"
+}

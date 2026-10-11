@@ -1,0 +1,428 @@
+{
+  "authorityBoundary": "Declaration content amendment only. Does not alter the parent-owned charter/seals, landing rule, candidate, fit, gate, exposure or final execution source seal.",
+  "byteIdenticalCopies": [
+    {
+      "previous": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/inputs.json",
+        "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+      },
+      "successor": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/inputs.json",
+        "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+      }
+    },
+    {
+      "previous": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/gate-population.json",
+        "sha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8"
+      },
+      "successor": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/gate-population.json",
+        "sha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8"
+      }
+    },
+    {
+      "previous": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/exposure-population.json",
+        "sha256": "eaddc3f1302cb10ef1f96ca0070ae356d95cbd413917e3a5254d002b6f9dbddf"
+      },
+      "successor": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/exposure-population.json",
+        "sha256": "eaddc3f1302cb10ef1f96ca0070ae356d95cbd413917e3a5254d002b6f9dbddf"
+      }
+    },
+    {
+      "previous": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/provenance.json",
+        "sha256": "46aaeef5fb269cb7edc31e062d872bf9554eab6cff217d90f511d812e69a5bbd"
+      },
+      "successor": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/provenance.json",
+        "sha256": "46aaeef5fb269cb7edc31e062d872bf9554eab6cff217d90f511d812e69a5bbd"
+      }
+    }
+  ],
+  "counts": {
+    "exposure": [
+      322,
+      974
+    ],
+    "gate": [
+      1341,
+      2553
+    ],
+    "previousRealRehearsal": [
+      852,
+      1880
+    ],
+    "protectedNonfitGate": 501,
+    "realRehearsal": [
+      840,
+      1856
+    ]
+  },
+  "date": "2026-10-10",
+  "heldScientificIdentities": {
+    "candidate": {
+      "cohort": [
+        {
+          "declaration": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+            "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+          },
+          "documents": {
+            "active.dark": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+              "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+            },
+            "active.light": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+              "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+            },
+            "receded.dark": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+              "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+            },
+            "receded.light": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+              "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+            }
+          },
+          "position": 0.25
+        },
+        {
+          "declaration": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+            "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+          },
+          "documents": {
+            "active.dark": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.dark.json",
+              "sha256": "3cc4ed0d9d22d71d7c289e7041bb3034b897fca1f23ddc1f012ce43194bcdd68"
+            },
+            "active.light": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.light.json",
+              "sha256": "a217b7f7d2a72c6ec2282caebf5b897b2cc07fb55050bdb8f64371862a1be780"
+            },
+            "receded.dark": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.dark.json",
+              "sha256": "0ab7b8aebdb0a66285c30f81731cf35401dbbaca7fbc0152e63a4cc8ac6a7b49"
+            },
+            "receded.light": {
+              "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.light.json",
+              "sha256": "83e2156ba37924041e65d8cb8308c94d311b4e8bf57b9dab287a628bc7d76071"
+            }
+          },
+          "position": 0.5
+        }
+      ],
+      "initializer": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+        "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710"
+      },
+      "proposalDigest": "044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+      "proposalDigestAlgorithm": "SHA-256 of initializer JSON: sort_keys=True, separators=(comma,colon), allow_nan=False, no trailing newline",
+      "reassemble": false,
+      "reinitialize": false
+    },
+    "fitEvidence": {
+      "batch": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-batch.json",
+        "sha256": "6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e"
+      },
+      "captureUnion": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.phase/captures.complete.json",
+        "sha256": "88e000c66e45f85f512f44db07c9ce3967f5afe1b7c6b4427f2b750c615ec882"
+      },
+      "physicalCount": 840,
+      "record": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-record.json",
+        "sha256": "83ea6b1ea466fa4936b71331a214b1ed9525eb4c58df8e1a35737c63740e350b"
+      },
+      "result": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.result.json",
+        "sha256": "d2b82491d388b5cdf2bf48b6d0e6aedc1120f35c6d6c5a5e5050efb8bb1b7058"
+      },
+      "scope": "Fit population only; not a gate verdict.",
+      "status": "CAPTURED"
+    }
+  },
+  "prePixelAttestation": {
+    "basis": "Observed source and reserved output namespace state before this amendment; not a global filesystem or process census.",
+    "captureOrAnalysisMarkers": [],
+    "excludesHistoricalW50Artifacts": true,
+    "executionRootDocuments": [],
+    "namespaceChildren": [
+      "g0",
+      "workspace-build.log"
+    ],
+    "namespaceDirectories": [
+      "g0"
+    ],
+    "noW51ExecutionRootSealed": true,
+    "noW51OutputDirectoriesInReservedNamespace": true,
+    "noW51PixelsOrAnalysisMarkersInSource": true,
+    "reservedOutputNamespace": "/Users/new/vitrea-w51",
+    "sourceDirectory": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate"
+  },
+  "previousDeclarationCommit": "54c4821441e217768f5eb36fb2f2c257e9fc9624",
+  "realRehearsal": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/rehearsal-population.json",
+    "sha256": "35846805248715b95d5dd2a43278dcbf82a60845e1f47aad7140bff0e4df91fc"
+  },
+  "reason": "The fit840 values were exposed during W50 fit. The twelve additional real candidate cells were not: non-blind native references do not waive one-look protection for the 501 non-fit gate candidate cells. Remove all twelve before any W51 pixel and cover their paths on an explicitly synthetic disjoint population.",
+  "removedRealPhysicalCells": [
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "hc-text-7__rrect-md__rest"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__inactive"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__rest"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__inactive"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__rest"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "hc-text-7__rrect-md__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "hc-text-7__rrect-md__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__inactive"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__inactive"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "hc-text-7__rrect-md__rest"
+    ]
+  ],
+  "removedRealStatisticKeys": [
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "T1-low"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "owner-contracts"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__inactive",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__inactive",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "T1-low"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "owner-contracts"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "T1-low"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "owner-contracts"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__inactive",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__inactive",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-lg__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__inactive",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "impulse__rrect-ml__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "T1-low"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "hc-text-7__rrect-md__rest",
+      "owner-contracts"
+    ]
+  ],
+  "retainedPreviousArtifacts": [
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/check.py",
+      "sha256": "34a218e0acb9dddccc3ba5d6cc3a34fe4bf92965794e5432bb0356149bf5c04f"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/exposure-population.json",
+      "sha256": "eaddc3f1302cb10ef1f96ca0070ae356d95cbd413917e3a5254d002b6f9dbddf"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/gate-population.json",
+      "sha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/inputs.json",
+      "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/membership-witness.json",
+      "sha256": "a0957fdb6badc58037a31d13d63f4fd6ea53f744c3edcde770762e8bace7089a"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/provenance.json",
+      "sha256": "46aaeef5fb269cb7edc31e062d872bf9554eab6cff217d90f511d812e69a5bbd"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/rehearsal-population.json",
+      "sha256": "0eac168352855ddc60d57f4a1c46e005abcbdb60c06e92a1542d603dc02dd231"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/test_check.py",
+      "sha256": "020c946dd4ea0d33b1c64608509e9ae8fd96ec5bda7821494277b8dea2b3eb42"
+    }
+  ],
+  "ruling": "W51-DL3",
+  "schema": "w51-prepixel-amendment-1",
+  "supersedesRealRehearsal": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration/rehearsal-population.json",
+    "sha256": "0eac168352855ddc60d57f4a1c46e005abcbdb60c06e92a1542d603dc02dd231"
+  },
+  "syntheticPopulation": {
+    "owner": "instrument worker",
+    "realCellsRelabelled": false,
+    "requirement": "Explicitly synthetic identities, reference fixture and population, disjoint from every real identity; same execution pipeline.",
+    "status": "SEPARATE_NOT_DECLARED_HERE"
+  }
+}

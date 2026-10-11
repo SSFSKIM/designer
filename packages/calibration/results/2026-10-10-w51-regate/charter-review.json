@@ -1,0 +1,24 @@
+{
+  "schema": "w51-charter-review-1",
+  "date": "2026-10-10",
+  "reviewer": "doperpowers:adversarial-reviewer",
+  "reviewId": "acd124331d9e40369",
+  "charterCommit": "25e743417",
+  "charterPath": "docs/doperpowers/specs/2026-10-10-w51-regate.md",
+  "verdict": "approve",
+  "materialFindings": [],
+  "independentlyVerified": [
+    "Landing-rule byte hash",
+    "1341 gate physical cells",
+    "322 exposure physical cells",
+    "852 rehearsal cells, all twelve additions outside the original fit and no exposure dependency overlap",
+    "Same gate-phase path with full original inventory and explicit population binding",
+    "Fence before substantive admission, recoverable pre-marker stops and final post-marker faults",
+    "Stop at gate verdict before exposure creation"
+  ],
+  "limits": [
+    "Declaration JSON artifacts were still being written during this review; membership was independently derived from original evidence instead",
+    "No instrument implementation or runtime execution reviewed",
+    "Gate capture remains blocked until complete identical-entrypoint rehearsal and reviewer-high clearance"
+  ]
+}

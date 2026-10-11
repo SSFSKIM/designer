@@ -1,0 +1,243 @@
+{
+  "coverage": {
+    "eligibleEmptySupportKeys": 0,
+    "reportedKeys": 0
+  },
+  "dataOrigin": "synthetic",
+  "dataset": "synthetic",
+  "originalMetadata": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-fine__rrect-synthetic__inactive",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "low-end-path-level",
+      "support": "supplied path deep8/far24; encoded-luma mean and median"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-photo__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "low-end-path-level",
+      "support": "supplied path deep8/far24; encoded-luma mean and median"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-fine__rrect-synthetic__inactive",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-fine__rrect-synthetic__inactive",
+      "sceneSource": "canonical",
+      "statistic": "T1-low",
+      "support": "eroded4"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-impulse__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "low-end-path-level",
+      "support": "supplied path deep8/far24; encoded-luma mean and median"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-photo__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "T1-full-silhouette",
+      "support": "full-silhouette"
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "renderer": "webgpu",
+      "role": "gate",
+      "scene": "w51-synthetic-text__rrect-synthetic__rest",
+      "sceneSource": "canonical",
+      "statistic": "T1-low",
+      "support": "eroded4"
+    }
+  ],
+  "phase": "rehearsal",
+  "physicalCells": [
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-fine__rrect-synthetic__inactive"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-photo__rrect-synthetic__rest"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-fine__rrect-synthetic__inactive"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-photo__rrect-synthetic__rest"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "w51-synthetic-text__rrect-synthetic__rest"
+    ]
+  ],
+  "physicalCount": 8,
+  "populationClass": "SYNTHETIC",
+  "schema": "w51-population-1",
+  "sourceInventory": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/synthetic/generated/inventory.json",
+    "sha256": "8f0050d446b81ce9fc322595b405d30121f8b24d7c216090064ad86b3d73a576"
+  },
+  "statisticCount": 12,
+  "statisticKeys": [
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-fine__rrect-synthetic__inactive",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-photo__rrect-synthetic__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-fine__rrect-synthetic__inactive",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-fine__rrect-synthetic__inactive",
+      "T1-low"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-impulse__rrect-synthetic__rest",
+      "low-end-path-level"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.25",
+      "webgpu",
+      "w51-synthetic-photo__rrect-synthetic__rest",
+      "T1-full-silhouette"
+    ],
+    [
+      "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "webgpu",
+      "w51-synthetic-text__rrect-synthetic__rest",
+      "T1-low"
+    ]
+  ]
+}

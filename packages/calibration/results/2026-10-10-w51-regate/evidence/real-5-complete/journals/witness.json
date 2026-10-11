@@ -1,0 +1,1352 @@
+{
+  "analysisClaim": {
+    "path": "/Users/new/vitrea-w51/live/real-5/contract.json.phase/analysis.started.json",
+    "sha256": "20f00fa8e584519e82ae4c777ff2e4f024e62ecfab7149428333b2938c5657c1"
+  },
+  "branches": {
+    "producerCarry": [
+      {
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/real-5/measurement/a96df0ec906f8d9f70f5d4adc8f2705303cb056959791f7b7018a3f58fbcaadb.json",
+          "sha256": "3afcecbeb446cc0e011794f3fb3566dfa5d107be395e02f0570d1f092fa379c2"
+        },
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "webgpu",
+          "impulse__capsule-button__inactive",
+          "T1-full-silhouette"
+        ],
+        "producer": "PRODUCTION_TS_INTERIOR_LEVEL"
+      },
+      {
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/real-5/measurement/30794edb28d555b9f17fbb48525924cec93abb4e09fd79c917606c76144c357d.json",
+          "sha256": "03916d73c526f5f3ee9d79c8a350f25ed3667cb15040ca4d7e61fea6e2d412f9"
+        },
+        "key": [
+          "apple-macos-27.0-1x-dark-standard-glass0.25",
+          "webgpu",
+          "impulse__capsule-button__rest",
+          "T1-full-silhouette"
+        ],
+        "producer": "PRODUCTION_TS_INTERIOR_LEVEL"
+      },
+      {
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/real-5/measurement/118216fe3889821080deb2ba49607cb5dff4ce0266385b4cd620478404578e0a.json",
+          "sha256": "fd3041be58208483aca334e71441ab16020a5c4bea4e534dec01ed4d0d799884"
+        },
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "webgpu",
+          "impulse__capsule-button__inactive",
+          "T1-full-silhouette"
+        ],
+        "producer": "PRODUCTION_TS_INTERIOR_LEVEL"
+      },
+      {
+        "evidence": {
+          "path": "/Users/new/vitrea-w51/live/real-5/measurement/570a3cee64748fad29e3a69462f4ba88d1f950f0c2c5d2ac2a638367933766d0.json",
+          "sha256": "d2e426809a43538e2b0ac35cfce688f14b3792956fac5fb8bc1e6d1f436adbd7"
+        },
+        "key": [
+          "apple-macos-27.0-2x-dark-standard-glass0.25",
+          "webgpu",
+          "impulse__capsule-button__rest",
+          "T1-full-silhouette"
+        ],
+        "producer": "PRODUCTION_TS_INTERIOR_LEVEL"
+      }
+    ],
+    "textBands": []
+  },
+  "candidate": [
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+      "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+    },
+    {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+      "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+    }
+  ],
+  "captureUnion": {
+    "path": "/Users/new/vitrea-w51/live/real-5/contract.json.phase/captures.complete.json",
+    "sha256": "2ea1a098edd4bed2bd9fc023029210c82d460b8a0cde8edd4358c433774819b6"
+  },
+  "clauseC": {
+    "aggregates": [
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=css/scale=1/max",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "c3408b9662c3bd3bfedc303c431b1a441d2ee575f3374fe765050e6745e63978",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=css/scale=1/mean",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "c3408b9662c3bd3bfedc303c431b1a441d2ee575f3374fe765050e6745e63978",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=css/scale=2/max",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "0f74c444320ad75a00819946c1fd339d2fcaaa41efd8b713a957c49d35221759",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=css/scale=2/mean",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "0f74c444320ad75a00819946c1fd339d2fcaaa41efd8b713a957c49d35221759",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=webgpu/scale=1/max",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "1d09765e410d63633bb6f99b21133b69129a1c5c2151fb090f0fb950bd456e8d",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=webgpu/scale=1/mean",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "1d09765e410d63633bb6f99b21133b69129a1c5c2151fb090f0fb950bd456e8d",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=webgpu/scale=2/max",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "8971b1d0a21e88bb62089b378dd951e1f01e1ccf4d6d6826a36a9cfbac5b1568",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.25/renderer=webgpu/scale=2/mean",
+        "kind": "level",
+        "memberCount": 257,
+        "membershipSha256": "8971b1d0a21e88bb62089b378dd951e1f01e1ccf4d6d6826a36a9cfbac5b1568",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=css/scale=1/max",
+        "kind": "level",
+        "memberCount": 245,
+        "membershipSha256": "334de75dfe101a2da7cafaf64b26685b84fc39c592fe00e4c0d059db5a50c055",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=css/scale=1/mean",
+        "kind": "level",
+        "memberCount": 245,
+        "membershipSha256": "334de75dfe101a2da7cafaf64b26685b84fc39c592fe00e4c0d059db5a50c055",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=css/scale=2/max",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "eb23f08ec00d0b5486f99b69ba4e55c9068df4ef218ec8e841744876d3a39942",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=css/scale=2/mean",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "eb23f08ec00d0b5486f99b69ba4e55c9068df4ef218ec8e841744876d3a39942",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=webgpu/scale=1/max",
+        "kind": "level",
+        "memberCount": 245,
+        "membershipSha256": "1a839dae87952b2667c4ada71932386b3bae62106b12a20b436bd5530cbff09e",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=webgpu/scale=1/mean",
+        "kind": "level",
+        "memberCount": 245,
+        "membershipSha256": "1a839dae87952b2667c4ada71932386b3bae62106b12a20b436bd5530cbff09e",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=webgpu/scale=2/max",
+        "kind": "level",
+        "memberCount": 245,
+        "membershipSha256": "22d42a49b209df12d1a6ea9f0051d30fc58521482a02bab2a201c14f2c7bc0fa",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=inactive/position=0.5/renderer=webgpu/scale=2/mean",
+        "kind": "level",
+        "memberCount": 245,
+        "membershipSha256": "22d42a49b209df12d1a6ea9f0051d30fc58521482a02bab2a201c14f2c7bc0fa",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=css/scale=1/max",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "60961fd25975d882a2a3506b7c683510bceae53076162d644723831b35654eab",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=css/scale=1/mean",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "60961fd25975d882a2a3506b7c683510bceae53076162d644723831b35654eab",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=css/scale=2/max",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "57211dd96d7d8506c6ddb317555f62965eaa33083cf08d6bc6b6856a23c714fb",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=css/scale=2/mean",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "57211dd96d7d8506c6ddb317555f62965eaa33083cf08d6bc6b6856a23c714fb",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=webgpu/scale=1/max",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "266c44b4734039f655fdc7fe43d057de537cc5e6786f95453449b40adad99b04",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=webgpu/scale=1/mean",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "266c44b4734039f655fdc7fe43d057de537cc5e6786f95453449b40adad99b04",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=webgpu/scale=2/max",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "403ff825e74fe1641d8889c18ef9106994bbc7cd8c9e2b347660c467da288655",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.25/renderer=webgpu/scale=2/mean",
+        "kind": "level",
+        "memberCount": 263,
+        "membershipSha256": "403ff825e74fe1641d8889c18ef9106994bbc7cd8c9e2b347660c467da288655",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=css/scale=1/max",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "b2659780f3b0c8035c9f8d6391ce27c5682b7127c8cc7d91e45c9993471af608",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=css/scale=1/mean",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "b2659780f3b0c8035c9f8d6391ce27c5682b7127c8cc7d91e45c9993471af608",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=css/scale=2/max",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "85da3d1059a0d27707bcdef0c951817c4827f625d4066802df92b11085368bb0",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=css/scale=2/mean",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "85da3d1059a0d27707bcdef0c951817c4827f625d4066802df92b11085368bb0",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=webgpu/scale=1/max",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "272591baff6cbb64c40189eac008a5980d7337e88a7d48105beb2c87770dc675",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=webgpu/scale=1/mean",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "272591baff6cbb64c40189eac008a5980d7337e88a7d48105beb2c87770dc675",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=webgpu/scale=2/max",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "6426f9753706420aba721ccc2e85d7b04a500137381616d403b95b5e764d8327",
+        "reduction": "max",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": true,
+        "id": "level/pose=rest/position=0.5/renderer=webgpu/scale=2/mean",
+        "kind": "level",
+        "memberCount": 242,
+        "membershipSha256": "6426f9753706420aba721ccc2e85d7b04a500137381616d403b95b5e764d8327",
+        "reduction": "mean",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.25/renderer=css/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "53120370b30fa702158abeaea7b18885398ed2b731f0548bf7da13d23d50fd78",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.25/renderer=css/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "5ffd720fbd8591bd96816ec91362a459d9d1ecb8361bb47b9bff17a49ea23ad5",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.25/renderer=webgpu/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "65a11b57bc6030c97a8d55d1f0982f65b3b8bf65d82a0987020a44fd61cc6d07",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.25/renderer=webgpu/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "3b0cb4a3ba83552ff11de643b74b4fb9947b2d9f3e5df9cf7598c99be8ed3ef0",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.5/renderer=css/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "1483dea0fcb2354fbb569931a317a530a1ee90cd0890179f95379fa49101b2f3",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.5/renderer=css/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "3ef75a507d97e5b5f0e402c179a34468a35805022118e3b74331da7450303e8c",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.5/renderer=webgpu/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "2f03d60678a56db8ac412e52f3cb19f12dd02d17708ce7698d7d04d18c9d15f2",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=inactive/position=0.5/renderer=webgpu/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "a7207bb6da785b4c640c2bcba469151e273411ef2fe5e5f95fe5e428256f544b",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.25/renderer=css/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "b48c136843b444eab91781559e4cf13a50f030a369c3350a9e47c3ea3d3bca8a",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.25/renderer=css/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "3ac7300ff45325c06205b8927b0cbdaaee377b47d2b9b866ad92936749a65435",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.25/renderer=webgpu/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "99470d1cb3011bd133956bb1439552a774fe6bb5e88a8f265b69943735f0758c",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.25/renderer=webgpu/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "33652c60c3a76e82fd027cd34352f049f27c4433bc3e366a8c4ebf6d699f29a0",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.5/renderer=css/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "f390a84a93cb79f563b7d7b86953703df5b2a1078708a740bfacbbc8efc97231",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "css",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.5/renderer=css/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "2d0cc8b69ebd1b80636266f0c116ad2440009cdcb92e2198f0ae1603a88e8606",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.5/renderer=webgpu/scale=1/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "ba1cea44430348c315c6b8c317ef10dd5e0dbd6cb8afe1b9d450cd82faf191e0",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "family": "structured",
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2
+        },
+        "gate": false,
+        "id": "newbed-t1/family=structured/pose=rest/position=0.5/renderer=webgpu/scale=2/median-log-ratio",
+        "kind": "newbed-t1",
+        "memberCount": 2,
+        "membershipSha256": "fa624f17109830c210784f66da6c50a2f2f0171d9bf3fd97fe8f13de39e0765a",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.25/renderer=webgpu/scale=1/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 14,
+        "membershipSha256": "8520b592f017adbed10fcaab73f9570ee3564aae669c4e4be3508b31e2f5f6de",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.25/renderer=webgpu/scale=1/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 2,
+        "membershipSha256": "a8144756346cb60de03018a8f0b7c38d0b8199edab4b941ee067857685106fb3",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.25/renderer=webgpu/scale=1/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 5,
+        "membershipSha256": "2aaff352d57a2548a8a11b73444c9557a2f6969ad44bab2685336e026443c683",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.25/renderer=webgpu/scale=2/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 14,
+        "membershipSha256": "e2fdd4ad8458e03a2678c55c88437ec441afdb03674cc3e638941e57064de885",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.25/renderer=webgpu/scale=2/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 2,
+        "membershipSha256": "eb6dd0ba51adec5d23c0b289ed32adb784b2170891a3c092f7ca86a064b99fb6",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.25/renderer=webgpu/scale=2/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 5,
+        "membershipSha256": "488db59a14bfba6f6aa985e372e9da5d569c15ada5e840fc6a8950ff62e53487",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.5/renderer=webgpu/scale=1/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 14,
+        "membershipSha256": "823cd958c99ede2f923a3dd07ebce0afde6d15c3392af830a8b3b97021bc2525",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.5/renderer=webgpu/scale=1/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 2,
+        "membershipSha256": "6772680dcad3756a77babe120553c0e4809e595891e848f798ed22c77aea1650",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.5/renderer=webgpu/scale=1/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 5,
+        "membershipSha256": "d2f886aaa0c536cecb7e2e06c31c789fdf27ff1201a333066e075ad1eff4362b",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.5/renderer=webgpu/scale=2/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 14,
+        "membershipSha256": "d8f56f5ff6cdc54ffb6ab8e979f1bf391fbd5bbc33b21fc65dc345d24a93e678",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.5/renderer=webgpu/scale=2/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 2,
+        "membershipSha256": "eba5b2524d18532c8ac4fb8b719c0a30268320cb62f8c5af613e45c5ad453529",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "inactive",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=inactive/position=0.5/renderer=webgpu/scale=2/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 5,
+        "membershipSha256": "fdaaac8cbf1fe1d0cb7a98b148cbfcc8ac92e3e20067c8dd8dee4b9f8da69746",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=1/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 28,
+        "membershipSha256": "918279d40381206e73f2633b60957f92ffb66b2a689d92c040ce2d7376b78bc5",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=1/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 10,
+        "membershipSha256": "3773aab805b77694a5c27b0161d48d9a39918df7e2e2b57d9e9cbc72552749a8",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=1/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 4,
+        "membershipSha256": "69c2fe8695d9fd065f84aa74f7f76426f3b3c7eff3f5206aa5dbf161fb6a3cc7",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "T"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=1/stratum=T/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 3,
+        "membershipSha256": "5dc2fcccf4615d0a490b45c739e797b3fb09b4481d5b6a44c456fcd05be0101f",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=2/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 28,
+        "membershipSha256": "0b7dee3c7867360265e1463d79614d830540a4ebcd48cef28198fb1d29d0167f",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=2/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 10,
+        "membershipSha256": "61c2353c4a90c6e977570b0f9fa71f5374eedb49030296a1c911ea255aeedcce",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=2/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 4,
+        "membershipSha256": "4a9b29a642ceb95cd11c28cbfaa41c249c316060f66fb1243843cb476540c0d3",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.25,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "T"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.25/renderer=webgpu/scale=2/stratum=T/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 3,
+        "membershipSha256": "b17203de857aeecfe2c00d58393f4b1e455c55f006267567f3d24ca6e95ff9eb",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=1/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 28,
+        "membershipSha256": "b871af0d710e13043b84ae6398870a44a7a85bce45542263b5f313e3801ac724",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=1/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 10,
+        "membershipSha256": "fdeae571174ce42a7e616ddbca4b06235ba133b810df2419165634c04939ea4a",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=1/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 4,
+        "membershipSha256": "adc7727f80472f4eb84833d93f233be0c9e42c6e36b4d4a5c82f7326951592e6",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 1,
+          "stratum": "T"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=1/stratum=T/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 3,
+        "membershipSha256": "f969cb848a3285db4ecc7dbba72863e08bf0edc3dc818559fda6d6123f5794cb",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "C"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=2/stratum=C/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 28,
+        "membershipSha256": "579a09b32732d377b3112506740a02db262bbfc2ec922c1a74b1ba108de22899",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "F"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=2/stratum=F/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 10,
+        "membershipSha256": "8e3939526870a3997c8cc8725b9d820d2f7dc16c09a304fc9e585f5b51efc359",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "P"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=2/stratum=P/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 4,
+        "membershipSha256": "146840dafd25ffae825bde88001ba0d41235b2996b565614e60adba695b2c09c",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      },
+      {
+        "dimensions": {
+          "pose": "rest",
+          "position": 0.5,
+          "renderer": "webgpu",
+          "scale": 2,
+          "stratum": "T"
+        },
+        "gate": true,
+        "id": "t1/pose=rest/position=0.5/renderer=webgpu/scale=2/stratum=T/median-log-ratio",
+        "kind": "t1",
+        "memberCount": 3,
+        "membershipSha256": "53201def3291b8de110761397fd166b4b520b143e89988eafc03ed776b3a36ce",
+        "reduction": "median-log-ratio",
+        "status": "PENDING_FULL_UNION"
+      }
+    ],
+    "status": "PENDING_FULL_UNION"
+  },
+  "dataOrigin": "measured-native",
+  "dataset": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal5/real/dataset.json",
+    "sha256": "ac7fe24bd1831a2cd3e214bd2893e7835fc1bc70cf97fc75af386ba3df8aa52a"
+  },
+  "executionRoot": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/execution-root.rehearsal5.json",
+    "sha256": "e7deb5763ba2fa542d46537091468051ddbe755b03fb493349dbb160568b8b23"
+  },
+  "importedFit": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/inputs.json",
+    "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+  },
+  "judgeCompleted": true,
+  "landingPolicy": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v3/landing-policy.real.json",
+    "sha256": "7944dc555cab67198bee75e423d6e446c6e033149568c0eb59f3ff0e66eb5eab"
+  },
+  "measurement": {
+    "path": "/Users/new/vitrea-w51/live/real-5/measurement/phase.json",
+    "sha256": "a04fe9b5d2bec83076ca5dc2582e75709634eefb93ea9d0bd7a63acc58dc91ba"
+  },
+  "physicalCount": 840,
+  "population": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/declaration-v2/rehearsal-population.json",
+    "sha256": "35846805248715b95d5dd2a43278dcbf82a60845e1f47aad7140bff0e4df91fc"
+  },
+  "referenceInventory": {
+    "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+    "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  "reportStatus": "PASS_EXPOSED_OWNER_PENDING",
+  "schema": "w51-completeness-witness-1",
+  "sourceClosureSha256": "f0e879cc4a160ce0c722dcb195b56b834c2df252b7d70106a234ac04d8d78132",
+  "sourceDifferential": {
+    "declarationSha256": "aa6479f0e37da2337a112f3a7e18d5ad86ab44102ac61e48aceb238ecebbd944",
+    "deltas": [
+      "W51-DL5 exact primary caps, named exceptions and full-population scalar aggregates",
+      "DL5 policy authentication, gate clause-C veto and report wiring",
+      "explicit dataset/population authentication and input import wiring",
+      "canonical scene location by bound byte identity",
+      "W51-DL4 judge frozen operands use unchanged measurement.frozen_scope",
+      "shared target/rules numerical module through prospective imports",
+      "canonical reference authority anchored to completed fit pre-fit band proof or sealed synthetic fixture",
+      "declared per-run scene document through canonical transport",
+      "static exposed native/reference authentication for paired repeats",
+      "numerical argument membership bound to the imported referee inventory on both datasets",
+      "Store write primitive uses atomic no-replace installation; state transitions unchanged"
+    ],
+    "originals": {
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/adapter.py": "c1ed09042ef0093d5954b50a1ac9557fad29f0df7ed5284b2a55f50904f1aaed",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/compare.ts": "9fbdf59f503d77b813086bc143054d063b8b15e0c7eaa88f146a2b02a7348802",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/canonical/native-admission.ts": "4543d7575df16a4913692ab78f53f2e72427ddefd73519534c52b0d7e6296acd",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/admission.py": "55d7b30077c959d643cdd9e22e3d027aa5e49bdb71b5e468695927b30fab3f39",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/repeat/sources.py": "e13fb3fd53c3b4e3f39fc2bb64aa93ae0c22035601f684c4656c67f2ae6443e0",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-current3/web/adapter.py": "e5fa6c51694deee54b2a208e547cee24f6777fc208aa3a7cbcb308984f62c621",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/live.py": "69b235198b4299eef490cb0a217f2a48e540349c4cf292a45b56da4123fef8b2",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py": "840302e6caaa75044206a2960b257f17c057b1a3ce93c6bf877c92747049398d",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/targets.py": "afc031f589a611da1fc41462bbb478ff3412b62a95ea0491be96a863598c7a01",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/lifecycle.py": "41caf9507e13f220eb8c6749e3c77a2b79d8f3b7b7952a9959dbd18ea0f68555",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/capture.py": "0037b04ed2dc8454f1e0c8a065f747772e7613566510a15712d1bf5cc3c960ee",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-roles/common.py": "dd51b6181ff38f557ca9364de91fa9679877f71945b500ef918d796fe4bb1ae7",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase.py": "c30b98a226961f40fadc3fdbf9a94f9d34c45d0dec24cd1c974bca14c4f971fd",
+      "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/measurement/phase_sources.py": "24e32623527e8ecfd039f66a88fd6b5e2a24e3def7f0eb553187fa6dd54e57ad"
+    },
+    "ports": {
+      "canonical/adapter.py": "ae3b65dea0fb6e02b3a292d1a5d00cc36b1855b8dfbb4599b336c3ea3af6973a",
+      "canonical/compare.ts": "bed1cc735a7d8d54df58f6b0e738a4c2fa9d6cde345d97eb67f051b385bbb1a3",
+      "canonical/native-admission.ts": "4543d7575df16a4913692ab78f53f2e72427ddefd73519534c52b0d7e6296acd",
+      "capture.py": "9900af7960175d799be7b557c61d29522fcbcda377f2bc0ca7ad6e26527799e4",
+      "judge.py": "7ccf7e2afa822daeceb867013442ae41ca6fe477b2a5405996cbc38dfccc253b",
+      "judge_rules.py": "de101b76fb9c4baea2ff6770088dbde3bafd3de923afb412e72112589f3608d5",
+      "judge_targets.py": "3cd912eaa6e9f02838fa4425cdb50b3458e6550507273ae11e37d4727ba592cc",
+      "lifecycle.py": "2457afc8a3a3cd2a45def98c40bf70f85917ed096e08c7b5af9ca86a5cac04ed",
+      "measurement.py": "b6efc201ef7f0ae2d569a68dd7fecec35ba37db7f76224d641b63a272d325589",
+      "phase_sources.py": "f107d83f16b96b1a85bbfb11e16057a87ccfebd31148bdbfff70961946a1738f",
+      "repeat.py": "a5f1d977340796a9d34aeec2c12b2938624589a0285cecdde2b6655cfc1aae52",
+      "repeat_sources.py": "2dd5e0006c75488b1f9b728de025c4f5bdcaad7a2ff842e54fcdd94e20d7be00",
+      "role_common.py": "6cf35ee76158ca1c3866db28bdb976224b1b6415aa174b0f509c7ecb8dec99b3",
+      "web/adapter.py": "097fdafd67eeeb8bad396a48b89d08ca6fe168fea386f64d3b0a6f0de48bbe95"
+    },
+    "schema": "w51-scientific-differential-1",
+    "status": "UNCHANGED_NUMERICS_DECLARED_DL5_RULE_AND_SCOPE"
+  },
+  "statisticCount": 1856,
+  "status": "COMPLETE"
+}

@@ -1,0 +1,31 @@
+{
+  "canonical": {
+    "path": "packages/calibration/results/2026-10-10-w51-regate/bundle/execution-root.rehearsal3/real/canonical-repeat.json",
+    "sha256": "dcdd780a68d7f729dcb4409f622b6aee70f5e4e3f1ab755b431314749b09dc07"
+  },
+  "native": {
+    "batch": {
+      "path": "packages/calibration/results/2026-10-08-w50-g1-fit/native/read-batch.json",
+      "sha256": "f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628"
+    },
+    "reports": {
+      "calibration": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz",
+        "sha256": "9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550"
+      },
+      "validation": {
+        "path": "packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz",
+        "sha256": "6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e"
+      }
+    },
+    "scenes": {
+      "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    }
+  },
+  "references": {
+    "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+    "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  "schema": "w50-repeat-config-1"
+}

@@ -1,0 +1,90 @@
+{
+  "canonicalIdentityArrayEncoding": "sort_keys=True, indent=2, allow_nan=False, trailing newline",
+  "checks": {
+    "candidateBytesEqualPreviousDeclaration": true,
+    "exposureStatisticKeysEqualFrozen": true,
+    "gateExposureCandidateFitBytesHeld": true,
+    "gateExposurePhysicalCellsDisjoint": true,
+    "gateExposureStatisticKeysDisjoint": true,
+    "gateStatisticKeysEqualFrozen": true,
+    "previousDeclarationRetained": true,
+    "realRehearsalContainsNoNonfitGateCell": true,
+    "realRehearsalEqualsOriginalFit": true,
+    "rehearsalContainsNoWithheldPhysicalClosure": true,
+    "rehearsalRetainsAllOriginalKeysPerPhysicalCell": true,
+    "unionEqualsOriginalInventory": true
+  },
+  "counts": {
+    "exposure": {
+      "physical": 322,
+      "statistics": 974
+    },
+    "gate": {
+      "physical": 1341,
+      "statistics": 2553
+    },
+    "rehearsal": {
+      "physical": 840,
+      "statistics": 1856
+    }
+  },
+  "files": {
+    "amendment.json": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/amendment.json",
+      "sha256": "47e94c66bcb83416853f88a930a0aca709359f75863b37e5479a4f4915149cc0"
+    },
+    "exposure-population.json": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/exposure-population.json",
+      "sha256": "eaddc3f1302cb10ef1f96ca0070ae356d95cbd413917e3a5254d002b6f9dbddf"
+    },
+    "gate-population.json": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/gate-population.json",
+      "sha256": "f8d27d7b153b93fb1e9855a3dab2465354762a4723d1dfc850b2f5ba0af501e8"
+    },
+    "inputs.json": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/inputs.json",
+      "sha256": "d358cc8d5cd56ec82d9ef4fe8db0112a1c160b787bb2309685f2e421e4c80333"
+    },
+    "provenance.json": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/provenance.json",
+      "sha256": "46aaeef5fb269cb7edc31e062d872bf9554eab6cff217d90f511d812e69a5bbd"
+    },
+    "rehearsal-population.json": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/declaration-v2/rehearsal-population.json",
+      "sha256": "35846805248715b95d5dd2a43278dcbf82a60845e1f47aad7140bff0e4df91fc"
+    }
+  },
+  "identityArraySha256": {
+    "exposure": {
+      "physicalCells": "78c32a800c3ff28bf0266c634c67d449aa90057173e740a95a86757ab6a4d4bb",
+      "statisticKeys": "eaefb70359aeba190770b494b06d0fdf68b0d280a20e478a569e47a8722a702f"
+    },
+    "gate": {
+      "physicalCells": "e783ee6d35903e09246a6b4ceac0aef2cbc92bc2de7d9784cd5f41ebe3ec48bc",
+      "statisticKeys": "59c16229722c3ae129d42d7bec46c87abe93a8a4b3ac96fa9a1b906885ebbc7e"
+    },
+    "rehearsal": {
+      "physicalCells": "cc9510b5620d68af4db1fb5974859b8520fdf6ca9337466e03c55028dbd5f2ca",
+      "statisticKeys": "5910add79c28b1d40bb8342995bd9cabef5b7e96cfdcc1efb2e99bb7ac3373c4"
+    }
+  },
+  "notClaimed": [
+    "synthetic fixture declaration",
+    "capture execution",
+    "measurement execution",
+    "judge execution",
+    "witness/report writer rehearsal",
+    "independent review",
+    "execution source seal"
+  ],
+  "ruling": "W51-DL3",
+  "schema": "w51-membership-witness-2",
+  "sourceInventory": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+    "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+  },
+  "sourceRoot": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+    "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+  }
+}

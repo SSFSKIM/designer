@@ -1,0 +1,23 @@
+{
+  "schema": "w51-archive-split-1",
+  "joinedSha256": "9f14b7225dfc0f90b16f695c9923f05f33cc0d95a52c7a20a1bf0a99438981df",
+  "reason": "GitHub rejects files over 100 MB; main carries the archive in parts. audit.json's archive sha is the joined file's.",
+  "join": "cat output.tar.gz.part?? > output.tar.gz",
+  "parts": [
+    {
+      "name": "output.tar.gz.part01",
+      "bytes": 50331648,
+      "sha256": "a73be87b251c2df464e0e51febd7dc3a5889e9a6c9870a324ce0cd4b0af723cd"
+    },
+    {
+      "name": "output.tar.gz.part02",
+      "bytes": 50331648,
+      "sha256": "1de3a2af4d0b5a625a8e3a6d1dcd7288574b17cb4fd502c4fbbe3b52b26e0af6"
+    },
+    {
+      "name": "output.tar.gz.part03",
+      "bytes": 408886,
+      "sha256": "b8718c85e07110784e612ce4f7f05c274867897a05a20e0335496816898738d2"
+    }
+  ]
+}

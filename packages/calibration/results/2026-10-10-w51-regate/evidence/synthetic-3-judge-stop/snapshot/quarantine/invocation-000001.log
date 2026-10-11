@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/run.py", line 420, in invoke
+    ticket=engine.analyze(union,identity)
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/run.py", line 294, in analyze
+    judge,config=self.roles['judge'];report=judge.evaluate(ctx,{'measurement':measured,'owner':None,'captures':captures},config)
+                                            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/judge.py", line 689, in evaluate
+    routed = dict(zip(rows, route(list(rows.values()), root)))
+                            ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-10-w51-regate/judge.py", line 185, in route
+    return R.route_rows(rows, inventory_sha256=root['references']['sha256'],
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        reported_keys=root['reportedKeys'], empty_support_keys=root['emptySupportKeys'])
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py", line 374, in route_rows
+    return [route_row(row, **policy) for row in rows]
+            ~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py", line 282, in route_row
+    contracts = {name: _contracts(row, name, inventory_sha256,
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        frozen=row['sceneSource'] == 'canonical' and row['renderer'] == 'webgpu' and name == row['statistic'])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py", line 153, in _contracts
+    operands = _original_operands(row, name, inventory)
+  File "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/rules.py", line 90, in _original_operands
+    raise ValueError('Frozen canonical T1 requires explicit original operands and separate source diagnostics')
+ValueError: Frozen canonical T1 requires explicit original operands and separate source diagnostics

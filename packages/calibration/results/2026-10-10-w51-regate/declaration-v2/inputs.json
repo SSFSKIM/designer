@@ -1,0 +1,242 @@
+{
+  "authorityBoundary": "Historical W50 roots/configs are provenance, not W51 execution authority. W51 fresh captures and corrected sources need their own root; no gate recovery adapter.",
+  "candidate": {
+    "cohort": [
+      {
+        "declaration": {
+          "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/candidate.json",
+          "sha256": "af1c181af52ebece971a161deeb2dc345bb5783affdc2943e67242ebb60deb89"
+        },
+        "documents": {
+          "active.dark": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.dark.json",
+            "sha256": "39d9900ed181230ed2d8f53bc51d1ffc75f85c6cdd035f01b5ac5ccb025e274c"
+          },
+          "active.light": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/active.light.json",
+            "sha256": "5d6f7eba023b48df6e80b72d3ebc8ea38f49e4ce672504502c2c8f6b765b7a31"
+          },
+          "receded.dark": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.dark.json",
+            "sha256": "d20ffbeccf1d16f4e9f391ffae21b1ae940d074e54fd1dca46a052137f4ac395"
+          },
+          "receded.light": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.25/receded.light.json",
+            "sha256": "abb005cc841506b71916acb51a2bfbaf5bb7b3117432b1eac35e0650ecce8eb7"
+          }
+        },
+        "position": 0.25
+      },
+      {
+        "declaration": {
+          "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/candidate.json",
+          "sha256": "0f0873c64303a8b315fd9d23f45bc18967a4c709bef19ff4e43c55368c100fd3"
+        },
+        "documents": {
+          "active.dark": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.dark.json",
+            "sha256": "3cc4ed0d9d22d71d7c289e7041bb3034b897fca1f23ddc1f012ce43194bcdd68"
+          },
+          "active.light": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/active.light.json",
+            "sha256": "a217b7f7d2a72c6ec2282caebf5b897b2cc07fb55050bdb8f64371862a1be780"
+          },
+          "receded.dark": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.dark.json",
+            "sha256": "0ab7b8aebdb0a66285c30f81731cf35401dbbaca7fbc0152e63a4cc8ac6a7b49"
+          },
+          "receded.light": {
+            "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/0.5/receded.light.json",
+            "sha256": "83e2156ba37924041e65d8cb8308c94d311b4e8bf57b9dab287a628bc7d76071"
+          }
+        },
+        "position": 0.5
+      }
+    ],
+    "initializer": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/candidates/044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002/initializer.json",
+      "sha256": "323030c41f6657cbf5f63ed1a1bd2196ae841dd129c9d0ddfd9619173a75b710"
+    },
+    "proposalDigest": "044bc4a5753c12f01c53f4c7886113ed67a8a2fa07106745002e9d31f8078002",
+    "proposalDigestAlgorithm": "SHA-256 of initializer JSON: sort_keys=True, separators=(comma,colon), allow_nan=False, no trailing newline",
+    "reassemble": false,
+    "reinitialize": false
+  },
+  "excludedInputs": [
+    "W50 gate captures",
+    "W50 634 unread keyed measurements",
+    "W50 recovery outputs",
+    "new blind native values before authorised exposure"
+  ],
+  "fitEvidence": {
+    "batch": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-batch.json",
+      "sha256": "6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e"
+    },
+    "captureUnion": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.phase/captures.complete.json",
+      "sha256": "88e000c66e45f85f512f44db07c9ce3967f5afe1b7c6b4427f2b750c615ec882"
+    },
+    "physicalCount": 840,
+    "record": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/run/fit-record.json",
+      "sha256": "83ea6b1ea466fa4936b71331a214b1ed9525eb4c58df8e1a35737c63740e350b"
+    },
+    "result": {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/fit/execution-root-3.6c041767c89976237637409481634c77035107b2354178fc406c70697099df2e.json.result.json",
+      "sha256": "d2b82491d388b5cdf2bf48b6d0e6aedc1120f35c6d6c5a5e5050efb8bb1b7058"
+    },
+    "scope": "Fit population only; not a gate verdict.",
+    "status": "CAPTURED"
+  },
+  "restorableLiveInputs": [
+    {
+      "committedArchive": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/evidence/completed-references.json.gz",
+        "sha256": "9307e6e495908a7cad76ab40a1498a414a28c31bb14644c6e579da971442ccc1"
+      },
+      "decompressedSha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d",
+      "frozenOriginal": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+        "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d"
+      },
+      "presentInCheckout": false,
+      "required": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-references-r3.json",
+        "sha256": "d9c3285d0f6b29e6214de95b0df6f78665eddd40baf1d4282846290e72014e0d"
+      }
+    },
+    {
+      "committedArchive": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/current-analysis-composed/evidence/completed-current.json.gz",
+        "sha256": "a94985404be5359dc23f92c205f5cdf1ce0d4078c568a5fcd42beab22d9a8c50"
+      },
+      "decompressedSha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86",
+      "frozenOriginal": {
+        "path": "/Users/new/vitrea-w50/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+        "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+      },
+      "presentInCheckout": false,
+      "required": {
+        "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-inputs/completed-current.json",
+        "sha256": "10381e74b56c8b3a83777159f545f4a9cae5291ec0372923f7c1c96b9e0c9f86"
+      }
+    }
+  ],
+  "rulings": [
+    "W51-DL1",
+    "W51-DL2"
+  ],
+  "schema": "w51-frozen-inputs-1",
+  "sourceRootProvenance": {
+    "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/live-execution/execution-root-3.json",
+    "sha256": "d50cf0547b982d33b35b1c41e953b9c2b011ca0fde4999ba2d14a0d00215d882"
+  },
+  "staticInputs": [
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/declaration.json",
+      "sha256": "bb185d87d850d12fd3b0019cbe9d0db65c541b73c14690035192131e30a00b86"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/fit-declaration.json",
+      "sha256": "bdd1050ed6ad9671676b0551c33a685e3093a5548652b04662fb81d4a29adb85"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+      "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/bed/manifest.json",
+      "sha256": "9423a102f38299c738bf8a6367bd0eca7857ebc94b7b931f749ff4da7958bfb5"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g0-declaration/bed/scenes-w50.json",
+      "sha256": "945e66e1f5daa34d693e2a8d82404740b4bee8e6af3b02ddd8624fdba99a1a8b"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/apps/reference-apple/scenes.json",
+      "sha256": "ccd3ebfebf5799af94f7e81eb7be5bfa64a9f4a845e37b86531dbb83253456d8"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/apps/reference-apple/fixtures/manifest.json",
+      "sha256": "2afdc5ce87343e011ace80bfaea844db18be25145e1d0cb92f8a457c3ac1786f"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/references-r2/evidence/canonical-references.json.gz",
+      "sha256": "5022ef35b554050c8e9901d9fb15670c4effe3c5e996f06d35ea800324b17e1b"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-calibration.json.gz",
+      "sha256": "9350de321013b5789edad4d4c4abf51b803552f5fda2068b07690f3fc09b5550"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/identification/native-validation.json.gz",
+      "sha256": "6499d996c306614cfbe87202dd6ae058635655c106d936c9b2b61c3730f5c07e"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/completion/registered-3/binding.json",
+      "sha256": "6548d289c6fd932a90e549a07ae2519dddb9a84def7a3874d14e553d588ad2de"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/contracts.json",
+      "sha256": "c203e3c1ca3413bcd15aba440224d8bba6b98485d82a00983e0439b70055612b"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/evidence-r3/prepare.json",
+      "sha256": "f8cde7782a29f3f7a7d1830836be70e937392e65ddb8d2c6cb3f8b1297012514"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/judge/targets-config.json",
+      "sha256": "66b9cb0a26733b67a5754110289b1c1127e188bc9877ae741c14854fed6edb48"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-07-w49a-g1-landing/cuts/cut-025-dark-w49a-landing.json",
+      "sha256": "f769ca417c4d2b18799f2488853a78215cc9cdcbdf650f7d6a6f30fb34913dbb"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass025/candidate.json",
+      "sha256": "49dce5d6e33957a62e721434a12da468e6617277c9f4ae282419e12ce6996411"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-material/glass05/candidate.json",
+      "sha256": "8bbf340e418dabd7c293a7ceda08c04ddf9e8f005e7101290435f869f3876319"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/inputs/current-fixtures.json",
+      "sha256": "de15659e852432a21f56bd77d0c891863d7146671bfb1aae3a7a0f8b86e1b61a"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/owner/inputs-resolved.json",
+      "sha256": "ac6b693748a94396ce069541201bfb9d5db194955a88814b7a65c98754dc6466"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/native/read-batch.json",
+      "sha256": "f172d92dba0b412780eee5bce2e3869bc066cf93a7a4d6d1e998bf9c92d16628"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/cohort.json",
+      "sha256": "8134e7f37f45533c96e8cb7ad9b1ea75da9353bd0310df2ad8ad35b6a103c6ba"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/arguments.json",
+      "sha256": "5cb5da437bfd25a0e3e7d689781b0c070d60ca4dc9d5b7ba4243754efb0b09ba"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/2026-10-08-w50-g1-fit/fit/live-initializer/numerical/a9c9d636cce0dcd90e29b6083e97934c507fab7b9daa006540729858e24c9264/referee.json",
+      "sha256": "9c08e96d3dc72e9f458c6c80dce2f4630edd95ec20da39b21423a62cac977b90"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/generations/b2d074d2df24-940384c06f73.json",
+      "sha256": "d68eec6d609f062ff60e35ebbb927e329273049dabae6781db9428dadd30490f"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/generations/d0219cd684bf.json",
+      "sha256": "6e20f04f60c40cd8aa89e9580cdc8bca98b2c0b0cb8a3c45bbf0cab52d116d02"
+    },
+    {
+      "path": "/Users/new/vitrea-w51/g0/packages/calibration/results/generations/index.json",
+      "sha256": "41f1170418aa1626cc96db9533817a76c3f66af9a0021657cd7f1f3b570b1fdb"
+    }
+  ],
+  "status": "DECLARATION_INPUTS_ONLY_NOT_AN_EXECUTION_SEAL"
+}
