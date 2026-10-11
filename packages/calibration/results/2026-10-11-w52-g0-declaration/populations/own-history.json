@@ -1,0 +1,3289 @@
+{
+  "authority": [
+    "W52-DL1",
+    "W52-DL2"
+  ],
+  "captureAuthority": false,
+  "comparisons": [
+    {
+      "historicalWitness": {
+        "kind": "published-static-reference",
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 0.846839641824043,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1,
+          "value": 0.023692220879310992
+        },
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-32__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-32__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "exposure",
+      "occupied": false,
+      "originalOperands": {
+        "B": 0.0029681792979440683,
+        "cap": 0.0029681792979440683,
+        "current": 0.021178648985770498,
+        "currentGrowth": 0.0025135718935404942,
+        "frozenCurrentGrowthInB": 0.846839641824043,
+        "historicalValue": 0.023692220879310992,
+        "native": 0.03817359874085584
+      },
+      "originalReference": {
+        "B": 0.0029681792979440683,
+        "current": 0.021178648985770498,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__inactive/checkerboard-32__rrect-lg__inactive__webgpu.png",
+          "sha256": "51cd5b971830460de9feab4929b0b49eec490a1b228450a596ac308d0d35ba58"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "bd4212ea3a8968563a05e464fb42247d8a6d4e6b9bd7bd06d3976c0ccfff3bb4"
+        },
+        "fidelity": {
+          "current": 0.021178648985770498,
+          "native": 0.03817359874085584,
+          "reference": 0.023692220879310992,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.846839641824043,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.023692220879310992
+          }
+        ],
+        "native": 0.03817359874085584,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__inactive.png",
+          "sha256": "15436715b5a8fb22c18c8683069be6cd8c97aab50be2e433d78d2fb4a4c1ea63"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "historical-prediction-check",
+        "scene": "checkerboard-32__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "RETAIN_HISTORY_AND_CAP",
+        "bound": {
+          "base": 0.0029681792979440683,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+        },
+        "referenceGeneration": "d0219cd684bf",
+        "referenceValue": 0.023692220879310992
+      },
+      "source": {
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-32__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "84270ed374d1fd459dadadba540870eef0ded29167c4da90136ca0d9cf11dcbf",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-32__rrect-lg__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.978687185193138,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.978687185193138,
+            "value": 0.02923686111798437
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "84270ed374d1fd459dadadba540870eef0ded29167c4da90136ca0d9cf11dcbf",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "057b4f046564f4abd90a4026115904a9d9c2ec344774a11451f0a6f0e8bb04c2"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.978687185193138,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 2.978687185193138,
+          "value": 0.02923686111798437
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-32__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.003011092320407159,
+        "cap": 0.008969102108230275,
+        "current": 0.0202677590097541,
+        "currentGrowth": 0.008969102108230275,
+        "frozenCurrentGrowthInB": 2.978687185193138,
+        "historicalValue": 0.02923686111798437,
+        "native": 0.05840748658912891
+      },
+      "originalReference": {
+        "B": 0.003011092320407159,
+        "current": 0.0202677590097541,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__webgpu.png",
+          "sha256": "0c87012611de72844f0234ad4e73a7a70218347c7212d48d0d89b2ad4b6134c4"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest/cell__webgpu.json",
+          "sha256": "963e46c4c534f8918462898d5b9cf5b523f1e4d320124e82ac683cfa91ffc900"
+        },
+        "fidelity": {
+          "current": 0.0202677590097541,
+          "native": 0.05840748658912891,
+          "reference": 0.02923686111798437,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.978687185193138,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.978687185193138,
+            "value": 0.02923686111798437
+          }
+        ],
+        "native": 0.05840748658912891,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest.png",
+          "sha256": "f90dfb395d25a4a006260da7e042586ba433aa65bb0aae43c63d097570d10ce5"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.003011092320407159,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.0202677590097541
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/859be94f946e642ce39c608a417ffbcd06124b3a814bb69cb5c737c7aa899eb0.json",
+          "sha256": "e69411cae336dea65b62dd8d7a58305291146dd4427fe03be1b9128d70c4e38e"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "79ae216471cd148b2614aee12276065177d8070a8f21b7fd973ed852a451b431",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-64__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.32630055954662035,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.02868190419432124
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "79ae216471cd148b2614aee12276065177d8070a8f21b7fd973ed852a451b431",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "6bed28acaf6d3cb6bd462ee65fc878e657bff417d29a2835387ea7925c71c203"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 0.32630055954662035,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1,
+          "value": 0.02868190419432124
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-64__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": false,
+      "originalOperands": {
+        "B": 0.0029905044053643273,
+        "cap": 0.0029905044053643273,
+        "current": 0.027706100933524228,
+        "currentGrowth": 0.0009758032607970132,
+        "frozenCurrentGrowthInB": 0.32630055954662035,
+        "historicalValue": 0.02868190419432124,
+        "native": 0.07328955352708688
+      },
+      "originalReference": {
+        "B": 0.0029905044053643273,
+        "current": 0.027706100933524228,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__inactive/checkerboard-64__rrect-lg__inactive__webgpu.png",
+          "sha256": "5054cef2a2869800ab857a5ad0795f0833dab9eb6281aecebe4e18a743a6ccbf"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "598ee5075678c65f8eb8bc7281b279e2394c152a42df77e1c82ba42664033267"
+        },
+        "fidelity": {
+          "current": 0.027706100933524228,
+          "native": 0.07328955352708688,
+          "reference": 0.02868190419432124,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.32630055954662035,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.02868190419432124
+          }
+        ],
+        "native": 0.07328955352708688,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__inactive.png",
+          "sha256": "b13c8d636f6583b7e58f9e8169ca70328585aa7ce52ba887b1223bae8b2dd334"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "RETAIN_HISTORY_AND_CAP",
+        "bound": {
+          "base": 0.0029905044053643273,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+        },
+        "referenceGeneration": "d0219cd684bf",
+        "referenceValue": 0.02868190419432124
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/a02f593ce86e12743789535b65457e7cb1f1ffb601618f90196dc80b0dc686cc.json",
+          "sha256": "a2631fead4824cdd2ea051540be86c36713fb146a2ee7bc803709ba6ddd6f4e1"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "b14e1db2d06896a41c285e9ca60ea137a4bfaaff4a406502f3c0f6b2dc072ea0",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-64__rrect-lg__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.5518110757686494,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.5518110757686494,
+            "value": 0.0337913274553524
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "b14e1db2d06896a41c285e9ca60ea137a4bfaaff4a406502f3c0f6b2dc072ea0",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "9224c02034e0a78b097ce2d2da464f4b5059ff35e05796115d21be41050fe2a8"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.5518110757686494,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.5518110757686494,
+          "value": 0.0337913274553524
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-64__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0029887634942280367,
+        "cap": 0.004637996293196077,
+        "current": 0.02915333116215632,
+        "currentGrowth": 0.004637996293196077,
+        "frozenCurrentGrowthInB": 1.5518110757686494,
+        "historicalValue": 0.0337913274553524,
+        "native": 0.08564789961732189
+      },
+      "originalReference": {
+        "B": 0.0029887634942280367,
+        "current": 0.02915333116215632,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__webgpu.png",
+          "sha256": "3024ac2a294287a3640c6cfea2ef8ac25ee210d1f94102ffa75ed8b024a8b499"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest/cell__webgpu.json",
+          "sha256": "1e9d5a0298ee7e5acfbaf20a0a32699b0a2011583f2803d17a93eea91a4c409a"
+        },
+        "fidelity": {
+          "current": 0.02915333116215632,
+          "native": 0.08564789961732189,
+          "reference": 0.0337913274553524,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.5518110757686494,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.5518110757686494,
+            "value": 0.0337913274553524
+          }
+        ],
+        "native": 0.08564789961732189,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest.png",
+          "sha256": "1fbc5c7e862d02095b22a6beca6575e71455685311a2e6a36297e517d7082cf5"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0029887634942280367,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.02915333116215632
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/224ecdb300738c9781e48266672172bbd0155fd6ab247f83a0dccd5b56a1bd4d.json",
+          "sha256": "1043875ccdf266f35efb499a6b80a77d1446025551508e514e9f3c2eba27f3fd"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "b4f3e5f24c7b2cc5efd06881b78d5eb38296da2be23d818471276d9152a7dda3",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-lc16__rrect-md__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.662027882449696,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.662027882449696,
+            "value": 0.02395267790364774
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "b4f3e5f24c7b2cc5efd06881b78d5eb38296da2be23d818471276d9152a7dda3",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "ec14c23ab279e3af091505fa5ce50d5954788a0507d28c731cbb73c20bef94c0"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.662027882449696,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 2.662027882449696,
+          "value": 0.02395267790364774
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-lc16__rrect-md__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.00406033095259301,
+        "cap": 0.010808714207776127,
+        "current": 0.034761392111423865,
+        "currentGrowth": 0.010808714207776127,
+        "frozenCurrentGrowthInB": 2.662027882449696,
+        "historicalValue": 0.02395267790364774,
+        "native": 0.021653698364259146
+      },
+      "originalReference": {
+        "B": 0.00406033095259301,
+        "current": 0.034761392111423865,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__webgpu.png",
+          "sha256": "528c9f79c5a7fe8f20d1be7c5f411ec575cfe1f91460e08a533812e603c29098"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest/cell__webgpu.json",
+          "sha256": "cb32f79c1d88aee556badb2e2ed5bdb6a484d011fc17cc5155b88c8af4f34eba"
+        },
+        "fidelity": {
+          "current": 0.034761392111423865,
+          "native": 0.021653698364259146,
+          "reference": 0.02395267790364774,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.662027882449696,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.662027882449696,
+            "value": 0.02395267790364774
+          }
+        ],
+        "native": 0.021653698364259146,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest.png",
+          "sha256": "7983076de299136d58d85e4f7131fc9d8f34a17c94330ed3344981ba3a49a8f3"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.00406033095259301,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.034761392111423865
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/773ee7e64c8e723d2ba3e24a121f8125a3f2f761b55607e8a5b5cb5284d8ed34.json",
+          "sha256": "1ff107b9c09c01c553da8ea5e2ad93bcd24fc3030ab87c42ed46489179d24a59"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "dd01299ec3c3a101e0f01b03c5cfdeaccaf4f645c15af594e2285432cc888130",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "hc-text-28__rrect-lg__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.3932175296638307,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.3932175296638307,
+            "value": 0.031121977219956857
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "dd01299ec3c3a101e0f01b03c5cfdeaccaf4f645c15af594e2285432cc888130",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "4593d6d707c65eaada87674416e5942de519c1613f1aaa7407faae9cded01378"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.3932175296638307,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.3932175296638307,
+          "value": 0.031121977219956857
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "hc-text-28__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.00356383443528052,
+        "cap": 0.004965196608052419,
+        "current": 0.026156780611904438,
+        "currentGrowth": 0.004965196608052419,
+        "frozenCurrentGrowthInB": 1.3932175296638307,
+        "historicalValue": 0.031121977219956857,
+        "native": 0.046004272462960565
+      },
+      "originalReference": {
+        "B": 0.00356383443528052,
+        "current": 0.026156780611904438,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__webgpu.png",
+          "sha256": "85ba48e8b2b42c1d10f80294fbe77521a2d1f11157442e96b70d20b189651638"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest/cell__webgpu.json",
+          "sha256": "a5e0459387b35b64b622bbc4da5096a5a35e947d5d8ef52e9a57c4c2ec82031b"
+        },
+        "fidelity": {
+          "current": 0.026156780611904438,
+          "native": 0.046004272462960565,
+          "reference": 0.031121977219956857,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.3932175296638307,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.3932175296638307,
+            "value": 0.031121977219956857
+          }
+        ],
+        "native": 0.046004272462960565,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest.png",
+          "sha256": "d56727f7e695adecbb3d096dec038a35e4d17b63909d36c44816d523112fb789"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "hc-text-28__rrect-lg__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.00356383443528052,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.026156780611904438
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/73d55883c4f804deeec24757122cccfaf001da3ba05eec3f760ebc53c82171ad.json",
+          "sha256": "c0bc878491e7826921b41842f10654f31d50a6c6d3999f02ae4ec37283c27649"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "3d2503ba61ea5200a8258dbd339e0f013efd1c7c99623a35b246204b90617d5c",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "impulse__capsule-button__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.2610659172468544,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.2610659172468544,
+            "value": 0.01725290810773301
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "3d2503ba61ea5200a8258dbd339e0f013efd1c7c99623a35b246204b90617d5c",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "e1e2fa7c13615263e4f2f3285db3ed9c3dab567a44a39bbf31e34fff7eb7dfd4"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.2610659172468544,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 2.2610659172468544,
+          "value": 0.01725290810773301
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__capsule-button__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0013457271389693923,
+        "cap": 0.003042777767837814,
+        "current": 0.025320985837327593,
+        "currentGrowth": 0.003042777767837814,
+        "frozenCurrentGrowthInB": 2.2610659172468544,
+        "historicalValue": 0.01725290810773301,
+        "native": 0.019765558088611395
+      },
+      "originalReference": {
+        "B": 0.0013457271389693923,
+        "current": 0.025320985837327593,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/impulse__capsule-button__rest__webgpu.png",
+          "sha256": "fd51b71c9c0c757c4ab62ce0ec60ef4140730080ca1ed67385ce5807d07030dd"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest/cell__webgpu.json",
+          "sha256": "a849fb6a583b4a0a282c63cc1250d5ee4d1c70f6a48e345ddcc6e8ab4279498c"
+        },
+        "fidelity": {
+          "current": 0.025320985837327593,
+          "native": 0.019765558088611395,
+          "reference": 0.01725290810773301,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.2610659172468544,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.2610659172468544,
+            "value": 0.01725290810773301
+          }
+        ],
+        "native": 0.019765558088611395,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__capsule-button__rest.png",
+          "sha256": "ce29834491953fea0921ad0e642f6b14ca013a6221ff3a25cf2984e79b2d3b02"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "impulse__capsule-button__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0013457271389693923,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.025320985837327593
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/30794edb28d555b9f17fbb48525924cec93abb4e09fd79c917606c76144c357d.json",
+          "sha256": "b30bb873699728cfcfbd41ce1086ab27d4a48ae8f1f0d589c1a87e3583aabb38"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "31056a3a0e915d17385096efda923b3587afa14a9620def65a1a34988270cb52",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "impulse__rrect-ml__inactive",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/b2d074d2df24",
+            "documentPair": {
+              "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+              "receded.dark": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.3718944839160563,
+            "generation": "b2d074d2df24",
+            "maxGrowthInB": 2.3718944839160563,
+            "value": 0.002635106497032953
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "31056a3a0e915d17385096efda923b3587afa14a9620def65a1a34988270cb52",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+          },
+          "statisticSha256": "865753ea1a9669f8c3b4896cff5e487fad84330c2f2e03324bdc97cbbe37e32d"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/b2d074d2df24",
+          "documentPair": {
+            "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "receded.dark": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.3718944839160563,
+          "generation": "b2d074d2df24",
+          "maxGrowthInB": 2.3718944839160563,
+          "value": 0.002635106497032953
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-ml__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0005557919797000313,
+        "cap": 0.001318279930855289,
+        "current": 0.003953386427888242,
+        "currentGrowth": 0.001318279930855289,
+        "frozenCurrentGrowthInB": 2.3718944839160563,
+        "historicalValue": 0.002635106497032953,
+        "native": 0.0005554328584175308
+      },
+      "originalReference": {
+        "B": 0.0005557919797000313,
+        "current": 0.003953386427888242,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive/impulse__rrect-ml__inactive__webgpu.png",
+          "sha256": "abb13d353d482ccef8b28e69cc28c7dcb24b3cc9906e673095d3b8c588b3ecf3"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-1x/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive/cell__webgpu.json",
+          "sha256": "ff09340b17684c8cb42bd338a2c2c34b2fa201b3984c7426662117949525b132"
+        },
+        "fidelity": {
+          "current": 0.003953386427888242,
+          "native": 0.0005554328584175308,
+          "reference": 0.003999902380139297,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/b2d074d2df24",
+            "documentPair": {
+              "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+              "receded.dark": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.3718944839160563,
+            "generation": "b2d074d2df24",
+            "maxGrowthInB": 2.3718944839160563,
+            "value": 0.002635106497032953
+          }
+        ],
+        "native": 0.0005554328584175308,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/impulse__rrect-ml__inactive.png",
+          "sha256": "32de45c92f55e722aca3e6bc1560eabafe142df5912cf82b52bc07a438996cb3"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "impulse__rrect-ml__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0005557919797000313,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.003953386427888242
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/03f5003cf0c29633b8c60f12d82a4d9b3f230c919101ed2b99b3400a1c0f287f.json",
+          "sha256": "6a75ee1e0db8880b26e81890aad02e92b6703fd6b06c2bad47ea3267b94f91b4"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "kind": "published-static-reference",
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 0.21007487031848598,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1,
+          "value": 0.010887170942895215
+        },
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "photo__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "webgpu",
+        "photo__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "exposure",
+      "occupied": false,
+      "originalOperands": {
+        "B": 0.0032895183974999474,
+        "cap": 0.0032895183974999474,
+        "current": 0.010196125792130136,
+        "currentGrowth": 0.0006910451507650753,
+        "frozenCurrentGrowthInB": 0.21007487031848598,
+        "historicalValue": 0.010887170942895215,
+        "native": 0.04638602504696024
+      },
+      "originalReference": {
+        "B": 0.0032895183974999474,
+        "current": 0.010196125792130136,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-lg__inactive/photo__rrect-lg__inactive__webgpu.png",
+          "sha256": "0e7559cd6dc574290e3d18ebae751268192f5db4bec7f2acbfa2d784939a1b19"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "71a498f082a462e06b7a2ec5ee087ccc62c377d1a85c1cc9fa29921f2196cc78"
+        },
+        "fidelity": {
+          "current": 0.010196125792130136,
+          "native": 0.04638602504696024,
+          "reference": 0.010887170942895215,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.21007487031848598,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.010887170942895215
+          }
+        ],
+        "native": 0.04638602504696024,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-1x-dark-standard-glass0.25/photo__rrect-lg__inactive.png",
+          "sha256": "a091bbf90d1ff97a39f937f9b23107c7beeca3c73e949444d3684647a531f6e8"
+        },
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "historical-prediction-check",
+        "scene": "photo__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "P",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "RETAIN_HISTORY_AND_CAP",
+        "bound": {
+          "base": 0.0032895183974999474,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+        },
+        "referenceGeneration": "d0219cd684bf",
+        "referenceValue": 0.010887170942895215
+      },
+      "source": {
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-1x-dark-standard-glass0.25",
+            "webgpu",
+            "photo__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "kind": "published-static-reference",
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.0819229576517213,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.0819229576517213,
+          "value": 0.033691184889274056
+        },
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-32__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-32__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "exposure",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.002941804313964395,
+        "cap": 0.0031828056241969514,
+        "current": 0.030508379265077105,
+        "currentGrowth": 0.0031828056241969514,
+        "frozenCurrentGrowthInB": 1.0819229576517213,
+        "historicalValue": 0.033691184889274056,
+        "native": 0.04122128185053513
+      },
+      "originalReference": {
+        "B": 0.002941804313964395,
+        "current": 0.030508379265077105,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__inactive/checkerboard-32__rrect-lg__inactive__webgpu.png",
+          "sha256": "69d9caa5747a9933686e1bc92151186f277f53aef717f8310bb9475690a8a5df"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "827e460b15d4c8dba81e2ceffd4c56486f365a2aaa5105723c093ca2add6ce15"
+        },
+        "fidelity": {
+          "current": 0.030508379265077105,
+          "native": 0.04122128185053513,
+          "reference": 0.033691184889274056,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.0819229576517213,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.0819229576517213,
+            "value": 0.033691184889274056
+          }
+        ],
+        "native": 0.04122128185053513,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__inactive.png",
+          "sha256": "9cdc1d1cbde14668ed1929426c9c937a882947086440982b5b818f357d775eac"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "historical-prediction-check",
+        "scene": "checkerboard-32__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.002941804313964395,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.030508379265077105
+      },
+      "source": {
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-32__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "f2bc0f63ede88f087bbe9bb3ff8f21a3ad8b657ed7f7424382fe9913cca6963c",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-32__rrect-lg__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.7135866462925518,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.7135866462925518,
+            "value": 0.034269014896672084
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "f2bc0f63ede88f087bbe9bb3ff8f21a3ad8b657ed7f7424382fe9913cca6963c",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "2c918cad5470b44dc728eb468a3d11c8bb13e5854a606cb61841d9fa136be457"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.7135866462925518,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 2.7135866462925518,
+          "value": 0.034269014896672084
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-32__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.003035846711247354,
+        "cap": 0.00823803309583198,
+        "current": 0.026030981800840104,
+        "currentGrowth": 0.00823803309583198,
+        "frozenCurrentGrowthInB": 2.7135866462925518,
+        "historicalValue": 0.034269014896672084,
+        "native": 0.05558957166395381
+      },
+      "originalReference": {
+        "B": 0.003035846711247354,
+        "current": 0.026030981800840104,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest/checkerboard-32__rrect-lg__rest__webgpu.png",
+          "sha256": "05debe4e6861dcd154ce2f3d501469df393f2061a299eb2afd6a4d94bc5d77df"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest/cell__webgpu.json",
+          "sha256": "71ec1e0662bf4bdf30f87641879ba47dba84914ca1ab9900c38a9f501987c3d6"
+        },
+        "fidelity": {
+          "current": 0.026030981800840104,
+          "native": 0.05558957166395381,
+          "reference": 0.034269014896672084,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.7135866462925518,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.7135866462925518,
+            "value": 0.034269014896672084
+          }
+        ],
+        "native": 0.05558957166395381,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-32__rrect-lg__rest.png",
+          "sha256": "55d492f0277e63c0c33d18c3c36306334265767c71879d43d0b91b784009d6d3"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-32__rrect-lg__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.003035846711247354,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.026030981800840104
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/10dc177281357425c2b7113986164281337a0c37fcc372f69bbdd6e30a55eddf.json",
+          "sha256": "126e14011b72d0a61a4f8b065ba89ddfe9b7c0fc4d20d52021d0ba525987569e"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "9f7ee367fd3b38ee6b620d14b6375f70930ff1e6ef1316dc92c4391e60f7936e",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-64__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.9154832382227253,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.03797652027378854
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "9f7ee367fd3b38ee6b620d14b6375f70930ff1e6ef1316dc92c4391e60f7936e",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "2a995ffcc5d368df6bf7ae89d77c4ccac127b532861a31a3a56d07fb1444e5e8"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 0.9154832382227253,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1,
+          "value": 0.03797652027378854
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-64__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": false,
+      "originalOperands": {
+        "B": 0.0029817519007017913,
+        "cap": 0.0029817519007017913,
+        "current": 0.0352467763881573,
+        "currentGrowth": 0.0027297438856312417,
+        "frozenCurrentGrowthInB": 0.9154832382227253,
+        "historicalValue": 0.03797652027378854,
+        "native": 0.07422936319692014
+      },
+      "originalReference": {
+        "B": 0.0029817519007017913,
+        "current": 0.0352467763881573,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__inactive/checkerboard-64__rrect-lg__inactive__webgpu.png",
+          "sha256": "16b9af22fa4b7e27ed2878e870aa4c390752f715552f26e32aba8171a36012ba"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "bcc2d5eabe7c2406abf5b963b0435862765515079f5e325284dc5544f7500a5d"
+        },
+        "fidelity": {
+          "current": 0.0352467763881573,
+          "native": 0.07422936319692014,
+          "reference": 0.03797652027378854,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.9154832382227253,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.03797652027378854
+          }
+        ],
+        "native": 0.07422936319692014,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__inactive.png",
+          "sha256": "3dc158f462a73e880f26f5f50fba2df62dbe524de736d6302565ed0fc483dcbf"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-64__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "RETAIN_HISTORY_AND_CAP",
+        "bound": {
+          "base": 0.0029817519007017913,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+        },
+        "referenceGeneration": "d0219cd684bf",
+        "referenceValue": 0.03797652027378854
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/106d9beb8af029f52e240a0882578b0c88aa1623e526bacc192f2a2ff055d51b.json",
+          "sha256": "5deb2a5c6f84081283f0591c7421bc5a6e06596a373b36330d7e0458b9858ef1"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "67435c207832355554767fc85d81cc77f861fdc50828b1f4070b430f28b571f7",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-64__rrect-lg__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.712900325919022,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.712900325919022,
+            "value": 0.039455715359964866
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "67435c207832355554767fc85d81cc77f861fdc50828b1f4070b430f28b571f7",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "0cbd37738a88706b279b91f8dcf134f93ab7795b3eaaf84aadd8648d8da3f0d0"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.712900325919022,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.712900325919022,
+          "value": 0.039455715359964866
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-64__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0030027616798924974,
+        "cap": 0.005143431460145009,
+        "current": 0.034312283899819856,
+        "currentGrowth": 0.005143431460145009,
+        "frozenCurrentGrowthInB": 1.712900325919022,
+        "historicalValue": 0.039455715359964866,
+        "native": 0.0846051801675408
+      },
+      "originalReference": {
+        "B": 0.0030027616798924974,
+        "current": 0.034312283899819856,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest/checkerboard-64__rrect-lg__rest__webgpu.png",
+          "sha256": "47b8999e590b9a43bc11a6bbde8f03ffa941b40fb49f577319d6603a0d49f373"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest/cell__webgpu.json",
+          "sha256": "16bd7c431b438d47d14d7688b79d77d32f1bff753467758786f3f3b90c9b2900"
+        },
+        "fidelity": {
+          "current": 0.034312283899819856,
+          "native": 0.0846051801675408,
+          "reference": 0.039455715359964866,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.712900325919022,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.712900325919022,
+            "value": 0.039455715359964866
+          }
+        ],
+        "native": 0.0846051801675408,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-64__rrect-lg__rest.png",
+          "sha256": "0787b865beaa2fe17f930637003b924e1d75a2a3b22d86605b7a4098d8b0044d"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-64__rrect-lg__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0030027616798924974,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.034312283899819856
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/5253805a5135e4da918f434eafa1169518af0390d81bf59411d855cbf0f222bf.json",
+          "sha256": "338ec94331366c617b9aa3ff6b4ed5bbc2d12beea374f3634ba5c19b259315cf"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "3539abf1b25246b01a918988c42efca33349951a1fb32f224dca69536a61cdc1",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard-lc16__rrect-md__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.914407037297213,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.914407037297213,
+            "value": 0.0212872583076393
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "3539abf1b25246b01a918988c42efca33349951a1fb32f224dca69536a61cdc1",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "b275da57e02714398b76383025c7935bdddd0993848e2ad4b5427bb2733a85b1"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.914407037297213,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 2.914407037297213,
+          "value": 0.0212872583076393
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard-lc16__rrect-md__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.004064157351376688,
+        "cap": 0.011844608785535421,
+        "current": 0.03659496865807134,
+        "currentGrowth": 0.011844608785535421,
+        "frozenCurrentGrowthInB": 2.914407037297213,
+        "historicalValue": 0.0212872583076393,
+        "native": 0.02301880909008761
+      },
+      "originalReference": {
+        "B": 0.004064157351376688,
+        "current": 0.03659496865807134,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest/checkerboard-lc16__rrect-md__rest__webgpu.png",
+          "sha256": "e195deaa7a3c90632444f58cd7a9e4c478c769310435347042397b0e5f5dce52"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest/cell__webgpu.json",
+          "sha256": "e8f10e016915e977ec61fec3139afa039719eb3381314e0de08ab42a3a346e47"
+        },
+        "fidelity": {
+          "current": 0.03659496865807134,
+          "native": 0.02301880909008761,
+          "reference": 0.0212872583076393,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.914407037297213,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.914407037297213,
+            "value": 0.0212872583076393
+          }
+        ],
+        "native": 0.02301880909008761,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard-lc16__rrect-md__rest.png",
+          "sha256": "23d9a211e0edbf475f072c5298e41de9eff4e8fe8cd2858d156f9cae275f7494"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard-lc16__rrect-md__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.004064157351376688,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.03659496865807134
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/aa430bddabe14b50de740ee274e807fb970365a575c19a2c058648fc944b4242.json",
+          "sha256": "633581c3a773d3410e1e2faf5f189226c57c2c61f7eddfccbb52256b9530f511"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "ebb2dda560d564edd5d057b17a233c1edaf8b0799276917a57dfc80eec061e77",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard__capsule-button__inactive",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.7859424981844305,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.7859424981844305,
+            "value": 0.047672566062950596
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "ebb2dda560d564edd5d057b17a233c1edaf8b0799276917a57dfc80eec061e77",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "34ec653d0eaacf32858ef78055f2749e0d6154e2eee92f4168a6c2590fd5bdac"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.7859424981844305,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 2.7859424981844305,
+          "value": 0.047672566062950596
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard__capsule-button__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0033700470853241992,
+        "cap": 0.009388757395887258,
+        "current": 0.03828380866706334,
+        "currentGrowth": 0.009388757395887258,
+        "frozenCurrentGrowthInB": 2.7859424981844305,
+        "historicalValue": 0.047672566062950596,
+        "native": 0.050075942686735195
+      },
+      "originalReference": {
+        "B": 0.0033700470853241992,
+        "current": 0.03828380866706334,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive/checkerboard__capsule-button__inactive__webgpu.png",
+          "sha256": "8347dd6e4a557d1f696dd7c285e8363e5716f79126f0579c238c1fff2b2c23c0"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive/cell__webgpu.json",
+          "sha256": "ffcd27a85d7386cc7249b863f2e396b2c74e4c7ac541c4e62d9962e8cfd35c5c"
+        },
+        "fidelity": {
+          "current": 0.03828380866706334,
+          "native": 0.050075942686735195,
+          "reference": 0.047672566062950596,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.7859424981844305,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 2.7859424981844305,
+            "value": 0.047672566062950596
+          }
+        ],
+        "native": 0.050075942686735195,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive.png",
+          "sha256": "777020dd6d2098f2878f7fe931b284ff4d6a151c7f092c1889f0f7cc776adaf1"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard__capsule-button__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0033700470853241992,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.03828380866706334
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/6c46a61fa7888fbae7f76fbf24e044e779864b3aad5f01d3b1deb682bfba56a7.json",
+          "sha256": "6c2d323461e2bae590a6c40bd8342e28257d5f3d0bbcc97a610822f4e393ba31"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "6f500e32e51fc33e8916799c2aa40a8a79d8fedfce7f7c6e3e096c143dfbfed3",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "checkerboard__capsule-button__inactive-tint-orange",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.9265787553807823,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.9265787553807823,
+            "value": 0.06783797101470786
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "6f500e32e51fc33e8916799c2aa40a8a79d8fedfce7f7c6e3e096c143dfbfed3",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "83f0c4523919b4d05d227312acd5871f4a9904e94f6f390600dffc1fc582136a"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.9265787553807823,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.9265787553807823,
+          "value": 0.06783797101470786
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "checkerboard__capsule-button__inactive-tint-orange",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.004285923920537506,
+        "cap": 0.008257169972485871,
+        "current": 0.053912374464869066,
+        "currentGrowth": 0.008257169972485871,
+        "frozenCurrentGrowthInB": 1.9265787553807823,
+        "historicalValue": 0.06783797101470786,
+        "native": 0.0650037577260314
+      },
+      "originalReference": {
+        "B": 0.004285923920537506,
+        "current": 0.053912374464869066,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange/checkerboard__capsule-button__inactive-tint-orange__webgpu.png",
+          "sha256": "0fb46d24003921e8b2e2f4ed24e8ea824229de26d36be07cae02988d6cd3b778"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange/cell__webgpu.json",
+          "sha256": "fb5d95e002522bf88b25d474c336c7a0b027a944d0bb3460e00f25900a9dc224"
+        },
+        "fidelity": {
+          "current": 0.053912374464869066,
+          "native": 0.0650037577260314,
+          "reference": 0.06783797101470786,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.9265787553807823,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.9265787553807823,
+            "value": 0.06783797101470786
+          }
+        ],
+        "native": 0.0650037577260314,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/checkerboard__capsule-button__inactive-tint-orange.png",
+          "sha256": "196847ef0d1ab608a1ab2cea483fffaac2cebcd611776fe674f4b1d187350317"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "checkerboard__capsule-button__inactive-tint-orange",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.004285923920537506,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.053912374464869066
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/f86968cd1610b4eb423b8221dc88bf9cff18b8804c63e33f910366e62c0e1e6b.json",
+          "sha256": "1da3c6c5e9e4d1263c4ba4857827e41d45777be8c045c6d66d78df59e8584516"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "0fade941a11d8ffdf85791173aa6406ca6cde63bbcb75e24fd68522366badd82",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "hc-text-28__rrect-lg__rest",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.3427790760519147,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.3427790760519147,
+            "value": 0.032474240316668276
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "0fade941a11d8ffdf85791173aa6406ca6cde63bbcb75e24fd68522366badd82",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "9a3c832058fa76a89ce1a676e1b38fa95b1771a40c93c280632799157333e17a"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.3427790760519147,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.3427790760519147,
+          "value": 0.032474240316668276
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "hc-text-28__rrect-lg__rest",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0035924253991651144,
+        "cap": 0.004823833658276364,
+        "current": 0.027650406658391913,
+        "currentGrowth": 0.004823833658276364,
+        "frozenCurrentGrowthInB": 1.3427790760519147,
+        "historicalValue": 0.032474240316668276,
+        "native": 0.0419167345351378
+      },
+      "originalReference": {
+        "B": 0.0035924253991651144,
+        "current": 0.027650406658391913,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest/hc-text-28__rrect-lg__rest__webgpu.png",
+          "sha256": "5104dfda16d20973fbaec43559c0f0fc4925bc5fdccb5182e56b74e0c3b4c3f3"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest/cell__webgpu.json",
+          "sha256": "5442b2b531fd9596cf7ff008a79418f0ec01c1d96a7d4b5aa20222c6b3109ede"
+        },
+        "fidelity": {
+          "current": 0.027650406658391913,
+          "native": 0.0419167345351378,
+          "reference": 0.032474240316668276,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.3427790760519147,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.3427790760519147,
+            "value": 0.032474240316668276
+          }
+        ],
+        "native": 0.0419167345351378,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/hc-text-28__rrect-lg__rest.png",
+          "sha256": "b39e29a93609b08b5072879620ba0bb1ee33b197af365adb27d6881571fda7c1"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "hc-text-28__rrect-lg__rest",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0035924253991651144,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.027650406658391913
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/d62c35ba575faf21a7d8434174bb39126ea48d917a9eecf80e0652022833f078.json",
+          "sha256": "fc4d12006ae5b9685ff77400f67fa22237000bc576ce8ded9d1844386205282c"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "0dc0c5cf781e6dec1936c8c7dfae125722e731c79c103d09ebfbd5b8cf33d06e",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "impulse__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.092577307853726,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.092577307853726,
+            "value": 0.0016321995030689578
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "0dc0c5cf781e6dec1936c8c7dfae125722e731c79c103d09ebfbd5b8cf33d06e",
+          "documentPair": {
+            "activeSha256": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "recededSha256": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "statisticSha256": "f467c45e54f07c7d82baabf380c9615cc643a70ebc6eb589473ae0a89c3e7eb3"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 1.092577307853726,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1.092577307853726,
+          "value": 0.0016321995030689578
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0005758207303569972,
+        "cap": 0.0006291286633798143,
+        "current": 0.002261328166448772,
+        "currentGrowth": 0.0006291286633798143,
+        "frozenCurrentGrowthInB": 1.092577307853726,
+        "historicalValue": 0.0016321995030689578,
+        "native": 0.0005872755353265635
+      },
+      "originalReference": {
+        "B": 0.0005758207303569972,
+        "current": 0.002261328166448772,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive/impulse__rrect-lg__inactive__webgpu.png",
+          "sha256": "22a5eb032862a3e61bcd0584439252d57ee28f1bfd7cf986a27d51ecb18377ea"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "9efbe165d674e28b095f58acdaea4fe8bd50af9a8e12deae66e3c9d7e73d8401"
+        },
+        "fidelity": {
+          "current": 0.002261328166448772,
+          "native": 0.0005872755353265635,
+          "reference": 0.0016321995030689578,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 1.092577307853726,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1.092577307853726,
+            "value": 0.0016321995030689578
+          }
+        ],
+        "native": 0.0005872755353265635,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-lg__inactive.png",
+          "sha256": "8b2c91f61f21132562a4b8f43231ae6e7a2fccc988a88ae2c383d596d79e8296"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "impulse__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0005758207303569972,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.002261328166448772
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/9ebe1100435aad62f41300ae3132e5f6a10e5bbdd9c67bd4838ecd3c5ec6fab5.json",
+          "sha256": "c8bb05d802b81941d7b4fb38ca38ab967647f00d97de03563ce39d8a333edb8b"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "captureIdentity": {
+          "digest": "e32576f65d290029c95d2f5f585f8746c2ce1676f842831acfe8238f7ebc8697",
+          "index": 0,
+          "inventory": {
+            "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+            "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+          },
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "impulse__rrect-ml__inactive",
+            "T1-full-silhouette"
+          ],
+          "kind": "frozen-reference-record",
+          "original": {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/b2d074d2df24",
+            "documentPair": {
+              "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+              "receded.dark": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.628121485925761,
+            "generation": "b2d074d2df24",
+            "maxGrowthInB": 2.628121485925761,
+            "value": 0.002475631192167372
+          }
+        },
+        "numericIdentity": {
+          "captureSha256": "e32576f65d290029c95d2f5f585f8746c2ce1676f842831acfe8238f7ebc8697",
+          "documentPair": {
+            "activeSha256": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "recededSha256": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+          },
+          "statisticSha256": "18fd6f057afb4e322f59752fe6b26fa83a404f15c0c3e04414aa404a46d57272"
+        },
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/b2d074d2df24",
+          "documentPair": {
+            "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+            "receded.dark": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 2.628121485925761,
+          "generation": "b2d074d2df24",
+          "maxGrowthInB": 2.628121485925761,
+          "value": 0.002475631192167372
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "impulse__rrect-ml__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "gate",
+      "occupied": true,
+      "originalOperands": {
+        "B": 0.0005668093695627449,
+        "cap": 0.001489643882571885,
+        "current": 0.003965275074739257,
+        "currentGrowth": 0.001489643882571885,
+        "frozenCurrentGrowthInB": 2.628121485925761,
+        "historicalValue": 0.002475631192167372,
+        "native": 0.0008490121674270301
+      },
+      "originalReference": {
+        "B": 0.0005668093695627449,
+        "current": 0.003965275074739257,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__inactive/impulse__rrect-ml__inactive__webgpu.png",
+          "sha256": "139c9133c1ea7f190e8419b8789fc61be0e36590962358d1c2b5dbc919d128ff"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/vitrea-w50/identity-controls-complete/0.25-2x/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__inactive/cell__webgpu.json",
+          "sha256": "405efa5a8a918cea5c4f666030a92b3dde02023fa36ee84ba98be7b2f507bcdc"
+        },
+        "fidelity": {
+          "current": 0.003965275074739257,
+          "native": 0.0008490121674270301,
+          "reference": 0.002207453362051576,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/b2d074d2df24",
+            "documentPair": {
+              "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+              "receded.dark": "29da6a888a23a9a1b5fa3dba6128ed1eedf160030e3dd4fd2e2fc7cb6a6c2389"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 2.628121485925761,
+            "generation": "b2d074d2df24",
+            "maxGrowthInB": 2.628121485925761,
+            "value": 0.002475631192167372
+          }
+        ],
+        "native": 0.0008490121674270301,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/impulse__rrect-ml__inactive.png",
+          "sha256": "d22b592a49d87f61a383f185f73c62b0ba994d5814fe295fd518649d7fec4a20"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "gate",
+        "scene": "impulse__rrect-ml__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "C",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "CURRENT_GENERATION_WITH_B_HEADROOM",
+        "bound": {
+          "base": 0.0005668093695627449,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "referenceGeneration": "b2d074d2df24-940384c06f73",
+        "referenceValue": 0.003965275074739257
+      },
+      "source": {
+        "selector": {
+          "field": [
+            "row",
+            "originalReference",
+            "historical",
+            0
+          ]
+        },
+        "source": {
+          "path": "/Users/new/vitrea-w51/live/gate/measurement/a3c0ca461f95af3c6aa4f31cfa32f33eab90adedc5d743fadf51201104df3b86.json",
+          "sha256": "6b48f2234b7e82eafaa808fd6bd90f76acdf0f99bfa429807496c163f07a3bba"
+        }
+      }
+    },
+    {
+      "historicalWitness": {
+        "kind": "published-static-reference",
+        "original": {
+          "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+          "documentPair": {
+            "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+            "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+          },
+          "enforced": true,
+          "frozenCurrentGrowthInB": 0.2919352856041696,
+          "generation": "d0219cd684bf",
+          "maxGrowthInB": 1,
+          "value": 0.01186174664394845
+        },
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "photo__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      },
+      "historyIndex": 0,
+      "key": [
+        "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "webgpu",
+        "photo__rrect-lg__inactive",
+        "T1-full-silhouette"
+      ],
+      "membership": "exposure",
+      "occupied": false,
+      "originalOperands": {
+        "B": 0.003291601409275674,
+        "cap": 0.003291601409275674,
+        "current": 0.010900812046436469,
+        "currentGrowth": 0.000960934597511981,
+        "frozenCurrentGrowthInB": 0.2919352856041696,
+        "historicalValue": 0.01186174664394845,
+        "native": 0.0465689961260909
+      },
+      "originalReference": {
+        "B": 0.003291601409275674,
+        "current": 0.010900812046436469,
+        "currentDocumentPair": {
+          "active.dark": "b2d074d2df2444a614304d11e906b5f91d8968bce161efbd8f34fc8da5be9186",
+          "receded.dark": "940384c06f73df1cbe2554e395d1db2a09c23a7bb6a57cdb2094807718483735"
+        },
+        "currentEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-lg__inactive/photo__rrect-lg__inactive__webgpu.png",
+          "sha256": "2c4b558e63f0aedb4dd098c2a6681c2cd9e18e442dc489634a38369cb99e9ffb"
+        },
+        "currentGeneration": "b2d074d2df24-940384c06f73",
+        "currentMaxGrowthInB": 1,
+        "currentMetadata": {
+          "path": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures/apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-lg__inactive/cell__webgpu.json",
+          "sha256": "2f71e99c0398c1c7d180e3fe736e5841ac06023ff4a10ef798f037f1d28e6143"
+        },
+        "fidelity": {
+          "current": 0.010900812046436469,
+          "native": 0.0465689961260909,
+          "reference": 0.01186174664394845,
+          "statistic": "T1-full-silhouette"
+        },
+        "historical": [
+          {
+            "captureTree": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/d0219cd684bf",
+            "documentPair": {
+              "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+              "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+            },
+            "enforced": true,
+            "frozenCurrentGrowthInB": 0.2919352856041696,
+            "generation": "d0219cd684bf",
+            "maxGrowthInB": 1,
+            "value": 0.01186174664394845
+          }
+        ],
+        "native": 0.0465689961260909,
+        "nativeEvidence": {
+          "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/fixtures/apple-macos-27.0-2x-dark-standard-glass0.25/photo__rrect-lg__inactive.png",
+          "sha256": "5e2277b98a5e9aee1ca9b7de5babaee89b64dd49277ce15f8ecb6c57c4578bd1"
+        },
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.25",
+        "renderer": "webgpu",
+        "role": "historical-prediction-check",
+        "scene": "photo__rrect-lg__inactive",
+        "statistic": "T1-full-silhouette",
+        "status": "MEASURED",
+        "stratum": "P",
+        "support": "native silhouette; T regression uses sigma4-device-px low-pass, fidelity fine residual"
+      },
+      "prospective": {
+        "action": "RETAIN_HISTORY_AND_CAP",
+        "bound": {
+          "base": 0.003291601409275674,
+          "expression": "base + numericalEpsilon",
+          "multiplier": 1,
+          "numericalEpsilon": {
+            "authority": "Prospective data descriptor, not live judge authority",
+            "function": "less_equal",
+            "operands": [
+              "growth_or_error",
+              "bound",
+              "native",
+              "reference",
+              "candidate"
+            ],
+            "source": {
+              "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+              "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+            },
+            "units": "same component units; include original subtraction operands"
+          }
+        },
+        "historicalDebtRetained": true,
+        "referenceDocumentPair": {
+          "active.dark": "d0219cd684bff75b2ba5c34d4f6cb2f6d49e32aab7cc27464220a05910f2638f",
+          "receded.dark": "f0b36a71772a00a647c10a280ae73b92d21be1f0c65599334c4e3cdf36cb7f86"
+        },
+        "referenceGeneration": "d0219cd684bf",
+        "referenceValue": 0.01186174664394845
+      },
+      "source": {
+        "selector": {
+          "collection": "cells",
+          "field": [
+            "historical",
+            0
+          ],
+          "key": [
+            "apple-macos-27.0-2x-dark-standard-glass0.25",
+            "webgpu",
+            "photo__rrect-lg__inactive",
+            "T1-full-silhouette"
+          ]
+        },
+        "source": {
+          "path": "packages/calibration/results/2026-10-08-w50-g0-declaration/references.json",
+          "sha256": "a666c1b00f4b1aff48bddeca9dacc1c1bc05dcf83bf908efddbe46c24c322d0c"
+        }
+      }
+    }
+  ],
+  "exposureStaticInventory": {
+    "comparisons": 4,
+    "occupied": 1
+  },
+  "gateInventory": {
+    "comparisons": 16,
+    "occupied": 14
+  },
+  "noGlobalBaselineReplacement": true,
+  "numericalEpsilon": {
+    "authority": "Prospective data descriptor, not live judge authority",
+    "function": "less_equal",
+    "operands": [
+      "growth_or_error",
+      "bound",
+      "native",
+      "reference",
+      "candidate"
+    ],
+    "source": {
+      "path": "packages/calibration/results/2026-10-11-w52-g0-declaration/precision/comparison.py",
+      "sha256": "318093559171b2c64315d59a076f43ba866cd6c644385d0cf1cadd0cc017a63d"
+    },
+    "units": "same component units; include original subtraction operands"
+  },
+  "schema": "w52-population-scaffold-1",
+  "scope": "Complete declared union. Exposure entries use published static references only; no new exposure score.",
+  "status": "UNSEALED_DATA_SCAFFOLD_ONLY"
+}
