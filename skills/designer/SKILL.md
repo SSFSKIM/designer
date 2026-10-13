@@ -1,7 +1,7 @@
 ---
 name: designer
 description: Always invoke this skill for any UI/UX or design work — designing, building, redesigning, reworking, restyling, or improving a user interface or visual artifact.
-version: 2.4.1
+version: 2.5.0
 ---
 
 # Designer
@@ -53,7 +53,7 @@ Work through these eight steps in order. Each one points at the reference file t
 3. **Derive one stance and one composition, and commit.** Run the derivation procedure in `references/stances.md` and the composition procedure in `references/composition.md`, consulting the build ledger (`node scripts/build-ledger.mjs nearest …`) before the values and the candidate are fixed, so that what recent builds chose is in view at the moment of choice. Half-committing to two directions, or quietly drifting between them section to section, produces a page that reads as generated rather than designed.
 4. **Author DESIGN.md.** Record the derived stance, the composition, their rationale, and the rules that follow from them as project design law, so later work stays consistent with the first decision instead of drifting section by section. Every section is written here, before tokens. See `references/guidelines-authoring.md`.
 5. **Build semantic tokens.** Translate the derived stance into a token set — color roles, type scale, surface and border treatment — rather than hard-coded values scattered through components. Naming a role once and reusing it everywhere is what lets a later revision change the whole system by editing one place instead of hunting through every component. See `references/color-engineering.md`, `references/typography.md`, `references/material.md`, and `references/component-character.md` for how a derived system expresses itself in components.
-6. **Build the composition.** Implement the candidate chosen at step 3 and recorded in `DESIGN.md` §4, with imagery sourced off the imagery ladder where the subject is a world and drawn as content where it is an artifact. See `references/composition.md`.
+6. **Build the composition.** Implement the candidate fixed at step 3 and recorded in `DESIGN.md` §4, with imagery sourced off the imagery ladder where the subject is a world and drawn as content where it is an artifact. See `references/composition.md`.
 7. **Build with realistic content.** Write and place real names, numbers, dates, and copy as the interface is built — never lorem ipsum or generic filler, since fake content hides real hierarchy, density, and spacing problems that only show up with content of realistic length and shape. See `references/voice-copy.md`.
 8. **Run a craft pass, then QA.** Add motion and material effects only where they earn their place — communicating state change, spatial continuity, or feedback rather than decorating for its own sake — then verify the whole result before calling it done. The QA includes a check of the built page against the specific rules its own `DESIGN.md` committed to, mechanically where they are mechanical: a page that declared a rule and then broke it is a leading reason committed work still reads as generated. When the page passes, record what it chose in the build ledger (`node scripts/build-ledger.mjs record …`) so the next derivation can see it. See `references/motion.md` and `references/effects-policy.md` for what to add, then `references/qa-protocol.md` for what to check.
 

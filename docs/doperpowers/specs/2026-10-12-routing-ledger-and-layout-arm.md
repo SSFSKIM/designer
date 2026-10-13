@@ -259,6 +259,20 @@ builders per arm as before.
   Rationale: the user's choice; one frame keeps `v2.1-one` comparable to `v2.1` and `v2.4` alike.
   Date/Author: 2026-10-13, the user.
 
+- Decision: The candidate comparison is cut to one candidate (2.5.0). `composition.md`'s procedure
+  writes one candidate from the prior the lines earn and checks it by fit; an unknown line is
+  resolved by a recorded assumption rather than by candidates that differ on it; composition QA
+  check 3 (candidates differ on the page) is removed and the paired-brief partition clause moves
+  into the nearest-neighbour check; the worked pass carries one candidate; `SKILL.md`,
+  `guidelines-authoring.md` §4 and the budget line, `qa-protocol.md` check 3 and the README say
+  "the candidate". The edit is the `v2.1.0-one` frozen copy's, applied over 2.4.1's ledger hooks.
+  Rationale: C3's pre-registered consequence, read in frame 2 — fit +0.15 [−0.15, +0.46] against
+  `v2.1`, inside the band, no canonical shape returning, the panel not below on any score and above
+  on aesthetics and defects. The user chose to cut now over a second seed set. Rejected: keeping
+  the comparison as an option "when the lines leave an unknown" (the ablation resolved unknowns by
+  assumption on every page and lost nothing; an optional step is a step that is skipped or padded).
+  Date/Author: 2026-10-13, the user.
+
 - Decision: Part C reuses the settling builds and adds arms, with fit as the headline and partition
   reported only.
   Rationale: the settling retrospective and the quality instrument's reliability table. A
@@ -475,13 +489,12 @@ marker at launch (the launch step was done by hand again); `cells.mjs` should se
 
 ## Deferred
 
-- **Cutting the candidate step to one candidate** in `composition.md` steps 4–5 and QA check 3,
-  the pre-registered consequence of C3's reading in frame 2. The `v2.1.0-one` frozen copy is the
-  worked edit. A user decision, because it removes a step of the doctrine on thirteen pairs; the
-  alternative is a second ablation seed set before cutting.
+- **Whether the one-candidate procedure holds under the ledger**: the ablation ran without a
+  ledger; the next ledger-arm run reads fit and D4 for the shipped 2.5.0 against this run's `v2.4`.
 - **Whether the gap flag (2.4.1) moves the next run's directional dispersion** from 0.237 toward
   the no-ledger arms' 0.8; the next ledger-arm run reads D2 by job against this one.
-- The gap flag itself shipped as 2.4.1 (Decision Log); the `v2.1-one` ablation ran (frame 2).
+- The gap flag shipped as 2.4.1, the `v2.1-one` ablation ran (frame 2), and the candidate cut
+  shipped as 2.5.0 (Decision Log).
 - A compact table form for the nine stance lines and the six composition lines in `DESIGN.md`,
   the stance spec's suggested fix for the record budget; this wave does not change the record's
   shape.
@@ -502,3 +515,6 @@ marker at launch (the launch step was done by hand again); `cells.mjs` should se
   Surprises the same-day control and the frame shift, Deferred the candidate-step cut. Evidence:
   `fit-run2/`, `rubric-run2/`, `results-run2.md`, `results-run2.json`, `measurements-run2.json`
   and `topology-all-run2.json` beside the frame-1 files, which keep their names.
+- 2026-10-13, later still: the candidate comparison cut to one candidate and shipped as 2.5.0
+  (Decision Log); `composition.md`, `SKILL.md`, `guidelines-authoring.md`, `qa-protocol.md` and
+  the README carry the edit; plugin tests 26 pass.

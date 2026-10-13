@@ -1,12 +1,12 @@
 # Composition
 
-Composition is the page's region topology: what regions exist, which one dominates, how they are grouped, ordered, aligned, attached, repeated, and disclosed. It is derived from the brief's task and content, not selected from a menu of named layouts — the named layouts survive here as priors, each carrying the line positions that earn it, its invariants, and its forbidden moves. Composition is distinct from the stance, which is the visual system (`references/stances.md`), and from chrome — logo, navigation, search, account, footer — which stays conventional because familiarity is worth more there than difference. Use this file at three points in the workflow. The six composition lines are read off the brief at parse time, beside the stance lines. The candidates are written and chosen at step 3, beside the stance derivation and before `DESIGN.md` is authored; step 6, "build the composition", implements the chosen candidate before real content is written into the layout (`references/voice-copy.md`). Imagery is integrated into the chosen composition after that: the second half of this file covers photographic and drawn imagery, treatment, and what to do when a reference image is supplied.
+Composition is the page's region topology: what regions exist, which one dominates, how they are grouped, ordered, aligned, attached, repeated, and disclosed. It is derived from the brief's task and content, not selected from a menu of named layouts — the named layouts survive here as priors, each carrying the line positions that earn it, its invariants, and its forbidden moves. Composition is distinct from the stance, which is the visual system (`references/stances.md`), and from chrome — logo, navigation, search, account, footer — which stays conventional because familiarity is worth more there than difference. Use this file at three points in the workflow. The six composition lines are read off the brief at parse time, beside the stance lines. The candidate is written at step 3, beside the stance derivation and before `DESIGN.md` is authored; step 6, "build the composition", implements that candidate before real content is written into the layout (`references/voice-copy.md`). Imagery is integrated into the chosen composition after that: the second half of this file covers photographic and drawn imagery, treatment, and what to do when a reference image is supplied.
 
 ## The six composition lines
 
 Two front ends, one grammar. A product surface is read as an **operational model** — the actions available, their prerequisites, the state that must stay visible, the evidence behind a decision, the context that has to be retained while acting. A narrative page is read as a **communicative model** — the audience's question, the claim being made, the evidence for it, the qualifications, the alternatives, the commitment being asked for. Both are then written in the same six lines and the same operators, and posture selects which rules fire. Two grammars would rebuild the category tell: "landing" would predict the headline band and the three-up the way "console" predicts sidebar, stat row, and cards.
 
-Each line is recorded in `DESIGN.md` §4 as a sentence with its reason. An unknown is recorded as unknown and resolved by writing candidates that differ on it; volume, urgency, and peers are never invented to fill a line.
+Each line is recorded in `DESIGN.md` §4 as a sentence with its reason. An unknown is recorded as unknown and resolved by a stated assumption, recorded as an assumption; volume, urgency, and peers are never invented to fill a line.
 
 | # | Line | Values | What in the brief decides it | What it drives | Checkable rules |
 |---|---|---|---|---|---|
@@ -53,18 +53,18 @@ A candidate composition is written in eight operators over the content inventory
 - **repeat** — A × n.
 - **disclose** — B on demand from A.
 
-Before any candidate, write the ledger: one row per constraint, in the shape *brief evidence → interpreted relationship → layout constraint → rendered assertion → forbidden move*. The rendered assertion is the sentence someone can check against the built page; the forbidden move is the default it displaces. The content inventory is held constant across candidates — a candidate that shortens copy, drops fields, or invents a metric in order to fit a shape is discarded, not admired.
+Before the candidate, write the ledger: one row per constraint, in the shape *brief evidence → interpreted relationship → layout constraint → rendered assertion → forbidden move*. The rendered assertion is the sentence someone can check against the built page; the forbidden move is the default it displaces. The content inventory is held constant — a candidate that shortens copy, drops fields, or invents a metric in order to fit a shape is discarded, not admired.
 
 ## The procedure
 
 1. **Read the six lines off the brief**, one reason each, through the front end that fits — operational for a product surface, communicative for a narrative page. Record unknowns as unknown.
 2. **Compile the consequences**: dominance, reading order, columns, where density lives, what repeats, what chrome stays conventional. Name the defaults being overridden — the three-up, the stat row, the sidebar, the near-equal split, the headline band with an empty right half — the way the stance layer names the framework's radii and grays. A default that is not named stays in place and shows through.
 3. **Write the ledger.**
-4. **Write two or three candidates**, a sentence and an ASCII wireframe each, starting from different priors or different dominance readings. They must differ in grouping, co-visibility, or progression; a 60 : 40 against a 50 : 50 is one candidate wearing two hats. Write one when only one fits, and say so.
-5. **Choose by fit to the six lines**, then by familiarity and effort, and only then by distinctness. Before choosing, run `node scripts/build-ledger.mjs nearest` with the activity, relation and prior of each candidate (path relative to this skill's directory): a recent build of a different product that compiled to the same form is the nearest-neighbour evidence composition QA check 5 reads, and the same form for a different unit — a lot in a matrix and a turbine on a field both "exception-first" — is the tell that the form was picked before the lines were read. Record the rejected candidates in one line each, beside the stance's rejected coordinate vector — or, when only one candidate fit, the one-line statement of why, which stands in for them.
-6. **Carry the chosen constraints into `DESIGN.md` §4** as checkable sentences, and build.
+4. **Write the candidate**, a sentence and an ASCII wireframe, from the prior the lines earn and the dominance they compile to.
+5. **Check it by fit to the six lines**, then by familiarity and effort. Before fixing it, run `node scripts/build-ledger.mjs nearest` with its activity, relation and prior (path relative to this skill's directory): a recent build of a different product that compiled to the same form is the nearest-neighbour evidence composition QA check 4 reads, and the same form for a different unit — a lot in a matrix and a turbine on a field both "exception-first" — is the tell that the form was picked before the lines were read. Record in one line why this topology fits, beside the stance's rejected coordinate vector.
+6. **Carry the constraints into `DESIGN.md` §4** as checkable sentences, and build.
 
-The output of this procedure is prose and ASCII wireframes, not a filled-in schema. The six lines are sentences with reasons, as the nine stance lines are; a structured form to complete narrows what gets produced, which is the opposite of the point.
+One candidate, not a comparison: the layout-arm run of 2026-10 built thirteen pages each way and the one-candidate pages fit the brief as well and shipped with fewer defects; the comparison step cost record budget without buying fit. The output of this procedure is prose and an ASCII wireframe, not a filled-in schema. The six lines are sentences with reasons, as the nine stance lines are; a structured form to complete narrows what gets produced, which is the opposite of the point.
 
 ### One worked pass
 
@@ -75,7 +75,7 @@ The output of this procedure is prose and ASCII wireframes, not a filled-in sche
 1. Posture: **workspace** — one controller has this open for a whole shift and works out of it; it is where the work happens, not a report about the work.
 2. Activity: **monitor** — the first read answers "what needs a decision before this shift ends", and the success condition is every overdue inspection and vehicle-off-road defect assigned to a bay or deferred with a reason.
 3. Unit and relation: the unit is the **vehicle**; the relation the first read acts on is a **matrix** — vehicle against defect state and inspection due date. The workshop's day is a second matrix, bays against hours, and it is subordinate.
-4. Co-visibility: **unknown**. The brief does not say whether a defect's history has to stay visible while the next one is read. The two candidates differ on exactly this.
+4. Co-visibility: **unknown**. The brief does not say whether a defect's history has to stay visible while the next one is read. Recorded as an assumption: one defect at a time, because the controller disposes of the queue item by item.
 5. Temporal: **live** — the brief says defect reports come in from drivers and parts arrive during the shift.
 6. Volume and homogeneity: **many homogeneous** — the brief's roughly 180 vehicles share one defect schema; the workshop's day is few heterogeneous inside its own region.
 
@@ -87,25 +87,7 @@ The output of this procedure is prose and ASCII wireframes, not a filled-in sche
 | "open defects by vehicle" | A matrix: vehicle against defect state | A real table, both axes labelled | Sticky header and sticky vehicle column; overflow scrolls horizontally inside the table's own container | One card per vehicle |
 | "the workshop's day" | Bays against hours, with a present moment | A scheduled region with "now" marked, subordinate to the exception region | The day grid marks now and keeps its position across live updates | A utilisation donut standing in for the day |
 
-**Candidate A — peer panes.** The exception queue leads, with a permanent detail pane attached to the selected defect.
-
-```text
-+- chrome: fleet · search · shift ---------------------------+
-+---------------------------------------+-------------------+
-| NEEDS A DECISION THIS SHIFT   14:20    | VEHICLE 4471      |
-|  6 overdue inspections · 4 VOR         |  defect history   |
-|  4471 · 3 days over · brake test    >  |  parts on order   |
-|  2210 · 1 day over  · tacho         >  |  next inspection  |
-|  1806 · VOR         · door seal     >  |  assign to bay    |
-+---------------------------------------+                   |
-| OPEN DEFECTS BY VEHICLE  180 rows      |                   |
-|  sticky header + vehicle column        |                   |
-+---------------------------------------+-------------------+
-| THE WORKSHOP'S DAY   bays x hours, now line at 14:20       |
-+------------------------------------------------------------+
-```
-
-**Candidate B — disclosure in place.** The same queue leads, and a row expands where it sits; the width the detail pane would have taken goes to the defect table and to parts.
+**The candidate — disclosure in place.** The queue leads, and a row expands where it sits; the width a detail pane would have taken goes to the defect table and to parts.
 
 ```text
 +- chrome: fleet · search · shift ---------------------------+
@@ -122,7 +104,7 @@ The output of this procedure is prose and ASCII wireframes, not a filled-in sche
 +-----------------------------------------+------------------+
 ```
 
-**Chosen: B**, because nothing in the brief asks for two defects to be readable at once. The controller disposes of the queue one item at a time, so a permanent detail pane spends a third of the width on a region that is empty until something is selected, and it shrinks the defect table that the second read actually works in. Peer panes is the right prior when the task is comparison or reference held while editing; this task is disposition. A recorded in the rejected line: "peer panes, rejected — no line asked for co-visibility, and the empty pane costs the table its width."
+**Fit.** Nothing in the brief asks for two defects to be readable at once: the controller disposes of the queue one item at a time, so a permanent detail pane would spend a third of the width on a region that is empty until something is selected and shrink the defect table the second read works in. Peer panes is the prior for comparison or reference held while editing; this task is disposition. Recorded in one line: "disclosure in place — no line asked for co-visibility, and the width stays with the table."
 
 ## Priors
 
@@ -195,14 +177,13 @@ When the dominant region is an artifact and no asset exists, the artifact is dra
 
 ## Composition QA
 
-Six checks, run against the built page and mechanical wherever they can be.
+Five checks, run against the built page and mechanical wherever they can be.
 
 1. **The canonical shape is absent unless earned, part by part.** For this surface's category — workspace: stat row, main-plus-rail, sidebar; narrative: headline band with an empty right half, three-up, pricing trio, FAQ — each part present is named in `DESIGN.md` §4 with the line that earned it.
 2. **Reading order agrees.** The region declared as the first read is first in DOM order, top-left in geometry, and dominates the first viewport: at least 40% of it under workspace posture, one band under narrative.
-3. **Candidates differ on the page.** When more than one candidate was written — a recorded one-candidate case is exempt — once the candidates are rendered as wireframe HTML, or two builds of a paired brief are put side by side, they differ by a first-viewport partition of at least 0.20 rather than in column fractions. While they are still ASCII, their partitions are compared by eye, for a difference in grouping, co-visibility, or progression.
-4. **No fingerprint.** No grid-track ratio, snippet, or section sequence is byte-identical to an example in this file without a recorded re-derivation, and the 1.1–1.35 : 1 band is absent (geometry adopted from a supplied reference or an existing design system is excepted, recorded as adopted).
-5. **The nearest neighbour is a relative.** The closest prior build with a *different* relation model or activity is not the one this page most resembles; a page with the *same* task shape may look alike, and that is expected rather than a fault. The build ledger (`scripts/build-ledger.mjs nearest`) is where the prior builds are read from when no sibling is in the workspace.
-6. **The declared difference is asserted, not measured.** For paired briefs, the required difference is written down before building and checked after — a comparison task's units aligned on one axis, a monitor task's exception region leading. A distance never decides on its own.
+3. **No fingerprint.** No grid-track ratio, snippet, or section sequence is byte-identical to an example in this file without a recorded re-derivation, and the 1.1–1.35 : 1 band is absent (geometry adopted from a supplied reference or an existing design system is excepted, recorded as adopted).
+4. **The nearest neighbour is a relative.** The closest prior build with a *different* relation model or activity is not the one this page most resembles; a page with the *same* task shape may look alike, and that is expected rather than a fault. The build ledger (`scripts/build-ledger.mjs nearest`) is where the prior builds are read from when no sibling is in the workspace.
+5. **The declared difference is asserted, not measured.** For paired briefs, the required difference is written down before building and checked after — a comparison task's units aligned on one axis, a monitor task's exception region leading. A distance never decides on its own.
 
 Each of these is blind somewhere: a tree comparison cannot see ratios, a screenshot cannot see roles below the fold, and automatic region segmentation is only about as reliable as two people agreeing on where the regions are. A failure on one check is a reason to look at the page, not a verdict on it. Run these beside the rest of the pre-ship pass in `references/qa-protocol.md`.
 
