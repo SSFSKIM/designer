@@ -250,7 +250,30 @@ builders per arm as before.
 
 ## Surprises & Discoveries
 
-(recorded as the work runs)
+- Observation: No Playwright module on the machine could launch Chromium: the browser cache under
+  `~/Library/Caches/ms-playwright` holds no `chromium*` directory any more (the settling run's
+  captures on 2026-09-09 used one), and a fresh download of the headless shell timed out through the
+  sandbox twice at both CDNs. The run's captures use the system Google Chrome
+  (`PLAYWRIGHT_CHANNEL=chrome`, Chrome 155), recorded per measurement; the baseline's token reads
+  stay as recorded, and the combined topology re-renders old and new pages in the same browser so
+  the layout distances are on one footing.
+  Evidence: the measurer's candidate test-launches; the two install attempts; `measurements.json`'s
+  `browser` field.
+
+- Observation: The measurer captured two builds while their builders were still writing, because
+  the `.incomplete` marker the settling run adopted is set by hand and this run's first wave was
+  launched without it. The two are re-measured on the builder's report (the measurer re-measures
+  on a changed mtime); the marker is now set at launch for every running cell.
+  Evidence: the first measurement pass listed 7 builds with 5 reports in.
+
+- Observation: Five of five first-wave reports say the builder ran `nearest` several times and
+  changed a value on a flag — the library build dropped ballpoint blue for teal after seven blue
+  neighbours, the compare build dropped a shared-scale signature flagged as a recent fleet motif,
+  the pharmacy build rejected a layout the ledger matched — and recorded the rest ("the library
+  signup page used the same layout pattern; expected, same job"). Whether the moved values are
+  better is the fit and rubric reading's question; that the report reached the moment of choice is
+  the mechanism working as designed.
+  Evidence: the builders' reports; `ledger-report.txt` in each build directory.
 
 ## Deferred
 

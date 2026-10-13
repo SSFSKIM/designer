@@ -116,7 +116,7 @@ def valid(i):
 
 
 # ---------- the record ----------
-AXES = ["density", "criticality", "energy", "type", "material", "colou?r commitment", "accent job", "ground lightness", "ground temperature"]
+AXES = ["density", "criticality", "energy", "type", "material( model)?", "colou?r commitment", "accent job", "ground lightness", "ground temperature"]
 LINES = ["posture", "dominant activity|activity", "unit and relation|relation", "co-visibility|covisibility", "temporal", "volume"]
 
 
@@ -130,11 +130,11 @@ def record_read(i):
         "axes": sum(1 for a in AXES if re.search(r"\b(" + a + r")\b\s*[:—\-*]", low)),
         "clines": sum(1 for l in LINES if re.search(r"\b(" + l + r")\b\s*[:—\-*]", low)),
         "rejectedVector": bool(re.search(r"rejected (coordinate )?vector", low)),
-        "candidates": bool(re.search(r"rejected candidate|only one candidate|one candidate fit|candidate[s]? (rejected|not chosen)", low)),
+        "candidates": bool(re.search(r"\bcandidates?\b", low) and re.search(r"\bchosen\b|\brejected\b|only one candidate", low)),
         "sampler": bool(re.search(r"sampler|ingredient|seed \d{4}", low)),
         "signature": bool(re.search(r"signature element", low)),
         "accentJob": (re.search(r"accent job[^\n]{0,60}?\b(none|status-only|directional|atmospheric)\b", low) or [None, None])[1],
-        "ledgerNamed": bool(re.search(r"build ledger|ledger (neighbour|neighbor|report|flag)", low)),
+        "ledgerNamed": bool(re.search(r"build ledger|ledger (raised|show|flag|report|run|found|listed|had|put|name|neighbour|neighbor)|ledger[:,]? the nearest|in the ledger|nearest (same-form |prior )?build", low)),
     }
 
 
