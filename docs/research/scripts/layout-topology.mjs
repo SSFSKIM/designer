@@ -383,7 +383,8 @@ function topologyString(m) {
   return parts.join(" · ");
 }
 
-const browser = await chromium.launch();
+// PLAYWRIGHT_CHANNEL=chrome drives the system Chrome when no Playwright browser is installed.
+const browser = await chromium.launch(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {});
 const context = await browser.newContext({ viewport: { width: VW, height: VH }, deviceScaleFactor: 1, reducedMotion: "reduce" });
 await context.route("**/*", (route) => {
   const url = route.request().url();

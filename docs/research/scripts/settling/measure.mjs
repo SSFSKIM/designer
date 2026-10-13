@@ -35,7 +35,12 @@ async function playwright() {
   const require = createRequire(path.join(repo, "packages/platform-web/package.json"));
   for (const c of cands) {
     let m; try { m = require(c); } catch { continue; }
-    try { const b = await m.chromium.launch(); await b.close(); return { chromium: m.chromium, module: c }; } catch {}
+    // PLAYWRIGHT_CHANNEL=chrome drives the system Chrome when no Playwright browser is installed
+    // (the browser cache was cleared between the settling run and the layout-arm run, and the
+    // download timed out through this machine's sandbox); the captures record which was used.
+    const channel = process.env.PLAYWRIGHT_CHANNEL;
+    const launch = (o = {}) => m.chromium.launch(channel ? { ...o, channel } : o);
+    try { const b = await launch(); await b.close(); return { chromium: { launch }, module: c, channel: channel || "headless-shell" }; } catch {}
   }
   throw new Error("no Playwright module with an installed Chromium");
 }
@@ -186,13 +191,13 @@ async function measureOne(chromium, id) {
   const png = fs.readFileSync(path.join(dir, "shot-full.png")); const captureWidth = png.readUInt32BE(16);
   const bytes = fs.statSync(file).size;
   const hasDesign = fs.existsSync(path.join(dir, "DESIGN.md"));
-  return { id, ...data, errors, consoleErrors, failedRequests: failedRequests.length, bytes, hasDesign, measuredAt: new Date().toISOString(),
+  return { id, ...data, errors, consoleErrors, failedRequests: failedRequests.length, bytes, hasDesign, measuredAt: new Date().toISOString(), browser: process.env.PLAYWRIGHT_CHANNEL || "headless-shell",
     scrolledOnLoad, selfScrolled, captureWidth, overflowCapture: captureWidth > 1440,
     gateMechanical: errors.length === 0 && !data.overflow && !data.placeholder && (data.contrast.rate == null || data.contrast.rate >= 0.9) };
 }
 
-const { chromium, module } = await playwright();
-console.log("playwright: " + module);
+const { chromium, module, channel } = await playwright();
+console.log("playwright: " + module + " (" + channel + ")");
 const prev = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, "utf8")) : { builds: {} };
 // A build whose builder was interrupted carries a .incomplete marker and is not measured until it is removed.
 const ids = fs.readdirSync(buildsDir).filter((d) => fs.existsSync(path.join(buildsDir, d, "index.html")) && !fs.existsSync(path.join(buildsDir, d, ".incomplete"))).filter((d) => !only || only.includes(d)).sort();
