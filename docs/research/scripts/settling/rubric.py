@@ -117,8 +117,24 @@ def items_for(brief, keys=None):
     return [it for it in out if keys is None or it[0] in keys]
 
 
+BASELINE_WS = os.environ.get("SETTLING_BASELINE_WS")   # the layout-arm run rates the settling pages in the same frame
+
+
 def cells_for(brief):
-    return sorted([c for c in json.load(open(rate.MANIFEST))["cells"] if c["brief"] == brief], key=lambda c: c["id"])
+    """The brief's cells with a capture to rate, this workspace's and (with SETTLING_BASELINE_WS) the
+    baseline's; an unbuilt cell is not a page."""
+    cells = [dict(c, ws=rate.WS) for c in json.load(open(rate.MANIFEST))["cells"] if c["brief"] == brief]
+    if BASELINE_WS:
+        cells += [dict(c, ws=BASELINE_WS) for c in json.load(open(os.path.join(BASELINE_WS, "manifest.json")))["cells"] if c["brief"] == brief]
+    cells = [c for c in cells if os.path.exists(os.path.join(c["ws"], "builds", c["id"], "shot-fv.png"))]
+    return sorted(cells, key=lambda c: c["id"])
+
+
+def build_dir(i):
+    for c in json.load(open(rate.MANIFEST))["cells"]:
+        if c["id"] == i:
+            return os.path.join(rate.WS, "builds", i)
+    return os.path.join(BASELINE_WS or rate.WS, "builds", i)
 
 
 def seed_for(rater, brief, retest=False):
@@ -132,7 +148,7 @@ def order_for(brief, seed):
 
 
 def captures(i):
-    d = os.path.join(rate.WS, "builds", i)
+    d = build_dir(i)
     return [os.path.join(d, f) for f in CAPTURES if os.path.exists(os.path.join(d, f))]
 
 
@@ -151,7 +167,7 @@ def prompt(brief, rater, seed=None, retest=False, only=None):
              "", f'Brief (verbatim): "{rate.brief_text(ev)}"', "",
              "Pages, in the order to read them, each with its first viewport (1440 × 900) and its full page. Read both captures of every page once before rating any page; the eight pages are the frame for every rating.", ""]
         for i in order:
-            d = os.path.join(rate.WS, "builds", i)
+            d = build_dir(i)
             L.append(f"- {i}: " + ", ".join(os.path.join(d, f) for f in ("shot-fv.png", "shot-full.png") if os.path.exists(os.path.join(d, f))))
         L += ["", f"Then rate every page on the item{'s' if len(its) > 1 else ''} below, in the page order above. Use the whole scale.", ""]
         for k, block, text, scale in its:
@@ -165,7 +181,7 @@ def prompt(brief, rater, seed=None, retest=False, only=None):
          "",
          f'Brief (verbatim): "{rate.brief_text(ev)}"',
          "",
-         "Pages, in the order to read them. Each has up to four captures: the first viewport (1440 × 900 at scroll 0), the second and third viewports at native resolution (tile-2, tile-3; a short page has fewer), and the full page. Read every capture of every page once before rating any page; the eight pages are the frame for every rating.",
+         "Pages, in the order to read them. Each has up to four captures: the first viewport (1440 × 900 at scroll 0), the second and third viewports at native resolution (tile-2, tile-3; a short page has fewer), and the full page. Read every capture of every page once before rating any page; these pages together are the frame for every rating.",
          ""]
     for i in order:
         L.append(f"- {i}: " + ", ".join(captures(i)))
