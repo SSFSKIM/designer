@@ -240,6 +240,25 @@ builders per arm as before.
   budget problem is addressed on its own); a per-project ledger (would never see the sibling).
   Date/Author: 2026-10-12, Claude.
 
+- Decision: The gap flag (2.4.1). The `nearest` report prints the recent directional accents by
+  30° band and flags a candidate whose band and both neighbouring bands are empty while the recent
+  accents occupy at most half the wheel and number at least three, repeating the calibration rule;
+  the preamble says a value does not move into the unused band. `stances.md` step 4 says the same
+  with the run's number.
+  Rationale: the user's choice on 2026-10-13 from the run's C2 reading — four of six directional
+  accents in the one empty band. Rejected: dropping the accent flag (it did its half of the job:
+  the red and blue clusters were left), and leaving the report as is (the rule lived in a file the
+  agent was not reading at the moment of choice). Whether the flag moves the next run's dispersion
+  is the next measurement.
+  Date/Author: 2026-10-13, the user.
+
+- Decision: The `v2.1-one` ablation runs, 13 builds, and the fit and rubric frames are re-rated
+  with all twelve pages of a brief (eight baseline, two `v2.4`, two `v2.1-one`) in one frame; the
+  first frame's readings are kept as `fit-run1/` and `rubric-run1/` and stay the record for C1,
+  C2 and C4 above.
+  Rationale: the user's choice; one frame keeps `v2.1-one` comparable to `v2.1` and `v2.4` alike.
+  Date/Author: 2026-10-13, the user.
+
 - Decision: Part C reuses the settling builds and adds arms, with fit as the headline and partition
   reported only.
   Rationale: the settling retrospective and the quality instrument's reliability table. A

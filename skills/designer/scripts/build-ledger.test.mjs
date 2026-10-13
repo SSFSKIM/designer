@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { hueDistance, flagsFor, nearest, parseArgs, entryFrom, load, append, report, contentWords } from "./build-ledger.mjs";
+import { hueDistance, flagsFor, nearest, parseArgs, entryFrom, load, append, report, contentWords, coverage, gapFlag } from "./build-ledger.mjs";
 
 const script = fileURLToPath(new URL("./build-ledger.mjs", import.meta.url));
 const pharmacy = { at: "2026-09-05T10:00:00Z", project: "pharmacy", brief: "hospital pharmacy inventory console", category: "console",
@@ -67,6 +67,25 @@ test("form flags the same activity, relation and prior for a different brief", (
   assert.equal(flagsFor({ ...cand, brief: pharmacy.brief }, pharmacy).length, 0, "the same brief is expected to share its form");
   assert.equal(flagsFor({ ...cand, relation: "sequence" }, pharmacy).length, 0);
   assert.equal(flagsFor({ activity: "monitor", relation: "matrix" }, pharmacy).length, 0, "no prior given: never flags");
+});
+
+test("the gap flag names the empty band only when the recent accents cluster", () => {
+  const reds = [25, 30, 40, 55].map((h, i) => ({ project: "r" + i, accentHue: h, accentJob: "directional" }));
+  const blues = [230, 250, 265].map((h, i) => ({ project: "b" + i, accentHue: h, accentJob: "directional" }));
+  const set = [...reds, ...blues, { project: "n", accentHue: "none", accentJob: "none" }];
+  const bins = coverage(set);
+  assert.deepEqual([bins[0], bins[1], bins[7], bins[8], bins.reduce((a, b) => a + b, 0)], [1, 3, 1, 2, 7], "25° is in the first band; none is not counted");
+  assert.match(gapFlag({ accentHue: 95, accentJob: "directional" }, set) || "", /gap: no recent directional accent sits within 30° of 95°; the 7 recent ones cluster at 0–30° \(1\), 30–60° \(3\), 210–240° \(1\), 240–270° \(2\)/);
+  assert.equal(gapFlag({ accentHue: 45, accentJob: "directional" }, set), null, "inside an occupied band");
+  assert.equal(gapFlag({ accentHue: 75, accentJob: "directional" }, set), null, "adjacent to an occupied band");
+  assert.equal(gapFlag({ accentHue: 95, accentJob: "status-only" }, set), null, "not a directional accent");
+  assert.equal(gapFlag({ accentHue: 95, accentJob: "directional" }, reds.slice(0, 2)), null, "too few to call a cluster");
+  const spread = [5, 65, 125, 185, 245, 305, 35].map((h, i) => ({ project: "s" + i, accentHue: h, accentJob: "directional" }));
+  assert.equal(gapFlag({ accentHue: 95, accentJob: "directional" }, spread), null, "seven bands occupied is not a cluster");
+  const out = report(set, { category: "landing", accentHue: 95, accentJob: "directional" }, "/tmp/x", 3);
+  assert.match(out, /recent directional accents by band: 0–30° ×1 · 30–60° ×3 · 210–240° ×1 · 240–270° ×2/);
+  assert.match(out, /! gap: /);
+  assert.match(out, /The gap flag stands\./);
 });
 
 test("a candidate with nothing filled in flags nothing", () => {

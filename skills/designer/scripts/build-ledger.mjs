@@ -127,6 +127,30 @@ export function flagsFor(cand, entry, sameCategoryRank = -1) {
   return flags;
 }
 
+// The recent directional accents by 30° band. A report that only lists neighbours steers the
+// candidate into whatever band the neighbours leave empty — the first run of this ledger put four
+// of six directional accents in the one band its seeded entries did not occupy — so the report
+// shows the coverage and names the gap, with the calibration rule that an empty band is a
+// constraint, not a source.
+export const BANDS = 12;
+export function coverage(entries) {
+  const bins = new Array(BANDS).fill(0);
+  for (const e of entries) if (directional(e.accentJob, e.accentHue)) bins[Math.floor((((e.accentHue % 360) + 360) % 360) / (360 / BANDS))]++;
+  return bins;
+}
+
+export function gapFlag(cand, entries) {
+  if (!directional(cand.accentJob, cand.accentHue)) return null;
+  const bins = coverage(entries);
+  const total = bins.reduce((a, b) => a + b, 0);
+  const occupied = bins.filter(Boolean).length;
+  if (total < 3 || occupied > BANDS / 2) return null;         // too few to cluster, or spread already
+  const mine = Math.floor((((cand.accentHue % 360) + 360) % 360) / (360 / BANDS));
+  if (bins[mine] || bins[(mine + 1) % BANDS] || bins[(mine + BANDS - 1) % BANDS]) return null;
+  const where = bins.map((c, i) => (c ? `${i * 30}–${i * 30 + 30}° (${c})` : null)).filter(Boolean).join(", ");
+  return `gap: no recent directional accent sits within 30° of ${Math.round(cand.accentHue)}°; the ${total} recent ones cluster at ${where}. The empty band is a constraint, not a source — the record names what in this product's own world put the hue here, or the accent job is none.`;
+}
+
 export function nearest(entries, cand, n = DEFAULT_N) {
   const recent = [...entries].reverse();           // most recent first
   let rank = 0;
@@ -157,8 +181,13 @@ export function report(entries, cand, path, n = DEFAULT_N) {
     lines.push("The ledger is empty: nothing to compare against. Record this build at QA (`build-ledger.mjs record …`) so the next derivation on this machine can see it.");
     return lines.join("\n");
   }
-  lines.push("A flag is evidence for the clone check, never a verdict. A value inside a flagged band is allowed when the design record names what in this product's own world put it there; a value that is there because the criteria led to the same best answer as last time moves. Nearest first; a missing field on either side never flags.");
+  lines.push("A flag is evidence for the clone check, never a verdict. A value inside a flagged band is allowed when the design record names what in this product's own world put it there; a value that is there because the criteria led to the same best answer as last time moves — and it does not move into the one band nobody has used, which is the same convergence by elimination. Nearest first; a missing field on either side never flags.");
   lines.push("");
+  const bins = coverage(entries);
+  if (bins.some(Boolean)) lines.push("recent directional accents by band: " + bins.map((c, i) => (c ? `${i * 30}–${i * 30 + 30}° ×${c}` : null)).filter(Boolean).join(" · "));
+  const gap = gapFlag(cand, entries);
+  if (gap) lines.push(`! ${gap}`);
+  if (bins.some(Boolean) || gap) lines.push("");
   const rows = nearest(entries, cand, n);
   for (const { entry, flags } of rows) {
     const when = (entry.at || "").slice(0, 10);
@@ -168,7 +197,7 @@ export function report(entries, cand, path, n = DEFAULT_N) {
   }
   const flagged = rows.filter((r) => r.flags.length).length;
   lines.push("");
-  lines.push(flagged ? `${flagged} of ${rows.length} shown raise a flag.` : `No flags among the ${rows.length} shown.`);
+  lines.push((flagged ? `${flagged} of ${rows.length} shown raise a flag.` : `No flags among the ${rows.length} shown.`) + (gap ? " The gap flag stands." : ""));
   return lines.join("\n");
 }
 
