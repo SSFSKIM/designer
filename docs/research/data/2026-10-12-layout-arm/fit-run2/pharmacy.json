@@ -1,0 +1,122 @@
+{
+  "002ea9": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Needs attention this shift' exception queue is the first content block, top-left of the content area after the page title; left rail is section nav",
+      "q2": "only the top bar and a title with a short lede sit above it; the lede is not full-width",
+      "q3": "no stat row precedes the queue; the numeric 'Shift ledger' counts sit in a side column beside it",
+      "q4": "left rail is the console's own section nav plus on-duty staff, next controlled count and last sync; right column is the shift ledger, all task material",
+      "q5": "exceptions as a ranked queue, then stock levels, expiring lots, controlled counts and purchase orders as tables"
+    }
+  },
+  "10b239": {
+    "answers": {"q1": 0, "q2": 0, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "a full-width '3 critical exceptions unclaimed' alert banner is read before the 'Needs action' queue",
+      "q2": "that alert banner spans the full content width above the queue and is not chrome",
+      "q3": "no numeric tile row before the queue; the banner is a text alert",
+      "q4": "left rail is section nav plus floor status (technicians, vault, fridge temp, deliveries); right column is the Schedule II vault count, all task material",
+      "q5": "exceptions as a severity-sorted queue, then expiry timeline, stock table and purchase-order table"
+    }
+  },
+  "122077": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Needs action this shift' queue is the first content block, top-left under the title line",
+      "q2": "only the top bar and a title line with site tabs and data-as-of sit above it",
+      "q3": "the five-tile KPI strip comes after the queue (between the queue and the stock table), not before the work region",
+      "q4": "left rail is app nav for the inventory's own views; right column is the controlled-substance count list, task material",
+      "q5": "exceptions as a queue, stock levels as a filterable table, controlled counts as a list with book vs count"
+    }
+  },
+  "37e667": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Stock by drug' table, opened on 'Needs action', is the first content and fills the top-left",
+      "q2": "only the top bar with search sits above it",
+      "q3": "no stat row anywhere above the table",
+      "q4": "right column carries controlled-substance counts, open cabinet counts and the wholesaler order draft, all task material",
+      "q5": "a flag-sorted table of drugs with on hand/par, cover, next supply and earliest lot"
+    }
+  },
+  "3ba9f0": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Needs a decision before shift change' queue is the first content block, top-left under the title line",
+      "q2": "only the top bar and a title line (facility, biennial inventory date) sit above it",
+      "q3": "the five-tile KPI strip comes after the decision queue (before the stock ledger), not before the work region",
+      "q4": "left rail lists the console's ledgers and locations with counts; right column is the controlled-substance shift count and pending orders",
+      "q5": "decisions as a queue, stock ledger and expiring lots as tables, controlled counts as a per-drug list"
+    }
+  },
+  "3c3c38": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Open before 07:00 handoff' queue is the first content, top-left, with its first item expanded inline",
+      "q2": "only the top bar and the queue's own title line sit above it",
+      "q3": "no stat row before the queue",
+      "q4": "no side column; the page is a single full-width column",
+      "q5": "exceptions as a due-time-ordered queue, then a tabbed stock-levels table"
+    }
+  },
+  "42b5a3": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 0},
+    "evidence": {
+      "q1": "the open count-discrepancy card (an exception to act on) is the first content block, top-left under the title line",
+      "q2": "only the top bar and a title line sit above it",
+      "q3": "the big-number counts (9, 4, 1, 6) are a vertical side column beside the card, not a row before it",
+      "q4": "left rail is section nav plus a sync note; right column summarises open items, all task material",
+      "q5": "the dominant first-viewport region is a single-record hero card for one discrepancy while the other open exceptions are reduced to counts in the side column, rather than a queue of exceptions; the stock table is pushed below"
+    }
+  },
+  "5971c1": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Stock by drug' table with its 'Needs action before 19:00 handover' group is the first content, top-left",
+      "q2": "only the top bar sits above it; the table's own title and filter chips are inside the work region",
+      "q3": "no stat row; counts appear only in filter chips",
+      "q4": "no side column",
+      "q5": "one table keyed by drug with stock, nearest-expiry lot, controlled count and on-order column groups, action rows grouped first"
+    }
+  },
+  "5e2273": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Before the cutoff and the count' queue is the first content, top-left, grouped by deadline",
+      "q2": "only the top bar and the queue's title line sit above it",
+      "q3": "no stat row before the queue",
+      "q4": "no side column; the 'On order' panel only appears beside the lots table far down the page",
+      "q5": "exceptions as a deadline-grouped queue, then vault ledger, stock and short-dated lots as tables"
+    }
+  },
+  "758523": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "a row of six KPI tiles is read first; the 'Stock by drug' table starts below it",
+      "q2": "the KPI tile row spans the full width above the work region",
+      "q3": "six numeric summary tiles (below par, stockouts, lots expiring, variances, orders held, recounts) sit before the table",
+      "q4": "right column holds expiring lots, pending orders and a shift audit trail, all task material",
+      "q5": "stock by drug as a table, controlled substances as a count table"
+    }
+  },
+  "de09b1": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'7 need action before the 15:30 handover' table-queue is the first content, top-left",
+      "q2": "only the top bar sits above it",
+      "q3": "no stat row before the queue",
+      "q4": "no side column",
+      "q5": "exceptions as a due-ordered action queue, then a tabbed stock-by-drug table"
+    }
+  },
+  "f344b7": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "'Outstanding for handover' queue is the first content, top-left",
+      "q2": "only the top bar, a section-link bar and the queue's title line sit above it",
+      "q3": "no stat row; a single count '5' is the queue's own heading figure",
+      "q4": "right column is 'Arriving this shift' pending orders, task material",
+      "q5": "exceptions as a queue, stock as a table, controlled substances as a numbered ledger with a filing form"
+    }
+  }
+}

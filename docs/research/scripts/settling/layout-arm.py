@@ -117,7 +117,7 @@ def valid(i):
 
 # ---------- the record ----------
 AXES = ["density", "criticality", "energy", "type", "material( model)?", "colou?r commitment", "accent job", "ground lightness", "ground temperature"]
-LINES = ["posture", "dominant activity|activity", "unit and relation|relation", "co-visibility|covisibility", "temporal", "volume"]
+LINES = ["posture", "dominant activity|activity", "unit and relation|relation", "co-visibility|covisibility", "temporal", "volume( and homogeneity)?"]
 
 
 def record_read(i):

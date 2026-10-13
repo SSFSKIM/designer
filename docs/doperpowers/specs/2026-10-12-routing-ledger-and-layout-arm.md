@@ -331,13 +331,44 @@ builders per arm as before.
   as task content). One `v2.4` console has a sidebar: none.
   Evidence: D4 and the per-build topology lines.
 
+- Observation: **The same-day control cleared the ledger of the session.** The `v2.1-one` arm,
+  built in the same session by the same builder with no ledger, put its five directional accents
+  at 52°, 72°, 82°, 235° and 266° (by-job dispersion 0.799, `v2.1`'s 0.805), used eight display
+  families with Atkinson Hyperlegible Next back among them, and let the rail seeds share "train
+  graph" and the rebate seeds share "rebate". Each of the three ledger effects recorded in frame 1
+  is absent where the ledger is absent, so each is the ledger's and not the day's model.
+  Evidence: D2, D3 and the stamp-card table in `results-run2.md`.
+
+- Observation: **The one-candidate arm did not lose anything the candidate comparison was meant
+  to buy.** Fit is +0.15 over `v2.1`, inside the band; the panel puts it above `v2.1` on aesthetics
+  (+1.60) and defects (−0.63) with intervals excluding zero, and its records are the longest of
+  any arm (249 lines). The comparison step was not where the record budget went and not where the
+  fit came from; the single candidate chosen by fit carries both.
+  Evidence: F and S in `results-run2.md`; R.
+
+- Observation: A second rater in a second frame moved the `v2.4 − v2.1` fit pair from +0.38 to
+  +0.15 and the `v2.1` arm mean from 4.38 to 4.54 on the same 26 pages. The structural rater's
+  per-page calls differ at the margin (the pharmacy alert banner, the fleet summary line, whether a
+  nav rail is chrome), and thirteen pairs amplify a one-point change. The frame-1 reading stands
+  as recorded; the sign held, the size did not.
+  Evidence: F in `results.md` and `results-run2.md`.
+
+- Observation: Two record regexes undercounted the ablation's records: the composition line
+  "Volume and homogeneity:" did not match `volume\b\s*:` (fixed, `layout-arm.py`), and "names the
+  ledger" fired on two `v2.1-one` records that use "ledger" as a motif (the pharmacy count ruled
+  like a ledger, the fleet runout ledger) in an arm with no ledger. The L table reads the `v2.4`
+  arm only; the R column is a presence read and is noted here rather than tightened.
+  Evidence: R in `results-run2.md`; the two records.
+
 ## Outcomes & Retrospective
 
 Thirteen `v2.4` builds exist, pass the mechanical gate (13 of 13; `v2.1` passed 11 of 13 on the
 capture-width read), were rated for fit by one blinded rater per brief in the same frame as the
 baseline's pages, and were rated by the four-model rubric panel (28 runs, 65 pages). The
-`v2.1-one` arm was not built: the arm choice was asked and not yet answered, and its frozen copy
-stands ready under `figma-design-workspace/layout-arm/skills/v2.1.0-one/`.
+`v2.1-one` arm was built later the same day and rated in a second frame; the first frame's
+readings stand below as recorded, and the second frame follows them.
+
+### Frame 1 — `v2.4` against the baseline (fit-run1, rubric-run1)
 
 **C1 (the compression holds) — met.** Fit `v2.4` 4.77 [4.38–5.00] against `v2.1` 4.38
 [4.15–4.62]; paired by brief and seed +0.38 [−0.08, +0.77], a rise where the bar allowed a 0.3
@@ -353,7 +384,7 @@ in the one band the seeded ledgers left empty. The report said where the neighbo
 agents went where they were not; the calibration rule that the empty band is not a source was in
 `taste-calibration.md`, not in the report the agent was reading at the moment of choice.
 
-**C3 (the candidate step) — not run.**
+**C3 (the candidate step) — not run in this frame; read in frame 2 below.**
 
 **C4 (quality, exploratory) — no detectable loss, two detectable gains on secondary items.**
 Panel d1: `v2.4` 5.12 [4.54–5.63], the highest arm mean; paired +0.35 [−0.19, +0.87] against
@@ -386,14 +417,71 @@ diversity clause is for. Cost: 13 builders at 0.35–0.46 M tokens (about 5.2 M)
 about 0.08 M, 28 rubric raters at about 0.09 M (about 2.5 M), roughly 8.5 M subagent tokens over
 about three hours of wall clock.
 
+### Frame 2 — `v2.4` and `v2.1-one` against the baseline (fit-run2, rubric-run2)
+
+Thirteen `v2.1-one` builds exist and pass the gate (13 of 13), built by the same `general-purpose`
+Opus builder as the `v2.4` arm on the same day; the `v2.1` arm they are paired with was built five
+weeks earlier, so the `v2.1-one − v2.1` pair carries any model drift and the `v2.4` against
+`v2.1-one` comparison does not. All 78 pages were re-rated in one frame: seven fit raters, each
+seeing a brief's eight baseline pages, two `v2.4` and two `v2.1-one`; 28 rubric raters. Numbers
+in this section are the second frame's; the first frame's stand above.
+
+**C3 (the candidate step) — the pre-registered "does not earn its cost" reading.** Fit
+`v2.1-one` 4.69 [4.46–4.92] against `v2.1` 4.54 [4.31–4.77]; paired by brief and seed +0.15
+[−0.15, +0.46], inside the ±0.3 band. D4 shows no return of a canonical shape: `v2.1-one`
+consoles carry no stat row and no sidebar (`v2.1`: none either), one three-up and one card row
+(`v2.1`: none), dominant region at or over 0.4 on 4 of 6 (`v2.1`: 4 of 6); narrative pages carry
+two three-ups (`v2.1`: three), no stat row (`v2.1`: one). The step's own contribution to fit is
+inside the measurement's noise at thirteen pairs. On the exploratory panel the one-candidate arm is
+not below `v2.1` on any score and above it on two: aesthetics +1.60 [+0.37, +2.94] and defects
+−0.63 [−1.00, −0.25], both intervals excluding zero; d1 +0.44 [−0.02, +0.92]; e1 −0.42
+[−0.88, +0.00]; brief fit −0.10 [−0.25, +0.03]. The records are longer, not shorter: mean 249
+lines against `v2.4`'s 223, all nine axes and all six composition lines on 13 of 13. The
+pre-registered consequence is that the step is cut to one candidate in the next revision; that is a
+doctrine change and is put to the user (Deferred).
+
+**`v2.4` against `v2.1-one`, the same-day control.** Fit equal (4.69 both). D2 by-job dispersion
+`v2.4` 0.237 against `v2.1-one` 0.799: the one-candidate arm, built in the same session without a
+ledger, spreads its directional accents the way `v2.1` did (0.805), so the 90–96° convergence
+recorded in frame 1 is the ledger's doing and not the session's. D3: `v2.4` 11 of 13 distinct
+display families against `v2.1-one`'s 8; Atkinson Hyperlegible Next, absent from every `v2.4`
+build, is back as display and body in the `v2.1-one` arm. The signature test holds in both arms
+except where the brief names the motif (`v2.1-one` rail seeds share "train graph", rebate seeds
+share "rebate" and "capacity"; `v2.4` shares nothing). Panel: `v2.1-one` d1 5.25 [4.87–5.65],
+`v2.4` 5.10 [4.56–5.62]; defects 0.44 against 0.60; e1 3.62 against 3.56; the intervals overlap
+on every score.
+
+**C1 and C4 re-read in this frame.** `v2.4 − v2.1` fit +0.15 [−0.23, +0.54] where frame 1 read
++0.38 [−0.08, +0.77]; the arm means moved (`v2.4` 4.77 → 4.69, `v2.1` 4.38 → 4.54) with the
+rater, the order did not, and C1's bar (no drop over 0.3) holds in both frames. `v2.4 − v2.0`
++0.92 [+0.38, +1.46], interval excluding zero. Panel d1 `v2.4 − v2.1` +0.29 [−0.27, +0.87]
+(frame 1: +0.35); defects −0.48 [−0.77, −0.13] (frame 1: −0.35), interval excluding zero in both
+frames; e1 −0.48 [−1.17, +0.10]; brief fit −0.09 [−0.25, +0.04]. Both arms sit on the panel's e1
+floor (3.56 and 3.62 against `none`'s 6.27). Panel α in this frame: brief fit 0.75, e1 0.67,
+defects 0.65, d1 0.58, aesthetics 0.50; d1 stays exploratory.
+
+**What the second frame adds.** (1) The candidate comparison does not pay for itself on fit at
+this sample, and the one-candidate pages are at least as deliverable and cleaner. (2) The
+accent convergence into the empty band is attributable to the ledger: the no-ledger control built
+the same day did not converge. (3) The ledger's family and signature flags are also attributable:
+the control shows the Atkinson default and the brief-named motifs returning without them.
+
+**Retrospective, frame 2.** The second frame cost 13 builders at 0.34–0.41 M tokens (about 4.9 M),
+7 fit raters at about 0.09 M, 28 rubric raters at 0.06–0.13 M (about 2.7 M), roughly 8.3 M
+subagent tokens over about two and a half hours of wall clock. Rating all 78 pages again rather
+than only the new 13 is what made `v2.1-one`, `v2.4` and the baseline comparable; it doubled the
+rating cost and was worth it. Five of the thirteen seed-B build directories had no `.incomplete`
+marker at launch (the launch step was done by hand again); `cells.mjs` should set it.
+
 ## Deferred
 
-- **The gap flag.** The `nearest` report should name the leftover: when the candidate's accent
-  sits in a band no recent build occupies while the recent builds cluster in one or two bands, the
-  report says so and repeats the calibration rule (the empty band is a constraint, not a source).
-  A coverage line — the recent hues as a 12-bin wheel — beside the neighbour list is the simplest
-  form. A user decision, because it changes what the report tells the agent to do.
-- **The `v2.1-one` ablation**, 13 builds, frozen copy ready; pending the arm choice.
+- **Cutting the candidate step to one candidate** in `composition.md` steps 4–5 and QA check 3,
+  the pre-registered consequence of C3's reading in frame 2. The `v2.1.0-one` frozen copy is the
+  worked edit. A user decision, because it removes a step of the doctrine on thirteen pairs; the
+  alternative is a second ablation seed set before cutting.
+- **Whether the gap flag (2.4.1) moves the next run's directional dispersion** from 0.237 toward
+  the no-ledger arms' 0.8; the next ledger-arm run reads D2 by job against this one.
+- The gap flag itself shipped as 2.4.1 (Decision Log); the `v2.1-one` ablation ran (frame 2).
 - A compact table form for the nine stance lines and the six composition lines in `DESIGN.md`,
   the stance spec's suggested fix for the record budget; this wave does not change the record's
   shape.
@@ -409,3 +497,8 @@ about three hours of wall clock.
 - 2026-10-13: parts A and B shipped as 2.4.0 (commit a9e714c0); the `v2.4` arm built, measured,
   fit-rated and panel-rated; Outcomes, Surprises and Deferred written. Evidence under
   `docs/research/data/2026-10-12-layout-arm/`. The ablation arm and the gap flag await the user.
+- 2026-10-13, later: the gap flag shipped as 2.4.1 (commit c2731520); the `v2.1-one` arm built,
+  measured and rated with every page in a second frame; Outcomes gained the frame-2 section,
+  Surprises the same-day control and the frame shift, Deferred the candidate-step cut. Evidence:
+  `fit-run2/`, `rubric-run2/`, `results-run2.md`, `results-run2.json`, `measurements-run2.json`
+  and `topology-all-run2.json` beside the frame-1 files, which keep their names.

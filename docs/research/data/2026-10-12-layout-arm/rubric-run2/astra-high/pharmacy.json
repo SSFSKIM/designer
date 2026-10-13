@@ -1,0 +1,224 @@
+{
+  "rater": "astra-high",
+  "brief": "pharmacy",
+  "seed": 54165307,
+  "order": ["5e2273", "de09b1", "37e667", "3ba9f0", "122077", "5971c1", "002ea9", "42b5a3", "10b239", "3c3c38", "f344b7", "758523"],
+  "pages": {
+    "5e2273": {
+      "a1": "6", "a2": "5", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "5", "e1": "3",
+      "evidence": {
+        "b1": "Stock by drug lists on-hand quantities, par and days of cover.",
+        "b2": "Short-dated lots has six named lots with expiry, quantity and location.",
+        "b3": "The vault ledger separates book, physical and variance counts.",
+        "b4": "Every On order row carries an unsigned, backorder, confirmed or shipped badge.",
+        "c1": "The stock table cuts through the ePHEDrine row immediately above Short-dated lots.",
+        "c2": "Dense secondary labels remain readable at native capture size.",
+        "c3": "The visible sections contain populated operational records rather than placeholders.",
+        "c4": "Repeated ledger rows and action buttons follow consistent column alignment.",
+        "c5": "Both the wide ledgers and paired lower sections remain within the page edges.",
+        "d1": "Fix the stock-table cutoff and remove fixture-oriented footer copy before delivery."
+      }
+    },
+    "de09b1": {
+      "a1": "6", "a2": "3", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "1", "b3": "1", "b4": "1",
+      "c1": "0", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "3",
+      "evidence": {
+        "b1": "The drug table explicitly provides on hand, par and reorder columns.",
+        "b2": "Expiring lots has a tab and isolated queue entries, but no visible dedicated lot set.",
+        "b3": "A discrepancy and count-due task are visible, but the Controlled counts tab's set is not.",
+        "b4": "Draft and arrived orders appear in the queue, while stock-row orders often show only quantities and dates.",
+        "c1": "The full capture ends after a complete ondansetron row with all columns intact.",
+        "c2": "Drug details, numeric columns and warning labels are legible at native size.",
+        "c3": "Both the action queue and stock table are populated with specific records.",
+        "c4": "Queue actions and stock values repeat on stable column baselines.",
+        "c5": "The NDC column and action controls fit inside the right margin.",
+        "d1": "Expose the lot, count and order views rather than leaving those workflows represented mainly by tabs."
+      }
+    },
+    "37e667": {
+      "a1": "5", "a2": "4", "a3": "4", "a4": "5",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "3", "e1": "2",
+      "evidence": {
+        "b1": "Each stock row pairs an on-hand number with a numeric par and coverage bar.",
+        "b2": "Earliest-lot dates and short-dated flags appear in stock rows, not a visible separate lot set.",
+        "b3": "The right column separates the vault discrepancy and open cabinet counts with expected and counted values.",
+        "b4": "Next supply identifies draft, late and backordered supplies, and the wholesaler order is labeled Draft line.",
+        "c1": "No text is visibly cut by a container in the supplied captures.",
+        "c2": "Compact table text and sidebar annotations remain readable.",
+        "c3": "The unused area below the stock list is whitespace, not an empty labeled module.",
+        "c4": "Stock-row flags, quantities and dates maintain consistent alignment.",
+        "c5": "The stock table and sidebar both fit within the captured width.",
+        "d1": "Rebalance the long right-hand workflow column and add a directly inspectable expiry-lot set."
+      }
+    },
+    "3ba9f0": {
+      "a1": "7", "a2": "6", "a3": "6", "a4": "7",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "7", "e1": "5",
+      "evidence": {
+        "b1": "The stock ledger supplies on-hand/par pairs and days of cover for named drugs.",
+        "b2": "Expiring lots and holds is a separate table with lot, expiry, quantity and status.",
+        "b3": "The shift-count section lists system, counted and variance values for individual controlled drugs.",
+        "b4": "Each pending order carries a confirmed, awaiting-signature, no-confirmation or in-transit state.",
+        "c1": "The full capture shows complete table rows, section ends and order descriptions.",
+        "c2": "The small metadata remains readable and the primary drug names have strong contrast.",
+        "c3": "Every visible operational region contains specific data and meaningful actions.",
+        "c4": "Ledger columns, count rows and order cards use consistent spacing within each set.",
+        "c5": "The sidebar and two content columns stay within the viewport width.",
+        "d1": "The complete four-workflow console has clear priorities, coherent hierarchy and no visible delivery-blocking defect."
+      }
+    },
+    "122077": {
+      "a1": "5", "a2": "4", "a3": "5", "a4": "5",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "1",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "3", "e1": "6",
+      "evidence": {
+        "b1": "The visible stock table includes numeric on-hand and par columns.",
+        "b2": "An expiring-lots summary and navigation item appear, but no lot set is shown.",
+        "b3": "The right rail lists controlled drugs with book counts, physical counts and witness states.",
+        "b4": "Individual stock descriptions mention backorder or transit, but the twelve pending orders are not enumerated with states.",
+        "c1": "The fentanyl drug label is visibly ellipsized in the controlled-substances rail.",
+        "c2": "Fine gray metadata and low-contrast secondary navigation are difficult to read at this size.",
+        "c3": "Visible cards and tables are populated rather than broken or awaiting content.",
+        "c4": "Repeated alert rows and count entries retain consistent internal alignment.",
+        "c5": "The three-column shell stays inside the captured viewport.",
+        "d1": "Add accessible lot and order regions and recover readable space from the crowded three-column layout."
+      }
+    },
+    "5971c1": {
+      "a1": "6", "a2": "2", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "1", "b3": "1", "b4": "1",
+      "c1": "0", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "1",
+      "evidence": {
+        "b1": "The unified table has numeric On hand and Par columns for every drug.",
+        "b2": "Nearest-expiry lots are embedded in stock rows and a filter, rather than displayed as their own set.",
+        "b3": "Controlled count and signatures are stock-table columns, with no separate count set visible.",
+        "b4": "Some orders say Backordered, but others provide only an order number and arrival date.",
+        "c1": "The table ends on a complete succinylcholine row without visible cut-off text.",
+        "c2": "Condensed type remains legible across the populated numeric and drug columns.",
+        "c3": "Blank cells indicate non-applicable drug attributes, not placeholder content.",
+        "c4": "Grouped headers and repeated drug rows align consistently across the grid.",
+        "c5": "The rightmost action column fits inside the table and viewport boundaries.",
+        "d1": "Keep the useful integrated ledger, but provide complete lot/count sets and explicit states for every order."
+      }
+    },
+    "002ea9": {
+      "a1": "6", "a2": "5", "a3": "6", "a4": "6",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "6", "e1": "5",
+      "evidence": {
+        "b1": "Stock levels by drug includes on hand, reorder, par and coverage percentages.",
+        "b2": "The Expiring lots panel lists identified lots beneath a dated expiry runway.",
+        "b3": "The controlled-substances sheet separates system, counted and variance values.",
+        "b4": "Every purchase-order row has an overdue, in-transit, confirmed or awaiting-confirmation status.",
+        "c1": "The full capture shows complete sections, including the final purchase-order table and footer.",
+        "c2": "The native tiles keep both primary records and secondary location details readable.",
+        "c3": "The long empty tail of the expiry panel is unused layout space rather than missing content.",
+        "c4": "Repeated stock and lot rows use stable padding and column alignment.",
+        "c5": "All table columns and paired panels fit within the content width.",
+        "d1": "The complete console is nearly deliverable; tighten excess panel height and the resulting long scroll."
+      }
+    },
+    "42b5a3": {
+      "a1": "6", "a2": "5", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "5", "e1": "4",
+      "evidence": {
+        "b1": "Stock levels supplies on-hand quantities, par, daily use and coverage bars.",
+        "b2": "The expiry panel lists eight lots with quantity, date, days and action.",
+        "b3": "Controlled-substance counts is a dedicated system/count/variance table.",
+        "b4": "All six purchase orders have a visible state badge.",
+        "c1": "The propofol allocation badge reaches past the stock container edge and its last row is vertically cut.",
+        "c2": "Native-size labels and numeric data remain legible despite the dense table.",
+        "c3": "The spare space beneath controlled counts contains no placeholder or missing-content marker.",
+        "c4": "Repeated table rows and panel headings retain consistent alignment.",
+        "c5": "The overall page stays within the viewport despite local stock-table clipping.",
+        "d1": "Fix stock-table containment and reduce the oversized empty tail beneath controlled counts."
+      }
+    },
+    "10b239": {
+      "a1": "6", "a2": "6", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "4",
+      "evidence": {
+        "b1": "Stock on hand lists numeric on-hand/par pairs for named drugs.",
+        "b2": "Expiry horizon is separate, but its anonymous ticks do not expose an identifiable lot set in the captures.",
+        "b3": "The vault table lists expected, counted and difference values by controlled drug.",
+        "b4": "Each purchase-order row includes a state such as past promise, in transit or backordered.",
+        "c1": "Complete stock and order rows are visible in the full capture without container clipping.",
+        "c2": "Tiny muted monospaced labels and metadata lose legibility against the dark purple panels.",
+        "c3": "The supplier-feed notice is a populated error state with a retry action, not a broken placeholder.",
+        "c4": "The repeated exception, stock and order rows maintain consistent spacing.",
+        "c5": "The sidebar, panels and wide stock table remain inside the viewport.",
+        "d1": "Increase secondary-text legibility and give the expiry chart a directly readable lot list."
+      }
+    },
+    "3c3c38": {
+      "a1": "7", "a2": "5", "a3": "6", "a4": "6",
+      "b1": "2", "b2": "1", "b3": "1", "b4": "1",
+      "c1": "0", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "2",
+      "evidence": {
+        "b1": "Stock levels includes on-hand, par, reorder-at and supply columns.",
+        "b2": "Individual expiry tasks and an Expiring lots tab appear without a visible dedicated lot set.",
+        "b3": "One discrepancy is deeply explained, but the controlled-count set behind its tab is not shown.",
+        "b4": "Some supplies are marked backordered or unconfirmed while several others have only quantity and time.",
+        "c1": "The expanded discrepancy and full stock-table ending are visible without clipped text.",
+        "c2": "Primary data and smaller contextual annotations remain readable at native size.",
+        "c3": "The expanded reconciliation region is filled with arithmetic, events and relevant actions.",
+        "c4": "Queue columns, stock values and action controls consistently align.",
+        "c5": "The full-width queue and stock ledger fit within the page margins.",
+        "d1": "Retain the strong discrepancy workflow, but expose the remaining lot, count and order sets for routine shift work."
+      }
+    },
+    "f344b7": {
+      "a1": "6", "a2": "5", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "0", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "3",
+      "evidence": {
+        "b1": "Stock by item has explicit On hand and Par columns with days of cover.",
+        "b2": "Two quarantine tasks identify expiring lots, but they are mixed into handover rather than a dedicated lot set.",
+        "b3": "The controlled-substances ledger separately shows expected, counted, variance and witnesses.",
+        "b4": "Arriving this shift labels every order with its transit, signature, ETA, booked or received state.",
+        "c1": "The stock region cuts the insulin row, and the ledger truncates the Variance open badge against the entry form.",
+        "c2": "Drug names, ledger values and secondary notes are readable at native size.",
+        "c3": "The blank numbered ledger lines and entry inputs are intentional form space, not missing assets.",
+        "c4": "Repeated handover rows and ledger columns maintain consistent alignment.",
+        "c5": "The overall page fits the viewport despite local clipping inside its ledger.",
+        "d1": "Add a dedicated expiry-lot view and reform the stock and ledger containers to preserve complete records."
+      }
+    },
+    "758523": {
+      "a1": "6", "a2": "4", "a3": "6", "a4": "5",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "5", "e1": "7",
+      "evidence": {
+        "b1": "The stock table lists named drugs with numeric On hand and Par columns.",
+        "b2": "Expiring lots is a separate rail containing drug, lot, expiry and remaining-day details.",
+        "b3": "The perpetual-count table lists controlled drugs with expected, counted, variance and witness details.",
+        "b4": "The visible pending orders each have a held-signature or awaiting-approval badge.",
+        "c1": "Summary copy is ellipsized, the stock region cuts the heparin row, and the activity panel cuts its last entry.",
+        "c2": "Pale blue-gray dosage, location and witness metadata are too faint and small for comfortable all-shift reading.",
+        "c3": "Every named panel contains realistic records rather than placeholder content.",
+        "c4": "Repeated cards and table rows use consistent spacing and column alignment.",
+        "c5": "The full-width summary row and both content columns fit within the viewport.",
+        "d1": "Improve metadata contrast and sizing, and remove clipped rows and summary copy before delivery."
+      }
+    }
+  }
+}
