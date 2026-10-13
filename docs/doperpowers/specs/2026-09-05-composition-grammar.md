@@ -532,3 +532,4 @@ not settle.
   met, kept), C2–C6 met; instrument refinements, the budget change and the survey re-measurement
   logged; Outcomes written.
 - 2026-09-06: settling experiment read recorded under Outcomes.
+- 2026-10-13: the deferred layout arm ran as `2026-10-12-routing-ledger-and-layout-arm.md` with fit as the headline: fit rose again (`v2.1` 4.38 → `v2.4` 4.77 in one frame), no stat row or sidebar on any console, no three-up on any narrative page; the one-candidate ablation is prepared and pending.

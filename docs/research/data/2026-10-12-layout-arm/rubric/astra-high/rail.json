@@ -1,0 +1,188 @@
+{
+  "rater": "astra-high",
+  "brief": "rail",
+  "seed": 4114919091,
+  "order": ["485d8c", "b8dca3", "8ef70a", "a903f5", "cb9845", "c183ef", "8d1d23", "92cba1", "661e66", "e44b85"],
+  "pages": {
+    "485d8c": {
+      "a1": "5", "a2": "6", "a3": "5", "a4": "5",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "2",
+      "evidence": {
+        "b1": "The now line locates all five trains on the subdivision, with movement traces and linked stop or hold decisions.",
+        "b2": "Needs a decision leads the left column ahead of the train sheet.",
+        "b3": "Crew rows show hours used, on-duty times, outlaw times and tie-up times.",
+        "b4": "Work windows list timed ranges, milepost limits and release or conflict states.",
+        "c1": "The fourth decision is cut off behind the Resolved this trick bar.",
+        "c2": "Several gray graph annotations and condensed milepost labels are too small and faint.",
+        "c3": "The graph, decision queue and supporting tables contain real content.",
+        "c4": "Table columns and repeated decision-row insets remain consistent.",
+        "c5": "All page regions stay within the capture width.",
+        "d1": "Re-form the decision pane to expose its fourth item and improve graph-label legibility."
+      }
+    },
+    "b8dca3": {
+      "a1": "6", "a2": "6", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "5", "e1": "2",
+      "evidence": {
+        "b1": "The current-time line labels the eight active trains, with running or stationary traces and exception states.",
+        "b2": "The seven-item decision queue occupies the leading column before the routine train roster.",
+        "b3": "Crews on duty lists duty starts, hours left, limit times and tie-up times.",
+        "b4": "Maintenance rows pair milepost limits with planned start-end ranges and release states.",
+        "c1": "Decision text and table cells fit their visible containers.",
+        "c2": "Graph train IDs, small time ticks and muted supporting labels are difficult to read comfortably.",
+        "c3": "Every region is populated with operational data.",
+        "c4": "Repeated rows maintain consistent spacing and aligned columns.",
+        "c5": "The graph and full-width tables remain within the viewport width.",
+        "d1": "Increase small-label size and contrast; the decision-first structure and supporting data are coherent."
+      }
+    },
+    "8ef70a": {
+      "a1": "5", "a2": "5", "a3": "5", "a4": "5",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "1",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "3", "e1": "6",
+      "evidence": {
+        "b1": "The territory schematic labels all eleven trains with positions and delay, yard or work states.",
+        "b2": "Exceptions have a dedicated prominent right rail, but routine traffic leads the main column.",
+        "b3": "Crew cards show remaining hours alongside on-duty and expiry times.",
+        "b4": "Form B limits and release times appear in exceptions, but no complete maintenance-window register is visible.",
+        "c1": "The Ridgway end of the schematic is cut at the column edge and the B7 crew card ends abruptly.",
+        "c2": "Schematic milepost and restriction annotations are very small.",
+        "c3": "The visible panels contain realistic traffic, crew and exception information.",
+        "c4": "Roster rows and exception-card insets follow consistent alignment.",
+        "c5": "The page itself fits the viewport despite clipping within its columns.",
+        "d1": "Restore complete crew and maintenance access and reflow the schematic within its column."
+      }
+    },
+    "a903f5": {
+      "a1": "3", "a2": "3", "a3": "4", "a4": "3",
+      "b1": "1", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "1", "c4": "0", "c5": "0",
+      "d1": "2", "e1": "7",
+      "evidence": {
+        "b1": "Current train labels are crowded on the graph while explicit location and state rows are far below the fold.",
+        "b2": "Exceptions are separated at right but follow the summary strip and sit beside the leading routine graph.",
+        "b3": "The train-and-crew table gives on-duty times and numerical crew time left.",
+        "b4": "Work-window cards show time ranges, milepost limits and restrictions.",
+        "c1": "The train table's status column is cut off at its right boundary.",
+        "c2": "Train labels around the graph's now line are tiny and overlapping.",
+        "c3": "The train-graph container has an enormous empty region beneath the plot spanning most of the second capture.",
+        "c4": "Repeated exception cards and table rows use consistent internal alignment.",
+        "c5": "The outer layout stays within the viewport width.",
+        "d1": "Major panel-height and table-width rework is needed to eliminate the blank expanse and expose operational data."
+      }
+    },
+    "cb9845": {
+      "a1": "6", "a2": "6", "a3": "6", "a4": "6",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "5", "e1": "3",
+      "evidence": {
+        "b1": "All seven train markers appear on the current-time line, with running or standing traces and the exception queue supplying states.",
+        "b2": "The critical crew decision and exception queue precede the graph and train sheet.",
+        "b3": "Every crew row shows a numeric tie-up margin and an expiry time.",
+        "b4": "Maintenance entries include limits, scheduled ranges or countdowns and release times.",
+        "c1": "The full capture exposes complete table rows and panel contents without container cuts.",
+        "c2": "Graph mileposts, work-band labels and the legend are too small for comfortable sustained reading.",
+        "c3": "All panels contain relevant operational information.",
+        "c4": "Crew entries, exception rows and train-sheet columns are consistently aligned.",
+        "c5": "The entire layout fits the capture width.",
+        "d1": "Improve graph typography and annotation contrast; the decision hierarchy and data coverage are strong."
+      }
+    },
+    "c183ef": {
+      "a1": "5", "a2": "4", "a3": "5", "a4": "5",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "6",
+      "evidence": {
+        "b1": "The track schematic labels eleven trains with positions and held, work or speed states in the first viewport.",
+        "b2": "A separate exception rail sits to the right of the routine track and stringline views.",
+        "b3": "The crew table includes on-duty, expiry, remaining and arrival times.",
+        "b4": "Maintenance cards give milepost limits and explicit start-end times.",
+        "c1": "The lower exception text and requested maintenance entry are cut at panel boundaries.",
+        "c2": "Low-contrast microtype affects graph labels, secondary table notes and maintenance descriptions.",
+        "c3": "The compact panels are populated rather than placeholders.",
+        "c4": "Dense table columns and repeated card spacing are internally consistent.",
+        "c5": "No page-level horizontal overflow is visible.",
+        "d1": "Increase operational text legibility and redistribute panel space to expose cut-off exception and maintenance details."
+      }
+    },
+    "8d1d23": {
+      "a1": "6", "a2": "6", "a3": "5", "a4": "6",
+      "b1": "1", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "0", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "4", "e1": "2",
+      "evidence": {
+        "b1": "The graph shows train positions, but AV-16's stale-position state is only disclosed in the lower crew table.",
+        "b2": "The timed Next four hours decision list precedes the territory graph and routine crew rows.",
+        "b3": "Crew hours include remaining durations, on-duty times and expiry times.",
+        "b4": "Work authorities provide milepost ranges and explicit opens and closes columns.",
+        "c1": "All visible content fits its containers across the full capture.",
+        "c2": "Territory-graph station labels, restrictions and fine annotations are very small.",
+        "c3": "The decision list, graph, selected movement and tables all contain substantive data.",
+        "c4": "Decision rows and lower tables maintain regular column alignment and spacing.",
+        "c5": "No region extends beyond the viewport width.",
+        "d1": "Expose every train's current data-quality and operating state beside its graph position, and enlarge graph labels."
+      }
+    },
+    "92cba1": {
+      "a1": "5", "a2": "4", "a3": "5", "a4": "4",
+      "b1": "1", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "3", "e1": "6",
+      "evidence": {
+        "b1": "The roster claims eleven trains but only four rows and one subdivision's graph are visible.",
+        "b2": "Exceptions are separate at right, while the summary, stringline and train roster lead the main column.",
+        "b3": "Visible crew rows show on-duty times, remaining hours and outlaw times.",
+        "b4": "Track-and-time entries display milepost limits and start-end time ranges.",
+        "c1": "The crew relief column is cut at the right edge and the bottom exception card is partly hidden.",
+        "c2": "Condensed low-contrast metadata and small graph annotations impede sustained reading.",
+        "c3": "The panels contain operational information without placeholder regions.",
+        "c4": "Repeated rows and panel headings retain consistent alignment.",
+        "c5": "The outer layout is contained within the viewport.",
+        "d1": "Re-form the constrained roster and lower panels so all trains and complete crew details are accessible at a glance."
+      }
+    },
+    "661e66": {
+      "a1": "6", "a2": "6", "a3": "5", "a4": "6",
+      "b1": "2", "b2": "2", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "5", "e1": "1",
+      "evidence": {
+        "b1": "The first-view graph shows all eleven on-subdivision trains with current markers and stop, approach, clear or protected encoding.",
+        "b2": "Three actionable exceptions appear above the graph, distinct from the routine train table below.",
+        "b3": "The train table provides on-duty times, on-the-law times and hours left.",
+        "b4": "Maintenance rows pair location limits with explicit in-effect time ranges.",
+        "c1": "The subdivision description in the top header is visibly truncated.",
+        "c2": "The graph's compact train IDs, mileposts and work annotations are too small in several places.",
+        "c3": "Graph, detail panel and lower tables are fully populated.",
+        "c4": "The exception list and dense table columns maintain deliberate, consistent alignment.",
+        "c5": "All panels and full-width tables fit horizontally.",
+        "d1": "Enlarge graph annotations and resolve header truncation; the decision-first composition and complete registers are otherwise ready."
+      }
+    },
+    "e44b85": {
+      "a1": "5", "a2": "5", "a3": "6", "a4": "5",
+      "b1": "2", "b2": "1", "b3": "2", "b4": "2",
+      "c1": "1", "c2": "1", "c3": "0", "c4": "0", "c5": "0",
+      "d1": "3", "e1": "6",
+      "evidence": {
+        "b1": "Both subdivision schematics expose all fourteen train positions with running, stopped, late or held encoding.",
+        "b2": "Delay exceptions occupy a separate panel after the territory schematic and to the right of the train sheet.",
+        "b3": "Crew cards show remaining durations alongside on-duty and expiry times.",
+        "b4": "The maintenance timeline labels authority limits and scheduled start-end ranges.",
+        "c1": "Train status cells, the lower exception card and rightmost maintenance bars are cut by panel edges.",
+        "c2": "Much of the secondary operational text is tiny and faint against the dark background.",
+        "c3": "Every panel contains realistic operational data rather than template placeholders.",
+        "c4": "Repeated schematic labels, cards and table rows use consistent spacing.",
+        "c5": "The page shell fits the viewport despite internal panel clipping.",
+        "d1": "Rebalance the crowded lower panels, prioritize exceptions and enlarge the operational typography."
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "0cb4c1": {
+    "answers": {"q1": 0, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "A two-line run-out summary paragraph ('needs 55 of 61. Projected fit 57: 2 spare') is read first, above the 'Open work by vehicle' queue in the left column.",
+      "q2": "That summary band spans only the left column; the workshop time grid starts at the top on the right, so nothing full-width sits above the work besides the top bar.",
+      "q3": "The summary is prose with inline figures, not a row of stat tiles.",
+      "q4": "The right column holds the workshop's day bay/time grid and parts on order, both part of the brief.",
+      "q5": "The dominant region is a grouped queue of open work by vehicle (needs a decision, in hand) with Grade/Book actions."
+    }
+  },
+  "126c4c": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "The 'Off road and at risk' vehicle list is the first content block, at the top-left directly under the nav bar.",
+      "q2": "Only the top bar (brand, nav, search, shift, clock) sits above it.",
+      "q3": "No stat row; the single '7 spare at run-out' figure sits inside the region's own header.",
+      "q4": "No side rail; the lower right column holds inspections due and parts on order.",
+      "q5": "An exception list of off-road and at-risk buses grouped by status, with a ready-time line to run-out."
+    }
+  },
+  "1a63c5": {
+    "answers": {"q1": 0, "q2": 0, "q3": 1, "q4": 0, "q5": 1},
+    "evidence": {
+      "q1": "The top-left is a sidebar with a fleet-availability block ('50 of 64'), and the main column opens with a statutory alert card before the workshop grid.",
+      "q2": "A full-width 'STOP, STATUTORY' alert card sits above the workshop's day grid.",
+      "q3": "The fleet numbers are a vertical list in the sidebar, not a tile row; there is no KPI strip in the main flow.",
+      "q4": "The left rail carries section links (workshop's day, defects, inspections, parts), a fleet-availability widget, shift info and the user.",
+      "q5": "The dominant region is a bay-by-hour time grid of the workshop's day."
+    }
+  },
+  "49e6cb": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "The 'Needs a decision this shift' exception queue is the first content block, at the top-left under the top bar.",
+      "q2": "Only the top bar (brand, search, controller, clock) sits above it.",
+      "q3": "No tile row; counts are a sentence inside the queue's header.",
+      "q4": "No side rail; the lower columns hold the workshop's day and parts on order.",
+      "q5": "A queue of exceptions by vehicle, sorted against each deadline, with an Open action per row."
+    }
+  },
+  "4e40b0": {
+    "answers": {"q1": 0, "q2": 0, "q3": 1, "q4": 0, "q5": 1},
+    "evidence": {
+      "q1": "The top-left is the nav sidebar, and the main column opens with a recall alert before the 'Off the road' table.",
+      "q2": "A full-width pink 'Two vehicles in service must be recalled' alert sits above the work table.",
+      "q3": "The fleet-fitness figures sit in a side column beside the table, not in a row before it.",
+      "q4": "The left rail is section links (Board, Defects, Off road, Inspections, Parts, The day) plus shift and handover info; the right column also carries a status-legend 'availability ladder'.",
+      "q5": "The dominant region is a list of off-road vehicles with reason, blocker and days off."
+    }
+  },
+  "645bc6": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "A KPI strip and a peak-shortfall narrative come before the workshop's day grid.",
+      "q2": "A full-width KPI strip and a full-width 'Two short for the 05:15 peak' band sit above the work region.",
+      "q3": "Four stat tiles (62/64, 6 off road, 2 inspections overdue, 8 parts lines) form the header row.",
+      "q4": "The side column holds off the road and inspections due, both part of the brief.",
+      "q5": "The dominant region is a bay-by-hour time grid of the workshop's day."
+    }
+  },
+  "7e71b0": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 0},
+    "evidence": {
+      "q1": "A large headline hero ('Six buses are off the road...') is read first, above the pull-out board.",
+      "q2": "A full-width dark hero band with the headline and summary figures sits above the work region.",
+      "q3": "A stat row ('51 of 62 serviceable, 43 needed, 5 in a bay, 2 held') sits in the hero before the work.",
+      "q4": "The side column holds inspections and parts on order, both part of the brief.",
+      "q5": "The leading region is a grid of every fleet number coloured by status: an availability map, not a defect queue or a bay time grid."
+    }
+  },
+  "865572": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "A compliance alert band and a KPI tile row come before the workshop's day grid.",
+      "q2": "A full-width '3 compliance dates have passed' alert and a full-width KPI row sit above the work region.",
+      "q3": "Six KPI tiles (106 projected, 7 off road, 41 defects, 3 past due, 23 parts, 19 jobs) precede the work.",
+      "q4": "The side column holds inspections and compliance, and parts on order.",
+      "q5": "The leading work region is a bay/lane time grid of the workshop's day."
+    }
+  },
+  "ae0658": {
+    "answers": {"q1": 0, "q2": 0, "q3": 0, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "A KPI strip spans the top-left, and a fleet rail sits left of the open-defects table.",
+      "q2": "A full-width KPI strip sits between the top bar and the work region.",
+      "q3": "Six stat tiles (8 off road, 30 defects, 7 inspections overdue, 3 parts, 56/47, 18 jobs) precede the work.",
+      "q4": "The left rail lists VOR and restricted vehicles; the right column holds the workshop's day, bays now and crew on shift. All are task-related.",
+      "q5": "The dominant region is an open-defects-by-vehicle table with filter chips and status."
+    }
+  },
+  "f8973a": {
+    "answers": {"q1": 1, "q2": 1, "q3": 1, "q4": 1, "q5": 1},
+    "evidence": {
+      "q1": "The 'Needs a decision: before the early shift hands over' queue is the first content block, at the top-left under the top bar.",
+      "q2": "Only the top bar (brand, shift, clock, search, user) sits above it.",
+      "q3": "No tile row; the '9 items' count is inside the queue's own header.",
+      "q4": "The right column is the workshop's day bay time grid, part of the brief.",
+      "q5": "A queue of exceptions by vehicle with Assign to bay, Defer and Start now actions."
+    }
+  }
+}

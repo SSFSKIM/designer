@@ -275,13 +275,118 @@ builders per arm as before.
   the mechanism working as designed.
   Evidence: the builders' reports; `ledger-report.txt` in each build directory.
 
+- Observation: **The ledger relocated the accent convergence into the gap it showed.** The seeded
+  ledgers' directional accents sat in two bands, red-orange (24–58°) and blue-violet (220–282°),
+  and the report flagged a candidate inside either. Of the six `v2.4` builds that chose a
+  directional accent, four landed at 90–96° (tape-measure yellow, safety yellow, signal yellow,
+  larch gold), one at 70° (damson) and one at 205° (teal): by-job dispersion 0.237 against
+  `v2.1`'s 0.805, the lowest of any arm. Each hue has a product reason in its record, and the two
+  seeds of the hardware brief and the two of the rebate brief are 2–6° apart. This is the
+  taste-calibration file's leftover-accent mechanism — "the one hue no one has taken" is a valid
+  constraint and an invalid source — now computed for the agent by the ledger. The family flag
+  did the opposite: Atkinson Hyperlegible Next, in three of four 2.0 acceptance builds and five
+  of thirteen 2.1 builds, is in none of the thirteen; eleven distinct display families where 2.1
+  had nine. The signature flag held too: no content word shared across the two seeds of any
+  brief, where 2.1 shared the stamp on the library brief and 2.0 the string-line on the rail
+  brief.
+  Evidence: D2 and D3 in `results.md`; the stamp-card table under L; the four records' accent
+  derivations.
+
+- Observation: The pharmacy brief's two `v2.4` builds compile to one table that carries stock,
+  the nearest expiring lot, the controlled count and the open order on each drug's row. The
+  structural rater gives both 5 of 5 (q5: a table for lots and stock); the rubric's b-items, which
+  ask for expiring lots and controlled counts "as their own set", score them 1, and three raters
+  put their d1 at 3. The two instruments disagree about the same design decision: fit reads the
+  brief's unit and relation, the b-items read the brief's nouns as sections.
+  Evidence: `fit/pharmacy.json`; `rubric/*/pharmacy.json`; the two records' §4.
+
+- Observation: The structural rater's frame moved the baseline. Rated beside the new pages by a
+  different rater, the four settling arms score 2.77 / 3.23 / 3.69 / 4.38 where the settling run's
+  own raters gave 3.38 / 4.23 / 4.23 / 4.62; the order is the same and the gaps are wider. The
+  paired differences in this spec are read within this frame only.
+  Evidence: F in `results.md`, both columns.
+
+- Observation: Two canonical shapes survived in `v2.4`: the rebate seed-A page opens with a
+  four-cell step strip the instrument reads as a stat row, and the fleet seed-B page carries a
+  three-up and a right-hand board the instrument reads as a rail (the structural rater passed it,
+  as task content). One `v2.4` console has a sidebar: none.
+  Evidence: D4 and the per-build topology lines.
+
+## Outcomes & Retrospective
+
+Thirteen `v2.4` builds exist, pass the mechanical gate (13 of 13; `v2.1` passed 11 of 13 on the
+capture-width read), were rated for fit by one blinded rater per brief in the same frame as the
+baseline's pages, and were rated by the four-model rubric panel (28 runs, 65 pages). The
+`v2.1-one` arm was not built: the arm choice was asked and not yet answered, and its frozen copy
+stands ready under `figma-design-workspace/layout-arm/skills/v2.1.0-one/`.
+
+**C1 (the compression holds) — met.** Fit `v2.4` 4.77 [4.38–5.00] against `v2.1` 4.38
+[4.15–4.62]; paired by brief and seed +0.38 [−0.08, +0.77], a rise where the bar allowed a 0.3
+drop. Every record carries the nine axis lines (13 of 13), the six composition lines (11 of 13;
+two carry five), candidates (12 of 13) and the sampler draw (13 of 13), at a mean of 223 lines
+against the settling run's 271–302. Nothing the compression cut was missed by the builders.
+
+**C2 (the ledger moves what it watches) — two of three clauses met, one failed in the direction
+the calibration file predicted.** No display family appears in more than two builds (clause: three).
+The library and hardware seeds share no signature word (the stamp and the ticket are gone). The
+directional-accent dispersion fell, 0.805 → 0.237, because four of six directional accents landed
+in the one band the seeded ledgers left empty. The report said where the neighbours were and the
+agents went where they were not; the calibration rule that the empty band is not a source was in
+`taste-calibration.md`, not in the report the agent was reading at the moment of choice.
+
+**C3 (the candidate step) — not run.**
+
+**C4 (quality, exploratory) — no detectable loss, two detectable gains on secondary items.**
+Panel d1: `v2.4` 5.12 [4.54–5.63], the highest arm mean; paired +0.35 [−0.19, +0.87] against
+`v2.1` and +0.17 [−0.62, +0.88] against `v2.0`, both intervals over zero. Defects −0.35
+[−0.60, −0.08] against `v2.1`, interval excluding zero. Conventionality (e1) 3.40, the lowest arm;
+−0.60 [−1.23, −0.04] against `v2.1`. The rubric's brief-fit composite is flat (−0.07 [−0.22,
++0.05]), with the pharmacy disagreement above inside it. Panel α in this frame: brief fit 0.79, e1
+0.70, defects 0.63, d1 0.56 — d1 still under the quality spec's 0.67 floor, so the d1 reading is
+exploratory as pre-registered.
+
+**The shapes.** `v2.4` consoles: no stat row, no sidebar, the dominant region at or over 0.4 of
+the first viewport on 6 of 6 (`v2.1`: 4 of 6); narrative pages: no three-up (`v2.1`: 3 of 6).
+Console partition distance within category is the lowest of any arm (0.179) and console pq-gram
+the highest of the 2.x arms (0.632): the pages share the brief's form and differ in their trees,
+which is the reading the settling retrospective predicted for a grammar that works.
+
+**What the run settles.** (1) The compressed SKILL.md loses nothing the references carry; the
+record got shorter and more complete. (2) A nearest-neighbour report moves families and motifs
+and relocates hue convergence to the complement of what it shows; the report needs to say so, or
+show the coverage rather than the neighbours. (3) Fit rose with every version for the fifth time
+and is the instrument to hold the next change to; partition is reported and did what it does.
+(4) On the panel, `v2.4` is the first arm whose deliverability mean is above every other arm's,
+with fewer defects than `v2.1` and the least conventional pages, at thirteen pages a side.
+
+**Retrospective.** Reusing the 52 settling builds as the baseline cost nothing and made the
+comparison frame honest; the fit rater re-rating old and new in one frame is the right form.
+Setting the `.incomplete` marker at launch should be in `cells.mjs`, not by hand. The ledger's
+first run found the mechanism's failure mode in thirteen builds, which is what a pre-registered
+diversity clause is for. Cost: 13 builders at 0.35–0.46 M tokens (about 5.2 M), 7 fit raters at
+about 0.08 M, 28 rubric raters at about 0.09 M (about 2.5 M), roughly 8.5 M subagent tokens over
+about three hours of wall clock.
+
 ## Deferred
 
+- **The gap flag.** The `nearest` report should name the leftover: when the candidate's accent
+  sits in a band no recent build occupies while the recent builds cluster in one or two bands, the
+  report says so and repeats the calibration rule (the empty band is a constraint, not a source).
+  A coverage line — the recent hues as a 12-bin wheel — beside the neighbour list is the simplest
+  form. A user decision, because it changes what the report tells the agent to do.
+- **The `v2.1-one` ablation**, 13 builds, frozen copy ready; pending the arm choice.
 - A compact table form for the nine stance lines and the six composition lines in `DESIGN.md`,
   the stance spec's suggested fix for the record budget; this wave does not change the record's
   shape.
-- The structured ledger block in `DESIGN.md`, if the flag form proves to be skipped.
+- The structured ledger block in `DESIGN.md`, if the flag form proves to be skipped (it was not:
+  13 of 13 appended an entry).
+- `cells.mjs` setting the `.incomplete` marker at `init` for every unbuilt cell.
+- The fit rater and the rubric's b-items disagree on a page that folds the brief's nouns into one
+  table; which reading the doctrine wants is a judgment to record in the composition spec.
 
 ## Revision Notes
 
 - 2026-10-12: written before any edit; part C's measures declared before any build.
+- 2026-10-13: parts A and B shipped as 2.4.0 (commit a9e714c0); the `v2.4` arm built, measured,
+  fit-rated and panel-rated; Outcomes, Surprises and Deferred written. Evidence under
+  `docs/research/data/2026-10-12-layout-arm/`. The ablation arm and the gap flag await the user.

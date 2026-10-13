@@ -1,0 +1,188 @@
+{
+  "rater": "astra-medium",
+  "brief": "fleet",
+  "seed": 1440584861,
+  "order": ["1a63c5", "f8973a", "7e71b0", "865572", "49e6cb", "ae0658", "126c4c", "645bc6", "0cb4c1", "4e40b0"],
+  "pages": {
+    "1a63c5": {
+      "a1": 6, "a2": 6, "a3": 6, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 4,
+      "evidence": {
+        "b1": "Vehicle-number rows identify defects, severity, age and reporter.",
+        "b2": "The statutory alert and inspection rows explicitly mark days overdue.",
+        "b3": "Every visible part has a delivery date or an explicit supply status.",
+        "b4": "Six bay lanes place vehicle jobs against an hourly grid.",
+        "c1": "The defect table cuts off its rightmost status column and its final visible row.",
+        "c2": "Native-size table text and schedule labels remain readable.",
+        "c3": "All panels contain operational records rather than placeholders.",
+        "c4": "Repeated rows and cards use consistent padding and alignment.",
+        "c5": "The overall page stays within the viewport despite internal table clipping.",
+        "d1": "The defect table needs more usable space before its status information is dependable."
+      }
+    },
+    "f8973a": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 3,
+      "evidence": {
+        "b1": "The fleet backlog pairs each vehicle and registration with its reported defect.",
+        "b2": "Red PAST DUE tags and red inspection dates distinguish overdue vehicles.",
+        "b3": "The parts table provides promised dates and explicit confirmation or transit states.",
+        "b4": "Eight bay rows show timed job blocks and a current-time marker.",
+        "c1": "The decision queue ends midway through vehicle 3327 and the parts panel cuts another row.",
+        "c2": "Native-size labels are compact but legible.",
+        "c3": "The queue, schedule and supply regions all contain realistic records.",
+        "c4": "Like queue entries and table columns retain regular alignment.",
+        "c5": "The page and both upper panels fit horizontally.",
+        "d1": "The primary decision queue needs its constrained height resolved to expose urgent records."
+      }
+    },
+    "7e71b0": {
+      "a1": 6, "a2": 6, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 2,
+      "evidence": {
+        "b1": "The defect table associates fleet IDs with specific faults and repair states.",
+        "b2": "Red overdue badges distinguish expired inspections from upcoming dates.",
+        "b3": "Each part has a shipping date, received state, late date or explicit missing ETA.",
+        "b4": "The full-width workshop grid clearly maps named jobs to bays and hours.",
+        "c1": "The defect panel stops midway through vehicle 1408.",
+        "c2": "The narrow type remains readable in native-size captures.",
+        "c3": "The unassigned bay is explicitly reserved for road calls rather than a placeholder.",
+        "c4": "Vehicle chips, defect rows and inspection entries align consistently.",
+        "c5": "The board and schedule fit the visible page width.",
+        "d1": "A clipped table ending and flush header edges need cleanup, not a new information structure."
+      }
+    },
+    "865572": {
+      "a1": 6, "a2": 5, "a3": 6, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 6,
+      "evidence": {
+        "b1": "Vehicle header bands group individual numbered defect records beneath them.",
+        "b2": "A compliance banner and separate PAST DUE section highlight all three overdue vehicles.",
+        "b3": "Visible parts have dated delivery expectations and coloured supply-state tags.",
+        "b4": "Seven timed lanes show job categories, vehicle numbers and shift coverage.",
+        "c1": "Many defect descriptions and assigned-work details end in ellipses.",
+        "c2": "Completed schedule labels and muted blue secondary text are too faint against the dark panels.",
+        "c3": "Every major region contains fleet, workshop or supply data.",
+        "c4": "Repeated group headers and detail rows use a consistent grid.",
+        "c5": "The page fits the viewport horizontally.",
+        "d1": "The defect-column allocation and subdued text need correction for all-shift reading."
+      }
+    },
+    "49e6cb": {
+      "a1": 5, "a2": 4, "a3": 4, "a4": 4,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 1,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 1,
+      "d1": 3, "e1": 3,
+      "evidence": {
+        "b1": "The defect table lists fleet numbers, registrations and full fault descriptions.",
+        "b2": "The decision queue gives overdue inspections amber labels and days-over figures.",
+        "b3": "All nine parts carry an expected date, late state or explicit no-date status.",
+        "b4": "Bay and hour axes are present but numerous job blocks conceal their identities behind truncation.",
+        "c1": "The inspection column is cut off and many workshop labels are truncated.",
+        "c2": "The compact schedule uses very small job and time labels.",
+        "c3": "The large lower-left blank area is unused page space, not a broken content slot.",
+        "c4": "Repeated list entries and table rows retain consistent alignment.",
+        "c5": "The full-page capture extends beyond the 1440-pixel viewport to 1471 pixels.",
+        "d1": "The workshop needs a larger region and the overflowing table needs restructuring."
+      }
+    },
+    "ae0658": {
+      "a1": 6, "a2": 4, "a3": 5, "a4": 4,
+      "b1": 2, "b2": 2, "b3": 1, "b4": 1,
+      "c1": 1, "c2": 1, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 7,
+      "evidence": {
+        "b1": "The centre table visibly pairs vehicle IDs with specific defects.",
+        "b2": "A dedicated overdue-inspections table shows coloured days-over badges.",
+        "b3": "One visible part has an ETA but the remaining orders are cut off below the panel.",
+        "b4": "The schedule has bay and time axes but tiny blocks largely show only fleet IDs.",
+        "c1": "Defects, inspection bookings and parts rows are cut off at panel edges.",
+        "c2": "Schedule labels and several muted sidebar annotations are too small and faint.",
+        "c3": "All regions show operational data rather than template placeholders.",
+        "c4": "Panel headings and repeated table cells use regular alignment.",
+        "c5": "The overall dashboard fits the viewport despite internal clipping.",
+        "d1": "The fixed-height dashboard must redistribute space to expose parts, inspections and readable jobs."
+      }
+    },
+    "126c4c": {
+      "a1": 6, "a2": 6, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 2,
+      "evidence": {
+        "b1": "Vehicle header rows group distinct defect references with severity and planned work.",
+        "b2": "The inspection table explicitly marks seven-day and one-day overdue vehicles in red.",
+        "b3": "Each order has a due date or an explicit held or back-ordered state.",
+        "b4": "The workshop shares a time grid with the run-out board and labels jobs by pit or bay.",
+        "c1": "Several short workshop blocks truncate both job descriptions and time ranges; the defect panel ends mid-row.",
+        "c2": "Native-size table and timeline text remain legible despite their density.",
+        "c3": "The sparse timeline space represents waiting and future capacity rather than placeholder content.",
+        "c4": "The shared time axis and repeated vehicle sections align consistently.",
+        "c5": "Both the main timeline and lower columns fit the viewport.",
+        "d1": "The useful run-out structure needs wider job labels and a cleanly exposed defect-list ending."
+      }
+    },
+    "645bc6": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 5,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 4, "e1": 7,
+      "evidence": {
+        "b1": "The defect table lists fleet IDs alongside detailed faults, reporters and assignments.",
+        "b2": "Red Overdue badges separate the first two inspection entries from due and scheduled items.",
+        "b3": "The parts table gives every order a promised date and explicit status.",
+        "b4": "An eight-bay hourly schedule names jobs and distinguishes booked, active and held work.",
+        "c1": "The defect table cuts off its rightmost status badges.",
+        "c2": "Native-size body and secondary text remain readable.",
+        "c3": "All panels have populated records, including a real shift-sign-off summary.",
+        "c4": "Repeated cards, table rows and schedule lanes align consistently.",
+        "c5": "The outer layout stays within the viewport.",
+        "d1": "The defect table needs its column space reallocated so vehicle status is fully visible."
+      }
+    },
+    "0cb4c1": {
+      "a1": 6, "a2": 5, "a3": 5, "a4": 4,
+      "b1": 2, "b2": 0, "b3": 1, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 3, "e1": 2,
+      "evidence": {
+        "b1": "Open work has vehicle-number rows with specific defect descriptions and grading actions.",
+        "b2": "The visible inspection is due today; no overdue-inspection record or distinction is shown.",
+        "b3": "The header mentions some part dates but the parts table exposes only its heading and columns.",
+        "b4": "Vertical time runs through pit and bay columns with vehicle jobs and a separate night entry.",
+        "c1": "The page ends through vehicle 1203 and the parts table; some schedule labels also overrun their blocks.",
+        "c2": "The visible body copy and schedule text remain readable at native size.",
+        "c3": "Visible regions contain realistic operational records rather than placeholders.",
+        "c4": "Like vehicle rows maintain consistent column starts and action placement.",
+        "c5": "The two-column layout fits the viewport horizontally.",
+        "d1": "The constrained page must expose its parts and overdue-inspection information before delivery."
+      }
+    },
+    "4e40b0": {
+      "a1": 6, "a2": 6, "a3": 5, "a4": 6,
+      "b1": 2, "b2": 2, "b3": 2, "b4": 2,
+      "c1": 1, "c2": 0, "c3": 0, "c4": 0, "c5": 0,
+      "d1": 5, "e1": 5,
+      "evidence": {
+        "b1": "The open-defects table pairs fleet numbers and registrations with individual faults.",
+        "b2": "The recall banner and inspection rows explicitly distinguish expired and overdue records.",
+        "b3": "Every visible part has a due date or an explicit unavailable-date or authorisation state.",
+        "b4": "Ten lanes show named jobs, times and distinct active, stopped, booked and held states.",
+        "c1": "The defect panel ends through its last visible row and the late wash block clips at the schedule edge.",
+        "c2": "Native-size operational labels and table text are readable.",
+        "c3": "All panels contain fleet records, schedules or supply information.",
+        "c4": "Repeated tables and supply entries maintain consistent spacing.",
+        "c5": "The sidebar and main panels stay within the viewport.",
+        "d1": "The clear prioritisation and complete brief coverage need only clipping and endpoint cleanup."
+      }
+    }
+  }
+}

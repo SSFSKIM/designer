@@ -605,3 +605,4 @@ is the diagnosis the settling spec names, not a doctrine change here.
   2026; Min et al. 2022; Yun et al. 2025; Wadinambiarachchi et al. 2024; Ezzat et al. 2020; Scout).
 - 2026-09-05 (sixth revision): the deferred composition grammar is taken up in `2026-09-05-composition-grammar.md`; the layout survey it opens with (16 of 20 landing builds on one hero construction; the reference's own split snippet in seven builds) is the layout-level counterpart of this spec's hex finding.
 - 2026-09-06: settling experiment read recorded under Outcomes.
+- 2026-10-13: the deferred ledger of recent builds' families and hues shipped as the build ledger (designer 2.4.0) and was measured in `2026-10-12-routing-ledger-and-layout-arm.md`: families and signature motifs dispersed; accent hue re-converged into the band the ledger showed empty (its Outcomes, C2).
