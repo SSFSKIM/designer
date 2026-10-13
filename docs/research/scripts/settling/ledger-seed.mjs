@@ -2,21 +2,22 @@
 // Seed a build ledger from the settling experiment's builds, for the layout-arm run
 // (docs/doperpowers/specs/2026-10-12-routing-ledger-and-layout-arm.md, part B "Seeding").
 //
-//   node ledger-seed.mjs --exclude-brief <key> [--arms v1.1,v2.0,v2.1] [--out <file>] [--print]
+//   node ledger-seed.mjs --exclude-brief <key> [--from <settling ws>] [--arms v1.1,v2.0,v2.1] [--out <file>]
 //
 // One entry per skill-arm build of every brief except the excluded one, so a cell's ledger holds
 // realistic prior work and never a sibling of its own brief. Tokens come from measurements.json
 // (rendered, the settling spec's footing), the form from topology.json, and the declared accent job,
 // ground temperature, signature line, posture, activity, relation and prior from the build's own
 // DESIGN.md where the arm wrote one — read best-effort, and a field the regexes cannot find is left
-// out, which the ledger treats as "never flags". Entries carry source: measured.
+// out, which the ledger treats as "never flags". Entries carry source: measured. The source is the
+// settling workspace whatever SETTLING_WS says, because the run that uses these seeds has its own.
 import fs from "node:fs";
 import path from "node:path";
 
 const repo = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../../..");
-const ws = process.env.SETTLING_WS || path.join(repo, "figma-design-workspace/settling");
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf(k); return i === -1 ? d : args[i + 1]; };
+const ws = opt("--from", path.join(repo, "figma-design-workspace/settling"));
 const exclude = opt("--exclude-brief", null);
 const arms = new Set((opt("--arms", "v1.1,v2.0,v2.1")).split(","));
 const out = opt("--out", null);

@@ -11,6 +11,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import { execFileSync } from "node:child_process";
 
 const repo = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../../../..");
 const ws = process.env.SETTLING_WS || path.join(repo, "figma-design-workspace/settling");
@@ -33,7 +34,14 @@ const ARMS = {
   "v1.1": "skills/v1.1.0/designer",
   "v2.0": "skills/v2.0.0/designer",
   "v2.1": "skills/v2.1.0/designer",
+  // The layout-arm run (docs/doperpowers/specs/2026-10-12-routing-ledger-and-layout-arm.md, part C)
+  // runs in its own workspace (SETTLING_WS=figma-design-workspace/layout-arm) with `init --arms`;
+  // the four settling arms above are its baseline, read from the settling workspace unchanged.
+  "v2.4": "skills/v2.4.0/designer",          // compressed SKILL.md plus the build ledger
+  "v2.1-one": "skills/v2.1.0-one/designer",  // the frozen 2.1 copy with one candidate, no comparison
 };
+const LEDGER_ARMS = new Set(["v2.4"]);
+const baselineWs = process.env.SETTLING_BASELINE_WS || null;
 // Wave plan: one console and one narrative brief per wave, seed A before seed B; compare in wave 4.
 const WAVES = [
   [["rail", "A"], ["rebate", "A"]],
@@ -51,14 +59,16 @@ function briefText(b) {
   return evals.find((e) => e.id === b.eval).prompt;
 }
 
-function init() {
+function init(armList) {
+  const arms = armList ? armList.split(",") : ["none", "v1.1", "v2.0", "v2.1"];
+  for (const a of arms) if (!(a in ARMS)) throw new Error("unknown arm " + a);
   const old = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, "utf8")) : { cells: [] };
   const cells = [];
   WAVES.forEach((wave, wi) => {
     for (const [key, seedLabel] of wave) {
       const b = BRIEFS.find((x) => x.key === key);
       const seed = (seedLabel === "A" ? 1000 : 2000) + b.eval;
-      for (const arm of Object.keys(ARMS)) {
+      for (const arm of arms) {
         const prev = old.cells.find((c) => c.brief === key && c.arm === arm && c.seedLabel === seedLabel);
         cells.push(prev || {
           id: crypto.randomBytes(3).toString("hex"), brief: key, eval: b.eval, category: b.category,
@@ -91,9 +101,31 @@ Deliverable: \`${out}/index.html\` (create the directory), one self-contained fi
 ${common}`;
   }
   const sp = path.join(ws, skill);
-  return `You are a fresh design agent running an evaluation build. Follow the design skill at \`${sp}/SKILL.md\` exactly, reading its reference files as it routes you (read the files on disk under \`${sp}/\`; do NOT rely on any installed "designer" plugin skill, on \`${repo}/skills/\`, or on memory of another version). Write whatever design record the skill asks for (its \`DESIGN.md\`) into the output directory, per the skill's own authoring reference, before any UI code. Where the skill runs its sampler, run \`node ${sp}/scripts/sample-ingredients.mjs --seed ${c.seed}\` and treat its output per its own preamble. No persona is invoked. Run the QA the skill asks for.
+  // A ledger arm's cell carries a seeded ledger (`seed-ledgers`) holding the other briefs' builds;
+  // the builder's own environment does not carry the variable, so the prompt names it per command.
+  const ledger = LEDGER_ARMS.has(c.arm)
+    ? ` Where the skill runs its build ledger, every \`build-ledger.mjs\` command is run with the environment variable \`DESIGNER_LEDGER=${out}/ledger.jsonl\` set (prefix the command: \`DESIGNER_LEDGER=${out}/ledger.jsonl node ${sp}/scripts/build-ledger.mjs …\`); that file already holds prior builds and is the only ledger this build may read or write. Save the output of each \`nearest\` run you make, verbatim, appended to \`${out}/ledger-report.txt\`.`
+    : "";
+  return `You are a fresh design agent running an evaluation build. Follow the design skill at \`${sp}/SKILL.md\` exactly, reading its reference files as it routes you (read the files on disk under \`${sp}/\`; do NOT rely on any installed "designer" plugin skill, on \`${repo}/skills/\`, or on memory of another version). Write whatever design record the skill asks for (its \`DESIGN.md\`) into the output directory, per the skill's own authoring reference, before any UI code. Where the skill runs its sampler, run \`node ${sp}/scripts/sample-ingredients.mjs --seed ${c.seed}\` and treat its output per its own preamble.${ledger} No persona is invoked. Run the QA the skill asks for.
 
 ${common}`;
+}
+
+// The seeded ledger for every ledger-arm cell: the settling run's skill-arm builds of every brief
+// but this cell's own, so the agent sees realistic prior work and never a sibling of its brief.
+function seedLedgers() {
+  const seedScript = path.join(path.dirname(new URL(import.meta.url).pathname), "ledger-seed.mjs");
+  const from = baselineWs || path.join(repo, "figma-design-workspace/settling");
+  let n = 0;
+  for (const c of load().cells.filter((x) => LEDGER_ARMS.has(x.arm))) {
+    const dir = path.join(ws, "builds", c.id);
+    fs.mkdirSync(dir, { recursive: true });
+    const outFile = path.join(dir, "ledger.jsonl");
+    if (fs.existsSync(outFile)) continue;
+    execFileSync(process.execPath, [seedScript, "--from", from, "--exclude-brief", c.brief, "--out", outFile], { stdio: "inherit" });
+    n++;
+  }
+  console.log(`${n} ledgers seeded`);
 }
 
 const FIT_QUESTIONS = {
@@ -121,11 +153,19 @@ FIT_QUESTIONS.pair = [
 ];
 
 function fitPrompt(brief) {
-  const cells = load().cells.filter((c) => c.brief === brief && built(c));
-  if (!cells.length) throw new Error("nothing built for " + brief);
+  // With SETTLING_BASELINE_WS set, the baseline workspace's built pages of the same brief are rated in
+  // the same frame as this workspace's, so the new arms' fit is read beside the old arms' by one rater.
+  const here = load().cells.filter((c) => c.brief === brief && built(c)).map((c) => ({ id: c.id, ws }));
+  const there = baselineWs
+    ? JSON.parse(fs.readFileSync(path.join(baselineWs, "manifest.json"), "utf8")).cells
+        .filter((c) => c.brief === brief && fs.existsSync(path.join(baselineWs, "builds", c.id, "index.html")))
+        .map((c) => ({ id: c.id, ws: baselineWs }))
+    : [];
+  const pages = [...here, ...there];
+  if (!pages.length) throw new Error("nothing built for " + brief);
   const b = BRIEFS.find((x) => x.key === brief);
   // fixed shuffle so the order does not follow the manifest
-  const ids = cells.map((c) => c.id).sort((x, y) => x.localeCompare(y));
+  pages.sort((x, y) => x.id.localeCompare(y.id));
   const qs = FIT_QUESTIONS[b.category];
   const outFile = path.join(ws, "fit", brief + ".json");
   return `You are a blinded structural rater for a design experiment. You will see several pages built from the same brief by different builders; you do not know which builder made which, and you must not try to find out (do not open anything under the build directories except the two screenshots named per page). Rate structure only, not taste.
@@ -133,7 +173,7 @@ function fitPrompt(brief) {
 Brief (verbatim): "${briefText(b)}"
 
 Pages (id, first-viewport screenshot, full-page screenshot):
-${ids.map((id) => `- ${id}: ${path.join(ws, "builds", id, "shot-fv.png")} and ${path.join(ws, "builds", id, "shot-full.png")}`).join("\n")}
+${pages.map((p) => `- ${p.id}: ${path.join(p.ws, "builds", p.id, "shot-fv.png")} and ${path.join(p.ws, "builds", p.id, "shot-full.png")}`).join("\n")}
 
 For each page, read both screenshots, then answer each statement below with 1 (true of this page) or 0 (not true), with a clause of evidence for each answer:
 ${qs.map((q) => "- " + q).join("\n")}
@@ -144,7 +184,9 @@ Then report in under 120 words which pages scored 5 and which scored 2 or less, 
 }
 
 const [cmd, arg] = process.argv.slice(2);
-if (cmd === "init") init();
+const flag = (k) => { const i = process.argv.indexOf(k); return i === -1 ? null : process.argv[i + 1]; };
+if (cmd === "init") init(flag("--arms"));
+else if (cmd === "seed-ledgers") seedLedgers();
 else if (cmd === "prompt") console.log(prompt(arg));
 else if (cmd === "fitprompt") console.log(fitPrompt(arg));
 else if (cmd === "wave") {
@@ -153,4 +195,4 @@ else if (cmd === "wave") {
   const cells = load().cells; let n = 0;
   for (const c of cells) { const ok = built(c); n += ok; console.log(`w${c.wave} ${c.id}  ${c.brief.padEnd(9)} ${c.arm.padEnd(5)} ${c.seedLabel}  ${ok ? "built" : "-"}`); }
   console.log(`${n}/${cells.length} built`);
-} else { console.log("usage: cells.mjs init | wave <n> | prompt <id> | fitprompt <brief> | status"); process.exit(1); }
+} else { console.log("usage: cells.mjs init [--arms a,b] | seed-ledgers | wave <n> | prompt <id> | fitprompt <brief> | status"); process.exit(1); }
