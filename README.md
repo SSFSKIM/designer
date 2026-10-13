@@ -56,9 +56,9 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 **Runtime — `skills/designer/`**
 
 - `SKILL.md` — entry point, deliverable classification, persona routing, workflow spine, taste floor
-- `references/` — the thirteen files SKILL.md routes into: `stances.md` (the seven axes, the derivation procedure, five worked derivations, the named-stance library), `material.md` (the material-model axis and the vitrea path for glass), `component-character.md`, `color-engineering.md`, `typography.md`, `motion.md`, `composition.md`, `effects-policy.md`, `voice-copy.md`, `guidelines-authoring.md`, `icon-illustration.md`, `qa-protocol.md`, `taste-calibration.md`
+- `references/` — the fourteen files SKILL.md routes into: `stances.md` (the nine axis lines, the derivation procedure, five worked derivations, the named-stance library), `composition.md` (the six composition lines, the candidate procedure, the priors, the imagery ladder), `material.md` (the material-model axis and the vitrea path for glass), `liquid-glass.md`, `component-character.md`, `color-engineering.md`, `typography.md`, `motion.md`, `effects-policy.md`, `voice-copy.md`, `guidelines-authoring.md`, `icon-illustration.md`, `qa-protocol.md`, `taste-calibration.md`
 - `personas/` — optional distilled designer personas, currently `essentialist.md`, loaded only when a brief invokes one. `TEMPLATE.md` is the authoring contract and is never loaded at runtime
-- `scripts/` — the ingredient sampler, its data library, and its tests
+- `scripts/` — the ingredient sampler and its data library, the imagery ladder (`find-image.mjs`), the build ledger (`build-ledger.mjs`, what recent builds on this machine chose, consulted at derivation and appended at QA), and their tests
 - `examples/` — a one-brief-two-systems pair (`guidelines-frame.md`, `guidelines-meridian.md`) plus `reference-implementation/`, a runnable `DESIGN.md` + `index.html` demonstrating the law-to-code path end to end
 
 **Not runtime**
