@@ -42,9 +42,9 @@ It also activates when a brief names the lineage itself (Dieter Rams, Braun, Ive
 ### The Materialist skill
 
 Since 2.4.0 the plugin ships a second, independent skill, `skills/materialist/`, for designing with
-Liquid Glass and with vitrea, its web implementation (below). It loads whenever a brief names Liquid
-Glass, glassmorphism, glass or translucent floating controls, an Apple- or visionOS-like material, or
-the `@vitreajs/*` packages, with or without the designer skill. It is an aesthetic guideline written
+Liquid Glass and with vitrea, its web implementation (below). The person invokes it directly
+(`/designer:materialist`; it is hidden from model invocation), and the designer skill reads it
+whenever a design's material model resolves to glass over planes. It is an aesthetic guideline written
 as a decision function and its laws rather than a style sheet: what the material physically is
 (a lens with thickness, a size law, a body that takes the backdrop's tone and hue, an exterior shadow
 graded by the caster, two poses, two schemes), the register it belongs to (refined futurism with
