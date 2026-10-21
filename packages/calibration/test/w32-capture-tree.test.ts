@@ -509,7 +509,10 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     const activeHash = row.key.web.capturePath.match(/materialProfile=\S+ sha256:([0-9a-f]{12})/)?.[1];
     expect(activeHash).toMatch(/^[0-9a-f]{12}$/);
     const wrongHash = activeHash === "eeeeeeeeeeee" ? "ffffffffffff" : "eeeeeeeeeeee";
-    const root = mkdtempSync(join(tmpdir(), "w40-matrix-alias-"));
+    // Beside the package, not in os.tmpdir(): a hardlink cannot cross filesystems, and on
+    // the CI runner the workspace and /tmp are two (EXDEV). Outside results/ is what makes
+    // the aliases external.
+    const root = mkdtempSync(join(PACKAGE_ROOT, ".w40-matrix-alias-"));
     try {
       const tree = join(root, "web-captures");
       mkdirSync(join(tree, LIGHT, row.key.sceneId), { recursive: true });
