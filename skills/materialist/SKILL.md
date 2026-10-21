@@ -2,6 +2,7 @@
 name: materialist
 description: Invoke whenever a UI uses or asks for Liquid Glass, glassmorphism, glass or translucent floating controls, an Apple-, macOS- or visionOS-like material, or the vitrea library (@vitreajs/*), whether designing, building or reviewing such an interface. Not for developing the vitrea runtime, its renderer or its calibration harness themselves.
 version: 1.2.0
+disable-model-invocation: true
 ---
 
 # The Materialist
